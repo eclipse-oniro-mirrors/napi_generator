@@ -1896,3 +1896,1189 @@ describe('SuiteV3_I_ctr_set_as_typealias_03', function () {
     // --- 集成：先映射，再解析，再交叉校验 ---
     // [G]
     // step1: 输入 C/声明类型
+    const inputType = "std::set<long long>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_set__PRI_long_long.TAL.OPT.BOUND.V0 input=std::set<long long>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export type NapiV2Alias = Set<number>;\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_long_long_TAL_OPT_BOUND_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_long_long.TAL.OPT.BOUND.V0 parse null");
+    // step4: 校验 type alias 存在
+    assert.ok(res.types && res.types.length >= 1, "P TAL CTR_set__PRI_long_long.TAL.OPT.BOUND.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::set<long long>");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_set__PRI_long_long.TAL.OPT.BOUND.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_long_long_TAL_OPT_ERR_016787
+   * @tc.name testInteg_CTR_set__PRI_long_long_TAL_OPT_ERR_016787
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_long_long.TAL.OPT.ERR.V0 input="__INVALID_TYPE_TOKEN_503743077__" expect="any"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 2
+   * @pair P+G-CTR_set__PRI_long_long.TAL.OPT.ERR.V0
+   */
+  it('testInteg_CTR_set__PRI_long_long_TAL_OPT_ERR_016787', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "__INVALID_TYPE_TOKEN_503743077__";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 负向期望 any
+    assert.strictEqual(actual, 'any', "G negative CTR_set__PRI_long_long.TAL.OPT.ERR.V0");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Neg { v: any; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_long_long_TAL_OPT_ERR_V0.ts", src);
+    // step3: 负向 — 解析不崩溃且返回 classes
+    assert.ok(res && Array.isArray(res.classes), "P neg CTR_set__PRI_long_long.TAL.OPT.ERR.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_long_long_TAL_OPT_SPEC_016788
+   * @tc.name testInteg_CTR_set__PRI_long_long_TAL_OPT_SPEC_016788
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_long_long.TAL.OPT.SPEC.V0 input="std::set< long long >" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_long_long.TAL.OPT.SPEC.V0
+   */
+  it('testInteg_CTR_set__PRI_long_long_TAL_OPT_SPEC_016788', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::set< long long >";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_set__PRI_long_long.TAL.OPT.SPEC.V0 input=std::set< long long >");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export type NapiV2Alias = Set<number>;\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_long_long_TAL_OPT_SPEC_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_long_long.TAL.OPT.SPEC.V0 parse null");
+    // step4: 校验 type alias 存在
+    assert.ok(res.types && res.types.length >= 1, "P TAL CTR_set__PRI_long_long.TAL.OPT.SPEC.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::set< long long >");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_set__PRI_long_long.TAL.OPT.SPEC.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_long_long_TAL_ARR1_NORM_016789
+   * @tc.name testInteg_CTR_set__PRI_long_long_TAL_ARR1_NORM_016789
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_long_long.TAL.ARR1.NORM.V0 input="std::vector<std::set<long long>>" expect="Array<Set<number>>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_long_long.TAL.ARR1.NORM.V0
+   */
+  it('testInteg_CTR_set__PRI_long_long_TAL_ARR1_NORM_016789', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::vector<std::set<long long>>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Array<Set<number>>", "G CTR_set__PRI_long_long.TAL.ARR1.NORM.V0 input=std::vector<std::set<long long>>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export type NapiV2Alias = Array<Set<number>>;\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_long_long_TAL_ARR1_NORM_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_long_long.TAL.ARR1.NORM.V0 parse null");
+    // step4: 校验 type alias 存在
+    assert.ok(res.types && res.types.length >= 1, "P TAL CTR_set__PRI_long_long.TAL.ARR1.NORM.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::vector<std::set<long long>>");
+    assert.strictEqual(mapped, "Array<Set<number>>", "I map==expect CTR_set__PRI_long_long.TAL.ARR1.NORM.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_long_long_TAL_ARR1_BOUND_016790
+   * @tc.name testInteg_CTR_set__PRI_long_long_TAL_ARR1_BOUND_016790
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_long_long.TAL.ARR1.BOUND.V0 input="std::vector<std::set<long long>>" expect="Array<Set<number>>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_long_long.TAL.ARR1.BOUND.V0
+   */
+  it('testInteg_CTR_set__PRI_long_long_TAL_ARR1_BOUND_016790', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::vector<std::set<long long>>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Array<Set<number>>", "G CTR_set__PRI_long_long.TAL.ARR1.BOUND.V0 input=std::vector<std::set<long long>>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export type NapiV2Alias = Array<Set<number>>;\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_long_long_TAL_ARR1_BOUND_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_long_long.TAL.ARR1.BOUND.V0 parse null");
+    // step4: 校验 type alias 存在
+    assert.ok(res.types && res.types.length >= 1, "P TAL CTR_set__PRI_long_long.TAL.ARR1.BOUND.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::vector<std::set<long long>>");
+    assert.strictEqual(mapped, "Array<Set<number>>", "I map==expect CTR_set__PRI_long_long.TAL.ARR1.BOUND.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_long_long_TAL_ARR1_ERR_016791
+   * @tc.name testInteg_CTR_set__PRI_long_long_TAL_ARR1_ERR_016791
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_long_long.TAL.ARR1.ERR.V0 input="__INVALID_TYPE_TOKEN_1347665831__" expect="any"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 2
+   * @pair P+G-CTR_set__PRI_long_long.TAL.ARR1.ERR.V0
+   */
+  it('testInteg_CTR_set__PRI_long_long_TAL_ARR1_ERR_016791', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "__INVALID_TYPE_TOKEN_1347665831__";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 负向期望 any
+    assert.strictEqual(actual, 'any', "G negative CTR_set__PRI_long_long.TAL.ARR1.ERR.V0");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Neg { v: any; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_long_long_TAL_ARR1_ERR_V0.ts", src);
+    // step3: 负向 — 解析不崩溃且返回 classes
+    assert.ok(res && Array.isArray(res.classes), "P neg CTR_set__PRI_long_long.TAL.ARR1.ERR.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_long_long_TAL_ARR1_SPEC_016792
+   * @tc.name testInteg_CTR_set__PRI_long_long_TAL_ARR1_SPEC_016792
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_long_long.TAL.ARR1.SPEC.V0 input="std::vector< std::set< long long > >" expect="Array<Set<number>>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_long_long.TAL.ARR1.SPEC.V0
+   */
+  it('testInteg_CTR_set__PRI_long_long_TAL_ARR1_SPEC_016792', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::vector< std::set< long long > >";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Array<Set<number>>", "G CTR_set__PRI_long_long.TAL.ARR1.SPEC.V0 input=std::vector< std::set< long long > >");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export type NapiV2Alias = Array<Set<number>>;\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_long_long_TAL_ARR1_SPEC_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_long_long.TAL.ARR1.SPEC.V0 parse null");
+    // step4: 校验 type alias 存在
+    assert.ok(res.types && res.types.length >= 1, "P TAL CTR_set__PRI_long_long.TAL.ARR1.SPEC.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::vector< std::set< long long > >");
+    assert.strictEqual(mapped, "Array<Set<number>>", "I map==expect CTR_set__PRI_long_long.TAL.ARR1.SPEC.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_long_long_TAL_PROM_NORM_016793
+   * @tc.name testInteg_CTR_set__PRI_long_long_TAL_PROM_NORM_016793
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_long_long.TAL.PROM.NORM.V0 input="std::set<long long>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_long_long.TAL.PROM.NORM.V0
+   */
+  it('testInteg_CTR_set__PRI_long_long_TAL_PROM_NORM_016793', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::set<long long>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_set__PRI_long_long.TAL.PROM.NORM.V0 input=std::set<long long>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export type NapiV2Alias = Set<number>;\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_long_long_TAL_PROM_NORM_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_long_long.TAL.PROM.NORM.V0 parse null");
+    // step4: 校验 type alias 存在
+    assert.ok(res.types && res.types.length >= 1, "P TAL CTR_set__PRI_long_long.TAL.PROM.NORM.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::set<long long>");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_set__PRI_long_long.TAL.PROM.NORM.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_long_long_TAL_PROM_BOUND_016794
+   * @tc.name testInteg_CTR_set__PRI_long_long_TAL_PROM_BOUND_016794
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_long_long.TAL.PROM.BOUND.V0 input="std::set<long long>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_long_long.TAL.PROM.BOUND.V0
+   */
+  it('testInteg_CTR_set__PRI_long_long_TAL_PROM_BOUND_016794', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::set<long long>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_set__PRI_long_long.TAL.PROM.BOUND.V0 input=std::set<long long>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export type NapiV2Alias = Set<number>;\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_long_long_TAL_PROM_BOUND_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_long_long.TAL.PROM.BOUND.V0 parse null");
+    // step4: 校验 type alias 存在
+    assert.ok(res.types && res.types.length >= 1, "P TAL CTR_set__PRI_long_long.TAL.PROM.BOUND.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::set<long long>");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_set__PRI_long_long.TAL.PROM.BOUND.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_long_long_TAL_PROM_ERR_016795
+   * @tc.name testInteg_CTR_set__PRI_long_long_TAL_PROM_ERR_016795
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_long_long.TAL.PROM.ERR.V0 input="__INVALID_TYPE_TOKEN_503743077__" expect="any"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 2
+   * @pair P+G-CTR_set__PRI_long_long.TAL.PROM.ERR.V0
+   */
+  it('testInteg_CTR_set__PRI_long_long_TAL_PROM_ERR_016795', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "__INVALID_TYPE_TOKEN_503743077__";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 负向期望 any
+    assert.strictEqual(actual, 'any', "G negative CTR_set__PRI_long_long.TAL.PROM.ERR.V0");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Neg { v: any; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_long_long_TAL_PROM_ERR_V0.ts", src);
+    // step3: 负向 — 解析不崩溃且返回 classes
+    assert.ok(res && Array.isArray(res.classes), "P neg CTR_set__PRI_long_long.TAL.PROM.ERR.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_long_long_TAL_PROM_SPEC_016796
+   * @tc.name testInteg_CTR_set__PRI_long_long_TAL_PROM_SPEC_016796
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_long_long.TAL.PROM.SPEC.V0 input="std::set< long long >" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_long_long.TAL.PROM.SPEC.V0
+   */
+  it('testInteg_CTR_set__PRI_long_long_TAL_PROM_SPEC_016796', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::set< long long >";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_set__PRI_long_long.TAL.PROM.SPEC.V0 input=std::set< long long >");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export type NapiV2Alias = Set<number>;\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_long_long_TAL_PROM_SPEC_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_long_long.TAL.PROM.SPEC.V0 parse null");
+    // step4: 校验 type alias 存在
+    assert.ok(res.types && res.types.length >= 1, "P TAL CTR_set__PRI_long_long.TAL.PROM.SPEC.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::set< long long >");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_set__PRI_long_long.TAL.PROM.SPEC.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_int8_TAL_RAW_NORM_016845
+   * @tc.name testInteg_CTR_set__PRI_int8_TAL_RAW_NORM_016845
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_int8.TAL.RAW.NORM.V0 input="std::set<int8_t>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_int8.TAL.RAW.NORM.V0
+   */
+  it('testInteg_CTR_set__PRI_int8_TAL_RAW_NORM_016845', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::set<int8_t>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_set__PRI_int8.TAL.RAW.NORM.V0 input=std::set<int8_t>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export type NapiV2Alias = Set<number>;\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_int8_TAL_RAW_NORM_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_int8.TAL.RAW.NORM.V0 parse null");
+    // step4: 校验 type alias 存在
+    assert.ok(res.types && res.types.length >= 1, "P TAL CTR_set__PRI_int8.TAL.RAW.NORM.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::set<int8_t>");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_set__PRI_int8.TAL.RAW.NORM.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_int8_TAL_RAW_BOUND_016846
+   * @tc.name testInteg_CTR_set__PRI_int8_TAL_RAW_BOUND_016846
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_int8.TAL.RAW.BOUND.V0 input="std::set<int8_t>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_int8.TAL.RAW.BOUND.V0
+   */
+  it('testInteg_CTR_set__PRI_int8_TAL_RAW_BOUND_016846', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::set<int8_t>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_set__PRI_int8.TAL.RAW.BOUND.V0 input=std::set<int8_t>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export type NapiV2Alias = Set<number>;\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_int8_TAL_RAW_BOUND_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_int8.TAL.RAW.BOUND.V0 parse null");
+    // step4: 校验 type alias 存在
+    assert.ok(res.types && res.types.length >= 1, "P TAL CTR_set__PRI_int8.TAL.RAW.BOUND.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::set<int8_t>");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_set__PRI_int8.TAL.RAW.BOUND.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_int8_TAL_RAW_ERR_016847
+   * @tc.name testInteg_CTR_set__PRI_int8_TAL_RAW_ERR_016847
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_int8.TAL.RAW.ERR.V0 input="__INVALID_TYPE_TOKEN_1319383619__" expect="any"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 2
+   * @pair P+G-CTR_set__PRI_int8.TAL.RAW.ERR.V0
+   */
+  it('testInteg_CTR_set__PRI_int8_TAL_RAW_ERR_016847', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "__INVALID_TYPE_TOKEN_1319383619__";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 负向期望 any
+    assert.strictEqual(actual, 'any', "G negative CTR_set__PRI_int8.TAL.RAW.ERR.V0");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Neg { v: any; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_int8_TAL_RAW_ERR_V0.ts", src);
+    // step3: 负向 — 解析不崩溃且返回 classes
+    assert.ok(res && Array.isArray(res.classes), "P neg CTR_set__PRI_int8.TAL.RAW.ERR.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_int8_TAL_RAW_SPEC_016848
+   * @tc.name testInteg_CTR_set__PRI_int8_TAL_RAW_SPEC_016848
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_int8.TAL.RAW.SPEC.V0 input="std::set< int8_t >" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_int8.TAL.RAW.SPEC.V0
+   */
+  it('testInteg_CTR_set__PRI_int8_TAL_RAW_SPEC_016848', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::set< int8_t >";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_set__PRI_int8.TAL.RAW.SPEC.V0 input=std::set< int8_t >");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export type NapiV2Alias = Set<number>;\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_int8_TAL_RAW_SPEC_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_int8.TAL.RAW.SPEC.V0 parse null");
+    // step4: 校验 type alias 存在
+    assert.ok(res.types && res.types.length >= 1, "P TAL CTR_set__PRI_int8.TAL.RAW.SPEC.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::set< int8_t >");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_set__PRI_int8.TAL.RAW.SPEC.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_int8_TAL_OPT_NORM_016849
+   * @tc.name testInteg_CTR_set__PRI_int8_TAL_OPT_NORM_016849
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_int8.TAL.OPT.NORM.V0 input="std::set<int8_t>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_int8.TAL.OPT.NORM.V0
+   */
+  it('testInteg_CTR_set__PRI_int8_TAL_OPT_NORM_016849', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::set<int8_t>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_set__PRI_int8.TAL.OPT.NORM.V0 input=std::set<int8_t>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export type NapiV2Alias = Set<number>;\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_int8_TAL_OPT_NORM_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_int8.TAL.OPT.NORM.V0 parse null");
+    // step4: 校验 type alias 存在
+    assert.ok(res.types && res.types.length >= 1, "P TAL CTR_set__PRI_int8.TAL.OPT.NORM.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::set<int8_t>");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_set__PRI_int8.TAL.OPT.NORM.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_int8_TAL_OPT_BOUND_016850
+   * @tc.name testInteg_CTR_set__PRI_int8_TAL_OPT_BOUND_016850
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_int8.TAL.OPT.BOUND.V0 input="std::set<int8_t>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_int8.TAL.OPT.BOUND.V0
+   */
+  it('testInteg_CTR_set__PRI_int8_TAL_OPT_BOUND_016850', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::set<int8_t>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_set__PRI_int8.TAL.OPT.BOUND.V0 input=std::set<int8_t>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export type NapiV2Alias = Set<number>;\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_int8_TAL_OPT_BOUND_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_int8.TAL.OPT.BOUND.V0 parse null");
+    // step4: 校验 type alias 存在
+    assert.ok(res.types && res.types.length >= 1, "P TAL CTR_set__PRI_int8.TAL.OPT.BOUND.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::set<int8_t>");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_set__PRI_int8.TAL.OPT.BOUND.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_int8_TAL_OPT_ERR_016851
+   * @tc.name testInteg_CTR_set__PRI_int8_TAL_OPT_ERR_016851
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_int8.TAL.OPT.ERR.V0 input="__INVALID_TYPE_TOKEN_1319383619__" expect="any"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 2
+   * @pair P+G-CTR_set__PRI_int8.TAL.OPT.ERR.V0
+   */
+  it('testInteg_CTR_set__PRI_int8_TAL_OPT_ERR_016851', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "__INVALID_TYPE_TOKEN_1319383619__";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 负向期望 any
+    assert.strictEqual(actual, 'any', "G negative CTR_set__PRI_int8.TAL.OPT.ERR.V0");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Neg { v: any; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_int8_TAL_OPT_ERR_V0.ts", src);
+    // step3: 负向 — 解析不崩溃且返回 classes
+    assert.ok(res && Array.isArray(res.classes), "P neg CTR_set__PRI_int8.TAL.OPT.ERR.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_int8_TAL_OPT_SPEC_016852
+   * @tc.name testInteg_CTR_set__PRI_int8_TAL_OPT_SPEC_016852
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_int8.TAL.OPT.SPEC.V0 input="std::set< int8_t >" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_int8.TAL.OPT.SPEC.V0
+   */
+  it('testInteg_CTR_set__PRI_int8_TAL_OPT_SPEC_016852', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::set< int8_t >";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_set__PRI_int8.TAL.OPT.SPEC.V0 input=std::set< int8_t >");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export type NapiV2Alias = Set<number>;\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_int8_TAL_OPT_SPEC_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_int8.TAL.OPT.SPEC.V0 parse null");
+    // step4: 校验 type alias 存在
+    assert.ok(res.types && res.types.length >= 1, "P TAL CTR_set__PRI_int8.TAL.OPT.SPEC.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::set< int8_t >");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_set__PRI_int8.TAL.OPT.SPEC.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_int8_TAL_ARR1_NORM_016853
+   * @tc.name testInteg_CTR_set__PRI_int8_TAL_ARR1_NORM_016853
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_int8.TAL.ARR1.NORM.V0 input="std::vector<std::set<int8_t>>" expect="Array<Set<number>>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_int8.TAL.ARR1.NORM.V0
+   */
+  it('testInteg_CTR_set__PRI_int8_TAL_ARR1_NORM_016853', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::vector<std::set<int8_t>>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Array<Set<number>>", "G CTR_set__PRI_int8.TAL.ARR1.NORM.V0 input=std::vector<std::set<int8_t>>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export type NapiV2Alias = Array<Set<number>>;\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_int8_TAL_ARR1_NORM_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_int8.TAL.ARR1.NORM.V0 parse null");
+    // step4: 校验 type alias 存在
+    assert.ok(res.types && res.types.length >= 1, "P TAL CTR_set__PRI_int8.TAL.ARR1.NORM.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::vector<std::set<int8_t>>");
+    assert.strictEqual(mapped, "Array<Set<number>>", "I map==expect CTR_set__PRI_int8.TAL.ARR1.NORM.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_int8_TAL_ARR1_BOUND_016854
+   * @tc.name testInteg_CTR_set__PRI_int8_TAL_ARR1_BOUND_016854
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_int8.TAL.ARR1.BOUND.V0 input="std::vector<std::set<int8_t>>" expect="Array<Set<number>>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_int8.TAL.ARR1.BOUND.V0
+   */
+  it('testInteg_CTR_set__PRI_int8_TAL_ARR1_BOUND_016854', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::vector<std::set<int8_t>>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Array<Set<number>>", "G CTR_set__PRI_int8.TAL.ARR1.BOUND.V0 input=std::vector<std::set<int8_t>>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export type NapiV2Alias = Array<Set<number>>;\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_int8_TAL_ARR1_BOUND_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_int8.TAL.ARR1.BOUND.V0 parse null");
+    // step4: 校验 type alias 存在
+    assert.ok(res.types && res.types.length >= 1, "P TAL CTR_set__PRI_int8.TAL.ARR1.BOUND.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::vector<std::set<int8_t>>");
+    assert.strictEqual(mapped, "Array<Set<number>>", "I map==expect CTR_set__PRI_int8.TAL.ARR1.BOUND.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_int8_TAL_ARR1_ERR_016855
+   * @tc.name testInteg_CTR_set__PRI_int8_TAL_ARR1_ERR_016855
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_int8.TAL.ARR1.ERR.V0 input="__INVALID_TYPE_TOKEN_904010693__" expect="any"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 2
+   * @pair P+G-CTR_set__PRI_int8.TAL.ARR1.ERR.V0
+   */
+  it('testInteg_CTR_set__PRI_int8_TAL_ARR1_ERR_016855', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "__INVALID_TYPE_TOKEN_904010693__";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 负向期望 any
+    assert.strictEqual(actual, 'any', "G negative CTR_set__PRI_int8.TAL.ARR1.ERR.V0");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Neg { v: any; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_int8_TAL_ARR1_ERR_V0.ts", src);
+    // step3: 负向 — 解析不崩溃且返回 classes
+    assert.ok(res && Array.isArray(res.classes), "P neg CTR_set__PRI_int8.TAL.ARR1.ERR.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_int8_TAL_ARR1_SPEC_016856
+   * @tc.name testInteg_CTR_set__PRI_int8_TAL_ARR1_SPEC_016856
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_int8.TAL.ARR1.SPEC.V0 input="std::vector< std::set< int8_t > >" expect="Array<Set<number>>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_int8.TAL.ARR1.SPEC.V0
+   */
+  it('testInteg_CTR_set__PRI_int8_TAL_ARR1_SPEC_016856', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::vector< std::set< int8_t > >";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Array<Set<number>>", "G CTR_set__PRI_int8.TAL.ARR1.SPEC.V0 input=std::vector< std::set< int8_t > >");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export type NapiV2Alias = Array<Set<number>>;\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_int8_TAL_ARR1_SPEC_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_int8.TAL.ARR1.SPEC.V0 parse null");
+    // step4: 校验 type alias 存在
+    assert.ok(res.types && res.types.length >= 1, "P TAL CTR_set__PRI_int8.TAL.ARR1.SPEC.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::vector< std::set< int8_t > >");
+    assert.strictEqual(mapped, "Array<Set<number>>", "I map==expect CTR_set__PRI_int8.TAL.ARR1.SPEC.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_int8_TAL_PROM_NORM_016857
+   * @tc.name testInteg_CTR_set__PRI_int8_TAL_PROM_NORM_016857
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_int8.TAL.PROM.NORM.V0 input="std::set<int8_t>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_int8.TAL.PROM.NORM.V0
+   */
+  it('testInteg_CTR_set__PRI_int8_TAL_PROM_NORM_016857', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::set<int8_t>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_set__PRI_int8.TAL.PROM.NORM.V0 input=std::set<int8_t>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export type NapiV2Alias = Set<number>;\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_int8_TAL_PROM_NORM_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_int8.TAL.PROM.NORM.V0 parse null");
+    // step4: 校验 type alias 存在
+    assert.ok(res.types && res.types.length >= 1, "P TAL CTR_set__PRI_int8.TAL.PROM.NORM.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::set<int8_t>");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_set__PRI_int8.TAL.PROM.NORM.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_int8_TAL_PROM_BOUND_016858
+   * @tc.name testInteg_CTR_set__PRI_int8_TAL_PROM_BOUND_016858
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_int8.TAL.PROM.BOUND.V0 input="std::set<int8_t>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_int8.TAL.PROM.BOUND.V0
+   */
+  it('testInteg_CTR_set__PRI_int8_TAL_PROM_BOUND_016858', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::set<int8_t>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_set__PRI_int8.TAL.PROM.BOUND.V0 input=std::set<int8_t>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export type NapiV2Alias = Set<number>;\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_int8_TAL_PROM_BOUND_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_int8.TAL.PROM.BOUND.V0 parse null");
+    // step4: 校验 type alias 存在
+    assert.ok(res.types && res.types.length >= 1, "P TAL CTR_set__PRI_int8.TAL.PROM.BOUND.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::set<int8_t>");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_set__PRI_int8.TAL.PROM.BOUND.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_int8_TAL_PROM_ERR_016859
+   * @tc.name testInteg_CTR_set__PRI_int8_TAL_PROM_ERR_016859
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_int8.TAL.PROM.ERR.V0 input="__INVALID_TYPE_TOKEN_1319383619__" expect="any"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 2
+   * @pair P+G-CTR_set__PRI_int8.TAL.PROM.ERR.V0
+   */
+  it('testInteg_CTR_set__PRI_int8_TAL_PROM_ERR_016859', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "__INVALID_TYPE_TOKEN_1319383619__";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 负向期望 any
+    assert.strictEqual(actual, 'any', "G negative CTR_set__PRI_int8.TAL.PROM.ERR.V0");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Neg { v: any; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_int8_TAL_PROM_ERR_V0.ts", src);
+    // step3: 负向 — 解析不崩溃且返回 classes
+    assert.ok(res && Array.isArray(res.classes), "P neg CTR_set__PRI_int8.TAL.PROM.ERR.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_int8_TAL_PROM_SPEC_016860
+   * @tc.name testInteg_CTR_set__PRI_int8_TAL_PROM_SPEC_016860
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_int8.TAL.PROM.SPEC.V0 input="std::set< int8_t >" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_int8.TAL.PROM.SPEC.V0
+   */
+  it('testInteg_CTR_set__PRI_int8_TAL_PROM_SPEC_016860', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::set< int8_t >";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_set__PRI_int8.TAL.PROM.SPEC.V0 input=std::set< int8_t >");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export type NapiV2Alias = Set<number>;\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_int8_TAL_PROM_SPEC_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_int8.TAL.PROM.SPEC.V0 parse null");
+    // step4: 校验 type alias 存在
+    assert.ok(res.types && res.types.length >= 1, "P TAL CTR_set__PRI_int8.TAL.PROM.SPEC.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::set< int8_t >");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_set__PRI_int8.TAL.PROM.SPEC.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_int16_TAL_RAW_NORM_016909
+   * @tc.name testInteg_CTR_set__PRI_int16_TAL_RAW_NORM_016909
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_int16.TAL.RAW.NORM.V0 input="std::set<int16_t>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_int16.TAL.RAW.NORM.V0
+   */
+  it('testInteg_CTR_set__PRI_int16_TAL_RAW_NORM_016909', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::set<int16_t>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_set__PRI_int16.TAL.RAW.NORM.V0 input=std::set<int16_t>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export type NapiV2Alias = Set<number>;\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_int16_TAL_RAW_NORM_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_int16.TAL.RAW.NORM.V0 parse null");
+    // step4: 校验 type alias 存在
+    assert.ok(res.types && res.types.length >= 1, "P TAL CTR_set__PRI_int16.TAL.RAW.NORM.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::set<int16_t>");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_set__PRI_int16.TAL.RAW.NORM.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_int16_TAL_RAW_BOUND_016910
+   * @tc.name testInteg_CTR_set__PRI_int16_TAL_RAW_BOUND_016910
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_int16.TAL.RAW.BOUND.V0 input="std::set<int16_t>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_int16.TAL.RAW.BOUND.V0
+   */
+  it('testInteg_CTR_set__PRI_int16_TAL_RAW_BOUND_016910', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::set<int16_t>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_set__PRI_int16.TAL.RAW.BOUND.V0 input=std::set<int16_t>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export type NapiV2Alias = Set<number>;\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_int16_TAL_RAW_BOUND_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_int16.TAL.RAW.BOUND.V0 parse null");
+    // step4: 校验 type alias 存在
+    assert.ok(res.types && res.types.length >= 1, "P TAL CTR_set__PRI_int16.TAL.RAW.BOUND.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::set<int16_t>");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_set__PRI_int16.TAL.RAW.BOUND.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_int16_TAL_RAW_ERR_016911
+   * @tc.name testInteg_CTR_set__PRI_int16_TAL_RAW_ERR_016911
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_int16.TAL.RAW.ERR.V0 input="__INVALID_TYPE_TOKEN_2056485294__" expect="any"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 2
+   * @pair P+G-CTR_set__PRI_int16.TAL.RAW.ERR.V0
+   */
+  it('testInteg_CTR_set__PRI_int16_TAL_RAW_ERR_016911', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "__INVALID_TYPE_TOKEN_2056485294__";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 负向期望 any
+    assert.strictEqual(actual, 'any', "G negative CTR_set__PRI_int16.TAL.RAW.ERR.V0");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Neg { v: any; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_int16_TAL_RAW_ERR_V0.ts", src);
+    // step3: 负向 — 解析不崩溃且返回 classes
+    assert.ok(res && Array.isArray(res.classes), "P neg CTR_set__PRI_int16.TAL.RAW.ERR.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_int16_TAL_RAW_SPEC_016912
+   * @tc.name testInteg_CTR_set__PRI_int16_TAL_RAW_SPEC_016912
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_int16.TAL.RAW.SPEC.V0 input="std::set< int16_t >" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_int16.TAL.RAW.SPEC.V0
+   */
+  it('testInteg_CTR_set__PRI_int16_TAL_RAW_SPEC_016912', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::set< int16_t >";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_set__PRI_int16.TAL.RAW.SPEC.V0 input=std::set< int16_t >");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export type NapiV2Alias = Set<number>;\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_int16_TAL_RAW_SPEC_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_int16.TAL.RAW.SPEC.V0 parse null");
+    // step4: 校验 type alias 存在
+    assert.ok(res.types && res.types.length >= 1, "P TAL CTR_set__PRI_int16.TAL.RAW.SPEC.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::set< int16_t >");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_set__PRI_int16.TAL.RAW.SPEC.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_int16_TAL_OPT_NORM_016913
+   * @tc.name testInteg_CTR_set__PRI_int16_TAL_OPT_NORM_016913
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_int16.TAL.OPT.NORM.V0 input="std::set<int16_t>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_int16.TAL.OPT.NORM.V0
+   */
+  it('testInteg_CTR_set__PRI_int16_TAL_OPT_NORM_016913', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::set<int16_t>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_set__PRI_int16.TAL.OPT.NORM.V0 input=std::set<int16_t>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export type NapiV2Alias = Set<number>;\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_int16_TAL_OPT_NORM_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_int16.TAL.OPT.NORM.V0 parse null");
+    // step4: 校验 type alias 存在
+    assert.ok(res.types && res.types.length >= 1, "P TAL CTR_set__PRI_int16.TAL.OPT.NORM.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::set<int16_t>");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_set__PRI_int16.TAL.OPT.NORM.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_int16_TAL_OPT_BOUND_016914
+   * @tc.name testInteg_CTR_set__PRI_int16_TAL_OPT_BOUND_016914
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_int16.TAL.OPT.BOUND.V0 input="std::set<int16_t>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_int16.TAL.OPT.BOUND.V0
+   */
+  it('testInteg_CTR_set__PRI_int16_TAL_OPT_BOUND_016914', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::set<int16_t>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_set__PRI_int16.TAL.OPT.BOUND.V0 input=std::set<int16_t>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export type NapiV2Alias = Set<number>;\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_int16_TAL_OPT_BOUND_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_int16.TAL.OPT.BOUND.V0 parse null");
+    // step4: 校验 type alias 存在
+    assert.ok(res.types && res.types.length >= 1, "P TAL CTR_set__PRI_int16.TAL.OPT.BOUND.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::set<int16_t>");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_set__PRI_int16.TAL.OPT.BOUND.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_int16_TAL_OPT_ERR_016915
+   * @tc.name testInteg_CTR_set__PRI_int16_TAL_OPT_ERR_016915
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_int16.TAL.OPT.ERR.V0 input="__INVALID_TYPE_TOKEN_2056485294__" expect="any"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 2
+   * @pair P+G-CTR_set__PRI_int16.TAL.OPT.ERR.V0
+   */
+  it('testInteg_CTR_set__PRI_int16_TAL_OPT_ERR_016915', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "__INVALID_TYPE_TOKEN_2056485294__";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 负向期望 any
+    assert.strictEqual(actual, 'any', "G negative CTR_set__PRI_int16.TAL.OPT.ERR.V0");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Neg { v: any; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_int16_TAL_OPT_ERR_V0.ts", src);
+    // step3: 负向 — 解析不崩溃且返回 classes
+    assert.ok(res && Array.isArray(res.classes), "P neg CTR_set__PRI_int16.TAL.OPT.ERR.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_int16_TAL_OPT_SPEC_016916
+   * @tc.name testInteg_CTR_set__PRI_int16_TAL_OPT_SPEC_016916
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_int16.TAL.OPT.SPEC.V0 input="std::set< int16_t >" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_int16.TAL.OPT.SPEC.V0
+   */
+  it('testInteg_CTR_set__PRI_int16_TAL_OPT_SPEC_016916', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::set< int16_t >";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_set__PRI_int16.TAL.OPT.SPEC.V0 input=std::set< int16_t >");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export type NapiV2Alias = Set<number>;\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_int16_TAL_OPT_SPEC_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_int16.TAL.OPT.SPEC.V0 parse null");
+    // step4: 校验 type alias 存在
+    assert.ok(res.types && res.types.length >= 1, "P TAL CTR_set__PRI_int16.TAL.OPT.SPEC.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::set< int16_t >");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_set__PRI_int16.TAL.OPT.SPEC.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_int16_TAL_ARR1_NORM_016917
+   * @tc.name testInteg_CTR_set__PRI_int16_TAL_ARR1_NORM_016917
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_int16.TAL.ARR1.NORM.V0 input="std::vector<std::set<int16_t>>" expect="Array<Set<number>>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_int16.TAL.ARR1.NORM.V0
+   */
+  it('testInteg_CTR_set__PRI_int16_TAL_ARR1_NORM_016917', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::vector<std::set<int16_t>>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Array<Set<number>>", "G CTR_set__PRI_int16.TAL.ARR1.NORM.V0 input=std::vector<std::set<int16_t>>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export type NapiV2Alias = Array<Set<number>>;\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_int16_TAL_ARR1_NORM_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_int16.TAL.ARR1.NORM.V0 parse null");
+    // step4: 校验 type alias 存在
+    assert.ok(res.types && res.types.length >= 1, "P TAL CTR_set__PRI_int16.TAL.ARR1.NORM.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::vector<std::set<int16_t>>");
+    assert.strictEqual(mapped, "Array<Set<number>>", "I map==expect CTR_set__PRI_int16.TAL.ARR1.NORM.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_int16_TAL_ARR1_BOUND_016918
+   * @tc.name testInteg_CTR_set__PRI_int16_TAL_ARR1_BOUND_016918
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_int16.TAL.ARR1.BOUND.V0 input="std::vector<std::set<int16_t>>" expect="Array<Set<number>>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_int16.TAL.ARR1.BOUND.V0
+   */
+  it('testInteg_CTR_set__PRI_int16_TAL_ARR1_BOUND_016918', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::vector<std::set<int16_t>>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Array<Set<number>>", "G CTR_set__PRI_int16.TAL.ARR1.BOUND.V0 input=std::vector<std::set<int16_t>>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export type NapiV2Alias = Array<Set<number>>;\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_int16_TAL_ARR1_BOUND_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_int16.TAL.ARR1.BOUND.V0 parse null");
+    // step4: 校验 type alias 存在
+    assert.ok(res.types && res.types.length >= 1, "P TAL CTR_set__PRI_int16.TAL.ARR1.BOUND.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::vector<std::set<int16_t>>");
+    assert.strictEqual(mapped, "Array<Set<number>>", "I map==expect CTR_set__PRI_int16.TAL.ARR1.BOUND.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_int16_TAL_ARR1_ERR_016919
+   * @tc.name testInteg_CTR_set__PRI_int16_TAL_ARR1_ERR_016919
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_int16.TAL.ARR1.ERR.V0 input="__INVALID_TYPE_TOKEN_2015685634__" expect="any"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 2
+   * @pair P+G-CTR_set__PRI_int16.TAL.ARR1.ERR.V0
+   */
+  it('testInteg_CTR_set__PRI_int16_TAL_ARR1_ERR_016919', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "__INVALID_TYPE_TOKEN_2015685634__";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 负向期望 any
+    assert.strictEqual(actual, 'any', "G negative CTR_set__PRI_int16.TAL.ARR1.ERR.V0");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Neg { v: any; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_int16_TAL_ARR1_ERR_V0.ts", src);
+    // step3: 负向 — 解析不崩溃且返回 classes
+    assert.ok(res && Array.isArray(res.classes), "P neg CTR_set__PRI_int16.TAL.ARR1.ERR.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_int16_TAL_ARR1_SPEC_016920
+   * @tc.name testInteg_CTR_set__PRI_int16_TAL_ARR1_SPEC_016920
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_int16.TAL.ARR1.SPEC.V0 input="std::vector< std::set< int16_t > >" expect="Array<Set<number>>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_int16.TAL.ARR1.SPEC.V0
+   */
+  it('testInteg_CTR_set__PRI_int16_TAL_ARR1_SPEC_016920', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::vector< std::set< int16_t > >";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Array<Set<number>>", "G CTR_set__PRI_int16.TAL.ARR1.SPEC.V0 input=std::vector< std::set< int16_t > >");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export type NapiV2Alias = Array<Set<number>>;\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_int16_TAL_ARR1_SPEC_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_int16.TAL.ARR1.SPEC.V0 parse null");
+    // step4: 校验 type alias 存在
+    assert.ok(res.types && res.types.length >= 1, "P TAL CTR_set__PRI_int16.TAL.ARR1.SPEC.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::vector< std::set< int16_t > >");
+    assert.strictEqual(mapped, "Array<Set<number>>", "I map==expect CTR_set__PRI_int16.TAL.ARR1.SPEC.V0");
+  });
+
+});
