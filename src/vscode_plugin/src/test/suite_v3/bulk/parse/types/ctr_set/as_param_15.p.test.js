@@ -1896,3 +1896,63 @@ describe('SuiteV3_P_ctr_set_as_param_15', function () {
     // step4: 校验函数声明存在
     assert.ok(res.funcs && res.funcs.length >= 1, "P func CTR_set__PRI_ptrdiff.PAR.ARR1.NORM.V0.V2");
   });
+
+  /**
+   * @tc.number SUB_NAPI_PARSE_CTR_set__PRI_ptrdiff_PAR_ARR1_BOUND_141422
+   * @tc.name testParse_CTR_set__PRI_ptrdiff_PAR_ARR1_BOUND_141422
+   * @tc.desc Verify parse declaration for CTR_set__PRI_ptrdiff.PAR.ARR1.BOUND.V0.V2 input="std::vector<std::set<ptrdiff_t>>" expect="Array<Set<number>>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair G-CTR_set__PRI_ptrdiff.PAR.ARR1.BOUND.V0.V2
+   */
+  it('testParse_CTR_set__PRI_ptrdiff_PAR_ARR1_BOUND_141422', function () {
+    // step1: 构造待解析源码
+    const src = "export function napiV2Fn(p: Array<Set<number>>): void {}\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_ptrdiff_PAR_ARR1_BOUND_V0_V2.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_ptrdiff.PAR.ARR1.BOUND.V0.V2 parse null");
+    // step4: 校验函数声明存在
+    assert.ok(res.funcs && res.funcs.length >= 1, "P func CTR_set__PRI_ptrdiff.PAR.ARR1.BOUND.V0.V2");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_PARSE_CTR_set__PRI_ptrdiff_PAR_ARR1_ERR_141423
+   * @tc.name testParse_CTR_set__PRI_ptrdiff_PAR_ARR1_ERR_141423
+   * @tc.desc Verify parse declaration for CTR_set__PRI_ptrdiff.PAR.ARR1.ERR.V0.V2 input="__INVALID_TYPE_TOKEN_318712863__" expect="any"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 2
+   * @pair G-CTR_set__PRI_ptrdiff.PAR.ARR1.ERR.V0.V2
+   */
+  it('testParse_CTR_set__PRI_ptrdiff_PAR_ARR1_ERR_141423', function () {
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Neg { v: any; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_ptrdiff_PAR_ARR1_ERR_V0_V2.ts", src);
+    // step3: 负向 — 解析不崩溃且返回 classes
+    assert.ok(res && Array.isArray(res.classes), "P neg CTR_set__PRI_ptrdiff.PAR.ARR1.ERR.V0.V2");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_PARSE_CTR_set__PRI_ptrdiff_PAR_ARR1_SPEC_141424
+   * @tc.name testParse_CTR_set__PRI_ptrdiff_PAR_ARR1_SPEC_141424
+   * @tc.desc Verify parse declaration for CTR_set__PRI_ptrdiff.PAR.ARR1.SPEC.V0.V2 input="std::vector< std::set< ptrdiff_t > >" expect="Array<Set<number>>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair G-CTR_set__PRI_ptrdiff.PAR.ARR1.SPEC.V0.V2
+   */
+  it('testParse_CTR_set__PRI_ptrdiff_PAR_ARR1_SPEC_141424', function () {
+    // step1: 构造待解析源码
+    const src = "export function napiV2Fn(p: Array<Set<number>>): void {}\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_ptrdiff_PAR_ARR1_SPEC_V0_V2.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_ptrdiff.PAR.ARR1.SPEC.V0.V2 parse null");
+    // step4: 校验函数声明存在
+    assert.ok(res.funcs && res.funcs.length >= 1, "P func CTR_set__PRI_ptrdiff.PAR.ARR1.SPEC.V0.V2");
+  });
+
+});
