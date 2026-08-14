@@ -1896,3 +1896,63 @@ describe('SuiteV3_P_ctr_set_as_typealias_14', function () {
     // step4: 校验 type alias 存在
     assert.ok(res.types && res.types.length >= 1, "P TAL CTR_set__PRI_uint32.TAL.OPT.NORM.V0.V2");
   });
+
+  /**
+   * @tc.number SUB_NAPI_PARSE_CTR_set__PRI_uint32_TAL_OPT_BOUND_141066
+   * @tc.name testParse_CTR_set__PRI_uint32_TAL_OPT_BOUND_141066
+   * @tc.desc Verify parse declaration for CTR_set__PRI_uint32.TAL.OPT.BOUND.V0.V2 input="std::set<uint32_t>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair G-CTR_set__PRI_uint32.TAL.OPT.BOUND.V0.V2
+   */
+  it('testParse_CTR_set__PRI_uint32_TAL_OPT_BOUND_141066', function () {
+    // step1: 构造待解析源码
+    const src = "export type NapiV2Alias = Set<number>;\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint32_TAL_OPT_BOUND_V0_V2.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_uint32.TAL.OPT.BOUND.V0.V2 parse null");
+    // step4: 校验 type alias 存在
+    assert.ok(res.types && res.types.length >= 1, "P TAL CTR_set__PRI_uint32.TAL.OPT.BOUND.V0.V2");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_PARSE_CTR_set__PRI_uint32_TAL_OPT_ERR_141067
+   * @tc.name testParse_CTR_set__PRI_uint32_TAL_OPT_ERR_141067
+   * @tc.desc Verify parse declaration for CTR_set__PRI_uint32.TAL.OPT.ERR.V0.V2 input="__INVALID_TYPE_TOKEN_1218699891__" expect="any"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 2
+   * @pair G-CTR_set__PRI_uint32.TAL.OPT.ERR.V0.V2
+   */
+  it('testParse_CTR_set__PRI_uint32_TAL_OPT_ERR_141067', function () {
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Neg { v: any; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint32_TAL_OPT_ERR_V0_V2.ts", src);
+    // step3: 负向 — 解析不崩溃且返回 classes
+    assert.ok(res && Array.isArray(res.classes), "P neg CTR_set__PRI_uint32.TAL.OPT.ERR.V0.V2");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_PARSE_CTR_set__PRI_uint32_TAL_OPT_SPEC_141068
+   * @tc.name testParse_CTR_set__PRI_uint32_TAL_OPT_SPEC_141068
+   * @tc.desc Verify parse declaration for CTR_set__PRI_uint32.TAL.OPT.SPEC.V0.V2 input="std::set< uint32_t >" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair G-CTR_set__PRI_uint32.TAL.OPT.SPEC.V0.V2
+   */
+  it('testParse_CTR_set__PRI_uint32_TAL_OPT_SPEC_141068', function () {
+    // step1: 构造待解析源码
+    const src = "export type NapiV2Alias = Set<number>;\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint32_TAL_OPT_SPEC_V0_V2.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_uint32.TAL.OPT.SPEC.V0.V2 parse null");
+    // step4: 校验 type alias 存在
+    assert.ok(res.types && res.types.length >= 1, "P TAL CTR_set__PRI_uint32.TAL.OPT.SPEC.V0.V2");
+  });
+
+});
