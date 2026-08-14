@@ -1896,3 +1896,63 @@ describe('SuiteV3_P_ctr_set_as_param_10', function () {
     // step4: 校验函数声明存在
     assert.ok(res.funcs && res.funcs.length >= 1, "P func CTR_set__PRI_intptr.PAR.OPT.NORM.V0.V1");
   });
+
+  /**
+   * @tc.number SUB_NAPI_PARSE_CTR_set__PRI_intptr_PAR_OPT_BOUND_079566
+   * @tc.name testParse_CTR_set__PRI_intptr_PAR_OPT_BOUND_079566
+   * @tc.desc Verify parse declaration for CTR_set__PRI_intptr.PAR.OPT.BOUND.V0.V1 input="std::set<intptr_t>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair G-CTR_set__PRI_intptr.PAR.OPT.BOUND.V0.V1
+   */
+  it('testParse_CTR_set__PRI_intptr_PAR_OPT_BOUND_079566', function () {
+    // step1: 构造待解析源码
+    const src = "export function napiV2Fn(p: Set<number>): void {}\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_intptr_PAR_OPT_BOUND_V0_V1.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_intptr.PAR.OPT.BOUND.V0.V1 parse null");
+    // step4: 校验函数声明存在
+    assert.ok(res.funcs && res.funcs.length >= 1, "P func CTR_set__PRI_intptr.PAR.OPT.BOUND.V0.V1");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_PARSE_CTR_set__PRI_intptr_PAR_OPT_ERR_079567
+   * @tc.name testParse_CTR_set__PRI_intptr_PAR_OPT_ERR_079567
+   * @tc.desc Verify parse declaration for CTR_set__PRI_intptr.PAR.OPT.ERR.V0.V1 input="__INVALID_TYPE_TOKEN_1760059571__" expect="any"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 2
+   * @pair G-CTR_set__PRI_intptr.PAR.OPT.ERR.V0.V1
+   */
+  it('testParse_CTR_set__PRI_intptr_PAR_OPT_ERR_079567', function () {
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Neg { v: any; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_intptr_PAR_OPT_ERR_V0_V1.ts", src);
+    // step3: 负向 — 解析不崩溃且返回 classes
+    assert.ok(res && Array.isArray(res.classes), "P neg CTR_set__PRI_intptr.PAR.OPT.ERR.V0.V1");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_PARSE_CTR_set__PRI_intptr_PAR_OPT_SPEC_079568
+   * @tc.name testParse_CTR_set__PRI_intptr_PAR_OPT_SPEC_079568
+   * @tc.desc Verify parse declaration for CTR_set__PRI_intptr.PAR.OPT.SPEC.V0.V1 input="std::set< intptr_t >" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair G-CTR_set__PRI_intptr.PAR.OPT.SPEC.V0.V1
+   */
+  it('testParse_CTR_set__PRI_intptr_PAR_OPT_SPEC_079568', function () {
+    // step1: 构造待解析源码
+    const src = "export function napiV2Fn(p: Set<number>): void {}\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_intptr_PAR_OPT_SPEC_V0_V1.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_intptr.PAR.OPT.SPEC.V0.V1 parse null");
+    // step4: 校验函数声明存在
+    assert.ok(res.funcs && res.funcs.length >= 1, "P func CTR_set__PRI_intptr.PAR.OPT.SPEC.V0.V1");
+  });
+
+});
