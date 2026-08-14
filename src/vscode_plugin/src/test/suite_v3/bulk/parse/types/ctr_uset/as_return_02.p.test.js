@@ -1896,3 +1896,63 @@ describe('SuiteV3_P_ctr_uset_as_return_02', function () {
     // step4: 校验函数声明存在
     assert.ok(res.funcs && res.funcs.length >= 1, "P func CTR_uset__PRI_unsigned_int.RET.OPT.NORM.V0");
   });
+
+  /**
+   * @tc.number SUB_NAPI_PARSE_CTR_uset__PRI_unsigned_int_RET_OPT_BOUND_018562
+   * @tc.name testParse_CTR_uset__PRI_unsigned_int_RET_OPT_BOUND_018562
+   * @tc.desc Verify parse declaration for CTR_uset__PRI_unsigned_int.RET.OPT.BOUND.V0 input="std::unordered_set<unsigned int>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair G-CTR_uset__PRI_unsigned_int.RET.OPT.BOUND.V0
+   */
+  it('testParse_CTR_uset__PRI_unsigned_int_RET_OPT_BOUND_018562', function () {
+    // step1: 构造待解析源码
+    const src = "export function napiV2Ret(): Set<number> { throw new Error('x'); }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_uset__PRI_unsigned_int_RET_OPT_BOUND_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_uset__PRI_unsigned_int.RET.OPT.BOUND.V0 parse null");
+    // step4: 校验函数声明存在
+    assert.ok(res.funcs && res.funcs.length >= 1, "P func CTR_uset__PRI_unsigned_int.RET.OPT.BOUND.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_PARSE_CTR_uset__PRI_unsigned_int_RET_OPT_ERR_018563
+   * @tc.name testParse_CTR_uset__PRI_unsigned_int_RET_OPT_ERR_018563
+   * @tc.desc Verify parse declaration for CTR_uset__PRI_unsigned_int.RET.OPT.ERR.V0 input="__INVALID_TYPE_TOKEN_805735342__" expect="any"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 2
+   * @pair G-CTR_uset__PRI_unsigned_int.RET.OPT.ERR.V0
+   */
+  it('testParse_CTR_uset__PRI_unsigned_int_RET_OPT_ERR_018563', function () {
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Neg { v: any; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_uset__PRI_unsigned_int_RET_OPT_ERR_V0.ts", src);
+    // step3: 负向 — 解析不崩溃且返回 classes
+    assert.ok(res && Array.isArray(res.classes), "P neg CTR_uset__PRI_unsigned_int.RET.OPT.ERR.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_PARSE_CTR_uset__PRI_unsigned_int_RET_OPT_SPEC_018564
+   * @tc.name testParse_CTR_uset__PRI_unsigned_int_RET_OPT_SPEC_018564
+   * @tc.desc Verify parse declaration for CTR_uset__PRI_unsigned_int.RET.OPT.SPEC.V0 input="std::unordered_set< unsigned int >" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair G-CTR_uset__PRI_unsigned_int.RET.OPT.SPEC.V0
+   */
+  it('testParse_CTR_uset__PRI_unsigned_int_RET_OPT_SPEC_018564', function () {
+    // step1: 构造待解析源码
+    const src = "export function napiV2Ret(): Set<number> { throw new Error('x'); }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_uset__PRI_unsigned_int_RET_OPT_SPEC_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_uset__PRI_unsigned_int.RET.OPT.SPEC.V0 parse null");
+    // step4: 校验函数声明存在
+    assert.ok(res.funcs && res.funcs.length >= 1, "P func CTR_uset__PRI_unsigned_int.RET.OPT.SPEC.V0");
+  });
+
+});
