@@ -1896,3 +1896,1189 @@ describe('SuiteV3_I_ctr_uset_as_param_02', function () {
     // --- 集成：先映射，再解析，再交叉校验 ---
     // [G]
     // step1: 输入 C/声明类型
+    const inputType = "std::unordered_set<size_t>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_uset__PRI_size.PAR.RAW.BOUND.V0 input=std::unordered_set<size_t>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export function napiV2Fn(p: Set<number>): void {}\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_uset__PRI_size_PAR_RAW_BOUND_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_uset__PRI_size.PAR.RAW.BOUND.V0 parse null");
+    // step4: 校验函数声明存在
+    assert.ok(res.funcs && res.funcs.length >= 1, "P func CTR_uset__PRI_size.PAR.RAW.BOUND.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::unordered_set<size_t>");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_uset__PRI_size.PAR.RAW.BOUND.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_uset__PRI_size_PAR_RAW_ERR_018415
+   * @tc.name testInteg_CTR_uset__PRI_size_PAR_RAW_ERR_018415
+   * @tc.desc Verify roundtrip parse+map for CTR_uset__PRI_size.PAR.RAW.ERR.V0 input="__INVALID_TYPE_TOKEN_1680358688__" expect="any"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 2
+   * @pair P+G-CTR_uset__PRI_size.PAR.RAW.ERR.V0
+   */
+  it('testInteg_CTR_uset__PRI_size_PAR_RAW_ERR_018415', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "__INVALID_TYPE_TOKEN_1680358688__";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 负向期望 any
+    assert.strictEqual(actual, 'any', "G negative CTR_uset__PRI_size.PAR.RAW.ERR.V0");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Neg { v: any; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_uset__PRI_size_PAR_RAW_ERR_V0.ts", src);
+    // step3: 负向 — 解析不崩溃且返回 classes
+    assert.ok(res && Array.isArray(res.classes), "P neg CTR_uset__PRI_size.PAR.RAW.ERR.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_uset__PRI_size_PAR_RAW_SPEC_018416
+   * @tc.name testInteg_CTR_uset__PRI_size_PAR_RAW_SPEC_018416
+   * @tc.desc Verify roundtrip parse+map for CTR_uset__PRI_size.PAR.RAW.SPEC.V0 input="std::unordered_set< size_t >" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_uset__PRI_size.PAR.RAW.SPEC.V0
+   */
+  it('testInteg_CTR_uset__PRI_size_PAR_RAW_SPEC_018416', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::unordered_set< size_t >";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_uset__PRI_size.PAR.RAW.SPEC.V0 input=std::unordered_set< size_t >");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export function napiV2Fn(p: Set<number>): void {}\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_uset__PRI_size_PAR_RAW_SPEC_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_uset__PRI_size.PAR.RAW.SPEC.V0 parse null");
+    // step4: 校验函数声明存在
+    assert.ok(res.funcs && res.funcs.length >= 1, "P func CTR_uset__PRI_size.PAR.RAW.SPEC.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::unordered_set< size_t >");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_uset__PRI_size.PAR.RAW.SPEC.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_uset__PRI_size_PAR_OPT_NORM_018417
+   * @tc.name testInteg_CTR_uset__PRI_size_PAR_OPT_NORM_018417
+   * @tc.desc Verify roundtrip parse+map for CTR_uset__PRI_size.PAR.OPT.NORM.V0 input="std::unordered_set<size_t>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_uset__PRI_size.PAR.OPT.NORM.V0
+   */
+  it('testInteg_CTR_uset__PRI_size_PAR_OPT_NORM_018417', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::unordered_set<size_t>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_uset__PRI_size.PAR.OPT.NORM.V0 input=std::unordered_set<size_t>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export function napiV2Fn(p: Set<number>): void {}\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_uset__PRI_size_PAR_OPT_NORM_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_uset__PRI_size.PAR.OPT.NORM.V0 parse null");
+    // step4: 校验函数声明存在
+    assert.ok(res.funcs && res.funcs.length >= 1, "P func CTR_uset__PRI_size.PAR.OPT.NORM.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::unordered_set<size_t>");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_uset__PRI_size.PAR.OPT.NORM.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_uset__PRI_size_PAR_OPT_BOUND_018418
+   * @tc.name testInteg_CTR_uset__PRI_size_PAR_OPT_BOUND_018418
+   * @tc.desc Verify roundtrip parse+map for CTR_uset__PRI_size.PAR.OPT.BOUND.V0 input="std::unordered_set<size_t>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_uset__PRI_size.PAR.OPT.BOUND.V0
+   */
+  it('testInteg_CTR_uset__PRI_size_PAR_OPT_BOUND_018418', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::unordered_set<size_t>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_uset__PRI_size.PAR.OPT.BOUND.V0 input=std::unordered_set<size_t>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export function napiV2Fn(p: Set<number>): void {}\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_uset__PRI_size_PAR_OPT_BOUND_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_uset__PRI_size.PAR.OPT.BOUND.V0 parse null");
+    // step4: 校验函数声明存在
+    assert.ok(res.funcs && res.funcs.length >= 1, "P func CTR_uset__PRI_size.PAR.OPT.BOUND.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::unordered_set<size_t>");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_uset__PRI_size.PAR.OPT.BOUND.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_uset__PRI_size_PAR_OPT_ERR_018419
+   * @tc.name testInteg_CTR_uset__PRI_size_PAR_OPT_ERR_018419
+   * @tc.desc Verify roundtrip parse+map for CTR_uset__PRI_size.PAR.OPT.ERR.V0 input="__INVALID_TYPE_TOKEN_1680358688__" expect="any"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 2
+   * @pair P+G-CTR_uset__PRI_size.PAR.OPT.ERR.V0
+   */
+  it('testInteg_CTR_uset__PRI_size_PAR_OPT_ERR_018419', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "__INVALID_TYPE_TOKEN_1680358688__";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 负向期望 any
+    assert.strictEqual(actual, 'any', "G negative CTR_uset__PRI_size.PAR.OPT.ERR.V0");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Neg { v: any; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_uset__PRI_size_PAR_OPT_ERR_V0.ts", src);
+    // step3: 负向 — 解析不崩溃且返回 classes
+    assert.ok(res && Array.isArray(res.classes), "P neg CTR_uset__PRI_size.PAR.OPT.ERR.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_uset__PRI_size_PAR_OPT_SPEC_018420
+   * @tc.name testInteg_CTR_uset__PRI_size_PAR_OPT_SPEC_018420
+   * @tc.desc Verify roundtrip parse+map for CTR_uset__PRI_size.PAR.OPT.SPEC.V0 input="std::unordered_set< size_t >" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_uset__PRI_size.PAR.OPT.SPEC.V0
+   */
+  it('testInteg_CTR_uset__PRI_size_PAR_OPT_SPEC_018420', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::unordered_set< size_t >";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_uset__PRI_size.PAR.OPT.SPEC.V0 input=std::unordered_set< size_t >");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export function napiV2Fn(p: Set<number>): void {}\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_uset__PRI_size_PAR_OPT_SPEC_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_uset__PRI_size.PAR.OPT.SPEC.V0 parse null");
+    // step4: 校验函数声明存在
+    assert.ok(res.funcs && res.funcs.length >= 1, "P func CTR_uset__PRI_size.PAR.OPT.SPEC.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::unordered_set< size_t >");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_uset__PRI_size.PAR.OPT.SPEC.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_uset__PRI_size_PAR_ARR1_NORM_018421
+   * @tc.name testInteg_CTR_uset__PRI_size_PAR_ARR1_NORM_018421
+   * @tc.desc Verify roundtrip parse+map for CTR_uset__PRI_size.PAR.ARR1.NORM.V0 input="std::vector<std::unordered_set<size_t>>" expect="Array<Set<number>>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_uset__PRI_size.PAR.ARR1.NORM.V0
+   */
+  it('testInteg_CTR_uset__PRI_size_PAR_ARR1_NORM_018421', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::vector<std::unordered_set<size_t>>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Array<Set<number>>", "G CTR_uset__PRI_size.PAR.ARR1.NORM.V0 input=std::vector<std::unordered_set<size_t>>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export function napiV2Fn(p: Array<Set<number>>): void {}\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_uset__PRI_size_PAR_ARR1_NORM_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_uset__PRI_size.PAR.ARR1.NORM.V0 parse null");
+    // step4: 校验函数声明存在
+    assert.ok(res.funcs && res.funcs.length >= 1, "P func CTR_uset__PRI_size.PAR.ARR1.NORM.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::vector<std::unordered_set<size_t>>");
+    assert.strictEqual(mapped, "Array<Set<number>>", "I map==expect CTR_uset__PRI_size.PAR.ARR1.NORM.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_uset__PRI_size_PAR_ARR1_BOUND_018422
+   * @tc.name testInteg_CTR_uset__PRI_size_PAR_ARR1_BOUND_018422
+   * @tc.desc Verify roundtrip parse+map for CTR_uset__PRI_size.PAR.ARR1.BOUND.V0 input="std::vector<std::unordered_set<size_t>>" expect="Array<Set<number>>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_uset__PRI_size.PAR.ARR1.BOUND.V0
+   */
+  it('testInteg_CTR_uset__PRI_size_PAR_ARR1_BOUND_018422', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::vector<std::unordered_set<size_t>>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Array<Set<number>>", "G CTR_uset__PRI_size.PAR.ARR1.BOUND.V0 input=std::vector<std::unordered_set<size_t>>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export function napiV2Fn(p: Array<Set<number>>): void {}\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_uset__PRI_size_PAR_ARR1_BOUND_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_uset__PRI_size.PAR.ARR1.BOUND.V0 parse null");
+    // step4: 校验函数声明存在
+    assert.ok(res.funcs && res.funcs.length >= 1, "P func CTR_uset__PRI_size.PAR.ARR1.BOUND.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::vector<std::unordered_set<size_t>>");
+    assert.strictEqual(mapped, "Array<Set<number>>", "I map==expect CTR_uset__PRI_size.PAR.ARR1.BOUND.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_uset__PRI_size_PAR_ARR1_ERR_018423
+   * @tc.name testInteg_CTR_uset__PRI_size_PAR_ARR1_ERR_018423
+   * @tc.desc Verify roundtrip parse+map for CTR_uset__PRI_size.PAR.ARR1.ERR.V0 input="__INVALID_TYPE_TOKEN_284217336__" expect="any"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 2
+   * @pair P+G-CTR_uset__PRI_size.PAR.ARR1.ERR.V0
+   */
+  it('testInteg_CTR_uset__PRI_size_PAR_ARR1_ERR_018423', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "__INVALID_TYPE_TOKEN_284217336__";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 负向期望 any
+    assert.strictEqual(actual, 'any', "G negative CTR_uset__PRI_size.PAR.ARR1.ERR.V0");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Neg { v: any; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_uset__PRI_size_PAR_ARR1_ERR_V0.ts", src);
+    // step3: 负向 — 解析不崩溃且返回 classes
+    assert.ok(res && Array.isArray(res.classes), "P neg CTR_uset__PRI_size.PAR.ARR1.ERR.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_uset__PRI_size_PAR_ARR1_SPEC_018424
+   * @tc.name testInteg_CTR_uset__PRI_size_PAR_ARR1_SPEC_018424
+   * @tc.desc Verify roundtrip parse+map for CTR_uset__PRI_size.PAR.ARR1.SPEC.V0 input="std::vector< std::unordered_set< size_t > >" expect="Array<Set<number>>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_uset__PRI_size.PAR.ARR1.SPEC.V0
+   */
+  it('testInteg_CTR_uset__PRI_size_PAR_ARR1_SPEC_018424', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::vector< std::unordered_set< size_t > >";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Array<Set<number>>", "G CTR_uset__PRI_size.PAR.ARR1.SPEC.V0 input=std::vector< std::unordered_set< size_t > >");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export function napiV2Fn(p: Array<Set<number>>): void {}\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_uset__PRI_size_PAR_ARR1_SPEC_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_uset__PRI_size.PAR.ARR1.SPEC.V0 parse null");
+    // step4: 校验函数声明存在
+    assert.ok(res.funcs && res.funcs.length >= 1, "P func CTR_uset__PRI_size.PAR.ARR1.SPEC.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::vector< std::unordered_set< size_t > >");
+    assert.strictEqual(mapped, "Array<Set<number>>", "I map==expect CTR_uset__PRI_size.PAR.ARR1.SPEC.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_uset__PRI_size_PAR_PROM_NORM_018425
+   * @tc.name testInteg_CTR_uset__PRI_size_PAR_PROM_NORM_018425
+   * @tc.desc Verify roundtrip parse+map for CTR_uset__PRI_size.PAR.PROM.NORM.V0 input="std::unordered_set<size_t>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_uset__PRI_size.PAR.PROM.NORM.V0
+   */
+  it('testInteg_CTR_uset__PRI_size_PAR_PROM_NORM_018425', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::unordered_set<size_t>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_uset__PRI_size.PAR.PROM.NORM.V0 input=std::unordered_set<size_t>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export function napiV2Fn(p: Set<number>): void {}\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_uset__PRI_size_PAR_PROM_NORM_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_uset__PRI_size.PAR.PROM.NORM.V0 parse null");
+    // step4: 校验函数声明存在
+    assert.ok(res.funcs && res.funcs.length >= 1, "P func CTR_uset__PRI_size.PAR.PROM.NORM.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::unordered_set<size_t>");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_uset__PRI_size.PAR.PROM.NORM.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_uset__PRI_size_PAR_PROM_BOUND_018426
+   * @tc.name testInteg_CTR_uset__PRI_size_PAR_PROM_BOUND_018426
+   * @tc.desc Verify roundtrip parse+map for CTR_uset__PRI_size.PAR.PROM.BOUND.V0 input="std::unordered_set<size_t>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_uset__PRI_size.PAR.PROM.BOUND.V0
+   */
+  it('testInteg_CTR_uset__PRI_size_PAR_PROM_BOUND_018426', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::unordered_set<size_t>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_uset__PRI_size.PAR.PROM.BOUND.V0 input=std::unordered_set<size_t>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export function napiV2Fn(p: Set<number>): void {}\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_uset__PRI_size_PAR_PROM_BOUND_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_uset__PRI_size.PAR.PROM.BOUND.V0 parse null");
+    // step4: 校验函数声明存在
+    assert.ok(res.funcs && res.funcs.length >= 1, "P func CTR_uset__PRI_size.PAR.PROM.BOUND.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::unordered_set<size_t>");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_uset__PRI_size.PAR.PROM.BOUND.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_uset__PRI_size_PAR_PROM_ERR_018427
+   * @tc.name testInteg_CTR_uset__PRI_size_PAR_PROM_ERR_018427
+   * @tc.desc Verify roundtrip parse+map for CTR_uset__PRI_size.PAR.PROM.ERR.V0 input="__INVALID_TYPE_TOKEN_1680358688__" expect="any"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 2
+   * @pair P+G-CTR_uset__PRI_size.PAR.PROM.ERR.V0
+   */
+  it('testInteg_CTR_uset__PRI_size_PAR_PROM_ERR_018427', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "__INVALID_TYPE_TOKEN_1680358688__";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 负向期望 any
+    assert.strictEqual(actual, 'any', "G negative CTR_uset__PRI_size.PAR.PROM.ERR.V0");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Neg { v: any; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_uset__PRI_size_PAR_PROM_ERR_V0.ts", src);
+    // step3: 负向 — 解析不崩溃且返回 classes
+    assert.ok(res && Array.isArray(res.classes), "P neg CTR_uset__PRI_size.PAR.PROM.ERR.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_uset__PRI_size_PAR_PROM_SPEC_018428
+   * @tc.name testInteg_CTR_uset__PRI_size_PAR_PROM_SPEC_018428
+   * @tc.desc Verify roundtrip parse+map for CTR_uset__PRI_size.PAR.PROM.SPEC.V0 input="std::unordered_set< size_t >" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_uset__PRI_size.PAR.PROM.SPEC.V0
+   */
+  it('testInteg_CTR_uset__PRI_size_PAR_PROM_SPEC_018428', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::unordered_set< size_t >";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_uset__PRI_size.PAR.PROM.SPEC.V0 input=std::unordered_set< size_t >");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export function napiV2Fn(p: Set<number>): void {}\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_uset__PRI_size_PAR_PROM_SPEC_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_uset__PRI_size.PAR.PROM.SPEC.V0 parse null");
+    // step4: 校验函数声明存在
+    assert.ok(res.funcs && res.funcs.length >= 1, "P func CTR_uset__PRI_size.PAR.PROM.SPEC.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::unordered_set< size_t >");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_uset__PRI_size.PAR.PROM.SPEC.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_uset__PRI_unsigned_PAR_RAW_NORM_018477
+   * @tc.name testInteg_CTR_uset__PRI_unsigned_PAR_RAW_NORM_018477
+   * @tc.desc Verify roundtrip parse+map for CTR_uset__PRI_unsigned.PAR.RAW.NORM.V0 input="std::unordered_set<unsigned>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_uset__PRI_unsigned.PAR.RAW.NORM.V0
+   */
+  it('testInteg_CTR_uset__PRI_unsigned_PAR_RAW_NORM_018477', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::unordered_set<unsigned>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_uset__PRI_unsigned.PAR.RAW.NORM.V0 input=std::unordered_set<unsigned>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export function napiV2Fn(p: Set<number>): void {}\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_uset__PRI_unsigned_PAR_RAW_NORM_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_uset__PRI_unsigned.PAR.RAW.NORM.V0 parse null");
+    // step4: 校验函数声明存在
+    assert.ok(res.funcs && res.funcs.length >= 1, "P func CTR_uset__PRI_unsigned.PAR.RAW.NORM.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::unordered_set<unsigned>");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_uset__PRI_unsigned.PAR.RAW.NORM.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_uset__PRI_unsigned_PAR_RAW_BOUND_018478
+   * @tc.name testInteg_CTR_uset__PRI_unsigned_PAR_RAW_BOUND_018478
+   * @tc.desc Verify roundtrip parse+map for CTR_uset__PRI_unsigned.PAR.RAW.BOUND.V0 input="std::unordered_set<unsigned>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_uset__PRI_unsigned.PAR.RAW.BOUND.V0
+   */
+  it('testInteg_CTR_uset__PRI_unsigned_PAR_RAW_BOUND_018478', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::unordered_set<unsigned>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_uset__PRI_unsigned.PAR.RAW.BOUND.V0 input=std::unordered_set<unsigned>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export function napiV2Fn(p: Set<number>): void {}\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_uset__PRI_unsigned_PAR_RAW_BOUND_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_uset__PRI_unsigned.PAR.RAW.BOUND.V0 parse null");
+    // step4: 校验函数声明存在
+    assert.ok(res.funcs && res.funcs.length >= 1, "P func CTR_uset__PRI_unsigned.PAR.RAW.BOUND.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::unordered_set<unsigned>");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_uset__PRI_unsigned.PAR.RAW.BOUND.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_uset__PRI_unsigned_PAR_RAW_ERR_018479
+   * @tc.name testInteg_CTR_uset__PRI_unsigned_PAR_RAW_ERR_018479
+   * @tc.desc Verify roundtrip parse+map for CTR_uset__PRI_unsigned.PAR.RAW.ERR.V0 input="__INVALID_TYPE_TOKEN_1074620479__" expect="any"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 2
+   * @pair P+G-CTR_uset__PRI_unsigned.PAR.RAW.ERR.V0
+   */
+  it('testInteg_CTR_uset__PRI_unsigned_PAR_RAW_ERR_018479', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "__INVALID_TYPE_TOKEN_1074620479__";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 负向期望 any
+    assert.strictEqual(actual, 'any', "G negative CTR_uset__PRI_unsigned.PAR.RAW.ERR.V0");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Neg { v: any; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_uset__PRI_unsigned_PAR_RAW_ERR_V0.ts", src);
+    // step3: 负向 — 解析不崩溃且返回 classes
+    assert.ok(res && Array.isArray(res.classes), "P neg CTR_uset__PRI_unsigned.PAR.RAW.ERR.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_uset__PRI_unsigned_PAR_RAW_SPEC_018480
+   * @tc.name testInteg_CTR_uset__PRI_unsigned_PAR_RAW_SPEC_018480
+   * @tc.desc Verify roundtrip parse+map for CTR_uset__PRI_unsigned.PAR.RAW.SPEC.V0 input="std::unordered_set< unsigned >" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_uset__PRI_unsigned.PAR.RAW.SPEC.V0
+   */
+  it('testInteg_CTR_uset__PRI_unsigned_PAR_RAW_SPEC_018480', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::unordered_set< unsigned >";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_uset__PRI_unsigned.PAR.RAW.SPEC.V0 input=std::unordered_set< unsigned >");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export function napiV2Fn(p: Set<number>): void {}\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_uset__PRI_unsigned_PAR_RAW_SPEC_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_uset__PRI_unsigned.PAR.RAW.SPEC.V0 parse null");
+    // step4: 校验函数声明存在
+    assert.ok(res.funcs && res.funcs.length >= 1, "P func CTR_uset__PRI_unsigned.PAR.RAW.SPEC.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::unordered_set< unsigned >");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_uset__PRI_unsigned.PAR.RAW.SPEC.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_uset__PRI_unsigned_PAR_OPT_NORM_018481
+   * @tc.name testInteg_CTR_uset__PRI_unsigned_PAR_OPT_NORM_018481
+   * @tc.desc Verify roundtrip parse+map for CTR_uset__PRI_unsigned.PAR.OPT.NORM.V0 input="std::unordered_set<unsigned>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_uset__PRI_unsigned.PAR.OPT.NORM.V0
+   */
+  it('testInteg_CTR_uset__PRI_unsigned_PAR_OPT_NORM_018481', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::unordered_set<unsigned>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_uset__PRI_unsigned.PAR.OPT.NORM.V0 input=std::unordered_set<unsigned>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export function napiV2Fn(p: Set<number>): void {}\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_uset__PRI_unsigned_PAR_OPT_NORM_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_uset__PRI_unsigned.PAR.OPT.NORM.V0 parse null");
+    // step4: 校验函数声明存在
+    assert.ok(res.funcs && res.funcs.length >= 1, "P func CTR_uset__PRI_unsigned.PAR.OPT.NORM.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::unordered_set<unsigned>");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_uset__PRI_unsigned.PAR.OPT.NORM.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_uset__PRI_unsigned_PAR_OPT_BOUND_018482
+   * @tc.name testInteg_CTR_uset__PRI_unsigned_PAR_OPT_BOUND_018482
+   * @tc.desc Verify roundtrip parse+map for CTR_uset__PRI_unsigned.PAR.OPT.BOUND.V0 input="std::unordered_set<unsigned>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_uset__PRI_unsigned.PAR.OPT.BOUND.V0
+   */
+  it('testInteg_CTR_uset__PRI_unsigned_PAR_OPT_BOUND_018482', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::unordered_set<unsigned>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_uset__PRI_unsigned.PAR.OPT.BOUND.V0 input=std::unordered_set<unsigned>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export function napiV2Fn(p: Set<number>): void {}\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_uset__PRI_unsigned_PAR_OPT_BOUND_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_uset__PRI_unsigned.PAR.OPT.BOUND.V0 parse null");
+    // step4: 校验函数声明存在
+    assert.ok(res.funcs && res.funcs.length >= 1, "P func CTR_uset__PRI_unsigned.PAR.OPT.BOUND.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::unordered_set<unsigned>");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_uset__PRI_unsigned.PAR.OPT.BOUND.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_uset__PRI_unsigned_PAR_OPT_ERR_018483
+   * @tc.name testInteg_CTR_uset__PRI_unsigned_PAR_OPT_ERR_018483
+   * @tc.desc Verify roundtrip parse+map for CTR_uset__PRI_unsigned.PAR.OPT.ERR.V0 input="__INVALID_TYPE_TOKEN_1074620479__" expect="any"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 2
+   * @pair P+G-CTR_uset__PRI_unsigned.PAR.OPT.ERR.V0
+   */
+  it('testInteg_CTR_uset__PRI_unsigned_PAR_OPT_ERR_018483', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "__INVALID_TYPE_TOKEN_1074620479__";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 负向期望 any
+    assert.strictEqual(actual, 'any', "G negative CTR_uset__PRI_unsigned.PAR.OPT.ERR.V0");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Neg { v: any; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_uset__PRI_unsigned_PAR_OPT_ERR_V0.ts", src);
+    // step3: 负向 — 解析不崩溃且返回 classes
+    assert.ok(res && Array.isArray(res.classes), "P neg CTR_uset__PRI_unsigned.PAR.OPT.ERR.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_uset__PRI_unsigned_PAR_OPT_SPEC_018484
+   * @tc.name testInteg_CTR_uset__PRI_unsigned_PAR_OPT_SPEC_018484
+   * @tc.desc Verify roundtrip parse+map for CTR_uset__PRI_unsigned.PAR.OPT.SPEC.V0 input="std::unordered_set< unsigned >" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_uset__PRI_unsigned.PAR.OPT.SPEC.V0
+   */
+  it('testInteg_CTR_uset__PRI_unsigned_PAR_OPT_SPEC_018484', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::unordered_set< unsigned >";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_uset__PRI_unsigned.PAR.OPT.SPEC.V0 input=std::unordered_set< unsigned >");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export function napiV2Fn(p: Set<number>): void {}\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_uset__PRI_unsigned_PAR_OPT_SPEC_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_uset__PRI_unsigned.PAR.OPT.SPEC.V0 parse null");
+    // step4: 校验函数声明存在
+    assert.ok(res.funcs && res.funcs.length >= 1, "P func CTR_uset__PRI_unsigned.PAR.OPT.SPEC.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::unordered_set< unsigned >");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_uset__PRI_unsigned.PAR.OPT.SPEC.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_uset__PRI_unsigned_PAR_ARR1_NORM_018485
+   * @tc.name testInteg_CTR_uset__PRI_unsigned_PAR_ARR1_NORM_018485
+   * @tc.desc Verify roundtrip parse+map for CTR_uset__PRI_unsigned.PAR.ARR1.NORM.V0 input="std::vector<std::unordered_set<unsigned>>" expect="Array<Set<number>>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_uset__PRI_unsigned.PAR.ARR1.NORM.V0
+   */
+  it('testInteg_CTR_uset__PRI_unsigned_PAR_ARR1_NORM_018485', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::vector<std::unordered_set<unsigned>>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Array<Set<number>>", "G CTR_uset__PRI_unsigned.PAR.ARR1.NORM.V0 input=std::vector<std::unordered_set<unsigned>>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export function napiV2Fn(p: Array<Set<number>>): void {}\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_uset__PRI_unsigned_PAR_ARR1_NORM_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_uset__PRI_unsigned.PAR.ARR1.NORM.V0 parse null");
+    // step4: 校验函数声明存在
+    assert.ok(res.funcs && res.funcs.length >= 1, "P func CTR_uset__PRI_unsigned.PAR.ARR1.NORM.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::vector<std::unordered_set<unsigned>>");
+    assert.strictEqual(mapped, "Array<Set<number>>", "I map==expect CTR_uset__PRI_unsigned.PAR.ARR1.NORM.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_uset__PRI_unsigned_PAR_ARR1_BOUND_018486
+   * @tc.name testInteg_CTR_uset__PRI_unsigned_PAR_ARR1_BOUND_018486
+   * @tc.desc Verify roundtrip parse+map for CTR_uset__PRI_unsigned.PAR.ARR1.BOUND.V0 input="std::vector<std::unordered_set<unsigned>>" expect="Array<Set<number>>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_uset__PRI_unsigned.PAR.ARR1.BOUND.V0
+   */
+  it('testInteg_CTR_uset__PRI_unsigned_PAR_ARR1_BOUND_018486', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::vector<std::unordered_set<unsigned>>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Array<Set<number>>", "G CTR_uset__PRI_unsigned.PAR.ARR1.BOUND.V0 input=std::vector<std::unordered_set<unsigned>>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export function napiV2Fn(p: Array<Set<number>>): void {}\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_uset__PRI_unsigned_PAR_ARR1_BOUND_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_uset__PRI_unsigned.PAR.ARR1.BOUND.V0 parse null");
+    // step4: 校验函数声明存在
+    assert.ok(res.funcs && res.funcs.length >= 1, "P func CTR_uset__PRI_unsigned.PAR.ARR1.BOUND.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::vector<std::unordered_set<unsigned>>");
+    assert.strictEqual(mapped, "Array<Set<number>>", "I map==expect CTR_uset__PRI_unsigned.PAR.ARR1.BOUND.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_uset__PRI_unsigned_PAR_ARR1_ERR_018487
+   * @tc.name testInteg_CTR_uset__PRI_unsigned_PAR_ARR1_ERR_018487
+   * @tc.desc Verify roundtrip parse+map for CTR_uset__PRI_unsigned.PAR.ARR1.ERR.V0 input="__INVALID_TYPE_TOKEN_1069651719__" expect="any"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 2
+   * @pair P+G-CTR_uset__PRI_unsigned.PAR.ARR1.ERR.V0
+   */
+  it('testInteg_CTR_uset__PRI_unsigned_PAR_ARR1_ERR_018487', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "__INVALID_TYPE_TOKEN_1069651719__";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 负向期望 any
+    assert.strictEqual(actual, 'any', "G negative CTR_uset__PRI_unsigned.PAR.ARR1.ERR.V0");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Neg { v: any; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_uset__PRI_unsigned_PAR_ARR1_ERR_V0.ts", src);
+    // step3: 负向 — 解析不崩溃且返回 classes
+    assert.ok(res && Array.isArray(res.classes), "P neg CTR_uset__PRI_unsigned.PAR.ARR1.ERR.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_uset__PRI_unsigned_PAR_ARR1_SPEC_018488
+   * @tc.name testInteg_CTR_uset__PRI_unsigned_PAR_ARR1_SPEC_018488
+   * @tc.desc Verify roundtrip parse+map for CTR_uset__PRI_unsigned.PAR.ARR1.SPEC.V0 input="std::vector< std::unordered_set< unsigned > >" expect="Array<Set<number>>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_uset__PRI_unsigned.PAR.ARR1.SPEC.V0
+   */
+  it('testInteg_CTR_uset__PRI_unsigned_PAR_ARR1_SPEC_018488', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::vector< std::unordered_set< unsigned > >";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Array<Set<number>>", "G CTR_uset__PRI_unsigned.PAR.ARR1.SPEC.V0 input=std::vector< std::unordered_set< unsigned > >");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export function napiV2Fn(p: Array<Set<number>>): void {}\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_uset__PRI_unsigned_PAR_ARR1_SPEC_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_uset__PRI_unsigned.PAR.ARR1.SPEC.V0 parse null");
+    // step4: 校验函数声明存在
+    assert.ok(res.funcs && res.funcs.length >= 1, "P func CTR_uset__PRI_unsigned.PAR.ARR1.SPEC.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::vector< std::unordered_set< unsigned > >");
+    assert.strictEqual(mapped, "Array<Set<number>>", "I map==expect CTR_uset__PRI_unsigned.PAR.ARR1.SPEC.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_uset__PRI_unsigned_PAR_PROM_NORM_018489
+   * @tc.name testInteg_CTR_uset__PRI_unsigned_PAR_PROM_NORM_018489
+   * @tc.desc Verify roundtrip parse+map for CTR_uset__PRI_unsigned.PAR.PROM.NORM.V0 input="std::unordered_set<unsigned>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_uset__PRI_unsigned.PAR.PROM.NORM.V0
+   */
+  it('testInteg_CTR_uset__PRI_unsigned_PAR_PROM_NORM_018489', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::unordered_set<unsigned>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_uset__PRI_unsigned.PAR.PROM.NORM.V0 input=std::unordered_set<unsigned>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export function napiV2Fn(p: Set<number>): void {}\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_uset__PRI_unsigned_PAR_PROM_NORM_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_uset__PRI_unsigned.PAR.PROM.NORM.V0 parse null");
+    // step4: 校验函数声明存在
+    assert.ok(res.funcs && res.funcs.length >= 1, "P func CTR_uset__PRI_unsigned.PAR.PROM.NORM.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::unordered_set<unsigned>");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_uset__PRI_unsigned.PAR.PROM.NORM.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_uset__PRI_unsigned_PAR_PROM_BOUND_018490
+   * @tc.name testInteg_CTR_uset__PRI_unsigned_PAR_PROM_BOUND_018490
+   * @tc.desc Verify roundtrip parse+map for CTR_uset__PRI_unsigned.PAR.PROM.BOUND.V0 input="std::unordered_set<unsigned>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_uset__PRI_unsigned.PAR.PROM.BOUND.V0
+   */
+  it('testInteg_CTR_uset__PRI_unsigned_PAR_PROM_BOUND_018490', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::unordered_set<unsigned>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_uset__PRI_unsigned.PAR.PROM.BOUND.V0 input=std::unordered_set<unsigned>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export function napiV2Fn(p: Set<number>): void {}\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_uset__PRI_unsigned_PAR_PROM_BOUND_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_uset__PRI_unsigned.PAR.PROM.BOUND.V0 parse null");
+    // step4: 校验函数声明存在
+    assert.ok(res.funcs && res.funcs.length >= 1, "P func CTR_uset__PRI_unsigned.PAR.PROM.BOUND.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::unordered_set<unsigned>");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_uset__PRI_unsigned.PAR.PROM.BOUND.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_uset__PRI_unsigned_PAR_PROM_ERR_018491
+   * @tc.name testInteg_CTR_uset__PRI_unsigned_PAR_PROM_ERR_018491
+   * @tc.desc Verify roundtrip parse+map for CTR_uset__PRI_unsigned.PAR.PROM.ERR.V0 input="__INVALID_TYPE_TOKEN_1074620479__" expect="any"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 2
+   * @pair P+G-CTR_uset__PRI_unsigned.PAR.PROM.ERR.V0
+   */
+  it('testInteg_CTR_uset__PRI_unsigned_PAR_PROM_ERR_018491', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "__INVALID_TYPE_TOKEN_1074620479__";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 负向期望 any
+    assert.strictEqual(actual, 'any', "G negative CTR_uset__PRI_unsigned.PAR.PROM.ERR.V0");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Neg { v: any; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_uset__PRI_unsigned_PAR_PROM_ERR_V0.ts", src);
+    // step3: 负向 — 解析不崩溃且返回 classes
+    assert.ok(res && Array.isArray(res.classes), "P neg CTR_uset__PRI_unsigned.PAR.PROM.ERR.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_uset__PRI_unsigned_PAR_PROM_SPEC_018492
+   * @tc.name testInteg_CTR_uset__PRI_unsigned_PAR_PROM_SPEC_018492
+   * @tc.desc Verify roundtrip parse+map for CTR_uset__PRI_unsigned.PAR.PROM.SPEC.V0 input="std::unordered_set< unsigned >" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_uset__PRI_unsigned.PAR.PROM.SPEC.V0
+   */
+  it('testInteg_CTR_uset__PRI_unsigned_PAR_PROM_SPEC_018492', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::unordered_set< unsigned >";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_uset__PRI_unsigned.PAR.PROM.SPEC.V0 input=std::unordered_set< unsigned >");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export function napiV2Fn(p: Set<number>): void {}\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_uset__PRI_unsigned_PAR_PROM_SPEC_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_uset__PRI_unsigned.PAR.PROM.SPEC.V0 parse null");
+    // step4: 校验函数声明存在
+    assert.ok(res.funcs && res.funcs.length >= 1, "P func CTR_uset__PRI_unsigned.PAR.PROM.SPEC.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::unordered_set< unsigned >");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_uset__PRI_unsigned.PAR.PROM.SPEC.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_uset__PRI_unsigned_int_PAR_RAW_NORM_018541
+   * @tc.name testInteg_CTR_uset__PRI_unsigned_int_PAR_RAW_NORM_018541
+   * @tc.desc Verify roundtrip parse+map for CTR_uset__PRI_unsigned_int.PAR.RAW.NORM.V0 input="std::unordered_set<unsigned int>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_uset__PRI_unsigned_int.PAR.RAW.NORM.V0
+   */
+  it('testInteg_CTR_uset__PRI_unsigned_int_PAR_RAW_NORM_018541', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::unordered_set<unsigned int>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_uset__PRI_unsigned_int.PAR.RAW.NORM.V0 input=std::unordered_set<unsigned int>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export function napiV2Fn(p: Set<number>): void {}\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_uset__PRI_unsigned_int_PAR_RAW_NORM_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_uset__PRI_unsigned_int.PAR.RAW.NORM.V0 parse null");
+    // step4: 校验函数声明存在
+    assert.ok(res.funcs && res.funcs.length >= 1, "P func CTR_uset__PRI_unsigned_int.PAR.RAW.NORM.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::unordered_set<unsigned int>");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_uset__PRI_unsigned_int.PAR.RAW.NORM.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_uset__PRI_unsigned_int_PAR_RAW_BOUND_018542
+   * @tc.name testInteg_CTR_uset__PRI_unsigned_int_PAR_RAW_BOUND_018542
+   * @tc.desc Verify roundtrip parse+map for CTR_uset__PRI_unsigned_int.PAR.RAW.BOUND.V0 input="std::unordered_set<unsigned int>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_uset__PRI_unsigned_int.PAR.RAW.BOUND.V0
+   */
+  it('testInteg_CTR_uset__PRI_unsigned_int_PAR_RAW_BOUND_018542', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::unordered_set<unsigned int>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_uset__PRI_unsigned_int.PAR.RAW.BOUND.V0 input=std::unordered_set<unsigned int>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export function napiV2Fn(p: Set<number>): void {}\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_uset__PRI_unsigned_int_PAR_RAW_BOUND_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_uset__PRI_unsigned_int.PAR.RAW.BOUND.V0 parse null");
+    // step4: 校验函数声明存在
+    assert.ok(res.funcs && res.funcs.length >= 1, "P func CTR_uset__PRI_unsigned_int.PAR.RAW.BOUND.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::unordered_set<unsigned int>");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_uset__PRI_unsigned_int.PAR.RAW.BOUND.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_uset__PRI_unsigned_int_PAR_RAW_ERR_018543
+   * @tc.name testInteg_CTR_uset__PRI_unsigned_int_PAR_RAW_ERR_018543
+   * @tc.desc Verify roundtrip parse+map for CTR_uset__PRI_unsigned_int.PAR.RAW.ERR.V0 input="__INVALID_TYPE_TOKEN_805735342__" expect="any"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 2
+   * @pair P+G-CTR_uset__PRI_unsigned_int.PAR.RAW.ERR.V0
+   */
+  it('testInteg_CTR_uset__PRI_unsigned_int_PAR_RAW_ERR_018543', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "__INVALID_TYPE_TOKEN_805735342__";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 负向期望 any
+    assert.strictEqual(actual, 'any', "G negative CTR_uset__PRI_unsigned_int.PAR.RAW.ERR.V0");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Neg { v: any; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_uset__PRI_unsigned_int_PAR_RAW_ERR_V0.ts", src);
+    // step3: 负向 — 解析不崩溃且返回 classes
+    assert.ok(res && Array.isArray(res.classes), "P neg CTR_uset__PRI_unsigned_int.PAR.RAW.ERR.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_uset__PRI_unsigned_int_PAR_RAW_SPEC_018544
+   * @tc.name testInteg_CTR_uset__PRI_unsigned_int_PAR_RAW_SPEC_018544
+   * @tc.desc Verify roundtrip parse+map for CTR_uset__PRI_unsigned_int.PAR.RAW.SPEC.V0 input="std::unordered_set< unsigned int >" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_uset__PRI_unsigned_int.PAR.RAW.SPEC.V0
+   */
+  it('testInteg_CTR_uset__PRI_unsigned_int_PAR_RAW_SPEC_018544', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::unordered_set< unsigned int >";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_uset__PRI_unsigned_int.PAR.RAW.SPEC.V0 input=std::unordered_set< unsigned int >");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export function napiV2Fn(p: Set<number>): void {}\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_uset__PRI_unsigned_int_PAR_RAW_SPEC_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_uset__PRI_unsigned_int.PAR.RAW.SPEC.V0 parse null");
+    // step4: 校验函数声明存在
+    assert.ok(res.funcs && res.funcs.length >= 1, "P func CTR_uset__PRI_unsigned_int.PAR.RAW.SPEC.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::unordered_set< unsigned int >");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_uset__PRI_unsigned_int.PAR.RAW.SPEC.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_uset__PRI_unsigned_int_PAR_OPT_NORM_018545
+   * @tc.name testInteg_CTR_uset__PRI_unsigned_int_PAR_OPT_NORM_018545
+   * @tc.desc Verify roundtrip parse+map for CTR_uset__PRI_unsigned_int.PAR.OPT.NORM.V0 input="std::unordered_set<unsigned int>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_uset__PRI_unsigned_int.PAR.OPT.NORM.V0
+   */
+  it('testInteg_CTR_uset__PRI_unsigned_int_PAR_OPT_NORM_018545', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::unordered_set<unsigned int>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_uset__PRI_unsigned_int.PAR.OPT.NORM.V0 input=std::unordered_set<unsigned int>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export function napiV2Fn(p: Set<number>): void {}\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_uset__PRI_unsigned_int_PAR_OPT_NORM_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_uset__PRI_unsigned_int.PAR.OPT.NORM.V0 parse null");
+    // step4: 校验函数声明存在
+    assert.ok(res.funcs && res.funcs.length >= 1, "P func CTR_uset__PRI_unsigned_int.PAR.OPT.NORM.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::unordered_set<unsigned int>");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_uset__PRI_unsigned_int.PAR.OPT.NORM.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_uset__PRI_unsigned_int_PAR_OPT_BOUND_018546
+   * @tc.name testInteg_CTR_uset__PRI_unsigned_int_PAR_OPT_BOUND_018546
+   * @tc.desc Verify roundtrip parse+map for CTR_uset__PRI_unsigned_int.PAR.OPT.BOUND.V0 input="std::unordered_set<unsigned int>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_uset__PRI_unsigned_int.PAR.OPT.BOUND.V0
+   */
+  it('testInteg_CTR_uset__PRI_unsigned_int_PAR_OPT_BOUND_018546', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::unordered_set<unsigned int>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_uset__PRI_unsigned_int.PAR.OPT.BOUND.V0 input=std::unordered_set<unsigned int>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export function napiV2Fn(p: Set<number>): void {}\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_uset__PRI_unsigned_int_PAR_OPT_BOUND_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_uset__PRI_unsigned_int.PAR.OPT.BOUND.V0 parse null");
+    // step4: 校验函数声明存在
+    assert.ok(res.funcs && res.funcs.length >= 1, "P func CTR_uset__PRI_unsigned_int.PAR.OPT.BOUND.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::unordered_set<unsigned int>");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_uset__PRI_unsigned_int.PAR.OPT.BOUND.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_uset__PRI_unsigned_int_PAR_OPT_ERR_018547
+   * @tc.name testInteg_CTR_uset__PRI_unsigned_int_PAR_OPT_ERR_018547
+   * @tc.desc Verify roundtrip parse+map for CTR_uset__PRI_unsigned_int.PAR.OPT.ERR.V0 input="__INVALID_TYPE_TOKEN_805735342__" expect="any"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 2
+   * @pair P+G-CTR_uset__PRI_unsigned_int.PAR.OPT.ERR.V0
+   */
+  it('testInteg_CTR_uset__PRI_unsigned_int_PAR_OPT_ERR_018547', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "__INVALID_TYPE_TOKEN_805735342__";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 负向期望 any
+    assert.strictEqual(actual, 'any', "G negative CTR_uset__PRI_unsigned_int.PAR.OPT.ERR.V0");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Neg { v: any; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_uset__PRI_unsigned_int_PAR_OPT_ERR_V0.ts", src);
+    // step3: 负向 — 解析不崩溃且返回 classes
+    assert.ok(res && Array.isArray(res.classes), "P neg CTR_uset__PRI_unsigned_int.PAR.OPT.ERR.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_uset__PRI_unsigned_int_PAR_OPT_SPEC_018548
+   * @tc.name testInteg_CTR_uset__PRI_unsigned_int_PAR_OPT_SPEC_018548
+   * @tc.desc Verify roundtrip parse+map for CTR_uset__PRI_unsigned_int.PAR.OPT.SPEC.V0 input="std::unordered_set< unsigned int >" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_uset__PRI_unsigned_int.PAR.OPT.SPEC.V0
+   */
+  it('testInteg_CTR_uset__PRI_unsigned_int_PAR_OPT_SPEC_018548', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::unordered_set< unsigned int >";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_uset__PRI_unsigned_int.PAR.OPT.SPEC.V0 input=std::unordered_set< unsigned int >");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export function napiV2Fn(p: Set<number>): void {}\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_uset__PRI_unsigned_int_PAR_OPT_SPEC_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_uset__PRI_unsigned_int.PAR.OPT.SPEC.V0 parse null");
+    // step4: 校验函数声明存在
+    assert.ok(res.funcs && res.funcs.length >= 1, "P func CTR_uset__PRI_unsigned_int.PAR.OPT.SPEC.V0");
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::unordered_set< unsigned int >");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_uset__PRI_unsigned_int.PAR.OPT.SPEC.V0");
+  });
+
+});
