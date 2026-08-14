@@ -1896,3 +1896,288 @@ describe('SuiteV3_P_ctr_set_as_field_09', function () {
     assert.ok(res && Array.isArray(res.classes), "P neg CTR_set__PRI_uint32.FLD.OPT.ERR.V0.V1");
   });
 
+  /**
+   * @tc.number SUB_NAPI_PARSE_CTR_set__PRI_uint32_FLD_OPT_SPEC_079104
+   * @tc.name testParse_CTR_set__PRI_uint32_FLD_OPT_SPEC_079104
+   * @tc.desc Verify parse declaration for CTR_set__PRI_uint32.FLD.OPT.SPEC.V0.V1 input="std::set< uint32_t >" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair G-CTR_set__PRI_uint32.FLD.OPT.SPEC.V0.V1
+   */
+  it('testParse_CTR_set__PRI_uint32_FLD_OPT_SPEC_079104', function () {
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Cls { v?: Set<number>; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint32_FLD_OPT_SPEC_V0_V1.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_uint32.FLD.OPT.SPEC.V0.V1 parse null");
+    // step4: 校验字段类型
+    assert.ok(res.classes && res.classes.length >= 1, "P FLD classes CTR_set__PRI_uint32.FLD.OPT.SPEC.V0.V1");
+    const t = res.classes[0].variableList[0].type;
+    assert.ok(typeof t === 'string' && t.length > 0, "P FLD type CTR_set__PRI_uint32.FLD.OPT.SPEC.V0.V1");
+    assert.ok(t.replace(/\s+/g, '') === "Set<number>" || t.includes("Set"), "P FLD CTR_set__PRI_uint32.FLD.OPT.SPEC.V0.V1" + ' got=' + t);
+  });
+
+  /**
+   * @tc.number SUB_NAPI_PARSE_CTR_set__PRI_uint32_FLD_ARR1_NORM_079105
+   * @tc.name testParse_CTR_set__PRI_uint32_FLD_ARR1_NORM_079105
+   * @tc.desc Verify parse declaration for CTR_set__PRI_uint32.FLD.ARR1.NORM.V0.V1 input="std::vector<std::set<uint32_t>>" expect="Array<Set<number>>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair G-CTR_set__PRI_uint32.FLD.ARR1.NORM.V0.V1
+   */
+  it('testParse_CTR_set__PRI_uint32_FLD_ARR1_NORM_079105', function () {
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Cls { v: Array<Set<number>>; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint32_FLD_ARR1_NORM_V0_V1.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_uint32.FLD.ARR1.NORM.V0.V1 parse null");
+    // step4: 校验字段类型
+    assert.ok(res.classes && res.classes.length >= 1, "P FLD classes CTR_set__PRI_uint32.FLD.ARR1.NORM.V0.V1");
+    const t = res.classes[0].variableList[0].type;
+    assert.ok(typeof t === 'string' && t.length > 0, "P FLD type CTR_set__PRI_uint32.FLD.ARR1.NORM.V0.V1");
+    assert.ok(t.replace(/\s+/g, '') === "Array<Set<number>>" || t.includes("Array"), "P FLD CTR_set__PRI_uint32.FLD.ARR1.NORM.V0.V1" + ' got=' + t);
+  });
+
+  /**
+   * @tc.number SUB_NAPI_PARSE_CTR_set__PRI_uint32_FLD_ARR1_BOUND_079106
+   * @tc.name testParse_CTR_set__PRI_uint32_FLD_ARR1_BOUND_079106
+   * @tc.desc Verify parse declaration for CTR_set__PRI_uint32.FLD.ARR1.BOUND.V0.V1 input="std::vector<std::set<uint32_t>>" expect="Array<Set<number>>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair G-CTR_set__PRI_uint32.FLD.ARR1.BOUND.V0.V1
+   */
+  it('testParse_CTR_set__PRI_uint32_FLD_ARR1_BOUND_079106', function () {
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Cls { v: Array<Set<number>>; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint32_FLD_ARR1_BOUND_V0_V1.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_uint32.FLD.ARR1.BOUND.V0.V1 parse null");
+    // step4: 校验字段类型
+    assert.ok(res.classes && res.classes.length >= 1, "P FLD classes CTR_set__PRI_uint32.FLD.ARR1.BOUND.V0.V1");
+    const t = res.classes[0].variableList[0].type;
+    assert.ok(typeof t === 'string' && t.length > 0, "P FLD type CTR_set__PRI_uint32.FLD.ARR1.BOUND.V0.V1");
+    assert.ok(t.replace(/\s+/g, '') === "Array<Set<number>>" || t.includes("Array"), "P FLD CTR_set__PRI_uint32.FLD.ARR1.BOUND.V0.V1" + ' got=' + t);
+  });
+
+  /**
+   * @tc.number SUB_NAPI_PARSE_CTR_set__PRI_uint32_FLD_ARR1_ERR_079107
+   * @tc.name testParse_CTR_set__PRI_uint32_FLD_ARR1_ERR_079107
+   * @tc.desc Verify parse declaration for CTR_set__PRI_uint32.FLD.ARR1.ERR.V0.V1 input="__INVALID_TYPE_TOKEN_2079112981__" expect="any"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 2
+   * @pair G-CTR_set__PRI_uint32.FLD.ARR1.ERR.V0.V1
+   */
+  it('testParse_CTR_set__PRI_uint32_FLD_ARR1_ERR_079107', function () {
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Neg { v: any; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint32_FLD_ARR1_ERR_V0_V1.ts", src);
+    // step3: 负向 — 解析不崩溃且返回 classes
+    assert.ok(res && Array.isArray(res.classes), "P neg CTR_set__PRI_uint32.FLD.ARR1.ERR.V0.V1");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_PARSE_CTR_set__PRI_uint32_FLD_ARR1_SPEC_079108
+   * @tc.name testParse_CTR_set__PRI_uint32_FLD_ARR1_SPEC_079108
+   * @tc.desc Verify parse declaration for CTR_set__PRI_uint32.FLD.ARR1.SPEC.V0.V1 input="std::vector< std::set< uint32_t > >" expect="Array<Set<number>>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair G-CTR_set__PRI_uint32.FLD.ARR1.SPEC.V0.V1
+   */
+  it('testParse_CTR_set__PRI_uint32_FLD_ARR1_SPEC_079108', function () {
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Cls { v: Array<Set<number>>; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint32_FLD_ARR1_SPEC_V0_V1.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_uint32.FLD.ARR1.SPEC.V0.V1 parse null");
+    // step4: 校验字段类型
+    assert.ok(res.classes && res.classes.length >= 1, "P FLD classes CTR_set__PRI_uint32.FLD.ARR1.SPEC.V0.V1");
+    const t = res.classes[0].variableList[0].type;
+    assert.ok(typeof t === 'string' && t.length > 0, "P FLD type CTR_set__PRI_uint32.FLD.ARR1.SPEC.V0.V1");
+    assert.ok(t.replace(/\s+/g, '') === "Array<Set<number>>" || t.includes("Array"), "P FLD CTR_set__PRI_uint32.FLD.ARR1.SPEC.V0.V1" + ' got=' + t);
+  });
+
+  /**
+   * @tc.number SUB_NAPI_PARSE_CTR_set__PRI_uint32_FLD_PROM_NORM_079109
+   * @tc.name testParse_CTR_set__PRI_uint32_FLD_PROM_NORM_079109
+   * @tc.desc Verify parse declaration for CTR_set__PRI_uint32.FLD.PROM.NORM.V0.V1 input="std::set<uint32_t>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair G-CTR_set__PRI_uint32.FLD.PROM.NORM.V0.V1
+   */
+  it('testParse_CTR_set__PRI_uint32_FLD_PROM_NORM_079109', function () {
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Cls { v: Set<number>; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint32_FLD_PROM_NORM_V0_V1.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_uint32.FLD.PROM.NORM.V0.V1 parse null");
+    // step4: 校验字段类型
+    assert.ok(res.classes && res.classes.length >= 1, "P FLD classes CTR_set__PRI_uint32.FLD.PROM.NORM.V0.V1");
+    const t = res.classes[0].variableList[0].type;
+    assert.ok(typeof t === 'string' && t.length > 0, "P FLD type CTR_set__PRI_uint32.FLD.PROM.NORM.V0.V1");
+    assert.ok(t.replace(/\s+/g, '') === "Set<number>" || t.includes("Set"), "P FLD CTR_set__PRI_uint32.FLD.PROM.NORM.V0.V1" + ' got=' + t);
+  });
+
+  /**
+   * @tc.number SUB_NAPI_PARSE_CTR_set__PRI_uint32_FLD_PROM_BOUND_079110
+   * @tc.name testParse_CTR_set__PRI_uint32_FLD_PROM_BOUND_079110
+   * @tc.desc Verify parse declaration for CTR_set__PRI_uint32.FLD.PROM.BOUND.V0.V1 input="std::set<uint32_t>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair G-CTR_set__PRI_uint32.FLD.PROM.BOUND.V0.V1
+   */
+  it('testParse_CTR_set__PRI_uint32_FLD_PROM_BOUND_079110', function () {
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Cls { v: Set<number>; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint32_FLD_PROM_BOUND_V0_V1.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_uint32.FLD.PROM.BOUND.V0.V1 parse null");
+    // step4: 校验字段类型
+    assert.ok(res.classes && res.classes.length >= 1, "P FLD classes CTR_set__PRI_uint32.FLD.PROM.BOUND.V0.V1");
+    const t = res.classes[0].variableList[0].type;
+    assert.ok(typeof t === 'string' && t.length > 0, "P FLD type CTR_set__PRI_uint32.FLD.PROM.BOUND.V0.V1");
+    assert.ok(t.replace(/\s+/g, '') === "Set<number>" || t.includes("Set"), "P FLD CTR_set__PRI_uint32.FLD.PROM.BOUND.V0.V1" + ' got=' + t);
+  });
+
+  /**
+   * @tc.number SUB_NAPI_PARSE_CTR_set__PRI_uint32_FLD_PROM_ERR_079111
+   * @tc.name testParse_CTR_set__PRI_uint32_FLD_PROM_ERR_079111
+   * @tc.desc Verify parse declaration for CTR_set__PRI_uint32.FLD.PROM.ERR.V0.V1 input="__INVALID_TYPE_TOKEN_1218699891__" expect="any"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 2
+   * @pair G-CTR_set__PRI_uint32.FLD.PROM.ERR.V0.V1
+   */
+  it('testParse_CTR_set__PRI_uint32_FLD_PROM_ERR_079111', function () {
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Neg { v: any; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint32_FLD_PROM_ERR_V0_V1.ts", src);
+    // step3: 负向 — 解析不崩溃且返回 classes
+    assert.ok(res && Array.isArray(res.classes), "P neg CTR_set__PRI_uint32.FLD.PROM.ERR.V0.V1");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_PARSE_CTR_set__PRI_uint32_FLD_PROM_SPEC_079112
+   * @tc.name testParse_CTR_set__PRI_uint32_FLD_PROM_SPEC_079112
+   * @tc.desc Verify parse declaration for CTR_set__PRI_uint32.FLD.PROM.SPEC.V0.V1 input="std::set< uint32_t >" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair G-CTR_set__PRI_uint32.FLD.PROM.SPEC.V0.V1
+   */
+  it('testParse_CTR_set__PRI_uint32_FLD_PROM_SPEC_079112', function () {
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Cls { v: Set<number>; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint32_FLD_PROM_SPEC_V0_V1.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_uint32.FLD.PROM.SPEC.V0.V1 parse null");
+    // step4: 校验字段类型
+    assert.ok(res.classes && res.classes.length >= 1, "P FLD classes CTR_set__PRI_uint32.FLD.PROM.SPEC.V0.V1");
+    const t = res.classes[0].variableList[0].type;
+    assert.ok(typeof t === 'string' && t.length > 0, "P FLD type CTR_set__PRI_uint32.FLD.PROM.SPEC.V0.V1");
+    assert.ok(t.replace(/\s+/g, '') === "Set<number>" || t.includes("Set"), "P FLD CTR_set__PRI_uint32.FLD.PROM.SPEC.V0.V1" + ' got=' + t);
+  });
+
+  /**
+   * @tc.number SUB_NAPI_PARSE_CTR_set__PRI_uint64_FLD_RAW_NORM_079161
+   * @tc.name testParse_CTR_set__PRI_uint64_FLD_RAW_NORM_079161
+   * @tc.desc Verify parse declaration for CTR_set__PRI_uint64.FLD.RAW.NORM.V0.V1 input="std::set<uint64_t>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair G-CTR_set__PRI_uint64.FLD.RAW.NORM.V0.V1
+   */
+  it('testParse_CTR_set__PRI_uint64_FLD_RAW_NORM_079161', function () {
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Cls { v: Set<number>; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint64_FLD_RAW_NORM_V0_V1.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_uint64.FLD.RAW.NORM.V0.V1 parse null");
+    // step4: 校验字段类型
+    assert.ok(res.classes && res.classes.length >= 1, "P FLD classes CTR_set__PRI_uint64.FLD.RAW.NORM.V0.V1");
+    const t = res.classes[0].variableList[0].type;
+    assert.ok(typeof t === 'string' && t.length > 0, "P FLD type CTR_set__PRI_uint64.FLD.RAW.NORM.V0.V1");
+    assert.ok(t.replace(/\s+/g, '') === "Set<number>" || t.includes("Set"), "P FLD CTR_set__PRI_uint64.FLD.RAW.NORM.V0.V1" + ' got=' + t);
+  });
+
+  /**
+   * @tc.number SUB_NAPI_PARSE_CTR_set__PRI_uint64_FLD_RAW_BOUND_079162
+   * @tc.name testParse_CTR_set__PRI_uint64_FLD_RAW_BOUND_079162
+   * @tc.desc Verify parse declaration for CTR_set__PRI_uint64.FLD.RAW.BOUND.V0.V1 input="std::set<uint64_t>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair G-CTR_set__PRI_uint64.FLD.RAW.BOUND.V0.V1
+   */
+  it('testParse_CTR_set__PRI_uint64_FLD_RAW_BOUND_079162', function () {
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Cls { v: Set<number>; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint64_FLD_RAW_BOUND_V0_V1.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_uint64.FLD.RAW.BOUND.V0.V1 parse null");
+    // step4: 校验字段类型
+    assert.ok(res.classes && res.classes.length >= 1, "P FLD classes CTR_set__PRI_uint64.FLD.RAW.BOUND.V0.V1");
+    const t = res.classes[0].variableList[0].type;
+    assert.ok(typeof t === 'string' && t.length > 0, "P FLD type CTR_set__PRI_uint64.FLD.RAW.BOUND.V0.V1");
+    assert.ok(t.replace(/\s+/g, '') === "Set<number>" || t.includes("Set"), "P FLD CTR_set__PRI_uint64.FLD.RAW.BOUND.V0.V1" + ' got=' + t);
+  });
+
+  /**
+   * @tc.number SUB_NAPI_PARSE_CTR_set__PRI_uint64_FLD_RAW_ERR_079163
+   * @tc.name testParse_CTR_set__PRI_uint64_FLD_RAW_ERR_079163
+   * @tc.desc Verify parse declaration for CTR_set__PRI_uint64.FLD.RAW.ERR.V0.V1 input="__INVALID_TYPE_TOKEN_1221530036__" expect="any"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 2
+   * @pair G-CTR_set__PRI_uint64.FLD.RAW.ERR.V0.V1
+   */
+  it('testParse_CTR_set__PRI_uint64_FLD_RAW_ERR_079163', function () {
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Neg { v: any; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint64_FLD_RAW_ERR_V0_V1.ts", src);
+    // step3: 负向 — 解析不崩溃且返回 classes
+    assert.ok(res && Array.isArray(res.classes), "P neg CTR_set__PRI_uint64.FLD.RAW.ERR.V0.V1");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_PARSE_CTR_set__PRI_uint64_FLD_RAW_SPEC_079164
+   * @tc.name testParse_CTR_set__PRI_uint64_FLD_RAW_SPEC_079164
+   * @tc.desc Verify parse declaration for CTR_set__PRI_uint64.FLD.RAW.SPEC.V0.V1 input="std::set< uint64_t >" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair G-CTR_set__PRI_uint64.FLD.RAW.SPEC.V0.V1
+   */
+  it('testParse_CTR_set__PRI_uint64_FLD_RAW_SPEC_079164', function () {
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Cls { v: Set<number>; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint64_FLD_RAW_SPEC_V0_V1.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_uint64.FLD.RAW.SPEC.V0.V1 parse null");
+    // step4: 校验字段类型
+    assert.ok(res.classes && res.classes.length >= 1, "P FLD classes CTR_set__PRI_uint64.FLD.RAW.SPEC.V0.V1");
+    const t = res.classes[0].variableList[0].type;
+    assert.ok(typeof t === 'string' && t.length > 0, "P FLD type CTR_set__PRI_uint64.FLD.RAW.SPEC.V0.V1");
+    assert.ok(t.replace(/\s+/g, '') === "Set<number>" || t.includes("Set"), "P FLD CTR_set__PRI_uint64.FLD.RAW.SPEC.V0.V1" + ' got=' + t);
+  });
+
+});
