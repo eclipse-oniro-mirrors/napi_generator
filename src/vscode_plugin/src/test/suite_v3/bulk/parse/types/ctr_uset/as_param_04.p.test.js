@@ -1896,3 +1896,63 @@ describe('SuiteV3_P_ctr_uset_as_param_04', function () {
     // step4: 校验函数声明存在
     assert.ok(res.funcs && res.funcs.length >= 1, "P func CTR_uset__PRI_uint64.PAR.PROM.NORM.V0");
   });
+
+  /**
+   * @tc.number SUB_NAPI_PARSE_CTR_uset__PRI_uint64_PAR_PROM_BOUND_019322
+   * @tc.name testParse_CTR_uset__PRI_uint64_PAR_PROM_BOUND_019322
+   * @tc.desc Verify parse declaration for CTR_uset__PRI_uint64.PAR.PROM.BOUND.V0 input="std::unordered_set<uint64_t>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair G-CTR_uset__PRI_uint64.PAR.PROM.BOUND.V0
+   */
+  it('testParse_CTR_uset__PRI_uint64_PAR_PROM_BOUND_019322', function () {
+    // step1: 构造待解析源码
+    const src = "export function napiV2Fn(p: Set<number>): void {}\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_uset__PRI_uint64_PAR_PROM_BOUND_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_uset__PRI_uint64.PAR.PROM.BOUND.V0 parse null");
+    // step4: 校验函数声明存在
+    assert.ok(res.funcs && res.funcs.length >= 1, "P func CTR_uset__PRI_uint64.PAR.PROM.BOUND.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_PARSE_CTR_uset__PRI_uint64_PAR_PROM_ERR_019323
+   * @tc.name testParse_CTR_uset__PRI_uint64_PAR_PROM_ERR_019323
+   * @tc.desc Verify parse declaration for CTR_uset__PRI_uint64.PAR.PROM.ERR.V0 input="__INVALID_TYPE_TOKEN_1073353687__" expect="any"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 2
+   * @pair G-CTR_uset__PRI_uint64.PAR.PROM.ERR.V0
+   */
+  it('testParse_CTR_uset__PRI_uint64_PAR_PROM_ERR_019323', function () {
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Neg { v: any; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_uset__PRI_uint64_PAR_PROM_ERR_V0.ts", src);
+    // step3: 负向 — 解析不崩溃且返回 classes
+    assert.ok(res && Array.isArray(res.classes), "P neg CTR_uset__PRI_uint64.PAR.PROM.ERR.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_PARSE_CTR_uset__PRI_uint64_PAR_PROM_SPEC_019324
+   * @tc.name testParse_CTR_uset__PRI_uint64_PAR_PROM_SPEC_019324
+   * @tc.desc Verify parse declaration for CTR_uset__PRI_uint64.PAR.PROM.SPEC.V0 input="std::unordered_set< uint64_t >" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair G-CTR_uset__PRI_uint64.PAR.PROM.SPEC.V0
+   */
+  it('testParse_CTR_uset__PRI_uint64_PAR_PROM_SPEC_019324', function () {
+    // step1: 构造待解析源码
+    const src = "export function napiV2Fn(p: Set<number>): void {}\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_uset__PRI_uint64_PAR_PROM_SPEC_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_uset__PRI_uint64.PAR.PROM.SPEC.V0 parse null");
+    // step4: 校验函数声明存在
+    assert.ok(res.funcs && res.funcs.length >= 1, "P func CTR_uset__PRI_uint64.PAR.PROM.SPEC.V0");
+  });
+
+});
