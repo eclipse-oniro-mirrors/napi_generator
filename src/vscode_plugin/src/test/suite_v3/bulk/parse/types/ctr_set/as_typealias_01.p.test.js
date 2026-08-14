@@ -1896,3 +1896,63 @@ describe('SuiteV3_P_ctr_set_as_typealias_01', function () {
     // step4: 校验 type alias 存在
     assert.ok(res.types && res.types.length >= 1, "P TAL CTR_set__PRI_short.TAL.RAW.NORM.V0");
   });
+
+  /**
+   * @tc.number SUB_NAPI_PARSE_CTR_set__PRI_short_TAL_RAW_BOUND_016142
+   * @tc.name testParse_CTR_set__PRI_short_TAL_RAW_BOUND_016142
+   * @tc.desc Verify parse declaration for CTR_set__PRI_short.TAL.RAW.BOUND.V0 input="std::set<short>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair G-CTR_set__PRI_short.TAL.RAW.BOUND.V0
+   */
+  it('testParse_CTR_set__PRI_short_TAL_RAW_BOUND_016142', function () {
+    // step1: 构造待解析源码
+    const src = "export type NapiV2Alias = Set<number>;\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_short_TAL_RAW_BOUND_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_short.TAL.RAW.BOUND.V0 parse null");
+    // step4: 校验 type alias 存在
+    assert.ok(res.types && res.types.length >= 1, "P TAL CTR_set__PRI_short.TAL.RAW.BOUND.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_PARSE_CTR_set__PRI_short_TAL_RAW_ERR_016143
+   * @tc.name testParse_CTR_set__PRI_short_TAL_RAW_ERR_016143
+   * @tc.desc Verify parse declaration for CTR_set__PRI_short.TAL.RAW.ERR.V0 input="__INVALID_TYPE_TOKEN_646612801__" expect="any"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 2
+   * @pair G-CTR_set__PRI_short.TAL.RAW.ERR.V0
+   */
+  it('testParse_CTR_set__PRI_short_TAL_RAW_ERR_016143', function () {
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Neg { v: any; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_short_TAL_RAW_ERR_V0.ts", src);
+    // step3: 负向 — 解析不崩溃且返回 classes
+    assert.ok(res && Array.isArray(res.classes), "P neg CTR_set__PRI_short.TAL.RAW.ERR.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_PARSE_CTR_set__PRI_short_TAL_RAW_SPEC_016144
+   * @tc.name testParse_CTR_set__PRI_short_TAL_RAW_SPEC_016144
+   * @tc.desc Verify parse declaration for CTR_set__PRI_short.TAL.RAW.SPEC.V0 input="std::set< short >" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair G-CTR_set__PRI_short.TAL.RAW.SPEC.V0
+   */
+  it('testParse_CTR_set__PRI_short_TAL_RAW_SPEC_016144', function () {
+    // step1: 构造待解析源码
+    const src = "export type NapiV2Alias = Set<number>;\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_short_TAL_RAW_SPEC_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_short.TAL.RAW.SPEC.V0 parse null");
+    // step4: 校验 type alias 存在
+    assert.ok(res.types && res.types.length >= 1, "P TAL CTR_set__PRI_short.TAL.RAW.SPEC.V0");
+  });
+
+});
