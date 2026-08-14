@@ -1896,3 +1896,1414 @@ describe('SuiteV3_I_ctr_set_as_field_04', function () {
    * @tc.size MediumTest
    * @tc.type Function
    * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_uint16.FLD.OPT.BOUND.V0
+   */
+  it('testInteg_CTR_set__PRI_uint16_FLD_OPT_BOUND_017122', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::set<uint16_t>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_set__PRI_uint16.FLD.OPT.BOUND.V0 input=std::set<uint16_t>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Cls { v?: Set<number>; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint16_FLD_OPT_BOUND_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_uint16.FLD.OPT.BOUND.V0 parse null");
+    // step4: 校验字段类型
+    assert.ok(res.classes && res.classes.length >= 1, "P FLD classes CTR_set__PRI_uint16.FLD.OPT.BOUND.V0");
+    const t = res.classes[0].variableList[0].type;
+    assert.ok(typeof t === 'string' && t.length > 0, "P FLD type CTR_set__PRI_uint16.FLD.OPT.BOUND.V0");
+    assert.ok(t.replace(/\s+/g, '') === "Set<number>" || t.includes("Set"), "P FLD CTR_set__PRI_uint16.FLD.OPT.BOUND.V0" + ' got=' + t);
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::set<uint16_t>");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_set__PRI_uint16.FLD.OPT.BOUND.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_uint16_FLD_OPT_ERR_017123
+   * @tc.name testInteg_CTR_set__PRI_uint16_FLD_OPT_ERR_017123
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_uint16.FLD.OPT.ERR.V0 input="__INVALID_TYPE_TOKEN_1216972013__" expect="any"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 2
+   * @pair P+G-CTR_set__PRI_uint16.FLD.OPT.ERR.V0
+   */
+  it('testInteg_CTR_set__PRI_uint16_FLD_OPT_ERR_017123', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "__INVALID_TYPE_TOKEN_1216972013__";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 负向期望 any
+    assert.strictEqual(actual, 'any', "G negative CTR_set__PRI_uint16.FLD.OPT.ERR.V0");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Neg { v: any; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint16_FLD_OPT_ERR_V0.ts", src);
+    // step3: 负向 — 解析不崩溃且返回 classes
+    assert.ok(res && Array.isArray(res.classes), "P neg CTR_set__PRI_uint16.FLD.OPT.ERR.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_uint16_FLD_OPT_SPEC_017124
+   * @tc.name testInteg_CTR_set__PRI_uint16_FLD_OPT_SPEC_017124
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_uint16.FLD.OPT.SPEC.V0 input="std::set< uint16_t >" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_uint16.FLD.OPT.SPEC.V0
+   */
+  it('testInteg_CTR_set__PRI_uint16_FLD_OPT_SPEC_017124', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::set< uint16_t >";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_set__PRI_uint16.FLD.OPT.SPEC.V0 input=std::set< uint16_t >");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Cls { v?: Set<number>; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint16_FLD_OPT_SPEC_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_uint16.FLD.OPT.SPEC.V0 parse null");
+    // step4: 校验字段类型
+    assert.ok(res.classes && res.classes.length >= 1, "P FLD classes CTR_set__PRI_uint16.FLD.OPT.SPEC.V0");
+    const t = res.classes[0].variableList[0].type;
+    assert.ok(typeof t === 'string' && t.length > 0, "P FLD type CTR_set__PRI_uint16.FLD.OPT.SPEC.V0");
+    assert.ok(t.replace(/\s+/g, '') === "Set<number>" || t.includes("Set"), "P FLD CTR_set__PRI_uint16.FLD.OPT.SPEC.V0" + ' got=' + t);
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::set< uint16_t >");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_set__PRI_uint16.FLD.OPT.SPEC.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_uint16_FLD_ARR1_NORM_017125
+   * @tc.name testInteg_CTR_set__PRI_uint16_FLD_ARR1_NORM_017125
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_uint16.FLD.ARR1.NORM.V0 input="std::vector<std::set<uint16_t>>" expect="Array<Set<number>>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_uint16.FLD.ARR1.NORM.V0
+   */
+  it('testInteg_CTR_set__PRI_uint16_FLD_ARR1_NORM_017125', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::vector<std::set<uint16_t>>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Array<Set<number>>", "G CTR_set__PRI_uint16.FLD.ARR1.NORM.V0 input=std::vector<std::set<uint16_t>>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Cls { v: Array<Set<number>>; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint16_FLD_ARR1_NORM_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_uint16.FLD.ARR1.NORM.V0 parse null");
+    // step4: 校验字段类型
+    assert.ok(res.classes && res.classes.length >= 1, "P FLD classes CTR_set__PRI_uint16.FLD.ARR1.NORM.V0");
+    const t = res.classes[0].variableList[0].type;
+    assert.ok(typeof t === 'string' && t.length > 0, "P FLD type CTR_set__PRI_uint16.FLD.ARR1.NORM.V0");
+    assert.ok(t.replace(/\s+/g, '') === "Array<Set<number>>" || t.includes("Array"), "P FLD CTR_set__PRI_uint16.FLD.ARR1.NORM.V0" + ' got=' + t);
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::vector<std::set<uint16_t>>");
+    assert.strictEqual(mapped, "Array<Set<number>>", "I map==expect CTR_set__PRI_uint16.FLD.ARR1.NORM.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_uint16_FLD_ARR1_BOUND_017126
+   * @tc.name testInteg_CTR_set__PRI_uint16_FLD_ARR1_BOUND_017126
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_uint16.FLD.ARR1.BOUND.V0 input="std::vector<std::set<uint16_t>>" expect="Array<Set<number>>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_uint16.FLD.ARR1.BOUND.V0
+   */
+  it('testInteg_CTR_set__PRI_uint16_FLD_ARR1_BOUND_017126', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::vector<std::set<uint16_t>>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Array<Set<number>>", "G CTR_set__PRI_uint16.FLD.ARR1.BOUND.V0 input=std::vector<std::set<uint16_t>>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Cls { v: Array<Set<number>>; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint16_FLD_ARR1_BOUND_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_uint16.FLD.ARR1.BOUND.V0 parse null");
+    // step4: 校验字段类型
+    assert.ok(res.classes && res.classes.length >= 1, "P FLD classes CTR_set__PRI_uint16.FLD.ARR1.BOUND.V0");
+    const t = res.classes[0].variableList[0].type;
+    assert.ok(typeof t === 'string' && t.length > 0, "P FLD type CTR_set__PRI_uint16.FLD.ARR1.BOUND.V0");
+    assert.ok(t.replace(/\s+/g, '') === "Array<Set<number>>" || t.includes("Array"), "P FLD CTR_set__PRI_uint16.FLD.ARR1.BOUND.V0" + ' got=' + t);
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::vector<std::set<uint16_t>>");
+    assert.strictEqual(mapped, "Array<Set<number>>", "I map==expect CTR_set__PRI_uint16.FLD.ARR1.BOUND.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_uint16_FLD_ARR1_ERR_017127
+   * @tc.name testInteg_CTR_set__PRI_uint16_FLD_ARR1_ERR_017127
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_uint16.FLD.ARR1.ERR.V0 input="__INVALID_TYPE_TOKEN_2025548763__" expect="any"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 2
+   * @pair P+G-CTR_set__PRI_uint16.FLD.ARR1.ERR.V0
+   */
+  it('testInteg_CTR_set__PRI_uint16_FLD_ARR1_ERR_017127', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "__INVALID_TYPE_TOKEN_2025548763__";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 负向期望 any
+    assert.strictEqual(actual, 'any', "G negative CTR_set__PRI_uint16.FLD.ARR1.ERR.V0");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Neg { v: any; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint16_FLD_ARR1_ERR_V0.ts", src);
+    // step3: 负向 — 解析不崩溃且返回 classes
+    assert.ok(res && Array.isArray(res.classes), "P neg CTR_set__PRI_uint16.FLD.ARR1.ERR.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_uint16_FLD_ARR1_SPEC_017128
+   * @tc.name testInteg_CTR_set__PRI_uint16_FLD_ARR1_SPEC_017128
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_uint16.FLD.ARR1.SPEC.V0 input="std::vector< std::set< uint16_t > >" expect="Array<Set<number>>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_uint16.FLD.ARR1.SPEC.V0
+   */
+  it('testInteg_CTR_set__PRI_uint16_FLD_ARR1_SPEC_017128', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::vector< std::set< uint16_t > >";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Array<Set<number>>", "G CTR_set__PRI_uint16.FLD.ARR1.SPEC.V0 input=std::vector< std::set< uint16_t > >");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Cls { v: Array<Set<number>>; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint16_FLD_ARR1_SPEC_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_uint16.FLD.ARR1.SPEC.V0 parse null");
+    // step4: 校验字段类型
+    assert.ok(res.classes && res.classes.length >= 1, "P FLD classes CTR_set__PRI_uint16.FLD.ARR1.SPEC.V0");
+    const t = res.classes[0].variableList[0].type;
+    assert.ok(typeof t === 'string' && t.length > 0, "P FLD type CTR_set__PRI_uint16.FLD.ARR1.SPEC.V0");
+    assert.ok(t.replace(/\s+/g, '') === "Array<Set<number>>" || t.includes("Array"), "P FLD CTR_set__PRI_uint16.FLD.ARR1.SPEC.V0" + ' got=' + t);
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::vector< std::set< uint16_t > >");
+    assert.strictEqual(mapped, "Array<Set<number>>", "I map==expect CTR_set__PRI_uint16.FLD.ARR1.SPEC.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_uint16_FLD_PROM_NORM_017129
+   * @tc.name testInteg_CTR_set__PRI_uint16_FLD_PROM_NORM_017129
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_uint16.FLD.PROM.NORM.V0 input="std::set<uint16_t>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_uint16.FLD.PROM.NORM.V0
+   */
+  it('testInteg_CTR_set__PRI_uint16_FLD_PROM_NORM_017129', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::set<uint16_t>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_set__PRI_uint16.FLD.PROM.NORM.V0 input=std::set<uint16_t>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Cls { v: Set<number>; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint16_FLD_PROM_NORM_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_uint16.FLD.PROM.NORM.V0 parse null");
+    // step4: 校验字段类型
+    assert.ok(res.classes && res.classes.length >= 1, "P FLD classes CTR_set__PRI_uint16.FLD.PROM.NORM.V0");
+    const t = res.classes[0].variableList[0].type;
+    assert.ok(typeof t === 'string' && t.length > 0, "P FLD type CTR_set__PRI_uint16.FLD.PROM.NORM.V0");
+    assert.ok(t.replace(/\s+/g, '') === "Set<number>" || t.includes("Set"), "P FLD CTR_set__PRI_uint16.FLD.PROM.NORM.V0" + ' got=' + t);
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::set<uint16_t>");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_set__PRI_uint16.FLD.PROM.NORM.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_uint16_FLD_PROM_BOUND_017130
+   * @tc.name testInteg_CTR_set__PRI_uint16_FLD_PROM_BOUND_017130
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_uint16.FLD.PROM.BOUND.V0 input="std::set<uint16_t>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_uint16.FLD.PROM.BOUND.V0
+   */
+  it('testInteg_CTR_set__PRI_uint16_FLD_PROM_BOUND_017130', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::set<uint16_t>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_set__PRI_uint16.FLD.PROM.BOUND.V0 input=std::set<uint16_t>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Cls { v: Set<number>; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint16_FLD_PROM_BOUND_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_uint16.FLD.PROM.BOUND.V0 parse null");
+    // step4: 校验字段类型
+    assert.ok(res.classes && res.classes.length >= 1, "P FLD classes CTR_set__PRI_uint16.FLD.PROM.BOUND.V0");
+    const t = res.classes[0].variableList[0].type;
+    assert.ok(typeof t === 'string' && t.length > 0, "P FLD type CTR_set__PRI_uint16.FLD.PROM.BOUND.V0");
+    assert.ok(t.replace(/\s+/g, '') === "Set<number>" || t.includes("Set"), "P FLD CTR_set__PRI_uint16.FLD.PROM.BOUND.V0" + ' got=' + t);
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::set<uint16_t>");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_set__PRI_uint16.FLD.PROM.BOUND.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_uint16_FLD_PROM_ERR_017131
+   * @tc.name testInteg_CTR_set__PRI_uint16_FLD_PROM_ERR_017131
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_uint16.FLD.PROM.ERR.V0 input="__INVALID_TYPE_TOKEN_1216972013__" expect="any"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 2
+   * @pair P+G-CTR_set__PRI_uint16.FLD.PROM.ERR.V0
+   */
+  it('testInteg_CTR_set__PRI_uint16_FLD_PROM_ERR_017131', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "__INVALID_TYPE_TOKEN_1216972013__";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 负向期望 any
+    assert.strictEqual(actual, 'any', "G negative CTR_set__PRI_uint16.FLD.PROM.ERR.V0");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Neg { v: any; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint16_FLD_PROM_ERR_V0.ts", src);
+    // step3: 负向 — 解析不崩溃且返回 classes
+    assert.ok(res && Array.isArray(res.classes), "P neg CTR_set__PRI_uint16.FLD.PROM.ERR.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_uint16_FLD_PROM_SPEC_017132
+   * @tc.name testInteg_CTR_set__PRI_uint16_FLD_PROM_SPEC_017132
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_uint16.FLD.PROM.SPEC.V0 input="std::set< uint16_t >" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_uint16.FLD.PROM.SPEC.V0
+   */
+  it('testInteg_CTR_set__PRI_uint16_FLD_PROM_SPEC_017132', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::set< uint16_t >";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_set__PRI_uint16.FLD.PROM.SPEC.V0 input=std::set< uint16_t >");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Cls { v: Set<number>; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint16_FLD_PROM_SPEC_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_uint16.FLD.PROM.SPEC.V0 parse null");
+    // step4: 校验字段类型
+    assert.ok(res.classes && res.classes.length >= 1, "P FLD classes CTR_set__PRI_uint16.FLD.PROM.SPEC.V0");
+    const t = res.classes[0].variableList[0].type;
+    assert.ok(typeof t === 'string' && t.length > 0, "P FLD type CTR_set__PRI_uint16.FLD.PROM.SPEC.V0");
+    assert.ok(t.replace(/\s+/g, '') === "Set<number>" || t.includes("Set"), "P FLD CTR_set__PRI_uint16.FLD.PROM.SPEC.V0" + ' got=' + t);
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::set< uint16_t >");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_set__PRI_uint16.FLD.PROM.SPEC.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_uint32_FLD_RAW_NORM_017181
+   * @tc.name testInteg_CTR_set__PRI_uint32_FLD_RAW_NORM_017181
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_uint32.FLD.RAW.NORM.V0 input="std::set<uint32_t>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_uint32.FLD.RAW.NORM.V0
+   */
+  it('testInteg_CTR_set__PRI_uint32_FLD_RAW_NORM_017181', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::set<uint32_t>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_set__PRI_uint32.FLD.RAW.NORM.V0 input=std::set<uint32_t>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Cls { v: Set<number>; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint32_FLD_RAW_NORM_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_uint32.FLD.RAW.NORM.V0 parse null");
+    // step4: 校验字段类型
+    assert.ok(res.classes && res.classes.length >= 1, "P FLD classes CTR_set__PRI_uint32.FLD.RAW.NORM.V0");
+    const t = res.classes[0].variableList[0].type;
+    assert.ok(typeof t === 'string' && t.length > 0, "P FLD type CTR_set__PRI_uint32.FLD.RAW.NORM.V0");
+    assert.ok(t.replace(/\s+/g, '') === "Set<number>" || t.includes("Set"), "P FLD CTR_set__PRI_uint32.FLD.RAW.NORM.V0" + ' got=' + t);
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::set<uint32_t>");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_set__PRI_uint32.FLD.RAW.NORM.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_uint32_FLD_RAW_BOUND_017182
+   * @tc.name testInteg_CTR_set__PRI_uint32_FLD_RAW_BOUND_017182
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_uint32.FLD.RAW.BOUND.V0 input="std::set<uint32_t>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_uint32.FLD.RAW.BOUND.V0
+   */
+  it('testInteg_CTR_set__PRI_uint32_FLD_RAW_BOUND_017182', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::set<uint32_t>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_set__PRI_uint32.FLD.RAW.BOUND.V0 input=std::set<uint32_t>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Cls { v: Set<number>; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint32_FLD_RAW_BOUND_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_uint32.FLD.RAW.BOUND.V0 parse null");
+    // step4: 校验字段类型
+    assert.ok(res.classes && res.classes.length >= 1, "P FLD classes CTR_set__PRI_uint32.FLD.RAW.BOUND.V0");
+    const t = res.classes[0].variableList[0].type;
+    assert.ok(typeof t === 'string' && t.length > 0, "P FLD type CTR_set__PRI_uint32.FLD.RAW.BOUND.V0");
+    assert.ok(t.replace(/\s+/g, '') === "Set<number>" || t.includes("Set"), "P FLD CTR_set__PRI_uint32.FLD.RAW.BOUND.V0" + ' got=' + t);
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::set<uint32_t>");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_set__PRI_uint32.FLD.RAW.BOUND.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_uint32_FLD_RAW_ERR_017183
+   * @tc.name testInteg_CTR_set__PRI_uint32_FLD_RAW_ERR_017183
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_uint32.FLD.RAW.ERR.V0 input="__INVALID_TYPE_TOKEN_1218699891__" expect="any"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 2
+   * @pair P+G-CTR_set__PRI_uint32.FLD.RAW.ERR.V0
+   */
+  it('testInteg_CTR_set__PRI_uint32_FLD_RAW_ERR_017183', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "__INVALID_TYPE_TOKEN_1218699891__";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 负向期望 any
+    assert.strictEqual(actual, 'any', "G negative CTR_set__PRI_uint32.FLD.RAW.ERR.V0");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Neg { v: any; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint32_FLD_RAW_ERR_V0.ts", src);
+    // step3: 负向 — 解析不崩溃且返回 classes
+    assert.ok(res && Array.isArray(res.classes), "P neg CTR_set__PRI_uint32.FLD.RAW.ERR.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_uint32_FLD_RAW_SPEC_017184
+   * @tc.name testInteg_CTR_set__PRI_uint32_FLD_RAW_SPEC_017184
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_uint32.FLD.RAW.SPEC.V0 input="std::set< uint32_t >" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_uint32.FLD.RAW.SPEC.V0
+   */
+  it('testInteg_CTR_set__PRI_uint32_FLD_RAW_SPEC_017184', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::set< uint32_t >";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_set__PRI_uint32.FLD.RAW.SPEC.V0 input=std::set< uint32_t >");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Cls { v: Set<number>; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint32_FLD_RAW_SPEC_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_uint32.FLD.RAW.SPEC.V0 parse null");
+    // step4: 校验字段类型
+    assert.ok(res.classes && res.classes.length >= 1, "P FLD classes CTR_set__PRI_uint32.FLD.RAW.SPEC.V0");
+    const t = res.classes[0].variableList[0].type;
+    assert.ok(typeof t === 'string' && t.length > 0, "P FLD type CTR_set__PRI_uint32.FLD.RAW.SPEC.V0");
+    assert.ok(t.replace(/\s+/g, '') === "Set<number>" || t.includes("Set"), "P FLD CTR_set__PRI_uint32.FLD.RAW.SPEC.V0" + ' got=' + t);
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::set< uint32_t >");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_set__PRI_uint32.FLD.RAW.SPEC.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_uint32_FLD_OPT_NORM_017185
+   * @tc.name testInteg_CTR_set__PRI_uint32_FLD_OPT_NORM_017185
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_uint32.FLD.OPT.NORM.V0 input="std::set<uint32_t>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_uint32.FLD.OPT.NORM.V0
+   */
+  it('testInteg_CTR_set__PRI_uint32_FLD_OPT_NORM_017185', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::set<uint32_t>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_set__PRI_uint32.FLD.OPT.NORM.V0 input=std::set<uint32_t>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Cls { v?: Set<number>; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint32_FLD_OPT_NORM_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_uint32.FLD.OPT.NORM.V0 parse null");
+    // step4: 校验字段类型
+    assert.ok(res.classes && res.classes.length >= 1, "P FLD classes CTR_set__PRI_uint32.FLD.OPT.NORM.V0");
+    const t = res.classes[0].variableList[0].type;
+    assert.ok(typeof t === 'string' && t.length > 0, "P FLD type CTR_set__PRI_uint32.FLD.OPT.NORM.V0");
+    assert.ok(t.replace(/\s+/g, '') === "Set<number>" || t.includes("Set"), "P FLD CTR_set__PRI_uint32.FLD.OPT.NORM.V0" + ' got=' + t);
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::set<uint32_t>");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_set__PRI_uint32.FLD.OPT.NORM.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_uint32_FLD_OPT_BOUND_017186
+   * @tc.name testInteg_CTR_set__PRI_uint32_FLD_OPT_BOUND_017186
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_uint32.FLD.OPT.BOUND.V0 input="std::set<uint32_t>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_uint32.FLD.OPT.BOUND.V0
+   */
+  it('testInteg_CTR_set__PRI_uint32_FLD_OPT_BOUND_017186', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::set<uint32_t>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_set__PRI_uint32.FLD.OPT.BOUND.V0 input=std::set<uint32_t>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Cls { v?: Set<number>; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint32_FLD_OPT_BOUND_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_uint32.FLD.OPT.BOUND.V0 parse null");
+    // step4: 校验字段类型
+    assert.ok(res.classes && res.classes.length >= 1, "P FLD classes CTR_set__PRI_uint32.FLD.OPT.BOUND.V0");
+    const t = res.classes[0].variableList[0].type;
+    assert.ok(typeof t === 'string' && t.length > 0, "P FLD type CTR_set__PRI_uint32.FLD.OPT.BOUND.V0");
+    assert.ok(t.replace(/\s+/g, '') === "Set<number>" || t.includes("Set"), "P FLD CTR_set__PRI_uint32.FLD.OPT.BOUND.V0" + ' got=' + t);
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::set<uint32_t>");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_set__PRI_uint32.FLD.OPT.BOUND.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_uint32_FLD_OPT_ERR_017187
+   * @tc.name testInteg_CTR_set__PRI_uint32_FLD_OPT_ERR_017187
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_uint32.FLD.OPT.ERR.V0 input="__INVALID_TYPE_TOKEN_1218699891__" expect="any"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 2
+   * @pair P+G-CTR_set__PRI_uint32.FLD.OPT.ERR.V0
+   */
+  it('testInteg_CTR_set__PRI_uint32_FLD_OPT_ERR_017187', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "__INVALID_TYPE_TOKEN_1218699891__";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 负向期望 any
+    assert.strictEqual(actual, 'any', "G negative CTR_set__PRI_uint32.FLD.OPT.ERR.V0");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Neg { v: any; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint32_FLD_OPT_ERR_V0.ts", src);
+    // step3: 负向 — 解析不崩溃且返回 classes
+    assert.ok(res && Array.isArray(res.classes), "P neg CTR_set__PRI_uint32.FLD.OPT.ERR.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_uint32_FLD_OPT_SPEC_017188
+   * @tc.name testInteg_CTR_set__PRI_uint32_FLD_OPT_SPEC_017188
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_uint32.FLD.OPT.SPEC.V0 input="std::set< uint32_t >" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_uint32.FLD.OPT.SPEC.V0
+   */
+  it('testInteg_CTR_set__PRI_uint32_FLD_OPT_SPEC_017188', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::set< uint32_t >";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_set__PRI_uint32.FLD.OPT.SPEC.V0 input=std::set< uint32_t >");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Cls { v?: Set<number>; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint32_FLD_OPT_SPEC_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_uint32.FLD.OPT.SPEC.V0 parse null");
+    // step4: 校验字段类型
+    assert.ok(res.classes && res.classes.length >= 1, "P FLD classes CTR_set__PRI_uint32.FLD.OPT.SPEC.V0");
+    const t = res.classes[0].variableList[0].type;
+    assert.ok(typeof t === 'string' && t.length > 0, "P FLD type CTR_set__PRI_uint32.FLD.OPT.SPEC.V0");
+    assert.ok(t.replace(/\s+/g, '') === "Set<number>" || t.includes("Set"), "P FLD CTR_set__PRI_uint32.FLD.OPT.SPEC.V0" + ' got=' + t);
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::set< uint32_t >");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_set__PRI_uint32.FLD.OPT.SPEC.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_uint32_FLD_ARR1_NORM_017189
+   * @tc.name testInteg_CTR_set__PRI_uint32_FLD_ARR1_NORM_017189
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_uint32.FLD.ARR1.NORM.V0 input="std::vector<std::set<uint32_t>>" expect="Array<Set<number>>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_uint32.FLD.ARR1.NORM.V0
+   */
+  it('testInteg_CTR_set__PRI_uint32_FLD_ARR1_NORM_017189', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::vector<std::set<uint32_t>>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Array<Set<number>>", "G CTR_set__PRI_uint32.FLD.ARR1.NORM.V0 input=std::vector<std::set<uint32_t>>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Cls { v: Array<Set<number>>; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint32_FLD_ARR1_NORM_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_uint32.FLD.ARR1.NORM.V0 parse null");
+    // step4: 校验字段类型
+    assert.ok(res.classes && res.classes.length >= 1, "P FLD classes CTR_set__PRI_uint32.FLD.ARR1.NORM.V0");
+    const t = res.classes[0].variableList[0].type;
+    assert.ok(typeof t === 'string' && t.length > 0, "P FLD type CTR_set__PRI_uint32.FLD.ARR1.NORM.V0");
+    assert.ok(t.replace(/\s+/g, '') === "Array<Set<number>>" || t.includes("Array"), "P FLD CTR_set__PRI_uint32.FLD.ARR1.NORM.V0" + ' got=' + t);
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::vector<std::set<uint32_t>>");
+    assert.strictEqual(mapped, "Array<Set<number>>", "I map==expect CTR_set__PRI_uint32.FLD.ARR1.NORM.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_uint32_FLD_ARR1_BOUND_017190
+   * @tc.name testInteg_CTR_set__PRI_uint32_FLD_ARR1_BOUND_017190
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_uint32.FLD.ARR1.BOUND.V0 input="std::vector<std::set<uint32_t>>" expect="Array<Set<number>>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_uint32.FLD.ARR1.BOUND.V0
+   */
+  it('testInteg_CTR_set__PRI_uint32_FLD_ARR1_BOUND_017190', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::vector<std::set<uint32_t>>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Array<Set<number>>", "G CTR_set__PRI_uint32.FLD.ARR1.BOUND.V0 input=std::vector<std::set<uint32_t>>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Cls { v: Array<Set<number>>; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint32_FLD_ARR1_BOUND_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_uint32.FLD.ARR1.BOUND.V0 parse null");
+    // step4: 校验字段类型
+    assert.ok(res.classes && res.classes.length >= 1, "P FLD classes CTR_set__PRI_uint32.FLD.ARR1.BOUND.V0");
+    const t = res.classes[0].variableList[0].type;
+    assert.ok(typeof t === 'string' && t.length > 0, "P FLD type CTR_set__PRI_uint32.FLD.ARR1.BOUND.V0");
+    assert.ok(t.replace(/\s+/g, '') === "Array<Set<number>>" || t.includes("Array"), "P FLD CTR_set__PRI_uint32.FLD.ARR1.BOUND.V0" + ' got=' + t);
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::vector<std::set<uint32_t>>");
+    assert.strictEqual(mapped, "Array<Set<number>>", "I map==expect CTR_set__PRI_uint32.FLD.ARR1.BOUND.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_uint32_FLD_ARR1_ERR_017191
+   * @tc.name testInteg_CTR_set__PRI_uint32_FLD_ARR1_ERR_017191
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_uint32.FLD.ARR1.ERR.V0 input="__INVALID_TYPE_TOKEN_2079112981__" expect="any"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 2
+   * @pair P+G-CTR_set__PRI_uint32.FLD.ARR1.ERR.V0
+   */
+  it('testInteg_CTR_set__PRI_uint32_FLD_ARR1_ERR_017191', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "__INVALID_TYPE_TOKEN_2079112981__";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 负向期望 any
+    assert.strictEqual(actual, 'any', "G negative CTR_set__PRI_uint32.FLD.ARR1.ERR.V0");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Neg { v: any; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint32_FLD_ARR1_ERR_V0.ts", src);
+    // step3: 负向 — 解析不崩溃且返回 classes
+    assert.ok(res && Array.isArray(res.classes), "P neg CTR_set__PRI_uint32.FLD.ARR1.ERR.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_uint32_FLD_ARR1_SPEC_017192
+   * @tc.name testInteg_CTR_set__PRI_uint32_FLD_ARR1_SPEC_017192
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_uint32.FLD.ARR1.SPEC.V0 input="std::vector< std::set< uint32_t > >" expect="Array<Set<number>>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_uint32.FLD.ARR1.SPEC.V0
+   */
+  it('testInteg_CTR_set__PRI_uint32_FLD_ARR1_SPEC_017192', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::vector< std::set< uint32_t > >";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Array<Set<number>>", "G CTR_set__PRI_uint32.FLD.ARR1.SPEC.V0 input=std::vector< std::set< uint32_t > >");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Cls { v: Array<Set<number>>; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint32_FLD_ARR1_SPEC_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_uint32.FLD.ARR1.SPEC.V0 parse null");
+    // step4: 校验字段类型
+    assert.ok(res.classes && res.classes.length >= 1, "P FLD classes CTR_set__PRI_uint32.FLD.ARR1.SPEC.V0");
+    const t = res.classes[0].variableList[0].type;
+    assert.ok(typeof t === 'string' && t.length > 0, "P FLD type CTR_set__PRI_uint32.FLD.ARR1.SPEC.V0");
+    assert.ok(t.replace(/\s+/g, '') === "Array<Set<number>>" || t.includes("Array"), "P FLD CTR_set__PRI_uint32.FLD.ARR1.SPEC.V0" + ' got=' + t);
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::vector< std::set< uint32_t > >");
+    assert.strictEqual(mapped, "Array<Set<number>>", "I map==expect CTR_set__PRI_uint32.FLD.ARR1.SPEC.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_uint32_FLD_PROM_NORM_017193
+   * @tc.name testInteg_CTR_set__PRI_uint32_FLD_PROM_NORM_017193
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_uint32.FLD.PROM.NORM.V0 input="std::set<uint32_t>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_uint32.FLD.PROM.NORM.V0
+   */
+  it('testInteg_CTR_set__PRI_uint32_FLD_PROM_NORM_017193', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::set<uint32_t>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_set__PRI_uint32.FLD.PROM.NORM.V0 input=std::set<uint32_t>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Cls { v: Set<number>; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint32_FLD_PROM_NORM_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_uint32.FLD.PROM.NORM.V0 parse null");
+    // step4: 校验字段类型
+    assert.ok(res.classes && res.classes.length >= 1, "P FLD classes CTR_set__PRI_uint32.FLD.PROM.NORM.V0");
+    const t = res.classes[0].variableList[0].type;
+    assert.ok(typeof t === 'string' && t.length > 0, "P FLD type CTR_set__PRI_uint32.FLD.PROM.NORM.V0");
+    assert.ok(t.replace(/\s+/g, '') === "Set<number>" || t.includes("Set"), "P FLD CTR_set__PRI_uint32.FLD.PROM.NORM.V0" + ' got=' + t);
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::set<uint32_t>");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_set__PRI_uint32.FLD.PROM.NORM.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_uint32_FLD_PROM_BOUND_017194
+   * @tc.name testInteg_CTR_set__PRI_uint32_FLD_PROM_BOUND_017194
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_uint32.FLD.PROM.BOUND.V0 input="std::set<uint32_t>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_uint32.FLD.PROM.BOUND.V0
+   */
+  it('testInteg_CTR_set__PRI_uint32_FLD_PROM_BOUND_017194', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::set<uint32_t>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_set__PRI_uint32.FLD.PROM.BOUND.V0 input=std::set<uint32_t>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Cls { v: Set<number>; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint32_FLD_PROM_BOUND_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_uint32.FLD.PROM.BOUND.V0 parse null");
+    // step4: 校验字段类型
+    assert.ok(res.classes && res.classes.length >= 1, "P FLD classes CTR_set__PRI_uint32.FLD.PROM.BOUND.V0");
+    const t = res.classes[0].variableList[0].type;
+    assert.ok(typeof t === 'string' && t.length > 0, "P FLD type CTR_set__PRI_uint32.FLD.PROM.BOUND.V0");
+    assert.ok(t.replace(/\s+/g, '') === "Set<number>" || t.includes("Set"), "P FLD CTR_set__PRI_uint32.FLD.PROM.BOUND.V0" + ' got=' + t);
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::set<uint32_t>");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_set__PRI_uint32.FLD.PROM.BOUND.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_uint32_FLD_PROM_ERR_017195
+   * @tc.name testInteg_CTR_set__PRI_uint32_FLD_PROM_ERR_017195
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_uint32.FLD.PROM.ERR.V0 input="__INVALID_TYPE_TOKEN_1218699891__" expect="any"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 2
+   * @pair P+G-CTR_set__PRI_uint32.FLD.PROM.ERR.V0
+   */
+  it('testInteg_CTR_set__PRI_uint32_FLD_PROM_ERR_017195', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "__INVALID_TYPE_TOKEN_1218699891__";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 负向期望 any
+    assert.strictEqual(actual, 'any', "G negative CTR_set__PRI_uint32.FLD.PROM.ERR.V0");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Neg { v: any; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint32_FLD_PROM_ERR_V0.ts", src);
+    // step3: 负向 — 解析不崩溃且返回 classes
+    assert.ok(res && Array.isArray(res.classes), "P neg CTR_set__PRI_uint32.FLD.PROM.ERR.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_uint32_FLD_PROM_SPEC_017196
+   * @tc.name testInteg_CTR_set__PRI_uint32_FLD_PROM_SPEC_017196
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_uint32.FLD.PROM.SPEC.V0 input="std::set< uint32_t >" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_uint32.FLD.PROM.SPEC.V0
+   */
+  it('testInteg_CTR_set__PRI_uint32_FLD_PROM_SPEC_017196', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::set< uint32_t >";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_set__PRI_uint32.FLD.PROM.SPEC.V0 input=std::set< uint32_t >");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Cls { v: Set<number>; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint32_FLD_PROM_SPEC_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_uint32.FLD.PROM.SPEC.V0 parse null");
+    // step4: 校验字段类型
+    assert.ok(res.classes && res.classes.length >= 1, "P FLD classes CTR_set__PRI_uint32.FLD.PROM.SPEC.V0");
+    const t = res.classes[0].variableList[0].type;
+    assert.ok(typeof t === 'string' && t.length > 0, "P FLD type CTR_set__PRI_uint32.FLD.PROM.SPEC.V0");
+    assert.ok(t.replace(/\s+/g, '') === "Set<number>" || t.includes("Set"), "P FLD CTR_set__PRI_uint32.FLD.PROM.SPEC.V0" + ' got=' + t);
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::set< uint32_t >");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_set__PRI_uint32.FLD.PROM.SPEC.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_uint64_FLD_RAW_NORM_017245
+   * @tc.name testInteg_CTR_set__PRI_uint64_FLD_RAW_NORM_017245
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_uint64.FLD.RAW.NORM.V0 input="std::set<uint64_t>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_uint64.FLD.RAW.NORM.V0
+   */
+  it('testInteg_CTR_set__PRI_uint64_FLD_RAW_NORM_017245', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::set<uint64_t>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_set__PRI_uint64.FLD.RAW.NORM.V0 input=std::set<uint64_t>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Cls { v: Set<number>; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint64_FLD_RAW_NORM_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_uint64.FLD.RAW.NORM.V0 parse null");
+    // step4: 校验字段类型
+    assert.ok(res.classes && res.classes.length >= 1, "P FLD classes CTR_set__PRI_uint64.FLD.RAW.NORM.V0");
+    const t = res.classes[0].variableList[0].type;
+    assert.ok(typeof t === 'string' && t.length > 0, "P FLD type CTR_set__PRI_uint64.FLD.RAW.NORM.V0");
+    assert.ok(t.replace(/\s+/g, '') === "Set<number>" || t.includes("Set"), "P FLD CTR_set__PRI_uint64.FLD.RAW.NORM.V0" + ' got=' + t);
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::set<uint64_t>");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_set__PRI_uint64.FLD.RAW.NORM.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_uint64_FLD_RAW_BOUND_017246
+   * @tc.name testInteg_CTR_set__PRI_uint64_FLD_RAW_BOUND_017246
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_uint64.FLD.RAW.BOUND.V0 input="std::set<uint64_t>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_uint64.FLD.RAW.BOUND.V0
+   */
+  it('testInteg_CTR_set__PRI_uint64_FLD_RAW_BOUND_017246', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::set<uint64_t>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_set__PRI_uint64.FLD.RAW.BOUND.V0 input=std::set<uint64_t>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Cls { v: Set<number>; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint64_FLD_RAW_BOUND_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_uint64.FLD.RAW.BOUND.V0 parse null");
+    // step4: 校验字段类型
+    assert.ok(res.classes && res.classes.length >= 1, "P FLD classes CTR_set__PRI_uint64.FLD.RAW.BOUND.V0");
+    const t = res.classes[0].variableList[0].type;
+    assert.ok(typeof t === 'string' && t.length > 0, "P FLD type CTR_set__PRI_uint64.FLD.RAW.BOUND.V0");
+    assert.ok(t.replace(/\s+/g, '') === "Set<number>" || t.includes("Set"), "P FLD CTR_set__PRI_uint64.FLD.RAW.BOUND.V0" + ' got=' + t);
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::set<uint64_t>");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_set__PRI_uint64.FLD.RAW.BOUND.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_uint64_FLD_RAW_ERR_017247
+   * @tc.name testInteg_CTR_set__PRI_uint64_FLD_RAW_ERR_017247
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_uint64.FLD.RAW.ERR.V0 input="__INVALID_TYPE_TOKEN_1221530036__" expect="any"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 2
+   * @pair P+G-CTR_set__PRI_uint64.FLD.RAW.ERR.V0
+   */
+  it('testInteg_CTR_set__PRI_uint64_FLD_RAW_ERR_017247', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "__INVALID_TYPE_TOKEN_1221530036__";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 负向期望 any
+    assert.strictEqual(actual, 'any', "G negative CTR_set__PRI_uint64.FLD.RAW.ERR.V0");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Neg { v: any; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint64_FLD_RAW_ERR_V0.ts", src);
+    // step3: 负向 — 解析不崩溃且返回 classes
+    assert.ok(res && Array.isArray(res.classes), "P neg CTR_set__PRI_uint64.FLD.RAW.ERR.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_uint64_FLD_RAW_SPEC_017248
+   * @tc.name testInteg_CTR_set__PRI_uint64_FLD_RAW_SPEC_017248
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_uint64.FLD.RAW.SPEC.V0 input="std::set< uint64_t >" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_uint64.FLD.RAW.SPEC.V0
+   */
+  it('testInteg_CTR_set__PRI_uint64_FLD_RAW_SPEC_017248', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::set< uint64_t >";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_set__PRI_uint64.FLD.RAW.SPEC.V0 input=std::set< uint64_t >");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Cls { v: Set<number>; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint64_FLD_RAW_SPEC_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_uint64.FLD.RAW.SPEC.V0 parse null");
+    // step4: 校验字段类型
+    assert.ok(res.classes && res.classes.length >= 1, "P FLD classes CTR_set__PRI_uint64.FLD.RAW.SPEC.V0");
+    const t = res.classes[0].variableList[0].type;
+    assert.ok(typeof t === 'string' && t.length > 0, "P FLD type CTR_set__PRI_uint64.FLD.RAW.SPEC.V0");
+    assert.ok(t.replace(/\s+/g, '') === "Set<number>" || t.includes("Set"), "P FLD CTR_set__PRI_uint64.FLD.RAW.SPEC.V0" + ' got=' + t);
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::set< uint64_t >");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_set__PRI_uint64.FLD.RAW.SPEC.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_uint64_FLD_OPT_NORM_017249
+   * @tc.name testInteg_CTR_set__PRI_uint64_FLD_OPT_NORM_017249
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_uint64.FLD.OPT.NORM.V0 input="std::set<uint64_t>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_uint64.FLD.OPT.NORM.V0
+   */
+  it('testInteg_CTR_set__PRI_uint64_FLD_OPT_NORM_017249', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::set<uint64_t>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_set__PRI_uint64.FLD.OPT.NORM.V0 input=std::set<uint64_t>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Cls { v?: Set<number>; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint64_FLD_OPT_NORM_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_uint64.FLD.OPT.NORM.V0 parse null");
+    // step4: 校验字段类型
+    assert.ok(res.classes && res.classes.length >= 1, "P FLD classes CTR_set__PRI_uint64.FLD.OPT.NORM.V0");
+    const t = res.classes[0].variableList[0].type;
+    assert.ok(typeof t === 'string' && t.length > 0, "P FLD type CTR_set__PRI_uint64.FLD.OPT.NORM.V0");
+    assert.ok(t.replace(/\s+/g, '') === "Set<number>" || t.includes("Set"), "P FLD CTR_set__PRI_uint64.FLD.OPT.NORM.V0" + ' got=' + t);
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::set<uint64_t>");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_set__PRI_uint64.FLD.OPT.NORM.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_uint64_FLD_OPT_BOUND_017250
+   * @tc.name testInteg_CTR_set__PRI_uint64_FLD_OPT_BOUND_017250
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_uint64.FLD.OPT.BOUND.V0 input="std::set<uint64_t>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_uint64.FLD.OPT.BOUND.V0
+   */
+  it('testInteg_CTR_set__PRI_uint64_FLD_OPT_BOUND_017250', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::set<uint64_t>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_set__PRI_uint64.FLD.OPT.BOUND.V0 input=std::set<uint64_t>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Cls { v?: Set<number>; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint64_FLD_OPT_BOUND_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_uint64.FLD.OPT.BOUND.V0 parse null");
+    // step4: 校验字段类型
+    assert.ok(res.classes && res.classes.length >= 1, "P FLD classes CTR_set__PRI_uint64.FLD.OPT.BOUND.V0");
+    const t = res.classes[0].variableList[0].type;
+    assert.ok(typeof t === 'string' && t.length > 0, "P FLD type CTR_set__PRI_uint64.FLD.OPT.BOUND.V0");
+    assert.ok(t.replace(/\s+/g, '') === "Set<number>" || t.includes("Set"), "P FLD CTR_set__PRI_uint64.FLD.OPT.BOUND.V0" + ' got=' + t);
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::set<uint64_t>");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_set__PRI_uint64.FLD.OPT.BOUND.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_uint64_FLD_OPT_ERR_017251
+   * @tc.name testInteg_CTR_set__PRI_uint64_FLD_OPT_ERR_017251
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_uint64.FLD.OPT.ERR.V0 input="__INVALID_TYPE_TOKEN_1221530036__" expect="any"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 2
+   * @pair P+G-CTR_set__PRI_uint64.FLD.OPT.ERR.V0
+   */
+  it('testInteg_CTR_set__PRI_uint64_FLD_OPT_ERR_017251', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "__INVALID_TYPE_TOKEN_1221530036__";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 负向期望 any
+    assert.strictEqual(actual, 'any', "G negative CTR_set__PRI_uint64.FLD.OPT.ERR.V0");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Neg { v: any; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint64_FLD_OPT_ERR_V0.ts", src);
+    // step3: 负向 — 解析不崩溃且返回 classes
+    assert.ok(res && Array.isArray(res.classes), "P neg CTR_set__PRI_uint64.FLD.OPT.ERR.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_uint64_FLD_OPT_SPEC_017252
+   * @tc.name testInteg_CTR_set__PRI_uint64_FLD_OPT_SPEC_017252
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_uint64.FLD.OPT.SPEC.V0 input="std::set< uint64_t >" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_uint64.FLD.OPT.SPEC.V0
+   */
+  it('testInteg_CTR_set__PRI_uint64_FLD_OPT_SPEC_017252', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::set< uint64_t >";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_set__PRI_uint64.FLD.OPT.SPEC.V0 input=std::set< uint64_t >");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Cls { v?: Set<number>; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint64_FLD_OPT_SPEC_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_uint64.FLD.OPT.SPEC.V0 parse null");
+    // step4: 校验字段类型
+    assert.ok(res.classes && res.classes.length >= 1, "P FLD classes CTR_set__PRI_uint64.FLD.OPT.SPEC.V0");
+    const t = res.classes[0].variableList[0].type;
+    assert.ok(typeof t === 'string' && t.length > 0, "P FLD type CTR_set__PRI_uint64.FLD.OPT.SPEC.V0");
+    assert.ok(t.replace(/\s+/g, '') === "Set<number>" || t.includes("Set"), "P FLD CTR_set__PRI_uint64.FLD.OPT.SPEC.V0" + ' got=' + t);
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::set< uint64_t >");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_set__PRI_uint64.FLD.OPT.SPEC.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_uint64_FLD_ARR1_NORM_017253
+   * @tc.name testInteg_CTR_set__PRI_uint64_FLD_ARR1_NORM_017253
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_uint64.FLD.ARR1.NORM.V0 input="std::vector<std::set<uint64_t>>" expect="Array<Set<number>>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_uint64.FLD.ARR1.NORM.V0
+   */
+  it('testInteg_CTR_set__PRI_uint64_FLD_ARR1_NORM_017253', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::vector<std::set<uint64_t>>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Array<Set<number>>", "G CTR_set__PRI_uint64.FLD.ARR1.NORM.V0 input=std::vector<std::set<uint64_t>>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Cls { v: Array<Set<number>>; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint64_FLD_ARR1_NORM_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_uint64.FLD.ARR1.NORM.V0 parse null");
+    // step4: 校验字段类型
+    assert.ok(res.classes && res.classes.length >= 1, "P FLD classes CTR_set__PRI_uint64.FLD.ARR1.NORM.V0");
+    const t = res.classes[0].variableList[0].type;
+    assert.ok(typeof t === 'string' && t.length > 0, "P FLD type CTR_set__PRI_uint64.FLD.ARR1.NORM.V0");
+    assert.ok(t.replace(/\s+/g, '') === "Array<Set<number>>" || t.includes("Array"), "P FLD CTR_set__PRI_uint64.FLD.ARR1.NORM.V0" + ' got=' + t);
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::vector<std::set<uint64_t>>");
+    assert.strictEqual(mapped, "Array<Set<number>>", "I map==expect CTR_set__PRI_uint64.FLD.ARR1.NORM.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_uint64_FLD_ARR1_BOUND_017254
+   * @tc.name testInteg_CTR_set__PRI_uint64_FLD_ARR1_BOUND_017254
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_uint64.FLD.ARR1.BOUND.V0 input="std::vector<std::set<uint64_t>>" expect="Array<Set<number>>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_uint64.FLD.ARR1.BOUND.V0
+   */
+  it('testInteg_CTR_set__PRI_uint64_FLD_ARR1_BOUND_017254', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::vector<std::set<uint64_t>>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Array<Set<number>>", "G CTR_set__PRI_uint64.FLD.ARR1.BOUND.V0 input=std::vector<std::set<uint64_t>>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Cls { v: Array<Set<number>>; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint64_FLD_ARR1_BOUND_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_uint64.FLD.ARR1.BOUND.V0 parse null");
+    // step4: 校验字段类型
+    assert.ok(res.classes && res.classes.length >= 1, "P FLD classes CTR_set__PRI_uint64.FLD.ARR1.BOUND.V0");
+    const t = res.classes[0].variableList[0].type;
+    assert.ok(typeof t === 'string' && t.length > 0, "P FLD type CTR_set__PRI_uint64.FLD.ARR1.BOUND.V0");
+    assert.ok(t.replace(/\s+/g, '') === "Array<Set<number>>" || t.includes("Array"), "P FLD CTR_set__PRI_uint64.FLD.ARR1.BOUND.V0" + ' got=' + t);
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::vector<std::set<uint64_t>>");
+    assert.strictEqual(mapped, "Array<Set<number>>", "I map==expect CTR_set__PRI_uint64.FLD.ARR1.BOUND.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_uint64_FLD_ARR1_ERR_017255
+   * @tc.name testInteg_CTR_set__PRI_uint64_FLD_ARR1_ERR_017255
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_uint64.FLD.ARR1.ERR.V0 input="__INVALID_TYPE_TOKEN_2128119820__" expect="any"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 2
+   * @pair P+G-CTR_set__PRI_uint64.FLD.ARR1.ERR.V0
+   */
+  it('testInteg_CTR_set__PRI_uint64_FLD_ARR1_ERR_017255', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "__INVALID_TYPE_TOKEN_2128119820__";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 负向期望 any
+    assert.strictEqual(actual, 'any', "G negative CTR_set__PRI_uint64.FLD.ARR1.ERR.V0");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Neg { v: any; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint64_FLD_ARR1_ERR_V0.ts", src);
+    // step3: 负向 — 解析不崩溃且返回 classes
+    assert.ok(res && Array.isArray(res.classes), "P neg CTR_set__PRI_uint64.FLD.ARR1.ERR.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_uint64_FLD_ARR1_SPEC_017256
+   * @tc.name testInteg_CTR_set__PRI_uint64_FLD_ARR1_SPEC_017256
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_uint64.FLD.ARR1.SPEC.V0 input="std::vector< std::set< uint64_t > >" expect="Array<Set<number>>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_uint64.FLD.ARR1.SPEC.V0
+   */
+  it('testInteg_CTR_set__PRI_uint64_FLD_ARR1_SPEC_017256', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::vector< std::set< uint64_t > >";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Array<Set<number>>", "G CTR_set__PRI_uint64.FLD.ARR1.SPEC.V0 input=std::vector< std::set< uint64_t > >");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Cls { v: Array<Set<number>>; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint64_FLD_ARR1_SPEC_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_uint64.FLD.ARR1.SPEC.V0 parse null");
+    // step4: 校验字段类型
+    assert.ok(res.classes && res.classes.length >= 1, "P FLD classes CTR_set__PRI_uint64.FLD.ARR1.SPEC.V0");
+    const t = res.classes[0].variableList[0].type;
+    assert.ok(typeof t === 'string' && t.length > 0, "P FLD type CTR_set__PRI_uint64.FLD.ARR1.SPEC.V0");
+    assert.ok(t.replace(/\s+/g, '') === "Array<Set<number>>" || t.includes("Array"), "P FLD CTR_set__PRI_uint64.FLD.ARR1.SPEC.V0" + ' got=' + t);
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::vector< std::set< uint64_t > >");
+    assert.strictEqual(mapped, "Array<Set<number>>", "I map==expect CTR_set__PRI_uint64.FLD.ARR1.SPEC.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_uint64_FLD_PROM_NORM_017257
+   * @tc.name testInteg_CTR_set__PRI_uint64_FLD_PROM_NORM_017257
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_uint64.FLD.PROM.NORM.V0 input="std::set<uint64_t>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_uint64.FLD.PROM.NORM.V0
+   */
+  it('testInteg_CTR_set__PRI_uint64_FLD_PROM_NORM_017257', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::set<uint64_t>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_set__PRI_uint64.FLD.PROM.NORM.V0 input=std::set<uint64_t>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Cls { v: Set<number>; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint64_FLD_PROM_NORM_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_uint64.FLD.PROM.NORM.V0 parse null");
+    // step4: 校验字段类型
+    assert.ok(res.classes && res.classes.length >= 1, "P FLD classes CTR_set__PRI_uint64.FLD.PROM.NORM.V0");
+    const t = res.classes[0].variableList[0].type;
+    assert.ok(typeof t === 'string' && t.length > 0, "P FLD type CTR_set__PRI_uint64.FLD.PROM.NORM.V0");
+    assert.ok(t.replace(/\s+/g, '') === "Set<number>" || t.includes("Set"), "P FLD CTR_set__PRI_uint64.FLD.PROM.NORM.V0" + ' got=' + t);
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::set<uint64_t>");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_set__PRI_uint64.FLD.PROM.NORM.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_uint64_FLD_PROM_BOUND_017258
+   * @tc.name testInteg_CTR_set__PRI_uint64_FLD_PROM_BOUND_017258
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_uint64.FLD.PROM.BOUND.V0 input="std::set<uint64_t>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_uint64.FLD.PROM.BOUND.V0
+   */
+  it('testInteg_CTR_set__PRI_uint64_FLD_PROM_BOUND_017258', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::set<uint64_t>";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_set__PRI_uint64.FLD.PROM.BOUND.V0 input=std::set<uint64_t>");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Cls { v: Set<number>; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint64_FLD_PROM_BOUND_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_uint64.FLD.PROM.BOUND.V0 parse null");
+    // step4: 校验字段类型
+    assert.ok(res.classes && res.classes.length >= 1, "P FLD classes CTR_set__PRI_uint64.FLD.PROM.BOUND.V0");
+    const t = res.classes[0].variableList[0].type;
+    assert.ok(typeof t === 'string' && t.length > 0, "P FLD type CTR_set__PRI_uint64.FLD.PROM.BOUND.V0");
+    assert.ok(t.replace(/\s+/g, '') === "Set<number>" || t.includes("Set"), "P FLD CTR_set__PRI_uint64.FLD.PROM.BOUND.V0" + ' got=' + t);
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::set<uint64_t>");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_set__PRI_uint64.FLD.PROM.BOUND.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_uint64_FLD_PROM_ERR_017259
+   * @tc.name testInteg_CTR_set__PRI_uint64_FLD_PROM_ERR_017259
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_uint64.FLD.PROM.ERR.V0 input="__INVALID_TYPE_TOKEN_1221530036__" expect="any"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 2
+   * @pair P+G-CTR_set__PRI_uint64.FLD.PROM.ERR.V0
+   */
+  it('testInteg_CTR_set__PRI_uint64_FLD_PROM_ERR_017259', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "__INVALID_TYPE_TOKEN_1221530036__";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 负向期望 any
+    assert.strictEqual(actual, 'any', "G negative CTR_set__PRI_uint64.FLD.PROM.ERR.V0");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Neg { v: any; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint64_FLD_PROM_ERR_V0.ts", src);
+    // step3: 负向 — 解析不崩溃且返回 classes
+    assert.ok(res && Array.isArray(res.classes), "P neg CTR_set__PRI_uint64.FLD.PROM.ERR.V0");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_INTEG_CTR_set__PRI_uint64_FLD_PROM_SPEC_017260
+   * @tc.name testInteg_CTR_set__PRI_uint64_FLD_PROM_SPEC_017260
+   * @tc.desc Verify roundtrip parse+map for CTR_set__PRI_uint64.FLD.PROM.SPEC.V0 input="std::set< uint64_t >" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair P+G-CTR_set__PRI_uint64.FLD.PROM.SPEC.V0
+   */
+  it('testInteg_CTR_set__PRI_uint64_FLD_PROM_SPEC_017260', function () {
+    // --- 集成：先映射，再解析，再交叉校验 ---
+    // [G]
+    // step1: 输入 C/声明类型
+    const inputType = "std::set< uint64_t >";
+    // step2: 映射为 TS 类型
+    const actual = transTskey2Ckey(inputType);
+    // step3: 断言映射结果
+    assert.strictEqual(actual, "Set<number>", "G CTR_set__PRI_uint64.FLD.PROM.SPEC.V0 input=std::set< uint64_t >");
+    // [P]
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Cls { v: Set<number>; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_uint64_FLD_PROM_SPEC_V0.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_uint64.FLD.PROM.SPEC.V0 parse null");
+    // step4: 校验字段类型
+    assert.ok(res.classes && res.classes.length >= 1, "P FLD classes CTR_set__PRI_uint64.FLD.PROM.SPEC.V0");
+    const t = res.classes[0].variableList[0].type;
+    assert.ok(typeof t === 'string' && t.length > 0, "P FLD type CTR_set__PRI_uint64.FLD.PROM.SPEC.V0");
+    assert.ok(t.replace(/\s+/g, '') === "Set<number>" || t.includes("Set"), "P FLD CTR_set__PRI_uint64.FLD.PROM.SPEC.V0" + ' got=' + t);
+    // [I] map 与 expect 一致
+    const mapped = transTskey2Ckey("std::set< uint64_t >");
+    assert.strictEqual(mapped, "Set<number>", "I map==expect CTR_set__PRI_uint64.FLD.PROM.SPEC.V0");
+  });
+
+});
