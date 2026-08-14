@@ -1896,3 +1896,63 @@ describe('SuiteV3_P_ctr_set_as_return_13', function () {
     // step4: 校验函数声明存在
     assert.ok(res.funcs && res.funcs.length >= 1, "P func CTR_set__PRI_int8.RET.RAW.NORM.V0.V2");
   });
+
+  /**
+   * @tc.number SUB_NAPI_PARSE_CTR_set__PRI_int8_RET_RAW_BOUND_140662
+   * @tc.name testParse_CTR_set__PRI_int8_RET_RAW_BOUND_140662
+   * @tc.desc Verify parse declaration for CTR_set__PRI_int8.RET.RAW.BOUND.V0.V2 input="std::set<int8_t>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair G-CTR_set__PRI_int8.RET.RAW.BOUND.V0.V2
+   */
+  it('testParse_CTR_set__PRI_int8_RET_RAW_BOUND_140662', function () {
+    // step1: 构造待解析源码
+    const src = "export function napiV2Ret(): Set<number> { throw new Error('x'); }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_int8_RET_RAW_BOUND_V0_V2.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_int8.RET.RAW.BOUND.V0.V2 parse null");
+    // step4: 校验函数声明存在
+    assert.ok(res.funcs && res.funcs.length >= 1, "P func CTR_set__PRI_int8.RET.RAW.BOUND.V0.V2");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_PARSE_CTR_set__PRI_int8_RET_RAW_ERR_140663
+   * @tc.name testParse_CTR_set__PRI_int8_RET_RAW_ERR_140663
+   * @tc.desc Verify parse declaration for CTR_set__PRI_int8.RET.RAW.ERR.V0.V2 input="__INVALID_TYPE_TOKEN_1319383619__" expect="any"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 2
+   * @pair G-CTR_set__PRI_int8.RET.RAW.ERR.V0.V2
+   */
+  it('testParse_CTR_set__PRI_int8_RET_RAW_ERR_140663', function () {
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Neg { v: any; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_int8_RET_RAW_ERR_V0_V2.ts", src);
+    // step3: 负向 — 解析不崩溃且返回 classes
+    assert.ok(res && Array.isArray(res.classes), "P neg CTR_set__PRI_int8.RET.RAW.ERR.V0.V2");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_PARSE_CTR_set__PRI_int8_RET_RAW_SPEC_140664
+   * @tc.name testParse_CTR_set__PRI_int8_RET_RAW_SPEC_140664
+   * @tc.desc Verify parse declaration for CTR_set__PRI_int8.RET.RAW.SPEC.V0.V2 input="std::set< int8_t >" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair G-CTR_set__PRI_int8.RET.RAW.SPEC.V0.V2
+   */
+  it('testParse_CTR_set__PRI_int8_RET_RAW_SPEC_140664', function () {
+    // step1: 构造待解析源码
+    const src = "export function napiV2Ret(): Set<number> { throw new Error('x'); }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_set__PRI_int8_RET_RAW_SPEC_V0_V2.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_set__PRI_int8.RET.RAW.SPEC.V0.V2 parse null");
+    // step4: 校验函数声明存在
+    assert.ok(res.funcs && res.funcs.length >= 1, "P func CTR_set__PRI_int8.RET.RAW.SPEC.V0.V2");
+  });
+
+});
