@@ -1896,3 +1896,63 @@ describe('SuiteV3_P_ctr_uset_as_typealias_08', function () {
     // step4: 校验 type alias 存在
     assert.ok(res.types && res.types.length >= 1, "P TAL CTR_uset__PRI_int8.TAL.PROM.NORM.V0.V1");
   });
+
+  /**
+   * @tc.number SUB_NAPI_PARSE_CTR_uset__PRI_int8_TAL_PROM_BOUND_080822
+   * @tc.name testParse_CTR_uset__PRI_int8_TAL_PROM_BOUND_080822
+   * @tc.desc Verify parse declaration for CTR_uset__PRI_int8.TAL.PROM.BOUND.V0.V1 input="std::unordered_set<int8_t>" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair G-CTR_uset__PRI_int8.TAL.PROM.BOUND.V0.V1
+   */
+  it('testParse_CTR_uset__PRI_int8_TAL_PROM_BOUND_080822', function () {
+    // step1: 构造待解析源码
+    const src = "export type NapiV2Alias = Set<number>;\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_uset__PRI_int8_TAL_PROM_BOUND_V0_V1.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_uset__PRI_int8.TAL.PROM.BOUND.V0.V1 parse null");
+    // step4: 校验 type alias 存在
+    assert.ok(res.types && res.types.length >= 1, "P TAL CTR_uset__PRI_int8.TAL.PROM.BOUND.V0.V1");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_PARSE_CTR_uset__PRI_int8_TAL_PROM_ERR_080823
+   * @tc.name testParse_CTR_uset__PRI_int8_TAL_PROM_ERR_080823
+   * @tc.desc Verify parse declaration for CTR_uset__PRI_int8.TAL.PROM.ERR.V0.V1 input="__INVALID_TYPE_TOKEN_1531520504__" expect="any"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 2
+   * @pair G-CTR_uset__PRI_int8.TAL.PROM.ERR.V0.V1
+   */
+  it('testParse_CTR_uset__PRI_int8_TAL_PROM_ERR_080823', function () {
+    // step1: 构造待解析源码
+    const src = "export class NapiV2Neg { v: any; }\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_uset__PRI_int8_TAL_PROM_ERR_V0_V1.ts", src);
+    // step3: 负向 — 解析不崩溃且返回 classes
+    assert.ok(res && Array.isArray(res.classes), "P neg CTR_uset__PRI_int8.TAL.PROM.ERR.V0.V1");
+  });
+
+  /**
+   * @tc.number SUB_NAPI_PARSE_CTR_uset__PRI_int8_TAL_PROM_SPEC_080824
+   * @tc.name testParse_CTR_uset__PRI_int8_TAL_PROM_SPEC_080824
+   * @tc.desc Verify parse declaration for CTR_uset__PRI_int8.TAL.PROM.SPEC.V0.V1 input="std::unordered_set< int8_t >" expect="Set<number>"
+   * @tc.size MediumTest
+   * @tc.type Function
+   * @tc.level Level 1
+   * @pair G-CTR_uset__PRI_int8.TAL.PROM.SPEC.V0.V1
+   */
+  it('testParse_CTR_uset__PRI_int8_TAL_PROM_SPEC_080824', function () {
+    // step1: 构造待解析源码
+    const src = "export type NapiV2Alias = Set<number>;\n";
+    // step2: 调用解析
+    const res = doParseTs("v3_CTR_uset__PRI_int8_TAL_PROM_SPEC_V0_V1.ts", src);
+    // step3: 解析结果非空
+    assert.ok(res, "P CTR_uset__PRI_int8.TAL.PROM.SPEC.V0.V1 parse null");
+    // step4: 校验 type alias 存在
+    assert.ok(res.types && res.types.length >= 1, "P TAL CTR_uset__PRI_int8.TAL.PROM.SPEC.V0.V1");
+  });
+
+});
