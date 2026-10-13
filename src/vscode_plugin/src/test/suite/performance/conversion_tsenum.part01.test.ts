@@ -130,7 +130,7 @@ suite('Performance_DTS2CPP_Enum_Suite', function ()
   /**
   * @tc.number dts2cpp_enum_0003
   * @tc.name dts2cpp_enum_0003
-  * @tc.desc dts2cpp enum 对齐 test_3：首个成员赋值其余推导 的解析结果与性能。
+  * @tc.desc dts2cpp enum 对齐 test_3：首项成员显式赋值其余推导 的解析结果与性能。
   * @tc.size MediumTest
   * @tc.type Function
   * @tc.level Level 1

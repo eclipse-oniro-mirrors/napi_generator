@@ -467,153 +467,175 @@ function parseFileListOrder(doc) {
   return order;
 }
 
-function incrementalUpdate(existing, data) {
-  let doc = existing;
-  const refreshSummary = ARGS.includes('--refresh-summary');
-  if (refreshSummary) {
-    const sections = [
-      ['HEADER', buildHeader()],
-      ['OVERVIEW', buildOverview(data)],
-      ['SUBCATS', buildSubcats(data)],
-      ['PERF', buildPerfRules()],
-      ['FUNCREF', buildFuncRef()],
-    ];
-    for (const [id, body] of sections) {
-      const next = replaceSection(doc, id, body);
-      if (next) doc = next;
-    }
+const SUMMARY_SECTION_IDS = [
+  ['HEADER', buildHeader],
+  ['OVERVIEW', buildOverview],
+  ['SUBCATS', buildSubcats],
+  ['PERF', buildPerfRules],
+  ['FUNCREF', buildFuncRef],
+];
+
+function applySummaryRefresh(doc, data) {
+  if (!ARGS.includes('--refresh-summary')) return doc;
+  let next = doc;
+  for (const [id, build] of SUMMARY_SECTION_IDS) {
+    const replaced = replaceSection(next, id, build(data));
+    if (replaced) next = replaced;
   }
+  return next;
+}
+
+function applyStatsRefresh(doc, data) {
   const statsBody = buildStats(data);
   const statsBlock = doc.match(/<!-- GEN:BEGIN:STATS -->([\s\S]*?)<!-- GEN:END:STATS -->/);
   const statsText = statsBlock ? statsBlock[1].trim() : '';
-  if (statsText !== statsBody.join('\n').trim()) {
-    const statsNext = replaceSection(doc, 'STATS', statsBody);
-    if (statsNext) doc = statsNext;
-  }
-  if (ARGS.includes('--refresh-batch')) {
-    const batchNext = replaceSection(doc, 'BATCH92', buildBatch92(data));
-    if (batchNext) doc = batchNext;
-  }
+  if (statsText === statsBody.join('\n').trim()) return doc;
+  const statsNext = replaceSection(doc, 'STATS', statsBody);
+  return statsNext || doc;
+}
 
-  doc = patchFileListSection(doc, data) || doc;
+function applyBatchRefresh(doc, data) {
+  if (!ARGS.includes('--refresh-batch')) return doc;
+  const batchNext = replaceSection(doc, 'BATCH92', buildBatch92(data));
+  return batchNext || doc;
+}
 
-  const { header, rows, byName } = parseMappingSection(doc);
-  let maxSeq = rows.reduce((m, r) => Math.max(m, r.seq), 0);
+function pruneAndAppendMappingRows(rows, byName, data) {
   const scannedNames = new Set(data.allCases.map(c => c.name));
+  let maxSeq = rows.reduce((m, r) => Math.max(m, r.seq), 0);
   let appended = 0;
-  let updated = 0;
   let removed = 0;
-
   const newRows = [];
   for (const row of rows) {
-    if (!scannedNames.has(row.name)) {
-      if (PRUNE) {
-        removed++;
-        continue;
-      }
+    if (!scannedNames.has(row.name) && PRUNE) {
+      removed++;
+      continue;
     }
     newRows.push(row);
   }
-
   for (const c of data.allCases) {
-    if (!byName.has(c.name)) {
-      maxSeq += 1;
-      newRows.push({
-        seq: maxSeq,
-        file: c.file,
-        name: c.name,
-        category: c.category,
-        desc: c.desc,
-        line: mappingRow(maxSeq, c),
-      });
-      appended++;
-    }
+    if (byName.has(c.name)) continue;
+    maxSeq += 1;
+    newRows.push({
+      seq: maxSeq,
+      file: c.file,
+      name: c.name,
+      category: c.category,
+      desc: c.desc,
+      line: mappingRow(maxSeq, c),
+    });
+    appended++;
   }
-
-  if (ARGS.includes('--sync-mapping')) {
-    const scanned = new Map(data.allCases.map(c => [c.name, c]));
-    for (let i = 0; i < newRows.length; i++) {
-      const row = newRows[i];
-      const cur = scanned.get(row.name);
-      if (!cur) continue;
-      const line = mappingRow(row.seq, cur);
-      if (line !== row.line) {
-        newRows[i] = { ...row, file: cur.file, desc: cur.desc, category: cur.category, line };
-        updated++;
-      }
-    }
-  }
-
-  if (appended || removed || updated) {
-    const mappingBody = [...header, ...newRows.map(r => r.line), ''];
-    const mapNext = replaceSection(doc, 'MAPPING', mappingBody);
-    if (mapNext) doc = mapNext;
-  }
-
-  return { doc, appended, updated, removed };
+  return { newRows, appended, removed };
 }
 
-function migrateAddMarkers(existing, data) {
-  /** 在已有全文上套标记（不重排映射表行），便于后续增量 */
-  let doc = existing;
-  if (hasMarkers(doc)) return doc;
+function syncMappingRowDescriptions(newRows, data) {
+  if (!ARGS.includes('--sync-mapping')) return { newRows, updated: 0 };
+  const scanned = new Map(data.allCases.map(c => [c.name, c]));
+  let updated = 0;
+  const out = newRows.map((row) => {
+    const cur = scanned.get(row.name);
+    if (!cur) return row;
+    const line = mappingRow(row.seq, cur);
+    if (line === row.line) return row;
+    updated++;
+    return { ...row, file: cur.file, desc: cur.desc, category: cur.category, line };
+  });
+  return { newRows: out, updated };
+}
 
-  const insertBefore = (heading, id, bodyLines) => {
-    const idx = doc.indexOf(heading);
-    if (idx < 0) return;
-    const block = `<!-- GEN:BEGIN:${id} -->\n${bodyLines.join('\n')}\n<!-- GEN:END:${id} -->\n`;
-    doc = doc.slice(0, idx) + block + doc.slice(idx);
+function writeMappingSectionIfChanged(doc, header, newRows, changeCount) {
+  if (!changeCount) return doc;
+  const mappingBody = [...header, ...newRows.map(r => r.line), ''];
+  const mapNext = replaceSection(doc, 'MAPPING', mappingBody);
+  return mapNext || doc;
+}
+
+function incrementalUpdate(existing, data) {
+  let doc = applySummaryRefresh(existing, data);
+  doc = applyStatsRefresh(doc, data);
+  doc = applyBatchRefresh(doc, data);
+  doc = patchFileListSection(doc, data) || doc;
+
+  const { header, rows, byName } = parseMappingSection(doc);
+  const pruned = pruneAndAppendMappingRows(rows, byName, data);
+  const synced = syncMappingRowDescriptions(pruned.newRows, data);
+  const changeCount = pruned.appended + pruned.removed + synced.updated;
+  doc = writeMappingSectionIfChanged(doc, header, synced.newRows, changeCount);
+
+  return {
+    doc,
+    appended: pruned.appended,
+    updated: synced.updated,
+    removed: pruned.removed,
   };
+}
 
+const MIGRATE_SECTION_HEADINGS = [
+  '## 套件总览',
+  '## 子类别文件',
+  '## 性能口径',
+  '## 功能测试对照',
+  '## 提交 9314adee',
+  '## 覆盖统计',
+  '## 文件纳入清单',
+  '## 用例逐条映射总表',
+];
+
+const MIGRATE_SECTION_ID = {
+  '## 套件总览': 'OVERVIEW',
+  '## 子类别文件': 'SUBCATS',
+  '## 性能口径': 'PERF',
+  '## 功能测试对照': 'FUNCREF',
+  '## 提交 9314adee': 'BATCH92',
+  '## 覆盖统计': 'STATS',
+  '## 文件纳入清单': 'FILELIST',
+  '## 用例逐条映射总表': 'MAPPING',
+};
+
+function wrapMigrateHeader(doc) {
   const headerEnd = doc.indexOf('## 套件总览');
-  if (headerEnd > 0) {
-    const head = doc.slice(0, headerEnd).trimEnd();
-    doc = `<!-- GEN:BEGIN:HEADER -->\n${head}\n<!-- GEN:END:HEADER -->\n\n` + doc.slice(headerEnd);
+  if (headerEnd <= 0) return doc;
+  const head = doc.slice(0, headerEnd).trimEnd();
+  return `<!-- GEN:BEGIN:HEADER -->\n${head}\n<!-- GEN:END:HEADER -->\n\n` + doc.slice(headerEnd);
+}
+
+function migrateSectionEnd(doc, heading, start) {
+  let end = doc.length;
+  const nextH = doc.indexOf('\n## ', start + 1);
+  if (nextH > 0) end = nextH + 1;
+  if (heading === '## 提交 9314adee') {
+    const close = doc.indexOf('</details>', start);
+    if (close > 0) end = doc.indexOf('\n', close + 10) + 1;
   }
+  return end;
+}
 
-  const pairs = [
-    '## 套件总览',
-    '## 子类别文件',
-    '## 性能口径',
-    '## 功能测试对照',
-    '## 提交 9314adee',
-    '## 覆盖统计',
-    '## 文件纳入清单',
-    '## 用例逐条映射总表',
-  ];
-  const idMap = {
-    '## 套件总览': 'OVERVIEW',
-    '## 子类别文件': 'SUBCATS',
-    '## 性能口径': 'PERF',
-    '## 功能测试对照': 'FUNCREF',
-    '## 提交 9314adee': 'BATCH92',
-    '## 覆盖统计': 'STATS',
-    '## 文件纳入清单': 'FILELIST',
-    '## 用例逐条映射总表': 'MAPPING',
-  };
+function wrapOneMigrateSection(doc, heading) {
+  const start = doc.indexOf(heading);
+  if (start < 0) return doc;
+  const end = migrateSectionEnd(doc, heading, start);
+  const chunk = doc.slice(start, end).trimEnd();
+  const id = MIGRATE_SECTION_ID[heading];
+  const wrapped = `<!-- GEN:BEGIN:${id} -->\n${chunk}\n<!-- GEN:END:${id} -->\n\n`;
+  return doc.slice(0, start) + wrapped + doc.slice(end);
+}
 
-  for (const h of pairs) {
-    const start = doc.indexOf(h);
-    if (start < 0) continue;
-    let end = doc.length;
-    const nextH = doc.indexOf('\n## ', start + 1);
-    if (nextH > 0) end = nextH + 1;
-    if (h === '## 提交 9314adee') {
-      const close = doc.indexOf('</details>', start);
-      if (close > 0) end = doc.indexOf('\n', close + 10) + 1;
-    }
-    const chunk = doc.slice(start, end).trimEnd();
-    const id = idMap[h];
-    const wrapped = `<!-- GEN:BEGIN:${id} -->\n${chunk}\n<!-- GEN:END:${id} -->\n\n`;
-    doc = doc.slice(0, start) + wrapped + doc.slice(end);
-  }
-
-  // 更新 header 说明行
-  doc = doc.replace(
+function applyMigrateBanner(doc) {
+  return doc.replace(
     '> - 本文档由 `tools/generate_mapping.js` 自动生成，修改用例后请重新运行该脚本。',
     '> - 由 `tools/generate_mapping.js` 维护：**默认增量更新**（只追加/改统计），全量重建用 `--full`。',
   );
-  return doc;
+}
+
+function migrateAddMarkers(existing) {
+  /** 在已有全文上套标记（不重排映射表行），便于后续增量 */
+  if (hasMarkers(existing)) return existing;
+  let doc = wrapMigrateHeader(existing);
+  for (const h of MIGRATE_SECTION_HEADINGS) {
+    doc = wrapOneMigrateSection(doc, h);
+  }
+  return applyMigrateBanner(doc);
 }
 
 function main() {
@@ -630,7 +652,7 @@ function main() {
 
   let doc = existing;
   if (!hasMarkers(doc)) {
-    doc = migrateAddMarkers(doc, data);
+    doc = migrateAddMarkers(doc);
     fs.writeFileSync(OUT_FILE, doc, 'utf8');
     console.log('Migrated README: inserted GEN section markers（仅套标记，未改正文）.');
     console.log('  下次扩用例后请再执行本脚本，将只追加映射行并刷新覆盖统计。');
