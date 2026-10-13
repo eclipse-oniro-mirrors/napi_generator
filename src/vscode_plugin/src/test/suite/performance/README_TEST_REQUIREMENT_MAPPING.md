@@ -1,3 +1,4 @@
+<!-- GEN:BEGIN:HEADER -->
 # 测试用例与交付需求逐条映射
 
 > 口径说明：
@@ -5,8 +6,10 @@
 > - 每条 `test(...)` 均给出"主归属（2/3/4）+ 具体功能描述"：**2** = dts2cpp 链路、**3** = h2dts 链路、**4** = h2dtscpp 链路；C Parse 用例标注 `3/4`（h2dts 与 h2dtscpp 共用同一 parse 层）。
 > - 功能描述取自各用例 `@tc.desc`。
 > - 性能阈值：`PARSE_LOOP = 10`，`PARSE_TOTAL_MS = 6000`（单用例 10 次解析/生成总耗时 ≤ 6s）。
-> - 本文档由 `tools/generate_mapping.js` 自动生成，修改用例后请重新运行该脚本。
+> - 由 `tools/generate_mapping.js` 维护：**默认增量更新**（只追加/改统计），全量重建用 `--full`。
+<!-- GEN:END:HEADER -->
 
+<!-- GEN:BEGIN:OVERVIEW -->
 ## 套件总览
 
 | 链路 | 主归属指标 | 文件前缀 | 测试 API | 用例数 |
@@ -15,7 +18,9 @@
 | C++ 头文件解析 | **3/4** | `conversion_c*` | `parseFunction` / `parseClass` / `parseStruct` / `parseEnum` / `parseUnion` | 2216 |
 | h2dts 代码生成 | **3** | `conversion_h2dts_*` | `getDtsFunction` / `getDtsClasses` / `genDtsFile` 等 | 5843 |
 | h2dtscpp 转换生成 | **4** | `conversion_h2dtscpp_*` | `transParseObj` / `transParameters` / `genApi` | 3152 |
+<!-- GEN:END:OVERVIEW -->
 
+<!-- GEN:BEGIN:SUBCATS -->
 ## 子类别文件
 
 | 前缀 | 含义 | 用例数 |
@@ -41,7 +46,9 @@
 | `conversion_h2dtscpp_class` | class 场景 transParseObj | 0 |
 | `conversion_h2dtscpp_mixed` | 混合 DECL 端到端 genApi/trans | 1215 |
 | `conversion_dts2cpp_delivery` | dts2cpp 交付物 import 解析 | 0 |
+<!-- GEN:END:SUBCATS -->
 
+<!-- GEN:BEGIN:PERF -->
 ## 性能口径
 
 | 参数 | 值 | 说明 |
@@ -49,7 +56,9 @@
 | `PARSE_LOOP` | 10 | 禁止降到 1～2 次 |
 | `PARSE_TOTAL_MS` | 6000 | 10 次总耗时上限（非单次平均） |
 | suite 超时 | 600000 | 单文件 10 分钟 |
+<!-- GEN:END:PERF -->
 
+<!-- GEN:BEGIN:FUNCREF -->
 ## 功能测试对照
 
 | perf 套件 | 功能测试参考 |
@@ -63,7 +72,9 @@
 | conversion_c* | `parse/parsec*.test.ts` |
 | conversion_h2dts_gen | `gen/gendts*.test.ts` |
 | conversion_h2dtscpp_gen | `gen/gendtscpp*.test.ts` |
+<!-- GEN:END:FUNCREF -->
 
+<!-- GEN:BEGIN:BATCH92 -->
 ## 提交 9314adee 新增性能文件（相对 8b7dd316）
 
 > 本批共 **92** 个测试文件、**2965** 条用例（已并入下文「文件纳入清单」与「用例逐条映射总表」，此处按前缀汇总覆盖范围）。
@@ -177,13 +188,18 @@
 | 92 | `conversion_tsfunc.part18.test.ts` | 6 |
 
 </details>
+<!-- GEN:END:BATCH92 -->
 
+
+<!-- GEN:BEGIN:STATS -->
 ## 覆盖统计
 
 - 纳入测试文件数：**482**
 - 纳入用例总数：**13835**（dts2cpp 2624 + C Parse 2216 + H2DTS Gen 5843 + H2DTSCPP Gen 3152）
 - 统计方式：扫描所有 `*.test.ts` 文件中的 `test(...)` 声明（与 `@tc.number` 逐块一一对应，全量查重 0 重名）。
+<!-- GEN:END:STATS -->
 
+<!-- GEN:BEGIN:FILELIST -->
 ## 文件纳入清单
 
 | 序号 | 测试文件 | 纳入用例数 | 链路 |
@@ -670,7 +686,9 @@
 | 480 | `conversion_tsunion.part13b.test.ts` | 5 | dts2cpp |
 | 481 | `conversion_tsunion.part14.test.ts` | 15 | dts2cpp |
 | 482 | `conversion_tsunion.part15.test.ts` | 5 | dts2cpp |
+<!-- GEN:END:FILELIST -->
 
+<!-- GEN:BEGIN:MAPPING -->
 ## 用例逐条映射总表
 
 | 序号 | 测试文件 | 用例名 | 测试类别 | 对应交付指标主归属（2/3/4） | 对应功能（具体交付内容） |
@@ -14510,3 +14528,5 @@
 | 13833 | `conversion_tsunion.part15.test.ts` | `dts2cpp_union_0552` | 性能测试 | 2 | : dts2cpp union 扩充-R5-泛型 Maybe 的解析结果与性能。 |
 | 13834 | `conversion_tsunion.part15.test.ts` | `dts2cpp_union_0553` | 性能测试 | 2 | : dts2cpp union 扩充-R5-tagged union 的解析结果与性能。 |
 | 13835 | `conversion_tsunion.part15.test.ts` | `dts2cpp_union_0554` | 性能测试 | 2 | : dts2cpp union 扩充-R5-递归 JSON union 的解析结果与性能。 |
+<!-- GEN:END:MAPPING -->
+
