@@ -11698,3 +11698,903 @@
 | 11021 | `conversion_h2dtscpp_transparseobj.part26.test.ts` | `h2dtscpp_tpo_0898` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::queue<char |
 | 11022 | `conversion_h2dtscpp_transparseobj.part26.test.ts` | `h2dtscpp_tpo_0899` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::queue<long long>::iterator` 的转换结果与性能。 |
 | 11023 | `conversion_h2dtscpp_transparseobj.part26.test.ts` | `h2dtscpp_tpo_0900` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::queue<unsigned short>::iterator` 的转换结果与性能。 |
+| 11024 | `conversion_h2dtscpp_transparseobj.part26.test.ts` | `h2dtscpp_tpo_0901` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::queue<unsigned long>::iterator` 的转换结果与性能。 |
+| 11025 | `conversion_h2dtscpp_transparseobj.part26.test.ts` | `h2dtscpp_tpo_0902` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::queue<unsigned long long>::iterator` 的转换结果与性能。 |
+| 11026 | `conversion_h2dtscpp_transparseobj.part26.test.ts` | `h2dtscpp_tpo_0903` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::queue<int |
+| 11027 | `conversion_h2dtscpp_transparseobj.part26.test.ts` | `h2dtscpp_tpo_0904` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::valarray<std::string>` 的转换结果与性能。 |
+| 11028 | `conversion_h2dtscpp_transparseobj.part26.test.ts` | `h2dtscpp_tpo_0905` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::valarray<char |
+| 11029 | `conversion_h2dtscpp_transparseobj.part26.test.ts` | `h2dtscpp_tpo_0906` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::valarray<long long>` 的转换结果与性能。 |
+| 11030 | `conversion_h2dtscpp_transparseobj.part26.test.ts` | `h2dtscpp_tpo_0907` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::valarray<unsigned short>` 的转换结果与性能。 |
+| 11031 | `conversion_h2dtscpp_transparseobj.part26.test.ts` | `h2dtscpp_tpo_0908` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::valarray<unsigned long>` 的转换结果与性能。 |
+| 11032 | `conversion_h2dtscpp_transparseobj.part26.test.ts` | `h2dtscpp_tpo_0909` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::valarray<unsigned long long>` 的转换结果与性能。 |
+| 11033 | `conversion_h2dtscpp_transparseobj.part26.test.ts` | `h2dtscpp_tpo_0910` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::valarray<int |
+| 11034 | `conversion_h2dtscpp_transparseobj.part27.test.ts` | `h2dtscpp_tpo_0911` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::valarray<std::string>::iterator` 的转换结果与性能。 |
+| 11035 | `conversion_h2dtscpp_transparseobj.part27.test.ts` | `h2dtscpp_tpo_0912` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::valarray<char |
+| 11036 | `conversion_h2dtscpp_transparseobj.part27.test.ts` | `h2dtscpp_tpo_0913` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::valarray<long long>::iterator` 的转换结果与性能。 |
+| 11037 | `conversion_h2dtscpp_transparseobj.part27.test.ts` | `h2dtscpp_tpo_0914` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::valarray<unsigned short>::iterator` 的转换结果与性能。 |
+| 11038 | `conversion_h2dtscpp_transparseobj.part27.test.ts` | `h2dtscpp_tpo_0915` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::valarray<unsigned long>::iterator` 的转换结果与性能。 |
+| 11039 | `conversion_h2dtscpp_transparseobj.part27.test.ts` | `h2dtscpp_tpo_0916` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::valarray<unsigned long long>::iterator` 的转换结果与性能。 |
+| 11040 | `conversion_h2dtscpp_transparseobj.part27.test.ts` | `h2dtscpp_tpo_0917` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::valarray<int |
+| 11041 | `conversion_h2dtscpp_transparseobj.part27.test.ts` | `h2dtscpp_tpo_0918` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::priority_queue<std::string>` 的转换结果与性能。 |
+| 11042 | `conversion_h2dtscpp_transparseobj.part27.test.ts` | `h2dtscpp_tpo_0919` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::priority_queue<char |
+| 11043 | `conversion_h2dtscpp_transparseobj.part27.test.ts` | `h2dtscpp_tpo_0920` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::priority_queue<long long>` 的转换结果与性能。 |
+| 11044 | `conversion_h2dtscpp_transparseobj.part27.test.ts` | `h2dtscpp_tpo_0921` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::priority_queue<unsigned short>` 的转换结果与性能。 |
+| 11045 | `conversion_h2dtscpp_transparseobj.part27.test.ts` | `h2dtscpp_tpo_0922` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::priority_queue<unsigned long>` 的转换结果与性能。 |
+| 11046 | `conversion_h2dtscpp_transparseobj.part27.test.ts` | `h2dtscpp_tpo_0923` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::priority_queue<unsigned long long>` 的转换结果与性能。 |
+| 11047 | `conversion_h2dtscpp_transparseobj.part27.test.ts` | `h2dtscpp_tpo_0924` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::priority_queue<int |
+| 11048 | `conversion_h2dtscpp_transparseobj.part27.test.ts` | `h2dtscpp_tpo_0925` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::priority_queue<std::string>::iterator` 的转换结果与性能。 |
+| 11049 | `conversion_h2dtscpp_transparseobj.part27.test.ts` | `h2dtscpp_tpo_0926` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::priority_queue<char |
+| 11050 | `conversion_h2dtscpp_transparseobj.part27.test.ts` | `h2dtscpp_tpo_0927` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::priority_queue<long long>::iterator` 的转换结果与性能。 |
+| 11051 | `conversion_h2dtscpp_transparseobj.part27.test.ts` | `h2dtscpp_tpo_0928` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::priority_queue<unsigned short>::iterator` 的转换结果与性能。 |
+| 11052 | `conversion_h2dtscpp_transparseobj.part27.test.ts` | `h2dtscpp_tpo_0929` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::priority_queue<unsigned long>::iterator` 的转换结果与性能。 |
+| 11053 | `conversion_h2dtscpp_transparseobj.part27.test.ts` | `h2dtscpp_tpo_0930` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::priority_queue<unsigned long long>::iterator` 的转换结果与性能。 |
+| 11054 | `conversion_h2dtscpp_transparseobj.part27.test.ts` | `h2dtscpp_tpo_0931` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::priority_queue<int |
+| 11055 | `conversion_h2dtscpp_transparseobj.part27.test.ts` | `h2dtscpp_tpo_0932` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::map<std::string, int>` 的转换结果与性能。 |
+| 11056 | `conversion_h2dtscpp_transparseobj.part27.test.ts` | `h2dtscpp_tpo_0933` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::map<charb |
+| 11057 | `conversion_h2dtscpp_transparseobj.part27.test.ts` | `h2dtscpp_tpo_0934` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::map<std::string, long long>` 的转换结果与性能。 |
+| 11058 | `conversion_h2dtscpp_transparseobj.part27.test.ts` | `h2dtscpp_tpo_0935` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::map<char |
+| 11059 | `conversion_h2dtscpp_transparseobj.part27.test.ts` | `h2dtscpp_tpo_0936` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::map<char |
+| 11060 | `conversion_h2dtscpp_transparseobj.part27.test.ts` | `h2dtscpp_tpo_0937` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::map<std::string, unsigned short>` 的转换结果与性能。 |
+| 11061 | `conversion_h2dtscpp_transparseobj.part27.test.ts` | `h2dtscpp_tpo_0938` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::map<int |
+| 11062 | `conversion_h2dtscpp_transparseobj.part27.test.ts` | `h2dtscpp_tpo_0939` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::map<double, char |
+| 11063 | `conversion_h2dtscpp_transparseobj.part27.test.ts` | `h2dtscpp_tpo_0940` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::map<int |
+| 11064 | `conversion_h2dtscpp_transparseobj.part27.test.ts` | `h2dtscpp_tpo_0942` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::map<charb |
+| 11065 | `conversion_h2dtscpp_transparseobj.part27.test.ts` | `h2dtscpp_tpo_0943` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::map<std::string, long long>::iterator` 的转换结果与性能。 |
+| 11066 | `conversion_h2dtscpp_transparseobj.part27.test.ts` | `h2dtscpp_tpo_0944` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::map<char |
+| 11067 | `conversion_h2dtscpp_transparseobj.part27.test.ts` | `h2dtscpp_tpo_0945` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::map<char |
+| 11068 | `conversion_h2dtscpp_transparseobj.part28.test.ts` | `h2dtscpp_tpo_0946` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::map<std::string, unsigned short>::iterator` 的转换结果与性能。 |
+| 11069 | `conversion_h2dtscpp_transparseobj.part28.test.ts` | `h2dtscpp_tpo_0947` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::map<int |
+| 11070 | `conversion_h2dtscpp_transparseobj.part28.test.ts` | `h2dtscpp_tpo_0948` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::map<double, char |
+| 11071 | `conversion_h2dtscpp_transparseobj.part28.test.ts` | `h2dtscpp_tpo_0949` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::map<int |
+| 11072 | `conversion_h2dtscpp_transparseobj.part28.test.ts` | `h2dtscpp_tpo_0950` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_map<std::string, int>` 的转换结果与性能。 |
+| 11073 | `conversion_h2dtscpp_transparseobj.part28.test.ts` | `h2dtscpp_tpo_0951` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_map<charb |
+| 11074 | `conversion_h2dtscpp_transparseobj.part28.test.ts` | `h2dtscpp_tpo_0952` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_map<std::string, long long>` 的转换结果与性能。 |
+| 11075 | `conversion_h2dtscpp_transparseobj.part28.test.ts` | `h2dtscpp_tpo_0953` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_map<char |
+| 11076 | `conversion_h2dtscpp_transparseobj.part28.test.ts` | `h2dtscpp_tpo_0954` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_map<char |
+| 11077 | `conversion_h2dtscpp_transparseobj.part28.test.ts` | `h2dtscpp_tpo_0955` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_map<std::string, unsigned short>` 的转换结果与性能。 |
+| 11078 | `conversion_h2dtscpp_transparseobj.part28.test.ts` | `h2dtscpp_tpo_0956` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_map<int |
+| 11079 | `conversion_h2dtscpp_transparseobj.part28.test.ts` | `h2dtscpp_tpo_0957` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_map<double, char |
+| 11080 | `conversion_h2dtscpp_transparseobj.part28.test.ts` | `h2dtscpp_tpo_0958` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_map<int |
+| 11081 | `conversion_h2dtscpp_transparseobj.part28.test.ts` | `h2dtscpp_tpo_0959` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_map<std::string, int>::iterator` 的转换结果与性能。 |
+| 11082 | `conversion_h2dtscpp_transparseobj.part28.test.ts` | `h2dtscpp_tpo_0960` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_map<charb |
+| 11083 | `conversion_h2dtscpp_transparseobj.part28.test.ts` | `h2dtscpp_tpo_0961` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_map<std::string, long long>::iterator` 的转换结果与性能。 |
+| 11084 | `conversion_h2dtscpp_transparseobj.part28.test.ts` | `h2dtscpp_tpo_0962` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_map<char |
+| 11085 | `conversion_h2dtscpp_transparseobj.part28.test.ts` | `h2dtscpp_tpo_0963` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_map<char |
+| 11086 | `conversion_h2dtscpp_transparseobj.part28.test.ts` | `h2dtscpp_tpo_0964` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_map<std::string, unsigned short>::iterator` 的转换结果与性能。 |
+| 11087 | `conversion_h2dtscpp_transparseobj.part28.test.ts` | `h2dtscpp_tpo_0965` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_map<int |
+| 11088 | `conversion_h2dtscpp_transparseobj.part28.test.ts` | `h2dtscpp_tpo_0966` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_map<double, char |
+| 11089 | `conversion_h2dtscpp_transparseobj.part28.test.ts` | `h2dtscpp_tpo_0967` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_map<int |
+| 11090 | `conversion_h2dtscpp_transparseobj.part28.test.ts` | `h2dtscpp_tpo_0968` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::multimap<std::string, int>` 的转换结果与性能。 |
+| 11091 | `conversion_h2dtscpp_transparseobj.part28.test.ts` | `h2dtscpp_tpo_0969` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::multimap<charb |
+| 11092 | `conversion_h2dtscpp_transparseobj.part28.test.ts` | `h2dtscpp_tpo_0970` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::multimap<std::string, long long>` 的转换结果与性能。 |
+| 11093 | `conversion_h2dtscpp_transparseobj.part28.test.ts` | `h2dtscpp_tpo_0971` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::multimap<char |
+| 11094 | `conversion_h2dtscpp_transparseobj.part28.test.ts` | `h2dtscpp_tpo_0972` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::multimap<char |
+| 11095 | `conversion_h2dtscpp_transparseobj.part28.test.ts` | `h2dtscpp_tpo_0973` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::multimap<std::string, unsigned short>` 的转换结果与性能。 |
+| 11096 | `conversion_h2dtscpp_transparseobj.part28.test.ts` | `h2dtscpp_tpo_0974` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::multimap<int |
+| 11097 | `conversion_h2dtscpp_transparseobj.part28.test.ts` | `h2dtscpp_tpo_0975` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::multimap<double, char |
+| 11098 | `conversion_h2dtscpp_transparseobj.part28.test.ts` | `h2dtscpp_tpo_0976` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::multimap<int |
+| 11099 | `conversion_h2dtscpp_transparseobj.part28.test.ts` | `h2dtscpp_tpo_0977` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::multimap<std::string, int>::iterator` 的转换结果与性能。 |
+| 11100 | `conversion_h2dtscpp_transparseobj.part28.test.ts` | `h2dtscpp_tpo_0978` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::multimap<charb |
+| 11101 | `conversion_h2dtscpp_transparseobj.part28.test.ts` | `h2dtscpp_tpo_0979` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::multimap<std::string, long long>::iterator` 的转换结果与性能。 |
+| 11102 | `conversion_h2dtscpp_transparseobj.part28.test.ts` | `h2dtscpp_tpo_0980` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::multimap<char |
+| 11103 | `conversion_h2dtscpp_transparseobj.part29.test.ts` | `h2dtscpp_tpo_0981` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::multimap<char |
+| 11104 | `conversion_h2dtscpp_transparseobj.part29.test.ts` | `h2dtscpp_tpo_0982` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::multimap<std::string, unsigned short>::iterator` 的转换结果与性能。 |
+| 11105 | `conversion_h2dtscpp_transparseobj.part29.test.ts` | `h2dtscpp_tpo_0983` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::multimap<int |
+| 11106 | `conversion_h2dtscpp_transparseobj.part29.test.ts` | `h2dtscpp_tpo_0984` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::multimap<double, char |
+| 11107 | `conversion_h2dtscpp_transparseobj.part29.test.ts` | `h2dtscpp_tpo_0985` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::multimap<int |
+| 11108 | `conversion_h2dtscpp_transparseobj.part29.test.ts` | `h2dtscpp_tpo_0986` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_multimap<std::string, int>` 的转换结果与性能。 |
+| 11109 | `conversion_h2dtscpp_transparseobj.part29.test.ts` | `h2dtscpp_tpo_0987` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_multimap<charb |
+| 11110 | `conversion_h2dtscpp_transparseobj.part29.test.ts` | `h2dtscpp_tpo_0988` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_multimap<std::string, long long>` 的转换结果与性能。 |
+| 11111 | `conversion_h2dtscpp_transparseobj.part29.test.ts` | `h2dtscpp_tpo_0989` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_multimap<char |
+| 11112 | `conversion_h2dtscpp_transparseobj.part29.test.ts` | `h2dtscpp_tpo_0990` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_multimap<char |
+| 11113 | `conversion_h2dtscpp_transparseobj.part29.test.ts` | `h2dtscpp_tpo_0991` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_multimap<std::string, unsigned short>` 的转换结果与性能。 |
+| 11114 | `conversion_h2dtscpp_transparseobj.part29.test.ts` | `h2dtscpp_tpo_0992` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_multimap<int |
+| 11115 | `conversion_h2dtscpp_transparseobj.part29.test.ts` | `h2dtscpp_tpo_0993` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_multimap<double, char |
+| 11116 | `conversion_h2dtscpp_transparseobj.part29.test.ts` | `h2dtscpp_tpo_0994` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_multimap<int |
+| 11117 | `conversion_h2dtscpp_transparseobj.part29.test.ts` | `h2dtscpp_tpo_0995` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_multimap<std::string, int>::iterator` 的转换结果与性能。 |
+| 11118 | `conversion_h2dtscpp_transparseobj.part29.test.ts` | `h2dtscpp_tpo_0996` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_multimap<charb |
+| 11119 | `conversion_h2dtscpp_transparseobj.part29.test.ts` | `h2dtscpp_tpo_0997` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_multimap<std::string, long long>::iterator` 的转换结果与性能。 |
+| 11120 | `conversion_h2dtscpp_transparseobj.part29.test.ts` | `h2dtscpp_tpo_0998` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_multimap<char |
+| 11121 | `conversion_h2dtscpp_transparseobj.part29.test.ts` | `h2dtscpp_tpo_0999` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_multimap<char |
+| 11122 | `conversion_h2dtscpp_transparseobj.part29.test.ts` | `h2dtscpp_tpo_1000` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_multimap<std::string, unsigned short>::iterator` 的转换结果与性能。 |
+| 11123 | `conversion_h2dtscpp_transparseobj.part29.test.ts` | `h2dtscpp_tpo_1001` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_multimap<int |
+| 11124 | `conversion_h2dtscpp_transparseobj.part29.test.ts` | `h2dtscpp_tpo_1002` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_multimap<double, char |
+| 11125 | `conversion_h2dtscpp_transparseobj.part29.test.ts` | `h2dtscpp_tpo_1003` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_multimap<int |
+| 11126 | `conversion_h2dtscpp_transparseobj.part29.test.ts` | `h2dtscpp_tpo_1005` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::set<char |
+| 11127 | `conversion_h2dtscpp_transparseobj.part29.test.ts` | `h2dtscpp_tpo_1006` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::set<long long>` 的转换结果与性能。 |
+| 11128 | `conversion_h2dtscpp_transparseobj.part29.test.ts` | `h2dtscpp_tpo_1007` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::set<unsigned short>` 的转换结果与性能。 |
+| 11129 | `conversion_h2dtscpp_transparseobj.part29.test.ts` | `h2dtscpp_tpo_1008` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::set<unsigned long>` 的转换结果与性能。 |
+| 11130 | `conversion_h2dtscpp_transparseobj.part29.test.ts` | `h2dtscpp_tpo_1009` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::set<unsigned long long>` 的转换结果与性能。 |
+| 11131 | `conversion_h2dtscpp_transparseobj.part29.test.ts` | `h2dtscpp_tpo_1010` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::set<int |
+| 11132 | `conversion_h2dtscpp_transparseobj.part29.test.ts` | `h2dtscpp_tpo_1011` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::set<std::string>::iterator` 的转换结果与性能。 |
+| 11133 | `conversion_h2dtscpp_transparseobj.part29.test.ts` | `h2dtscpp_tpo_1012` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::set<char |
+| 11134 | `conversion_h2dtscpp_transparseobj.part29.test.ts` | `h2dtscpp_tpo_1013` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::set<long long>::iterator` 的转换结果与性能。 |
+| 11135 | `conversion_h2dtscpp_transparseobj.part29.test.ts` | `h2dtscpp_tpo_1014` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::set<unsigned short>::iterator` 的转换结果与性能。 |
+| 11136 | `conversion_h2dtscpp_transparseobj.part29.test.ts` | `h2dtscpp_tpo_1015` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::set<unsigned long>::iterator` 的转换结果与性能。 |
+| 11137 | `conversion_h2dtscpp_transparseobj.part30.test.ts` | `h2dtscpp_tpo_1016` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::set<unsigned long long>::iterator` 的转换结果与性能。 |
+| 11138 | `conversion_h2dtscpp_transparseobj.part30.test.ts` | `h2dtscpp_tpo_1017` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::set<int |
+| 11139 | `conversion_h2dtscpp_transparseobj.part30.test.ts` | `h2dtscpp_tpo_1019` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_set<char |
+| 11140 | `conversion_h2dtscpp_transparseobj.part30.test.ts` | `h2dtscpp_tpo_1020` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_set<long long>` 的转换结果与性能。 |
+| 11141 | `conversion_h2dtscpp_transparseobj.part30.test.ts` | `h2dtscpp_tpo_1021` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_set<unsigned short>` 的转换结果与性能。 |
+| 11142 | `conversion_h2dtscpp_transparseobj.part30.test.ts` | `h2dtscpp_tpo_1022` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_set<unsigned long>` 的转换结果与性能。 |
+| 11143 | `conversion_h2dtscpp_transparseobj.part30.test.ts` | `h2dtscpp_tpo_1023` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_set<unsigned long long>` 的转换结果与性能。 |
+| 11144 | `conversion_h2dtscpp_transparseobj.part30.test.ts` | `h2dtscpp_tpo_1024` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_set<int |
+| 11145 | `conversion_h2dtscpp_transparseobj.part30.test.ts` | `h2dtscpp_tpo_1025` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_set<std::string>::iterator` 的转换结果与性能。 |
+| 11146 | `conversion_h2dtscpp_transparseobj.part30.test.ts` | `h2dtscpp_tpo_1026` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_set<char |
+| 11147 | `conversion_h2dtscpp_transparseobj.part30.test.ts` | `h2dtscpp_tpo_1027` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_set<long long>::iterator` 的转换结果与性能。 |
+| 11148 | `conversion_h2dtscpp_transparseobj.part30.test.ts` | `h2dtscpp_tpo_1028` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_set<unsigned short>::iterator` 的转换结果与性能。 |
+| 11149 | `conversion_h2dtscpp_transparseobj.part30.test.ts` | `h2dtscpp_tpo_1029` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_set<unsigned long>::iterator` 的转换结果与性能。 |
+| 11150 | `conversion_h2dtscpp_transparseobj.part30.test.ts` | `h2dtscpp_tpo_1030` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_set<unsigned long long>::iterator` 的转换结果与性能。 |
+| 11151 | `conversion_h2dtscpp_transparseobj.part30.test.ts` | `h2dtscpp_tpo_1031` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_set<int |
+| 11152 | `conversion_h2dtscpp_transparseobj.part30.test.ts` | `h2dtscpp_tpo_1032` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::multiset<std::string>` 的转换结果与性能。 |
+| 11153 | `conversion_h2dtscpp_transparseobj.part30.test.ts` | `h2dtscpp_tpo_1033` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::multiset<char |
+| 11154 | `conversion_h2dtscpp_transparseobj.part30.test.ts` | `h2dtscpp_tpo_1034` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::multiset<long long>` 的转换结果与性能。 |
+| 11155 | `conversion_h2dtscpp_transparseobj.part30.test.ts` | `h2dtscpp_tpo_1035` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::multiset<unsigned short>` 的转换结果与性能。 |
+| 11156 | `conversion_h2dtscpp_transparseobj.part30.test.ts` | `h2dtscpp_tpo_1036` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::multiset<unsigned long>` 的转换结果与性能。 |
+| 11157 | `conversion_h2dtscpp_transparseobj.part30.test.ts` | `h2dtscpp_tpo_1037` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::multiset<unsigned long long>` 的转换结果与性能。 |
+| 11158 | `conversion_h2dtscpp_transparseobj.part30.test.ts` | `h2dtscpp_tpo_1038` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::multiset<int |
+| 11159 | `conversion_h2dtscpp_transparseobj.part30.test.ts` | `h2dtscpp_tpo_1039` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::multiset<std::string>::iterator` 的转换结果与性能。 |
+| 11160 | `conversion_h2dtscpp_transparseobj.part30.test.ts` | `h2dtscpp_tpo_1040` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::multiset<char |
+| 11161 | `conversion_h2dtscpp_transparseobj.part30.test.ts` | `h2dtscpp_tpo_1041` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::multiset<long long>::iterator` 的转换结果与性能。 |
+| 11162 | `conversion_h2dtscpp_transparseobj.part30.test.ts` | `h2dtscpp_tpo_1042` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::multiset<unsigned short>::iterator` 的转换结果与性能。 |
+| 11163 | `conversion_h2dtscpp_transparseobj.part30.test.ts` | `h2dtscpp_tpo_1043` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::multiset<unsigned long>::iterator` 的转换结果与性能。 |
+| 11164 | `conversion_h2dtscpp_transparseobj.part30.test.ts` | `h2dtscpp_tpo_1044` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::multiset<unsigned long long>::iterator` 的转换结果与性能。 |
+| 11165 | `conversion_h2dtscpp_transparseobj.part30.test.ts` | `h2dtscpp_tpo_1045` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::multiset<int |
+| 11166 | `conversion_h2dtscpp_transparseobj.part30.test.ts` | `h2dtscpp_tpo_1046` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_multiset<std::string>` 的转换结果与性能。 |
+| 11167 | `conversion_h2dtscpp_transparseobj.part30.test.ts` | `h2dtscpp_tpo_1047` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_multiset<char |
+| 11168 | `conversion_h2dtscpp_transparseobj.part30.test.ts` | `h2dtscpp_tpo_1048` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_multiset<long long>` 的转换结果与性能。 |
+| 11169 | `conversion_h2dtscpp_transparseobj.part30.test.ts` | `h2dtscpp_tpo_1049` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_multiset<unsigned short>` 的转换结果与性能。 |
+| 11170 | `conversion_h2dtscpp_transparseobj.part30.test.ts` | `h2dtscpp_tpo_1050` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_multiset<unsigned long>` 的转换结果与性能。 |
+| 11171 | `conversion_h2dtscpp_transparseobj.part31.test.ts` | `h2dtscpp_tpo_1051` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_multiset<unsigned long long>` 的转换结果与性能。 |
+| 11172 | `conversion_h2dtscpp_transparseobj.part31.test.ts` | `h2dtscpp_tpo_1052` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_multiset<int |
+| 11173 | `conversion_h2dtscpp_transparseobj.part31.test.ts` | `h2dtscpp_tpo_1053` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_multiset<std::string>::iterator` 的转换结果与性能。 |
+| 11174 | `conversion_h2dtscpp_transparseobj.part31.test.ts` | `h2dtscpp_tpo_1054` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_multiset<char |
+| 11175 | `conversion_h2dtscpp_transparseobj.part31.test.ts` | `h2dtscpp_tpo_1055` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_multiset<long long>::iterator` 的转换结果与性能。 |
+| 11176 | `conversion_h2dtscpp_transparseobj.part31.test.ts` | `h2dtscpp_tpo_1056` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_multiset<unsigned short>::iterator` 的转换结果与性能。 |
+| 11177 | `conversion_h2dtscpp_transparseobj.part31.test.ts` | `h2dtscpp_tpo_1057` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_multiset<unsigned long>::iterator` 的转换结果与性能。 |
+| 11178 | `conversion_h2dtscpp_transparseobj.part31.test.ts` | `h2dtscpp_tpo_1058` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_multiset<unsigned long long>::iterator` 的转换结果与性能。 |
+| 11179 | `conversion_h2dtscpp_transparseobj.part31.test.ts` | `h2dtscpp_tpo_1059` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unordered_multiset<int |
+| 11180 | `conversion_h2dtscpp_transparseobj.part31.test.ts` | `h2dtscpp_tpo_1060` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::tuple<int16_t, bool,  int64_t, std::string, int32_t, char |
+| 11181 | `conversion_h2dtscpp_transparseobj.part31.test.ts` | `h2dtscpp_tpo_1061` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::pair<int16_t, bool,  int64_t, std::string, int32_t, char |
+| 11182 | `conversion_h2dtscpp_transparseobj.part31.test.ts` | `h2dtscpp_tpo_1062` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::complex<long long, int |
+| 11183 | `conversion_h2dtscpp_transparseobj.part31.test.ts` | `h2dtscpp_tpo_1063` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::complex<unsigned short, unsigned long>` 的转换结果与性能。 |
+| 11184 | `conversion_h2dtscpp_transparseobj.part31.test.ts` | `h2dtscpp_tpo_1064` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::complex<int64_t, unsigned long long>` 的转换结果与性能。 |
+| 11185 | `conversion_h2dtscpp_transparseobj.part31.test.ts` | `h2dtscpp_tpo_1065` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::chrono::hours` 的转换结果与性能。 |
+| 11186 | `conversion_h2dtscpp_transparseobj.part31.test.ts` | `h2dtscpp_tpo_1066` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::chrono::minutes` 的转换结果与性能。 |
+| 11187 | `conversion_h2dtscpp_transparseobj.part31.test.ts` | `h2dtscpp_tpo_1067` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::function<std::string(char |
+| 11188 | `conversion_h2dtscpp_transparseobj.part31.test.ts` | `h2dtscpp_tpo_1068` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::function<unsigned short(long long, unsigned long)>` 的转换结果与性能。 |
+| 11189 | `conversion_h2dtscpp_transparseobj.part31.test.ts` | `h2dtscpp_tpo_1069` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::function<void(int |
+| 11190 | `conversion_h2dtscpp_transparseobj.part31.test.ts` | `h2dtscpp_tpo_1071` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unique_ptr<char |
+| 11191 | `conversion_h2dtscpp_transparseobj.part31.test.ts` | `h2dtscpp_tpo_1072` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unique_ptr<long long>` 的转换结果与性能。 |
+| 11192 | `conversion_h2dtscpp_transparseobj.part31.test.ts` | `h2dtscpp_tpo_1073` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unique_ptr<unsigned short>` 的转换结果与性能。 |
+| 11193 | `conversion_h2dtscpp_transparseobj.part31.test.ts` | `h2dtscpp_tpo_1074` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unique_ptr<unsigned long>` 的转换结果与性能。 |
+| 11194 | `conversion_h2dtscpp_transparseobj.part31.test.ts` | `h2dtscpp_tpo_1075` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unique_ptr<unsigned long long>` 的转换结果与性能。 |
+| 11195 | `conversion_h2dtscpp_transparseobj.part31.test.ts` | `h2dtscpp_tpo_1076` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::unique_ptr<int |
+| 11196 | `conversion_h2dtscpp_transparseobj.part31.test.ts` | `h2dtscpp_tpo_1078` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::shared_ptr<char |
+| 11197 | `conversion_h2dtscpp_transparseobj.part31.test.ts` | `h2dtscpp_tpo_1079` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::shared_ptr<long long>` 的转换结果与性能。 |
+| 11198 | `conversion_h2dtscpp_transparseobj.part31.test.ts` | `h2dtscpp_tpo_1080` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::shared_ptr<unsigned short>` 的转换结果与性能。 |
+| 11199 | `conversion_h2dtscpp_transparseobj.part31.test.ts` | `h2dtscpp_tpo_1081` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::shared_ptr<unsigned long>` 的转换结果与性能。 |
+| 11200 | `conversion_h2dtscpp_transparseobj.part31.test.ts` | `h2dtscpp_tpo_1082` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::shared_ptr<unsigned long long>` 的转换结果与性能。 |
+| 11201 | `conversion_h2dtscpp_transparseobj.part31.test.ts` | `h2dtscpp_tpo_1083` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::shared_ptr<int |
+| 11202 | `conversion_h2dtscpp_transparseobj.part31.test.ts` | `h2dtscpp_tpo_1085` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::weak_ptr<char |
+| 11203 | `conversion_h2dtscpp_transparseobj.part32.test.ts` | `h2dtscpp_tpo_1086` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::weak_ptr<long long>` 的转换结果与性能。 |
+| 11204 | `conversion_h2dtscpp_transparseobj.part32.test.ts` | `h2dtscpp_tpo_1087` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::weak_ptr<unsigned short>` 的转换结果与性能。 |
+| 11205 | `conversion_h2dtscpp_transparseobj.part32.test.ts` | `h2dtscpp_tpo_1088` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::weak_ptr<unsigned long>` 的转换结果与性能。 |
+| 11206 | `conversion_h2dtscpp_transparseobj.part32.test.ts` | `h2dtscpp_tpo_1089` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::weak_ptr<unsigned long long>` 的转换结果与性能。 |
+| 11207 | `conversion_h2dtscpp_transparseobj.part32.test.ts` | `h2dtscpp_tpo_1090` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::weak_ptr<int |
+| 11208 | `conversion_h2dtscpp_transparseobj.part32.test.ts` | `h2dtscpp_tpo_1091` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `int$#` 的转换结果与性能。 |
+| 11209 | `conversion_h2dtscpp_transparseobj.part32.test.ts` | `h2dtscpp_tpo_1092` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `MyType` 的转换结果与性能。 |
+| 11210 | `conversion_h2dtscpp_transparseobj.part32.test.ts` | `h2dtscpp_tpo_1093` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `defined type` 的转换结果与性能。 |
+| 11211 | `conversion_h2dtscpp_transparseobj.part32.test.ts` | `h2dtscpp_tpo_1094` | 性能测试 | 4 | h2dtscpp transParseObj：扩充-R8-单类型 `std::weak_ptr<` 的转换结果与性能。 |
+| 11212 | `conversion_tsclass.part01.test.ts` | `dts2cpp_class_0001` | 性能测试 | 2 | dts2cpp class 对齐 parsetsclass test_1：一般 class（2 属性 + 2 无返回注解方法） 的解析结果与性能。 |
+| 11213 | `conversion_tsclass.part01.test.ts` | `dts2cpp_class_0002` | 性能测试 | 2 | dts2cpp class 对齐 test_2：30 属性 + 13 方法全类型覆盖（含函数类型字段与 Map/Array/Set） 的解析结果与性能。 |
+| 11214 | `conversion_tsclass.part01.test.ts` | `dts2cpp_class_0003` | 性能测试 | 2 | dts2cpp class 对齐 test_3：模板类 的解析结果与性能。 |
+| 11215 | `conversion_tsclass.part01.test.ts` | `dts2cpp_class_0004` | 性能测试 | 2 | dts2cpp class 对齐 test_4：继承 extends 的解析结果与性能。 |
+| 11216 | `conversion_tsclass.part01.test.ts` | `dts2cpp_class_0005` | 性能测试 | 2 | dts2cpp class 对齐 test_5：定长数组维度属性/参数 的解析结果与性能。 |
+| 11217 | `conversion_tsclass.part01.test.ts` | `dts2cpp_class_0006` | 性能测试 | 2 | dts2cpp class 对齐 test_6：模板继承约束 的解析结果与性能。 |
+| 11218 | `conversion_tsclass.part01.test.ts` | `dts2cpp_class_0007` | 性能测试 | 2 | dts2cpp class 对齐 test_7：可选属性/参数 的解析结果与性能。 |
+| 11219 | `conversion_tsclass.part01.test.ts` | `dts2cpp_class_0008` | 性能测试 | 2 | dts2cpp class 对齐 test_8：多种注释 的解析结果与性能。 |
+| 11220 | `conversion_tsclass.part01.test.ts` | `dts2cpp_class_0009` | 性能测试 | 2 | dts2cpp class 对齐 test_9：readonly/public/private/const 修饰符（剥离后解析） 的解析结果与性能。 |
+| 11221 | `conversion_tsclass.part01.test.ts` | `dts2cpp_class_0010` | 性能测试 | 2 | dts2cpp class 对齐 test_10：索引签名（解析时丢弃） 的解析结果与性能。 |
+| 11222 | `conversion_tsclass.part01.test.ts` | `dts2cpp_class_0011` | 性能测试 | 2 | dts2cpp class 对齐 test_13：泛型对象/字面量/嵌套泛型属性 的解析结果与性能。 |
+| 11223 | `conversion_tsclass.part01.test.ts` | `dts2cpp_class_0012` | 性能测试 | 2 | dts2cpp class 对齐 test_14：ReadonlyArray/readonly 数组/元组属性 的解析结果与性能。 |
+| 11224 | `conversion_tsclass.part01.test.ts` | `dts2cpp_class_0013` | 性能测试 | 2 | dts2cpp class 对齐 test_16：readonly/普通元组属性 的解析结果与性能。 |
+| 11225 | `conversion_tsclass.part01.test.ts` | `dts2cpp_class_0014` | 性能测试 | 2 | dts2cpp class 对齐 test_17：keyof 属性 的解析结果与性能。 |
+| 11226 | `conversion_tsclass.part01.test.ts` | `dts2cpp_class_0015` | 性能测试 | 2 | dts2cpp class 对齐 test_19：索引访问类型属性 的解析结果与性能。 |
+| 11227 | `conversion_tsclass.part01.test.ts` | `dts2cpp_class_0016` | 性能测试 | 2 | dts2cpp class 对齐 test_20：条件类型属性 的解析结果与性能。 |
+| 11228 | `conversion_tsclass.part01.test.ts` | `dts2cpp_class_0017` | 性能测试 | 2 | dts2cpp class 对齐 test_22：模板字面类型与泛型方法 的解析结果与性能。 |
+| 11229 | `conversion_tsclass.part01.test.ts` | `dts2cpp_class_0018` | 性能测试 | 2 | dts2cpp class 对齐 test_23：内在字符串操作类型属性 的解析结果与性能。 |
+| 11230 | `conversion_tsclass.part01.test.ts` | `dts2cpp_class_0019` | 性能测试 | 2 | dts2cpp class 对齐 test_24：export class 的解析结果与性能。 |
+| 11231 | `conversion_tsclass.part01.test.ts` | `dts2cpp_class_0020` | 性能测试 | 2 | dts2cpp class 对齐 test_26：declare namespace 嵌套类 的解析结果与性能。 |
+| 11232 | `conversion_tsclass.part01.test.ts` | `dts2cpp_class_0021` | 性能测试 | 2 | dts2cpp class 对齐 test_27：namespace 内继承类 的解析结果与性能。 |
+| 11233 | `conversion_tsclass.part01.test.ts` | `dts2cpp_class_0022` | 性能测试 | 2 | dts2cpp class 对齐 test_28：namespace 内两个独立类 的解析结果与性能。 |
+| 11234 | `conversion_tsclass.part01.test.ts` | `dts2cpp_class_0023` | 性能测试 | 2 | dts2cpp class 对齐 test_42：单行 class 的解析结果与性能。 |
+| 11235 | `conversion_tsclass.part01.test.ts` | `dts2cpp_class_0024` | 性能测试 | 2 | dts2cpp class 对齐 test_45：中文类名与继承 的解析结果与性能。 |
+| 11236 | `conversion_tsclass.part01.test.ts` | `dts2cpp_class_0025` | 性能测试 | 2 | dts2cpp class 对齐 test_49：两个空类 的解析结果与性能。 |
+| 11237 | `conversion_tsclass.part01.test.ts` | `dts2cpp_class_0026` | 性能测试 | 2 | dts2cpp class 对齐 test_64：单行 export class 的解析结果与性能。 |
+| 11238 | `conversion_tsclass.part02.test.ts` | `dts2cpp_class_0027` | 性能测试 | 2 | dts2cpp class 对齐 test_69：可选/非空断言属性与 rest 参数方法 的解析结果与性能。 |
+| 11239 | `conversion_tsclass.part02.test.ts` | `dts2cpp_class_0028` | 性能测试 | 2 | dts2cpp class 对齐 test_70：函数重载（3 个重载签名） 的解析结果与性能。 |
+| 11240 | `conversion_tsclass.part02.test.ts` | `dts2cpp_class_0029` | 性能测试 | 2 | dts2cpp class 对齐 test_72：static/abstract/protected/this 参数 的解析结果与性能。 |
+| 11241 | `conversion_tsclass.part02.test.ts` | `dts2cpp_class_0030` | 性能测试 | 2 | dts2cpp class 对齐 test_74：getter/setter 的解析结果与性能。 |
+| 11242 | `conversion_tsclass.part02.test.ts` | `dts2cpp_class_0031` | 性能测试 | 2 | dts2cpp class 对齐 test_75：implements 接口 的解析结果与性能。 |
+| 11243 | `conversion_tsclass.part02.test.ts` | `dts2cpp_class_0032` | 性能测试 | 2 | dts2cpp class 扩充：20 属性全基本类型/容器/元组矩阵 的解析结果与性能。 |
+| 11244 | `conversion_tsclass.part02.test.ts` | `dts2cpp_class_0033` | 性能测试 | 2 | dts2cpp class 扩充：30 属性进阶类型矩阵（含内置对象/容器嵌套） 的解析结果与性能。 |
+| 11245 | `conversion_tsclass.part02.test.ts` | `dts2cpp_class_0034` | 性能测试 | 2 | dts2cpp class 扩充：50 属性全类型矩阵（规模压测） 的解析结果与性能。 |
+| 11246 | `conversion_tsclass.part02.test.ts` | `dts2cpp_class_0035` | 性能测试 | 2 | dts2cpp class 扩充：20 方法返回类型矩阵（基本/数组/元组/联合/函数/对象） 的解析结果与性能。 |
+| 11247 | `conversion_tsclass.part02.test.ts` | `dts2cpp_class_0036` | 性能测试 | 2 | dts2cpp class 扩充：10 方法参数形态矩阵（多参/可选/rest/默认/解构/联合/容器） 的解析结果与性能。 |
+| 11248 | `conversion_tsclass.part02.test.ts` | `dts2cpp_class_0037` | 性能测试 | 2 | dts2cpp class 扩充：多参数 + 返回注解方法组合 的解析结果与性能。 |
+| 11249 | `conversion_tsclass.part02.test.ts` | `dts2cpp_class_0038` | 性能测试 | 2 | dts2cpp class 扩充：同文件两个完整类 的解析结果与性能。 |
+| 11250 | `conversion_tsclass.part02.test.ts` | `dts2cpp_class_0039` | 性能测试 | 2 | dts2cpp class 扩充：同文件三个类（多声明吞吐） 的解析结果与性能。 |
+| 11251 | `conversion_tsclass.part02.test.ts` | `dts2cpp_class_0040` | 性能测试 | 2 | dts2cpp class 扩充：双泛型类 的解析结果与性能。 |
+| 11252 | `conversion_tsclass.part02.test.ts` | `dts2cpp_class_0041` | 性能测试 | 2 | dts2cpp class 扩充：属性默认值初始化 的解析结果与性能。 |
+| 11253 | `conversion_tsclass.part02.test.ts` | `dts2cpp_class_0042` | 性能测试 | 2 | dts2cpp class 扩充：三重重载方法 的解析结果与性能。 |
+| 11254 | `conversion_tsclass.part02.test.ts` | `dts2cpp_class_0043` | 性能测试 | 2 | dts2cpp class 扩充：中文类名/属性/方法 的解析结果与性能。 |
+| 11255 | `conversion_tsclass.part02.test.ts` | `dts2cpp_class_0044` | 性能测试 | 2 | dts2cpp class 扩充：空类 的解析结果与性能。 |
+| 11256 | `conversion_tsclass.part02.test.ts` | `dts2cpp_class_0045` | 性能测试 | 2 | dts2cpp class 扩充：implements 多接口 的解析结果与性能。 |
+| 11257 | `conversion_tsclass.part02.test.ts` | `dts2cpp_class_0046` | 性能测试 | 2 | dts2cpp class 扩充：三级继承链 的解析结果与性能。 |
+| 11258 | `conversion_tsclass.part02.test.ts` | `dts2cpp_class_0047` | 性能测试 | 2 | dts2cpp class 扩充：10 属性 + 10 方法混合大集合 的解析结果与性能。 |
+| 11259 | `conversion_tsclass.part02.test.ts` | `dts2cpp_class_0048` | 性能测试 | 2 | dts2cpp class 扩充：字面量/交集/模板/联合属性矩阵 的解析结果与性能。 |
+| 11260 | `conversion_tsclass.part02.test.ts` | `dts2cpp_class_0049` | 性能测试 | 2 | dts2cpp class 扩充：字面量联合参数与返回 的解析结果与性能。 |
+| 11261 | `conversion_tsclass.part02.test.ts` | `dts2cpp_class_0050` | 性能测试 | 2 | dts2cpp class 扩充：内置对象引用联合参数/返回 的解析结果与性能。 |
+| 11262 | `conversion_tsclass.part02.test.ts` | `dts2cpp_class_0051` | 性能测试 | 2 | dts2cpp class 扩充：数组参数/多维数组返回 的解析结果与性能。 |
+| 11263 | `conversion_tsclass.part03a.test.ts` | `dts2cpp_class_0052` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：number × plain 修饰（4 属性） 的解析结果与性能。 |
+| 11264 | `conversion_tsclass.part03a.test.ts` | `dts2cpp_class_0053` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：number × public 修饰（4 属性） 的解析结果与性能。 |
+| 11265 | `conversion_tsclass.part03a.test.ts` | `dts2cpp_class_0054` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：number × readonly 修饰（4 属性） 的解析结果与性能。 |
+| 11266 | `conversion_tsclass.part03a.test.ts` | `dts2cpp_class_0055` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：number × optional 修饰（4 属性） 的解析结果与性能。 |
+| 11267 | `conversion_tsclass.part03a.test.ts` | `dts2cpp_class_0056` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：string × plain 修饰（4 属性） 的解析结果与性能。 |
+| 11268 | `conversion_tsclass.part03a.test.ts` | `dts2cpp_class_0057` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：string × public 修饰（4 属性） 的解析结果与性能。 |
+| 11269 | `conversion_tsclass.part03a.test.ts` | `dts2cpp_class_0058` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：string × readonly 修饰（4 属性） 的解析结果与性能。 |
+| 11270 | `conversion_tsclass.part03a.test.ts` | `dts2cpp_class_0059` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：string × optional 修饰（4 属性） 的解析结果与性能。 |
+| 11271 | `conversion_tsclass.part03a.test.ts` | `dts2cpp_class_0060` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：boolean × plain 修饰（4 属性） 的解析结果与性能。 |
+| 11272 | `conversion_tsclass.part03a.test.ts` | `dts2cpp_class_0061` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：boolean × public 修饰（4 属性） 的解析结果与性能。 |
+| 11273 | `conversion_tsclass.part03a.test.ts` | `dts2cpp_class_0062` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：boolean × readonly 修饰（4 属性） 的解析结果与性能。 |
+| 11274 | `conversion_tsclass.part03a.test.ts` | `dts2cpp_class_0063` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：boolean × optional 修饰（4 属性） 的解析结果与性能。 |
+| 11275 | `conversion_tsclass.part03a.test.ts` | `dts2cpp_class_0064` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：any × plain 修饰（4 属性） 的解析结果与性能。 |
+| 11276 | `conversion_tsclass.part03a.test.ts` | `dts2cpp_class_0065` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：any × public 修饰（4 属性） 的解析结果与性能。 |
+| 11277 | `conversion_tsclass.part03a.test.ts` | `dts2cpp_class_0066` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：any × readonly 修饰（4 属性） 的解析结果与性能。 |
+| 11278 | `conversion_tsclass.part03a.test.ts` | `dts2cpp_class_0067` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：any × optional 修饰（4 属性） 的解析结果与性能。 |
+| 11279 | `conversion_tsclass.part03a.test.ts` | `dts2cpp_class_0068` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：unknown × plain 修饰（4 属性） 的解析结果与性能。 |
+| 11280 | `conversion_tsclass.part03a.test.ts` | `dts2cpp_class_0069` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：unknown × public 修饰（4 属性） 的解析结果与性能。 |
+| 11281 | `conversion_tsclass.part03a.test.ts` | `dts2cpp_class_0070` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：unknown × readonly 修饰（4 属性） 的解析结果与性能。 |
+| 11282 | `conversion_tsclass.part03a.test.ts` | `dts2cpp_class_0071` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：unknown × optional 修饰（4 属性） 的解析结果与性能。 |
+| 11283 | `conversion_tsclass.part03a.test.ts` | `dts2cpp_class_0072` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：null × plain 修饰（4 属性） 的解析结果与性能。 |
+| 11284 | `conversion_tsclass.part03a.test.ts` | `dts2cpp_class_0073` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：null × public 修饰（4 属性） 的解析结果与性能。 |
+| 11285 | `conversion_tsclass.part03a.test.ts` | `dts2cpp_class_0074` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：null × readonly 修饰（4 属性） 的解析结果与性能。 |
+| 11286 | `conversion_tsclass.part03a.test.ts` | `dts2cpp_class_0075` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：null × optional 修饰（4 属性） 的解析结果与性能。 |
+| 11287 | `conversion_tsclass.part03a.test.ts` | `dts2cpp_class_0076` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：undefined × plain 修饰（4 属性） 的解析结果与性能。 |
+| 11288 | `conversion_tsclass.part03a.test.ts` | `dts2cpp_class_0077` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：undefined × public 修饰（4 属性） 的解析结果与性能。 |
+| 11289 | `conversion_tsclass.part03a.test.ts` | `dts2cpp_class_0078` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：undefined × readonly 修饰（4 属性） 的解析结果与性能。 |
+| 11290 | `conversion_tsclass.part03a.test.ts` | `dts2cpp_class_0079` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：undefined × optional 修饰（4 属性） 的解析结果与性能。 |
+| 11291 | `conversion_tsclass.part03a.test.ts` | `dts2cpp_class_0080` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：symbol × plain 修饰（4 属性） 的解析结果与性能。 |
+| 11292 | `conversion_tsclass.part03a.test.ts` | `dts2cpp_class_0081` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：symbol × public 修饰（4 属性） 的解析结果与性能。 |
+| 11293 | `conversion_tsclass.part03a.test.ts` | `dts2cpp_class_0082` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：symbol × readonly 修饰（4 属性） 的解析结果与性能。 |
+| 11294 | `conversion_tsclass.part03a.test.ts` | `dts2cpp_class_0083` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：symbol × optional 修饰（4 属性） 的解析结果与性能。 |
+| 11295 | `conversion_tsclass.part03a.test.ts` | `dts2cpp_class_0084` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：bigint × plain 修饰（4 属性） 的解析结果与性能。 |
+| 11296 | `conversion_tsclass.part03a.test.ts` | `dts2cpp_class_0085` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：bigint × public 修饰（4 属性） 的解析结果与性能。 |
+| 11297 | `conversion_tsclass.part03a.test.ts` | `dts2cpp_class_0086` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：bigint × readonly 修饰（4 属性） 的解析结果与性能。 |
+| 11298 | `conversion_tsclass.part03a.test.ts` | `dts2cpp_class_0087` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：bigint × optional 修饰（4 属性） 的解析结果与性能。 |
+| 11299 | `conversion_tsclass.part03a.test.ts` | `dts2cpp_class_0088` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：object × plain 修饰（4 属性） 的解析结果与性能。 |
+| 11300 | `conversion_tsclass.part03a.test.ts` | `dts2cpp_class_0089` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：object × public 修饰（4 属性） 的解析结果与性能。 |
+| 11301 | `conversion_tsclass.part03a.test.ts` | `dts2cpp_class_0090` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：object × readonly 修饰（4 属性） 的解析结果与性能。 |
+| 11302 | `conversion_tsclass.part03b.test.ts` | `dts2cpp_class_0091` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：object × optional 修饰（4 属性） 的解析结果与性能。 |
+| 11303 | `conversion_tsclass.part03b.test.ts` | `dts2cpp_class_0092` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：number[] × plain 修饰（4 属性） 的解析结果与性能。 |
+| 11304 | `conversion_tsclass.part03b.test.ts` | `dts2cpp_class_0093` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：number[] × public 修饰（4 属性） 的解析结果与性能。 |
+| 11305 | `conversion_tsclass.part03b.test.ts` | `dts2cpp_class_0094` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：number[] × readonly 修饰（4 属性） 的解析结果与性能。 |
+| 11306 | `conversion_tsclass.part03b.test.ts` | `dts2cpp_class_0095` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：number[] × optional 修饰（4 属性） 的解析结果与性能。 |
+| 11307 | `conversion_tsclass.part03b.test.ts` | `dts2cpp_class_0096` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：string[] × plain 修饰（4 属性） 的解析结果与性能。 |
+| 11308 | `conversion_tsclass.part03b.test.ts` | `dts2cpp_class_0097` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：string[] × public 修饰（4 属性） 的解析结果与性能。 |
+| 11309 | `conversion_tsclass.part03b.test.ts` | `dts2cpp_class_0098` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：string[] × readonly 修饰（4 属性） 的解析结果与性能。 |
+| 11310 | `conversion_tsclass.part03b.test.ts` | `dts2cpp_class_0099` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：string[] × optional 修饰（4 属性） 的解析结果与性能。 |
+| 11311 | `conversion_tsclass.part03b.test.ts` | `dts2cpp_class_0100` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：boolean[] × plain 修饰（4 属性） 的解析结果与性能。 |
+| 11312 | `conversion_tsclass.part03b.test.ts` | `dts2cpp_class_0101` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：boolean[] × public 修饰（4 属性） 的解析结果与性能。 |
+| 11313 | `conversion_tsclass.part03b.test.ts` | `dts2cpp_class_0102` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：boolean[] × readonly 修饰（4 属性） 的解析结果与性能。 |
+| 11314 | `conversion_tsclass.part03b.test.ts` | `dts2cpp_class_0103` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：boolean[] × optional 修饰（4 属性） 的解析结果与性能。 |
+| 11315 | `conversion_tsclass.part03b.test.ts` | `dts2cpp_class_0104` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：Array<number> × plain 修饰（4 属性） 的解析结果与性能。 |
+| 11316 | `conversion_tsclass.part03b.test.ts` | `dts2cpp_class_0105` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：Array<number> × public 修饰（4 属性） 的解析结果与性能。 |
+| 11317 | `conversion_tsclass.part03b.test.ts` | `dts2cpp_class_0106` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：Array<number> × readonly 修饰（4 属性） 的解析结果与性能。 |
+| 11318 | `conversion_tsclass.part03b.test.ts` | `dts2cpp_class_0107` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：Array<number> × optional 修饰（4 属性） 的解析结果与性能。 |
+| 11319 | `conversion_tsclass.part03b.test.ts` | `dts2cpp_class_0108` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：Map<string, number> × plain 修饰（4 属性） 的解析结果与性能。 |
+| 11320 | `conversion_tsclass.part03b.test.ts` | `dts2cpp_class_0109` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：Map<string, number> × public 修饰（4 属性） 的解析结果与性能。 |
+| 11321 | `conversion_tsclass.part03b.test.ts` | `dts2cpp_class_0110` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：Map<string, number> × readonly 修饰（4 属性） 的解析结果与性能。 |
+| 11322 | `conversion_tsclass.part03b.test.ts` | `dts2cpp_class_0111` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：Map<string, number> × optional 修饰（4 属性） 的解析结果与性能。 |
+| 11323 | `conversion_tsclass.part03b.test.ts` | `dts2cpp_class_0112` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：Set<number> × plain 修饰（4 属性） 的解析结果与性能。 |
+| 11324 | `conversion_tsclass.part03b.test.ts` | `dts2cpp_class_0113` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：Set<number> × public 修饰（4 属性） 的解析结果与性能。 |
+| 11325 | `conversion_tsclass.part03b.test.ts` | `dts2cpp_class_0114` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：Set<number> × readonly 修饰（4 属性） 的解析结果与性能。 |
+| 11326 | `conversion_tsclass.part03b.test.ts` | `dts2cpp_class_0115` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：Set<number> × optional 修饰（4 属性） 的解析结果与性能。 |
+| 11327 | `conversion_tsclass.part03b.test.ts` | `dts2cpp_class_0116` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：Record<string, string> × plain 修饰（4 属性） 的解析结果与性能。 |
+| 11328 | `conversion_tsclass.part03b.test.ts` | `dts2cpp_class_0117` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：Record<string, string> × public 修饰（4 属性） 的解析结果与性能。 |
+| 11329 | `conversion_tsclass.part03b.test.ts` | `dts2cpp_class_0118` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：Record<string, string> × readonly 修饰（4 属性） 的解析结果与性能。 |
+| 11330 | `conversion_tsclass.part03b.test.ts` | `dts2cpp_class_0119` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：Record<string, string> × optional 修饰（4 属性） 的解析结果与性能。 |
+| 11331 | `conversion_tsclass.part03b.test.ts` | `dts2cpp_class_0120` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：Promise<string> × plain 修饰（4 属性） 的解析结果与性能。 |
+| 11332 | `conversion_tsclass.part03b.test.ts` | `dts2cpp_class_0121` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：Promise<string> × public 修饰（4 属性） 的解析结果与性能。 |
+| 11333 | `conversion_tsclass.part03b.test.ts` | `dts2cpp_class_0122` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：Promise<string> × readonly 修饰（4 属性） 的解析结果与性能。 |
+| 11334 | `conversion_tsclass.part03b.test.ts` | `dts2cpp_class_0123` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：Promise<string> × optional 修饰（4 属性） 的解析结果与性能。 |
+| 11335 | `conversion_tsclass.part03b.test.ts` | `dts2cpp_class_0124` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：[string, number] × plain 修饰（4 属性） 的解析结果与性能。 |
+| 11336 | `conversion_tsclass.part03b.test.ts` | `dts2cpp_class_0125` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：[string, number] × public 修饰（4 属性） 的解析结果与性能。 |
+| 11337 | `conversion_tsclass.part03b.test.ts` | `dts2cpp_class_0126` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：[string, number] × readonly 修饰（4 属性） 的解析结果与性能。 |
+| 11338 | `conversion_tsclass.part03b.test.ts` | `dts2cpp_class_0127` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：[string, number] × optional 修饰（4 属性） 的解析结果与性能。 |
+| 11339 | `conversion_tsclass.part03b.test.ts` | `dts2cpp_class_0128` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：(a: number) => void × plain 修饰（4 属性） 的解析结果与性能。 |
+| 11340 | `conversion_tsclass.part03b.test.ts` | `dts2cpp_class_0129` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：(a: number) => void × public 修饰（4 属性） 的解析结果与性能。 |
+| 11341 | `conversion_tsclass.part03c.test.ts` | `dts2cpp_class_0130` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：(a: number) => void × readonly 修饰（4 属性） 的解析结果与性能。 |
+| 11342 | `conversion_tsclass.part03c.test.ts` | `dts2cpp_class_0131` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：(a: number) => void × optional 修饰（4 属性） 的解析结果与性能。 |
+| 11343 | `conversion_tsclass.part03c.test.ts` | `dts2cpp_class_0132` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：Date × plain 修饰（4 属性） 的解析结果与性能。 |
+| 11344 | `conversion_tsclass.part03c.test.ts` | `dts2cpp_class_0133` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：Date × public 修饰（4 属性） 的解析结果与性能。 |
+| 11345 | `conversion_tsclass.part03c.test.ts` | `dts2cpp_class_0134` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：Date × readonly 修饰（4 属性） 的解析结果与性能。 |
+| 11346 | `conversion_tsclass.part03c.test.ts` | `dts2cpp_class_0135` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：Date × optional 修饰（4 属性） 的解析结果与性能。 |
+| 11347 | `conversion_tsclass.part03c.test.ts` | `dts2cpp_class_0136` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：RegExp × plain 修饰（4 属性） 的解析结果与性能。 |
+| 11348 | `conversion_tsclass.part03c.test.ts` | `dts2cpp_class_0137` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：RegExp × public 修饰（4 属性） 的解析结果与性能。 |
+| 11349 | `conversion_tsclass.part03c.test.ts` | `dts2cpp_class_0138` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：RegExp × readonly 修饰（4 属性） 的解析结果与性能。 |
+| 11350 | `conversion_tsclass.part04a.test.ts` | `dts2cpp_class_0139` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：RegExp × optional 修饰（4 属性） 的解析结果与性能。 |
+| 11351 | `conversion_tsclass.part04a.test.ts` | `dts2cpp_class_0140` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：Error × plain 修饰（4 属性） 的解析结果与性能。 |
+| 11352 | `conversion_tsclass.part04a.test.ts` | `dts2cpp_class_0141` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：Error × public 修饰（4 属性） 的解析结果与性能。 |
+| 11353 | `conversion_tsclass.part04a.test.ts` | `dts2cpp_class_0142` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：Error × readonly 修饰（4 属性） 的解析结果与性能。 |
+| 11354 | `conversion_tsclass.part04a.test.ts` | `dts2cpp_class_0143` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：Error × optional 修饰（4 属性） 的解析结果与性能。 |
+| 11355 | `conversion_tsclass.part04a.test.ts` | `dts2cpp_class_0144` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：Uint8Array × plain 修饰（4 属性） 的解析结果与性能。 |
+| 11356 | `conversion_tsclass.part04a.test.ts` | `dts2cpp_class_0145` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：Uint8Array × public 修饰（4 属性） 的解析结果与性能。 |
+| 11357 | `conversion_tsclass.part04a.test.ts` | `dts2cpp_class_0146` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：Uint8Array × readonly 修饰（4 属性） 的解析结果与性能。 |
+| 11358 | `conversion_tsclass.part04a.test.ts` | `dts2cpp_class_0147` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：Uint8Array × optional 修饰（4 属性） 的解析结果与性能。 |
+| 11359 | `conversion_tsclass.part04a.test.ts` | `dts2cpp_class_0148` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵："lit" × plain 修饰（4 属性） 的解析结果与性能。 |
+| 11360 | `conversion_tsclass.part04a.test.ts` | `dts2cpp_class_0149` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵："lit" × public 修饰（4 属性） 的解析结果与性能。 |
+| 11361 | `conversion_tsclass.part04a.test.ts` | `dts2cpp_class_0150` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵："lit" × readonly 修饰（4 属性） 的解析结果与性能。 |
+| 11362 | `conversion_tsclass.part04a.test.ts` | `dts2cpp_class_0151` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵："lit" × optional 修饰（4 属性） 的解析结果与性能。 |
+| 11363 | `conversion_tsclass.part04a.test.ts` | `dts2cpp_class_0152` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：42 × plain 修饰（4 属性） 的解析结果与性能。 |
+| 11364 | `conversion_tsclass.part04a.test.ts` | `dts2cpp_class_0153` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：42 × public 修饰（4 属性） 的解析结果与性能。 |
+| 11365 | `conversion_tsclass.part04a.test.ts` | `dts2cpp_class_0154` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：42 × readonly 修饰（4 属性） 的解析结果与性能。 |
+| 11366 | `conversion_tsclass.part04a.test.ts` | `dts2cpp_class_0155` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：42 × optional 修饰（4 属性） 的解析结果与性能。 |
+| 11367 | `conversion_tsclass.part04a.test.ts` | `dts2cpp_class_0156` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：true × plain 修饰（4 属性） 的解析结果与性能。 |
+| 11368 | `conversion_tsclass.part04a.test.ts` | `dts2cpp_class_0157` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：true × public 修饰（4 属性） 的解析结果与性能。 |
+| 11369 | `conversion_tsclass.part04a.test.ts` | `dts2cpp_class_0158` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：true × readonly 修饰（4 属性） 的解析结果与性能。 |
+| 11370 | `conversion_tsclass.part04a.test.ts` | `dts2cpp_class_0159` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：true × optional 修饰（4 属性） 的解析结果与性能。 |
+| 11371 | `conversion_tsclass.part04a.test.ts` | `dts2cpp_class_0160` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：string \| number × plain 修饰（4 属性） 的解析结果与性能。 |
+| 11372 | `conversion_tsclass.part04a.test.ts` | `dts2cpp_class_0161` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：string \| number × public 修饰（4 属性） 的解析结果与性能。 |
+| 11373 | `conversion_tsclass.part04a.test.ts` | `dts2cpp_class_0162` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：string \| number × readonly 修饰（4 属性） 的解析结果与性能。 |
+| 11374 | `conversion_tsclass.part04a.test.ts` | `dts2cpp_class_0163` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：string \| number × optional 修饰（4 属性） 的解析结果与性能。 |
+| 11375 | `conversion_tsclass.part04a.test.ts` | `dts2cpp_class_0164` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：string & {} × plain 修饰（4 属性） 的解析结果与性能。 |
+| 11376 | `conversion_tsclass.part04a.test.ts` | `dts2cpp_class_0165` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：string & {} × public 修饰（4 属性） 的解析结果与性能。 |
+| 11377 | `conversion_tsclass.part04a.test.ts` | `dts2cpp_class_0166` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：string & {} × readonly 修饰（4 属性） 的解析结果与性能。 |
+| 11378 | `conversion_tsclass.part04a.test.ts` | `dts2cpp_class_0167` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：string & {} × optional 修饰（4 属性） 的解析结果与性能。 |
+| 11379 | `conversion_tsclass.part04a.test.ts` | `dts2cpp_class_0168` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：{ id: number } × plain 修饰（4 属性） 的解析结果与性能。 |
+| 11380 | `conversion_tsclass.part04a.test.ts` | `dts2cpp_class_0169` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：{ id: number } × public 修饰（4 属性） 的解析结果与性能。 |
+| 11381 | `conversion_tsclass.part04a.test.ts` | `dts2cpp_class_0170` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：{ id: number } × readonly 修饰（4 属性） 的解析结果与性能。 |
+| 11382 | `conversion_tsclass.part04a.test.ts` | `dts2cpp_class_0171` | 性能测试 | 2 | dts2cpp class 扩充-属性矩阵：{ id: number } × optional 修饰（4 属性） 的解析结果与性能。 |
+| 11383 | `conversion_tsclass.part04a.test.ts` | `dts2cpp_class_0172` | 性能测试 | 2 | dts2cpp class 扩充-返回矩阵：方法返回 number（无参方法 ×3） 的解析结果与性能。 |
+| 11384 | `conversion_tsclass.part04a.test.ts` | `dts2cpp_class_0173` | 性能测试 | 2 | dts2cpp class 扩充-返回矩阵：方法返回 number（带参方法 ×3） 的解析结果与性能。 |
+| 11385 | `conversion_tsclass.part04a.test.ts` | `dts2cpp_class_0174` | 性能测试 | 2 | dts2cpp class 扩充-返回矩阵：方法返回 string（无参方法 ×3） 的解析结果与性能。 |
+| 11386 | `conversion_tsclass.part04a.test.ts` | `dts2cpp_class_0175` | 性能测试 | 2 | dts2cpp class 扩充-返回矩阵：方法返回 string（带参方法 ×3） 的解析结果与性能。 |
+| 11387 | `conversion_tsclass.part04a.test.ts` | `dts2cpp_class_0176` | 性能测试 | 2 | dts2cpp class 扩充-返回矩阵：方法返回 boolean（无参方法 ×3） 的解析结果与性能。 |
+| 11388 | `conversion_tsclass.part04a.test.ts` | `dts2cpp_class_0177` | 性能测试 | 2 | dts2cpp class 扩充-返回矩阵：方法返回 boolean（带参方法 ×3） 的解析结果与性能。 |
+| 11389 | `conversion_tsclass.part04b.test.ts` | `dts2cpp_class_0178` | 性能测试 | 2 | dts2cpp class 扩充-返回矩阵：方法返回 any（无参方法 ×3） 的解析结果与性能。 |
+| 11390 | `conversion_tsclass.part04b.test.ts` | `dts2cpp_class_0179` | 性能测试 | 2 | dts2cpp class 扩充-返回矩阵：方法返回 any（带参方法 ×3） 的解析结果与性能。 |
+| 11391 | `conversion_tsclass.part04b.test.ts` | `dts2cpp_class_0180` | 性能测试 | 2 | dts2cpp class 扩充-返回矩阵：方法返回 unknown（无参方法 ×3） 的解析结果与性能。 |
+| 11392 | `conversion_tsclass.part04b.test.ts` | `dts2cpp_class_0181` | 性能测试 | 2 | dts2cpp class 扩充-返回矩阵：方法返回 unknown（带参方法 ×3） 的解析结果与性能。 |
+| 11393 | `conversion_tsclass.part04b.test.ts` | `dts2cpp_class_0182` | 性能测试 | 2 | dts2cpp class 扩充-返回矩阵：方法返回 null（无参方法 ×3） 的解析结果与性能。 |
+| 11394 | `conversion_tsclass.part04b.test.ts` | `dts2cpp_class_0183` | 性能测试 | 2 | dts2cpp class 扩充-返回矩阵：方法返回 null（带参方法 ×3） 的解析结果与性能。 |
+| 11395 | `conversion_tsclass.part04b.test.ts` | `dts2cpp_class_0184` | 性能测试 | 2 | dts2cpp class 扩充-返回矩阵：方法返回 undefined（无参方法 ×3） 的解析结果与性能。 |
+| 11396 | `conversion_tsclass.part04b.test.ts` | `dts2cpp_class_0185` | 性能测试 | 2 | dts2cpp class 扩充-返回矩阵：方法返回 undefined（带参方法 ×3） 的解析结果与性能。 |
+| 11397 | `conversion_tsclass.part04b.test.ts` | `dts2cpp_class_0186` | 性能测试 | 2 | dts2cpp class 扩充-返回矩阵：方法返回 symbol（无参方法 ×3） 的解析结果与性能。 |
+| 11398 | `conversion_tsclass.part04b.test.ts` | `dts2cpp_class_0187` | 性能测试 | 2 | dts2cpp class 扩充-返回矩阵：方法返回 symbol（带参方法 ×3） 的解析结果与性能。 |
+| 11399 | `conversion_tsclass.part04b.test.ts` | `dts2cpp_class_0188` | 性能测试 | 2 | dts2cpp class 扩充-返回矩阵：方法返回 bigint（无参方法 ×3） 的解析结果与性能。 |
+| 11400 | `conversion_tsclass.part04b.test.ts` | `dts2cpp_class_0189` | 性能测试 | 2 | dts2cpp class 扩充-返回矩阵：方法返回 bigint（带参方法 ×3） 的解析结果与性能。 |
+| 11401 | `conversion_tsclass.part04b.test.ts` | `dts2cpp_class_0190` | 性能测试 | 2 | dts2cpp class 扩充-返回矩阵：方法返回 object（无参方法 ×3） 的解析结果与性能。 |
+| 11402 | `conversion_tsclass.part04b.test.ts` | `dts2cpp_class_0191` | 性能测试 | 2 | dts2cpp class 扩充-返回矩阵：方法返回 object（带参方法 ×3） 的解析结果与性能。 |
+| 11403 | `conversion_tsclass.part04b.test.ts` | `dts2cpp_class_0192` | 性能测试 | 2 | dts2cpp class 扩充-返回矩阵：方法返回 number[]（无参方法 ×3） 的解析结果与性能。 |
+| 11404 | `conversion_tsclass.part04b.test.ts` | `dts2cpp_class_0193` | 性能测试 | 2 | dts2cpp class 扩充-返回矩阵：方法返回 number[]（带参方法 ×3） 的解析结果与性能。 |
+| 11405 | `conversion_tsclass.part04b.test.ts` | `dts2cpp_class_0194` | 性能测试 | 2 | dts2cpp class 扩充-返回矩阵：方法返回 string[]（无参方法 ×3） 的解析结果与性能。 |
+| 11406 | `conversion_tsclass.part04b.test.ts` | `dts2cpp_class_0195` | 性能测试 | 2 | dts2cpp class 扩充-返回矩阵：方法返回 string[]（带参方法 ×3） 的解析结果与性能。 |
+| 11407 | `conversion_tsclass.part04b.test.ts` | `dts2cpp_class_0196` | 性能测试 | 2 | dts2cpp class 扩充-返回矩阵：方法返回 boolean[][]（无参方法 ×3） 的解析结果与性能。 |
+| 11408 | `conversion_tsclass.part04b.test.ts` | `dts2cpp_class_0197` | 性能测试 | 2 | dts2cpp class 扩充-返回矩阵：方法返回 boolean[][]（带参方法 ×3） 的解析结果与性能。 |
+| 11409 | `conversion_tsclass.part04b.test.ts` | `dts2cpp_class_0198` | 性能测试 | 2 | dts2cpp class 扩充-返回矩阵：方法返回 [string, number]（无参方法 ×3） 的解析结果与性能。 |
+| 11410 | `conversion_tsclass.part04b.test.ts` | `dts2cpp_class_0199` | 性能测试 | 2 | dts2cpp class 扩充-返回矩阵：方法返回 [string, number]（带参方法 ×3） 的解析结果与性能。 |
+| 11411 | `conversion_tsclass.part04b.test.ts` | `dts2cpp_class_0200` | 性能测试 | 2 | dts2cpp class 扩充-返回矩阵：方法返回 (a: number) => void（无参方法 ×3） 的解析结果与性能。 |
+| 11412 | `conversion_tsclass.part04b.test.ts` | `dts2cpp_class_0201` | 性能测试 | 2 | dts2cpp class 扩充-返回矩阵：方法返回 (a: number) => void（带参方法 ×3） 的解析结果与性能。 |
+| 11413 | `conversion_tsclass.part04b.test.ts` | `dts2cpp_class_0202` | 性能测试 | 2 | dts2cpp class 扩充-返回矩阵：方法返回 string \| number（无参方法 ×3） 的解析结果与性能。 |
+| 11414 | `conversion_tsclass.part04b.test.ts` | `dts2cpp_class_0203` | 性能测试 | 2 | dts2cpp class 扩充-返回矩阵：方法返回 string \| number（带参方法 ×3） 的解析结果与性能。 |
+| 11415 | `conversion_tsclass.part04b.test.ts` | `dts2cpp_class_0204` | 性能测试 | 2 | dts2cpp class 扩充-返回矩阵：方法返回 boolean \| null（无参方法 ×3） 的解析结果与性能。 |
+| 11416 | `conversion_tsclass.part04b.test.ts` | `dts2cpp_class_0205` | 性能测试 | 2 | dts2cpp class 扩充-返回矩阵：方法返回 boolean \| null（带参方法 ×3） 的解析结果与性能。 |
+| 11417 | `conversion_tsclass.part04b.test.ts` | `dts2cpp_class_0206` | 性能测试 | 2 | dts2cpp class 扩充-返回矩阵：方法返回 "lit" \| 1（无参方法 ×3） 的解析结果与性能。 |
+| 11418 | `conversion_tsclass.part04b.test.ts` | `dts2cpp_class_0207` | 性能测试 | 2 | dts2cpp class 扩充-返回矩阵：方法返回 "lit" \| 1（带参方法 ×3） 的解析结果与性能。 |
+| 11419 | `conversion_tsclass.part04b.test.ts` | `dts2cpp_class_0208` | 性能测试 | 2 | dts2cpp class 扩充-返回矩阵：方法返回 42（无参方法 ×3） 的解析结果与性能。 |
+| 11420 | `conversion_tsclass.part04b.test.ts` | `dts2cpp_class_0209` | 性能测试 | 2 | dts2cpp class 扩充-返回矩阵：方法返回 42（带参方法 ×3） 的解析结果与性能。 |
+| 11421 | `conversion_tsclass.part04b.test.ts` | `dts2cpp_class_0210` | 性能测试 | 2 | dts2cpp class 扩充-返回矩阵：方法返回 { id: number }（无参方法 ×3） 的解析结果与性能。 |
+| 11422 | `conversion_tsclass.part04b.test.ts` | `dts2cpp_class_0211` | 性能测试 | 2 | dts2cpp class 扩充-返回矩阵：方法返回 { id: number }（带参方法 ×3） 的解析结果与性能。 |
+| 11423 | `conversion_tsclass.part04b.test.ts` | `dts2cpp_class_0212` | 性能测试 | 2 | dts2cpp class 扩充-参数矩阵：方法参数 number（单参） 的解析结果与性能。 |
+| 11424 | `conversion_tsclass.part04b.test.ts` | `dts2cpp_class_0213` | 性能测试 | 2 | dts2cpp class 扩充-参数矩阵：方法参数 number（双参第二位） 的解析结果与性能。 |
+| 11425 | `conversion_tsclass.part04b.test.ts` | `dts2cpp_class_0214` | 性能测试 | 2 | dts2cpp class 扩充-参数矩阵：方法参数 string（单参） 的解析结果与性能。 |
+| 11426 | `conversion_tsclass.part04b.test.ts` | `dts2cpp_class_0215` | 性能测试 | 2 | dts2cpp class 扩充-参数矩阵：方法参数 string（双参第二位） 的解析结果与性能。 |
+| 11427 | `conversion_tsclass.part04b.test.ts` | `dts2cpp_class_0216` | 性能测试 | 2 | dts2cpp class 扩充-参数矩阵：方法参数 boolean（单参） 的解析结果与性能。 |
+| 11428 | `conversion_tsclass.part04c.test.ts` | `dts2cpp_class_0217` | 性能测试 | 2 | dts2cpp class 扩充-参数矩阵：方法参数 boolean（双参第二位） 的解析结果与性能。 |
+| 11429 | `conversion_tsclass.part04c.test.ts` | `dts2cpp_class_0218` | 性能测试 | 2 | dts2cpp class 扩充-参数矩阵：方法参数 any（单参） 的解析结果与性能。 |
+| 11430 | `conversion_tsclass.part04c.test.ts` | `dts2cpp_class_0219` | 性能测试 | 2 | dts2cpp class 扩充-参数矩阵：方法参数 any（双参第二位） 的解析结果与性能。 |
+| 11431 | `conversion_tsclass.part04c.test.ts` | `dts2cpp_class_0220` | 性能测试 | 2 | dts2cpp class 扩充-参数矩阵：方法参数 unknown（单参） 的解析结果与性能。 |
+| 11432 | `conversion_tsclass.part04c.test.ts` | `dts2cpp_class_0221` | 性能测试 | 2 | dts2cpp class 扩充-参数矩阵：方法参数 unknown（双参第二位） 的解析结果与性能。 |
+| 11433 | `conversion_tsclass.part04c.test.ts` | `dts2cpp_class_0222` | 性能测试 | 2 | dts2cpp class 扩充-参数矩阵：方法参数 null（单参） 的解析结果与性能。 |
+| 11434 | `conversion_tsclass.part04c.test.ts` | `dts2cpp_class_0223` | 性能测试 | 2 | dts2cpp class 扩充-参数矩阵：方法参数 null（双参第二位） 的解析结果与性能。 |
+| 11435 | `conversion_tsclass.part04c.test.ts` | `dts2cpp_class_0224` | 性能测试 | 2 | dts2cpp class 扩充-参数矩阵：方法参数 undefined（单参） 的解析结果与性能。 |
+| 11436 | `conversion_tsclass.part04c.test.ts` | `dts2cpp_class_0225` | 性能测试 | 2 | dts2cpp class 扩充-参数矩阵：方法参数 undefined（双参第二位） 的解析结果与性能。 |
+| 11437 | `conversion_tsclass.part05a.test.ts` | `dts2cpp_class_0226` | 性能测试 | 2 | dts2cpp class 扩充-参数矩阵：方法参数 symbol（单参） 的解析结果与性能。 |
+| 11438 | `conversion_tsclass.part05a.test.ts` | `dts2cpp_class_0227` | 性能测试 | 2 | dts2cpp class 扩充-参数矩阵：方法参数 symbol（双参第二位） 的解析结果与性能。 |
+| 11439 | `conversion_tsclass.part05a.test.ts` | `dts2cpp_class_0228` | 性能测试 | 2 | dts2cpp class 扩充-参数矩阵：方法参数 bigint（单参） 的解析结果与性能。 |
+| 11440 | `conversion_tsclass.part05a.test.ts` | `dts2cpp_class_0229` | 性能测试 | 2 | dts2cpp class 扩充-参数矩阵：方法参数 bigint（双参第二位） 的解析结果与性能。 |
+| 11441 | `conversion_tsclass.part05a.test.ts` | `dts2cpp_class_0230` | 性能测试 | 2 | dts2cpp class 扩充-参数矩阵：方法参数 object（单参） 的解析结果与性能。 |
+| 11442 | `conversion_tsclass.part05a.test.ts` | `dts2cpp_class_0231` | 性能测试 | 2 | dts2cpp class 扩充-参数矩阵：方法参数 object（双参第二位） 的解析结果与性能。 |
+| 11443 | `conversion_tsclass.part05a.test.ts` | `dts2cpp_class_0232` | 性能测试 | 2 | dts2cpp class 扩充-参数矩阵：方法参数 number[]（单参） 的解析结果与性能。 |
+| 11444 | `conversion_tsclass.part05a.test.ts` | `dts2cpp_class_0233` | 性能测试 | 2 | dts2cpp class 扩充-参数矩阵：方法参数 number[]（双参第二位） 的解析结果与性能。 |
+| 11445 | `conversion_tsclass.part05a.test.ts` | `dts2cpp_class_0234` | 性能测试 | 2 | dts2cpp class 扩充-参数矩阵：方法参数 string[]（单参） 的解析结果与性能。 |
+| 11446 | `conversion_tsclass.part05a.test.ts` | `dts2cpp_class_0235` | 性能测试 | 2 | dts2cpp class 扩充-参数矩阵：方法参数 string[]（双参第二位） 的解析结果与性能。 |
+| 11447 | `conversion_tsclass.part05a.test.ts` | `dts2cpp_class_0236` | 性能测试 | 2 | dts2cpp class 扩充-参数矩阵：方法参数 boolean[]（单参） 的解析结果与性能。 |
+| 11448 | `conversion_tsclass.part05a.test.ts` | `dts2cpp_class_0237` | 性能测试 | 2 | dts2cpp class 扩充-参数矩阵：方法参数 boolean[]（双参第二位） 的解析结果与性能。 |
+| 11449 | `conversion_tsclass.part05a.test.ts` | `dts2cpp_class_0238` | 性能测试 | 2 | dts2cpp class 扩充-参数矩阵：方法参数 Array<number>（单参） 的解析结果与性能。 |
+| 11450 | `conversion_tsclass.part05a.test.ts` | `dts2cpp_class_0239` | 性能测试 | 2 | dts2cpp class 扩充-参数矩阵：方法参数 Array<number>（双参第二位） 的解析结果与性能。 |
+| 11451 | `conversion_tsclass.part05a.test.ts` | `dts2cpp_class_0240` | 性能测试 | 2 | dts2cpp class 扩充-参数矩阵：方法参数 Map<string, number>（单参） 的解析结果与性能。 |
+| 11452 | `conversion_tsclass.part05a.test.ts` | `dts2cpp_class_0241` | 性能测试 | 2 | dts2cpp class 扩充-参数矩阵：方法参数 Map<string, number>（双参第二位） 的解析结果与性能。 |
+| 11453 | `conversion_tsclass.part05a.test.ts` | `dts2cpp_class_0242` | 性能测试 | 2 | dts2cpp class 扩充-规模：5 属性 class 的解析结果与性能。 |
+| 11454 | `conversion_tsclass.part05a.test.ts` | `dts2cpp_class_0243` | 性能测试 | 2 | dts2cpp class 扩充-规模：10 属性 class 的解析结果与性能。 |
+| 11455 | `conversion_tsclass.part05a.test.ts` | `dts2cpp_class_0244` | 性能测试 | 2 | dts2cpp class 扩充-规模：15 属性 class 的解析结果与性能。 |
+| 11456 | `conversion_tsclass.part05a.test.ts` | `dts2cpp_class_0245` | 性能测试 | 2 | dts2cpp class 扩充-规模：20 属性 class 的解析结果与性能。 |
+| 11457 | `conversion_tsclass.part05a.test.ts` | `dts2cpp_class_0246` | 性能测试 | 2 | dts2cpp class 扩充-规模：25 属性 class 的解析结果与性能。 |
+| 11458 | `conversion_tsclass.part05a.test.ts` | `dts2cpp_class_0247` | 性能测试 | 2 | dts2cpp class 扩充-规模：30 属性 class 的解析结果与性能。 |
+| 11459 | `conversion_tsclass.part05a.test.ts` | `dts2cpp_class_0248` | 性能测试 | 2 | dts2cpp class 扩充-规模：35 属性 class 的解析结果与性能。 |
+| 11460 | `conversion_tsclass.part05a.test.ts` | `dts2cpp_class_0249` | 性能测试 | 2 | dts2cpp class 扩充-规模：40 属性 class 的解析结果与性能。 |
+| 11461 | `conversion_tsclass.part05a.test.ts` | `dts2cpp_class_0250` | 性能测试 | 2 | dts2cpp class 扩充-规模：45 属性 class 的解析结果与性能。 |
+| 11462 | `conversion_tsclass.part05a.test.ts` | `dts2cpp_class_0251` | 性能测试 | 2 | dts2cpp class 扩充-规模：50 属性 class 的解析结果与性能。 |
+| 11463 | `conversion_tsclass.part05a.test.ts` | `dts2cpp_class_0252` | 性能测试 | 2 | dts2cpp class 扩充-规模：55 属性 class 的解析结果与性能。 |
+| 11464 | `conversion_tsclass.part05a.test.ts` | `dts2cpp_class_0253` | 性能测试 | 2 | dts2cpp class 扩充-规模：60 属性 class 的解析结果与性能。 |
+| 11465 | `conversion_tsclass.part05a.test.ts` | `dts2cpp_class_0254` | 性能测试 | 2 | dts2cpp class 扩充-规模：65 属性 class 的解析结果与性能。 |
+| 11466 | `conversion_tsclass.part05a.test.ts` | `dts2cpp_class_0255` | 性能测试 | 2 | dts2cpp class 扩充-规模：70 属性 class 的解析结果与性能。 |
+| 11467 | `conversion_tsclass.part05a.test.ts` | `dts2cpp_class_0256` | 性能测试 | 2 | dts2cpp class 扩充-规模：75 属性 class 的解析结果与性能。 |
+| 11468 | `conversion_tsclass.part05b.test.ts` | `dts2cpp_class_0257` | 性能测试 | 2 | dts2cpp class 扩充-规模：80 属性 class 的解析结果与性能。 |
+| 11469 | `conversion_tsclass.part05b.test.ts` | `dts2cpp_class_0258` | 性能测试 | 2 | dts2cpp class 扩充-规模：85 属性 class 的解析结果与性能。 |
+| 11470 | `conversion_tsclass.part05b.test.ts` | `dts2cpp_class_0259` | 性能测试 | 2 | dts2cpp class 扩充-规模：90 属性 class 的解析结果与性能。 |
+| 11471 | `conversion_tsclass.part05b.test.ts` | `dts2cpp_class_0260` | 性能测试 | 2 | dts2cpp class 扩充-规模：95 属性 class 的解析结果与性能。 |
+| 11472 | `conversion_tsclass.part05b.test.ts` | `dts2cpp_class_0261` | 性能测试 | 2 | dts2cpp class 扩充-规模：100 属性 class 的解析结果与性能。 |
+| 11473 | `conversion_tsclass.part05b.test.ts` | `dts2cpp_class_0262` | 性能测试 | 2 | dts2cpp class 扩充-命名：UpperCamel 的解析结果与性能。 |
+| 11474 | `conversion_tsclass.part05b.test.ts` | `dts2cpp_class_0263` | 性能测试 | 2 | dts2cpp class 扩充-命名：lowerCamel 的解析结果与性能。 |
+| 11475 | `conversion_tsclass.part05b.test.ts` | `dts2cpp_class_0264` | 性能测试 | 2 | dts2cpp class 扩充-命名：snake_case 的解析结果与性能。 |
+| 11476 | `conversion_tsclass.part05b.test.ts` | `dts2cpp_class_0265` | 性能测试 | 2 | dts2cpp class 扩充-命名：Trailing2 的解析结果与性能。 |
+| 11477 | `conversion_tsclass.part05b.test.ts` | `dts2cpp_class_0266` | 性能测试 | 2 | dts2cpp class 扩充-命名：_leading 的解析结果与性能。 |
+| 11478 | `conversion_tsclass.part05b.test.ts` | `dts2cpp_class_0267` | 性能测试 | 2 | dts2cpp class 扩充-命名：Double__Under 的解析结果与性能。 |
+| 11479 | `conversion_tsclass.part05b.test.ts` | `dts2cpp_class_0268` | 性能测试 | 2 | dts2cpp class 扩充-命名：C 的解析结果与性能。 |
+| 11480 | `conversion_tsclass.part05b.test.ts` | `dts2cpp_class_0269` | 性能测试 | 2 | dts2cpp class 扩充-命名：C1 的解析结果与性能。 |
+| 11481 | `conversion_tsclass.part05b.test.ts` | `dts2cpp_class_0270` | 性能测试 | 2 | dts2cpp class 扩充-命名：c1 的解析结果与性能。 |
+| 11482 | `conversion_tsclass.part05b.test.ts` | `dts2cpp_class_0271` | 性能测试 | 2 | dts2cpp class 扩充-命名：Class 的解析结果与性能。 |
+| 11483 | `conversion_tsclass.part05b.test.ts` | `dts2cpp_class_0272` | 性能测试 | 2 | dts2cpp class 扩充-命名：class1 的解析结果与性能。 |
+| 11484 | `conversion_tsclass.part05b.test.ts` | `dts2cpp_class_0273` | 性能测试 | 2 | dts2cpp class 扩充-命名：中文类 的解析结果与性能。 |
+| 11485 | `conversion_tsclass.part05b.test.ts` | `dts2cpp_class_0274` | 性能测试 | 2 | dts2cpp class 扩充-命名：VersionV2 的解析结果与性能。 |
+| 11486 | `conversion_tsclass.part05b.test.ts` | `dts2cpp_class_0275` | 性能测试 | 2 | dts2cpp class 扩充-命名：HTTPClient 的解析结果与性能。 |
+| 11487 | `conversion_tsclass.part05b.test.ts` | `dts2cpp_class_0276` | 性能测试 | 2 | dts2cpp class 扩充-命名：KLASS 的解析结果与性能。 |
+| 11488 | `conversion_tsclass.part05b.test.ts` | `dts2cpp_class_0277` | 性能测试 | 2 | dts2cpp class 扩充-多声明：同文件 2 个 class 的解析结果与性能。 |
+| 11489 | `conversion_tsclass.part05b.test.ts` | `dts2cpp_class_0278` | 性能测试 | 2 | dts2cpp class 扩充-多声明：同文件 3 个 class 的解析结果与性能。 |
+| 11490 | `conversion_tsclass.part05b.test.ts` | `dts2cpp_class_0279` | 性能测试 | 2 | dts2cpp class 扩充-多声明：同文件 4 个 class 的解析结果与性能。 |
+| 11491 | `conversion_tsclass.part05b.test.ts` | `dts2cpp_class_0280` | 性能测试 | 2 | dts2cpp class 扩充-多声明：同文件 5 个 class 的解析结果与性能。 |
+| 11492 | `conversion_tsclass.part05b.test.ts` | `dts2cpp_class_0281` | 性能测试 | 2 | dts2cpp class 扩充-多声明：同文件 6 个 class 的解析结果与性能。 |
+| 11493 | `conversion_tsclass.part05b.test.ts` | `dts2cpp_class_0282` | 性能测试 | 2 | dts2cpp class 扩充-多声明：同文件 7 个 class 的解析结果与性能。 |
+| 11494 | `conversion_tsclass.part05b.test.ts` | `dts2cpp_class_0283` | 性能测试 | 2 | dts2cpp class 扩充-多声明：同文件 8 个 class 的解析结果与性能。 |
+| 11495 | `conversion_tsclass.part05b.test.ts` | `dts2cpp_class_0284` | 性能测试 | 2 | dts2cpp class 扩充-泛型/继承：单泛型类 的解析结果与性能。 |
+| 11496 | `conversion_tsclass.part05b.test.ts` | `dts2cpp_class_0285` | 性能测试 | 2 | dts2cpp class 扩充-泛型/继承：双泛型类 的解析结果与性能。 |
+| 11497 | `conversion_tsclass.part05b.test.ts` | `dts2cpp_class_0286` | 性能测试 | 2 | dts2cpp class 扩充-泛型/继承：三泛型类 的解析结果与性能。 |
+| 11498 | `conversion_tsclass.part05b.test.ts` | `dts2cpp_class_0287` | 性能测试 | 2 | dts2cpp class 扩充-泛型/继承：泛型数组属性 的解析结果与性能。 |
+| 11499 | `conversion_tsclass.part05c.test.ts` | `dts2cpp_class_0288` | 性能测试 | 2 | dts2cpp class 扩充-泛型/继承：泛型约束 的解析结果与性能。 |
+| 11500 | `conversion_tsclass.part05c.test.ts` | `dts2cpp_class_0289` | 性能测试 | 2 | dts2cpp class 扩充-泛型/继承：泛型继承基类 的解析结果与性能。 |
+| 11501 | `conversion_tsclass.part05c.test.ts` | `dts2cpp_class_0290` | 性能测试 | 2 | dts2cpp class 扩充-泛型/继承：泛型方法 的解析结果与性能。 |
+| 11502 | `conversion_tsclass.part05c.test.ts` | `dts2cpp_class_0291` | 性能测试 | 2 | dts2cpp class 扩充-泛型/继承：泛型容器属性 的解析结果与性能。 |
+| 11503 | `conversion_tsclass.part05c.test.ts` | `dts2cpp_class_0292` | 性能测试 | 2 | dts2cpp class 扩充-泛型/继承：二级继承 的解析结果与性能。 |
+| 11504 | `conversion_tsclass.part05c.test.ts` | `dts2cpp_class_0293` | 性能测试 | 2 | dts2cpp class 扩充-泛型/继承：三级继承 的解析结果与性能。 |
+| 11505 | `conversion_tsclass.part05c.test.ts` | `dts2cpp_class_0294` | 性能测试 | 2 | dts2cpp class 扩充-泛型/继承：implements 单接口 的解析结果与性能。 |
+| 11506 | `conversion_tsclass.part05c.test.ts` | `dts2cpp_class_0295` | 性能测试 | 2 | dts2cpp class 扩充-泛型/继承：implements 双接口 的解析结果与性能。 |
+| 11507 | `conversion_tsclass.part05c.test.ts` | `dts2cpp_class_0296` | 性能测试 | 2 | dts2cpp class 扩充-泛型/继承：抽象类 的解析结果与性能。 |
+| 11508 | `conversion_tsclass.part05c.test.ts` | `dts2cpp_class_0297` | 性能测试 | 2 | dts2cpp class 扩充-泛型/继承：静态成员 的解析结果与性能。 |
+| 11509 | `conversion_tsclass.part05c.test.ts` | `dts2cpp_class_0298` | 性能测试 | 2 | dts2cpp class 扩充-泛型/继承：静态方法 的解析结果与性能。 |
+| 11510 | `conversion_tsclass.part05c.test.ts` | `dts2cpp_class_0299` | 性能测试 | 2 | dts2cpp class 扩充-边界：空类 的解析结果与性能。 |
+| 11511 | `conversion_tsclass.part05c.test.ts` | `dts2cpp_class_0300` | 性能测试 | 2 | dts2cpp class 扩充-边界：单行类 的解析结果与性能。 |
+| 11512 | `conversion_tsclass.part05c.test.ts` | `dts2cpp_class_0301` | 性能测试 | 2 | dts2cpp class 扩充-边界：注释类 的解析结果与性能。 |
+| 11513 | `conversion_tsclass.part05c.test.ts` | `dts2cpp_class_0302` | 性能测试 | 2 | dts2cpp class 扩充-边界：索引签名 的解析结果与性能。 |
+| 11514 | `conversion_tsclass.part05c.test.ts` | `dts2cpp_class_0303` | 性能测试 | 2 | dts2cpp class 扩充-边界：属性初始化 的解析结果与性能。 |
+| 11515 | `conversion_tsclass.part05c.test.ts` | `dts2cpp_class_0304` | 性能测试 | 2 | dts2cpp class 扩充-边界：getter/setter 的解析结果与性能。 |
+| 11516 | `conversion_tsclass.part05c.test.ts` | `dts2cpp_class_0305` | 性能测试 | 2 | dts2cpp class 扩充-边界：重载方法 的解析结果与性能。 |
+| 11517 | `conversion_tsclass.part05c.test.ts` | `dts2cpp_class_0306` | 性能测试 | 2 | dts2cpp class 扩充-边界：中文类 的解析结果与性能。 |
+| 11518 | `conversion_tsclass.part05c.test.ts` | `dts2cpp_class_0307` | 性能测试 | 2 | dts2cpp class 扩充-边界：装饰器属性 的解析结果与性能。 |
+| 11519 | `conversion_tsclass.part05c.test.ts` | `dts2cpp_class_0308` | 性能测试 | 2 | dts2cpp class 扩充-边界：方法参数解构 的解析结果与性能。 |
+| 11520 | `conversion_tsclass.part05c.test.ts` | `dts2cpp_class_0309` | 性能测试 | 2 | dts2cpp class 扩充-边界：方法 rest 参数 的解析结果与性能。 |
+| 11521 | `conversion_tsclass.part05c.test.ts` | `dts2cpp_class_0310` | 性能测试 | 2 | dts2cpp class 扩充-边界：方法默认参数 的解析结果与性能。 |
+| 11522 | `conversion_tsclass.part06.test.ts` | `dts2cpp_class_0311` | 性能测试 | 2 | dts2cpp class import-自定义文件：导入类型作 class 属性 的解析结果与性能。 |
+| 11523 | `conversion_tsclass.part06.test.ts` | `dts2cpp_class_0312` | 性能测试 | 2 | dts2cpp class import-自定义文件：导入回调类型属性/参数 的解析结果与性能。 |
+| 11524 | `conversion_tsclass.part06.test.ts` | `dts2cpp_class_0313` | 性能测试 | 2 | dts2cpp class import-自定义文件：导入类型作返回/参数 的解析结果与性能。 |
+| 11525 | `conversion_tsclass.part06.test.ts` | `dts2cpp_class_0314` | 性能测试 | 2 | dts2cpp class 函数类型-on/off：class Emitter on/off/emit 方法 的解析结果与性能。 |
+| 11526 | `conversion_tsclass.part06.test.ts` | `dts2cpp_class_0315` | 性能测试 | 2 | dts2cpp class 函数类型-on/off：class EventBus on/off/once 的解析结果与性能。 |
+| 11527 | `conversion_tsclass.part06.test.ts` | `dts2cpp_class_0316` | 性能测试 | 2 | dts2cpp class 函数类型-threadsafe_func：class ThreadSafeFunction 的解析结果与性能。 |
+| 11528 | `conversion_tsclass.part06.test.ts` | `dts2cpp_class_0317` | 性能测试 | 2 | dts2cpp class 函数类型-static：static 方法 + static 属性 的解析结果与性能。 |
+| 11529 | `conversion_tsclass.part06.test.ts` | `dts2cpp_class_0318` | 性能测试 | 2 | dts2cpp class 函数类型-static：static 工厂方法 + 计数属性 的解析结果与性能。 |
+| 11530 | `conversion_tsclass.part06.test.ts` | `dts2cpp_class_0319` | 性能测试 | 2 | dts2cpp class namespace-变量+类：namespace 内变量 + 类 的解析结果与性能。 |
+| 11531 | `conversion_tsclass.part06.test.ts` | `dts2cpp_class_0320` | 性能测试 | 2 | dts2cpp class namespace-变量+类：export namespace 内变量 + 类 的解析结果与性能。 |
+| 11532 | `conversion_tsclass.part06.test.ts` | `dts2cpp_class_0321` | 性能测试 | 2 | dts2cpp class import + $/on 命名方法组合 的解析结果与性能。 |
+| 11533 | `conversion_tsclass.part06.test.ts` | `dts2cpp_class_0322` | 性能测试 | 2 | dts2cpp class 函数类型-$：$ 命名类与方法 的解析结果与性能。 |
+| 11534 | `conversion_tsclass.part06.test.ts` | `dts2cpp_class_0323` | 性能测试 | 2 | dts2cpp class import-自定义文件：继承导入的基类 的解析结果与性能。 |
+| 11535 | `conversion_tsclass.part06.test.ts` | `dts2cpp_class_0324` | 性能测试 | 2 | dts2cpp class namespace-变量+函数+类：三合一混合 的解析结果与性能。 |
+| 11536 | `conversion_tsclass.part06.test.ts` | `dts2cpp_class_0325` | 性能测试 | 2 | dts2cpp class import-自定义文件：导入类型作容器泛参 的解析结果与性能。 |
+| 11537 | `conversion_tsclass.part07.test.ts` | `dts2cpp_class_0326` | 性能测试 | 2 | : dts2cpp class 扩充-`class Simple { x: number; y: string; }` 的解析结果与性能。 |
+| 11538 | `conversion_tsclass.part07.test.ts` | `dts2cpp_class_0327` | 性能测试 | 2 | : dts2cpp class 扩充-`class Methods { getId(): number { return 1; } setI` 的解析结果与性能。 |
+| 11539 | `conversion_tsclass.part07.test.ts` | `dts2cpp_class_0328` | 性能测试 | 2 | : dts2cpp class 扩充-`class Implements { id: number; name: string; greet` 的解析结果与性能。 |
+| 11540 | `conversion_tsclass.part07.test.ts` | `dts2cpp_class_0329` | 性能测试 | 2 | : dts2cpp class 扩充-`class StaticMem { static count: number; static res` 的解析结果与性能。 |
+| 11541 | `conversion_tsclass.part07.test.ts` | `dts2cpp_class_0330` | 性能测试 | 2 | : dts2cpp class 扩充-`class ReadonlyProps { readonly id: number; readonl` 的解析结果与性能。 |
+| 11542 | `conversion_tsclass.part07.test.ts` | `dts2cpp_class_0331` | 性能测试 | 2 | : dts2cpp class 扩充-`class OptionalCtor { constructor(public x?: number` 的解析结果与性能。 |
+| 11543 | `conversion_tsclass.part07.test.ts` | `dts2cpp_class_0332` | 性能测试 | 2 | : dts2cpp class 扩充-`class IndexSig { [key: string]: number; count: num` 的解析结果与性能。 |
+| 11544 | `conversion_tsclass.part07.test.ts` | `dts2cpp_class_0333` | 性能测试 | 2 | : dts2cpp class 扩充-`class Nested { inner: { a: number; b: string; }; }` 的解析结果与性能。 |
+| 11545 | `conversion_tsclass.part07.test.ts` | `dts2cpp_class_0334` | 性能测试 | 2 | : dts2cpp class 扩充-`class UnionField { mode: "a" \| "b"; value: number ` 的解析结果与性能。 |
+| 11546 | `conversion_tsclass.part07.test.ts` | `dts2cpp_class_0335` | 性能测试 | 2 | : dts2cpp class 扩充-`export class Exported { public field: boolean; }` 的解析结果与性能。 |
+| 11547 | `conversion_tsclass.part07.test.ts` | `dts2cpp_class_0336` | 性能测试 | 2 | : dts2cpp class 扩充-`declare class Ambient { foo(): void; }` 的解析结果与性能。 |
+| 11548 | `conversion_tsclass.part07.test.ts` | `dts2cpp_class_0337` | 性能测试 | 2 | : dts2cpp class 扩充-`abstract class AbstractBase { abstract run(): void` 的解析结果与性能。 |
+| 11549 | `conversion_tsclass.part07.test.ts` | `dts2cpp_class_0338` | 性能测试 | 2 | : dts2cpp class 扩充-`class AsyncMethod { async fetch(): Promise<string>` 的解析结果与性能。 |
+| 11550 | `conversion_tsclass.part07.test.ts` | `dts2cpp_class_0339` | 性能测试 | 2 | : dts2cpp class 扩充-`class ArrayHolder { items: number[]; tags: string[` 的解析结果与性能。 |
+| 11551 | `conversion_tsclass.part07.test.ts` | `dts2cpp_class_0340` | 性能测试 | 2 | : dts2cpp class 扩充-`class MapHolder { lookup: Map<string, number>; fla` 的解析结果与性能。 |
+| 11552 | `conversion_tsclass.part07.test.ts` | `dts2cpp_class_0341` | 性能测试 | 2 | : dts2cpp class 扩充-`class CallbackField { onDone: () => void; handler:` 的解析结果与性能。 |
+| 11553 | `conversion_tsclass.part07.test.ts` | `dts2cpp_class_0342` | 性能测试 | 2 | : dts2cpp class 扩充-`class MultiMethod { add(a: number, b: number): num` 的解析结果与性能。 |
+| 11554 | `conversion_tsclass.part07.test.ts` | `dts2cpp_class_0343` | 性能测试 | 2 | : dts2cpp class 扩充-`class PrivatePublic { private _x: number; public g` 的解析结果与性能。 |
+| 11555 | `conversion_tsclass.part07.test.ts` | `dts2cpp_class_0344` | 性能测试 | 2 | : dts2cpp class 扩充-`class TemplateLiteral { kind: node-${string}; po` 的解析结果与性能。 |
+| 11556 | `conversion_tsclass.part08.test.ts` | `dts2cpp_class_0345` | 性能测试 | 2 | : dts2cpp class 扩充-R3-`Base` 的解析结果与性能。 |
+| 11557 | `conversion_tsclass.part08.test.ts` | `dts2cpp_class_0346` | 性能测试 | 2 | : dts2cpp class 扩充-R3-`Impl` 的解析结果与性能。 |
+| 11558 | `conversion_tsclass.part08.test.ts` | `dts2cpp_class_0347` | 性能测试 | 2 | : dts2cpp class 扩充-R3-`WithPrivate` 的解析结果与性能。 |
+| 11559 | `conversion_tsclass.part08.test.ts` | `dts2cpp_class_0348` | 性能测试 | 2 | : dts2cpp class 扩充-R3-`WithStatic` 的解析结果与性能。 |
+| 11560 | `conversion_tsclass.part08.test.ts` | `dts2cpp_class_0349` | 性能测试 | 2 | : dts2cpp class 扩充-R3-`MultiMethod` 的解析结果与性能。 |
+| 11561 | `conversion_tsclass.part08.test.ts` | `dts2cpp_class_0350` | 性能测试 | 2 | : dts2cpp class 扩充-R3-`Runner` 的解析结果与性能。 |
+| 11562 | `conversion_tsclass.part09.test.ts` | `dts2cpp_class_0351` | 性能测试 | 2 | : dts2cpp class 扩充-R3-`Base` 的解析结果与性能。 |
+| 11563 | `conversion_tsclass.part09.test.ts` | `dts2cpp_class_0352` | 性能测试 | 2 | : dts2cpp class 扩充-R3-`Impl` 的解析结果与性能。 |
+| 11564 | `conversion_tsclass.part09.test.ts` | `dts2cpp_class_0353` | 性能测试 | 2 | : dts2cpp class 扩充-R3-`WithPrivate` 的解析结果与性能。 |
+| 11565 | `conversion_tsclass.part09.test.ts` | `dts2cpp_class_0354` | 性能测试 | 2 | : dts2cpp class 扩充-R3-`WithStatic` 的解析结果与性能。 |
+| 11566 | `conversion_tsclass.part09.test.ts` | `dts2cpp_class_0355` | 性能测试 | 2 | : dts2cpp class 扩充-R3-`MultiMethod` 的解析结果与性能。 |
+| 11567 | `conversion_tsclass.part09.test.ts` | `dts2cpp_class_0356` | 性能测试 | 2 | : dts2cpp class 扩充-R3-`Runner` 的解析结果与性能。 |
+| 11568 | `conversion_tsclass.part10.test.ts` | `dts2cpp_class_0357` | 性能测试 | 2 | : dts2cpp class 扩充-R5-class 方法 的解析结果与性能。 |
+| 11569 | `conversion_tsclass.part10.test.ts` | `dts2cpp_class_0358` | 性能测试 | 2 | : dts2cpp class 扩充-R5-泛型 class 的解析结果与性能。 |
+| 11570 | `conversion_tsclass.part10.test.ts` | `dts2cpp_class_0359` | 性能测试 | 2 | : dts2cpp class 扩充-R5-abstract class 的解析结果与性能。 |
+| 11571 | `conversion_tsclass.part10.test.ts` | `dts2cpp_class_0360` | 性能测试 | 2 | : dts2cpp class 扩充-R5-private/getter class 的解析结果与性能。 |
+| 11572 | `conversion_tsclass.part10.test.ts` | `dts2cpp_class_0361` | 性能测试 | 2 | : dts2cpp class 扩充-R5-constructor 参数属性 的解析结果与性能。 |
+| 11573 | `conversion_tsenum.part01.test.ts` | `dts2cpp_enum_0001` | 性能测试 | 2 | dts2cpp enum 对齐 parsetsenum test_1：一般多行 enum（无赋值） 的解析结果与性能。 |
+| 11574 | `conversion_tsenum.part01.test.ts` | `dts2cpp_enum_0002` | 性能测试 | 2 | dts2cpp enum 对齐 test_2：成员带行注释 的解析结果与性能。 |
+| 11575 | `conversion_tsenum.part01.test.ts` | `dts2cpp_enum_0003` | 性能测试 | 2 | dts2cpp enum 对齐 test_3：首个成员赋值其余推导 的解析结果与性能。 |
+| 11576 | `conversion_tsenum.part01.test.ts` | `dts2cpp_enum_0004` | 性能测试 | 2 | dts2cpp enum 对齐 test_4：全部成员位运算赋值 的解析结果与性能。 |
+| 11577 | `conversion_tsenum.part01.test.ts` | `dts2cpp_enum_0005` | 性能测试 | 2 | dts2cpp enum 对齐 test_5：const enum 无赋值 的解析结果与性能。 |
+| 11578 | `conversion_tsenum.part01.test.ts` | `dts2cpp_enum_0006` | 性能测试 | 2 | dts2cpp enum 对齐 test_6：const enum 复杂表达式赋值 的解析结果与性能。 |
+| 11579 | `conversion_tsenum.part01.test.ts` | `dts2cpp_enum_0007` | 性能测试 | 2 | dts2cpp enum 对齐 test_7：const enum 字符串值与乘法赋值 的解析结果与性能。 |
+| 11580 | `conversion_tsenum.part01.test.ts` | `dts2cpp_enum_0008` | 性能测试 | 2 | dts2cpp enum 对齐 test_8：联合赋值 ALL = Up \| Down 的解析结果与性能。 |
+| 11581 | `conversion_tsenum.part01.test.ts` | `dts2cpp_enum_0009` | 性能测试 | 2 | dts2cpp enum 对齐 test_12：单行 enum 带块注释 的解析结果与性能。 |
+| 11582 | `conversion_tsenum.part01.test.ts` | `dts2cpp_enum_0010` | 性能测试 | 2 | dts2cpp enum 对齐 test_14：单行 enum 位运算赋值 的解析结果与性能。 |
+| 11583 | `conversion_tsenum.part01.test.ts` | `dts2cpp_enum_0011` | 性能测试 | 2 | dts2cpp enum 对齐 test_15：单行 const enum 的解析结果与性能。 |
+| 11584 | `conversion_tsenum.part01.test.ts` | `dts2cpp_enum_0012` | 性能测试 | 2 | dts2cpp enum 对齐 test_16：单行 const enum 复杂表达式 的解析结果与性能。 |
+| 11585 | `conversion_tsenum.part01.test.ts` | `dts2cpp_enum_0013` | 性能测试 | 2 | dts2cpp enum 对齐 test_21：下划线命名 enum/成员 的解析结果与性能。 |
+| 11586 | `conversion_tsenum.part01.test.ts` | `dts2cpp_enum_0014` | 性能测试 | 2 | dts2cpp enum 对齐 test_22：export enum 的解析结果与性能。 |
+| 11587 | `conversion_tsenum.part01.test.ts` | `dts2cpp_enum_0015` | 性能测试 | 2 | dts2cpp enum 对齐 test_23：declare enum 的解析结果与性能。 |
+| 11588 | `conversion_tsenum.part01.test.ts` | `dts2cpp_enum_0016` | 性能测试 | 2 | dts2cpp enum 对齐 test_24：namespace 嵌套 export enum 的解析结果与性能。 |
+| 11589 | `conversion_tsenum.part01.test.ts` | `dts2cpp_enum_0017` | 性能测试 | 2 | dts2cpp enum 对齐 test_25：成员 as 别名（members 拆分为 as/West） 的解析结果与性能。 |
+| 11590 | `conversion_tsenum.part01.test.ts` | `dts2cpp_enum_0018` | 性能测试 | 2 | dts2cpp enum 对齐 test_26：装饰符赋值（values 为空串） 的解析结果与性能。 |
+| 11591 | `conversion_tsenum.part01.test.ts` | `dts2cpp_enum_0019` | 性能测试 | 2 | dts2cpp enum 对齐 test_27：下划线开头成员 的解析结果与性能。 |
+| 11592 | `conversion_tsenum.part01.test.ts` | `dts2cpp_enum_0020` | 性能测试 | 2 | dts2cpp enum 对齐 test_28：匿名 enum 的解析结果与性能。 |
+| 11593 | `conversion_tsenum.part01.test.ts` | `dts2cpp_enum_0021` | 性能测试 | 2 | dts2cpp enum 对齐 test_31：空成员 enum 的解析结果与性能。 |
+| 11594 | `conversion_tsenum.part01.test.ts` | `dts2cpp_enum_0022` | 性能测试 | 2 | dts2cpp enum 对齐 test_32：完全匿名空 enum 的解析结果与性能。 |
+| 11595 | `conversion_tsenum.part01.test.ts` | `dts2cpp_enum_0023` | 性能测试 | 2 | dts2cpp enum 对齐 test_33：同文件两个 enum 的解析结果与性能。 |
+| 11596 | `conversion_tsenum.part01.test.ts` | `dts2cpp_enum_0024` | 性能测试 | 2 | dts2cpp enum 对齐 test_34：整体注释掉的 enum（enums 为空） 的解析结果与性能。 |
+| 11597 | `conversion_tsenum.part01.test.ts` | `dts2cpp_enum_0025` | 性能测试 | 2 | dts2cpp enum 对齐 test_35：const enum 箭头函数赋值 的解析结果与性能。 |
+| 11598 | `conversion_tsenum.part01.test.ts` | `dts2cpp_enum_0026` | 性能测试 | 2 | dts2cpp enum 对齐 test_36：空赋值 Active = , 的解析结果与性能。 |
+| 11599 | `conversion_tsenum.part01.test.ts` | `dts2cpp_enum_0027` | 性能测试 | 2 | dts2cpp enum 对齐 test_37：不完整字符串赋值 的解析结果与性能。 |
+| 11600 | `conversion_tsenum.part01.test.ts` | `dts2cpp_enum_0028` | 性能测试 | 2 | dts2cpp enum 对齐 test_38：不完整联合赋值 的解析结果与性能。 |
+| 11601 | `conversion_tsenum.part01.test.ts` | `dts2cpp_enum_0029` | 性能测试 | 2 | dts2cpp enum 扩充：10 成员无值 enum 的解析结果与性能。 |
+| 11602 | `conversion_tsenum.part02.test.ts` | `dts2cpp_enum_0030` | 性能测试 | 2 | dts2cpp enum 扩充：20 成员无值 enum 的解析结果与性能。 |
+| 11603 | `conversion_tsenum.part02.test.ts` | `dts2cpp_enum_0031` | 性能测试 | 2 | dts2cpp enum 扩充：50 成员无值 enum（规模压测） 的解析结果与性能。 |
+| 11604 | `conversion_tsenum.part02.test.ts` | `dts2cpp_enum_0032` | 性能测试 | 2 | dts2cpp enum 扩充：10 成员全部数字赋值 的解析结果与性能。 |
+| 11605 | `conversion_tsenum.part02.test.ts` | `dts2cpp_enum_0033` | 性能测试 | 2 | dts2cpp enum 扩充：十六进制赋值 的解析结果与性能。 |
+| 11606 | `conversion_tsenum.part02.test.ts` | `dts2cpp_enum_0034` | 性能测试 | 2 | dts2cpp enum 扩充：二进制赋值 的解析结果与性能。 |
+| 11607 | `conversion_tsenum.part02.test.ts` | `dts2cpp_enum_0035` | 性能测试 | 2 | dts2cpp enum 扩充：八进制赋值 的解析结果与性能。 |
+| 11608 | `conversion_tsenum.part02.test.ts` | `dts2cpp_enum_0036` | 性能测试 | 2 | dts2cpp enum 扩充：负数赋值 的解析结果与性能。 |
+| 11609 | `conversion_tsenum.part02.test.ts` | `dts2cpp_enum_0037` | 性能测试 | 2 | dts2cpp enum 扩充：浮点赋值 的解析结果与性能。 |
+| 11610 | `conversion_tsenum.part02.test.ts` | `dts2cpp_enum_0038` | 性能测试 | 2 | dts2cpp enum 扩充：字符串字面量赋值 的解析结果与性能。 |
+| 11611 | `conversion_tsenum.part02.test.ts` | `dts2cpp_enum_0039` | 性能测试 | 2 | dts2cpp enum 扩充：模板字符串赋值 的解析结果与性能。 |
+| 11612 | `conversion_tsenum.part02.test.ts` | `dts2cpp_enum_0040` | 性能测试 | 2 | dts2cpp enum 扩充：数字/字符串/十六进制混合赋值 的解析结果与性能。 |
+| 11613 | `conversion_tsenum.part02.test.ts` | `dts2cpp_enum_0041` | 性能测试 | 2 | dts2cpp enum 扩充：11 种算术/位运算表达式赋值 的解析结果与性能。 |
+| 11614 | `conversion_tsenum.part02.test.ts` | `dts2cpp_enum_0042` | 性能测试 | 2 | dts2cpp enum 扩充：Flags 风格成员引用联合赋值 的解析结果与性能。 |
+| 11615 | `conversion_tsenum.part02.test.ts` | `dts2cpp_enum_0043` | 性能测试 | 2 | dts2cpp enum 扩充：成员引用后定义成员（前向引用） 的解析结果与性能。 |
+| 11616 | `conversion_tsenum.part02.test.ts` | `dts2cpp_enum_0044` | 性能测试 | 2 | dts2cpp enum 扩充：成员自引用赋值 的解析结果与性能。 |
+| 11617 | `conversion_tsenum.part02.test.ts` | `dts2cpp_enum_0045` | 性能测试 | 2 | dts2cpp enum 扩充：bigint 赋值 的解析结果与性能。 |
+| 11618 | `conversion_tsenum.part02.test.ts` | `dts2cpp_enum_0046` | 性能测试 | 2 | dts2cpp enum 扩充：同文件 3 个 enum 的解析结果与性能。 |
+| 11619 | `conversion_tsenum.part02.test.ts` | `dts2cpp_enum_0047` | 性能测试 | 2 | dts2cpp enum 扩充：同文件 5 个 enum（多声明吞吐） 的解析结果与性能。 |
+| 11620 | `conversion_tsenum.part02.test.ts` | `dts2cpp_enum_0048` | 性能测试 | 2 | dts2cpp enum 扩充：export const enum 组合 的解析结果与性能。 |
+| 11621 | `conversion_tsenum.part02.test.ts` | `dts2cpp_enum_0049` | 性能测试 | 2 | dts2cpp enum 扩充：declare const enum 组合 的解析结果与性能。 |
+| 11622 | `conversion_tsenum.part02.test.ts` | `dts2cpp_enum_0050` | 性能测试 | 2 | dts2cpp enum 扩充：namespace 内 2 个 enum 的解析结果与性能。 |
+| 11623 | `conversion_tsenum.part02.test.ts` | `dts2cpp_enum_0051` | 性能测试 | 2 | dts2cpp enum 扩充：中文 enum 名 的解析结果与性能。 |
+| 11624 | `conversion_tsenum.part02.test.ts` | `dts2cpp_enum_0052` | 性能测试 | 2 | dts2cpp enum 扩充：中文成员名 的解析结果与性能。 |
+| 11625 | `conversion_tsenum.part02.test.ts` | `dts2cpp_enum_0053` | 性能测试 | 2 | dts2cpp enum 扩充：尾逗号成员 的解析结果与性能。 |
+| 11626 | `conversion_tsenum.part02.test.ts` | `dts2cpp_enum_0054` | 性能测试 | 2 | dts2cpp enum 扩充：无尾分号 enum 的解析结果与性能。 |
+| 11627 | `conversion_tsenum.part02.test.ts` | `dts2cpp_enum_0055` | 性能测试 | 2 | dts2cpp enum 扩充：字符串/数字/位运算三态混合赋值 的解析结果与性能。 |
+| 11628 | `conversion_tsenum.part02.test.ts` | `dts2cpp_enum_0056` | 性能测试 | 2 | dts2cpp enum 扩充：单成员 enum 的解析结果与性能。 |
+| 11629 | `conversion_tsenum.part02.test.ts` | `dts2cpp_enum_0057` | 性能测试 | 2 | dts2cpp enum 扩充：部分空赋值容错 的解析结果与性能。 |
+| 11630 | `conversion_tsenum.part03a.test.ts` | `dts2cpp_enum_0062` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：2 成员 enum（无赋值） 的解析结果与性能。 |
+| 11631 | `conversion_tsenum.part03a.test.ts` | `dts2cpp_enum_0063` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：2 成员 enum（全部数字赋值） 的解析结果与性能。 |
+| 11632 | `conversion_tsenum.part03a.test.ts` | `dts2cpp_enum_0064` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：2 成员 enum（全部字符串赋值） 的解析结果与性能。 |
+| 11633 | `conversion_tsenum.part03a.test.ts` | `dts2cpp_enum_0065` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：2 成员 enum（全部十六进制赋值） 的解析结果与性能。 |
+| 11634 | `conversion_tsenum.part03a.test.ts` | `dts2cpp_enum_0066` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：2 成员 enum（全部位运算赋值） 的解析结果与性能。 |
+| 11635 | `conversion_tsenum.part03a.test.ts` | `dts2cpp_enum_0067` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：2 成员 enum（奇偶数字/字符串混合赋值） 的解析结果与性能。 |
+| 11636 | `conversion_tsenum.part03a.test.ts` | `dts2cpp_enum_0068` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：3 成员 enum（无赋值） 的解析结果与性能。 |
+| 11637 | `conversion_tsenum.part03a.test.ts` | `dts2cpp_enum_0069` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：3 成员 enum（全部数字赋值） 的解析结果与性能。 |
+| 11638 | `conversion_tsenum.part03a.test.ts` | `dts2cpp_enum_0070` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：3 成员 enum（全部字符串赋值） 的解析结果与性能。 |
+| 11639 | `conversion_tsenum.part03a.test.ts` | `dts2cpp_enum_0071` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：3 成员 enum（全部十六进制赋值） 的解析结果与性能。 |
+| 11640 | `conversion_tsenum.part03a.test.ts` | `dts2cpp_enum_0072` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：3 成员 enum（全部位运算赋值） 的解析结果与性能。 |
+| 11641 | `conversion_tsenum.part03a.test.ts` | `dts2cpp_enum_0073` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：3 成员 enum（奇偶数字/字符串混合赋值） 的解析结果与性能。 |
+| 11642 | `conversion_tsenum.part03a.test.ts` | `dts2cpp_enum_0074` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：4 成员 enum（无赋值） 的解析结果与性能。 |
+| 11643 | `conversion_tsenum.part03a.test.ts` | `dts2cpp_enum_0075` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：4 成员 enum（全部数字赋值） 的解析结果与性能。 |
+| 11644 | `conversion_tsenum.part03a.test.ts` | `dts2cpp_enum_0076` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：4 成员 enum（全部字符串赋值） 的解析结果与性能。 |
+| 11645 | `conversion_tsenum.part03a.test.ts` | `dts2cpp_enum_0077` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：4 成员 enum（全部十六进制赋值） 的解析结果与性能。 |
+| 11646 | `conversion_tsenum.part03a.test.ts` | `dts2cpp_enum_0078` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：4 成员 enum（全部位运算赋值） 的解析结果与性能。 |
+| 11647 | `conversion_tsenum.part03a.test.ts` | `dts2cpp_enum_0079` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：4 成员 enum（奇偶数字/字符串混合赋值） 的解析结果与性能。 |
+| 11648 | `conversion_tsenum.part03a.test.ts` | `dts2cpp_enum_0080` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：5 成员 enum（无赋值） 的解析结果与性能。 |
+| 11649 | `conversion_tsenum.part03a.test.ts` | `dts2cpp_enum_0081` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：5 成员 enum（全部数字赋值） 的解析结果与性能。 |
+| 11650 | `conversion_tsenum.part03a.test.ts` | `dts2cpp_enum_0082` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：5 成员 enum（全部字符串赋值） 的解析结果与性能。 |
+| 11651 | `conversion_tsenum.part03a.test.ts` | `dts2cpp_enum_0083` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：5 成员 enum（全部十六进制赋值） 的解析结果与性能。 |
+| 11652 | `conversion_tsenum.part03a.test.ts` | `dts2cpp_enum_0084` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：5 成员 enum（全部位运算赋值） 的解析结果与性能。 |
+| 11653 | `conversion_tsenum.part03a.test.ts` | `dts2cpp_enum_0085` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：5 成员 enum（奇偶数字/字符串混合赋值） 的解析结果与性能。 |
+| 11654 | `conversion_tsenum.part03a.test.ts` | `dts2cpp_enum_0086` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：6 成员 enum（无赋值） 的解析结果与性能。 |
+| 11655 | `conversion_tsenum.part03a.test.ts` | `dts2cpp_enum_0087` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：6 成员 enum（全部数字赋值） 的解析结果与性能。 |
+| 11656 | `conversion_tsenum.part03a.test.ts` | `dts2cpp_enum_0088` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：6 成员 enum（全部字符串赋值） 的解析结果与性能。 |
+| 11657 | `conversion_tsenum.part03a.test.ts` | `dts2cpp_enum_0089` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：6 成员 enum（全部十六进制赋值） 的解析结果与性能。 |
+| 11658 | `conversion_tsenum.part03a.test.ts` | `dts2cpp_enum_0090` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：6 成员 enum（全部位运算赋值） 的解析结果与性能。 |
+| 11659 | `conversion_tsenum.part03a.test.ts` | `dts2cpp_enum_0091` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：6 成员 enum（奇偶数字/字符串混合赋值） 的解析结果与性能。 |
+| 11660 | `conversion_tsenum.part03a.test.ts` | `dts2cpp_enum_0092` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：7 成员 enum（无赋值） 的解析结果与性能。 |
+| 11661 | `conversion_tsenum.part03a.test.ts` | `dts2cpp_enum_0093` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：7 成员 enum（全部数字赋值） 的解析结果与性能。 |
+| 11662 | `conversion_tsenum.part03a.test.ts` | `dts2cpp_enum_0094` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：7 成员 enum（全部字符串赋值） 的解析结果与性能。 |
+| 11663 | `conversion_tsenum.part03a.test.ts` | `dts2cpp_enum_0095` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：7 成员 enum（全部十六进制赋值） 的解析结果与性能。 |
+| 11664 | `conversion_tsenum.part03a.test.ts` | `dts2cpp_enum_0096` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：7 成员 enum（全部位运算赋值） 的解析结果与性能。 |
+| 11665 | `conversion_tsenum.part03a.test.ts` | `dts2cpp_enum_0097` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：7 成员 enum（奇偶数字/字符串混合赋值） 的解析结果与性能。 |
+| 11666 | `conversion_tsenum.part03a.test.ts` | `dts2cpp_enum_0098` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：8 成员 enum（无赋值） 的解析结果与性能。 |
+| 11667 | `conversion_tsenum.part03a.test.ts` | `dts2cpp_enum_0099` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：8 成员 enum（全部数字赋值） 的解析结果与性能。 |
+| 11668 | `conversion_tsenum.part03b.test.ts` | `dts2cpp_enum_0100` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：8 成员 enum（全部字符串赋值） 的解析结果与性能。 |
+| 11669 | `conversion_tsenum.part03b.test.ts` | `dts2cpp_enum_0101` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：8 成员 enum（全部十六进制赋值） 的解析结果与性能。 |
+| 11670 | `conversion_tsenum.part03b.test.ts` | `dts2cpp_enum_0102` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：8 成员 enum（全部位运算赋值） 的解析结果与性能。 |
+| 11671 | `conversion_tsenum.part03b.test.ts` | `dts2cpp_enum_0103` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：8 成员 enum（奇偶数字/字符串混合赋值） 的解析结果与性能。 |
+| 11672 | `conversion_tsenum.part03b.test.ts` | `dts2cpp_enum_0104` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：9 成员 enum（无赋值） 的解析结果与性能。 |
+| 11673 | `conversion_tsenum.part03b.test.ts` | `dts2cpp_enum_0105` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：9 成员 enum（全部数字赋值） 的解析结果与性能。 |
+| 11674 | `conversion_tsenum.part03b.test.ts` | `dts2cpp_enum_0106` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：9 成员 enum（全部字符串赋值） 的解析结果与性能。 |
+| 11675 | `conversion_tsenum.part03b.test.ts` | `dts2cpp_enum_0107` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：9 成员 enum（全部十六进制赋值） 的解析结果与性能。 |
+| 11676 | `conversion_tsenum.part03b.test.ts` | `dts2cpp_enum_0108` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：9 成员 enum（全部位运算赋值） 的解析结果与性能。 |
+| 11677 | `conversion_tsenum.part03b.test.ts` | `dts2cpp_enum_0109` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：9 成员 enum（奇偶数字/字符串混合赋值） 的解析结果与性能。 |
+| 11678 | `conversion_tsenum.part03b.test.ts` | `dts2cpp_enum_0110` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：10 成员 enum（无赋值） 的解析结果与性能。 |
+| 11679 | `conversion_tsenum.part03b.test.ts` | `dts2cpp_enum_0111` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：10 成员 enum（全部数字赋值） 的解析结果与性能。 |
+| 11680 | `conversion_tsenum.part03b.test.ts` | `dts2cpp_enum_0112` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：10 成员 enum（全部字符串赋值） 的解析结果与性能。 |
+| 11681 | `conversion_tsenum.part03b.test.ts` | `dts2cpp_enum_0113` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：10 成员 enum（全部十六进制赋值） 的解析结果与性能。 |
+| 11682 | `conversion_tsenum.part03b.test.ts` | `dts2cpp_enum_0114` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：10 成员 enum（全部位运算赋值） 的解析结果与性能。 |
+| 11683 | `conversion_tsenum.part03b.test.ts` | `dts2cpp_enum_0115` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：10 成员 enum（奇偶数字/字符串混合赋值） 的解析结果与性能。 |
+| 11684 | `conversion_tsenum.part03b.test.ts` | `dts2cpp_enum_0116` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：11 成员 enum（无赋值） 的解析结果与性能。 |
+| 11685 | `conversion_tsenum.part03b.test.ts` | `dts2cpp_enum_0117` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：11 成员 enum（全部数字赋值） 的解析结果与性能。 |
+| 11686 | `conversion_tsenum.part03b.test.ts` | `dts2cpp_enum_0118` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：11 成员 enum（全部字符串赋值） 的解析结果与性能。 |
+| 11687 | `conversion_tsenum.part03b.test.ts` | `dts2cpp_enum_0119` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：11 成员 enum（全部十六进制赋值） 的解析结果与性能。 |
+| 11688 | `conversion_tsenum.part03b.test.ts` | `dts2cpp_enum_0120` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：11 成员 enum（全部位运算赋值） 的解析结果与性能。 |
+| 11689 | `conversion_tsenum.part03b.test.ts` | `dts2cpp_enum_0121` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：11 成员 enum（奇偶数字/字符串混合赋值） 的解析结果与性能。 |
+| 11690 | `conversion_tsenum.part03b.test.ts` | `dts2cpp_enum_0122` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：12 成员 enum（无赋值） 的解析结果与性能。 |
+| 11691 | `conversion_tsenum.part03b.test.ts` | `dts2cpp_enum_0123` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：12 成员 enum（全部数字赋值） 的解析结果与性能。 |
+| 11692 | `conversion_tsenum.part03b.test.ts` | `dts2cpp_enum_0124` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：12 成员 enum（全部字符串赋值） 的解析结果与性能。 |
+| 11693 | `conversion_tsenum.part03b.test.ts` | `dts2cpp_enum_0125` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：12 成员 enum（全部十六进制赋值） 的解析结果与性能。 |
+| 11694 | `conversion_tsenum.part03b.test.ts` | `dts2cpp_enum_0126` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：12 成员 enum（全部位运算赋值） 的解析结果与性能。 |
+| 11695 | `conversion_tsenum.part03b.test.ts` | `dts2cpp_enum_0127` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：12 成员 enum（奇偶数字/字符串混合赋值） 的解析结果与性能。 |
+| 11696 | `conversion_tsenum.part03b.test.ts` | `dts2cpp_enum_0128` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：13 成员 enum（无赋值） 的解析结果与性能。 |
+| 11697 | `conversion_tsenum.part03c.test.ts` | `dts2cpp_enum_0129` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：13 成员 enum（全部数字赋值） 的解析结果与性能。 |
+| 11698 | `conversion_tsenum.part03c.test.ts` | `dts2cpp_enum_0130` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：13 成员 enum（全部字符串赋值） 的解析结果与性能。 |
+| 11699 | `conversion_tsenum.part03c.test.ts` | `dts2cpp_enum_0131` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：13 成员 enum（全部十六进制赋值） 的解析结果与性能。 |
+| 11700 | `conversion_tsenum.part03c.test.ts` | `dts2cpp_enum_0132` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：13 成员 enum（全部位运算赋值） 的解析结果与性能。 |
+| 11701 | `conversion_tsenum.part03c.test.ts` | `dts2cpp_enum_0133` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：13 成员 enum（奇偶数字/字符串混合赋值） 的解析结果与性能。 |
+| 11702 | `conversion_tsenum.part03c.test.ts` | `dts2cpp_enum_0134` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：14 成员 enum（无赋值） 的解析结果与性能。 |
+| 11703 | `conversion_tsenum.part03c.test.ts` | `dts2cpp_enum_0135` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：14 成员 enum（全部数字赋值） 的解析结果与性能。 |
+| 11704 | `conversion_tsenum.part03c.test.ts` | `dts2cpp_enum_0136` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：14 成员 enum（全部字符串赋值） 的解析结果与性能。 |
+| 11705 | `conversion_tsenum.part03c.test.ts` | `dts2cpp_enum_0137` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：14 成员 enum（全部十六进制赋值） 的解析结果与性能。 |
+| 11706 | `conversion_tsenum.part03c.test.ts` | `dts2cpp_enum_0138` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：14 成员 enum（全部位运算赋值） 的解析结果与性能。 |
+| 11707 | `conversion_tsenum.part03c.test.ts` | `dts2cpp_enum_0139` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：14 成员 enum（奇偶数字/字符串混合赋值） 的解析结果与性能。 |
+| 11708 | `conversion_tsenum.part03c.test.ts` | `dts2cpp_enum_0140` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：15 成员 enum（无赋值） 的解析结果与性能。 |
+| 11709 | `conversion_tsenum.part03c.test.ts` | `dts2cpp_enum_0141` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：15 成员 enum（全部数字赋值） 的解析结果与性能。 |
+| 11710 | `conversion_tsenum.part03c.test.ts` | `dts2cpp_enum_0142` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：15 成员 enum（全部字符串赋值） 的解析结果与性能。 |
+| 11711 | `conversion_tsenum.part03c.test.ts` | `dts2cpp_enum_0143` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：15 成员 enum（全部十六进制赋值） 的解析结果与性能。 |
+| 11712 | `conversion_tsenum.part03c.test.ts` | `dts2cpp_enum_0144` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：15 成员 enum（全部位运算赋值） 的解析结果与性能。 |
+| 11713 | `conversion_tsenum.part03c.test.ts` | `dts2cpp_enum_0145` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：15 成员 enum（奇偶数字/字符串混合赋值） 的解析结果与性能。 |
+| 11714 | `conversion_tsenum.part03c.test.ts` | `dts2cpp_enum_0146` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：16 成员 enum（无赋值） 的解析结果与性能。 |
+| 11715 | `conversion_tsenum.part03c.test.ts` | `dts2cpp_enum_0147` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：16 成员 enum（全部数字赋值） 的解析结果与性能。 |
+| 11716 | `conversion_tsenum.part03c.test.ts` | `dts2cpp_enum_0148` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：16 成员 enum（全部字符串赋值） 的解析结果与性能。 |
+| 11717 | `conversion_tsenum.part03c.test.ts` | `dts2cpp_enum_0149` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：16 成员 enum（全部十六进制赋值） 的解析结果与性能。 |
+| 11718 | `conversion_tsenum.part03c.test.ts` | `dts2cpp_enum_0150` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：16 成员 enum（全部位运算赋值） 的解析结果与性能。 |
+| 11719 | `conversion_tsenum.part03c.test.ts` | `dts2cpp_enum_0151` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：16 成员 enum（奇偶数字/字符串混合赋值） 的解析结果与性能。 |
+| 11720 | `conversion_tsenum.part03c.test.ts` | `dts2cpp_enum_0152` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：17 成员 enum（无赋值） 的解析结果与性能。 |
+| 11721 | `conversion_tsenum.part03d.test.ts` | `dts2cpp_enum_0153` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：17 成员 enum（全部数字赋值） 的解析结果与性能。 |
+| 11722 | `conversion_tsenum.part03d.test.ts` | `dts2cpp_enum_0154` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：17 成员 enum（全部字符串赋值） 的解析结果与性能。 |
+| 11723 | `conversion_tsenum.part03d.test.ts` | `dts2cpp_enum_0155` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：17 成员 enum（全部十六进制赋值） 的解析结果与性能。 |
+| 11724 | `conversion_tsenum.part03d.test.ts` | `dts2cpp_enum_0156` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：17 成员 enum（全部位运算赋值） 的解析结果与性能。 |
+| 11725 | `conversion_tsenum.part04a.test.ts` | `dts2cpp_enum_0157` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：17 成员 enum（奇偶数字/字符串混合赋值） 的解析结果与性能。 |
+| 11726 | `conversion_tsenum.part04a.test.ts` | `dts2cpp_enum_0158` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：18 成员 enum（无赋值） 的解析结果与性能。 |
+| 11727 | `conversion_tsenum.part04a.test.ts` | `dts2cpp_enum_0159` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：18 成员 enum（全部数字赋值） 的解析结果与性能。 |
+| 11728 | `conversion_tsenum.part04a.test.ts` | `dts2cpp_enum_0160` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：18 成员 enum（全部字符串赋值） 的解析结果与性能。 |
+| 11729 | `conversion_tsenum.part04a.test.ts` | `dts2cpp_enum_0161` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：18 成员 enum（全部十六进制赋值） 的解析结果与性能。 |
+| 11730 | `conversion_tsenum.part04a.test.ts` | `dts2cpp_enum_0162` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：18 成员 enum（全部位运算赋值） 的解析结果与性能。 |
+| 11731 | `conversion_tsenum.part04a.test.ts` | `dts2cpp_enum_0163` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：18 成员 enum（奇偶数字/字符串混合赋值） 的解析结果与性能。 |
+| 11732 | `conversion_tsenum.part04a.test.ts` | `dts2cpp_enum_0164` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：19 成员 enum（无赋值） 的解析结果与性能。 |
+| 11733 | `conversion_tsenum.part04a.test.ts` | `dts2cpp_enum_0165` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：19 成员 enum（全部数字赋值） 的解析结果与性能。 |
+| 11734 | `conversion_tsenum.part04a.test.ts` | `dts2cpp_enum_0166` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：19 成员 enum（全部字符串赋值） 的解析结果与性能。 |
+| 11735 | `conversion_tsenum.part04a.test.ts` | `dts2cpp_enum_0167` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：19 成员 enum（全部十六进制赋值） 的解析结果与性能。 |
+| 11736 | `conversion_tsenum.part04a.test.ts` | `dts2cpp_enum_0168` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：19 成员 enum（全部位运算赋值） 的解析结果与性能。 |
+| 11737 | `conversion_tsenum.part04a.test.ts` | `dts2cpp_enum_0169` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：19 成员 enum（奇偶数字/字符串混合赋值） 的解析结果与性能。 |
+| 11738 | `conversion_tsenum.part04a.test.ts` | `dts2cpp_enum_0170` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：20 成员 enum（无赋值） 的解析结果与性能。 |
+| 11739 | `conversion_tsenum.part04a.test.ts` | `dts2cpp_enum_0171` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：20 成员 enum（全部数字赋值） 的解析结果与性能。 |
+| 11740 | `conversion_tsenum.part04a.test.ts` | `dts2cpp_enum_0172` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：20 成员 enum（全部字符串赋值） 的解析结果与性能。 |
+| 11741 | `conversion_tsenum.part04a.test.ts` | `dts2cpp_enum_0173` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：20 成员 enum（全部十六进制赋值） 的解析结果与性能。 |
+| 11742 | `conversion_tsenum.part04a.test.ts` | `dts2cpp_enum_0174` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：20 成员 enum（全部位运算赋值） 的解析结果与性能。 |
+| 11743 | `conversion_tsenum.part04a.test.ts` | `dts2cpp_enum_0175` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：20 成员 enum（奇偶数字/字符串混合赋值） 的解析结果与性能。 |
+| 11744 | `conversion_tsenum.part04a.test.ts` | `dts2cpp_enum_0176` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：21 成员 enum（无赋值） 的解析结果与性能。 |
+| 11745 | `conversion_tsenum.part04a.test.ts` | `dts2cpp_enum_0177` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：21 成员 enum（全部数字赋值） 的解析结果与性能。 |
+| 11746 | `conversion_tsenum.part04b.test.ts` | `dts2cpp_enum_0178` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：21 成员 enum（全部字符串赋值） 的解析结果与性能。 |
+| 11747 | `conversion_tsenum.part04b.test.ts` | `dts2cpp_enum_0179` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：21 成员 enum（全部十六进制赋值） 的解析结果与性能。 |
+| 11748 | `conversion_tsenum.part04b.test.ts` | `dts2cpp_enum_0180` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：21 成员 enum（全部位运算赋值） 的解析结果与性能。 |
+| 11749 | `conversion_tsenum.part04b.test.ts` | `dts2cpp_enum_0181` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：21 成员 enum（奇偶数字/字符串混合赋值） 的解析结果与性能。 |
+| 11750 | `conversion_tsenum.part04b.test.ts` | `dts2cpp_enum_0182` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：22 成员 enum（无赋值） 的解析结果与性能。 |
+| 11751 | `conversion_tsenum.part04b.test.ts` | `dts2cpp_enum_0183` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：22 成员 enum（全部数字赋值） 的解析结果与性能。 |
+| 11752 | `conversion_tsenum.part04b.test.ts` | `dts2cpp_enum_0184` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：22 成员 enum（全部字符串赋值） 的解析结果与性能。 |
+| 11753 | `conversion_tsenum.part04b.test.ts` | `dts2cpp_enum_0185` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：22 成员 enum（全部十六进制赋值） 的解析结果与性能。 |
+| 11754 | `conversion_tsenum.part04b.test.ts` | `dts2cpp_enum_0186` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：22 成员 enum（全部位运算赋值） 的解析结果与性能。 |
+| 11755 | `conversion_tsenum.part04b.test.ts` | `dts2cpp_enum_0187` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：22 成员 enum（奇偶数字/字符串混合赋值） 的解析结果与性能。 |
+| 11756 | `conversion_tsenum.part04b.test.ts` | `dts2cpp_enum_0188` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：23 成员 enum（无赋值） 的解析结果与性能。 |
+| 11757 | `conversion_tsenum.part04b.test.ts` | `dts2cpp_enum_0189` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：23 成员 enum（全部数字赋值） 的解析结果与性能。 |
+| 11758 | `conversion_tsenum.part04b.test.ts` | `dts2cpp_enum_0190` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：23 成员 enum（全部字符串赋值） 的解析结果与性能。 |
+| 11759 | `conversion_tsenum.part04b.test.ts` | `dts2cpp_enum_0191` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：23 成员 enum（全部十六进制赋值） 的解析结果与性能。 |
+| 11760 | `conversion_tsenum.part04b.test.ts` | `dts2cpp_enum_0192` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：23 成员 enum（全部位运算赋值） 的解析结果与性能。 |
+| 11761 | `conversion_tsenum.part04b.test.ts` | `dts2cpp_enum_0193` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：23 成员 enum（奇偶数字/字符串混合赋值） 的解析结果与性能。 |
+| 11762 | `conversion_tsenum.part04b.test.ts` | `dts2cpp_enum_0194` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：24 成员 enum（无赋值） 的解析结果与性能。 |
+| 11763 | `conversion_tsenum.part04b.test.ts` | `dts2cpp_enum_0195` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：24 成员 enum（全部数字赋值） 的解析结果与性能。 |
+| 11764 | `conversion_tsenum.part04b.test.ts` | `dts2cpp_enum_0196` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：24 成员 enum（全部字符串赋值） 的解析结果与性能。 |
+| 11765 | `conversion_tsenum.part04c.test.ts` | `dts2cpp_enum_0197` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：24 成员 enum（全部十六进制赋值） 的解析结果与性能。 |
+| 11766 | `conversion_tsenum.part04c.test.ts` | `dts2cpp_enum_0198` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：24 成员 enum（全部位运算赋值） 的解析结果与性能。 |
+| 11767 | `conversion_tsenum.part04c.test.ts` | `dts2cpp_enum_0199` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：24 成员 enum（奇偶数字/字符串混合赋值） 的解析结果与性能。 |
+| 11768 | `conversion_tsenum.part04c.test.ts` | `dts2cpp_enum_0200` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：25 成员 enum（无赋值） 的解析结果与性能。 |
+| 11769 | `conversion_tsenum.part04c.test.ts` | `dts2cpp_enum_0201` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：25 成员 enum（全部数字赋值） 的解析结果与性能。 |
+| 11770 | `conversion_tsenum.part04c.test.ts` | `dts2cpp_enum_0202` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：25 成员 enum（全部字符串赋值） 的解析结果与性能。 |
+| 11771 | `conversion_tsenum.part04c.test.ts` | `dts2cpp_enum_0203` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：25 成员 enum（全部十六进制赋值） 的解析结果与性能。 |
+| 11772 | `conversion_tsenum.part04c.test.ts` | `dts2cpp_enum_0204` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：25 成员 enum（全部位运算赋值） 的解析结果与性能。 |
+| 11773 | `conversion_tsenum.part04c.test.ts` | `dts2cpp_enum_0205` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：25 成员 enum（奇偶数字/字符串混合赋值） 的解析结果与性能。 |
+| 11774 | `conversion_tsenum.part04c.test.ts` | `dts2cpp_enum_0206` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：26 成员 enum（无赋值） 的解析结果与性能。 |
+| 11775 | `conversion_tsenum.part04c.test.ts` | `dts2cpp_enum_0207` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：26 成员 enum（全部数字赋值） 的解析结果与性能。 |
+| 11776 | `conversion_tsenum.part04c.test.ts` | `dts2cpp_enum_0208` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：26 成员 enum（全部字符串赋值） 的解析结果与性能。 |
+| 11777 | `conversion_tsenum.part04c.test.ts` | `dts2cpp_enum_0209` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：26 成员 enum（全部十六进制赋值） 的解析结果与性能。 |
+| 11778 | `conversion_tsenum.part04c.test.ts` | `dts2cpp_enum_0210` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：26 成员 enum（全部位运算赋值） 的解析结果与性能。 |
+| 11779 | `conversion_tsenum.part04c.test.ts` | `dts2cpp_enum_0211` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：26 成员 enum（奇偶数字/字符串混合赋值） 的解析结果与性能。 |
+| 11780 | `conversion_tsenum.part04c.test.ts` | `dts2cpp_enum_0212` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：27 成员 enum（无赋值） 的解析结果与性能。 |
+| 11781 | `conversion_tsenum.part04c.test.ts` | `dts2cpp_enum_0213` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：27 成员 enum（全部数字赋值） 的解析结果与性能。 |
+| 11782 | `conversion_tsenum.part04d.test.ts` | `dts2cpp_enum_0214` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：27 成员 enum（全部字符串赋值） 的解析结果与性能。 |
+| 11783 | `conversion_tsenum.part04d.test.ts` | `dts2cpp_enum_0215` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：27 成员 enum（全部十六进制赋值） 的解析结果与性能。 |
+| 11784 | `conversion_tsenum.part04d.test.ts` | `dts2cpp_enum_0216` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：27 成员 enum（全部位运算赋值） 的解析结果与性能。 |
+| 11785 | `conversion_tsenum.part04d.test.ts` | `dts2cpp_enum_0217` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：27 成员 enum（奇偶数字/字符串混合赋值） 的解析结果与性能。 |
+| 11786 | `conversion_tsenum.part04d.test.ts` | `dts2cpp_enum_0218` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：28 成员 enum（无赋值） 的解析结果与性能。 |
+| 11787 | `conversion_tsenum.part04d.test.ts` | `dts2cpp_enum_0219` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：28 成员 enum（全部数字赋值） 的解析结果与性能。 |
+| 11788 | `conversion_tsenum.part04d.test.ts` | `dts2cpp_enum_0220` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：28 成员 enum（全部字符串赋值） 的解析结果与性能。 |
+| 11789 | `conversion_tsenum.part04d.test.ts` | `dts2cpp_enum_0221` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：28 成员 enum（全部十六进制赋值） 的解析结果与性能。 |
+| 11790 | `conversion_tsenum.part04d.test.ts` | `dts2cpp_enum_0222` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：28 成员 enum（全部位运算赋值） 的解析结果与性能。 |
+| 11791 | `conversion_tsenum.part04d.test.ts` | `dts2cpp_enum_0223` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：28 成员 enum（奇偶数字/字符串混合赋值） 的解析结果与性能。 |
+| 11792 | `conversion_tsenum.part04d.test.ts` | `dts2cpp_enum_0224` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：29 成员 enum（无赋值） 的解析结果与性能。 |
+| 11793 | `conversion_tsenum.part04d.test.ts` | `dts2cpp_enum_0225` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：29 成员 enum（全部数字赋值） 的解析结果与性能。 |
+| 11794 | `conversion_tsenum.part04d.test.ts` | `dts2cpp_enum_0226` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：29 成员 enum（全部字符串赋值） 的解析结果与性能。 |
+| 11795 | `conversion_tsenum.part04d.test.ts` | `dts2cpp_enum_0227` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：29 成员 enum（全部十六进制赋值） 的解析结果与性能。 |
+| 11796 | `conversion_tsenum.part04d.test.ts` | `dts2cpp_enum_0228` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：29 成员 enum（全部位运算赋值） 的解析结果与性能。 |
+| 11797 | `conversion_tsenum.part04d.test.ts` | `dts2cpp_enum_0229` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：29 成员 enum（奇偶数字/字符串混合赋值） 的解析结果与性能。 |
+| 11798 | `conversion_tsenum.part04e.test.ts` | `dts2cpp_enum_0230` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：30 成员 enum（无赋值） 的解析结果与性能。 |
+| 11799 | `conversion_tsenum.part04e.test.ts` | `dts2cpp_enum_0231` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：30 成员 enum（全部数字赋值） 的解析结果与性能。 |
+| 11800 | `conversion_tsenum.part04e.test.ts` | `dts2cpp_enum_0232` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：30 成员 enum（全部字符串赋值） 的解析结果与性能。 |
+| 11801 | `conversion_tsenum.part04e.test.ts` | `dts2cpp_enum_0233` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：30 成员 enum（全部十六进制赋值） 的解析结果与性能。 |
+| 11802 | `conversion_tsenum.part04e.test.ts` | `dts2cpp_enum_0234` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：30 成员 enum（全部位运算赋值） 的解析结果与性能。 |
+| 11803 | `conversion_tsenum.part04e.test.ts` | `dts2cpp_enum_0235` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：30 成员 enum（奇偶数字/字符串混合赋值） 的解析结果与性能。 |
+| 11804 | `conversion_tsenum.part04e.test.ts` | `dts2cpp_enum_0236` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：31 成员 enum（无赋值） 的解析结果与性能。 |
+| 11805 | `conversion_tsenum.part04e.test.ts` | `dts2cpp_enum_0237` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：31 成员 enum（全部数字赋值） 的解析结果与性能。 |
+| 11806 | `conversion_tsenum.part04e.test.ts` | `dts2cpp_enum_0238` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：31 成员 enum（全部字符串赋值） 的解析结果与性能。 |
+| 11807 | `conversion_tsenum.part04e.test.ts` | `dts2cpp_enum_0239` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：31 成员 enum（全部十六进制赋值） 的解析结果与性能。 |
+| 11808 | `conversion_tsenum.part04e.test.ts` | `dts2cpp_enum_0240` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：31 成员 enum（全部位运算赋值） 的解析结果与性能。 |
+| 11809 | `conversion_tsenum.part04e.test.ts` | `dts2cpp_enum_0241` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：31 成员 enum（奇偶数字/字符串混合赋值） 的解析结果与性能。 |
+| 11810 | `conversion_tsenum.part04e.test.ts` | `dts2cpp_enum_0242` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：32 成员 enum（无赋值） 的解析结果与性能。 |
+| 11811 | `conversion_tsenum.part04e.test.ts` | `dts2cpp_enum_0243` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：32 成员 enum（全部数字赋值） 的解析结果与性能。 |
+| 11812 | `conversion_tsenum.part04e.test.ts` | `dts2cpp_enum_0244` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：32 成员 enum（全部字符串赋值） 的解析结果与性能。 |
+| 11813 | `conversion_tsenum.part04f.test.ts` | `dts2cpp_enum_0245` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：32 成员 enum（全部十六进制赋值） 的解析结果与性能。 |
+| 11814 | `conversion_tsenum.part04f.test.ts` | `dts2cpp_enum_0246` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：32 成员 enum（全部位运算赋值） 的解析结果与性能。 |
+| 11815 | `conversion_tsenum.part04f.test.ts` | `dts2cpp_enum_0247` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：32 成员 enum（奇偶数字/字符串混合赋值） 的解析结果与性能。 |
+| 11816 | `conversion_tsenum.part04f.test.ts` | `dts2cpp_enum_0248` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：33 成员 enum（无赋值） 的解析结果与性能。 |
+| 11817 | `conversion_tsenum.part04f.test.ts` | `dts2cpp_enum_0249` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：33 成员 enum（全部数字赋值） 的解析结果与性能。 |
+| 11818 | `conversion_tsenum.part04f.test.ts` | `dts2cpp_enum_0250` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：33 成员 enum（全部字符串赋值） 的解析结果与性能。 |
+| 11819 | `conversion_tsenum.part04f.test.ts` | `dts2cpp_enum_0251` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：33 成员 enum（全部十六进制赋值） 的解析结果与性能。 |
+| 11820 | `conversion_tsenum.part05a.test.ts` | `dts2cpp_enum_0252` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：33 成员 enum（全部位运算赋值） 的解析结果与性能。 |
+| 11821 | `conversion_tsenum.part05a.test.ts` | `dts2cpp_enum_0253` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：33 成员 enum（奇偶数字/字符串混合赋值） 的解析结果与性能。 |
+| 11822 | `conversion_tsenum.part05a.test.ts` | `dts2cpp_enum_0254` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：34 成员 enum（无赋值） 的解析结果与性能。 |
+| 11823 | `conversion_tsenum.part05a.test.ts` | `dts2cpp_enum_0255` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：34 成员 enum（全部数字赋值） 的解析结果与性能。 |
+| 11824 | `conversion_tsenum.part05a.test.ts` | `dts2cpp_enum_0256` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：34 成员 enum（全部字符串赋值） 的解析结果与性能。 |
+| 11825 | `conversion_tsenum.part05a.test.ts` | `dts2cpp_enum_0257` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：34 成员 enum（全部十六进制赋值） 的解析结果与性能。 |
+| 11826 | `conversion_tsenum.part05a.test.ts` | `dts2cpp_enum_0258` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：34 成员 enum（全部位运算赋值） 的解析结果与性能。 |
+| 11827 | `conversion_tsenum.part05a.test.ts` | `dts2cpp_enum_0259` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：34 成员 enum（奇偶数字/字符串混合赋值） 的解析结果与性能。 |
+| 11828 | `conversion_tsenum.part05a.test.ts` | `dts2cpp_enum_0260` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：35 成员 enum（无赋值） 的解析结果与性能。 |
+| 11829 | `conversion_tsenum.part05a.test.ts` | `dts2cpp_enum_0261` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：35 成员 enum（全部数字赋值） 的解析结果与性能。 |
+| 11830 | `conversion_tsenum.part05a.test.ts` | `dts2cpp_enum_0262` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：35 成员 enum（全部字符串赋值） 的解析结果与性能。 |
+| 11831 | `conversion_tsenum.part05a.test.ts` | `dts2cpp_enum_0263` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：35 成员 enum（全部十六进制赋值） 的解析结果与性能。 |
+| 11832 | `conversion_tsenum.part05a.test.ts` | `dts2cpp_enum_0264` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：35 成员 enum（全部位运算赋值） 的解析结果与性能。 |
+| 11833 | `conversion_tsenum.part05a.test.ts` | `dts2cpp_enum_0265` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：35 成员 enum（奇偶数字/字符串混合赋值） 的解析结果与性能。 |
+| 11834 | `conversion_tsenum.part05b.test.ts` | `dts2cpp_enum_0266` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：36 成员 enum（无赋值） 的解析结果与性能。 |
+| 11835 | `conversion_tsenum.part05b.test.ts` | `dts2cpp_enum_0267` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：36 成员 enum（全部数字赋值） 的解析结果与性能。 |
+| 11836 | `conversion_tsenum.part05b.test.ts` | `dts2cpp_enum_0268` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：36 成员 enum（全部字符串赋值） 的解析结果与性能。 |
+| 11837 | `conversion_tsenum.part05b.test.ts` | `dts2cpp_enum_0269` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：36 成员 enum（全部十六进制赋值） 的解析结果与性能。 |
+| 11838 | `conversion_tsenum.part05b.test.ts` | `dts2cpp_enum_0270` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：36 成员 enum（全部位运算赋值） 的解析结果与性能。 |
+| 11839 | `conversion_tsenum.part05b.test.ts` | `dts2cpp_enum_0271` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：36 成员 enum（奇偶数字/字符串混合赋值） 的解析结果与性能。 |
+| 11840 | `conversion_tsenum.part05b.test.ts` | `dts2cpp_enum_0272` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：37 成员 enum（无赋值） 的解析结果与性能。 |
+| 11841 | `conversion_tsenum.part05b.test.ts` | `dts2cpp_enum_0273` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：37 成员 enum（全部数字赋值） 的解析结果与性能。 |
+| 11842 | `conversion_tsenum.part05b.test.ts` | `dts2cpp_enum_0274` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：37 成员 enum（全部字符串赋值） 的解析结果与性能。 |
+| 11843 | `conversion_tsenum.part05b.test.ts` | `dts2cpp_enum_0275` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：37 成员 enum（全部十六进制赋值） 的解析结果与性能。 |
+| 11844 | `conversion_tsenum.part05b.test.ts` | `dts2cpp_enum_0276` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：37 成员 enum（全部位运算赋值） 的解析结果与性能。 |
+| 11845 | `conversion_tsenum.part05b.test.ts` | `dts2cpp_enum_0277` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：37 成员 enum（奇偶数字/字符串混合赋值） 的解析结果与性能。 |
+| 11846 | `conversion_tsenum.part05b.test.ts` | `dts2cpp_enum_0278` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：38 成员 enum（无赋值） 的解析结果与性能。 |
+| 11847 | `conversion_tsenum.part05b.test.ts` | `dts2cpp_enum_0279` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：38 成员 enum（全部数字赋值） 的解析结果与性能。 |
+| 11848 | `conversion_tsenum.part05c.test.ts` | `dts2cpp_enum_0280` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：38 成员 enum（全部字符串赋值） 的解析结果与性能。 |
+| 11849 | `conversion_tsenum.part05c.test.ts` | `dts2cpp_enum_0281` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：38 成员 enum（全部十六进制赋值） 的解析结果与性能。 |
+| 11850 | `conversion_tsenum.part05c.test.ts` | `dts2cpp_enum_0282` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：38 成员 enum（全部位运算赋值） 的解析结果与性能。 |
+| 11851 | `conversion_tsenum.part05c.test.ts` | `dts2cpp_enum_0283` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：38 成员 enum（奇偶数字/字符串混合赋值） 的解析结果与性能。 |
+| 11852 | `conversion_tsenum.part05c.test.ts` | `dts2cpp_enum_0284` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：39 成员 enum（无赋值） 的解析结果与性能。 |
+| 11853 | `conversion_tsenum.part05c.test.ts` | `dts2cpp_enum_0285` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：39 成员 enum（全部数字赋值） 的解析结果与性能。 |
+| 11854 | `conversion_tsenum.part05c.test.ts` | `dts2cpp_enum_0286` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：39 成员 enum（全部字符串赋值） 的解析结果与性能。 |
+| 11855 | `conversion_tsenum.part05c.test.ts` | `dts2cpp_enum_0287` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：39 成员 enum（全部十六进制赋值） 的解析结果与性能。 |
+| 11856 | `conversion_tsenum.part05c.test.ts` | `dts2cpp_enum_0288` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：39 成员 enum（全部位运算赋值） 的解析结果与性能。 |
+| 11857 | `conversion_tsenum.part05c.test.ts` | `dts2cpp_enum_0289` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：39 成员 enum（奇偶数字/字符串混合赋值） 的解析结果与性能。 |
+| 11858 | `conversion_tsenum.part05c.test.ts` | `dts2cpp_enum_0290` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：40 成员 enum（无赋值） 的解析结果与性能。 |
+| 11859 | `conversion_tsenum.part05c.test.ts` | `dts2cpp_enum_0291` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：40 成员 enum（全部数字赋值） 的解析结果与性能。 |
+| 11860 | `conversion_tsenum.part05c.test.ts` | `dts2cpp_enum_0292` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：40 成员 enum（全部字符串赋值） 的解析结果与性能。 |
+| 11861 | `conversion_tsenum.part05d.test.ts` | `dts2cpp_enum_0293` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：40 成员 enum（全部十六进制赋值） 的解析结果与性能。 |
+| 11862 | `conversion_tsenum.part05d.test.ts` | `dts2cpp_enum_0294` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：40 成员 enum（全部位运算赋值） 的解析结果与性能。 |
+| 11863 | `conversion_tsenum.part05d.test.ts` | `dts2cpp_enum_0295` | 性能测试 | 2 | dts2cpp enum 扩充-矩阵：40 成员 enum（奇偶数字/字符串混合赋值） 的解析结果与性能。 |
+| 11864 | `conversion_tsenum.part05d.test.ts` | `dts2cpp_enum_0296` | 性能测试 | 2 | dts2cpp enum 扩充-命名：UpperCamel 的解析结果与性能。 |
+| 11865 | `conversion_tsenum.part05d.test.ts` | `dts2cpp_enum_0297` | 性能测试 | 2 | dts2cpp enum 扩充-命名：lowerCamel 的解析结果与性能。 |
+| 11866 | `conversion_tsenum.part05d.test.ts` | `dts2cpp_enum_0298` | 性能测试 | 2 | dts2cpp enum 扩充-命名：snake_case 的解析结果与性能。 |
+| 11867 | `conversion_tsenum.part05d.test.ts` | `dts2cpp_enum_0299` | 性能测试 | 2 | dts2cpp enum 扩充-命名：TRAILING_DIGITS2 的解析结果与性能。 |
+| 11868 | `conversion_tsenum.part05d.test.ts` | `dts2cpp_enum_0300` | 性能测试 | 2 | dts2cpp enum 扩充-命名：leading_underscore 的解析结果与性能。 |
+| 11869 | `conversion_tsenum.part05d.test.ts` | `dts2cpp_enum_0301` | 性能测试 | 2 | dts2cpp enum 扩充-命名：Double__Under 的解析结果与性能。 |
+| 11870 | `conversion_tsenum.part05d.test.ts` | `dts2cpp_enum_0302` | 性能测试 | 2 | dts2cpp enum 扩充-命名：ClassName 的解析结果与性能。 |
+| 11871 | `conversion_tsenum.part05d.test.ts` | `dts2cpp_enum_0303` | 性能测试 | 2 | dts2cpp enum 扩充-命名：E 的解析结果与性能。 |
+| 11872 | `conversion_tsenum.part05d.test.ts` | `dts2cpp_enum_0304` | 性能测试 | 2 | dts2cpp enum 扩充-命名：E1 的解析结果与性能。 |
+| 11873 | `conversion_tsenum.part05d.test.ts` | `dts2cpp_enum_0305` | 性能测试 | 2 | dts2cpp enum 扩充-命名：e1 的解析结果与性能。 |
+| 11874 | `conversion_tsenum.part05d.test.ts` | `dts2cpp_enum_0306` | 性能测试 | 2 | dts2cpp enum 扩充-命名：EN 的解析结果与性能。 |
+| 11875 | `conversion_tsenum.part05d.test.ts` | `dts2cpp_enum_0307` | 性能测试 | 2 | dts2cpp enum 扩充-命名：en 的解析结果与性能。 |
+| 11876 | `conversion_tsenum.part05d.test.ts` | `dts2cpp_enum_0308` | 性能测试 | 2 | dts2cpp enum 扩充-命名：Enum 的解析结果与性能。 |
+| 11877 | `conversion_tsenum.part05d.test.ts` | `dts2cpp_enum_0309` | 性能测试 | 2 | dts2cpp enum 扩充-命名：enum1 的解析结果与性能。 |
+| 11878 | `conversion_tsenum.part05d.test.ts` | `dts2cpp_enum_0310` | 性能测试 | 2 | dts2cpp enum 扩充-命名：Enum123 的解析结果与性能。 |
+| 11879 | `conversion_tsenum.part05d.test.ts` | `dts2cpp_enum_0311` | 性能测试 | 2 | dts2cpp enum 扩充-命名：状态码 的解析结果与性能。 |
+| 11880 | `conversion_tsenum.part05d.test.ts` | `dts2cpp_enum_0312` | 性能测试 | 2 | dts2cpp enum 扩充-命名：状态码2 的解析结果与性能。 |
+| 11881 | `conversion_tsenum.part05d.test.ts` | `dts2cpp_enum_0313` | 性能测试 | 2 | dts2cpp enum 扩充-命名：_internal 的解析结果与性能。 |
+| 11882 | `conversion_tsenum.part05d.test.ts` | `dts2cpp_enum_0314` | 性能测试 | 2 | dts2cpp enum 扩充-命名：VersionV2 的解析结果与性能。 |
+| 11883 | `conversion_tsenum.part05d.test.ts` | `dts2cpp_enum_0315` | 性能测试 | 2 | dts2cpp enum 扩充-命名：HTTPStatus 的解析结果与性能。 |
+| 11884 | `conversion_tsenum.part05d.test.ts` | `dts2cpp_enum_0316` | 性能测试 | 2 | dts2cpp enum 扩充-多声明：同文件 2 个 enum 的解析结果与性能。 |
+| 11885 | `conversion_tsenum.part05d.test.ts` | `dts2cpp_enum_0317` | 性能测试 | 2 | dts2cpp enum 扩充-多声明：同文件 3 个 enum 的解析结果与性能。 |
+| 11886 | `conversion_tsenum.part05d.test.ts` | `dts2cpp_enum_0318` | 性能测试 | 2 | dts2cpp enum 扩充-多声明：同文件 4 个 enum 的解析结果与性能。 |
+| 11887 | `conversion_tsenum.part05d.test.ts` | `dts2cpp_enum_0319` | 性能测试 | 2 | dts2cpp enum 扩充-多声明：同文件 5 个 enum 的解析结果与性能。 |
+| 11888 | `conversion_tsenum.part05d.test.ts` | `dts2cpp_enum_0320` | 性能测试 | 2 | dts2cpp enum 扩充-多声明：同文件 6 个 enum 的解析结果与性能。 |
+| 11889 | `conversion_tsenum.part05d.test.ts` | `dts2cpp_enum_0321` | 性能测试 | 2 | dts2cpp enum 扩充-多声明：同文件 7 个 enum 的解析结果与性能。 |
+| 11890 | `conversion_tsenum.part05d.test.ts` | `dts2cpp_enum_0322` | 性能测试 | 2 | dts2cpp enum 扩充-多声明：同文件 8 个 enum 的解析结果与性能。 |
+| 11891 | `conversion_tsenum.part05d.test.ts` | `dts2cpp_enum_0323` | 性能测试 | 2 | dts2cpp enum 扩充-多声明：同文件 10 个 enum 的解析结果与性能。 |
+| 11892 | `conversion_tsenum.part05e.test.ts` | `dts2cpp_enum_0324` | 性能测试 | 2 | dts2cpp enum 扩充-修饰符：export enum 的解析结果与性能。 |
+| 11893 | `conversion_tsenum.part05e.test.ts` | `dts2cpp_enum_0325` | 性能测试 | 2 | dts2cpp enum 扩充-修饰符：declare enum 的解析结果与性能。 |
+| 11894 | `conversion_tsenum.part05e.test.ts` | `dts2cpp_enum_0326` | 性能测试 | 2 | dts2cpp enum 扩充-修饰符：const enum 的解析结果与性能。 |
+| 11895 | `conversion_tsenum.part05e.test.ts` | `dts2cpp_enum_0327` | 性能测试 | 2 | dts2cpp enum 扩充-修饰符：export const enum 的解析结果与性能。 |
+| 11896 | `conversion_tsenum.part05e.test.ts` | `dts2cpp_enum_0328` | 性能测试 | 2 | dts2cpp enum 扩充-修饰符：declare const enum 的解析结果与性能。 |
+| 11897 | `conversion_tsenum.part05e.test.ts` | `dts2cpp_enum_0329` | 性能测试 | 2 | dts2cpp enum 扩充-修饰符：export declare enum 的解析结果与性能。 |
+| 11898 | `conversion_tsenum.part05e.test.ts` | `dts2cpp_enum_0330` | 性能测试 | 2 | dts2cpp enum 扩充-修饰符：export declare const enum 的解析结果与性能。 |
+| 11899 | `conversion_tsenum.part05e.test.ts` | `dts2cpp_enum_0331` | 性能测试 | 2 | dts2cpp enum 扩充-修饰符：namespace+export enum 的解析结果与性能。 |
+| 11900 | `conversion_tsenum.part05e.test.ts` | `dts2cpp_enum_0332` | 性能测试 | 2 | dts2cpp enum 扩充-修饰符：namespace+declare enum 的解析结果与性能。 |
+| 11901 | `conversion_tsenum.part05e.test.ts` | `dts2cpp_enum_0333` | 性能测试 | 2 | dts2cpp enum 扩充-修饰符：namespace+export const enum 的解析结果与性能。 |
+| 11902 | `conversion_tsenum.part05e.test.ts` | `dts2cpp_enum_0334` | 性能测试 | 2 | dts2cpp enum 扩充-修饰符：module+export enum 的解析结果与性能。 |
+| 11903 | `conversion_tsenum.part05e.test.ts` | `dts2cpp_enum_0335` | 性能测试 | 2 | dts2cpp enum 扩充-修饰符：module+declare const enum 的解析结果与性能。 |
+| 11904 | `conversion_tsenum.part05e.test.ts` | `dts2cpp_enum_0336` | 性能测试 | 2 | dts2cpp enum 扩充-边界：空 enum 的解析结果与性能。 |
+| 11905 | `conversion_tsenum.part05e.test.ts` | `dts2cpp_enum_0337` | 性能测试 | 2 | dts2cpp enum 扩充-边界：单成员 的解析结果与性能。 |
+| 11906 | `conversion_tsenum.part05e.test.ts` | `dts2cpp_enum_0338` | 性能测试 | 2 | dts2cpp enum 扩充-边界：单成员赋值 的解析结果与性能。 |
+| 11907 | `conversion_tsenum.part05e.test.ts` | `dts2cpp_enum_0339` | 性能测试 | 2 | dts2cpp enum 扩充-边界：尾逗号 的解析结果与性能。 |
+| 11908 | `conversion_tsenum.part05e.test.ts` | `dts2cpp_enum_0340` | 性能测试 | 2 | dts2cpp enum 扩充-边界：无分号 的解析结果与性能。 |
+| 11909 | `conversion_tsenum.part05e.test.ts` | `dts2cpp_enum_0341` | 性能测试 | 2 | dts2cpp enum 扩充-边界：注释成员 的解析结果与性能。 |
+| 11910 | `conversion_tsenum.part05e.test.ts` | `dts2cpp_enum_0342` | 性能测试 | 2 | dts2cpp enum 扩充-边界：块注释 的解析结果与性能。 |
+| 11911 | `conversion_tsenum.part05e.test.ts` | `dts2cpp_enum_0343` | 性能测试 | 2 | dts2cpp enum 扩充-边界：中文成员 的解析结果与性能。 |
+| 11912 | `conversion_tsenum.part05e.test.ts` | `dts2cpp_enum_0344` | 性能测试 | 2 | dts2cpp enum 扩充-边界：成员引用联合 的解析结果与性能。 |
+| 11913 | `conversion_tsenum.part05e.test.ts` | `dts2cpp_enum_0345` | 性能测试 | 2 | dts2cpp enum 扩充-边界：前向引用 的解析结果与性能。 |
+| 11914 | `conversion_tsenum.part06.test.ts` | `dts2cpp_enum_0346` | 性能测试 | 2 | dts2cpp enum import-自定义文件：import + enum 的解析结果与性能。 |
+| 11915 | `conversion_tsenum.part06.test.ts` | `dts2cpp_enum_0347` | 性能测试 | 2 | dts2cpp enum import-自定义文件：import + export enum 赋值 的解析结果与性能。 |
+| 11916 | `conversion_tsenum.part06.test.ts` | `dts2cpp_enum_0348` | 性能测试 | 2 | dts2cpp enum namespace-变量+枚举：namespace 内变量 + enum 的解析结果与性能。 |
+| 11917 | `conversion_tsenum.part06.test.ts` | `dts2cpp_enum_0349` | 性能测试 | 2 | dts2cpp enum namespace-变量+枚举：export namespace 内变量 + enum 的解析结果与性能。 |
+| 11918 | `conversion_tsenum.part06.test.ts` | `dts2cpp_enum_0350` | 性能测试 | 2 | dts2cpp enum import-自定义文件：import + const enum 的解析结果与性能。 |
+| 11919 | `conversion_tsenum.part06.test.ts` | `dts2cpp_enum_0351` | 性能测试 | 2 | dts2cpp enum namespace-变量+枚举+函数：多枚举混合 的解析结果与性能。 |
+| 11920 | `conversion_tsenum.part06.test.ts` | `dts2cpp_enum_0352` | 性能测试 | 2 | dts2cpp enum import-自定义文件：枚举值引用导入枚举 的解析结果与性能。 |
+| 11921 | `conversion_tsenum.part06.test.ts` | `dts2cpp_enum_0353` | 性能测试 | 2 | dts2cpp enum namespace-变量+枚举：declare namespace 枚举 的解析结果与性能。 |
+| 11922 | `conversion_tsenum.part07.test.ts` | `dts2cpp_enum_0354` | 性能测试 | 2 | : dts2cpp enum 扩充-computed 位移表达式 enum 的解析结果与性能。 |
+| 11923 | `conversion_tsenum.part07.test.ts` | `dts2cpp_enum_0355` | 性能测试 | 2 | : dts2cpp enum 扩充-computed 混合赋值 enum 的解析结果与性能。 |
