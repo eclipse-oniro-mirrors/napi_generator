@@ -14398,3 +14398,115 @@
 | 13721 | `conversion_tsunion.part12a.test.ts` | `dts2cpp_union_0440` | 性能测试 | 2 | dts2cpp union type alias rest 用 Array<T> 写法的 tuple 联合。 |
 | 13722 | `conversion_tsunion.part12a.test.ts` | `dts2cpp_union_0441` | 性能测试 | 2 | dts2cpp union type alias 尾部 rest tuple 联合。 |
 | 13723 | `conversion_tsunion.part12a.test.ts` | `dts2cpp_union_0442` | 性能测试 | 2 | dts2cpp union type alias 函数类型元素 tuple 联合。 |
+| 13724 | `conversion_tsunion.part12a.test.ts` | `dts2cpp_union_0443` | 性能测试 | 2 | dts2cpp union type alias 容器元素 tuple 联合。 |
+| 13725 | `conversion_tsunion.part12a.test.ts` | `dts2cpp_union_0444` | 性能测试 | 2 | dts2cpp union type alias 嵌套 tuple 元素 tuple 联合。 |
+| 13726 | `conversion_tsunion.part12a.test.ts` | `dts2cpp_union_0445` | 性能测试 | 2 | dts2cpp union type alias 三层嵌套 tuple 数组联合。 |
+| 13727 | `conversion_tsunion.part12a.test.ts` | `dts2cpp_union_0446` | 性能测试 | 2 | dts2cpp union type alias tuple 中嵌 tuple 联合。 |
+| 13728 | `conversion_tsunion.part12a.test.ts` | `dts2cpp_union_0447` | 性能测试 | 2 | dts2cpp union type alias Set 元素为 tuple 联合。 |
+| 13729 | `conversion_tsunion.part12a.test.ts` | `dts2cpp_union_0448` | 性能测试 | 2 | dts2cpp union type alias Map 键为 tuple 联合。 |
+| 13730 | `conversion_tsunion.part12a.test.ts` | `dts2cpp_union_0449` | 性能测试 | 2 | dts2cpp union type alias 三成员数字单元素 tuple 联合。 |
+| 13731 | `conversion_tsunion.part12a.test.ts` | `dts2cpp_union_0450` | 性能测试 | 2 | dts2cpp union type alias 单元素 tuple 与数组联合。 |
+| 13732 | `conversion_tsunion.part12a.test.ts` | `dts2cpp_union_0451` | 性能测试 | 2 | dts2cpp union type alias 空 tuple 与单元素 tuple 联合。 |
+| 13733 | `conversion_tsunion.part12a.test.ts` | `dts2cpp_union_0452` | 性能测试 | 2 | dts2cpp union type alias readonly 空 tuple 联合。 |
+| 13734 | `conversion_tsunion.part12a.test.ts` | `dts2cpp_union_0453` | 性能测试 | 2 | dts2cpp union type alias 三层嵌套 Map 联合。 |
+| 13735 | `conversion_tsunion.part12a.test.ts` | `dts2cpp_union_0454` | 性能测试 | 2 | dts2cpp union type alias 嵌套 Record 联合。 |
+| 13736 | `conversion_tsunion.part12a.test.ts` | `dts2cpp_union_0455` | 性能测试 | 2 | dts2cpp union type alias 三层嵌套 Set 联合。 |
+| 13737 | `conversion_tsunion.part12a.test.ts` | `dts2cpp_union_0456` | 性能测试 | 2 | dts2cpp union type alias Map 泛参互换联合。 |
+| 13738 | `conversion_tsunion.part12a.test.ts` | `dts2cpp_union_0457` | 性能测试 | 2 | dts2cpp union type alias ReadonlyMap 泛参互换联合。 |
+| 13739 | `conversion_tsunion.part12a.test.ts` | `dts2cpp_union_0458` | 性能测试 | 2 | dts2cpp union type alias WeakMap 值内嵌数组联合。 |
+| 13740 | `conversion_tsunion.part12a.test.ts` | `dts2cpp_union_0459` | 性能测试 | 2 | dts2cpp union type alias Map 值内嵌 readonly tuple 联合。 |
+| 13741 | `conversion_tsunion.part12a.test.ts` | `dts2cpp_union_0460` | 性能测试 | 2 | dts2cpp union type alias Record/Map 值内嵌容器联合。 |
+| 13742 | `conversion_tsunion.part12a.test.ts` | `dts2cpp_union_0461` | 性能测试 | 2 | dts2cpp union type alias symbol 键 Map 联合。 |
+| 13743 | `conversion_tsunion.part12a.test.ts` | `dts2cpp_union_0462` | 性能测试 | 2 | dts2cpp union type alias 函数类型元素 WeakSet 联合。 |
+| 13744 | `conversion_tsunion.part12a.test.ts` | `dts2cpp_union_0463` | 性能测试 | 2 | dts2cpp union type alias Array<Promise<Set>> 三层容器联合。 |
+| 13745 | `conversion_tsunion.part12a.test.ts` | `dts2cpp_union_0464` | 性能测试 | 2 | dts2cpp union type alias Map/Record 值嵌套 Promise<Set> 联合。 |
+| 13746 | `conversion_tsunion.part12a.test.ts` | `dts2cpp_union_0465` | 性能测试 | 2 | dts2cpp union type alias Record 值内嵌函数类型联合。 |
+| 13747 | `conversion_tsunion.part12a.test.ts` | `dts2cpp_union_0466` | 性能测试 | 2 | dts2cpp union type alias 函数类型元素数组联合。 |
+| 13748 | `conversion_tsunion.part12a.test.ts` | `dts2cpp_union_0467` | 性能测试 | 2 | dts2cpp union type alias Promise 值内嵌函数类型联合。 |
+| 13749 | `conversion_tsunion.part12a.test.ts` | `dts2cpp_union_0468` | 性能测试 | 2 | dts2cpp union type alias Set 值内嵌函数类型联合。 |
+| 13750 | `conversion_tsunion.part12a.test.ts` | `dts2cpp_union_0469` | 性能测试 | 2 | dts2cpp union type alias 对象属性内嵌函数类型联合。 |
+| 13751 | `conversion_tsunion.part12a.test.ts` | `dts2cpp_union_0470` | 性能测试 | 2 | dts2cpp union type alias Error 与可空类型联合。 |
+| 13752 | `conversion_tsunion.part12a.test.ts` | `dts2cpp_union_0471` | 性能测试 | 2 | dts2cpp union type alias 四成员内置对象引用联合。 |
+| 13753 | `conversion_tsunion.part12a.test.ts` | `dts2cpp_union_0472` | 性能测试 | 2 | dts2cpp union type alias 四成员内置引用混 Function 联合。 |
+| 13754 | `conversion_tsunion.part12b.test.ts` | `dts2cpp_union_0473` | 性能测试 | 2 | dts2cpp union type alias keyof typeof 内置对象联合。 |
+| 13755 | `conversion_tsunion.part12b.test.ts` | `dts2cpp_union_0474` | 性能测试 | 2 | dts2cpp union type alias 内置对象方法索引访问联合。 |
+| 13756 | `conversion_tsunion.part12b.test.ts` | `dts2cpp_union_0475` | 性能测试 | 2 | dts2cpp union type alias 容错：前导空成员联合（仅 1 个成员）。 |
+| 13757 | `conversion_tsunion.part12b.test.ts` | `dts2cpp_union_0476` | 性能测试 | 2 | dts2cpp union type alias 容错：尾部空成员联合。 |
+| 13758 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0477` | 性能测试 | 2 | dts2cpp union type alias 三参函数类型联合。 |
+| 13759 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0478` | 性能测试 | 2 | dts2cpp union type alias 柯里化返回函数类型联合。 |
+| 13760 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0479` | 性能测试 | 2 | dts2cpp union type alias 泛型约束箭头函数类型联合。 |
+| 13761 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0480` | 性能测试 | 2 | dts2cpp union type alias 同入参不同返回函数类型联合。 |
+| 13762 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0481` | 性能测试 | 2 | dts2cpp union type alias 不同参数名/类型函数类型联合。 |
+| 13763 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0482` | 性能测试 | 2 | dts2cpp union type alias any/unknown rest 函数类型联合。 |
+| 13764 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0483` | 性能测试 | 2 | dts2cpp union type alias Promise<void>/Promise<never> 函数类型联合。 |
+| 13765 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0484` | 性能测试 | 2 | dts2cpp union type alias 可选回调参函数类型联合。 |
+| 13766 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0485` | 性能测试 | 2 | dts2cpp union type alias 带参对象构造签名联合。 |
+| 13767 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0486` | 性能测试 | 2 | dts2cpp union type alias 构造签名与调用签名混合对象联合。 |
+| 13768 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0487` | 性能测试 | 2 | dts2cpp union type alias 无括号可选参函数类型（成员不可拆分，断言 types 为空）。 |
+| 13769 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0488` | 性能测试 | 2 | dts2cpp union type alias 超集/子集对象联合。 |
+| 13770 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0489` | 性能测试 | 2 | dts2cpp union type alias 同键不同类型对象联合。 |
+| 13771 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0490` | 性能测试 | 2 | dts2cpp union type alias 四成员单键对象联合。 |
+| 13772 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0491` | 性能测试 | 2 | dts2cpp union type alias readonly 与普通属性混用对象联合。 |
+| 13773 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0492` | 性能测试 | 2 | dts2cpp union type alias 多可选属性对象联合。 |
+| 13774 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0493` | 性能测试 | 2 | dts2cpp union type alias 数字/字符串索引签名对象联合。 |
+| 13775 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0494` | 性能测试 | 2 | dts2cpp union type alias 索引签名值含 union 对象联合。 |
+| 13776 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0495` | 性能测试 | 2 | dts2cpp union type alias getter/setter 对象联合。 |
+| 13777 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0496` | 性能测试 | 2 | dts2cpp union type alias 重载调用签名对象联合。 |
+| 13778 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0497` | 性能测试 | 2 | dts2cpp union type alias 三层嵌套对象联合。 |
+| 13779 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0498` | 性能测试 | 2 | dts2cpp union type alias 属性为数组/Set 对象联合。 |
+| 13780 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0499` | 性能测试 | 2 | dts2cpp union type alias 属性为 Map/Record 对象联合。 |
+| 13781 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0500` | 性能测试 | 2 | dts2cpp union type alias Parameters 双参函数联合。 |
+| 13782 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0501` | 性能测试 | 2 | dts2cpp union type alias ReturnType 返回 union 联合。 |
+| 13783 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0502` | 性能测试 | 2 | dts2cpp union type alias Awaited 三层嵌套联合。 |
+| 13784 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0503` | 性能测试 | 2 | dts2cpp union type alias Pick 内嵌 Record 联合。 |
+| 13785 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0504` | 性能测试 | 2 | dts2cpp union type alias Omit 内嵌 Record 联合。 |
+| 13786 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0505` | 性能测试 | 2 | dts2cpp union type alias Partial 内联对象联合。 |
+| 13787 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0506` | 性能测试 | 2 | dts2cpp union type alias Required 内联对象联合。 |
+| 13788 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0507` | 性能测试 | 2 | dts2cpp union type alias Readonly 内联对象联合。 |
+| 13789 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0508` | 性能测试 | 2 | dts2cpp union type alias Record 同键不同值类型联合。 |
+| 13790 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0509` | 性能测试 | 2 | dts2cpp union type alias InstanceType 内置对象联合。 |
+| 13791 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0510` | 性能测试 | 2 | dts2cpp union type alias ConstructorParameters 内置对象联合。 |
+| 13792 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0511` | 性能测试 | 2 | dts2cpp union type alias OmitThisParameter void this 联合。 |
+| 13793 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0512` | 性能测试 | 2 | dts2cpp union type alias keyof 内联对象联合。 |
+| 13794 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0513` | 性能测试 | 2 | dts2cpp union type alias 双映射类型联合。 |
+| 13795 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0514` | 性能测试 | 2 | dts2cpp union type alias 泛型 keyof 映射类型联合。 |
+| 13796 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0515` | 性能测试 | 2 | dts2cpp union type alias 泛型索引访问联合。 |
+| 13797 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0516` | 性能测试 | 2 | dts2cpp union type alias 无泛型直接条件类型联合。 |
+| 13798 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0517` | 性能测试 | 2 | dts2cpp union type alias infer 条件类型联合。 |
+| 13799 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0518` | 性能测试 | 2 | dts2cpp union type alias 双泛型 keyof 联合。 |
+| 13800 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0519` | 性能测试 | 2 | dts2cpp union type alias typeof 成员访问联合。 |
+| 13801 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0520` | 性能测试 | 2 | dts2cpp union type alias typeof Symbol 联合。 |
+| 13802 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0521` | 性能测试 | 2 | dts2cpp union type alias Function/object/null 联合。 |
+| 13803 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0522` | 性能测试 | 2 | dts2cpp union type alias 类属性索引访问联合。 |
+| 13804 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0523` | 性能测试 | 2 | dts2cpp union type alias 包装类型/基本类型/字面量混联。 |
+| 13805 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0524` | 性能测试 | 2 | dts2cpp union type alias unknown/any 数组联合。 |
+| 13806 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0525` | 性能测试 | 2 | dts2cpp union type alias 双交叉类型联合。 |
+| 13807 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0526` | 性能测试 | 2 | dts2cpp union type alias this 类型联合。 |
+| 13808 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0527` | 性能测试 | 2 | dts2cpp union type alias 泛型 NoInfer 联合。 |
+| 13809 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0528` | 性能测试 | 2 | dts2cpp union type alias 交叉类型 alias 引用联合（同文件 3 个 alias）。 |
+| 13810 | `conversion_tsunion.part13a.test.ts` | `dts2cpp_union_0529` | 性能测试 | 2 | dts2cpp union type alias enum+interface+type 同文件组合联合（校验 ParseObj.enums）。 |
+| 13811 | `conversion_tsunion.part13b.test.ts` | `dts2cpp_union_0530` | 性能测试 | 2 | dts2cpp union type alias 同文件 30 个 union 批量解析。 |
+| 13812 | `conversion_tsunion.part13b.test.ts` | `dts2cpp_union_0531` | 性能测试 | 2 | dts2cpp union type alias 容错：括号不配对（成员不可拆分，断言 types 为空）。 |
+| 13813 | `conversion_tsunion.part13b.test.ts` | `dts2cpp_union_0532` | 性能测试 | 2 | dts2cpp union type alias 容错：双竖线（成员不可拆分，断言 types 为空）。 |
+| 13814 | `conversion_tsunion.part13b.test.ts` | `dts2cpp_union_0533` | 性能测试 | 2 | dts2cpp union type alias 容错：泛型括号不闭合（成员不可拆分，断言 types 为空）。 |
+| 13815 | `conversion_tsunion.part13b.test.ts` | `dts2cpp_union_0534` | 性能测试 | 2 | dts2cpp union type alias 容错：泛型括号不闭合（残留成员）。 |
+| 13816 | `conversion_tsunion.part14.test.ts` | `dts2cpp_union_0535` | 性能测试 | 2 | : dts2cpp union 扩充-type alias `type U1 = string \| number \| boolean;` 的解析结果与性能。 |
+| 13817 | `conversion_tsunion.part14.test.ts` | `dts2cpp_union_0536` | 性能测试 | 2 | : dts2cpp union 扩充-type alias `type U2 = null \| undefined \| void;` 的解析结果与性能。 |
+| 13818 | `conversion_tsunion.part14.test.ts` | `dts2cpp_union_0537` | 性能测试 | 2 | : dts2cpp union 扩充-type alias `type U3 = "on" \| "off" \| "auto";` 的解析结果与性能。 |
+| 13819 | `conversion_tsunion.part14.test.ts` | `dts2cpp_union_0538` | 性能测试 | 2 | : dts2cpp union 扩充-type alias `type U4 = 1 \| 2 \| 3 \| 4 \| 5;` 的解析结果与性能。 |
+| 13820 | `conversion_tsunion.part14.test.ts` | `dts2cpp_union_0539` | 性能测试 | 2 | : dts2cpp union 扩充-type alias `type U5 = string[] \| number[];` 的解析结果与性能。 |
+| 13821 | `conversion_tsunion.part14.test.ts` | `dts2cpp_union_0540` | 性能测试 | 2 | : dts2cpp union 扩充-type alias `type U6 = Map<string, number> \| Record<string, number>;` 的解析结果与性能。 |
+| 13822 | `conversion_tsunion.part14.test.ts` | `dts2cpp_union_0541` | 性能测试 | 2 | : dts2cpp union 扩充-type alias `type U7 = (() => void) \| (() => number);` 的解析结果与性能。 |
+| 13823 | `conversion_tsunion.part14.test.ts` | `dts2cpp_union_0542` | 性能测试 | 2 | : dts2cpp union 扩充-type alias `type U8 = Promise<string> \| string;` 的解析结果与性能。 |
+| 13824 | `conversion_tsunion.part14.test.ts` | `dts2cpp_union_0543` | 性能测试 | 2 | : dts2cpp union 扩充-type alias `type U9 = { id: number } \| { name: string };` 的解析结果与性能。 |
+| 13825 | `conversion_tsunion.part14.test.ts` | `dts2cpp_union_0544` | 性能测试 | 2 | : dts2cpp union 扩充-type alias `type U10 = [number, string] \| [boolean, boolean];` 的解析结果与性能。 |
+| 13826 | `conversion_tsunion.part14.test.ts` | `dts2cpp_union_0545` | 性能测试 | 2 | : dts2cpp union 扩充-type alias `type U11 = Set<number> \| ReadonlySet<number>;` 的解析结果与性能。 |
+| 13827 | `conversion_tsunion.part14.test.ts` | `dts2cpp_union_0546` | 性能测试 | 2 | : dts2cpp union 扩充-type alias `type U12 = keyof { a: number; b: string } \| "extra";` 的解析结果与性能。 |
+| 13828 | `conversion_tsunion.part14.test.ts` | `dts2cpp_union_0547` | 性能测试 | 2 | : dts2cpp union 扩充-type alias `type U13 = number[] \| Set<number> \| Map<string, number>;` 的解析结果与性能。 |
+| 13829 | `conversion_tsunion.part14.test.ts` | `dts2cpp_union_0548` | 性能测试 | 2 | : dts2cpp union 扩充-type alias `type U14 = import("fs").PathLike \| string;` 的解析结果与性能。 |
+| 13830 | `conversion_tsunion.part14.test.ts` | `dts2cpp_union_0549` | 性能测试 | 2 | : dts2cpp union 扩充-type alias `type U15 = prefix-${string} \| suffix-${number};` 的解析结果与性能。 |
+| 13831 | `conversion_tsunion.part15.test.ts` | `dts2cpp_union_0550` | 性能测试 | 2 | : dts2cpp union 扩充-R5-discriminated union 的解析结果与性能。 |
+| 13832 | `conversion_tsunion.part15.test.ts` | `dts2cpp_union_0551` | 性能测试 | 2 | : dts2cpp union 扩充-R5-基础联合 的解析结果与性能。 |
+| 13833 | `conversion_tsunion.part15.test.ts` | `dts2cpp_union_0552` | 性能测试 | 2 | : dts2cpp union 扩充-R5-泛型 Maybe 的解析结果与性能。 |
+| 13834 | `conversion_tsunion.part15.test.ts` | `dts2cpp_union_0553` | 性能测试 | 2 | : dts2cpp union 扩充-R5-tagged union 的解析结果与性能。 |
+| 13835 | `conversion_tsunion.part15.test.ts` | `dts2cpp_union_0554` | 性能测试 | 2 | : dts2cpp union 扩充-R5-递归 JSON union 的解析结果与性能。 |
