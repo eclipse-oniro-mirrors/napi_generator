@@ -196,7 +196,8 @@
 
 - 纳入测试文件数：**482**
 - 纳入用例总数：**13835**（dts2cpp 2624 + C Parse 2216 + H2DTS Gen 5843 + H2DTSCPP Gen 3152）
-- 统计方式：扫描所有 `*.test.ts` 文件中的 `test(...)` 声明（与 `@tc.number` 逐块一一对应，全量查重 0 重名）。
+- 统计方式：扫描 `*.test.ts` 中 `test(...)`；映射总表按用例名增量追加，避免全文件重写。
+
 <!-- GEN:END:STATS -->
 
 <!-- GEN:BEGIN:FILELIST -->

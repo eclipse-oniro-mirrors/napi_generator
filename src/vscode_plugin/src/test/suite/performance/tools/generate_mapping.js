@@ -483,12 +483,19 @@ function incrementalUpdate(existing, data) {
       if (next) doc = next;
     }
   }
-  for (const [id, body] of [['BATCH92', buildBatch92(data)], ['STATS', buildStats(data)]]) {
-    const next = replaceSection(doc, id, body);
-    if (next) doc = next;
+  const statsBody = buildStats(data);
+  const statsBlock = doc.match(/<!-- GEN:BEGIN:STATS -->([\s\S]*?)<!-- GEN:END:STATS -->/);
+  const statsText = statsBlock ? statsBlock[1].trim() : '';
+  if (statsText !== statsBody.join('\n').trim()) {
+    const statsNext = replaceSection(doc, 'STATS', statsBody);
+    if (statsNext) doc = statsNext;
+  }
+  if (ARGS.includes('--refresh-batch')) {
+    const batchNext = replaceSection(doc, 'BATCH92', buildBatch92(data));
+    if (batchNext) doc = batchNext;
   }
 
-  doc = patchFileListSection(doc, data);
+  doc = patchFileListSection(doc, data) || doc;
 
   const { header, rows, byName } = parseMappingSection(doc);
   let maxSeq = rows.reduce((m, r) => Math.max(m, r.seq), 0);
@@ -537,9 +544,11 @@ function incrementalUpdate(existing, data) {
     }
   }
 
-  const mappingBody = [...header, ...newRows.map(r => r.line), ''];
-  const mapNext = replaceSection(doc, 'MAPPING', mappingBody);
-  if (mapNext) doc = mapNext;
+  if (appended || removed || updated) {
+    const mappingBody = [...header, ...newRows.map(r => r.line), ''];
+    const mapNext = replaceSection(doc, 'MAPPING', mappingBody);
+    if (mapNext) doc = mapNext;
+  }
 
   return { doc, appended, updated, removed };
 }
