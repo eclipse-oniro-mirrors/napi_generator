@@ -54,3 +54,6 @@ build
 /src/vscode_plugin/src/test/suite_v3/bulk/
 /src/vscode_plugin/out/test/suite_v3/bulk/
 
+# perf README 映射脚本：仅本地维护，不提交远端
+/src/vscode_plugin/src/test/suite/performance/tools/generate_mapping.js
+
