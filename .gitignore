@@ -1,0 +1,56 @@
+*.iml
+.gitignore
+.gradle
+.vscode
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+/entry/.preview
+.cxx
+/node_modules
+/src/node_modules
+/src/gen/ttt.js
+/src/generator/generator.jar
+/src/generator/out/
+/src/generator/resources/cmds/linux/napi_generator-linux
+/src/generator/resources/cmds/mac/napi_generator-macos
+/src/generator/resources/cmds/win/napi_generator-win.exe
+/src/generator/.idea/
+/src/package-lock.json
+/src/package.json
+.claude
+*.csv
+*.docx
+*.pdf
+autosign
+__pycache__
+# 误生成的 ohhdc 技能嵌套副本（截图/pyc 等，勿入库）
+/src/skills/ohhdc/ohhdc/
+*.exe
+*.img
+*.cfg
+*.bin
+*.log
+.hvigor
+build
+# ohxts-stage-ets-hypium-upgrade 的 scripts/build 是 Python 包（非构建产物），需入库
+!/src/skills/ohxts-stage-ets-hypium-upgrade/scripts/build/
+# XTS 生成器正文外置下载，仓内仅保留 README
+/src/skills/ohxtsstatic/arkui-static-xts-generator/*
+!/src/skills/ohxtsstatic/arkui-static-xts-generator/README.md
+/src/skills/ohxtsdynamic/arkui-dynamic-xts-generator/*
+!/src/skills/ohxtsdynamic/arkui-dynamic-xts-generator/README.md
+/src/skills/ohxtscapi/arkui-capi-xts-generator-v3/*
+!/src/skills/ohxtscapi/arkui-capi-xts-generator-v3/README.md
+# suite_v3 bulk
+/src/vscode_plugin/src/test/suite_v3/bulk/
+/src/vscode_plugin/out/test/suite_v3/bulk/
+
