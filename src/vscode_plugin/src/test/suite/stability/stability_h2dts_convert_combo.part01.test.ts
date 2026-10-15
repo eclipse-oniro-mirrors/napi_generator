@@ -15,26 +15,44 @@
 
 import * as assert from 'assert';
 import * as vscode from 'vscode';
-import { transTskey2Ckey } from '../../../../gen/gendts';
-import * as parsec from '../../../../parse/parsec';
+import { transTskey2Ckey } from '../../../gen/gendts';
+import * as parsec from '../../../parse/parsec';
 import { runCompatSafe } from './stability_helpers';
 
 suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
   this.timeout(600000);
   vscode.window.showInformationMessage('Start Stability_H2DTS_CONVERT_COMBO_Part01.');
 
-
-  test('h2dts_convert_combo_0001', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0001_WCHAR_T
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0001_WCHAR_T
+   * @tc.desc   Stability convert h2dts/combo: baseline type-string convert; type wchar_t;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_combo_0001_wchar_t', () => {
     try {
       const result = transTskey2Ckey('wchar_t');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_combo_0001 convert output non-empty");
-      assert.strictEqual(result, "string", "h2dts_convert_combo_0001 convert output");
+      assert.ok(typeof result === 'string' && result.length > 0,
+        "h2dts_convert_combo_0001_wchar_t convert output non-empty");
+      assert.strictEqual(result, "string", "h2dts_convert_combo_0001_wchar_t convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_combo_0001 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_combo_0001_wchar_t execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_combo_0002', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0002_WCHAR_T
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0002_WCHAR_T
+   * @tc.desc   Stability convert h2dts/combo: function-param convert; type wchar_t; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_combo_0002_wchar_t', () => {
     try {
       const r = parsec.parseFunction(`void sample17(wchar_t p0);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
@@ -42,65 +60,111 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0002 param convert output non-empty");
-      assert.strictEqual(converted, "string", "h2dts_convert_combo_0002 param convert output");
+        "h2dts_convert_combo_0002_wchar_t param convert output non-empty");
+      assert.strictEqual(converted, "string", "h2dts_convert_combo_0002_wchar_t param convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_combo_0002 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_combo_0002_wchar_t execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_combo_0003', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0003_STRING
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0003_STRING
+   * @tc.desc   Stability convert h2dts/combo: function-return convert; type wchar_t; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_combo_0003_string', () => {
     try {
       const r = parsec.parseFunction(`wchar_t sampleRet17();`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       const converted = transTskey2Ckey(r[0].returns);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0003 return convert output non-empty");
-      assert.strictEqual(converted, "string", "h2dts_convert_combo_0003 return convert output");
+        "h2dts_convert_combo_0003_string return convert output non-empty");
+      assert.strictEqual(converted, "string", "h2dts_convert_combo_0003_string return convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_combo_0003 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_combo_0003_string execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_combo_0004', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0004_WCHAR_T
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0004_WCHAR_T
+   * @tc.desc   Stability convert h2dts/combo: class-field convert; type wchar_t; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_combo_0004_wchar_t', () => {
     try {
       const r = parsec.parseClass(`class SampleClass17 { public: wchar_t field; };`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].variableList && r[0].variableList.length >= 1);
       const converted = transTskey2Ckey(r[0].variableList[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0004 class field convert output non-empty");
-      assert.strictEqual(converted, "string", "h2dts_convert_combo_0004 class field convert output");
+        "h2dts_convert_combo_0004_wchar_t class field convert output non-empty");
+      assert.strictEqual(converted, "string", "h2dts_convert_combo_0004_wchar_t class field convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_combo_0004 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_combo_0004_wchar_t execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_combo_0005', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0005_WCHAR_T
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0005_WCHAR_T
+   * @tc.desc   Stability convert h2dts/combo: parse-convert-gen pipeline; type wchar_t; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_combo_0005_wchar_t', () => {
     try {
       const r = parsec.parseFunction(`void pipeline17(wchar_t p);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0005 pipeline convert output non-empty");
-      assert.strictEqual(converted, "string", "h2dts_convert_combo_0005 pipeline convert output");
+        "h2dts_convert_combo_0005_wchar_t pipeline convert output non-empty");
+      assert.strictEqual(converted, "string", "h2dts_convert_combo_0005_wchar_t pipeline convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_combo_0005 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_combo_0005_wchar_t execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_combo_0006', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0006_STD_WEAK_PTR_INT
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0006_STD_WEAK_PTR_INT
+   * @tc.desc   Stability convert h2dts/combo: baseline type-string convert; type
+   *            std::weak_ptr<int>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_combo_0006_std_weak_ptr_int', () => {
     try {
       const result = transTskey2Ckey('std::weak_ptr<int>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_combo_0006 convert output non-empty");
-      assert.strictEqual(result, "number", "h2dts_convert_combo_0006 convert output");
+      assert.ok(typeof result === 'string' && result.length > 0,
+        "h2dts_convert_combo_0006_std_weak_ptr_int convert output non-empty");
+      assert.strictEqual(result, "number", "h2dts_convert_combo_0006_std_weak_ptr_int convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_combo_0006 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_combo_0006_std_weak_ptr_int execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_combo_0007', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0007_STD_WEAK_PTR_INT
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0007_STD_WEAK_PTR_INT
+   * @tc.desc   Stability convert h2dts/combo: function-param convert; type std::weak_ptr<int>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_combo_0007_std_weak_ptr_int', () => {
     try {
       const r = parsec.parseFunction(`void sample198(std::weak_ptr<int> p0);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
@@ -108,65 +172,111 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0007 param convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_combo_0007 param convert output");
+        "h2dts_convert_combo_0007_std_weak_ptr_int param convert output non-empty");
+      assert.strictEqual(converted, "number", "h2dts_convert_combo_0007_std_weak_ptr_int param convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_combo_0007 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_combo_0007_std_weak_ptr_int execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_combo_0008', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0008_NUMBER
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0008_NUMBER
+   * @tc.desc   Stability convert h2dts/combo: function-return convert; type std::weak_ptr<int>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_combo_0008_number', () => {
     try {
       const r = parsec.parseFunction(`std::weak_ptr<int> sampleRet198();`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       const converted = transTskey2Ckey(r[0].returns);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0008 return convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_combo_0008 return convert output");
+        "h2dts_convert_combo_0008_number return convert output non-empty");
+      assert.strictEqual(converted, "number", "h2dts_convert_combo_0008_number return convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_combo_0008 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_combo_0008_number execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_combo_0009', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0009_STD_WEAK_PTR_INT
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0009_STD_WEAK_PTR_INT
+   * @tc.desc   Stability convert h2dts/combo: class-field convert; type std::weak_ptr<int>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_combo_0009_std_weak_ptr_int', () => {
     try {
       const r = parsec.parseClass(`class SampleClass198 { public: std::weak_ptr<int> field; };`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].variableList && r[0].variableList.length >= 1);
       const converted = transTskey2Ckey(r[0].variableList[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0009 class field convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_combo_0009 class field convert output");
+        "h2dts_convert_combo_0009_std_weak_ptr_int class field convert output non-empty");
+      assert.strictEqual(converted, "number", "h2dts_convert_combo_0009_std_weak_ptr_int class field convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_combo_0009 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_combo_0009_std_weak_ptr_int execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_combo_0010', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0010_STD_WEAK_PTR_INT
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0010_STD_WEAK_PTR_INT
+   * @tc.desc   Stability convert h2dts/combo: parse-convert-gen pipeline; type std::weak_ptr<int>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_combo_0010_std_weak_ptr_int', () => {
     try {
       const r = parsec.parseFunction(`void pipeline198(std::weak_ptr<int> p);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0010 pipeline convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_combo_0010 pipeline convert output");
+        "h2dts_convert_combo_0010_std_weak_ptr_int pipeline convert output non-empty");
+      assert.strictEqual(converted, "number", "h2dts_convert_combo_0010_std_weak_ptr_int pipeline convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_combo_0010 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_combo_0010_std_weak_ptr_int execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_combo_0011', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0011_STD_WEAK_PTR_SIZE_T
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0011_STD_WEAK_PTR_SIZE_T
+   * @tc.desc   Stability convert h2dts/combo: baseline type-string convert; type
+   *            std::weak_ptr<size_t>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_combo_0011_std_weak_ptr_size_t', () => {
     try {
       const result = transTskey2Ckey('std::weak_ptr<size_t>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_combo_0011 convert output non-empty");
-      assert.strictEqual(result, "number", "h2dts_convert_combo_0011 convert output");
+      assert.ok(typeof result === 'string' && result.length > 0,
+        "h2dts_convert_combo_0011_std_weak_ptr_size_t convert output non-empty");
+      assert.strictEqual(result, "number", "h2dts_convert_combo_0011_std_weak_ptr_size_t convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_combo_0011 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_combo_0011_std_weak_ptr_size_t execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_combo_0012', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0012_STD_WEAK_PTR_SIZE_T
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0012_STD_WEAK_PTR_SIZE_T
+   * @tc.desc   Stability convert h2dts/combo: function-param convert; type std::weak_ptr<size_t>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_combo_0012_std_weak_ptr_size_t', () => {
     try {
       const r = parsec.parseFunction(`void sample199(std::weak_ptr<size_t> p0);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
@@ -174,65 +284,112 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0012 param convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_combo_0012 param convert output");
+        "h2dts_convert_combo_0012_std_weak_ptr_size_t param convert output non-empty");
+      assert.strictEqual(converted, "number", "h2dts_convert_combo_0012_std_weak_ptr_size_t param convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_combo_0012 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_combo_0012_std_weak_ptr_size_t execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_combo_0013', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0013_NUMBER
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0013_NUMBER
+   * @tc.desc   Stability convert h2dts/combo: function-return convert; type std::weak_ptr<size_t>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_combo_0013_number', () => {
     try {
       const r = parsec.parseFunction(`std::weak_ptr<size_t> sampleRet199();`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       const converted = transTskey2Ckey(r[0].returns);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0013 return convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_combo_0013 return convert output");
+        "h2dts_convert_combo_0013_number return convert output non-empty");
+      assert.strictEqual(converted, "number", "h2dts_convert_combo_0013_number return convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_combo_0013 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_combo_0013_number execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_combo_0014', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0014_STD_WEAK_PTR_SIZE_T
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0014_STD_WEAK_PTR_SIZE_T
+   * @tc.desc   Stability convert h2dts/combo: class-field convert; type std::weak_ptr<size_t>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_combo_0014_std_weak_ptr_size_t', () => {
     try {
       const r = parsec.parseClass(`class SampleClass199 { public: std::weak_ptr<size_t> field; };`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].variableList && r[0].variableList.length >= 1);
       const converted = transTskey2Ckey(r[0].variableList[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0014 class field convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_combo_0014 class field convert output");
+        "h2dts_convert_combo_0014_std_weak_ptr_size_t class field convert output non-empty");
+      assert.strictEqual(converted, "number",
+        "h2dts_convert_combo_0014_std_weak_ptr_size_t class field convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_combo_0014 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_combo_0014_std_weak_ptr_size_t execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_combo_0015', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0015_STD_WEAK_PTR_SIZE_T
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0015_STD_WEAK_PTR_SIZE_T
+   * @tc.desc   Stability convert h2dts/combo: parse-convert-gen pipeline; type
+   *            std::weak_ptr<size_t>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_combo_0015_std_weak_ptr_size_t', () => {
     try {
       const r = parsec.parseFunction(`void pipeline199(std::weak_ptr<size_t> p);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0015 pipeline convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_combo_0015 pipeline convert output");
+        "h2dts_convert_combo_0015_std_weak_ptr_size_t pipeline convert output non-empty");
+      assert.strictEqual(converted, "number", "h2dts_convert_combo_0015_std_weak_ptr_size_t pipeline convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_combo_0015 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_combo_0015_std_weak_ptr_size_t execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_combo_0016', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0016_STD_WEAK_PTR_DOUBLE
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0016_STD_WEAK_PTR_DOUBLE
+   * @tc.desc   Stability convert h2dts/combo: baseline type-string convert; type
+   *            std::weak_ptr<double>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_combo_0016_std_weak_ptr_double', () => {
     try {
       const result = transTskey2Ckey('std::weak_ptr<double>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_combo_0016 convert output non-empty");
-      assert.strictEqual(result, "number", "h2dts_convert_combo_0016 convert output");
+      assert.ok(typeof result === 'string' && result.length > 0,
+        "h2dts_convert_combo_0016_std_weak_ptr_double convert output non-empty");
+      assert.strictEqual(result, "number", "h2dts_convert_combo_0016_std_weak_ptr_double convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_combo_0016 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_combo_0016_std_weak_ptr_double execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_combo_0017', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0017_STD_WEAK_PTR_DOUBLE
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0017_STD_WEAK_PTR_DOUBLE
+   * @tc.desc   Stability convert h2dts/combo: function-param convert; type std::weak_ptr<double>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_combo_0017_std_weak_ptr_double', () => {
     try {
       const r = parsec.parseFunction(`void sample200(std::weak_ptr<double> p0);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
@@ -240,65 +397,112 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0017 param convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_combo_0017 param convert output");
+        "h2dts_convert_combo_0017_std_weak_ptr_double param convert output non-empty");
+      assert.strictEqual(converted, "number", "h2dts_convert_combo_0017_std_weak_ptr_double param convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_combo_0017 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_combo_0017_std_weak_ptr_double execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_combo_0018', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0018_NUMBER
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0018_NUMBER
+   * @tc.desc   Stability convert h2dts/combo: function-return convert; type std::weak_ptr<double>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_combo_0018_number', () => {
     try {
       const r = parsec.parseFunction(`std::weak_ptr<double> sampleRet200();`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       const converted = transTskey2Ckey(r[0].returns);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0018 return convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_combo_0018 return convert output");
+        "h2dts_convert_combo_0018_number return convert output non-empty");
+      assert.strictEqual(converted, "number", "h2dts_convert_combo_0018_number return convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_combo_0018 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_combo_0018_number execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_combo_0019', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0019_STD_WEAK_PTR_DOUBLE
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0019_STD_WEAK_PTR_DOUBLE
+   * @tc.desc   Stability convert h2dts/combo: class-field convert; type std::weak_ptr<double>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_combo_0019_std_weak_ptr_double', () => {
     try {
       const r = parsec.parseClass(`class SampleClass200 { public: std::weak_ptr<double> field; };`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].variableList && r[0].variableList.length >= 1);
       const converted = transTskey2Ckey(r[0].variableList[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0019 class field convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_combo_0019 class field convert output");
+        "h2dts_convert_combo_0019_std_weak_ptr_double class field convert output non-empty");
+      assert.strictEqual(converted, "number",
+        "h2dts_convert_combo_0019_std_weak_ptr_double class field convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_combo_0019 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_combo_0019_std_weak_ptr_double execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_combo_0020', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0020_STD_WEAK_PTR_DOUBLE
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0020_STD_WEAK_PTR_DOUBLE
+   * @tc.desc   Stability convert h2dts/combo: parse-convert-gen pipeline; type
+   *            std::weak_ptr<double>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_combo_0020_std_weak_ptr_double', () => {
     try {
       const r = parsec.parseFunction(`void pipeline200(std::weak_ptr<double> p);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0020 pipeline convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_combo_0020 pipeline convert output");
+        "h2dts_convert_combo_0020_std_weak_ptr_double pipeline convert output non-empty");
+      assert.strictEqual(converted, "number", "h2dts_convert_combo_0020_std_weak_ptr_double pipeline convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_combo_0020 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_combo_0020_std_weak_ptr_double execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_combo_0021', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0021_STD_WEAK_PTR_FLOAT
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0021_STD_WEAK_PTR_FLOAT
+   * @tc.desc   Stability convert h2dts/combo: baseline type-string convert; type
+   *            std::weak_ptr<float>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_combo_0021_std_weak_ptr_float', () => {
     try {
       const result = transTskey2Ckey('std::weak_ptr<float>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_combo_0021 convert output non-empty");
-      assert.strictEqual(result, "number", "h2dts_convert_combo_0021 convert output");
+      assert.ok(typeof result === 'string' && result.length > 0,
+        "h2dts_convert_combo_0021_std_weak_ptr_float convert output non-empty");
+      assert.strictEqual(result, "number", "h2dts_convert_combo_0021_std_weak_ptr_float convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_combo_0021 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_combo_0021_std_weak_ptr_float execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_combo_0022', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0022_STD_WEAK_PTR_FLOAT
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0022_STD_WEAK_PTR_FLOAT
+   * @tc.desc   Stability convert h2dts/combo: function-param convert; type std::weak_ptr<float>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_combo_0022_std_weak_ptr_float', () => {
     try {
       const r = parsec.parseFunction(`void sample201(std::weak_ptr<float> p0);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
@@ -306,65 +510,111 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0022 param convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_combo_0022 param convert output");
+        "h2dts_convert_combo_0022_std_weak_ptr_float param convert output non-empty");
+      assert.strictEqual(converted, "number", "h2dts_convert_combo_0022_std_weak_ptr_float param convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_combo_0022 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_combo_0022_std_weak_ptr_float execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_combo_0023', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0023_NUMBER
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0023_NUMBER
+   * @tc.desc   Stability convert h2dts/combo: function-return convert; type std::weak_ptr<float>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_combo_0023_number', () => {
     try {
       const r = parsec.parseFunction(`std::weak_ptr<float> sampleRet201();`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       const converted = transTskey2Ckey(r[0].returns);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0023 return convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_combo_0023 return convert output");
+        "h2dts_convert_combo_0023_number return convert output non-empty");
+      assert.strictEqual(converted, "number", "h2dts_convert_combo_0023_number return convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_combo_0023 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_combo_0023_number execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_combo_0024', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0024_STD_WEAK_PTR_FLOAT
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0024_STD_WEAK_PTR_FLOAT
+   * @tc.desc   Stability convert h2dts/combo: class-field convert; type std::weak_ptr<float>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_combo_0024_std_weak_ptr_float', () => {
     try {
       const r = parsec.parseClass(`class SampleClass201 { public: std::weak_ptr<float> field; };`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].variableList && r[0].variableList.length >= 1);
       const converted = transTskey2Ckey(r[0].variableList[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0024 class field convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_combo_0024 class field convert output");
+        "h2dts_convert_combo_0024_std_weak_ptr_float class field convert output non-empty");
+      assert.strictEqual(converted, "number", "h2dts_convert_combo_0024_std_weak_ptr_float class field convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_combo_0024 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_combo_0024_std_weak_ptr_float execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_combo_0025', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0025_STD_WEAK_PTR_FLOAT
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0025_STD_WEAK_PTR_FLOAT
+   * @tc.desc   Stability convert h2dts/combo: parse-convert-gen pipeline; type
+   *            std::weak_ptr<float>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_combo_0025_std_weak_ptr_float', () => {
     try {
       const r = parsec.parseFunction(`void pipeline201(std::weak_ptr<float> p);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0025 pipeline convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_combo_0025 pipeline convert output");
+        "h2dts_convert_combo_0025_std_weak_ptr_float pipeline convert output non-empty");
+      assert.strictEqual(converted, "number", "h2dts_convert_combo_0025_std_weak_ptr_float pipeline convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_combo_0025 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_combo_0025_std_weak_ptr_float execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_combo_0026', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0026_STD_WEAK_PTR_LONG
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0026_STD_WEAK_PTR_LONG
+   * @tc.desc   Stability convert h2dts/combo: baseline type-string convert; type
+   *            std::weak_ptr<long>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_combo_0026_std_weak_ptr_long', () => {
     try {
       const result = transTskey2Ckey('std::weak_ptr<long>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_combo_0026 convert output non-empty");
-      assert.strictEqual(result, "number", "h2dts_convert_combo_0026 convert output");
+      assert.ok(typeof result === 'string' && result.length > 0,
+        "h2dts_convert_combo_0026_std_weak_ptr_long convert output non-empty");
+      assert.strictEqual(result, "number", "h2dts_convert_combo_0026_std_weak_ptr_long convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_combo_0026 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_combo_0026_std_weak_ptr_long execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_combo_0027', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0027_STD_WEAK_PTR_LONG
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0027_STD_WEAK_PTR_LONG
+   * @tc.desc   Stability convert h2dts/combo: function-param convert; type std::weak_ptr<long>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_combo_0027_std_weak_ptr_long', () => {
     try {
       const r = parsec.parseFunction(`void sample202(std::weak_ptr<long> p0);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
@@ -372,64 +622,110 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0027 param convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_combo_0027 param convert output");
+        "h2dts_convert_combo_0027_std_weak_ptr_long param convert output non-empty");
+      assert.strictEqual(converted, "number", "h2dts_convert_combo_0027_std_weak_ptr_long param convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_combo_0027 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_combo_0027_std_weak_ptr_long execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_combo_0028', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0028_NUMBER
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0028_NUMBER
+   * @tc.desc   Stability convert h2dts/combo: function-return convert; type std::weak_ptr<long>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_combo_0028_number', () => {
     try {
       const r = parsec.parseFunction(`std::weak_ptr<long> sampleRet202();`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       const converted = transTskey2Ckey(r[0].returns);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0028 return convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_combo_0028 return convert output");
+        "h2dts_convert_combo_0028_number return convert output non-empty");
+      assert.strictEqual(converted, "number", "h2dts_convert_combo_0028_number return convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_combo_0028 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_combo_0028_number execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_combo_0029', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0029_STD_WEAK_PTR_LONG
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0029_STD_WEAK_PTR_LONG
+   * @tc.desc   Stability convert h2dts/combo: class-field convert; type std::weak_ptr<long>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_combo_0029_std_weak_ptr_long', () => {
     try {
       const r = parsec.parseClass(`class SampleClass202 { public: std::weak_ptr<long> field; };`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].variableList && r[0].variableList.length >= 1);
       const converted = transTskey2Ckey(r[0].variableList[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0029 class field convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_combo_0029 class field convert output");
+        "h2dts_convert_combo_0029_std_weak_ptr_long class field convert output non-empty");
+      assert.strictEqual(converted, "number", "h2dts_convert_combo_0029_std_weak_ptr_long class field convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_combo_0029 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_combo_0029_std_weak_ptr_long execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_combo_0030', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0030_STD_WEAK_PTR_LONG
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0030_STD_WEAK_PTR_LONG
+   * @tc.desc   Stability convert h2dts/combo: parse-convert-gen pipeline; type std::weak_ptr<long>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_combo_0030_std_weak_ptr_long', () => {
     try {
       const r = parsec.parseFunction(`void pipeline202(std::weak_ptr<long> p);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0030 pipeline convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_combo_0030 pipeline convert output");
+        "h2dts_convert_combo_0030_std_weak_ptr_long pipeline convert output non-empty");
+      assert.strictEqual(converted, "number", "h2dts_convert_combo_0030_std_weak_ptr_long pipeline convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_combo_0030 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_combo_0030_std_weak_ptr_long execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_combo_0031', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0031_STD_WEAK_PTR_SHORT
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0031_STD_WEAK_PTR_SHORT
+   * @tc.desc   Stability convert h2dts/combo: baseline type-string convert; type
+   *            std::weak_ptr<short>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_combo_0031_std_weak_ptr_short', () => {
     try {
       const result = transTskey2Ckey('std::weak_ptr<short>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_combo_0031 convert output non-empty");
-      assert.strictEqual(result, "number", "h2dts_convert_combo_0031 convert output");
+      assert.ok(typeof result === 'string' && result.length > 0,
+        "h2dts_convert_combo_0031_std_weak_ptr_short convert output non-empty");
+      assert.strictEqual(result, "number", "h2dts_convert_combo_0031_std_weak_ptr_short convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_combo_0031 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_combo_0031_std_weak_ptr_short execution error: ${String(err)}`);
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0032
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0032
+   * @tc.desc   Stability convert h2dts/combo: function-param convert; type std::weak_ptr<short>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0032', () => {
     try {
       const r = parsec.parseFunction(`void sample203(std::weak_ptr<short> p0);`);
@@ -445,6 +741,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0033
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0033
+   * @tc.desc   Stability convert h2dts/combo: function-return convert; type std::weak_ptr<short>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0033', () => {
     try {
       const r = parsec.parseFunction(`std::weak_ptr<short> sampleRet203();`);
@@ -458,6 +763,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0034
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0034
+   * @tc.desc   Stability convert h2dts/combo: class-field convert; type std::weak_ptr<short>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0034', () => {
     try {
       const r = parsec.parseClass(`class SampleClass203 { public: std::weak_ptr<short> field; };`);
@@ -472,6 +786,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0035
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0035
+   * @tc.desc   Stability convert h2dts/combo: parse-convert-gen pipeline; type
+   *            std::weak_ptr<short>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0035', () => {
     try {
       const r = parsec.parseFunction(`void pipeline203(std::weak_ptr<short> p);`);
@@ -486,6 +809,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0036
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0036
+   * @tc.desc   Stability convert h2dts/combo: baseline type-string convert; type
+   *            std::weak_ptr<uint8_t>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0036', () => {
     try {
       const result = transTskey2Ckey('std::weak_ptr<uint8_t>');
@@ -496,6 +828,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0037
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0037
+   * @tc.desc   Stability convert h2dts/combo: function-param convert; type std::weak_ptr<uint8_t>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0037', () => {
     try {
       const r = parsec.parseFunction(`void sample204(std::weak_ptr<uint8_t> p0);`);
@@ -511,6 +852,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0038
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0038
+   * @tc.desc   Stability convert h2dts/combo: function-return convert; type std::weak_ptr<uint8_t>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0038', () => {
     try {
       const r = parsec.parseFunction(`std::weak_ptr<uint8_t> sampleRet204();`);
@@ -524,6 +874,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0039
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0039
+   * @tc.desc   Stability convert h2dts/combo: class-field convert; type std::weak_ptr<uint8_t>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0039', () => {
     try {
       const r = parsec.parseClass(`class SampleClass204 { public: std::weak_ptr<uint8_t> field; };`);
@@ -538,6 +897,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0040
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0040
+   * @tc.desc   Stability convert h2dts/combo: parse-convert-gen pipeline; type
+   *            std::weak_ptr<uint8_t>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0040', () => {
     try {
       const r = parsec.parseFunction(`void pipeline204(std::weak_ptr<uint8_t> p);`);
@@ -552,6 +920,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0041
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0041
+   * @tc.desc   Stability convert h2dts/combo: baseline type-string convert; type
+   *            std::weak_ptr<uint16_t>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0041', () => {
     try {
       const result = transTskey2Ckey('std::weak_ptr<uint16_t>');
@@ -562,6 +939,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0042
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0042
+   * @tc.desc   Stability convert h2dts/combo: function-param convert; type std::weak_ptr<uint16_t>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0042', () => {
     try {
       const r = parsec.parseFunction(`void sample205(std::weak_ptr<uint16_t> p0);`);
@@ -577,6 +963,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0043
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0043
+   * @tc.desc   Stability convert h2dts/combo: function-return convert; type
+   *            std::weak_ptr<uint16_t>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0043', () => {
     try {
       const r = parsec.parseFunction(`std::weak_ptr<uint16_t> sampleRet205();`);
@@ -590,6 +985,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0044
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0044
+   * @tc.desc   Stability convert h2dts/combo: class-field convert; type std::weak_ptr<uint16_t>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0044', () => {
     try {
       const r = parsec.parseClass(`class SampleClass205 { public: std::weak_ptr<uint16_t> field; };`);
@@ -604,6 +1008,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0045
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0045
+   * @tc.desc   Stability convert h2dts/combo: parse-convert-gen pipeline; type
+   *            std::weak_ptr<uint16_t>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0045', () => {
     try {
       const r = parsec.parseFunction(`void pipeline205(std::weak_ptr<uint16_t> p);`);
@@ -618,6 +1031,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0046
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0046
+   * @tc.desc   Stability convert h2dts/combo: baseline type-string convert; type
+   *            std::weak_ptr<uint32_t>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0046', () => {
     try {
       const result = transTskey2Ckey('std::weak_ptr<uint32_t>');
@@ -628,6 +1050,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0047
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0047
+   * @tc.desc   Stability convert h2dts/combo: function-param convert; type std::weak_ptr<uint32_t>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0047', () => {
     try {
       const r = parsec.parseFunction(`void sample206(std::weak_ptr<uint32_t> p0);`);
@@ -643,6 +1074,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0048
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0048
+   * @tc.desc   Stability convert h2dts/combo: function-return convert; type
+   *            std::weak_ptr<uint32_t>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0048', () => {
     try {
       const r = parsec.parseFunction(`std::weak_ptr<uint32_t> sampleRet206();`);
@@ -656,6 +1096,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0049
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0049
+   * @tc.desc   Stability convert h2dts/combo: class-field convert; type std::weak_ptr<uint32_t>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0049', () => {
     try {
       const r = parsec.parseClass(`class SampleClass206 { public: std::weak_ptr<uint32_t> field; };`);
@@ -670,6 +1119,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0050
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0050
+   * @tc.desc   Stability convert h2dts/combo: parse-convert-gen pipeline; type
+   *            std::weak_ptr<uint32_t>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0050', () => {
     try {
       const r = parsec.parseFunction(`void pipeline206(std::weak_ptr<uint32_t> p);`);
@@ -684,6 +1142,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0051
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0051
+   * @tc.desc   Stability convert h2dts/combo: baseline type-string convert; type
+   *            std::weak_ptr<uint64_t>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0051', () => {
     try {
       const result = transTskey2Ckey('std::weak_ptr<uint64_t>');
@@ -694,6 +1161,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0052
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0052
+   * @tc.desc   Stability convert h2dts/combo: function-param convert; type std::weak_ptr<uint64_t>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0052', () => {
     try {
       const r = parsec.parseFunction(`void sample207(std::weak_ptr<uint64_t> p0);`);
@@ -709,6 +1185,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0053
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0053
+   * @tc.desc   Stability convert h2dts/combo: function-return convert; type
+   *            std::weak_ptr<uint64_t>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0053', () => {
     try {
       const r = parsec.parseFunction(`std::weak_ptr<uint64_t> sampleRet207();`);
@@ -722,6 +1207,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0054
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0054
+   * @tc.desc   Stability convert h2dts/combo: class-field convert; type std::weak_ptr<uint64_t>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0054', () => {
     try {
       const r = parsec.parseClass(`class SampleClass207 { public: std::weak_ptr<uint64_t> field; };`);
@@ -736,6 +1230,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0055
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0055
+   * @tc.desc   Stability convert h2dts/combo: parse-convert-gen pipeline; type
+   *            std::weak_ptr<uint64_t>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0055', () => {
     try {
       const r = parsec.parseFunction(`void pipeline207(std::weak_ptr<uint64_t> p);`);
@@ -750,6 +1253,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0056
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0056
+   * @tc.desc   Stability convert h2dts/combo: baseline type-string convert; type
+   *            std::weak_ptr<int8_t>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0056', () => {
     try {
       const result = transTskey2Ckey('std::weak_ptr<int8_t>');
@@ -760,6 +1272,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0057
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0057
+   * @tc.desc   Stability convert h2dts/combo: function-param convert; type std::weak_ptr<int8_t>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0057', () => {
     try {
       const r = parsec.parseFunction(`void sample208(std::weak_ptr<int8_t> p0);`);
@@ -775,6 +1296,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0058
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0058
+   * @tc.desc   Stability convert h2dts/combo: function-return convert; type std::weak_ptr<int8_t>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0058', () => {
     try {
       const r = parsec.parseFunction(`std::weak_ptr<int8_t> sampleRet208();`);
@@ -788,6 +1318,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0059
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0059
+   * @tc.desc   Stability convert h2dts/combo: class-field convert; type std::weak_ptr<int8_t>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0059', () => {
     try {
       const r = parsec.parseClass(`class SampleClass208 { public: std::weak_ptr<int8_t> field; };`);
@@ -802,6 +1341,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0060
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0060
+   * @tc.desc   Stability convert h2dts/combo: parse-convert-gen pipeline; type
+   *            std::weak_ptr<int8_t>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0060', () => {
     try {
       const r = parsec.parseFunction(`void pipeline208(std::weak_ptr<int8_t> p);`);
@@ -816,6 +1364,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0061
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0061
+   * @tc.desc   Stability convert h2dts/combo: baseline type-string convert; type
+   *            std::weak_ptr<int16_t>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0061', () => {
     try {
       const result = transTskey2Ckey('std::weak_ptr<int16_t>');
@@ -826,6 +1383,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0062
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0062
+   * @tc.desc   Stability convert h2dts/combo: function-param convert; type std::weak_ptr<int16_t>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0062', () => {
     try {
       const r = parsec.parseFunction(`void sample209(std::weak_ptr<int16_t> p0);`);
@@ -841,6 +1407,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0063
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0063
+   * @tc.desc   Stability convert h2dts/combo: function-return convert; type std::weak_ptr<int16_t>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0063', () => {
     try {
       const r = parsec.parseFunction(`std::weak_ptr<int16_t> sampleRet209();`);
@@ -854,6 +1429,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0064
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0064
+   * @tc.desc   Stability convert h2dts/combo: class-field convert; type std::weak_ptr<int16_t>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0064', () => {
     try {
       const r = parsec.parseClass(`class SampleClass209 { public: std::weak_ptr<int16_t> field; };`);
@@ -868,6 +1452,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0065
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0065
+   * @tc.desc   Stability convert h2dts/combo: parse-convert-gen pipeline; type
+   *            std::weak_ptr<int16_t>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0065', () => {
     try {
       const r = parsec.parseFunction(`void pipeline209(std::weak_ptr<int16_t> p);`);
@@ -882,6 +1475,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0066
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0066
+   * @tc.desc   Stability convert h2dts/combo: baseline type-string convert; type
+   *            std::weak_ptr<int32_t>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0066', () => {
     try {
       const result = transTskey2Ckey('std::weak_ptr<int32_t>');
@@ -892,6 +1494,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0067
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0067
+   * @tc.desc   Stability convert h2dts/combo: function-param convert; type std::weak_ptr<int32_t>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0067', () => {
     try {
       const r = parsec.parseFunction(`void sample210(std::weak_ptr<int32_t> p0);`);
@@ -907,6 +1518,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0068
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0068
+   * @tc.desc   Stability convert h2dts/combo: function-return convert; type std::weak_ptr<int32_t>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0068', () => {
     try {
       const r = parsec.parseFunction(`std::weak_ptr<int32_t> sampleRet210();`);
@@ -920,6 +1540,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0069
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0069
+   * @tc.desc   Stability convert h2dts/combo: class-field convert; type std::weak_ptr<int32_t>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0069', () => {
     try {
       const r = parsec.parseClass(`class SampleClass210 { public: std::weak_ptr<int32_t> field; };`);
@@ -934,6 +1563,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0070
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0070
+   * @tc.desc   Stability convert h2dts/combo: parse-convert-gen pipeline; type
+   *            std::weak_ptr<int32_t>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0070', () => {
     try {
       const r = parsec.parseFunction(`void pipeline210(std::weak_ptr<int32_t> p);`);
@@ -948,6 +1586,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0071
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0071
+   * @tc.desc   Stability convert h2dts/combo: baseline type-string convert; type
+   *            std::weak_ptr<int64_t>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0071', () => {
     try {
       const result = transTskey2Ckey('std::weak_ptr<int64_t>');
@@ -958,6 +1605,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0072
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0072
+   * @tc.desc   Stability convert h2dts/combo: function-param convert; type std::weak_ptr<int64_t>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0072', () => {
     try {
       const r = parsec.parseFunction(`void sample211(std::weak_ptr<int64_t> p0);`);
@@ -973,6 +1629,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0073
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0073
+   * @tc.desc   Stability convert h2dts/combo: function-return convert; type std::weak_ptr<int64_t>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0073', () => {
     try {
       const r = parsec.parseFunction(`std::weak_ptr<int64_t> sampleRet211();`);
@@ -986,6 +1651,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0074
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0074
+   * @tc.desc   Stability convert h2dts/combo: class-field convert; type std::weak_ptr<int64_t>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0074', () => {
     try {
       const r = parsec.parseClass(`class SampleClass211 { public: std::weak_ptr<int64_t> field; };`);
@@ -1000,6 +1674,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0075
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0075
+   * @tc.desc   Stability convert h2dts/combo: parse-convert-gen pipeline; type
+   *            std::weak_ptr<int64_t>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0075', () => {
     try {
       const r = parsec.parseFunction(`void pipeline211(std::weak_ptr<int64_t> p);`);
@@ -1014,6 +1697,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0076
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0076
+   * @tc.desc   Stability convert h2dts/combo: baseline type-string convert; type
+   *            std::weak_ptr<bool>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0076', () => {
     try {
       const result = transTskey2Ckey('std::weak_ptr<bool>');
@@ -1024,6 +1716,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0077
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0077
+   * @tc.desc   Stability convert h2dts/combo: function-param convert; type std::weak_ptr<bool>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0077', () => {
     try {
       const r = parsec.parseFunction(`void sample212(std::weak_ptr<bool> p0);`);
@@ -1039,6 +1740,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0078
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0078
+   * @tc.desc   Stability convert h2dts/combo: function-return convert; type std::weak_ptr<bool>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0078', () => {
     try {
       const r = parsec.parseFunction(`std::weak_ptr<bool> sampleRet212();`);
@@ -1052,6 +1762,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0079
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0079
+   * @tc.desc   Stability convert h2dts/combo: class-field convert; type std::weak_ptr<bool>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0079', () => {
     try {
       const r = parsec.parseClass(`class SampleClass212 { public: std::weak_ptr<bool> field; };`);
@@ -1066,6 +1785,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0080
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0080
+   * @tc.desc   Stability convert h2dts/combo: parse-convert-gen pipeline; type std::weak_ptr<bool>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0080', () => {
     try {
       const r = parsec.parseFunction(`void pipeline212(std::weak_ptr<bool> p);`);
@@ -1080,6 +1808,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0081
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0081
+   * @tc.desc   Stability convert h2dts/combo: baseline type-string convert; type
+   *            std::weak_ptr<char>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0081', () => {
     try {
       const result = transTskey2Ckey('std::weak_ptr<char>');
@@ -1090,6 +1827,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0082
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0082
+   * @tc.desc   Stability convert h2dts/combo: function-param convert; type std::weak_ptr<char>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0082', () => {
     try {
       const r = parsec.parseFunction(`void sample213(std::weak_ptr<char> p0);`);
@@ -1105,6 +1851,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0083
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0083
+   * @tc.desc   Stability convert h2dts/combo: function-return convert; type std::weak_ptr<char>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0083', () => {
     try {
       const r = parsec.parseFunction(`std::weak_ptr<char> sampleRet213();`);
@@ -1118,6 +1873,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0084
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0084
+   * @tc.desc   Stability convert h2dts/combo: class-field convert; type std::weak_ptr<char>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0084', () => {
     try {
       const r = parsec.parseClass(`class SampleClass213 { public: std::weak_ptr<char> field; };`);
@@ -1132,6 +1896,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0085
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0085
+   * @tc.desc   Stability convert h2dts/combo: parse-convert-gen pipeline; type std::weak_ptr<char>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0085', () => {
     try {
       const r = parsec.parseFunction(`void pipeline213(std::weak_ptr<char> p);`);
@@ -1146,6 +1919,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0086
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0086
+   * @tc.desc   Stability convert h2dts/combo: baseline type-string convert; type
+   *            std::weak_ptr<wchar_t>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0086', () => {
     try {
       const result = transTskey2Ckey('std::weak_ptr<wchar_t>');
@@ -1156,6 +1938,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0087
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0087
+   * @tc.desc   Stability convert h2dts/combo: function-param convert; type std::weak_ptr<wchar_t>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0087', () => {
     try {
       const r = parsec.parseFunction(`void sample214(std::weak_ptr<wchar_t> p0);`);
@@ -1171,6 +1962,15 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_COMBO_0088
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_COMBO_0088
+   * @tc.desc   Stability convert h2dts/combo: function-return convert; type std::weak_ptr<wchar_t>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_combo_0088', () => {
     try {
       const r = parsec.parseFunction(`std::weak_ptr<wchar_t> sampleRet214();`);
@@ -1181,812 +1981,6 @@ suite('Stability_H2DTS_CONVERT_COMBO_Part01', function() {
       assert.strictEqual(converted, "string", "h2dts_convert_combo_0088 return convert output");
     } catch (err) {
       assert.fail(`h2dts_convert_combo_0088 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0089', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass214 { public: std::weak_ptr<wchar_t> field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0089 class field convert output non-empty");
-      assert.strictEqual(converted, "string", "h2dts_convert_combo_0089 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0089 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0090', () => {
-    try {
-      const r = parsec.parseFunction(`void pipeline214(std::weak_ptr<wchar_t> p);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0090 pipeline convert output non-empty");
-      assert.strictEqual(converted, "string", "h2dts_convert_combo_0090 pipeline convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0090 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0091', () => {
-    try {
-      const result = transTskey2Ckey('std::weak_ptr<char8_t>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_combo_0091 convert output non-empty");
-      assert.strictEqual(result, "string", "h2dts_convert_combo_0091 convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0091 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0092', () => {
-    try {
-      const r = parsec.parseFunction(`void sample215(std::weak_ptr<char8_t> p0);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(typeof r[0] === 'object');
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0092 param convert output non-empty");
-      assert.strictEqual(converted, "string", "h2dts_convert_combo_0092 param convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0092 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0093', () => {
-    try {
-      const r = parsec.parseFunction(`std::weak_ptr<char8_t> sampleRet215();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0093 return convert output non-empty");
-      assert.strictEqual(converted, "string", "h2dts_convert_combo_0093 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0093 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0094', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass215 { public: std::weak_ptr<char8_t> field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0094 class field convert output non-empty");
-      assert.strictEqual(converted, "string", "h2dts_convert_combo_0094 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0094 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0095', () => {
-    try {
-      const r = parsec.parseFunction(`void pipeline215(std::weak_ptr<char8_t> p);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0095 pipeline convert output non-empty");
-      assert.strictEqual(converted, "string", "h2dts_convert_combo_0095 pipeline convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0095 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0096', () => {
-    try {
-      const result = transTskey2Ckey('std::weak_ptr<char16_t>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_combo_0096 convert output non-empty");
-      assert.strictEqual(result, "string", "h2dts_convert_combo_0096 convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0096 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0097', () => {
-    try {
-      const r = parsec.parseFunction(`void sample216(std::weak_ptr<char16_t> p0);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(typeof r[0] === 'object');
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0097 param convert output non-empty");
-      assert.strictEqual(converted, "string", "h2dts_convert_combo_0097 param convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0097 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0098', () => {
-    try {
-      const r = parsec.parseFunction(`std::weak_ptr<char16_t> sampleRet216();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0098 return convert output non-empty");
-      assert.strictEqual(converted, "string", "h2dts_convert_combo_0098 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0098 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0099', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass216 { public: std::weak_ptr<char16_t> field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0099 class field convert output non-empty");
-      assert.strictEqual(converted, "string", "h2dts_convert_combo_0099 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0099 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0100', () => {
-    try {
-      const r = parsec.parseFunction(`void pipeline216(std::weak_ptr<char16_t> p);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0100 pipeline convert output non-empty");
-      assert.strictEqual(converted, "string", "h2dts_convert_combo_0100 pipeline convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0100 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0101', () => {
-    try {
-      const result = transTskey2Ckey('std::weak_ptr<char32_t>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_combo_0101 convert output non-empty");
-      assert.strictEqual(result, "string", "h2dts_convert_combo_0101 convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0101 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0102', () => {
-    try {
-      const r = parsec.parseFunction(`void sample217(std::weak_ptr<char32_t> p0);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(typeof r[0] === 'object');
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0102 param convert output non-empty");
-      assert.strictEqual(converted, "string", "h2dts_convert_combo_0102 param convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0102 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0103', () => {
-    try {
-      const r = parsec.parseFunction(`std::weak_ptr<char32_t> sampleRet217();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0103 return convert output non-empty");
-      assert.strictEqual(converted, "string", "h2dts_convert_combo_0103 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0103 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0104', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass217 { public: std::weak_ptr<char32_t> field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0104 class field convert output non-empty");
-      assert.strictEqual(converted, "string", "h2dts_convert_combo_0104 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0104 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0105', () => {
-    try {
-      const r = parsec.parseFunction(`void pipeline217(std::weak_ptr<char32_t> p);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0105 pipeline convert output non-empty");
-      assert.strictEqual(converted, "string", "h2dts_convert_combo_0105 pipeline convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0105 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0106', () => {
-    try {
-      const result = transTskey2Ckey('std::weak_ptr<std::string>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_combo_0106 convert output non-empty");
-      assert.strictEqual(result, "string", "h2dts_convert_combo_0106 convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0106 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0107', () => {
-    try {
-      const r = parsec.parseFunction(`void sample283(std::weak_ptr<std::string> p0);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(typeof r[0] === 'object');
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0107 param convert output non-empty");
-      assert.strictEqual(converted, "string", "h2dts_convert_combo_0107 param convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0107 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0108', () => {
-    try {
-      const r = parsec.parseFunction(`std::weak_ptr<std::string> sampleRet283();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0108 return convert output non-empty");
-      assert.strictEqual(converted, "string", "h2dts_convert_combo_0108 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0108 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0109', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass283 { public: std::weak_ptr<std::string> field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0109 class field convert output non-empty");
-      assert.strictEqual(converted, "string", "h2dts_convert_combo_0109 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0109 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0110', () => {
-    try {
-      const r = parsec.parseFunction(`void pipeline283(std::weak_ptr<std::string> p);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0110 pipeline convert output non-empty");
-      assert.strictEqual(converted, "string", "h2dts_convert_combo_0110 pipeline convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0110 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0111', () => {
-    try {
-      const result = transTskey2Ckey('std::weak_ptr<char *>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_combo_0111 convert output non-empty");
-      assert.strictEqual(result, "string", "h2dts_convert_combo_0111 convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0111 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0112', () => {
-    try {
-      const r = parsec.parseFunction(`void sample284(std::weak_ptr<char *> p0);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(typeof r[0] === 'object');
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0112 param convert output non-empty");
-      assert.strictEqual(converted, "string", "h2dts_convert_combo_0112 param convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0112 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0113', () => {
-    try {
-      const r = parsec.parseFunction(`std::weak_ptr<char *> sampleRet284();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0113 return convert output non-empty");
-      assert.strictEqual(converted, "string", "h2dts_convert_combo_0113 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0113 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0114', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass284 { public: std::weak_ptr<char *> field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0114 class field convert output non-empty");
-      assert.strictEqual(converted, "string", "h2dts_convert_combo_0114 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0114 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0115', () => {
-    try {
-      const r = parsec.parseFunction(`void pipeline284(std::weak_ptr<char *> p);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0115 pipeline convert output non-empty");
-      assert.strictEqual(converted, "string", "h2dts_convert_combo_0115 pipeline convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0115 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0116', () => {
-    try {
-      const result = transTskey2Ckey('std::weak_ptr<long long>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_combo_0116 convert output non-empty");
-      assert.strictEqual(result, "number", "h2dts_convert_combo_0116 convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0116 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0117', () => {
-    try {
-      const r = parsec.parseFunction(`void sample285(std::weak_ptr<long long> p0);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(typeof r[0] === 'object');
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0117 param convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_combo_0117 param convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0117 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0118', () => {
-    try {
-      const r = parsec.parseFunction(`std::weak_ptr<long long> sampleRet285();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0118 return convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_combo_0118 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0118 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0119', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass285 { public: std::weak_ptr<long long> field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0119 class field convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_combo_0119 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0119 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0120', () => {
-    try {
-      const r = parsec.parseFunction(`void pipeline285(std::weak_ptr<long long> p);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0120 pipeline convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_combo_0120 pipeline convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0120 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0121', () => {
-    try {
-      const result = transTskey2Ckey('std::weak_ptr<unsigned short>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_combo_0121 convert output non-empty");
-      assert.strictEqual(result, "number", "h2dts_convert_combo_0121 convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0121 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0122', () => {
-    try {
-      const r = parsec.parseFunction(`void sample286(std::weak_ptr<unsigned short> p0);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(typeof r[0] === 'object');
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0122 param convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_combo_0122 param convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0122 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0123', () => {
-    try {
-      const r = parsec.parseFunction(`std::weak_ptr<unsigned short> sampleRet286();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0123 return convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_combo_0123 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0123 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0124', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass286 { public: std::weak_ptr<unsigned short> field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0124 class field convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_combo_0124 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0124 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0125', () => {
-    try {
-      const r = parsec.parseFunction(`void pipeline286(std::weak_ptr<unsigned short> p);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0125 pipeline convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_combo_0125 pipeline convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0125 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0126', () => {
-    try {
-      const result = transTskey2Ckey('std::weak_ptr<unsigned long>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_combo_0126 convert output non-empty");
-      assert.strictEqual(result, "number", "h2dts_convert_combo_0126 convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0126 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0127', () => {
-    try {
-      const r = parsec.parseFunction(`void sample287(std::weak_ptr<unsigned long> p0);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(typeof r[0] === 'object');
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0127 param convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_combo_0127 param convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0127 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0128', () => {
-    try {
-      const r = parsec.parseFunction(`std::weak_ptr<unsigned long> sampleRet287();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0128 return convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_combo_0128 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0128 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0129', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass287 { public: std::weak_ptr<unsigned long> field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0129 class field convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_combo_0129 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0129 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0130', () => {
-    try {
-      const r = parsec.parseFunction(`void pipeline287(std::weak_ptr<unsigned long> p);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0130 pipeline convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_combo_0130 pipeline convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0130 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0131', () => {
-    try {
-      const result = transTskey2Ckey('std::weak_ptr<unsigned long long>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_combo_0131 convert output non-empty");
-      assert.strictEqual(result, "number", "h2dts_convert_combo_0131 convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0131 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0132', () => {
-    try {
-      const r = parsec.parseFunction(`void sample288(std::weak_ptr<unsigned long long> p0);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(typeof r[0] === 'object');
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0132 param convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_combo_0132 param convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0132 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0133', () => {
-    try {
-      const r = parsec.parseFunction(`std::weak_ptr<unsigned long long> sampleRet288();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0133 return convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_combo_0133 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0133 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0134', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass288 { public: std::weak_ptr<unsigned long long> field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0134 class field convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_combo_0134 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0134 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0135', () => {
-    try {
-      const r = parsec.parseFunction(`void pipeline288(std::weak_ptr<unsigned long long> p);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0135 pipeline convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_combo_0135 pipeline convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0135 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0136', () => {
-    try {
-      const result = transTskey2Ckey('std::weak_ptr<int *>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_combo_0136 convert output non-empty");
-      assert.strictEqual(result, "number", "h2dts_convert_combo_0136 convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0136 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0137', () => {
-    try {
-      const r = parsec.parseFunction(`void sample289(std::weak_ptr<int *> p0);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(typeof r[0] === 'object');
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0137 param convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_combo_0137 param convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0137 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0138', () => {
-    try {
-      const r = parsec.parseFunction(`std::weak_ptr<int *> sampleRet289();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0138 return convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_combo_0138 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0138 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0139', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass289 { public: std::weak_ptr<int *> field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0139 class field convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_combo_0139 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0139 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0140', () => {
-    try {
-      const r = parsec.parseFunction(`void pipeline289(std::weak_ptr<int *> p);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0140 pipeline convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_combo_0140 pipeline convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0140 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0141', () => {
-    try {
-      const result = transTskey2Ckey('any');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_combo_0141 convert output non-empty");
-      assert.strictEqual(result, "any", "h2dts_convert_combo_0141 convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0141 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0142', () => {
-    try {
-      const r = parsec.parseFunction(`void sample291(any p0);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(typeof r[0] === 'object');
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0142 param convert output non-empty");
-      assert.strictEqual(converted, "any", "h2dts_convert_combo_0142 param convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0142 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0143', () => {
-    try {
-      const r = parsec.parseFunction(`any sampleRet291();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0143 return convert output non-empty");
-      assert.strictEqual(converted, "any", "h2dts_convert_combo_0143 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0143 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0144', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass291 { public: any field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0144 class field convert output non-empty");
-      assert.strictEqual(converted, "any", "h2dts_convert_combo_0144 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0144 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0145', () => {
-    try {
-      const r = parsec.parseFunction(`void pipeline291(any p);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0145 pipeline convert output non-empty");
-      assert.strictEqual(converted, "any", "h2dts_convert_combo_0145 pipeline convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0145 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0146', () => {
-    try {
-      const result = transTskey2Ckey('object');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_combo_0146 convert output non-empty");
-      assert.strictEqual(result, "any", "h2dts_convert_combo_0146 convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0146 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0147', () => {
-    try {
-      const r = parsec.parseFunction(`void sample292(object p0);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(typeof r[0] === 'object');
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0147 param convert output non-empty");
-      assert.strictEqual(converted, "any", "h2dts_convert_combo_0147 param convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0147 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0148', () => {
-    try {
-      const r = parsec.parseFunction(`object sampleRet292();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0148 return convert output non-empty");
-      assert.strictEqual(converted, "any", "h2dts_convert_combo_0148 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0148 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_combo_0149', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass292 { public: object field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_combo_0149 class field convert output non-empty");
-      assert.strictEqual(converted, "any", "h2dts_convert_combo_0149 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_combo_0149 execution error: ${String(err)}`);
     }
   });
 });
