@@ -21,10 +21,162 @@ import { runCompatSafe } from './stability_helpers';
 
 suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
   this.timeout(600000);
-  vscode.window.showInformationMessage('Start Stability_H2DTSCPP_COMPAT_ARRAY_Part02.');
+  vscode.window.showInformationMessage('Start Stability_H2DTSCPP_COMPAT_ARRAY_Part01.');
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0055_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0055_BOOLEAN
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled (boolean[]); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0055_boolean', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C10', alias: '',
+            variableList: [{ type: 'boolean[]', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_array_0055_boolean convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0055_boolean must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_array_0055_boolean must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "std::vector<bool>",
+          "h2dtscpp_compat_array_0055_boolean field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_array_0055_boolean execution error: ${String(err)}`);
+    }
+  });
 
-  test('h2dtscpp_compat_array_0001', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0056_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0056_BOOLEAN
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled (boolean[); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0056_boolean', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C10', alias: '',
+            variableList: [{ type: 'boolean[', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_array_0056_boolean convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0056_boolean must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_array_0056_boolean must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "boolean[",
+          "h2dtscpp_compat_array_0056_boolean field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_array_0056_boolean execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0057_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0057_BOOLEAN
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled (boolean[]); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0057_boolean', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C10', alias: '',
+            variableList: [{ type: 'boolean[]', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_array_0057_boolean convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0057_boolean must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_array_0057_boolean must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "std::vector<bool>",
+          "h2dtscpp_compat_array_0057_boolean field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_array_0057_boolean execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0058_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0058_BOOLEAN
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled (boolean[],); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0058_boolean', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C10', alias: '',
+            variableList: [{ type: 'boolean[],', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_array_0058_boolean convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0058_boolean must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_array_0058_boolean must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "boolean[],",
+          "h2dtscpp_compat_array_0058_boolean field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_array_0058_boolean execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0001_OBJECT
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0001_OBJECT
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); malformed
+   *            type object[]; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0001_object', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -37,19 +189,30 @@ suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0001 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0001 must have class");
+          "h2dtscpp_compat_array_0001_object convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0001_object must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0001 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "object[]", "h2dtscpp_compat_array_0001 field type");
+          "h2dtscpp_compat_array_0001_object must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "object[]",
+          "h2dtscpp_compat_array_0001_object field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0001 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_array_0001_object execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_array_0002', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0002_OBJECT
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0002_OBJECT
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); malformed
+   *            type object[; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0002_object', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -62,19 +225,30 @@ suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0002 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0002 must have class");
+          "h2dtscpp_compat_array_0002_object convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0002_object must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0002 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "object[", "h2dtscpp_compat_array_0002 field type");
+          "h2dtscpp_compat_array_0002_object must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "object[",
+          "h2dtscpp_compat_array_0002_object field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0002 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_array_0002_object execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_array_0003', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0003_OBJECT
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0003_OBJECT
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); malformed
+   *            type object[]; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0003_object', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -87,19 +261,30 @@ suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0003 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0003 must have class");
+          "h2dtscpp_compat_array_0003_object convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0003_object must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0003 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "object[]", "h2dtscpp_compat_array_0003 field type");
+          "h2dtscpp_compat_array_0003_object must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "object[]",
+          "h2dtscpp_compat_array_0003_object field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0003 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_array_0003_object execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_array_0004', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0004_OBJECT
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0004_OBJECT
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); trailing
+   *            comma on type (object[],); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0004_object', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -112,19 +297,30 @@ suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0004 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0004 must have class");
+          "h2dtscpp_compat_array_0004_object convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0004_object must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0004 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "object[],", "h2dtscpp_compat_array_0004 field type");
+          "h2dtscpp_compat_array_0004_object must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "object[],",
+          "h2dtscpp_compat_array_0004_object field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0004 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_array_0004_object execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_array_0005', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0005_OBJECT
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0005_OBJECT
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); malformed
+   *            type object[]; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0005_object', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -137,19 +333,30 @@ suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0005 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0005 must have class");
+          "h2dtscpp_compat_array_0005_object convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0005_object must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0005 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "object[]", "h2dtscpp_compat_array_0005 field type");
+          "h2dtscpp_compat_array_0005_object must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "object[]",
+          "h2dtscpp_compat_array_0005_object field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0005 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_array_0005_object execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_array_0006', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0006_INVALIDTYPEXYZ
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0006_INVALIDTYPEXYZ
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); malformed
+   *            type InvalidTypeXYZ; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0006_invalidtypexyz', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -162,20 +369,30 @@ suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0006 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0006 must have class");
+          "h2dtscpp_compat_array_0006_invalidtypexyz convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0006_invalidtypexyz must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0006 must have field");
+          "h2dtscpp_compat_array_0006_invalidtypexyz must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "InvalidTypeXYZ",
-          "h2dtscpp_compat_array_0006 field type");
+          "h2dtscpp_compat_array_0006_invalidtypexyz field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0006 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_array_0006_invalidtypexyz execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_array_0007', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0007_ARRAY_ANY
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0007_ARRAY_ANY
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); malformed
+   *            type Array<any>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0007_array_any', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -188,19 +405,30 @@ suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0007 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0007 must have class");
+          "h2dtscpp_compat_array_0007_array_any convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0007_array_any must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0007 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "Array<any>", "h2dtscpp_compat_array_0007 field type");
+          "h2dtscpp_compat_array_0007_array_any must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "Array<any>",
+          "h2dtscpp_compat_array_0007_array_any field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0007 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_array_0007_array_any execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_array_0008', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0008_ARRAY_ANY
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0008_ARRAY_ANY
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); malformed
+   *            type Array<any>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0008_array_any', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -213,19 +441,30 @@ suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0008 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0008 must have class");
+          "h2dtscpp_compat_array_0008_array_any convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0008_array_any must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0008 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "Array<any>", "h2dtscpp_compat_array_0008 field type");
+          "h2dtscpp_compat_array_0008_array_any must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "Array<any>",
+          "h2dtscpp_compat_array_0008_array_any field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0008 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_array_0008_array_any execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_array_0009', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0009_ARRAY_ANY
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0009_ARRAY_ANY
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); malformed
+   *            type Array<any>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0009_array_any', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -238,19 +477,30 @@ suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0009 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0009 must have class");
+          "h2dtscpp_compat_array_0009_array_any convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0009_array_any must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0009 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "Array<any>", "h2dtscpp_compat_array_0009 field type");
+          "h2dtscpp_compat_array_0009_array_any must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "Array<any>",
+          "h2dtscpp_compat_array_0009_array_any field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0009 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_array_0009_array_any execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_array_0010', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0010_ARRAY_ANY
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0010_ARRAY_ANY
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); malformed
+   *            type Array<any>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0010_array_any', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -263,19 +513,30 @@ suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0010 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0010 must have class");
+          "h2dtscpp_compat_array_0010_array_any convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0010_array_any must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0010 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "Array<any>", "h2dtscpp_compat_array_0010 field type");
+          "h2dtscpp_compat_array_0010_array_any must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "Array<any>",
+          "h2dtscpp_compat_array_0010_array_any field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0010 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_array_0010_array_any execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_array_0011', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0011_ARRAYANY
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0011_ARRAYANY
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); malformed
+   *            type Arrayany>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0011_arrayany', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -288,19 +549,30 @@ suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0011 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0011 must have class");
+          "h2dtscpp_compat_array_0011_arrayany convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0011_arrayany must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0011 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "Arrayany>", "h2dtscpp_compat_array_0011 field type");
+          "h2dtscpp_compat_array_0011_arrayany must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "Arrayany>",
+          "h2dtscpp_compat_array_0011_arrayany field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0011 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_array_0011_arrayany execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_array_0012', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0012_ARRAY_ANY
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0012_ARRAY_ANY
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); malformed
+   *            type Array<any; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0012_array_any', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -313,19 +585,30 @@ suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0012 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0012 must have class");
+          "h2dtscpp_compat_array_0012_array_any convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0012_array_any must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0012 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "Array<any", "h2dtscpp_compat_array_0012 field type");
+          "h2dtscpp_compat_array_0012_array_any must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "Array<any",
+          "h2dtscpp_compat_array_0012_array_any field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0012 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_array_0012_array_any execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_array_0013', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0013_ARRAY_ANY
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0013_ARRAY_ANY
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); malformed
+   *            type Array<any>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0013_array_any', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -338,19 +621,30 @@ suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0013 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0013 must have class");
+          "h2dtscpp_compat_array_0013_array_any convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0013_array_any must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0013 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "Array<any>", "h2dtscpp_compat_array_0013 field type");
+          "h2dtscpp_compat_array_0013_array_any must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "Array<any>",
+          "h2dtscpp_compat_array_0013_array_any field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0013 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_array_0013_array_any execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_array_0014', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0014_ARRAY_ANY
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0014_ARRAY_ANY
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); trailing
+   *            comma on type (Array<any>,); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0014_array_any', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -363,19 +657,30 @@ suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0014 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0014 must have class");
+          "h2dtscpp_compat_array_0014_array_any convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0014_array_any must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0014 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "Array<any>,", "h2dtscpp_compat_array_0014 field type");
+          "h2dtscpp_compat_array_0014_array_any must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "Array<any>,",
+          "h2dtscpp_compat_array_0014_array_any field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0014 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_array_0014_array_any execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_array_0015', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0015_ARRAY_ANY
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0015_ARRAY_ANY
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); malformed
+   *            type Array<any>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0015_array_any', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -388,19 +693,30 @@ suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0015 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0015 must have class");
+          "h2dtscpp_compat_array_0015_array_any convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0015_array_any must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0015 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "Array<any>", "h2dtscpp_compat_array_0015 field type");
+          "h2dtscpp_compat_array_0015_array_any must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "Array<any>",
+          "h2dtscpp_compat_array_0015_array_any field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0015 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_array_0015_array_any execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_array_0016', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0016_INVALIDTYPEXYZ
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0016_INVALIDTYPEXYZ
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); malformed
+   *            type InvalidTypeXYZ; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0016_invalidtypexyz', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -413,20 +729,30 @@ suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0016 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0016 must have class");
+          "h2dtscpp_compat_array_0016_invalidtypexyz convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0016_invalidtypexyz must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0016 must have field");
+          "h2dtscpp_compat_array_0016_invalidtypexyz must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "InvalidTypeXYZ",
-          "h2dtscpp_compat_array_0016 field type");
+          "h2dtscpp_compat_array_0016_invalidtypexyz field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0016 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_array_0016_invalidtypexyz execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_array_0017', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0017_ARRAY_OBJECT
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0017_ARRAY_OBJECT
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); malformed
+   *            type Array<object>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0017_array_object', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -439,19 +765,30 @@ suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0017 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0017 must have class");
+          "h2dtscpp_compat_array_0017_array_object convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0017_array_object must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0017 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "Array<object>", "h2dtscpp_compat_array_0017 field type");
+          "h2dtscpp_compat_array_0017_array_object must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "Array<object>",
+          "h2dtscpp_compat_array_0017_array_object field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0017 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_array_0017_array_object execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_array_0018', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0018_ARRAY_OBJECT
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0018_ARRAY_OBJECT
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); malformed
+   *            type Array<object>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0018_array_object', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -464,19 +801,30 @@ suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0018 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0018 must have class");
+          "h2dtscpp_compat_array_0018_array_object convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0018_array_object must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0018 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "Array<object>", "h2dtscpp_compat_array_0018 field type");
+          "h2dtscpp_compat_array_0018_array_object must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "Array<object>",
+          "h2dtscpp_compat_array_0018_array_object field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0018 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_array_0018_array_object execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_array_0019', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0019_ARRAY_OBJECT
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0019_ARRAY_OBJECT
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); malformed
+   *            type Array<object>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0019_array_object', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -489,19 +837,30 @@ suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0019 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0019 must have class");
+          "h2dtscpp_compat_array_0019_array_object convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0019_array_object must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0019 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "Array<object>", "h2dtscpp_compat_array_0019 field type");
+          "h2dtscpp_compat_array_0019_array_object must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "Array<object>",
+          "h2dtscpp_compat_array_0019_array_object field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0019 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_array_0019_array_object execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_array_0020', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0020_ARRAY_OBJECT
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0020_ARRAY_OBJECT
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); malformed
+   *            type Array<object>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0020_array_object', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -514,19 +873,30 @@ suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0020 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0020 must have class");
+          "h2dtscpp_compat_array_0020_array_object convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0020_array_object must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0020 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "Array<object>", "h2dtscpp_compat_array_0020 field type");
+          "h2dtscpp_compat_array_0020_array_object must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "Array<object>",
+          "h2dtscpp_compat_array_0020_array_object field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0020 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_array_0020_array_object execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_array_0021', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0021_ARRAYOBJECT
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0021_ARRAYOBJECT
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); malformed
+   *            type Arrayobject>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0021_arrayobject', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -539,19 +909,30 @@ suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0021 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0021 must have class");
+          "h2dtscpp_compat_array_0021_arrayobject convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0021_arrayobject must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0021 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "Arrayobject>", "h2dtscpp_compat_array_0021 field type");
+          "h2dtscpp_compat_array_0021_arrayobject must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "Arrayobject>",
+          "h2dtscpp_compat_array_0021_arrayobject field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0021 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_array_0021_arrayobject execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_array_0022', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0022_ARRAY_OBJECT
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0022_ARRAY_OBJECT
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); malformed
+   *            type Array<object; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0022_array_object', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -564,19 +945,30 @@ suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0022 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0022 must have class");
+          "h2dtscpp_compat_array_0022_array_object convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0022_array_object must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0022 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "Array<object", "h2dtscpp_compat_array_0022 field type");
+          "h2dtscpp_compat_array_0022_array_object must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "Array<object",
+          "h2dtscpp_compat_array_0022_array_object field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0022 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_array_0022_array_object execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_array_0023', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0023_ARRAY_OBJECT
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0023_ARRAY_OBJECT
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); malformed
+   *            type Array<object>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0023_array_object', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -589,19 +981,30 @@ suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0023 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0023 must have class");
+          "h2dtscpp_compat_array_0023_array_object convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0023_array_object must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0023 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "Array<object>", "h2dtscpp_compat_array_0023 field type");
+          "h2dtscpp_compat_array_0023_array_object must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "Array<object>",
+          "h2dtscpp_compat_array_0023_array_object field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0023 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_array_0023_array_object execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_array_0024', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0024_ARRAY_OBJECT
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0024_ARRAY_OBJECT
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); trailing
+   *            comma on type (Array<object>,); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0024_array_object', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -614,20 +1017,30 @@ suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0024 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0024 must have class");
+          "h2dtscpp_compat_array_0024_array_object convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0024_array_object must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0024 must have field");
+          "h2dtscpp_compat_array_0024_array_object must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "Array<object>,",
-          "h2dtscpp_compat_array_0024 field type");
+          "h2dtscpp_compat_array_0024_array_object field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0024 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_array_0024_array_object execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_array_0025', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0025_ARRAY_OBJECT
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0025_ARRAY_OBJECT
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); malformed
+   *            type Array<object>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0025_array_object', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -640,19 +1053,30 @@ suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0025 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0025 must have class");
+          "h2dtscpp_compat_array_0025_array_object convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0025_array_object must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0025 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "Array<object>", "h2dtscpp_compat_array_0025 field type");
+          "h2dtscpp_compat_array_0025_array_object must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "Array<object>",
+          "h2dtscpp_compat_array_0025_array_object field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0025 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_array_0025_array_object execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_array_0026', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0026_INVALIDTYPEXYZ
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0026_INVALIDTYPEXYZ
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); malformed
+   *            type InvalidTypeXYZ; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0026_invalidtypexyz', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -665,20 +1089,30 @@ suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0026 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0026 must have class");
+          "h2dtscpp_compat_array_0026_invalidtypexyz convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0026_invalidtypexyz must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0026 must have field");
+          "h2dtscpp_compat_array_0026_invalidtypexyz must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "InvalidTypeXYZ",
-          "h2dtscpp_compat_array_0026 field type");
+          "h2dtscpp_compat_array_0026_invalidtypexyz field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0026 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_array_0026_invalidtypexyz execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_array_0027', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0027_READONLYARRAY_ANY
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0027_READONLYARRAY_ANY
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); malformed
+   *            type ReadonlyArray<any>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0027_readonlyarray_any', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -691,20 +1125,30 @@ suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0027 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0027 must have class");
+          "h2dtscpp_compat_array_0027_readonlyarray_any convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0027_readonlyarray_any must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0027 must have field");
+          "h2dtscpp_compat_array_0027_readonlyarray_any must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "ReadonlyArray<any>",
-          "h2dtscpp_compat_array_0027 field type");
+          "h2dtscpp_compat_array_0027_readonlyarray_any field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0027 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_array_0027_readonlyarray_any execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_array_0028', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0028_READONLYARRAY_ANY
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0028_READONLYARRAY_ANY
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); malformed
+   *            type ReadonlyArray<any>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0028_readonlyarray_any', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -717,20 +1161,30 @@ suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0028 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0028 must have class");
+          "h2dtscpp_compat_array_0028_readonlyarray_any convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0028_readonlyarray_any must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0028 must have field");
+          "h2dtscpp_compat_array_0028_readonlyarray_any must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "ReadonlyArray<any>",
-          "h2dtscpp_compat_array_0028 field type");
+          "h2dtscpp_compat_array_0028_readonlyarray_any field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0028 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_array_0028_readonlyarray_any execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_array_0029', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0029_READONLYARRAY_ANY
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0029_READONLYARRAY_ANY
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); malformed
+   *            type ReadonlyArray<any>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0029_readonlyarray_any', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -743,20 +1197,30 @@ suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0029 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0029 must have class");
+          "h2dtscpp_compat_array_0029_readonlyarray_any convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0029_readonlyarray_any must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0029 must have field");
+          "h2dtscpp_compat_array_0029_readonlyarray_any must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "ReadonlyArray<any>",
-          "h2dtscpp_compat_array_0029 field type");
+          "h2dtscpp_compat_array_0029_readonlyarray_any field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0029 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_array_0029_readonlyarray_any execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_array_0030', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0030_READONLYARRAY_ANY
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0030_READONLYARRAY_ANY
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); malformed
+   *            type ReadonlyArray<any>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0030_readonlyarray_any', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -769,20 +1233,30 @@ suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0030 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0030 must have class");
+          "h2dtscpp_compat_array_0030_readonlyarray_any convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0030_readonlyarray_any must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0030 must have field");
+          "h2dtscpp_compat_array_0030_readonlyarray_any must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "ReadonlyArray<any>",
-          "h2dtscpp_compat_array_0030 field type");
+          "h2dtscpp_compat_array_0030_readonlyarray_any field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0030 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_array_0030_readonlyarray_any execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_array_0031', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0031_READONLYARRAYANY
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0031_READONLYARRAYANY
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); malformed
+   *            type ReadonlyArrayany>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0031_readonlyarrayany', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -795,20 +1269,30 @@ suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0031 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0031 must have class");
+          "h2dtscpp_compat_array_0031_readonlyarrayany convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0031_readonlyarrayany must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0031 must have field");
+          "h2dtscpp_compat_array_0031_readonlyarrayany must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "ReadonlyArrayany>",
-          "h2dtscpp_compat_array_0031 field type");
+          "h2dtscpp_compat_array_0031_readonlyarrayany field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0031 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_array_0031_readonlyarrayany execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_array_0032', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0032_READONLYARRAY_ANY
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0032_READONLYARRAY_ANY
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); malformed
+   *            type ReadonlyArray<any; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0032_readonlyarray_any', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -821,20 +1305,30 @@ suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0032 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0032 must have class");
+          "h2dtscpp_compat_array_0032_readonlyarray_any convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0032_readonlyarray_any must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0032 must have field");
+          "h2dtscpp_compat_array_0032_readonlyarray_any must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "ReadonlyArray<any",
-          "h2dtscpp_compat_array_0032 field type");
+          "h2dtscpp_compat_array_0032_readonlyarray_any field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0032 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_array_0032_readonlyarray_any execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_array_0033', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0033_READONLYARRAY_ANY
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0033_READONLYARRAY_ANY
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); malformed
+   *            type ReadonlyArray<any>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0033_readonlyarray_any', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -847,20 +1341,30 @@ suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0033 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0033 must have class");
+          "h2dtscpp_compat_array_0033_readonlyarray_any convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0033_readonlyarray_any must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0033 must have field");
+          "h2dtscpp_compat_array_0033_readonlyarray_any must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "ReadonlyArray<any>",
-          "h2dtscpp_compat_array_0033 field type");
+          "h2dtscpp_compat_array_0033_readonlyarray_any field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0033 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_array_0033_readonlyarray_any execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_array_0034', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0034_READONLYARRAY_ANY
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0034_READONLYARRAY_ANY
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); trailing
+   *            comma on type (ReadonlyArray<any>,); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0034_readonlyarray_any', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -873,20 +1377,30 @@ suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0034 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0034 must have class");
+          "h2dtscpp_compat_array_0034_readonlyarray_any convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0034_readonlyarray_any must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0034 must have field");
+          "h2dtscpp_compat_array_0034_readonlyarray_any must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "ReadonlyArray<any>,",
-          "h2dtscpp_compat_array_0034 field type");
+          "h2dtscpp_compat_array_0034_readonlyarray_any field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0034 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_array_0034_readonlyarray_any execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_array_0035', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0035_READONLYARRAY_ANY
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0035_READONLYARRAY_ANY
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); malformed
+   *            type ReadonlyArray<any>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0035_readonlyarray_any', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -899,20 +1413,30 @@ suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0035 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0035 must have class");
+          "h2dtscpp_compat_array_0035_readonlyarray_any convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0035_readonlyarray_any must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0035 must have field");
+          "h2dtscpp_compat_array_0035_readonlyarray_any must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "ReadonlyArray<any>",
-          "h2dtscpp_compat_array_0035 field type");
+          "h2dtscpp_compat_array_0035_readonlyarray_any field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0035 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_array_0035_readonlyarray_any execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_array_0036', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0036_INVALIDTYPEXYZ
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0036_INVALIDTYPEXYZ
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); malformed
+   *            type InvalidTypeXYZ; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0036_invalidtypexyz', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -925,20 +1449,30 @@ suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0036 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0036 must have class");
+          "h2dtscpp_compat_array_0036_invalidtypexyz convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0036_invalidtypexyz must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0036 must have field");
+          "h2dtscpp_compat_array_0036_invalidtypexyz must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "InvalidTypeXYZ",
-          "h2dtscpp_compat_array_0036 field type");
+          "h2dtscpp_compat_array_0036_invalidtypexyz field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0036 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_array_0036_invalidtypexyz execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_array_0037', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0037_READONLYARRAY_OBJECT
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0037_READONLYARRAY_OBJECT
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); malformed
+   *            type ReadonlyArray<object>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0037_readonlyarray_object', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -951,20 +1485,30 @@ suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0037 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0037 must have class");
+          "h2dtscpp_compat_array_0037_readonlyarray_object convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0037_readonlyarray_object must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0037 must have field");
+          "h2dtscpp_compat_array_0037_readonlyarray_object must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "ReadonlyArray<object>",
-          "h2dtscpp_compat_array_0037 field type");
+          "h2dtscpp_compat_array_0037_readonlyarray_object field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0037 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_array_0037_readonlyarray_object execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_array_0038', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0038_READONLYARRAY_OBJECT
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0038_READONLYARRAY_OBJECT
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); malformed
+   *            type ReadonlyArray<object>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0038_readonlyarray_object', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -977,20 +1521,30 @@ suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0038 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0038 must have class");
+          "h2dtscpp_compat_array_0038_readonlyarray_object convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0038_readonlyarray_object must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0038 must have field");
+          "h2dtscpp_compat_array_0038_readonlyarray_object must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "ReadonlyArray<object>",
-          "h2dtscpp_compat_array_0038 field type");
+          "h2dtscpp_compat_array_0038_readonlyarray_object field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0038 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_array_0038_readonlyarray_object execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_array_0039', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0039_READONLYARRAY_OBJECT
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0039_READONLYARRAY_OBJECT
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); malformed
+   *            type ReadonlyArray<object>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0039_readonlyarray_object', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -1003,20 +1557,30 @@ suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0039 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0039 must have class");
+          "h2dtscpp_compat_array_0039_readonlyarray_object convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0039_readonlyarray_object must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0039 must have field");
+          "h2dtscpp_compat_array_0039_readonlyarray_object must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "ReadonlyArray<object>",
-          "h2dtscpp_compat_array_0039 field type");
+          "h2dtscpp_compat_array_0039_readonlyarray_object field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0039 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_array_0039_readonlyarray_object execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_array_0040', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0040_READONLYARRAY_OBJECT
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0040_READONLYARRAY_OBJECT
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); malformed
+   *            type ReadonlyArray<object>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0040_readonlyarray_object', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -1029,20 +1593,30 @@ suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0040 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0040 must have class");
+          "h2dtscpp_compat_array_0040_readonlyarray_object convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0040_readonlyarray_object must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0040 must have field");
+          "h2dtscpp_compat_array_0040_readonlyarray_object must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "ReadonlyArray<object>",
-          "h2dtscpp_compat_array_0040 field type");
+          "h2dtscpp_compat_array_0040_readonlyarray_object field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0040 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_array_0040_readonlyarray_object execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_array_0041', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0041_READONLYARRAYOBJECT
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0041_READONLYARRAYOBJECT
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); malformed
+   *            type ReadonlyArrayobject>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0041_readonlyarrayobject', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -1055,20 +1629,30 @@ suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0041 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0041 must have class");
+          "h2dtscpp_compat_array_0041_readonlyarrayobject convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0041_readonlyarrayobject must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0041 must have field");
+          "h2dtscpp_compat_array_0041_readonlyarrayobject must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "ReadonlyArrayobject>",
-          "h2dtscpp_compat_array_0041 field type");
+          "h2dtscpp_compat_array_0041_readonlyarrayobject field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0041 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_array_0041_readonlyarrayobject execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_array_0042', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0042_READONLYARRAY_OBJECT
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0042_READONLYARRAY_OBJECT
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); malformed
+   *            type ReadonlyArray<object; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0042_readonlyarray_object', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -1081,20 +1665,30 @@ suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0042 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0042 must have class");
+          "h2dtscpp_compat_array_0042_readonlyarray_object convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0042_readonlyarray_object must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0042 must have field");
+          "h2dtscpp_compat_array_0042_readonlyarray_object must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "ReadonlyArray<object",
-          "h2dtscpp_compat_array_0042 field type");
+          "h2dtscpp_compat_array_0042_readonlyarray_object field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0042 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_array_0042_readonlyarray_object execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_array_0043', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0043_READONLYARRAY_OBJECT
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0043_READONLYARRAY_OBJECT
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); malformed
+   *            type ReadonlyArray<object>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0043_readonlyarray_object', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -1107,20 +1701,30 @@ suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0043 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0043 must have class");
+          "h2dtscpp_compat_array_0043_readonlyarray_object convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0043_readonlyarray_object must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0043 must have field");
+          "h2dtscpp_compat_array_0043_readonlyarray_object must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "ReadonlyArray<object>",
-          "h2dtscpp_compat_array_0043 field type");
+          "h2dtscpp_compat_array_0043_readonlyarray_object field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0043 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_array_0043_readonlyarray_object execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_array_0044', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0044_READONLYARRAY_OBJECT
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0044_READONLYARRAY_OBJECT
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); trailing
+   *            comma on type (ReadonlyArray<object>,); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0044_readonlyarray_object', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -1133,20 +1737,30 @@ suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0044 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0044 must have class");
+          "h2dtscpp_compat_array_0044_readonlyarray_object convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0044_readonlyarray_object must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0044 must have field");
+          "h2dtscpp_compat_array_0044_readonlyarray_object must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "ReadonlyArray<object>,",
-          "h2dtscpp_compat_array_0044 field type");
+          "h2dtscpp_compat_array_0044_readonlyarray_object field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0044 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_array_0044_readonlyarray_object execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_array_0045', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0045_READONLYARRAY_OBJECT
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0045_READONLYARRAY_OBJECT
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); malformed
+   *            type ReadonlyArray<object>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0045_readonlyarray_object', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -1159,20 +1773,30 @@ suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0045 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0045 must have class");
+          "h2dtscpp_compat_array_0045_readonlyarray_object convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0045_readonlyarray_object must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0045 must have field");
+          "h2dtscpp_compat_array_0045_readonlyarray_object must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "ReadonlyArray<object>",
-          "h2dtscpp_compat_array_0045 field type");
+          "h2dtscpp_compat_array_0045_readonlyarray_object field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0045 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_array_0045_readonlyarray_object execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_array_0046', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0046_INVALIDTYPEXYZ
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0046_INVALIDTYPEXYZ
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); malformed
+   *            type InvalidTypeXYZ; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0046_invalidtypexyz', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -1185,20 +1809,30 @@ suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0046 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0046 must have class");
+          "h2dtscpp_compat_array_0046_invalidtypexyz convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0046_invalidtypexyz must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0046 must have field");
+          "h2dtscpp_compat_array_0046_invalidtypexyz must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "InvalidTypeXYZ",
-          "h2dtscpp_compat_array_0046 field type");
+          "h2dtscpp_compat_array_0046_invalidtypexyz field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0046 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_array_0046_invalidtypexyz execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_array_0047', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0047_READONLYARRAY_NUMBR
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0047_READONLYARRAY_NUMBR
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); number
+   *            keyword misspelled (ReadonlyArray<numbr>); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0047_readonlyarray_numbr', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -1211,20 +1845,30 @@ suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0047 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0047 must have class");
+          "h2dtscpp_compat_array_0047_readonlyarray_numbr convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0047_readonlyarray_numbr must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0047 must have field");
+          "h2dtscpp_compat_array_0047_readonlyarray_numbr must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "ReadonlyArray<numbr>",
-          "h2dtscpp_compat_array_0047 field type");
+          "h2dtscpp_compat_array_0047_readonlyarray_numbr field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0047 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_array_0047_readonlyarray_numbr execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_array_0048', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0048_READONLYARRAY_NUMBER
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0048_READONLYARRAY_NUMBER
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); malformed
+   *            type ReadonlyArray<number>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0048_readonlyarray_number', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -1237,20 +1881,30 @@ suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0048 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0048 must have class");
+          "h2dtscpp_compat_array_0048_readonlyarray_number convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0048_readonlyarray_number must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0048 must have field");
+          "h2dtscpp_compat_array_0048_readonlyarray_number must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "ReadonlyArray<number>",
-          "h2dtscpp_compat_array_0048 field type");
+          "h2dtscpp_compat_array_0048_readonlyarray_number field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0048 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_array_0048_readonlyarray_number execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_array_0049', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0049_READONLYARRAY_NUMBER
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0049_READONLYARRAY_NUMBER
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); malformed
+   *            type ReadonlyArray<number>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0049_readonlyarray_number', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -1263,20 +1917,30 @@ suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0049 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0049 must have class");
+          "h2dtscpp_compat_array_0049_readonlyarray_number convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0049_readonlyarray_number must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0049 must have field");
+          "h2dtscpp_compat_array_0049_readonlyarray_number must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "ReadonlyArray<number>",
-          "h2dtscpp_compat_array_0049 field type");
+          "h2dtscpp_compat_array_0049_readonlyarray_number field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0049 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_array_0049_readonlyarray_number execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_array_0050', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0050_READONLYARRAY_NUMBER
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_ARRAY_0050_READONLYARRAY_NUMBER
+   * @tc.desc   Stability compat h2dtscpp/array: runCompatSafe(transParseObj literal); malformed
+   *            type ReadonlyArray<number>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_array_0050_readonlyarray_number', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -1289,432 +1953,17 @@ suite('Stability_H2DTSCPP_COMPAT_ARRAY_Part02', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0050 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0050 must have class");
+          "h2dtscpp_compat_array_0050_readonlyarray_number convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_array_0050_readonlyarray_number must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0050 must have field");
+          "h2dtscpp_compat_array_0050_readonlyarray_number must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "ReadonlyArray<number>",
-          "h2dtscpp_compat_array_0050 field type");
+          "h2dtscpp_compat_array_0050_readonlyarray_number field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0050 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_array_0051', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C301', alias: '',
-            variableList: [{ type: 'ReadonlyArraynumber>', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0051 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0051 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0051 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "ReadonlyArraynumber>",
-          "h2dtscpp_compat_array_0051 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0051 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_array_0052', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C301', alias: '',
-            variableList: [{ type: 'ReadonlyArray<number', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0052 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0052 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0052 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "ReadonlyArray<number",
-          "h2dtscpp_compat_array_0052 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0052 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_array_0053', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C301', alias: '',
-            variableList: [{ type: 'ReadonlyArray<number>', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0053 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0053 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0053 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "ReadonlyArray<number>",
-          "h2dtscpp_compat_array_0053 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0053 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_array_0054', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C301', alias: '',
-            variableList: [{ type: 'ReadonlyArray<number>,', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0054 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0054 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0054 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "ReadonlyArray<number>,",
-          "h2dtscpp_compat_array_0054 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0054 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_array_0055', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C301', alias: '',
-            variableList: [{ type: 'ReadonlyArray<number>', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0055 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0055 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0055 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "ReadonlyArray<number>",
-          "h2dtscpp_compat_array_0055 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0055 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_array_0056', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C301', alias: '',
-            variableList: [{ type: 'InvalidTypeXYZ', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0056 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0056 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0056 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "InvalidTypeXYZ",
-          "h2dtscpp_compat_array_0056 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0056 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_array_0057', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C302', alias: '',
-            variableList: [{ type: 'ReadonlyArray<string>', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0057 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0057 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0057 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "ReadonlyArray<string>",
-          "h2dtscpp_compat_array_0057 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0057 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_array_0058', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C302', alias: '',
-            variableList: [{ type: 'ReadonlyArray<strng>', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0058 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0058 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0058 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "ReadonlyArray<strng>",
-          "h2dtscpp_compat_array_0058 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0058 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_array_0059', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C302', alias: '',
-            variableList: [{ type: 'ReadonlyArray<string>', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0059 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0059 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0059 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "ReadonlyArray<string>",
-          "h2dtscpp_compat_array_0059 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0059 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_array_0060', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C302', alias: '',
-            variableList: [{ type: 'ReadonlyArray<string>', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0060 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0060 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0060 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "ReadonlyArray<string>",
-          "h2dtscpp_compat_array_0060 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0060 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_array_0061', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C302', alias: '',
-            variableList: [{ type: 'ReadonlyArraystring>', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0061 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0061 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0061 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "ReadonlyArraystring>",
-          "h2dtscpp_compat_array_0061 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0061 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_array_0062', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C302', alias: '',
-            variableList: [{ type: 'ReadonlyArray<string', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0062 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0062 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0062 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "ReadonlyArray<string",
-          "h2dtscpp_compat_array_0062 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0062 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_array_0063', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C302', alias: '',
-            variableList: [{ type: 'ReadonlyArray<string>', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0063 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0063 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0063 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "ReadonlyArray<string>",
-          "h2dtscpp_compat_array_0063 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0063 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_array_0064', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C302', alias: '',
-            variableList: [{ type: 'ReadonlyArray<string>,', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0064 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0064 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0064 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "ReadonlyArray<string>,",
-          "h2dtscpp_compat_array_0064 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0064 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_array_0065', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C302', alias: '',
-            variableList: [{ type: 'ReadonlyArray<string>', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0065 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0065 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0065 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "ReadonlyArray<string>",
-          "h2dtscpp_compat_array_0065 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0065 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_array_0066', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C302', alias: '',
-            variableList: [{ type: 'InvalidTypeXYZ', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_array_0066 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_array_0066 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_array_0066 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "InvalidTypeXYZ",
-          "h2dtscpp_compat_array_0066 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_array_0066 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_array_0050_readonlyarray_number execution error: ${String(err)}`);
     }
   });
 });
