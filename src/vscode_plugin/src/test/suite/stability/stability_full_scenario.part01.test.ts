@@ -25,7 +25,14 @@ suite('Stability_Full_Scenario_Part01', function() {
   this.timeout(600000);
   vscode.window.showInformationMessage('Start Stability_Full_Scenario_Part01.');
 
-
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_OVERALL_001
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_OVERALL_001
+   * @tc.desc   Stability scenario dts2cpp: parse-convert-gen pipeline; strictEqual convert/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_dts2cpp_overall_001', () => {
     try {
       const converted = transParseObj(doParseTs('full_namespace_import.ts', `import { ExternalType } from './external';
@@ -41,6 +48,14 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_OVERALL_002
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_OVERALL_002
+   * @tc.desc   Stability scenario dts2cpp: parse-convert-gen pipeline; strictEqual convert/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_dts2cpp_overall_002', () => {
     try {
       const converted = transParseObj(doParseTs('full_promise_callback.ts', `
@@ -55,6 +70,14 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_OVERALL_003
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_OVERALL_003
+   * @tc.desc   Stability scenario dts2cpp: parse-convert-gen pipeline; strictEqual convert/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_dts2cpp_overall_003', () => {
     try {
       const converted = transParseObj(doParseTs('full_class_static.ts', `
@@ -70,6 +93,14 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_OVERALL_004
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_OVERALL_004
+   * @tc.desc   Stability scenario dts2cpp: parse-convert-gen pipeline; strictEqual convert/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_dts2cpp_overall_004', () => {
     try {
       const converted = transParseObj(doParseTs('full_map_array_combo.ts', `
@@ -84,6 +115,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTS_OVERALL_001
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTS_OVERALL_001
+   * @tc.desc   Stability scenario h2dts: parse+convert pipeline type public: static int;
+   *            strictEqual parse/convert.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dts_overall_001', () => {
     try {
       const r = parsec.parseClass(`class Api { public: static int init(); };`);
@@ -93,6 +133,14 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTS_OVERALL_002
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTS_OVERALL_002
+   * @tc.desc   Stability scenario h2dts: parse+convert pipeline; strictEqual parse/convert.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dts_overall_002', () => {
     try {
       const r = parsec.parseClass(`namespace utils { struct Point { double x; double y; }; };`);
@@ -102,6 +150,14 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTS_OVERALL_003
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTS_OVERALL_003
+   * @tc.desc   Stability scenario h2dts: parse+convert pipeline; strictEqual parse/convert.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dts_overall_003', () => {
     try {
       const r = parsec.parseClass(`enum Status { OK, ERR }; struct Result { Status code; std::string msg; };`);
@@ -111,6 +167,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTSCPP_OVERALL_001
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTSCPP_OVERALL_001
+   * @tc.desc   Stability scenario h2dtscpp: ParseObj-to-gen pipeline type number; strictEqual
+   *            field/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dtscpp_overall_001', () => {
     try {
       const parseObj = {
@@ -130,6 +195,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_TYPE_001
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_TYPE_001
+   * @tc.desc   Stability scenario dts2cpp: parse-convert-gen pipeline type number; strictEqual
+   *            convert/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_dts2cpp_type_001', () => {
     try {
       const converted = transParseObj(doParseTs('scen_dts_0.ts', `function scen0(p: number): number { return p; }`));
@@ -142,6 +216,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTS_TYPE_001
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTS_TYPE_001
+   * @tc.desc   Stability scenario h2dts: parse+convert pipeline type int; strictEqual
+   *            parse/convert.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dts_type_001', () => {
     try {
       const r = parsec.parseFunction(`void scen_h2_0(int p);`);
@@ -156,6 +239,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTSCPP_TYPE_001
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTSCPP_TYPE_001
+   * @tc.desc   Stability scenario h2dtscpp: ParseObj-to-gen pipeline type number; strictEqual
+   *            field/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dtscpp_type_001', () => {
     try {
       const converted = transParseObj({
@@ -175,6 +267,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_TYPE_002
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_TYPE_002
+   * @tc.desc   Stability scenario dts2cpp: parse-convert-gen pipeline type string; strictEqual
+   *            convert/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_dts2cpp_type_002', () => {
     try {
       const converted = transParseObj(doParseTs('scen_dts_1.ts', `function scen1(p: string): string { return p; }`));
@@ -187,6 +288,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTS_TYPE_002
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTS_TYPE_002
+   * @tc.desc   Stability scenario h2dts: parse+convert pipeline type size_t; strictEqual
+   *            parse/convert.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dts_type_002', () => {
     try {
       const r = parsec.parseFunction(`void scen_h2_1(size_t p);`);
@@ -201,6 +311,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTSCPP_TYPE_002
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTSCPP_TYPE_002
+   * @tc.desc   Stability scenario h2dtscpp: ParseObj-to-gen pipeline type string; strictEqual
+   *            field/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dtscpp_type_002', () => {
     try {
       const converted = transParseObj({
@@ -220,6 +339,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_TYPE_003
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_TYPE_003
+   * @tc.desc   Stability scenario dts2cpp: parse-convert-gen pipeline type boolean; strictEqual
+   *            convert/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_dts2cpp_type_003', () => {
     try {
       const converted = transParseObj(doParseTs('scen_dts_2.ts', `function scen2(p: boolean): boolean { return p; }`));
@@ -232,6 +360,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTS_TYPE_003
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTS_TYPE_003
+   * @tc.desc   Stability scenario h2dts: parse+convert pipeline type double; strictEqual
+   *            parse/convert.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dts_type_003', () => {
     try {
       const r = parsec.parseFunction(`void scen_h2_2(double p);`);
@@ -246,6 +383,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTSCPP_TYPE_003
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTSCPP_TYPE_003
+   * @tc.desc   Stability scenario h2dtscpp: ParseObj-to-gen pipeline type boolean; strictEqual
+   *            field/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dtscpp_type_003', () => {
     try {
       const converted = transParseObj({
@@ -265,6 +411,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_TYPE_004
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_TYPE_004
+   * @tc.desc   Stability scenario dts2cpp: parse-convert-gen pipeline type void; strictEqual
+   *            convert/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_dts2cpp_type_004', () => {
     try {
       const converted = transParseObj(doParseTs('scen_dts_3.ts', `function scen3(p: void): void { return p; }`));
@@ -277,6 +432,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTS_TYPE_004
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTS_TYPE_004
+   * @tc.desc   Stability scenario h2dts: parse+convert pipeline type float; strictEqual
+   *            parse/convert.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dts_type_004', () => {
     try {
       const r = parsec.parseFunction(`void scen_h2_3(float p);`);
@@ -291,6 +455,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTSCPP_TYPE_004
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTSCPP_TYPE_004
+   * @tc.desc   Stability scenario h2dtscpp: ParseObj-to-gen pipeline type void; strictEqual
+   *            field/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dtscpp_type_004', () => {
     try {
       const converted = transParseObj({
@@ -310,6 +483,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_TYPE_005
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_TYPE_005
+   * @tc.desc   Stability scenario dts2cpp: parse-convert-gen pipeline type Array<number>;
+   *            strictEqual convert/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_dts2cpp_type_005', () => {
     try {
       const converted = transParseObj(doParseTs('scen_dts_4.ts', `
@@ -323,6 +505,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTS_TYPE_005
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTS_TYPE_005
+   * @tc.desc   Stability scenario h2dts: parse+convert pipeline type short; strictEqual
+   *            parse/convert.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dts_type_005', () => {
     try {
       const r = parsec.parseFunction(`void scen_h2_4(short p);`);
@@ -337,6 +528,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTSCPP_TYPE_005
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTSCPP_TYPE_005
+   * @tc.desc   Stability scenario h2dtscpp: ParseObj-to-gen pipeline type Array<number>;
+   *            strictEqual field/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dtscpp_type_005', () => {
     try {
       const converted = transParseObj({
@@ -356,6 +556,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_TYPE_006
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_TYPE_006
+   * @tc.desc   Stability scenario dts2cpp: parse-convert-gen pipeline type number[]; strictEqual
+   *            convert/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_dts2cpp_type_006', () => {
     try {
       const converted = transParseObj(doParseTs('scen_dts_5.ts', `
@@ -369,6 +578,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTS_TYPE_006
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTS_TYPE_006
+   * @tc.desc   Stability scenario h2dts: parse+convert pipeline type long; strictEqual
+   *            parse/convert.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dts_type_006', () => {
     try {
       const r = parsec.parseFunction(`void scen_h2_5(long p);`);
@@ -383,6 +601,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTSCPP_TYPE_006
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTSCPP_TYPE_006
+   * @tc.desc   Stability scenario h2dtscpp: ParseObj-to-gen pipeline type number[]; strictEqual
+   *            field/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dtscpp_type_006', () => {
     try {
       const converted = transParseObj({
@@ -402,6 +629,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_TYPE_007
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_TYPE_007
+   * @tc.desc   Stability scenario dts2cpp: parse-convert-gen pipeline type Array<string>;
+   *            strictEqual convert/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_dts2cpp_type_007', () => {
     try {
       const converted = transParseObj(doParseTs('scen_dts_6.ts', `
@@ -415,6 +651,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTS_TYPE_007
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTS_TYPE_007
+   * @tc.desc   Stability scenario h2dts: parse+convert pipeline type uint8_t; strictEqual
+   *            parse/convert.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dts_type_007', () => {
     try {
       const r = parsec.parseFunction(`void scen_h2_6(uint8_t p);`);
@@ -429,6 +674,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTSCPP_TYPE_007
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTSCPP_TYPE_007
+   * @tc.desc   Stability scenario h2dtscpp: ParseObj-to-gen pipeline type Array<string>;
+   *            strictEqual field/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dtscpp_type_007', () => {
     try {
       const converted = transParseObj({
@@ -448,6 +702,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_TYPE_008
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_TYPE_008
+   * @tc.desc   Stability scenario dts2cpp: parse-convert-gen pipeline type string[]; strictEqual
+   *            convert/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_dts2cpp_type_008', () => {
     try {
       const converted = transParseObj(doParseTs('scen_dts_7.ts', `
@@ -461,6 +724,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTS_TYPE_008
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTS_TYPE_008
+   * @tc.desc   Stability scenario h2dts: parse+convert pipeline type uint16_t; strictEqual
+   *            parse/convert.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dts_type_008', () => {
     try {
       const r = parsec.parseFunction(`void scen_h2_7(uint16_t p);`);
@@ -475,6 +747,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTSCPP_TYPE_008
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTSCPP_TYPE_008
+   * @tc.desc   Stability scenario h2dtscpp: ParseObj-to-gen pipeline type string[]; strictEqual
+   *            field/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dtscpp_type_008', () => {
     try {
       const converted = transParseObj({
@@ -494,6 +775,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_TYPE_009
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_TYPE_009
+   * @tc.desc   Stability scenario dts2cpp: parse-convert-gen pipeline type Array<boolean>;
+   *            strictEqual convert/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_dts2cpp_type_009', () => {
     try {
       const converted = transParseObj(doParseTs('scen_dts_8.ts', `
@@ -507,6 +797,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTS_TYPE_009
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTS_TYPE_009
+   * @tc.desc   Stability scenario h2dts: parse+convert pipeline type uint32_t; strictEqual
+   *            parse/convert.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dts_type_009', () => {
     try {
       const r = parsec.parseFunction(`void scen_h2_8(uint32_t p);`);
@@ -521,6 +820,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTSCPP_TYPE_009
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTSCPP_TYPE_009
+   * @tc.desc   Stability scenario h2dtscpp: ParseObj-to-gen pipeline type Array<boolean>;
+   *            strictEqual field/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dtscpp_type_009', () => {
     try {
       const converted = transParseObj({
@@ -540,6 +848,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_TYPE_010
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_TYPE_010
+   * @tc.desc   Stability scenario dts2cpp: parse-convert-gen pipeline type boolean[]; strictEqual
+   *            convert/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_dts2cpp_type_010', () => {
     try {
       const converted = transParseObj(doParseTs('scen_dts_9.ts', `
@@ -553,6 +870,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTS_TYPE_010
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTS_TYPE_010
+   * @tc.desc   Stability scenario h2dts: parse+convert pipeline type uint64_t; strictEqual
+   *            parse/convert.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dts_type_010', () => {
     try {
       const r = parsec.parseFunction(`void scen_h2_9(uint64_t p);`);
@@ -567,6 +893,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTSCPP_TYPE_010
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTSCPP_TYPE_010
+   * @tc.desc   Stability scenario h2dtscpp: ParseObj-to-gen pipeline type boolean[]; strictEqual
+   *            field/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dtscpp_type_010', () => {
     try {
       const converted = transParseObj({
@@ -586,6 +921,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_TYPE_011
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_TYPE_011
+   * @tc.desc   Stability scenario dts2cpp: parse-convert-gen pipeline type Map<string,number>;
+   *            strictEqual convert/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_dts2cpp_type_011', () => {
     try {
       const converted = transParseObj(doParseTs('scen_dts_10.ts', `
@@ -599,6 +943,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTS_TYPE_011
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTS_TYPE_011
+   * @tc.desc   Stability scenario h2dts: parse+convert pipeline type int8_t; strictEqual
+   *            parse/convert.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dts_type_011', () => {
     try {
       const r = parsec.parseFunction(`void scen_h2_10(int8_t p);`);
@@ -613,6 +966,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTSCPP_TYPE_011
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTSCPP_TYPE_011
+   * @tc.desc   Stability scenario h2dtscpp: ParseObj-to-gen pipeline type Map<string,number>;
+   *            strictEqual field/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dtscpp_type_011', () => {
     try {
       const converted = transParseObj({
@@ -632,6 +994,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_TYPE_012
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_TYPE_012
+   * @tc.desc   Stability scenario dts2cpp: parse-convert-gen pipeline type Map<string,string>;
+   *            strictEqual convert/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_dts2cpp_type_012', () => {
     try {
       const converted = transParseObj(doParseTs('scen_dts_11.ts', `
@@ -645,6 +1016,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTS_TYPE_012
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTS_TYPE_012
+   * @tc.desc   Stability scenario h2dts: parse+convert pipeline type int16_t; strictEqual
+   *            parse/convert.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dts_type_012', () => {
     try {
       const r = parsec.parseFunction(`void scen_h2_11(int16_t p);`);
@@ -659,6 +1039,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTSCPP_TYPE_012
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTSCPP_TYPE_012
+   * @tc.desc   Stability scenario h2dtscpp: ParseObj-to-gen pipeline type Map<string,string>;
+   *            strictEqual field/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dtscpp_type_012', () => {
     try {
       const converted = transParseObj({
@@ -678,6 +1067,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_TYPE_013
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_TYPE_013
+   * @tc.desc   Stability scenario dts2cpp: parse-convert-gen pipeline type Map<string,boolean>;
+   *            strictEqual convert/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_dts2cpp_type_013', () => {
     try {
       const converted = transParseObj(doParseTs('scen_dts_12.ts', `
@@ -691,6 +1089,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTS_TYPE_013
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTS_TYPE_013
+   * @tc.desc   Stability scenario h2dts: parse+convert pipeline type int32_t; strictEqual
+   *            parse/convert.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dts_type_013', () => {
     try {
       const r = parsec.parseFunction(`void scen_h2_12(int32_t p);`);
@@ -705,6 +1112,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTSCPP_TYPE_013
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTSCPP_TYPE_013
+   * @tc.desc   Stability scenario h2dtscpp: ParseObj-to-gen pipeline type Map<string,boolean>;
+   *            strictEqual field/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dtscpp_type_013', () => {
     try {
       const converted = transParseObj({
@@ -724,6 +1140,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_TYPE_014
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_TYPE_014
+   * @tc.desc   Stability scenario dts2cpp: parse-convert-gen pipeline type Map<number,number>;
+   *            strictEqual convert/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_dts2cpp_type_014', () => {
     try {
       const converted = transParseObj(doParseTs('scen_dts_13.ts', `
@@ -737,6 +1162,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTS_TYPE_014
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTS_TYPE_014
+   * @tc.desc   Stability scenario h2dts: parse+convert pipeline type int64_t; strictEqual
+   *            parse/convert.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dts_type_014', () => {
     try {
       const r = parsec.parseFunction(`void scen_h2_13(int64_t p);`);
@@ -751,6 +1185,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTSCPP_TYPE_014
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTSCPP_TYPE_014
+   * @tc.desc   Stability scenario h2dtscpp: ParseObj-to-gen pipeline type Map<number,number>;
+   *            strictEqual field/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dtscpp_type_014', () => {
     try {
       const converted = transParseObj({
@@ -770,6 +1213,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_TYPE_015
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_TYPE_015
+   * @tc.desc   Stability scenario dts2cpp: parse-convert-gen pipeline type Map<number,string>;
+   *            strictEqual convert/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_dts2cpp_type_015', () => {
     try {
       const converted = transParseObj(doParseTs('scen_dts_14.ts', `
@@ -783,6 +1235,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTS_TYPE_015
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTS_TYPE_015
+   * @tc.desc   Stability scenario h2dts: parse+convert pipeline type bool; strictEqual
+   *            parse/convert.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dts_type_015', () => {
     try {
       const r = parsec.parseFunction(`void scen_h2_14(bool p);`);
@@ -797,6 +1258,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTSCPP_TYPE_015
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTSCPP_TYPE_015
+   * @tc.desc   Stability scenario h2dtscpp: ParseObj-to-gen pipeline type Map<number,string>;
+   *            strictEqual field/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dtscpp_type_015', () => {
     try {
       const converted = transParseObj({
@@ -816,6 +1286,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_TYPE_016
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_TYPE_016
+   * @tc.desc   Stability scenario dts2cpp: parse-convert-gen pipeline type Map<number,boolean>;
+   *            strictEqual convert/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_dts2cpp_type_016', () => {
     try {
       const converted = transParseObj(doParseTs('scen_dts_15.ts', `
@@ -829,6 +1308,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTS_TYPE_016
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTS_TYPE_016
+   * @tc.desc   Stability scenario h2dts: parse+convert pipeline type char; strictEqual
+   *            parse/convert.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dts_type_016', () => {
     try {
       const r = parsec.parseFunction(`void scen_h2_15(char p);`);
@@ -843,6 +1331,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTSCPP_TYPE_016
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTSCPP_TYPE_016
+   * @tc.desc   Stability scenario h2dtscpp: ParseObj-to-gen pipeline type Map<number,boolean>;
+   *            strictEqual field/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dtscpp_type_016', () => {
     try {
       const converted = transParseObj({
@@ -862,6 +1359,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_TYPE_017
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_TYPE_017
+   * @tc.desc   Stability scenario dts2cpp: parse-convert-gen pipeline type Set<string>; strictEqual
+   *            convert/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_dts2cpp_type_017', () => {
     try {
       const converted = transParseObj(doParseTs('scen_dts_16.ts', `
@@ -875,6 +1381,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTS_TYPE_017
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTS_TYPE_017
+   * @tc.desc   Stability scenario h2dts: parse+convert pipeline type wchar_t; strictEqual
+   *            parse/convert.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dts_type_017', () => {
     try {
       const r = parsec.parseFunction(`void scen_h2_16(wchar_t p);`);
@@ -889,6 +1404,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTSCPP_TYPE_017
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTSCPP_TYPE_017
+   * @tc.desc   Stability scenario h2dtscpp: ParseObj-to-gen pipeline type Set<string>; strictEqual
+   *            field/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dtscpp_type_017', () => {
     try {
       const converted = transParseObj({
@@ -908,6 +1432,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_TYPE_018
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_TYPE_018
+   * @tc.desc   Stability scenario dts2cpp: parse-convert-gen pipeline type Set<number>; strictEqual
+   *            convert/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_dts2cpp_type_018', () => {
     try {
       const converted = transParseObj(doParseTs('scen_dts_17.ts', `
@@ -921,6 +1454,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTS_TYPE_018
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTS_TYPE_018
+   * @tc.desc   Stability scenario h2dts: parse+convert pipeline type char8_t; strictEqual
+   *            parse/convert.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dts_type_018', () => {
     try {
       const r = parsec.parseFunction(`void scen_h2_17(char8_t p);`);
@@ -935,6 +1477,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTSCPP_TYPE_018
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTSCPP_TYPE_018
+   * @tc.desc   Stability scenario h2dtscpp: ParseObj-to-gen pipeline type Set<number>; strictEqual
+   *            field/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dtscpp_type_018', () => {
     try {
       const converted = transParseObj({
@@ -954,6 +1505,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_TYPE_019
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_TYPE_019
+   * @tc.desc   Stability scenario dts2cpp: parse-convert-gen pipeline type Set<boolean>;
+   *            strictEqual convert/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_dts2cpp_type_019', () => {
     try {
       const converted = transParseObj(doParseTs('scen_dts_18.ts', `
@@ -967,6 +1527,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTS_TYPE_019
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTS_TYPE_019
+   * @tc.desc   Stability scenario h2dts: parse+convert pipeline type char16_t; strictEqual
+   *            parse/convert.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dts_type_019', () => {
     try {
       const r = parsec.parseFunction(`void scen_h2_18(char16_t p);`);
@@ -981,6 +1550,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTSCPP_TYPE_019
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTSCPP_TYPE_019
+   * @tc.desc   Stability scenario h2dtscpp: ParseObj-to-gen pipeline type Set<boolean>; strictEqual
+   *            field/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dtscpp_type_019', () => {
     try {
       const converted = transParseObj({
@@ -1000,6 +1578,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_TYPE_020
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_TYPE_020
+   * @tc.desc   Stability scenario dts2cpp: parse-convert-gen pipeline type Callback<number>;
+   *            strictEqual convert/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_dts2cpp_type_020', () => {
     try {
       const converted = transParseObj(doParseTs('scen_dts_19.ts', `
@@ -1013,6 +1600,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTS_TYPE_020
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTS_TYPE_020
+   * @tc.desc   Stability scenario h2dts: parse+convert pipeline type char32_t; strictEqual
+   *            parse/convert.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dts_type_020', () => {
     try {
       const r = parsec.parseFunction(`void scen_h2_19(char32_t p);`);
@@ -1027,6 +1623,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTSCPP_TYPE_020
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTSCPP_TYPE_020
+   * @tc.desc   Stability scenario h2dtscpp: ParseObj-to-gen pipeline type Callback<number>;
+   *            strictEqual field/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dtscpp_type_020', () => {
     try {
       const converted = transParseObj({
@@ -1046,6 +1651,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_TYPE_021
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_TYPE_021
+   * @tc.desc   Stability scenario dts2cpp: parse-convert-gen pipeline type Callback<string>;
+   *            strictEqual convert/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_dts2cpp_type_021', () => {
     try {
       const converted = transParseObj(doParseTs('scen_dts_20.ts', `
@@ -1059,6 +1673,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTS_TYPE_021
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTS_TYPE_021
+   * @tc.desc   Stability scenario h2dts: parse+convert pipeline type std::vector<int>; strictEqual
+   *            parse/convert.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dts_type_021', () => {
     try {
       const r = parsec.parseFunction(`void scen_h2_20(std::vector<int> p);`);
@@ -1073,6 +1696,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTSCPP_TYPE_021
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTSCPP_TYPE_021
+   * @tc.desc   Stability scenario h2dtscpp: ParseObj-to-gen pipeline type Callback<string>;
+   *            strictEqual field/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dtscpp_type_021', () => {
     try {
       const converted = transParseObj({
@@ -1092,6 +1724,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_TYPE_022
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_TYPE_022
+   * @tc.desc   Stability scenario dts2cpp: parse-convert-gen pipeline type Callback<boolean>;
+   *            strictEqual convert/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_dts2cpp_type_022', () => {
     try {
       const converted = transParseObj(doParseTs('scen_dts_21.ts', `
@@ -1105,6 +1746,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTS_TYPE_022
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTS_TYPE_022
+   * @tc.desc   Stability scenario h2dts: parse+convert pipeline type std::vector<size_t>;
+   *            strictEqual parse/convert.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dts_type_022', () => {
     try {
       const r = parsec.parseFunction(`void scen_h2_21(std::vector<size_t> p);`);
@@ -1119,6 +1769,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTSCPP_TYPE_022
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTSCPP_TYPE_022
+   * @tc.desc   Stability scenario h2dtscpp: ParseObj-to-gen pipeline type Callback<boolean>;
+   *            strictEqual field/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dtscpp_type_022', () => {
     try {
       const converted = transParseObj({
@@ -1138,6 +1797,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_TYPE_023
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_TYPE_023
+   * @tc.desc   Stability scenario dts2cpp: parse-convert-gen pipeline type Callback<void>;
+   *            strictEqual convert/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_dts2cpp_type_023', () => {
     try {
       const converted = transParseObj(doParseTs('scen_dts_22.ts', `
@@ -1151,6 +1819,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTS_TYPE_023
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTS_TYPE_023
+   * @tc.desc   Stability scenario h2dts: parse+convert pipeline type std::vector<double>;
+   *            strictEqual parse/convert.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dts_type_023', () => {
     try {
       const r = parsec.parseFunction(`void scen_h2_22(std::vector<double> p);`);
@@ -1165,6 +1842,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTSCPP_TYPE_023
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTSCPP_TYPE_023
+   * @tc.desc   Stability scenario h2dtscpp: ParseObj-to-gen pipeline type Callback<void>;
+   *            strictEqual field/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dtscpp_type_023', () => {
     try {
       const converted = transParseObj({
@@ -1184,6 +1870,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_TYPE_024
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_TYPE_024
+   * @tc.desc   Stability scenario dts2cpp: parse-convert-gen pipeline type Callback<number[]>;
+   *            strictEqual convert/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_dts2cpp_type_024', () => {
     try {
       const converted = transParseObj(doParseTs('scen_dts_23.ts', `
@@ -1197,6 +1892,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTS_TYPE_024
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTS_TYPE_024
+   * @tc.desc   Stability scenario h2dts: parse+convert pipeline type std::vector<float>;
+   *            strictEqual parse/convert.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dts_type_024', () => {
     try {
       const r = parsec.parseFunction(`void scen_h2_23(std::vector<float> p);`);
@@ -1211,6 +1915,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTSCPP_TYPE_024
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTSCPP_TYPE_024
+   * @tc.desc   Stability scenario h2dtscpp: ParseObj-to-gen pipeline type Callback<number[]>;
+   *            strictEqual field/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dtscpp_type_024', () => {
     try {
       const converted = transParseObj({
@@ -1230,6 +1943,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_TYPE_025
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_DTS2CPP_TYPE_025
+   * @tc.desc   Stability scenario dts2cpp: parse-convert-gen pipeline type Callback<string[]>;
+   *            strictEqual convert/gen.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_dts2cpp_type_025', () => {
     try {
       const converted = transParseObj(doParseTs('scen_dts_24.ts', `
@@ -1243,6 +1965,15 @@ suite('Stability_Full_Scenario_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_STABILITY_SCENARIO_H2DTS_TYPE_025
+   * @tc.number SUB_NAPI_STABILITY_SCENARIO_H2DTS_TYPE_025
+   * @tc.desc   Stability scenario h2dts: parse+convert pipeline type std::vector<long>; strictEqual
+   *            parse/convert.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('stability_scenario_h2dts_type_025', () => {
     try {
       const r = parsec.parseFunction(`void scen_h2_24(std::vector<long> p);`);
@@ -1252,742 +1983,6 @@ suite('Stability_Full_Scenario_Part01', function() {
       assert.ok(typeof converted === 'string' && converted.length > 0,
         "stability_scenario_h2dts_type_025 convert output non-empty");
       assert.strictEqual(converted, "Array<number>", "stability_scenario_h2dts_type_025 convert output");
-    } catch (err) {
-      assert.fail('h2dts type scenario: ' + String(err));
-    }
-  });
-
-  test('stability_scenario_h2dtscpp_type_025', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [{ name: 'Scen24', alias: '',
-          variableList: [{ type: 'Callback<string[]>', name: 'v', arraySize: 0, arraySizeList: [] }],
-          functionList: []
-        }],
-        funcs: [], types: []
-      });
-      assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<void(std::vector<std::string>)>",
-        "stability_scenario_h2dtscpp_type_025 type convert convert output");
-      const generated = generateFunctions(converted, 'scen_cpp_24.d.ts');
-      assert.ok(generated && typeof generated.napiHContent === 'string');
-    } catch (err) {
-      assert.fail('h2dtscpp type scenario: ' + String(err));
-    }
-  });
-
-  test('stability_scenario_dts2cpp_type_026', () => {
-    try {
-      const converted = transParseObj(doParseTs('scen_dts_25.ts', `
-        function scen25(p: Callback<boolean[]>): Callback<boolean[]> { return p; }`));
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<void(std::vector<bool>)>",
-        "stability_scenario_dts2cpp_type_026_param convert output");
-      const generated = generateFunctions(converted, 'scen_25.d.ts');
-      assert.ok(converted.funcs.length >= 1 && generated && typeof generated.napiHContent === 'string');
-    } catch (err) {
-      assert.fail('dts2cpp type scenario Callback<boolean[]>: ' + String(err));
-    }
-  });
-
-  test('stability_scenario_h2dts_type_026', () => {
-    try {
-      const r = parsec.parseFunction(`void scen_h2_25(std::vector<short> p);`);
-      assert.ok(Array.isArray(r));
-      assert.ok(r.length >= 1 && r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "stability_scenario_h2dts_type_026 convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "stability_scenario_h2dts_type_026 convert output");
-    } catch (err) {
-      assert.fail('h2dts type scenario: ' + String(err));
-    }
-  });
-
-  test('stability_scenario_h2dtscpp_type_026', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [{ name: 'Scen25', alias: '',
-          variableList: [{ type: 'Callback<boolean[]>', name: 'v', arraySize: 0, arraySizeList: [] }],
-          functionList: []
-        }],
-        funcs: [], types: []
-      });
-      assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<void(std::vector<bool>)>",
-        "stability_scenario_h2dtscpp_type_026 type convert convert output");
-      const generated = generateFunctions(converted, 'scen_cpp_25.d.ts');
-      assert.ok(generated && typeof generated.napiHContent === 'string');
-    } catch (err) {
-      assert.fail('h2dtscpp type scenario: ' + String(err));
-    }
-  });
-
-  test('stability_scenario_dts2cpp_type_027', () => {
-    try {
-      const converted = transParseObj(doParseTs('scen_dts_26.ts', `
-        function scen26(p: (p0:number)=>number): (p0:number)=>number { return p; }`));
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<double(double)>",
-        "stability_scenario_dts2cpp_type_027_param convert output");
-      const generated = generateFunctions(converted, 'scen_26.d.ts');
-      assert.ok(converted.funcs.length >= 1 && generated && typeof generated.napiHContent === 'string');
-    } catch (err) {
-      assert.fail('dts2cpp type scenario (p0:number)=>number: ' + String(err));
-    }
-  });
-
-  test('stability_scenario_h2dts_type_027', () => {
-    try {
-      const r = parsec.parseFunction(`void scen_h2_26(std::vector<uint8_t> p);`);
-      assert.ok(Array.isArray(r));
-      assert.ok(r.length >= 1 && r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "stability_scenario_h2dts_type_027 convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "stability_scenario_h2dts_type_027 convert output");
-    } catch (err) {
-      assert.fail('h2dts type scenario: ' + String(err));
-    }
-  });
-
-  test('stability_scenario_h2dtscpp_type_027', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [{ name: 'Scen26', alias: '',
-          variableList: [{ type: '(p0:number)=>number', name: 'v', arraySize: 0, arraySizeList: [] }],
-          functionList: []
-        }],
-        funcs: [], types: []
-      });
-      assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<double(double)>",
-        "stability_scenario_h2dtscpp_type_027 type convert convert output");
-      const generated = generateFunctions(converted, 'scen_cpp_26.d.ts');
-      assert.ok(generated && typeof generated.napiHContent === 'string');
-    } catch (err) {
-      assert.fail('h2dtscpp type scenario: ' + String(err));
-    }
-  });
-
-  test('stability_scenario_dts2cpp_type_028', () => {
-    try {
-      const converted = transParseObj(doParseTs('scen_dts_27.ts', `
-        function scen27(p: (p0:string)=>number): (p0:string)=>number { return p; }`));
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<double(std::string)>",
-        "stability_scenario_dts2cpp_type_028_param convert output");
-      const generated = generateFunctions(converted, 'scen_27.d.ts');
-      assert.ok(converted.funcs.length >= 1 && generated && typeof generated.napiHContent === 'string');
-    } catch (err) {
-      assert.fail('dts2cpp type scenario (p0:string)=>number: ' + String(err));
-    }
-  });
-
-  test('stability_scenario_h2dts_type_028', () => {
-    try {
-      const r = parsec.parseFunction(`void scen_h2_27(std::vector<uint16_t> p);`);
-      assert.ok(Array.isArray(r));
-      assert.ok(r.length >= 1 && r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "stability_scenario_h2dts_type_028 convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "stability_scenario_h2dts_type_028 convert output");
-    } catch (err) {
-      assert.fail('h2dts type scenario: ' + String(err));
-    }
-  });
-
-  test('stability_scenario_h2dtscpp_type_028', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [{ name: 'Scen27', alias: '',
-          variableList: [{ type: '(p0:string)=>number', name: 'v', arraySize: 0, arraySizeList: [] }],
-          functionList: []
-        }],
-        funcs: [], types: []
-      });
-      assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<double(std::string)>",
-        "stability_scenario_h2dtscpp_type_028 type convert convert output");
-      const generated = generateFunctions(converted, 'scen_cpp_27.d.ts');
-      assert.ok(generated && typeof generated.napiHContent === 'string');
-    } catch (err) {
-      assert.fail('h2dtscpp type scenario: ' + String(err));
-    }
-  });
-
-  test('stability_scenario_dts2cpp_type_029', () => {
-    try {
-      const converted = transParseObj(doParseTs('scen_dts_28.ts', `
-        function scen28(p: (p0:boolean)=>number): (p0:boolean)=>number { return p; }`));
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<double(bool)>",
-        "stability_scenario_dts2cpp_type_029_param convert output");
-      const generated = generateFunctions(converted, 'scen_28.d.ts');
-      assert.ok(converted.funcs.length >= 1 && generated && typeof generated.napiHContent === 'string');
-    } catch (err) {
-      assert.fail('dts2cpp type scenario (p0:boolean)=>number: ' + String(err));
-    }
-  });
-
-  test('stability_scenario_h2dts_type_029', () => {
-    try {
-      const r = parsec.parseFunction(`void scen_h2_28(std::vector<uint32_t> p);`);
-      assert.ok(Array.isArray(r));
-      assert.ok(r.length >= 1 && r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "stability_scenario_h2dts_type_029 convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "stability_scenario_h2dts_type_029 convert output");
-    } catch (err) {
-      assert.fail('h2dts type scenario: ' + String(err));
-    }
-  });
-
-  test('stability_scenario_h2dtscpp_type_029', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [{ name: 'Scen28', alias: '',
-          variableList: [{ type: '(p0:boolean)=>number', name: 'v', arraySize: 0, arraySizeList: [] }],
-          functionList: []
-        }],
-        funcs: [], types: []
-      });
-      assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<double(bool)>",
-        "stability_scenario_h2dtscpp_type_029 type convert convert output");
-      const generated = generateFunctions(converted, 'scen_cpp_28.d.ts');
-      assert.ok(generated && typeof generated.napiHContent === 'string');
-    } catch (err) {
-      assert.fail('h2dtscpp type scenario: ' + String(err));
-    }
-  });
-
-  test('stability_scenario_dts2cpp_type_030', () => {
-    try {
-      const converted = transParseObj(doParseTs('scen_dts_29.ts', `
-        function scen29(p: (p0:number)=>string): (p0:number)=>string { return p; }`));
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<std::string(double)>",
-        "stability_scenario_dts2cpp_type_030_param convert output");
-      const generated = generateFunctions(converted, 'scen_29.d.ts');
-      assert.ok(converted.funcs.length >= 1 && generated && typeof generated.napiHContent === 'string');
-    } catch (err) {
-      assert.fail('dts2cpp type scenario (p0:number)=>string: ' + String(err));
-    }
-  });
-
-  test('stability_scenario_h2dts_type_030', () => {
-    try {
-      const r = parsec.parseFunction(`void scen_h2_29(std::vector<uint64_t> p);`);
-      assert.ok(Array.isArray(r));
-      assert.ok(r.length >= 1 && r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "stability_scenario_h2dts_type_030 convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "stability_scenario_h2dts_type_030 convert output");
-    } catch (err) {
-      assert.fail('h2dts type scenario: ' + String(err));
-    }
-  });
-
-  test('stability_scenario_h2dtscpp_type_030', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [{ name: 'Scen29', alias: '',
-          variableList: [{ type: '(p0:number)=>string', name: 'v', arraySize: 0, arraySizeList: [] }],
-          functionList: []
-        }],
-        funcs: [], types: []
-      });
-      assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<std::string(double)>",
-        "stability_scenario_h2dtscpp_type_030 type convert convert output");
-      const generated = generateFunctions(converted, 'scen_cpp_29.d.ts');
-      assert.ok(generated && typeof generated.napiHContent === 'string');
-    } catch (err) {
-      assert.fail('h2dtscpp type scenario: ' + String(err));
-    }
-  });
-
-  test('stability_scenario_dts2cpp_type_031', () => {
-    try {
-      const converted = transParseObj(doParseTs('scen_dts_30.ts', `
-        function scen30(p: (p0:string)=>string): (p0:string)=>string { return p; }`));
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<std::string(std::string)>",
-        "stability_scenario_dts2cpp_type_031_param convert output");
-      const generated = generateFunctions(converted, 'scen_30.d.ts');
-      assert.ok(converted.funcs.length >= 1 && generated && typeof generated.napiHContent === 'string');
-    } catch (err) {
-      assert.fail('dts2cpp type scenario (p0:string)=>string: ' + String(err));
-    }
-  });
-
-  test('stability_scenario_h2dts_type_031', () => {
-    try {
-      const r = parsec.parseFunction(`void scen_h2_30(std::vector<int8_t> p);`);
-      assert.ok(Array.isArray(r));
-      assert.ok(r.length >= 1 && r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "stability_scenario_h2dts_type_031 convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "stability_scenario_h2dts_type_031 convert output");
-    } catch (err) {
-      assert.fail('h2dts type scenario: ' + String(err));
-    }
-  });
-
-  test('stability_scenario_h2dtscpp_type_031', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [{ name: 'Scen30', alias: '',
-          variableList: [{ type: '(p0:string)=>string', name: 'v', arraySize: 0, arraySizeList: [] }],
-          functionList: []
-        }],
-        funcs: [], types: []
-      });
-      assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<std::string(std::string)>",
-        "stability_scenario_h2dtscpp_type_031 type convert convert output");
-      const generated = generateFunctions(converted, 'scen_cpp_30.d.ts');
-      assert.ok(generated && typeof generated.napiHContent === 'string');
-    } catch (err) {
-      assert.fail('h2dtscpp type scenario: ' + String(err));
-    }
-  });
-
-  test('stability_scenario_dts2cpp_type_032', () => {
-    try {
-      const converted = transParseObj(doParseTs('scen_dts_31.ts', `
-        function scen31(p: (p0:boolean)=>string): (p0:boolean)=>string { return p; }`));
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<std::string(bool)>",
-        "stability_scenario_dts2cpp_type_032_param convert output");
-      const generated = generateFunctions(converted, 'scen_31.d.ts');
-      assert.ok(converted.funcs.length >= 1 && generated && typeof generated.napiHContent === 'string');
-    } catch (err) {
-      assert.fail('dts2cpp type scenario (p0:boolean)=>string: ' + String(err));
-    }
-  });
-
-  test('stability_scenario_h2dts_type_032', () => {
-    try {
-      const r = parsec.parseFunction(`void scen_h2_31(std::vector<int16_t> p);`);
-      assert.ok(Array.isArray(r));
-      assert.ok(r.length >= 1 && r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "stability_scenario_h2dts_type_032 convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "stability_scenario_h2dts_type_032 convert output");
-    } catch (err) {
-      assert.fail('h2dts type scenario: ' + String(err));
-    }
-  });
-
-  test('stability_scenario_h2dtscpp_type_032', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [{ name: 'Scen31', alias: '',
-          variableList: [{ type: '(p0:boolean)=>string', name: 'v', arraySize: 0, arraySizeList: [] }],
-          functionList: []
-        }],
-        funcs: [], types: []
-      });
-      assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<std::string(bool)>",
-        "stability_scenario_h2dtscpp_type_032 type convert convert output");
-      const generated = generateFunctions(converted, 'scen_cpp_31.d.ts');
-      assert.ok(generated && typeof generated.napiHContent === 'string');
-    } catch (err) {
-      assert.fail('h2dtscpp type scenario: ' + String(err));
-    }
-  });
-
-  test('stability_scenario_dts2cpp_type_033', () => {
-    try {
-      const converted = transParseObj(doParseTs('scen_dts_32.ts', `
-        function scen32(p: (p0:number)=>boolean): (p0:number)=>boolean { return p; }`));
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<bool(double)>",
-        "stability_scenario_dts2cpp_type_033_param convert output");
-      const generated = generateFunctions(converted, 'scen_32.d.ts');
-      assert.ok(converted.funcs.length >= 1 && generated && typeof generated.napiHContent === 'string');
-    } catch (err) {
-      assert.fail('dts2cpp type scenario (p0:number)=>boolean: ' + String(err));
-    }
-  });
-
-  test('stability_scenario_h2dts_type_033', () => {
-    try {
-      const r = parsec.parseFunction(`void scen_h2_32(std::vector<int32_t> p);`);
-      assert.ok(Array.isArray(r));
-      assert.ok(r.length >= 1 && r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "stability_scenario_h2dts_type_033 convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "stability_scenario_h2dts_type_033 convert output");
-    } catch (err) {
-      assert.fail('h2dts type scenario: ' + String(err));
-    }
-  });
-
-  test('stability_scenario_h2dtscpp_type_033', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [{ name: 'Scen32', alias: '',
-          variableList: [{ type: '(p0:number)=>boolean', name: 'v', arraySize: 0, arraySizeList: [] }],
-          functionList: []
-        }],
-        funcs: [], types: []
-      });
-      assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<bool(double)>",
-        "stability_scenario_h2dtscpp_type_033 type convert convert output");
-      const generated = generateFunctions(converted, 'scen_cpp_32.d.ts');
-      assert.ok(generated && typeof generated.napiHContent === 'string');
-    } catch (err) {
-      assert.fail('h2dtscpp type scenario: ' + String(err));
-    }
-  });
-
-  test('stability_scenario_dts2cpp_type_034', () => {
-    try {
-      const converted = transParseObj(doParseTs('scen_dts_33.ts', `
-        function scen33(p: (p0:string)=>boolean): (p0:string)=>boolean { return p; }`));
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<bool(std::string)>",
-        "stability_scenario_dts2cpp_type_034_param convert output");
-      const generated = generateFunctions(converted, 'scen_33.d.ts');
-      assert.ok(converted.funcs.length >= 1 && generated && typeof generated.napiHContent === 'string');
-    } catch (err) {
-      assert.fail('dts2cpp type scenario (p0:string)=>boolean: ' + String(err));
-    }
-  });
-
-  test('stability_scenario_h2dts_type_034', () => {
-    try {
-      const r = parsec.parseFunction(`void scen_h2_33(std::vector<int64_t> p);`);
-      assert.ok(Array.isArray(r));
-      assert.ok(r.length >= 1 && r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "stability_scenario_h2dts_type_034 convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "stability_scenario_h2dts_type_034 convert output");
-    } catch (err) {
-      assert.fail('h2dts type scenario: ' + String(err));
-    }
-  });
-
-  test('stability_scenario_h2dtscpp_type_034', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [{ name: 'Scen33', alias: '',
-          variableList: [{ type: '(p0:string)=>boolean', name: 'v', arraySize: 0, arraySizeList: [] }],
-          functionList: []
-        }],
-        funcs: [], types: []
-      });
-      assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<bool(std::string)>",
-        "stability_scenario_h2dtscpp_type_034 type convert convert output");
-      const generated = generateFunctions(converted, 'scen_cpp_33.d.ts');
-      assert.ok(generated && typeof generated.napiHContent === 'string');
-    } catch (err) {
-      assert.fail('h2dtscpp type scenario: ' + String(err));
-    }
-  });
-
-  test('stability_scenario_dts2cpp_type_035', () => {
-    try {
-      const converted = transParseObj(doParseTs('scen_dts_34.ts', `
-        function scen34(p: (p0:boolean)=>boolean): (p0:boolean)=>boolean { return p; }`));
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<bool(bool)>",
-        "stability_scenario_dts2cpp_type_035_param convert output");
-      const generated = generateFunctions(converted, 'scen_34.d.ts');
-      assert.ok(converted.funcs.length >= 1 && generated && typeof generated.napiHContent === 'string');
-    } catch (err) {
-      assert.fail('dts2cpp type scenario (p0:boolean)=>boolean: ' + String(err));
-    }
-  });
-
-  test('stability_scenario_h2dts_type_035', () => {
-    try {
-      const r = parsec.parseFunction(`void scen_h2_34(std::vector<unsigned> p);`);
-      assert.ok(Array.isArray(r));
-      assert.ok(r.length >= 1 && r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "stability_scenario_h2dts_type_035 convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "stability_scenario_h2dts_type_035 convert output");
-    } catch (err) {
-      assert.fail('h2dts type scenario: ' + String(err));
-    }
-  });
-
-  test('stability_scenario_h2dtscpp_type_035', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [{ name: 'Scen34', alias: '',
-          variableList: [{ type: '(p0:boolean)=>boolean', name: 'v', arraySize: 0, arraySizeList: [] }],
-          functionList: []
-        }],
-        funcs: [], types: []
-      });
-      assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<bool(bool)>",
-        "stability_scenario_h2dtscpp_type_035 type convert convert output");
-      const generated = generateFunctions(converted, 'scen_cpp_34.d.ts');
-      assert.ok(generated && typeof generated.napiHContent === 'string');
-    } catch (err) {
-      assert.fail('h2dtscpp type scenario: ' + String(err));
-    }
-  });
-
-  test('stability_scenario_dts2cpp_type_036', () => {
-    try {
-      const converted = transParseObj(doParseTs('scen_dts_35.ts', `
-        function scen35(p: (p0:number)=>void): (p0:number)=>void { return p; }`));
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<void(double)>",
-        "stability_scenario_dts2cpp_type_036_param convert output");
-      const generated = generateFunctions(converted, 'scen_35.d.ts');
-      assert.ok(converted.funcs.length >= 1 && generated && typeof generated.napiHContent === 'string');
-    } catch (err) {
-      assert.fail('dts2cpp type scenario (p0:number)=>void: ' + String(err));
-    }
-  });
-
-  test('stability_scenario_h2dts_type_036', () => {
-    try {
-      const r = parsec.parseFunction(`void scen_h2_35(std::vector<bool> p);`);
-      assert.ok(Array.isArray(r));
-      assert.ok(r.length >= 1 && r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "stability_scenario_h2dts_type_036 convert output non-empty");
-      assert.strictEqual(converted, "Array<boolean>", "stability_scenario_h2dts_type_036 convert output");
-    } catch (err) {
-      assert.fail('h2dts type scenario: ' + String(err));
-    }
-  });
-
-  test('stability_scenario_h2dtscpp_type_036', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [{ name: 'Scen35', alias: '',
-          variableList: [{ type: '(p0:number)=>void', name: 'v', arraySize: 0, arraySizeList: [] }],
-          functionList: []
-        }],
-        funcs: [], types: []
-      });
-      assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<void(double)>",
-        "stability_scenario_h2dtscpp_type_036 type convert convert output");
-      const generated = generateFunctions(converted, 'scen_cpp_35.d.ts');
-      assert.ok(generated && typeof generated.napiHContent === 'string');
-    } catch (err) {
-      assert.fail('h2dtscpp type scenario: ' + String(err));
-    }
-  });
-
-  test('stability_scenario_dts2cpp_type_037', () => {
-    try {
-      const converted = transParseObj(doParseTs('scen_dts_36.ts', `
-        function scen36(p: (p0:string)=>void): (p0:string)=>void { return p; }`));
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<void(std::string)>",
-        "stability_scenario_dts2cpp_type_037_param convert output");
-      const generated = generateFunctions(converted, 'scen_36.d.ts');
-      assert.ok(converted.funcs.length >= 1 && generated && typeof generated.napiHContent === 'string');
-    } catch (err) {
-      assert.fail('dts2cpp type scenario (p0:string)=>void: ' + String(err));
-    }
-  });
-
-  test('stability_scenario_h2dts_type_037', () => {
-    try {
-      const r = parsec.parseFunction(`void scen_h2_36(std::vector<char> p);`);
-      assert.ok(Array.isArray(r));
-      assert.ok(r.length >= 1 && r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "stability_scenario_h2dts_type_037 convert output non-empty");
-      assert.strictEqual(converted, "Array<string>", "stability_scenario_h2dts_type_037 convert output");
-    } catch (err) {
-      assert.fail('h2dts type scenario: ' + String(err));
-    }
-  });
-
-  test('stability_scenario_h2dtscpp_type_037', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [{ name: 'Scen36', alias: '',
-          variableList: [{ type: '(p0:string)=>void', name: 'v', arraySize: 0, arraySizeList: [] }],
-          functionList: []
-        }],
-        funcs: [], types: []
-      });
-      assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<void(std::string)>",
-        "stability_scenario_h2dtscpp_type_037 type convert convert output");
-      const generated = generateFunctions(converted, 'scen_cpp_36.d.ts');
-      assert.ok(generated && typeof generated.napiHContent === 'string');
-    } catch (err) {
-      assert.fail('h2dtscpp type scenario: ' + String(err));
-    }
-  });
-
-  test('stability_scenario_dts2cpp_type_038', () => {
-    try {
-      const converted = transParseObj(doParseTs('scen_dts_37.ts', `
-        function scen37(p: (p0:boolean)=>void): (p0:boolean)=>void { return p; }`));
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<void(bool)>",
-        "stability_scenario_dts2cpp_type_038_param convert output");
-      const generated = generateFunctions(converted, 'scen_37.d.ts');
-      assert.ok(converted.funcs.length >= 1 && generated && typeof generated.napiHContent === 'string');
-    } catch (err) {
-      assert.fail('dts2cpp type scenario (p0:boolean)=>void: ' + String(err));
-    }
-  });
-
-  test('stability_scenario_h2dts_type_038', () => {
-    try {
-      const r = parsec.parseFunction(`void scen_h2_37(std::vector<wchar_t> p);`);
-      assert.ok(Array.isArray(r));
-      assert.ok(r.length >= 1 && r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "stability_scenario_h2dts_type_038 convert output non-empty");
-      assert.strictEqual(converted, "Array<string>", "stability_scenario_h2dts_type_038 convert output");
-    } catch (err) {
-      assert.fail('h2dts type scenario: ' + String(err));
-    }
-  });
-
-  test('stability_scenario_h2dtscpp_type_038', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [{ name: 'Scen37', alias: '',
-          variableList: [{ type: '(p0:boolean)=>void', name: 'v', arraySize: 0, arraySizeList: [] }],
-          functionList: []
-        }],
-        funcs: [], types: []
-      });
-      assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<void(bool)>",
-        "stability_scenario_h2dtscpp_type_038 type convert convert output");
-      const generated = generateFunctions(converted, 'scen_cpp_37.d.ts');
-      assert.ok(generated && typeof generated.napiHContent === 'string');
-    } catch (err) {
-      assert.fail('h2dtscpp type scenario: ' + String(err));
-    }
-  });
-
-  test('stability_scenario_dts2cpp_type_039', () => {
-    try {
-      const converted = transParseObj(doParseTs('scen_dts_38.ts', `
-        function scen38(p: (p0:number,p1:number)=>number): (p0:number,p1:number)=>number { return p; }`));
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<double(double, double)>",
-        "stability_scenario_dts2cpp_type_039_param convert output");
-      const generated = generateFunctions(converted, 'scen_38.d.ts');
-      assert.ok(converted.funcs.length >= 1 && generated && typeof generated.napiHContent === 'string');
-    } catch (err) {
-      assert.fail('dts2cpp type scenario (p0:number,p1:number)=>number: ' + String(err));
-    }
-  });
-
-  test('stability_scenario_h2dts_type_039', () => {
-    try {
-      const r = parsec.parseFunction(`void scen_h2_38(std::vector<char8_t> p);`);
-      assert.ok(Array.isArray(r));
-      assert.ok(r.length >= 1 && r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "stability_scenario_h2dts_type_039 convert output non-empty");
-      assert.strictEqual(converted, "Array<string>", "stability_scenario_h2dts_type_039 convert output");
-    } catch (err) {
-      assert.fail('h2dts type scenario: ' + String(err));
-    }
-  });
-
-  test('stability_scenario_h2dtscpp_type_039', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [{ name: 'Scen38', alias: '',
-          variableList: [{ type: '(p0:number,p1:number)=>number', name: 'v', arraySize: 0, arraySizeList: [] }],
-          functionList: []
-        }],
-        funcs: [], types: []
-      });
-      assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<double(double, double)>",
-        "stability_scenario_h2dtscpp_type_039 type convert convert output");
-      const generated = generateFunctions(converted, 'scen_cpp_38.d.ts');
-      assert.ok(generated && typeof generated.napiHContent === 'string');
-    } catch (err) {
-      assert.fail('h2dtscpp type scenario: ' + String(err));
-    }
-  });
-
-  test('stability_scenario_dts2cpp_type_040', () => {
-    try {
-      const converted = transParseObj(doParseTs('scen_dts_39.ts', `
-        function scen39(p: (p0:number,p1:boolean)=>number): (p0:number,p1:boolean)=>number { return p; }`));
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<double(double, bool)>",
-        "stability_scenario_dts2cpp_type_040_param convert output");
-      const generated = generateFunctions(converted, 'scen_39.d.ts');
-      assert.ok(converted.funcs.length >= 1 && generated && typeof generated.napiHContent === 'string');
-    } catch (err) {
-      assert.fail('dts2cpp type scenario (p0:number,p1:boolean)=>number: ' + String(err));
-    }
-  });
-
-  test('stability_scenario_h2dts_type_040', () => {
-    try {
-      const r = parsec.parseFunction(`void scen_h2_39(std::vector<char16_t> p);`);
-      assert.ok(Array.isArray(r));
-      assert.ok(r.length >= 1 && r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "stability_scenario_h2dts_type_040 convert output non-empty");
-      assert.strictEqual(converted, "Array<string>", "stability_scenario_h2dts_type_040 convert output");
-    } catch (err) {
-      assert.fail('h2dts type scenario: ' + String(err));
-    }
-  });
-
-  test('stability_scenario_h2dtscpp_type_040', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [{ name: 'Scen39', alias: '',
-          variableList: [{ type: '(p0:number,p1:boolean)=>number', name: 'v', arraySize: 0, arraySizeList: [] }],
-          functionList: []
-        }],
-        funcs: [], types: []
-      });
-      assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<double(double, bool)>",
-        "stability_scenario_h2dtscpp_type_040 type convert convert output");
-      const generated = generateFunctions(converted, 'scen_cpp_39.d.ts');
-      assert.ok(generated && typeof generated.napiHContent === 'string');
-    } catch (err) {
-      assert.fail('h2dtscpp type scenario: ' + String(err));
-    }
-  });
-
-  test('stability_scenario_dts2cpp_type_041', () => {
-    try {
-      const converted = transParseObj(doParseTs('scen_dts_40.ts', `
-        function scen40(p: (p0:string,p1:string)=>number): (p0:string,p1:string)=>number { return p; }`));
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<double(std::string, std::string)>",
-        "stability_scenario_dts2cpp_type_041_param convert output");
-      const generated = generateFunctions(converted, 'scen_40.d.ts');
-      assert.ok(converted.funcs.length >= 1 && generated && typeof generated.napiHContent === 'string');
-    } catch (err) {
-      assert.fail('dts2cpp type scenario (p0:string,p1:string)=>number: ' + String(err));
-    }
-  });
-
-  test('stability_scenario_h2dts_type_041', () => {
-    try {
-      const r = parsec.parseFunction(`void scen_h2_40(std::vector<char32_t> p);`);
-      assert.ok(Array.isArray(r));
-      assert.ok(r.length >= 1 && r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "stability_scenario_h2dts_type_041 convert output non-empty");
-      assert.strictEqual(converted, "Array<string>", "stability_scenario_h2dts_type_041 convert output");
     } catch (err) {
       assert.fail('h2dts type scenario: ' + String(err));
     }
