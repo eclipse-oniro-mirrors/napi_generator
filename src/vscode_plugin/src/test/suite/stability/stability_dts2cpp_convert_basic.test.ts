@@ -19,11 +19,19 @@ import { transCkey2Dtskey, transParseObj, generateFunctions } from '../../../gen
 import { doParseTs } from '../../../parse/parsets';
 import { runCompatSafe } from './stability_helpers';
 
-suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
+suite('Stability_DTS2CPP_CONVERT_BASIC', function() {
   this.timeout(600000);
   vscode.window.showInformationMessage('Start Stability_DTS2CPP_CONVERT_BASIC_Part01.');
 
-
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0001
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0001
+   * @tc.desc   Stability convert dts2cpp/basic: baseline type-string convert; type number;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0001', () => {
     try {
       const result = transCkey2Dtskey('number');
@@ -34,6 +42,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0002
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0002
+   * @tc.desc   Stability convert dts2cpp/basic: function-param convert; type number; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0002', () => {
     try {
       const converted = transParseObj(doParseTs('sample1.ts', `function sample1(p0: number): void { return; }`));
@@ -47,6 +64,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0003
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0003
+   * @tc.desc   Stability convert dts2cpp/basic: function-return convert; type number; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0003', () => {
     try {
       const converted = transParseObj(doParseTs('sampleRet1.ts', `
@@ -65,6 +91,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0004
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0004
+   * @tc.desc   Stability convert dts2cpp/basic: class-field convert; type number; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0004', () => {
     try {
       const converted = transParseObj(doParseTs('sampleClass1.ts', `
@@ -78,6 +113,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0005
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0005
+   * @tc.desc   Stability convert dts2cpp/basic: parse-convert-gen pipeline; type number;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0005', () => {
     try {
       const converted = transParseObj(doParseTs('pipeline1.ts', `function pipeline1(p: number): number { return p; }`));
@@ -99,6 +143,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0006
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0006
+   * @tc.desc   Stability convert dts2cpp/basic: baseline type-string convert; type string;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0006', () => {
     try {
       const result = transCkey2Dtskey('string');
@@ -109,6 +162,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0007
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0007
+   * @tc.desc   Stability convert dts2cpp/basic: function-param convert; type string; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0007', () => {
     try {
       const converted = transParseObj(doParseTs('sample2.ts', `function sample2(p0: string): void { return; }`));
@@ -122,6 +184,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0008
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0008
+   * @tc.desc   Stability convert dts2cpp/basic: function-return convert; type string; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0008', () => {
     try {
       const converted = transParseObj(doParseTs('sampleRet2.ts', `
@@ -140,6 +211,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0009
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0009
+   * @tc.desc   Stability convert dts2cpp/basic: class-field convert; type string; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0009', () => {
     try {
       const converted = transParseObj(doParseTs('sampleClass2.ts', `
@@ -153,6 +233,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0010
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0010
+   * @tc.desc   Stability convert dts2cpp/basic: parse-convert-gen pipeline; type string;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0010', () => {
     try {
       const converted = transParseObj(doParseTs('pipeline2.ts', `function pipeline2(p: string): string { return p; }`));
@@ -174,6 +263,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0011
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0011
+   * @tc.desc   Stability convert dts2cpp/basic: baseline type-string convert; type boolean;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0011', () => {
     try {
       const result = transCkey2Dtskey('boolean');
@@ -184,6 +282,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0012
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0012
+   * @tc.desc   Stability convert dts2cpp/basic: function-param convert; type boolean; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0012', () => {
     try {
       const converted = transParseObj(doParseTs('sample3.ts', `function sample3(p0: boolean): void { return; }`));
@@ -197,6 +304,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0013
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0013
+   * @tc.desc   Stability convert dts2cpp/basic: function-return convert; type boolean; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0013', () => {
     try {
       const converted = transParseObj(doParseTs('sampleRet3.ts', `
@@ -215,6 +331,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0014
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0014
+   * @tc.desc   Stability convert dts2cpp/basic: class-field convert; type boolean; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0014', () => {
     try {
       const converted = transParseObj(doParseTs('sampleClass3.ts', `
@@ -228,12 +353,22 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0015
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0015
+   * @tc.desc   Stability convert dts2cpp/basic: parse-convert-gen pipeline; type boolean;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0015', () => {
     try {
       const converted = transParseObj(doParseTs('pipeline3.ts', `
         function pipeline3(p: boolean): boolean { return p; }`));
       assert.ok(converted.funcs.length >= 1);
-      assert.strictEqual(converted.funcs[0].returns, "bool", "dts2cpp_convert_basic_0015 pipeline return convert output");
+      assert.strictEqual(converted.funcs[0].returns, "bool",
+        "dts2cpp_convert_basic_0015 pipeline return convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "bool",
         "dts2cpp_convert_basic_0015 pipeline param convert output");
@@ -249,6 +384,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0016
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0016
+   * @tc.desc   Stability convert dts2cpp/basic: baseline type-string convert; type void;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0016', () => {
     try {
       const result = transCkey2Dtskey('void');
@@ -259,6 +403,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0017
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0017
+   * @tc.desc   Stability convert dts2cpp/basic: function-param convert; type void; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0017', () => {
     try {
       const converted = transParseObj(doParseTs('sample4.ts', `function sample4(p0: void): void { return; }`));
@@ -272,6 +425,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0018
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0018
+   * @tc.desc   Stability convert dts2cpp/basic: function-return convert; type void; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0018', () => {
     try {
       const converted = transParseObj(doParseTs('sampleRet4.ts', `
@@ -290,6 +452,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0019
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0019
+   * @tc.desc   Stability convert dts2cpp/basic: class-field convert; type void; strictEqual convert
+   *            output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0019', () => {
     try {
       const converted = transParseObj(doParseTs('sampleClass4.ts', `
@@ -303,11 +474,21 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0020
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0020
+   * @tc.desc   Stability convert dts2cpp/basic: parse-convert-gen pipeline; type void; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0020', () => {
     try {
       const converted = transParseObj(doParseTs('pipeline4.ts', `function pipeline4(p: void): void { return p; }`));
       assert.ok(converted.funcs.length >= 1);
-      assert.strictEqual(converted.funcs[0].returns, "void", "dts2cpp_convert_basic_0020 pipeline return convert output");
+      assert.strictEqual(converted.funcs[0].returns, "void",
+        "dts2cpp_convert_basic_0020 pipeline return convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "void",
         "dts2cpp_convert_basic_0020 pipeline param convert output");
@@ -323,6 +504,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0021
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0021
+   * @tc.desc   Stability convert dts2cpp/basic: baseline type-string convert; type null;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0021', () => {
     try {
       const result = transCkey2Dtskey('null');
@@ -333,6 +523,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0022
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0022
+   * @tc.desc   Stability convert dts2cpp/basic: function-param convert; type null; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0022', () => {
     try {
       const converted = transParseObj(doParseTs('sample287.ts', `function sample287(p0: null): void { return; }`));
@@ -346,6 +545,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0023
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0023
+   * @tc.desc   Stability convert dts2cpp/basic: function-return convert; type null; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0023', () => {
     try {
       const converted = transParseObj(doParseTs('sampleRet287.ts', `
@@ -364,6 +572,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0024
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0024
+   * @tc.desc   Stability convert dts2cpp/basic: class-field convert; type null; strictEqual convert
+   *            output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0024', () => {
     try {
       const converted = transParseObj(doParseTs('sampleClass287.ts', `
@@ -377,11 +594,21 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0025
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0025
+   * @tc.desc   Stability convert dts2cpp/basic: parse-convert-gen pipeline; type null; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0025', () => {
     try {
       const converted = transParseObj(doParseTs('pipeline287.ts', `function pipeline287(p: null): null { return p; }`));
       assert.ok(converted.funcs.length >= 1);
-      assert.strictEqual(converted.funcs[0].returns, "null", "dts2cpp_convert_basic_0025 pipeline return convert output");
+      assert.strictEqual(converted.funcs[0].returns, "null",
+        "dts2cpp_convert_basic_0025 pipeline return convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "null",
         "dts2cpp_convert_basic_0025 pipeline param convert output");
@@ -397,6 +624,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0026
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0026
+   * @tc.desc   Stability convert dts2cpp/basic: baseline type-string convert; type undefined;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0026', () => {
     try {
       const result = transCkey2Dtskey('undefined');
@@ -407,6 +643,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0027
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0027
+   * @tc.desc   Stability convert dts2cpp/basic: function-param convert; type undefined; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0027', () => {
     try {
       const converted = transParseObj(doParseTs('sample288.ts', `function sample288(p0: undefined): void { return; }`));
@@ -420,6 +665,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0028
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0028
+   * @tc.desc   Stability convert dts2cpp/basic: function-return convert; type undefined;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0028', () => {
     try {
       const converted = transParseObj(doParseTs('sampleRet288.ts', `
@@ -438,6 +692,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0029
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0029
+   * @tc.desc   Stability convert dts2cpp/basic: class-field convert; type undefined; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0029', () => {
     try {
       const converted = transParseObj(doParseTs('sampleClass288.ts', `
@@ -451,6 +714,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0030
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0030
+   * @tc.desc   Stability convert dts2cpp/basic: parse-convert-gen pipeline; type undefined;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0030', () => {
     try {
       const converted = transParseObj(doParseTs('pipeline288.ts', `
@@ -473,6 +745,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0031
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0031
+   * @tc.desc   Stability convert dts2cpp/basic: baseline type-string convert; type symbol;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0031', () => {
     try {
       const result = transCkey2Dtskey('symbol');
@@ -483,6 +764,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0032
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0032
+   * @tc.desc   Stability convert dts2cpp/basic: function-param convert; type symbol; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0032', () => {
     try {
       const converted = transParseObj(doParseTs('sample289.ts', `function sample289(p0: symbol): void { return; }`));
@@ -496,6 +786,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0033
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0033
+   * @tc.desc   Stability convert dts2cpp/basic: function-return convert; type symbol; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0033', () => {
     try {
       const converted = transParseObj(doParseTs('sampleRet289.ts', `
@@ -514,6 +813,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0034
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0034
+   * @tc.desc   Stability convert dts2cpp/basic: class-field convert; type symbol; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0034', () => {
     try {
       const converted = transParseObj(doParseTs('sampleClass289.ts', `
@@ -527,6 +835,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0035
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0035
+   * @tc.desc   Stability convert dts2cpp/basic: parse-convert-gen pipeline; type symbol;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0035', () => {
     try {
       const converted = transParseObj(doParseTs('pipeline289.ts', `
@@ -549,6 +866,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0036
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0036
+   * @tc.desc   Stability convert dts2cpp/basic: baseline type-string convert; type bigint;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0036', () => {
     try {
       const result = transCkey2Dtskey('bigint');
@@ -559,6 +885,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0037
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0037
+   * @tc.desc   Stability convert dts2cpp/basic: function-param convert; type bigint; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0037', () => {
     try {
       const converted = transParseObj(doParseTs('sample290.ts', `function sample290(p0: bigint): void { return; }`));
@@ -572,6 +907,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0038
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0038
+   * @tc.desc   Stability convert dts2cpp/basic: function-return convert; type bigint; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0038', () => {
     try {
       const converted = transParseObj(doParseTs('sampleRet290.ts', `
@@ -590,6 +934,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0039
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0039
+   * @tc.desc   Stability convert dts2cpp/basic: class-field convert; type bigint; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0039', () => {
     try {
       const converted = transParseObj(doParseTs('sampleClass290.ts', `
@@ -603,6 +956,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0040
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0040
+   * @tc.desc   Stability convert dts2cpp/basic: parse-convert-gen pipeline; type bigint;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0040', () => {
     try {
       const converted = transParseObj(doParseTs('pipeline290.ts', `
@@ -625,6 +987,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0041
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0041
+   * @tc.desc   Stability convert dts2cpp/basic: baseline type-string convert; type unknown;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0041', () => {
     try {
       const result = transCkey2Dtskey('unknown');
@@ -635,6 +1006,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0042
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0042
+   * @tc.desc   Stability convert dts2cpp/basic: function-param convert; type unknown; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0042', () => {
     try {
       const converted = transParseObj(doParseTs('sample291.ts', `function sample291(p0: unknown): void { return; }`));
@@ -648,6 +1028,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0043
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0043
+   * @tc.desc   Stability convert dts2cpp/basic: function-return convert; type unknown; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0043', () => {
     try {
       const converted = transParseObj(doParseTs('sampleRet291.ts', `
@@ -666,6 +1055,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0044
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0044
+   * @tc.desc   Stability convert dts2cpp/basic: class-field convert; type unknown; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0044', () => {
     try {
       const converted = transParseObj(doParseTs('sampleClass291.ts', `
@@ -679,6 +1077,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0045
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0045
+   * @tc.desc   Stability convert dts2cpp/basic: parse-convert-gen pipeline; type unknown;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0045', () => {
     try {
       const converted = transParseObj(doParseTs('pipeline291.ts', `
@@ -701,6 +1108,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0046
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0046
+   * @tc.desc   Stability convert dts2cpp/basic: baseline type-string convert; type never;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0046', () => {
     try {
       const result = transCkey2Dtskey('never');
@@ -711,6 +1127,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0047
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0047
+   * @tc.desc   Stability convert dts2cpp/basic: function-param convert; type never; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0047', () => {
     try {
       const converted = transParseObj(doParseTs('sample292.ts', `function sample292(p0: never): void { return; }`));
@@ -724,6 +1149,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0048
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0048
+   * @tc.desc   Stability convert dts2cpp/basic: function-return convert; type never; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0048', () => {
     try {
       const converted = transParseObj(doParseTs('sampleRet292.ts', `
@@ -742,6 +1176,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0049
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0049
+   * @tc.desc   Stability convert dts2cpp/basic: class-field convert; type never; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0049', () => {
     try {
       const converted = transParseObj(doParseTs('sampleClass292.ts', `
@@ -755,6 +1198,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0050
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0050
+   * @tc.desc   Stability convert dts2cpp/basic: parse-convert-gen pipeline; type never; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0050', () => {
     try {
       const converted = transParseObj(doParseTs('pipeline292.ts', `
@@ -777,6 +1229,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0051
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0051
+   * @tc.desc   Stability convert dts2cpp/basic: baseline type-string convert; type any; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0051', () => {
     try {
       const result = transCkey2Dtskey('any');
@@ -787,6 +1248,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0052
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0052
+   * @tc.desc   Stability convert dts2cpp/basic: function-param convert; type any; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0052', () => {
     try {
       const converted = transParseObj(doParseTs('sample293.ts', `function sample293(p0: any): void { return; }`));
@@ -800,6 +1270,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0053
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0053
+   * @tc.desc   Stability convert dts2cpp/basic: function-return convert; type any; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0053', () => {
     try {
       const converted = transParseObj(doParseTs('sampleRet293.ts', `
@@ -818,6 +1297,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0054
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0054
+   * @tc.desc   Stability convert dts2cpp/basic: class-field convert; type any; strictEqual convert
+   *            output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0054', () => {
     try {
       const converted = transParseObj(doParseTs('sampleClass293.ts', `
@@ -831,6 +1319,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0055
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0055
+   * @tc.desc   Stability convert dts2cpp/basic: parse-convert-gen pipeline; type any; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0055', () => {
     try {
       const converted = transParseObj(doParseTs('pipeline293.ts', `function pipeline293(p: any): any { return p; }`));
@@ -852,6 +1349,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0056
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0056
+   * @tc.desc   Stability convert dts2cpp/basic: baseline type-string convert; type object;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0056', () => {
     try {
       const result = transCkey2Dtskey('object');
@@ -862,6 +1368,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0057
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0057
+   * @tc.desc   Stability convert dts2cpp/basic: function-param convert; type object; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0057', () => {
     try {
       const converted = transParseObj(doParseTs('sample294.ts', `function sample294(p0: object): void { return; }`));
@@ -875,6 +1390,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0058
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0058
+   * @tc.desc   Stability convert dts2cpp/basic: function-return convert; type object; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0058', () => {
     try {
       const converted = transParseObj(doParseTs('sampleRet294.ts', `
@@ -893,6 +1417,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0059
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0059
+   * @tc.desc   Stability convert dts2cpp/basic: class-field convert; type object; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0059', () => {
     try {
       const converted = transParseObj(doParseTs('sampleClass294.ts', `
@@ -906,6 +1439,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0060
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0060
+   * @tc.desc   Stability convert dts2cpp/basic: parse-convert-gen pipeline; type object;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0060', () => {
     try {
       const converted = transParseObj(doParseTs('pipeline294.ts', `
@@ -928,6 +1470,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0061
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0061
+   * @tc.desc   Stability convert dts2cpp/basic: baseline type-string convert; type map; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0061', () => {
     try {
       const result = transCkey2Dtskey('map');
@@ -938,18 +1489,37 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0062
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0062
+   * @tc.desc   Stability convert dts2cpp/basic: function-param convert; type map; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0062', () => {
     try {
       const converted = transParseObj(doParseTs('sample296.ts', `function sample296(p0: map): void { return; }`));
       assert.ok(Array.isArray(converted.funcs) && converted.funcs.length >= 1, 'must parse function');
       assert.strictEqual(converted.funcs[0].name, 'sample296');
       assert.ok(converted.funcs[0].parameters.length >= 1);
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "map", "dts2cpp_convert_basic_0062 param convert output");
+      assert.strictEqual(converted.funcs[0].parameters[0].type, "map",
+        "dts2cpp_convert_basic_0062 param convert output");
     } catch (err) {
       assert.fail(`dts2cpp_convert_basic_0062 execution error: ${String(err)}`);
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0063
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0063
+   * @tc.desc   Stability convert dts2cpp/basic: function-return convert; type map; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0063', () => {
     try {
       const converted = transParseObj(doParseTs('sampleRet296.ts', `
@@ -968,6 +1538,15 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0064
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0064
+   * @tc.desc   Stability convert dts2cpp/basic: class-field convert; type map; strictEqual convert
+   *            output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0064', () => {
     try {
       const converted = transParseObj(doParseTs('sampleClass296.ts', `
@@ -981,11 +1560,21 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0065
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0065
+   * @tc.desc   Stability convert dts2cpp/basic: parse-convert-gen pipeline; type map; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_basic_0065', () => {
     try {
       const converted = transParseObj(doParseTs('pipeline296.ts', `function pipeline296(p: map): map { return p; }`));
       assert.ok(converted.funcs.length >= 1);
-      assert.strictEqual(converted.funcs[0].returns, "map", "dts2cpp_convert_basic_0065 pipeline return convert output");
+      assert.strictEqual(converted.funcs[0].returns, "map",
+        "dts2cpp_convert_basic_0065 pipeline return convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "map",
         "dts2cpp_convert_basic_0065 pipeline param convert output");
@@ -998,6 +1587,133 @@ suite('Stability_DTS2CPP_CONVERT_BASIC_Part01', function() {
         "gen must reference function");
     } catch (err) {
       assert.fail(`dts2cpp_convert_basic_0065 execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0066
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0066
+   * @tc.desc   Stability convert dts2cpp/basic: baseline type-string convert; type map; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_convert_basic_0066', () => {
+    try {
+      const result = transCkey2Dtskey('map');
+      assert.ok(typeof result === 'string' && result.length > 0, "dts2cpp_convert_basic_0066 convert output non-empty");
+      assert.strictEqual(result, "map", "dts2cpp_convert_basic_0066 convert output");
+    } catch (err) {
+      assert.fail(`dts2cpp_convert_basic_0066 execution error: ${err}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0067
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0067
+   * @tc.desc   Stability convert dts2cpp/basic: function-param convert; type map; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_convert_basic_0067', () => {
+    try {
+      const converted = transParseObj(doParseTs('sample384.ts', `function sample384(p0: map): void { return; }`));
+      assert.ok(Array.isArray(converted.funcs) && converted.funcs.length >= 1, 'must parse function');
+      assert.strictEqual(converted.funcs[0].name, 'sample384');
+      assert.ok(converted.funcs[0].parameters.length >= 1);
+      assert.strictEqual(converted.funcs[0].parameters[0].type, "map",
+        "dts2cpp_convert_basic_0067 param convert output");
+    } catch (err) {
+      assert.fail(`dts2cpp_convert_basic_0067 execution error: ${err}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0068
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0068
+   * @tc.desc   Stability convert dts2cpp/basic: function-return convert; type map; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_convert_basic_0068', () => {
+    try {
+      const converted = transParseObj(doParseTs('sampleRet384.ts', `
+        function sampleRet384(): map { return undefined as any; }`));
+      assert.ok(converted.funcs.length >= 1);
+      assert.strictEqual(converted.funcs[0].name, 'sampleRet384');
+      assert.strictEqual(converted.funcs[0].returns, "map", "dts2cpp_convert_basic_0068 return convert output");
+      const generated = generateFunctions(converted, 'sampleRet384.d.ts');
+      assert.ok(generated !== undefined && typeof generated === 'object');
+      assert.strictEqual(typeof generated.napiHContent, "string", "napiH must be string");
+      assert.ok(generated.napiHContent.length > 0, "napiH must be non-empty");
+      assert.strictEqual(typeof generated.napiCppContent, "string", "napiCpp must be string");
+      assert.ok((generated.napiHContent.includes('sampleRet384') || generated.napiCppContent.includes('sampleRet384')),
+        "gen must reference function");
+      assert.strictEqual((generated.napiHContent + generated.napiCppContent).includes('sampleRet384'), true,
+        "gen must reference function");
+    } catch (err) {
+      assert.fail(`dts2cpp_convert_basic_0068 execution error: ${err}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0069
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0069
+   * @tc.desc   Stability convert dts2cpp/basic: class-field convert; type map; strictEqual convert
+   *            output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_convert_basic_0069', () => {
+    try {
+      const converted = transParseObj(doParseTs('sampleClass384.ts', `
+        class SampleClass384 { field: map; method(): void {} }`));
+      assert.ok(converted.classes.length >= 1, 'parse must produce class');
+      assert.strictEqual(converted.classes[0].name, 'SampleClass384');
+      assert.ok(converted.classes[0].variableList.length >= 1);
+      assert.strictEqual(converted.classes[0].variableList[0].type, "map",
+        "dts2cpp_convert_basic_0069 class convert output");
+    } catch (err) {
+      assert.fail(`dts2cpp_convert_basic_0069 execution error: ${err}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_BASIC_0070
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_BASIC_0070
+   * @tc.desc   Stability convert dts2cpp/basic: parse-convert-gen pipeline; type map; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_convert_basic_0070', () => {
+    try {
+      const converted = transParseObj(doParseTs('pipeline384.ts', `function pipeline384(p: map): map { return p; }`));
+      assert.ok(converted.funcs.length >= 1);
+      assert.strictEqual(converted.funcs[0].name, 'pipeline384');
+      assert.strictEqual(converted.funcs[0].returns, "map",
+        "dts2cpp_convert_basic_0070 pipeline return convert output");
+      assert.ok(converted.funcs[0].parameters.length >= 1);
+      assert.strictEqual(converted.funcs[0].parameters[0].type, "map",
+        "dts2cpp_convert_basic_0070 pipeline param convert output");
+      const generated = generateFunctions(converted, 'pipeline384.d.ts');
+      assert.ok(generated !== undefined && typeof generated === 'object');
+      assert.strictEqual(typeof generated.napiHContent, "string", "napiH must be string");
+      assert.ok(generated.napiHContent.length > 0, "napiH must be non-empty");
+      assert.strictEqual(typeof generated.napiCppContent, "string", "napiCpp must be string");
+      assert.ok((generated.napiHContent.includes('pipeline384') || generated.napiCppContent.includes('pipeline384')),
+        "gen must reference function");
+      assert.strictEqual((generated.napiHContent + generated.napiCppContent).includes('pipeline384'), true,
+        "gen must reference function");
+    } catch (err) {
+      assert.fail(`dts2cpp_convert_basic_0070 execution error: ${err}`);
     }
   });
 });
