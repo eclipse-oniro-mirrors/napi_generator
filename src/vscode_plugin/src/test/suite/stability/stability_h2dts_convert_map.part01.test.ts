@@ -23,18 +23,36 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
   this.timeout(600000);
   vscode.window.showInformationMessage('Start Stability_H2DTS_CONVERT_MAP_Part01.');
 
-
-  test('h2dts_convert_map_0001', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0001_STD_MAP_INT_INT
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0001_STD_MAP_INT_INT
+   * @tc.desc   Stability convert h2dts/map: baseline type-string convert; type std::map<int, int>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_map_0001_std_map_int_int', () => {
     try {
       const result = transTskey2Ckey('std::map<int, int>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_map_0001 convert output non-empty");
-      assert.strictEqual(result, "Map<number, number>", "h2dts_convert_map_0001 convert output");
+      assert.ok(typeof result === 'string' && result.length > 0,
+        "h2dts_convert_map_0001_std_map_int_int convert output non-empty");
+      assert.strictEqual(result, "Map<number, number>", "h2dts_convert_map_0001_std_map_int_int convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_map_0001 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_map_0001_std_map_int_int execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_map_0002', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0002_STD_MAP_INT_INT
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0002_STD_MAP_INT_INT
+   * @tc.desc   Stability convert h2dts/map: function-param convert; type std::map<int, int>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_map_0002_std_map_int_int', () => {
     try {
       const r = parsec.parseFunction(`void sample560(std::map<int, int> p0);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
@@ -42,65 +60,115 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0002 param convert output non-empty");
-      assert.strictEqual(converted, "Map<number, number>", "h2dts_convert_map_0002 param convert output");
+        "h2dts_convert_map_0002_std_map_int_int param convert output non-empty");
+      assert.strictEqual(converted, "Map<number, number>",
+        "h2dts_convert_map_0002_std_map_int_int param convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_map_0002 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_map_0002_std_map_int_int execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_map_0003', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0003_MAP_NUMBER_NUMBER
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0003_MAP_NUMBER_NUMBER
+   * @tc.desc   Stability convert h2dts/map: function-return convert; type std::map<int, int>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_map_0003_map_number_number', () => {
     try {
       const r = parsec.parseFunction(`std::map<int, int> sampleRet560();`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       const converted = transTskey2Ckey(r[0].returns);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0003 return convert output non-empty");
-      assert.strictEqual(converted, "Map<number, number>", "h2dts_convert_map_0003 return convert output");
+        "h2dts_convert_map_0003_map_number_number return convert output non-empty");
+      assert.strictEqual(converted, "Map<number, number>",
+        "h2dts_convert_map_0003_map_number_number return convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_map_0003 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_map_0003_map_number_number execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_map_0004', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0004_STD_MAP_INT_INT
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0004_STD_MAP_INT_INT
+   * @tc.desc   Stability convert h2dts/map: class-field convert; type std::map<int, int>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_map_0004_std_map_int_int', () => {
     try {
       const r = parsec.parseClass(`class SampleClass560 { public: std::map<int, int> field; };`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].variableList && r[0].variableList.length >= 1);
       const converted = transTskey2Ckey(r[0].variableList[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0004 class field convert output non-empty");
-      assert.strictEqual(converted, "Map<number, number>", "h2dts_convert_map_0004 class field convert output");
+        "h2dts_convert_map_0004_std_map_int_int class field convert output non-empty");
+      assert.strictEqual(converted, "Map<number, number>",
+        "h2dts_convert_map_0004_std_map_int_int class field convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_map_0004 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_map_0004_std_map_int_int execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_map_0005', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0005_STD_MAP_INT_INT
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0005_STD_MAP_INT_INT
+   * @tc.desc   Stability convert h2dts/map: parse-convert-gen pipeline; type std::map<int, int>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_map_0005_std_map_int_int', () => {
     try {
       const r = parsec.parseFunction(`void pipeline560(std::map<int, int> p);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0005 pipeline convert output non-empty");
-      assert.strictEqual(converted, "Map<number, number>", "h2dts_convert_map_0005 pipeline convert output");
+        "h2dts_convert_map_0005_std_map_int_int pipeline convert output non-empty");
+      assert.strictEqual(converted, "Map<number, number>",
+        "h2dts_convert_map_0005_std_map_int_int pipeline convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_map_0005 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_map_0005_std_map_int_int execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_map_0006', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0006_STD_MAP_CHAR_INT
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0006_STD_MAP_CHAR_INT
+   * @tc.desc   Stability convert h2dts/map: baseline type-string convert; type std::map<char, int>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_map_0006_std_map_char_int', () => {
     try {
       const result = transTskey2Ckey('std::map<char, int>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_map_0006 convert output non-empty");
-      assert.strictEqual(result, "Map<string, number>", "h2dts_convert_map_0006 convert output");
+      assert.ok(typeof result === 'string' && result.length > 0,
+        "h2dts_convert_map_0006_std_map_char_int convert output non-empty");
+      assert.strictEqual(result, "Map<string, number>", "h2dts_convert_map_0006_std_map_char_int convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_map_0006 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_map_0006_std_map_char_int execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_map_0007', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0007_STD_MAP_CHAR_INT
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0007_STD_MAP_CHAR_INT
+   * @tc.desc   Stability convert h2dts/map: function-param convert; type std::map<char, int>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_map_0007_std_map_char_int', () => {
     try {
       const r = parsec.parseFunction(`void sample561(std::map<char, int> p0);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
@@ -108,65 +176,115 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0007 param convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0007 param convert output");
+        "h2dts_convert_map_0007_std_map_char_int param convert output non-empty");
+      assert.strictEqual(converted, "Map<string, number>",
+        "h2dts_convert_map_0007_std_map_char_int param convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_map_0007 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_map_0007_std_map_char_int execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_map_0008', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0008_MAP_STRING_NUMBER
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0008_MAP_STRING_NUMBER
+   * @tc.desc   Stability convert h2dts/map: function-return convert; type std::map<char, int>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_map_0008_map_string_number', () => {
     try {
       const r = parsec.parseFunction(`std::map<char, int> sampleRet561();`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       const converted = transTskey2Ckey(r[0].returns);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0008 return convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0008 return convert output");
+        "h2dts_convert_map_0008_map_string_number return convert output non-empty");
+      assert.strictEqual(converted, "Map<string, number>",
+        "h2dts_convert_map_0008_map_string_number return convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_map_0008 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_map_0008_map_string_number execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_map_0009', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0009_STD_MAP_CHAR_INT
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0009_STD_MAP_CHAR_INT
+   * @tc.desc   Stability convert h2dts/map: class-field convert; type std::map<char, int>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_map_0009_std_map_char_int', () => {
     try {
       const r = parsec.parseClass(`class SampleClass561 { public: std::map<char, int> field; };`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].variableList && r[0].variableList.length >= 1);
       const converted = transTskey2Ckey(r[0].variableList[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0009 class field convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0009 class field convert output");
+        "h2dts_convert_map_0009_std_map_char_int class field convert output non-empty");
+      assert.strictEqual(converted, "Map<string, number>",
+        "h2dts_convert_map_0009_std_map_char_int class field convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_map_0009 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_map_0009_std_map_char_int execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_map_0010', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0010_STD_MAP_CHAR_INT
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0010_STD_MAP_CHAR_INT
+   * @tc.desc   Stability convert h2dts/map: parse-convert-gen pipeline; type std::map<char, int>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_map_0010_std_map_char_int', () => {
     try {
       const r = parsec.parseFunction(`void pipeline561(std::map<char, int> p);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0010 pipeline convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0010 pipeline convert output");
+        "h2dts_convert_map_0010_std_map_char_int pipeline convert output non-empty");
+      assert.strictEqual(converted, "Map<string, number>",
+        "h2dts_convert_map_0010_std_map_char_int pipeline convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_map_0010 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_map_0010_std_map_char_int execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_map_0011', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0011_STD_MAP_CHAR_SIZE_T
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0011_STD_MAP_CHAR_SIZE_T
+   * @tc.desc   Stability convert h2dts/map: baseline type-string convert; type std::map<char,
+   *            size_t>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_map_0011_std_map_char_size_t', () => {
     try {
       const result = transTskey2Ckey('std::map<char, size_t>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_map_0011 convert output non-empty");
-      assert.strictEqual(result, "Map<string, number>", "h2dts_convert_map_0011 convert output");
+      assert.ok(typeof result === 'string' && result.length > 0,
+        "h2dts_convert_map_0011_std_map_char_size_t convert output non-empty");
+      assert.strictEqual(result, "Map<string, number>", "h2dts_convert_map_0011_std_map_char_size_t convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_map_0011 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_map_0011_std_map_char_size_t execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_map_0012', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0012_STD_MAP_CHAR_SIZE_T
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0012_STD_MAP_CHAR_SIZE_T
+   * @tc.desc   Stability convert h2dts/map: function-param convert; type std::map<char, size_t>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_map_0012_std_map_char_size_t', () => {
     try {
       const r = parsec.parseFunction(`void sample562(std::map<char, size_t> p0);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
@@ -174,65 +292,115 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0012 param convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0012 param convert output");
+        "h2dts_convert_map_0012_std_map_char_size_t param convert output non-empty");
+      assert.strictEqual(converted, "Map<string, number>",
+        "h2dts_convert_map_0012_std_map_char_size_t param convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_map_0012 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_map_0012_std_map_char_size_t execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_map_0013', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0013_MAP_STRING_NUMBER
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0013_MAP_STRING_NUMBER
+   * @tc.desc   Stability convert h2dts/map: function-return convert; type std::map<char, size_t>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_map_0013_map_string_number', () => {
     try {
       const r = parsec.parseFunction(`std::map<char, size_t> sampleRet562();`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       const converted = transTskey2Ckey(r[0].returns);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0013 return convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0013 return convert output");
+        "h2dts_convert_map_0013_map_string_number return convert output non-empty");
+      assert.strictEqual(converted, "Map<string, number>",
+        "h2dts_convert_map_0013_map_string_number return convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_map_0013 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_map_0013_map_string_number execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_map_0014', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0014_STD_MAP_CHAR_SIZE_T
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0014_STD_MAP_CHAR_SIZE_T
+   * @tc.desc   Stability convert h2dts/map: class-field convert; type std::map<char, size_t>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_map_0014_std_map_char_size_t', () => {
     try {
       const r = parsec.parseClass(`class SampleClass562 { public: std::map<char, size_t> field; };`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].variableList && r[0].variableList.length >= 1);
       const converted = transTskey2Ckey(r[0].variableList[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0014 class field convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0014 class field convert output");
+        "h2dts_convert_map_0014_std_map_char_size_t class field convert output non-empty");
+      assert.strictEqual(converted, "Map<string, number>",
+        "h2dts_convert_map_0014_std_map_char_size_t class field convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_map_0014 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_map_0014_std_map_char_size_t execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_map_0015', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0015_STD_MAP_CHAR_SIZE_T
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0015_STD_MAP_CHAR_SIZE_T
+   * @tc.desc   Stability convert h2dts/map: parse-convert-gen pipeline; type std::map<char,
+   *            size_t>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_map_0015_std_map_char_size_t', () => {
     try {
       const r = parsec.parseFunction(`void pipeline562(std::map<char, size_t> p);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0015 pipeline convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0015 pipeline convert output");
+        "h2dts_convert_map_0015_std_map_char_size_t pipeline convert output non-empty");
+      assert.strictEqual(converted, "Map<string, number>",
+        "h2dts_convert_map_0015_std_map_char_size_t pipeline convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_map_0015 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_map_0015_std_map_char_size_t execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_map_0016', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0016_STD_MAP_CHAR_UNSIGNED
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0016_STD_MAP_CHAR_UNSIGNED
+   * @tc.desc   Stability convert h2dts/map: baseline type-string convert; type std::map<char,
+   *            unsigned>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_map_0016_std_map_char_unsigned', () => {
     try {
       const result = transTskey2Ckey('std::map<char, unsigned>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_map_0016 convert output non-empty");
-      assert.strictEqual(result, "Map<string, number>", "h2dts_convert_map_0016 convert output");
+      assert.ok(typeof result === 'string' && result.length > 0,
+        "h2dts_convert_map_0016_std_map_char_unsigned convert output non-empty");
+      assert.strictEqual(result, "Map<string, number>", "h2dts_convert_map_0016_std_map_char_unsigned convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_map_0016 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_map_0016_std_map_char_unsigned execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_map_0017', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0017_STD_MAP_CHAR_UNSIGNED
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0017_STD_MAP_CHAR_UNSIGNED
+   * @tc.desc   Stability convert h2dts/map: function-param convert; type std::map<char, unsigned>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_map_0017_std_map_char_unsigned', () => {
     try {
       const r = parsec.parseFunction(`void sample563(std::map<char, unsigned> p0);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
@@ -240,64 +408,114 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0017 param convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0017 param convert output");
+        "h2dts_convert_map_0017_std_map_char_unsigned param convert output non-empty");
+      assert.strictEqual(converted, "Map<string, number>",
+        "h2dts_convert_map_0017_std_map_char_unsigned param convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_map_0017 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_map_0017_std_map_char_unsigned execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_map_0018', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0018_MAP_STRING_NUMBER
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0018_MAP_STRING_NUMBER
+   * @tc.desc   Stability convert h2dts/map: function-return convert; type std::map<char, unsigned>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_map_0018_map_string_number', () => {
     try {
       const r = parsec.parseFunction(`std::map<char, unsigned> sampleRet563();`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       const converted = transTskey2Ckey(r[0].returns);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0018 return convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0018 return convert output");
+        "h2dts_convert_map_0018_map_string_number return convert output non-empty");
+      assert.strictEqual(converted, "Map<string, number>",
+        "h2dts_convert_map_0018_map_string_number return convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_map_0018 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_map_0018_map_string_number execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_map_0019', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0019_STD_MAP_CHAR_UNSIGNED
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0019_STD_MAP_CHAR_UNSIGNED
+   * @tc.desc   Stability convert h2dts/map: class-field convert; type std::map<char, unsigned>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_map_0019_std_map_char_unsigned', () => {
     try {
       const r = parsec.parseClass(`class SampleClass563 { public: std::map<char, unsigned> field; };`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].variableList && r[0].variableList.length >= 1);
       const converted = transTskey2Ckey(r[0].variableList[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0019 class field convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0019 class field convert output");
+        "h2dts_convert_map_0019_std_map_char_unsigned class field convert output non-empty");
+      assert.strictEqual(converted, "Map<string, number>",
+        "h2dts_convert_map_0019_std_map_char_unsigned class field convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_map_0019 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_map_0019_std_map_char_unsigned execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_map_0020', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0020_STD_MAP_CHAR_UNSIGNED
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0020_STD_MAP_CHAR_UNSIGNED
+   * @tc.desc   Stability convert h2dts/map: parse-convert-gen pipeline; type std::map<char,
+   *            unsigned>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_map_0020_std_map_char_unsigned', () => {
     try {
       const r = parsec.parseFunction(`void pipeline563(std::map<char, unsigned> p);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0020 pipeline convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0020 pipeline convert output");
+        "h2dts_convert_map_0020_std_map_char_unsigned pipeline convert output non-empty");
+      assert.strictEqual(converted, "Map<string, number>",
+        "h2dts_convert_map_0020_std_map_char_unsigned pipeline convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_map_0020 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_map_0020_std_map_char_unsigned execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_map_0021', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0021_STD_MAP_CHAR_DOUBLE
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0021_STD_MAP_CHAR_DOUBLE
+   * @tc.desc   Stability convert h2dts/map: baseline type-string convert; type std::map<char,
+   *            double>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_map_0021_std_map_char_double', () => {
     try {
       const result = transTskey2Ckey('std::map<char, double>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_map_0021 convert output non-empty");
-      assert.strictEqual(result, "Map<string, number>", "h2dts_convert_map_0021 convert output");
+      assert.ok(typeof result === 'string' && result.length > 0,
+        "h2dts_convert_map_0021_std_map_char_double convert output non-empty");
+      assert.strictEqual(result, "Map<string, number>", "h2dts_convert_map_0021_std_map_char_double convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_map_0021 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_map_0021_std_map_char_double execution error: ${String(err)}`);
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0022
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0022
+   * @tc.desc   Stability convert h2dts/map: function-param convert; type std::map<char, double>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0022', () => {
     try {
       const r = parsec.parseFunction(`void sample564(std::map<char, double> p0);`);
@@ -313,6 +531,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0023
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0023
+   * @tc.desc   Stability convert h2dts/map: function-return convert; type std::map<char, double>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0023', () => {
     try {
       const r = parsec.parseFunction(`std::map<char, double> sampleRet564();`);
@@ -326,6 +553,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0024
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0024
+   * @tc.desc   Stability convert h2dts/map: class-field convert; type std::map<char, double>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0024', () => {
     try {
       const r = parsec.parseClass(`class SampleClass564 { public: std::map<char, double> field; };`);
@@ -340,6 +576,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0025
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0025
+   * @tc.desc   Stability convert h2dts/map: parse-convert-gen pipeline; type std::map<char,
+   *            double>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0025', () => {
     try {
       const r = parsec.parseFunction(`void pipeline564(std::map<char, double> p);`);
@@ -354,6 +599,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0026
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0026
+   * @tc.desc   Stability convert h2dts/map: baseline type-string convert; type std::map<char,
+   *            float>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0026', () => {
     try {
       const result = transTskey2Ckey('std::map<char, float>');
@@ -364,6 +618,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0027
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0027
+   * @tc.desc   Stability convert h2dts/map: function-param convert; type std::map<char, float>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0027', () => {
     try {
       const r = parsec.parseFunction(`void sample565(std::map<char, float> p0);`);
@@ -379,6 +642,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0028
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0028
+   * @tc.desc   Stability convert h2dts/map: function-return convert; type std::map<char, float>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0028', () => {
     try {
       const r = parsec.parseFunction(`std::map<char, float> sampleRet565();`);
@@ -392,6 +664,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0029
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0029
+   * @tc.desc   Stability convert h2dts/map: class-field convert; type std::map<char, float>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0029', () => {
     try {
       const r = parsec.parseClass(`class SampleClass565 { public: std::map<char, float> field; };`);
@@ -406,6 +687,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0030
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0030
+   * @tc.desc   Stability convert h2dts/map: parse-convert-gen pipeline; type std::map<char, float>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0030', () => {
     try {
       const r = parsec.parseFunction(`void pipeline565(std::map<char, float> p);`);
@@ -420,6 +710,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0031
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0031
+   * @tc.desc   Stability convert h2dts/map: baseline type-string convert; type std::map<char16_t,
+   *            int32_t>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0031', () => {
     try {
       const result = transTskey2Ckey('std::map<char16_t, int32_t>');
@@ -430,6 +729,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0032
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0032
+   * @tc.desc   Stability convert h2dts/map: function-param convert; type std::map<char16_t,
+   *            int32_t>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0032', () => {
     try {
       const r = parsec.parseFunction(`void sample566(std::map<char16_t, int32_t> p0);`);
@@ -445,6 +753,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0033
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0033
+   * @tc.desc   Stability convert h2dts/map: function-return convert; type std::map<char16_t,
+   *            int32_t>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0033', () => {
     try {
       const r = parsec.parseFunction(`std::map<char16_t, int32_t> sampleRet566();`);
@@ -458,6 +775,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0034
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0034
+   * @tc.desc   Stability convert h2dts/map: class-field convert; type std::map<char16_t, int32_t>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0034', () => {
     try {
       const r = parsec.parseClass(`class SampleClass566 { public: std::map<char16_t, int32_t> field; };`);
@@ -472,6 +798,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0035
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0035
+   * @tc.desc   Stability convert h2dts/map: parse-convert-gen pipeline; type std::map<char16_t,
+   *            int32_t>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0035', () => {
     try {
       const r = parsec.parseFunction(`void pipeline566(std::map<char16_t, int32_t> p);`);
@@ -486,6 +821,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0036
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0036
+   * @tc.desc   Stability convert h2dts/map: baseline type-string convert; type std::map<char32_t,
+   *            size_t>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0036', () => {
     try {
       const result = transTskey2Ckey('std::map<char32_t, size_t>');
@@ -496,6 +840,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0037
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0037
+   * @tc.desc   Stability convert h2dts/map: function-param convert; type std::map<char32_t,
+   *            size_t>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0037', () => {
     try {
       const r = parsec.parseFunction(`void sample567(std::map<char32_t, size_t> p0);`);
@@ -511,6 +864,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0038
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0038
+   * @tc.desc   Stability convert h2dts/map: function-return convert; type std::map<char32_t,
+   *            size_t>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0038', () => {
     try {
       const r = parsec.parseFunction(`std::map<char32_t, size_t> sampleRet567();`);
@@ -524,6 +886,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0039
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0039
+   * @tc.desc   Stability convert h2dts/map: class-field convert; type std::map<char32_t, size_t>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0039', () => {
     try {
       const r = parsec.parseClass(`class SampleClass567 { public: std::map<char32_t, size_t> field; };`);
@@ -538,6 +909,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0040
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0040
+   * @tc.desc   Stability convert h2dts/map: parse-convert-gen pipeline; type std::map<char32_t,
+   *            size_t>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0040', () => {
     try {
       const r = parsec.parseFunction(`void pipeline567(std::map<char32_t, size_t> p);`);
@@ -552,6 +932,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0041
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0041
+   * @tc.desc   Stability convert h2dts/map: baseline type-string convert; type std::map<char8_t,
+   *            uint32_t>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0041', () => {
     try {
       const result = transTskey2Ckey('std::map<char8_t, uint32_t>');
@@ -562,6 +951,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0042
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0042
+   * @tc.desc   Stability convert h2dts/map: function-param convert; type std::map<char8_t,
+   *            uint32_t>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0042', () => {
     try {
       const r = parsec.parseFunction(`void sample568(std::map<char8_t, uint32_t> p0);`);
@@ -577,6 +975,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0043
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0043
+   * @tc.desc   Stability convert h2dts/map: function-return convert; type std::map<char8_t,
+   *            uint32_t>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0043', () => {
     try {
       const r = parsec.parseFunction(`std::map<char8_t, uint32_t> sampleRet568();`);
@@ -590,6 +997,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0044
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0044
+   * @tc.desc   Stability convert h2dts/map: class-field convert; type std::map<char8_t, uint32_t>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0044', () => {
     try {
       const r = parsec.parseClass(`class SampleClass568 { public: std::map<char8_t, uint32_t> field; };`);
@@ -604,6 +1020,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0045
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0045
+   * @tc.desc   Stability convert h2dts/map: parse-convert-gen pipeline; type std::map<char8_t,
+   *            uint32_t>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0045', () => {
     try {
       const r = parsec.parseFunction(`void pipeline568(std::map<char8_t, uint32_t> p);`);
@@ -618,6 +1043,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0046
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0046
+   * @tc.desc   Stability convert h2dts/map: baseline type-string convert; type std::map<char32_t,
+   *            int8_t>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0046', () => {
     try {
       const result = transTskey2Ckey('std::map<char32_t, int8_t>');
@@ -628,6 +1062,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0047
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0047
+   * @tc.desc   Stability convert h2dts/map: function-param convert; type std::map<char32_t,
+   *            int8_t>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0047', () => {
     try {
       const r = parsec.parseFunction(`void sample569(std::map<char32_t, int8_t> p0);`);
@@ -643,6 +1086,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0048
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0048
+   * @tc.desc   Stability convert h2dts/map: function-return convert; type std::map<char32_t,
+   *            int8_t>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0048', () => {
     try {
       const r = parsec.parseFunction(`std::map<char32_t, int8_t> sampleRet569();`);
@@ -656,6 +1108,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0049
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0049
+   * @tc.desc   Stability convert h2dts/map: class-field convert; type std::map<char32_t, int8_t>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0049', () => {
     try {
       const r = parsec.parseClass(`class SampleClass569 { public: std::map<char32_t, int8_t> field; };`);
@@ -670,6 +1131,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0050
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0050
+   * @tc.desc   Stability convert h2dts/map: parse-convert-gen pipeline; type std::map<char32_t,
+   *            int8_t>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0050', () => {
     try {
       const r = parsec.parseFunction(`void pipeline569(std::map<char32_t, int8_t> p);`);
@@ -684,6 +1154,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0051
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0051
+   * @tc.desc   Stability convert h2dts/map: baseline type-string convert; type std::map<wchar_t,
+   *            uint16_t>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0051', () => {
     try {
       const result = transTskey2Ckey('std::map<wchar_t, uint16_t>');
@@ -694,6 +1173,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0052
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0052
+   * @tc.desc   Stability convert h2dts/map: function-param convert; type std::map<wchar_t,
+   *            uint16_t>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0052', () => {
     try {
       const r = parsec.parseFunction(`void sample570(std::map<wchar_t, uint16_t> p0);`);
@@ -709,6 +1197,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0053
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0053
+   * @tc.desc   Stability convert h2dts/map: function-return convert; type std::map<wchar_t,
+   *            uint16_t>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0053', () => {
     try {
       const r = parsec.parseFunction(`std::map<wchar_t, uint16_t> sampleRet570();`);
@@ -722,6 +1219,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0054
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0054
+   * @tc.desc   Stability convert h2dts/map: class-field convert; type std::map<wchar_t, uint16_t>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0054', () => {
     try {
       const r = parsec.parseClass(`class SampleClass570 { public: std::map<wchar_t, uint16_t> field; };`);
@@ -736,6 +1242,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0055
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0055
+   * @tc.desc   Stability convert h2dts/map: parse-convert-gen pipeline; type std::map<wchar_t,
+   *            uint16_t>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0055', () => {
     try {
       const r = parsec.parseFunction(`void pipeline570(std::map<wchar_t, uint16_t> p);`);
@@ -750,6 +1265,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0056
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0056
+   * @tc.desc   Stability convert h2dts/map: baseline type-string convert; type std::map<int, bool>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0056', () => {
     try {
       const result = transTskey2Ckey('std::map<int, bool>');
@@ -760,6 +1284,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0057
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0057
+   * @tc.desc   Stability convert h2dts/map: function-param convert; type std::map<int, bool>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0057', () => {
     try {
       const r = parsec.parseFunction(`void sample571(std::map<int, bool> p0);`);
@@ -775,6 +1308,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0058
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0058
+   * @tc.desc   Stability convert h2dts/map: function-return convert; type std::map<int, bool>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0058', () => {
     try {
       const r = parsec.parseFunction(`std::map<int, bool> sampleRet571();`);
@@ -788,6 +1330,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0059
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0059
+   * @tc.desc   Stability convert h2dts/map: class-field convert; type std::map<int, bool>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0059', () => {
     try {
       const r = parsec.parseClass(`class SampleClass571 { public: std::map<int, bool> field; };`);
@@ -802,6 +1353,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0060
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0060
+   * @tc.desc   Stability convert h2dts/map: parse-convert-gen pipeline; type std::map<int, bool>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0060', () => {
     try {
       const r = parsec.parseFunction(`void pipeline571(std::map<int, bool> p);`);
@@ -816,6 +1376,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0061
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0061
+   * @tc.desc   Stability convert h2dts/map: baseline type-string convert; type std::map<char,
+   *            bool>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0061', () => {
     try {
       const result = transTskey2Ckey('std::map<char, bool>');
@@ -826,6 +1395,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0062
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0062
+   * @tc.desc   Stability convert h2dts/map: function-param convert; type std::map<char, bool>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0062', () => {
     try {
       const r = parsec.parseFunction(`void sample572(std::map<char, bool> p0);`);
@@ -841,6 +1419,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0063
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0063
+   * @tc.desc   Stability convert h2dts/map: function-return convert; type std::map<char, bool>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0063', () => {
     try {
       const r = parsec.parseFunction(`std::map<char, bool> sampleRet572();`);
@@ -854,6 +1441,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0064
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0064
+   * @tc.desc   Stability convert h2dts/map: class-field convert; type std::map<char, bool>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0064', () => {
     try {
       const r = parsec.parseClass(`class SampleClass572 { public: std::map<char, bool> field; };`);
@@ -868,6 +1464,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0065
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0065
+   * @tc.desc   Stability convert h2dts/map: parse-convert-gen pipeline; type std::map<char, bool>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0065', () => {
     try {
       const r = parsec.parseFunction(`void pipeline572(std::map<char, bool> p);`);
@@ -882,6 +1487,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0066
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0066
+   * @tc.desc   Stability convert h2dts/map: baseline type-string convert; type std::map<int, char>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0066', () => {
     try {
       const result = transTskey2Ckey('std::map<int, char>');
@@ -892,6 +1506,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0067
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0067
+   * @tc.desc   Stability convert h2dts/map: function-param convert; type std::map<int, char>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0067', () => {
     try {
       const r = parsec.parseFunction(`void sample573(std::map<int, char> p0);`);
@@ -907,6 +1530,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0068
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0068
+   * @tc.desc   Stability convert h2dts/map: function-return convert; type std::map<int, char>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0068', () => {
     try {
       const r = parsec.parseFunction(`std::map<int, char> sampleRet573();`);
@@ -920,6 +1552,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0069
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0069
+   * @tc.desc   Stability convert h2dts/map: class-field convert; type std::map<int, char>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0069', () => {
     try {
       const r = parsec.parseClass(`class SampleClass573 { public: std::map<int, char> field; };`);
@@ -934,6 +1575,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0070
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0070
+   * @tc.desc   Stability convert h2dts/map: parse-convert-gen pipeline; type std::map<int, char>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0070', () => {
     try {
       const r = parsec.parseFunction(`void pipeline573(std::map<int, char> p);`);
@@ -948,6 +1598,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0071
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0071
+   * @tc.desc   Stability convert h2dts/map: baseline type-string convert; type std::map<size_t,
+   *            char>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0071', () => {
     try {
       const result = transTskey2Ckey('std::map<size_t, char>');
@@ -958,6 +1617,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0072
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0072
+   * @tc.desc   Stability convert h2dts/map: function-param convert; type std::map<size_t, char>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0072', () => {
     try {
       const r = parsec.parseFunction(`void sample574(std::map<size_t, char> p0);`);
@@ -973,6 +1641,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0073
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0073
+   * @tc.desc   Stability convert h2dts/map: function-return convert; type std::map<size_t, char>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0073', () => {
     try {
       const r = parsec.parseFunction(`std::map<size_t, char> sampleRet574();`);
@@ -986,6 +1663,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0074
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0074
+   * @tc.desc   Stability convert h2dts/map: class-field convert; type std::map<size_t, char>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0074', () => {
     try {
       const r = parsec.parseClass(`class SampleClass574 { public: std::map<size_t, char> field; };`);
@@ -1000,6 +1686,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0075
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0075
+   * @tc.desc   Stability convert h2dts/map: parse-convert-gen pipeline; type std::map<size_t,
+   *            char>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0075', () => {
     try {
       const r = parsec.parseFunction(`void pipeline574(std::map<size_t, char> p);`);
@@ -1014,6 +1709,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0076
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0076
+   * @tc.desc   Stability convert h2dts/map: baseline type-string convert; type std::map<unsigned,
+   *            char>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0076', () => {
     try {
       const result = transTskey2Ckey('std::map<unsigned, char>');
@@ -1024,6 +1728,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0077
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0077
+   * @tc.desc   Stability convert h2dts/map: function-param convert; type std::map<unsigned, char>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0077', () => {
     try {
       const r = parsec.parseFunction(`void sample575(std::map<unsigned, char> p0);`);
@@ -1039,6 +1752,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0078
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0078
+   * @tc.desc   Stability convert h2dts/map: function-return convert; type std::map<unsigned, char>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0078', () => {
     try {
       const r = parsec.parseFunction(`std::map<unsigned, char> sampleRet575();`);
@@ -1052,6 +1774,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0079
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0079
+   * @tc.desc   Stability convert h2dts/map: class-field convert; type std::map<unsigned, char>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0079', () => {
     try {
       const r = parsec.parseClass(`class SampleClass575 { public: std::map<unsigned, char> field; };`);
@@ -1066,6 +1797,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0080
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0080
+   * @tc.desc   Stability convert h2dts/map: parse-convert-gen pipeline; type std::map<unsigned,
+   *            char>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0080', () => {
     try {
       const r = parsec.parseFunction(`void pipeline575(std::map<unsigned, char> p);`);
@@ -1080,6 +1820,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0081
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0081
+   * @tc.desc   Stability convert h2dts/map: baseline type-string convert; type
+   *            std::unordered_map<int, int>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0081', () => {
     try {
       const result = transTskey2Ckey('std::unordered_map<int, int>');
@@ -1090,6 +1839,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0082
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0082
+   * @tc.desc   Stability convert h2dts/map: function-param convert; type std::unordered_map<int,
+   *            int>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0082', () => {
     try {
       const r = parsec.parseFunction(`void sample592(std::unordered_map<int, int> p0);`);
@@ -1105,6 +1863,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0083
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0083
+   * @tc.desc   Stability convert h2dts/map: function-return convert; type std::unordered_map<int,
+   *            int>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0083', () => {
     try {
       const r = parsec.parseFunction(`std::unordered_map<int, int> sampleRet592();`);
@@ -1118,6 +1885,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0084
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0084
+   * @tc.desc   Stability convert h2dts/map: class-field convert; type std::unordered_map<int, int>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0084', () => {
     try {
       const r = parsec.parseClass(`class SampleClass592 { public: std::unordered_map<int, int> field; };`);
@@ -1132,6 +1908,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0085
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0085
+   * @tc.desc   Stability convert h2dts/map: parse-convert-gen pipeline; type
+   *            std::unordered_map<int, int>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0085', () => {
     try {
       const r = parsec.parseFunction(`void pipeline592(std::unordered_map<int, int> p);`);
@@ -1146,6 +1931,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0086
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0086
+   * @tc.desc   Stability convert h2dts/map: baseline type-string convert; type
+   *            std::unordered_map<char, int>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0086', () => {
     try {
       const result = transTskey2Ckey('std::unordered_map<char, int>');
@@ -1156,6 +1950,15 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_MAP_0087
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_MAP_0087
+   * @tc.desc   Stability convert h2dts/map: function-param convert; type std::unordered_map<char,
+   *            int>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_map_0087', () => {
     try {
       const r = parsec.parseFunction(`void sample593(std::unordered_map<char, int> p0);`);
@@ -1168,825 +1971,6 @@ suite('Stability_H2DTS_CONVERT_MAP_Part01', function() {
       assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0087 param convert output");
     } catch (err) {
       assert.fail(`h2dts_convert_map_0087 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0088', () => {
-    try {
-      const r = parsec.parseFunction(`std::unordered_map<char, int> sampleRet593();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0088 return convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0088 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0088 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0089', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass593 { public: std::unordered_map<char, int> field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0089 class field convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0089 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0089 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0090', () => {
-    try {
-      const r = parsec.parseFunction(`void pipeline593(std::unordered_map<char, int> p);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0090 pipeline convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0090 pipeline convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0090 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0091', () => {
-    try {
-      const result = transTskey2Ckey('std::unordered_map<char, size_t>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_map_0091 convert output non-empty");
-      assert.strictEqual(result, "Map<string, number>", "h2dts_convert_map_0091 convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0091 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0092', () => {
-    try {
-      const r = parsec.parseFunction(`void sample594(std::unordered_map<char, size_t> p0);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(typeof r[0] === 'object');
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0092 param convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0092 param convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0092 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0093', () => {
-    try {
-      const r = parsec.parseFunction(`std::unordered_map<char, size_t> sampleRet594();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0093 return convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0093 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0093 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0094', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass594 { public: std::unordered_map<char, size_t> field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0094 class field convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0094 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0094 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0095', () => {
-    try {
-      const r = parsec.parseFunction(`void pipeline594(std::unordered_map<char, size_t> p);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0095 pipeline convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0095 pipeline convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0095 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0096', () => {
-    try {
-      const result = transTskey2Ckey('std::unordered_map<char, unsigned>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_map_0096 convert output non-empty");
-      assert.strictEqual(result, "Map<string, number>", "h2dts_convert_map_0096 convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0096 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0097', () => {
-    try {
-      const r = parsec.parseFunction(`void sample595(std::unordered_map<char, unsigned> p0);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(typeof r[0] === 'object');
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0097 param convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0097 param convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0097 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0098', () => {
-    try {
-      const r = parsec.parseFunction(`std::unordered_map<char, unsigned> sampleRet595();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0098 return convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0098 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0098 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0099', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass595 { public: std::unordered_map<char, unsigned> field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0099 class field convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0099 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0099 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0100', () => {
-    try {
-      const r = parsec.parseFunction(`void pipeline595(std::unordered_map<char, unsigned> p);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0100 pipeline convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0100 pipeline convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0100 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0101', () => {
-    try {
-      const result = transTskey2Ckey('std::unordered_map<char, double>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_map_0101 convert output non-empty");
-      assert.strictEqual(result, "Map<string, number>", "h2dts_convert_map_0101 convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0101 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0102', () => {
-    try {
-      const r = parsec.parseFunction(`void sample596(std::unordered_map<char, double> p0);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(typeof r[0] === 'object');
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0102 param convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0102 param convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0102 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0103', () => {
-    try {
-      const r = parsec.parseFunction(`std::unordered_map<char, double> sampleRet596();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0103 return convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0103 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0103 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0104', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass596 { public: std::unordered_map<char, double> field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0104 class field convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0104 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0104 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0105', () => {
-    try {
-      const r = parsec.parseFunction(`void pipeline596(std::unordered_map<char, double> p);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0105 pipeline convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0105 pipeline convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0105 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0106', () => {
-    try {
-      const result = transTskey2Ckey('std::unordered_map<char, float>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_map_0106 convert output non-empty");
-      assert.strictEqual(result, "Map<string, number>", "h2dts_convert_map_0106 convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0106 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0107', () => {
-    try {
-      const r = parsec.parseFunction(`void sample597(std::unordered_map<char, float> p0);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(typeof r[0] === 'object');
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0107 param convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0107 param convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0107 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0108', () => {
-    try {
-      const r = parsec.parseFunction(`std::unordered_map<char, float> sampleRet597();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0108 return convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0108 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0108 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0109', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass597 { public: std::unordered_map<char, float> field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0109 class field convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0109 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0109 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0110', () => {
-    try {
-      const r = parsec.parseFunction(`void pipeline597(std::unordered_map<char, float> p);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0110 pipeline convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0110 pipeline convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0110 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0111', () => {
-    try {
-      const result = transTskey2Ckey('std::unordered_map<char16_t, int32_t>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_map_0111 convert output non-empty");
-      assert.strictEqual(result, "Map<string, number>", "h2dts_convert_map_0111 convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0111 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0112', () => {
-    try {
-      const r = parsec.parseFunction(`void sample598(std::unordered_map<char16_t, int32_t> p0);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(typeof r[0] === 'object');
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0112 param convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0112 param convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0112 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0113', () => {
-    try {
-      const r = parsec.parseFunction(`std::unordered_map<char16_t, int32_t> sampleRet598();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0113 return convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0113 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0113 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0114', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass598 { public: std::unordered_map<char16_t, int32_t> field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0114 class field convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0114 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0114 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0115', () => {
-    try {
-      const r = parsec.parseFunction(`void pipeline598(std::unordered_map<char16_t, int32_t> p);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0115 pipeline convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0115 pipeline convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0115 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0116', () => {
-    try {
-      const result = transTskey2Ckey('std::unordered_map<char32_t, size_t>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_map_0116 convert output non-empty");
-      assert.strictEqual(result, "Map<string, number>", "h2dts_convert_map_0116 convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0116 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0117', () => {
-    try {
-      const r = parsec.parseFunction(`void sample599(std::unordered_map<char32_t, size_t> p0);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(typeof r[0] === 'object');
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0117 param convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0117 param convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0117 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0118', () => {
-    try {
-      const r = parsec.parseFunction(`std::unordered_map<char32_t, size_t> sampleRet599();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0118 return convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0118 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0118 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0119', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass599 { public: std::unordered_map<char32_t, size_t> field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0119 class field convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0119 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0119 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0120', () => {
-    try {
-      const r = parsec.parseFunction(`void pipeline599(std::unordered_map<char32_t, size_t> p);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0120 pipeline convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0120 pipeline convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0120 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0121', () => {
-    try {
-      const result = transTskey2Ckey('std::unordered_map<char8_t, uint32_t>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_map_0121 convert output non-empty");
-      assert.strictEqual(result, "Map<string, number>", "h2dts_convert_map_0121 convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0121 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0122', () => {
-    try {
-      const r = parsec.parseFunction(`void sample600(std::unordered_map<char8_t, uint32_t> p0);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(typeof r[0] === 'object');
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0122 param convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0122 param convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0122 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0123', () => {
-    try {
-      const r = parsec.parseFunction(`std::unordered_map<char8_t, uint32_t> sampleRet600();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0123 return convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0123 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0123 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0124', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass600 { public: std::unordered_map<char8_t, uint32_t> field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0124 class field convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0124 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0124 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0125', () => {
-    try {
-      const r = parsec.parseFunction(`void pipeline600(std::unordered_map<char8_t, uint32_t> p);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0125 pipeline convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0125 pipeline convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0125 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0126', () => {
-    try {
-      const result = transTskey2Ckey('std::unordered_map<char32_t, int8_t>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_map_0126 convert output non-empty");
-      assert.strictEqual(result, "Map<string, number>", "h2dts_convert_map_0126 convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0126 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0127', () => {
-    try {
-      const r = parsec.parseFunction(`void sample601(std::unordered_map<char32_t, int8_t> p0);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(typeof r[0] === 'object');
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0127 param convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0127 param convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0127 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0128', () => {
-    try {
-      const r = parsec.parseFunction(`std::unordered_map<char32_t, int8_t> sampleRet601();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0128 return convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0128 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0128 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0129', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass601 { public: std::unordered_map<char32_t, int8_t> field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0129 class field convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0129 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0129 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0130', () => {
-    try {
-      const r = parsec.parseFunction(`void pipeline601(std::unordered_map<char32_t, int8_t> p);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0130 pipeline convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0130 pipeline convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0130 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0131', () => {
-    try {
-      const result = transTskey2Ckey('std::unordered_map<wchar_t, uint16_t>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_map_0131 convert output non-empty");
-      assert.strictEqual(result, "Map<string, number>", "h2dts_convert_map_0131 convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0131 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0132', () => {
-    try {
-      const r = parsec.parseFunction(`void sample602(std::unordered_map<wchar_t, uint16_t> p0);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(typeof r[0] === 'object');
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0132 param convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0132 param convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0132 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0133', () => {
-    try {
-      const r = parsec.parseFunction(`std::unordered_map<wchar_t, uint16_t> sampleRet602();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0133 return convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0133 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0133 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0134', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass602 { public: std::unordered_map<wchar_t, uint16_t> field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0134 class field convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0134 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0134 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0135', () => {
-    try {
-      const r = parsec.parseFunction(`void pipeline602(std::unordered_map<wchar_t, uint16_t> p);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0135 pipeline convert output non-empty");
-      assert.strictEqual(converted, "Map<string, number>", "h2dts_convert_map_0135 pipeline convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0135 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0136', () => {
-    try {
-      const result = transTskey2Ckey('std::unordered_map<int, bool>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_map_0136 convert output non-empty");
-      assert.strictEqual(result, "Map<number, boolean>", "h2dts_convert_map_0136 convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0136 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0137', () => {
-    try {
-      const r = parsec.parseFunction(`void sample603(std::unordered_map<int, bool> p0);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(typeof r[0] === 'object');
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0137 param convert output non-empty");
-      assert.strictEqual(converted, "Map<number, boolean>", "h2dts_convert_map_0137 param convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0137 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0138', () => {
-    try {
-      const r = parsec.parseFunction(`std::unordered_map<int, bool> sampleRet603();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0138 return convert output non-empty");
-      assert.strictEqual(converted, "Map<number, boolean>", "h2dts_convert_map_0138 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0138 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0139', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass603 { public: std::unordered_map<int, bool> field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0139 class field convert output non-empty");
-      assert.strictEqual(converted, "Map<number, boolean>", "h2dts_convert_map_0139 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0139 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0140', () => {
-    try {
-      const r = parsec.parseFunction(`void pipeline603(std::unordered_map<int, bool> p);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0140 pipeline convert output non-empty");
-      assert.strictEqual(converted, "Map<number, boolean>", "h2dts_convert_map_0140 pipeline convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0140 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0141', () => {
-    try {
-      const result = transTskey2Ckey('std::unordered_map<char, bool>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_map_0141 convert output non-empty");
-      assert.strictEqual(result, "Map<string, boolean>", "h2dts_convert_map_0141 convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0141 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0142', () => {
-    try {
-      const r = parsec.parseFunction(`void sample604(std::unordered_map<char, bool> p0);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(typeof r[0] === 'object');
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0142 param convert output non-empty");
-      assert.strictEqual(converted, "Map<string, boolean>", "h2dts_convert_map_0142 param convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0142 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0143', () => {
-    try {
-      const r = parsec.parseFunction(`std::unordered_map<char, bool> sampleRet604();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0143 return convert output non-empty");
-      assert.strictEqual(converted, "Map<string, boolean>", "h2dts_convert_map_0143 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0143 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0144', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass604 { public: std::unordered_map<char, bool> field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0144 class field convert output non-empty");
-      assert.strictEqual(converted, "Map<string, boolean>", "h2dts_convert_map_0144 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0144 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0145', () => {
-    try {
-      const r = parsec.parseFunction(`void pipeline604(std::unordered_map<char, bool> p);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0145 pipeline convert output non-empty");
-      assert.strictEqual(converted, "Map<string, boolean>", "h2dts_convert_map_0145 pipeline convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0145 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0146', () => {
-    try {
-      const result = transTskey2Ckey('std::unordered_map<int, char>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_map_0146 convert output non-empty");
-      assert.strictEqual(result, "Map<number, string>", "h2dts_convert_map_0146 convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0146 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0147', () => {
-    try {
-      const r = parsec.parseFunction(`void sample605(std::unordered_map<int, char> p0);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(typeof r[0] === 'object');
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0147 param convert output non-empty");
-      assert.strictEqual(converted, "Map<number, string>", "h2dts_convert_map_0147 param convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0147 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0148', () => {
-    try {
-      const r = parsec.parseFunction(`std::unordered_map<int, char> sampleRet605();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0148 return convert output non-empty");
-      assert.strictEqual(converted, "Map<number, string>", "h2dts_convert_map_0148 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0148 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_map_0149', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass605 { public: std::unordered_map<int, char> field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_map_0149 class field convert output non-empty");
-      assert.strictEqual(converted, "Map<number, string>", "h2dts_convert_map_0149 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_map_0149 execution error: ${String(err)}`);
     }
   });
 });
