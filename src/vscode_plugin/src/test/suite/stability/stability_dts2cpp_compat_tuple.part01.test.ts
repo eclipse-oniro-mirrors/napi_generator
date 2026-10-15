@@ -1932,3 +1932,48 @@ suite('Stability_DTS2CPP_COMPAT_TUPLE_Part01', function() {
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
           "dts2cpp_compat_tuple_0061_numbr convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1,
+          "dts2cpp_compat_tuple_0061_numbr must parse function");
+        assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
+          "dts2cpp_compat_tuple_0061_numbr must parse param");
+        assert.strictEqual(converted.funcs[0].parameters[0].type, "numbr",
+          "dts2cpp_compat_tuple_0061_numbr param type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`dts2cpp_compat_tuple_0061_numbr execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0062_STRNG
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0062_STRNG
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); string
+   *            keyword misspelled (strng); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0062_strng', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const parsed = doParseTs('compat164.ts', `function compat164(a: strng): void {}`);
+        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
+          "dts2cpp_compat_tuple_0062_strng parse result must be object");
+        const converted = transParseObj(parsed);
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "dts2cpp_compat_tuple_0062_strng convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1,
+          "dts2cpp_compat_tuple_0062_strng must parse function");
+        assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
+          "dts2cpp_compat_tuple_0062_strng must parse param");
+        assert.strictEqual(converted.funcs[0].parameters[0].type, "strng",
+          "dts2cpp_compat_tuple_0062_strng param type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`dts2cpp_compat_tuple_0062_strng execution error: ${String(err)}`);
+    }
+  });
+});
