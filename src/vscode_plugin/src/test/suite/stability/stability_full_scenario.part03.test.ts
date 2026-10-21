@@ -19,7 +19,6 @@ import { transCkey2Dtskey, transParseObj, generateFunctions } from '../../../gen
 import { transTskey2Ckey } from '../../../gen/gendts';
 import { doParseTs } from '../../../parse/parsets';
 import * as parsec from '../../../parse/parsec';
-}
 
 suite('Stability_Full_Scenario_Part03', function() {
   this.timeout(600000);

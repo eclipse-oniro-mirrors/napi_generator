@@ -17,6 +17,8 @@ import * as assert from 'assert';
 import * as vscode from 'vscode';
 import { transCkey2Dtskey, transParseObj, generateFunctions } from '../../../gen/gendtscpp';
 import { doParseTs } from '../../../parse/parsets';
+import { transTskey2Ckey } from '../../../gen/gendts';
+import * as parsec from '../../../parse/parsec';
 
 suite('Stability_H2DTS_CONVERT_CONTAINER_Part02', function() {
   this.timeout(600000);

@@ -732,34 +732,34 @@ suite('Stability_DTS2CPP_COMPAT_UNION_Part02', function() {
   });
 
   /**
-   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_UNION_0065_BADTYPE353_STRING_MAP_STR_42DD86
-   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_UNION_0065_BADTYPE353_STRING_MAP_STR_42DD86
-   * @tc.desc   Stability compat dts2cpp/union: runCompatSafe(doParseTs+transParseObj); replaced
-   *            with BadType token (BadType353_string___Map_string__number_); strictEqual function param type preserved.
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_UNION_0065_INVALID_MAP_STRING_NUMBER_UNION
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_UNION_0065_INVALID_MAP_STRING_NUMBER_UNION
+   * @tc.desc   Stability compat dts2cpp/union: runCompatSafe(doParseTs+transParseObj); invalid
+   *            union alias InvalidMapStringNumberUnion; strictEqual function param type preserved.
    * @tc.type   FUNCTION
    * @tc.size   MEDIUMTEST
    * @tc.level  LEVEL0
    */
-  test('dts2cpp_compat_union_0065_badtype353_string_map_str_42dd86', function() {
+  test('dts2cpp_compat_union_0065_invalid_map_string_number_union', function() {
     this.timeout(15000);
     try {
       runCompatSafe(() => {
         const parsed = doParseTs('compat353.ts', `
           function compat353(a: BadType353_string___Map_string__number_): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_union_0065_badtype353_string_map_str_42dd86 parse result must be object");
+          "dts2cpp_compat_union_0065_invalid_map_string_number_union parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_union_0065_badtype353_string_map_str_42dd86 convert result must be object");
+          "dts2cpp_compat_union_0065_invalid_map_string_number_union convert result must be object");
         assert.ok(converted.funcs && converted.funcs.length >= 1,
-          "dts2cpp_compat_union_0065_badtype353_string_map_str_42dd86 must parse function");
+          "dts2cpp_compat_union_0065_invalid_map_string_number_union must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_union_0065_badtype353_string_map_str_42dd86 must parse param");
+          "dts2cpp_compat_union_0065_invalid_map_string_number_union must parse param");
         assert.strictEqual(converted.funcs[0].parameters[0].type, "BadType353_string___Map_string__number_",
-          "dts2cpp_compat_union_0065_badtype353_string_map_str_42dd86 param type");
+          "dts2cpp_compat_union_0065_invalid_map_string_number_union param type");
       });
     } catch (err) {
-      assert.fail(`dts2cpp_compat_union_0065_badtype353_string_map_str_42dd86 execution error: ${err}`);
+      assert.fail(`dts2cpp_compat_union_0065_invalid_map_string_number_union execution error: ${err}`);
     }
   });
 

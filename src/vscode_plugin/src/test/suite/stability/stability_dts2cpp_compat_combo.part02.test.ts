@@ -1470,34 +1470,34 @@ suite('Stability_DTS2CPP_COMPAT_COMBO_Part02', function() {
   });
 
   /**
-   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_COMBO_0055_DOG_EXTENDS_ANIMAL_NUMBER_79D5D8
-   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_COMBO_0055_DOG_EXTENDS_ANIMAL_NUMBER_79D5D8
-   * @tc.desc   Stability compat dts2cpp/combo: runCompatSafe(doParseTs+transParseObj); union
-   *            extended (Dog extends Animal ? number : string | g166); strictEqual function param type preserved.
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_COMBO_0055_DOG_EXTENDS_ANIMAL_TERNARY_NUMBER
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_COMBO_0055_DOG_EXTENDS_ANIMAL_TERNARY_NUMBER
+   * @tc.desc   Stability compat dts2cpp/combo: runCompatSafe(doParseTs+transParseObj); conditional
+   *            type (Dog extends Animal ? number : string | TypeAlias166); strictEqual function param type preserved.
    * @tc.type   FUNCTION
    * @tc.size   MEDIUMTEST
    * @tc.level  LEVEL0
    */
-  test('dts2cpp_compat_combo_0055_dog_extends_animal_number_79d5d8', function() {
+  test('dts2cpp_compat_combo_0055_dog_extends_animal_ternary_number', function() {
     this.timeout(15000);
     try {
       runCompatSafe(() => {
         const parsed = doParseTs('compat166.ts', `
           function compat166(a: Dog extends Animal ? number : string | g166): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_combo_0055_dog_extends_animal_number_79d5d8 parse result must be object");
+          "dts2cpp_compat_combo_0055_dog_extends_animal_ternary_number parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_combo_0055_dog_extends_animal_number_79d5d8 convert result must be object");
+          "dts2cpp_compat_combo_0055_dog_extends_animal_ternary_number convert result must be object");
         assert.ok(converted.funcs && converted.funcs.length >= 1,
-          "dts2cpp_compat_combo_0055_dog_extends_animal_number_79d5d8 must parse function");
+          "dts2cpp_compat_combo_0055_dog_extends_animal_ternary_number must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_combo_0055_dog_extends_animal_number_79d5d8 must parse param");
+          "dts2cpp_compat_combo_0055_dog_extends_animal_ternary_number must parse param");
         assert.strictEqual(converted.funcs[0].parameters[0].type, "Dog extends Animal ? number : string | g166",
-          "dts2cpp_compat_combo_0055_dog_extends_animal_number_79d5d8 param type");
+          "dts2cpp_compat_combo_0055_dog_extends_animal_ternary_number param type");
       });
     } catch (err) {
-      assert.fail(`dts2cpp_compat_combo_0055_dog_extends_animal_number_79d5d8 execution error: ${err}`);
+      assert.fail(`dts2cpp_compat_combo_0055_dog_extends_animal_ternary_number execution error: ${err}`);
     }
   });
 

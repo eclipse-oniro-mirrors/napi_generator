@@ -17,6 +17,9 @@ import * as assert from 'assert';
 import * as vscode from 'vscode';
 import { transCkey2Dtskey, transParseObj, generateFunctions } from '../../../gen/gendtscpp';
 import { doParseTs } from '../../../parse/parsets';
+import { runCompatSafe } from './stability_helpers';
+import { transTskey2Ckey } from '../../../gen/gendts';
+import * as parsec from '../../../parse/parsec';
 
 suite('Stability_H2DTS_COMPAT_SPECIAL', function() {
   this.timeout(600000);

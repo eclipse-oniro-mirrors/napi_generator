@@ -82,6 +82,7 @@ export interface ParseObj {
   classes: ClassObj[];
   funcs: FuncObj[];
   types?: TypeObj[];
+  interfaces?: ClassObj[];
 }
 
 export interface ServiceRootInfo {

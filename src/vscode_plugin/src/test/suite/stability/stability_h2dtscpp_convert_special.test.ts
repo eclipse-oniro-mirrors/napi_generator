@@ -17,6 +17,7 @@ import * as assert from 'assert';
 import * as vscode from 'vscode';
 import { transCkey2Dtskey, transParseObj, generateFunctions } from '../../../gen/gendtscpp';
 import { doParseTs } from '../../../parse/parsets';
+import { runCompatSafe } from './stability_helpers';
 
 suite('Stability_H2DTSCPP_CONVERT_SPECIAL', function() {
   this.timeout(600000);

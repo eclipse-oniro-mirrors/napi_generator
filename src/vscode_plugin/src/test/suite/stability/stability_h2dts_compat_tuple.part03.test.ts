@@ -17,6 +17,9 @@ import * as assert from 'assert';
 import * as vscode from 'vscode';
 import { transCkey2Dtskey, transParseObj, generateFunctions } from '../../../gen/gendtscpp';
 import { doParseTs } from '../../../parse/parsets';
+import { runCompatSafe } from './stability_helpers';
+import { transTskey2Ckey } from '../../../gen/gendts';
+import * as parsec from '../../../parse/parsec';
 
 suite('Stability_H2DTS_COMPAT_TUPLE_Part03', function() {
   this.timeout(600000);
@@ -1647,30 +1650,30 @@ suite('Stability_H2DTS_COMPAT_TUPLE_Part03', function() {
   });
 
   /**
-   * @tc.name   SUB_NAPI_H2DTS_COMPAT_TUPLE_0047_COMPAT264_STD_TUPLE_STD_STRING_ITN_850D82
-   * @tc.number SUB_NAPI_H2DTS_COMPAT_TUPLE_0047_COMPAT264_STD_TUPLE_STD_STRING_ITN_850D82
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_TUPLE_0047_STD_TUPLE_STRING_TRUNC_INT_DOUBLE
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_TUPLE_0047_STD_TUPLE_STRING_TRUNC_INT_DOUBLE
    * @tc.desc   Stability compat h2dts/tuple: runCompatSafe(parseFunction+transTskey2Ckey);
-   *            malformed type std::tuple<std::string,itn,double> m1; strictEqual parsed param type preserved.
+   *            truncated integer typename "itn" in std::tuple<std::string,itn,double>; strictEqual parsed param type preserved.
    * @tc.type   FUNCTION
    * @tc.size   MEDIUMTEST
    * @tc.level  LEVEL0
    */
-  test('h2dts_compat_tuple_0047_compat264_std_tuple_std_string_itn_850d82', function() {
+  test('h2dts_compat_tuple_0047_std_tuple_string_trunc_int_double', function() {
     this.timeout(15000);
     try {
       runCompatSafe(() => {
         const r = parsec.parseFunction(`void compat264(std::tuple<std::string,itn,double> m1 p);`);
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_tuple_0047_compat264_std_tuple_std_string_itn_850d82 parseFunction must return non-empty array");
+          "h2dts_compat_tuple_0047_std_tuple_string_trunc_int_double parseFunction must return non-empty array");
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_tuple_0047_compat264_std_tuple_std_string_itn_850d82 must parse function");
+          "h2dts_compat_tuple_0047_std_tuple_string_trunc_int_double must parse function");
         assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_tuple_0047_compat264_std_tuple_std_string_itn_850d82 must parse param");
+          "h2dts_compat_tuple_0047_std_tuple_string_trunc_int_double must parse param");
         assert.strictEqual(r[0].parameters[0].type, "std::tuple<std::string,itn,double> m1",
-          "h2dts_compat_tuple_0047_compat264_std_tuple_std_string_itn_850d82 param type");
+          "h2dts_compat_tuple_0047_std_tuple_string_trunc_int_double param type");
       });
     } catch (err) {
-      assert.fail(`h2dts_compat_tuple_0047_compat264_std_tuple_std_string_itn_850d82 execution error: ${err}`);
+      assert.fail(`h2dts_compat_tuple_0047_std_tuple_string_trunc_int_double execution error: ${err}`);
     }
   });
 
