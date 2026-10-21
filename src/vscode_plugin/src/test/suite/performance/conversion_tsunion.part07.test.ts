@@ -455,7 +455,7 @@ type UnionType0219 = Omit<Options, "a" | "b"> | Pick<Options, "a">;`
   /**
   * @tc.number dts2cpp_union_0197
   * @tc.name dts2cpp_union_0197
-  * @tc.desc dts2cpp union type alias NodeJS.Timeout | number 的解析结果与性能。
+  * @tc.desc dts2cpp union type alias 定时器 Timeout | number 的解析结果与性能。
   * @tc.size MediumTest
   * @tc.type Function
   * @tc.level Level 1
