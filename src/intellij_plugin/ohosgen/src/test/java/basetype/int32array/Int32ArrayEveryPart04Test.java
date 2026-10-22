@@ -6,11 +6,10 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on
+ * an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * See the License for the specific language governing permissions andlimitations under the License.
  */
 
 package basetype.int32array;
@@ -156,8 +155,7 @@ public class Int32ArrayEveryPart04Test extends BasTest {
         return BasTest.throwTestError("x");
         });
     fail();
-    }
-    catch (Error e) {
+    } catch (Error e) {
     assertEqual("Error", e.getClass().getSimpleName());
     assertEqual("x", e.getMessage());
     }
@@ -409,7 +407,9 @@ public class Int32ArrayEveryPart04Test extends BasTest {
     void int32ArrayEveryPart04Test020() {
     Int32Array arr = new Int32Array(new int[] {1, 2, 3, 4});
     int[] callCount = {0};
-    boolean r = arr.every((e, i, a) -> { callCount[0]++; if (i == 0) {
+    boolean r = arr.every((e, i, a) -> {
+        callCount[0]++;
+        if (i == 0) {
         return true;
     }
         return e > a.get(i - 1);
@@ -496,8 +496,7 @@ public class Int32ArrayEveryPart04Test extends BasTest {
     return true;
     });
     fail();
-    }
-    catch (RangeError e) {
+    } catch (RangeError e) {
     assertEqual("RangeError", e.getClass().getSimpleName());
     }
     assertEqualInt(1, arr.get(0));
@@ -1155,7 +1154,9 @@ public class Int32ArrayEveryPart04Test extends BasTest {
     Int32Array arr = new Int32Array(new int[] {3, 1, 4, 1, 5});
     arr.sort();
     int[] callCount = {0};
-    boolean r = arr.every((e, i, a) -> { callCount[0]++; if (i == 0) {
+    boolean r = arr.every((e, i, a) -> {
+        callCount[0]++;
+        if (i == 0) {
         return true;
     }
         return e >= a.get(i - 1);

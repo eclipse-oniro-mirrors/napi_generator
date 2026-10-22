@@ -6,11 +6,10 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on
+ * an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * See the License for the specific language governing permissions andlimitations under the License.
  */
 
 package basetype.int32array;
@@ -445,7 +444,7 @@ public class Int32ArrayFindLastIndexPart02Test extends BasTest {
     void int32ArrayFindLastIndexPart02TestMindmapTest029() {
     Int32Array arr = new Int32Array(new int[] {1, 2, 3});
     double target = 2147483648.0;
-    int result = arr.findLastIndex((v) -> v == target);
+    int result = arr.findLastIndex((v) -> Math.abs((double) v - target) < 1.0E-9);
     assertEqual(-1, result);
     }
 
@@ -1354,8 +1353,7 @@ public class Int32ArrayFindLastIndexPart02Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT32ARRAY_FIND_LAST_INDEX_PART02_TEST_MINDMAP_7600
      * @tc.name int32ArrayFindLastIndexPart02TestMindmapTest076
-     * @tc.desc Verify findLastIndex stops iterating when predicate throws mid-traversa
-     * l and reports invocation count
+     * @tc.desc Verify findLastIndex stops iterating when predicate throws mid-traversal and reports invocation count
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -1367,8 +1365,8 @@ public class Int32ArrayFindLastIndexPart02Test extends BasTest {
     int[] callCount = {0};
     try {
     arr.findLastIndex((v, i) -> {
-    callCount[0] = callCount[0] + 1;
-    if (i == 2) {
+        callCount[0] = callCount[0] + 1;
+        if (i == 2) {
     return BasTest.throwTestError("midway");
     }
     return false;

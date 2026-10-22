@@ -6,11 +6,10 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on
+ * an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * See the License for the specific language governing permissions andlimitations under the License.
  */
 
 package basetype.int32array;
@@ -177,8 +176,8 @@ public class Int32ArrayFindLastPart02Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT32ARRAY_FIND_LAST_PART02_TEST_MINDMAP_1300
      * @tc.name int32ArrayFindLastPart02TestMindmapTest013
-     * @tc.desc Verify findLast returns the last matching element (20 at index 3) when
-     * predicate v >= 20 in [10, 20, 30, 20, 10]
+     * @tc.desc Verify findLast returns the last matching element (20 at index 3) whenpredicate v >= 20 in [10, 20, 30,
+     * 20, 10]
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2

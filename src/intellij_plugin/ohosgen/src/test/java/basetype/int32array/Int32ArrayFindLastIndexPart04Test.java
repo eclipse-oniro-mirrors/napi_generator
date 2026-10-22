@@ -6,11 +6,10 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on
+ * an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * See the License for the specific language governing permissions andlimitations under the License.
  */
 
 package basetype.int32array;
@@ -692,7 +691,8 @@ public class Int32ArrayFindLastIndexPart04Test extends BasTest {
     void int32ArrayFindLastIndexPart04TestMindmapTest032() {
     Int32Array arr = new Int32Array(new int[] {5, 6, 7, 8});
     int[] innerIdx = {-1};
-    int idx = arr.findLastIndex((v, i, a) -> { innerIdx[0] = a.findLastIndex((vv, ii, aa) -> {
+    int idx = arr.findLastIndex((v, i, a) -> {
+        innerIdx[0] = a.findLastIndex((vv, ii, aa) -> {
         return vv < 7;
         });
         return v == 8;
@@ -742,7 +742,8 @@ public class Int32ArrayFindLastIndexPart04Test extends BasTest {
     @Test
     void int32ArrayFindLastIndexPart04TestMindmapTest036() {
     Int32Array arr = new Int32Array(new int[] {10, 20, 30, 40, 50});
-    int idx = arr.findLastIndex((v, i, a) -> { int innerVal = a.findLast((vv, ii, aa) -> {
+    int idx = arr.findLastIndex((v, i, a) -> {
+        int innerVal = a.findLast((vv, ii, aa) -> {
         return vv < 25;
         });
         return v == 50 && innerVal == 20;
@@ -766,7 +767,8 @@ public class Int32ArrayFindLastIndexPart04Test extends BasTest {
     Int32Array arr1 = new Int32Array(new int[] {1, 2, 3, 4});
     Int32Array arr2 = new Int32Array(new int[] {10, 20, 30});
     int[] crossIdx = {-1};
-    int idx = arr1.findLastIndex((v, i, a) -> { crossIdx[0] = arr2.findLastIndex((vv, ii, aa) -> {
+    int idx = arr1.findLastIndex((v, i, a) -> {
+        crossIdx[0] = arr2.findLastIndex((vv, ii, aa) -> {
         return vv == 20;
         });
         return v == 4;
@@ -867,7 +869,9 @@ public class Int32ArrayFindLastIndexPart04Test extends BasTest {
     void int32ArrayFindLastIndexPart04TestMindmapTest042() {
     Int32Array arr = new Int32Array(new int[] {1, 2, 3, 4, 5});
     int[] calls = {0};
-    int idx = arr.findLastIndex((v, i, a) -> { calls[0]++; if (i == a.length() - 1) {
+    int idx = arr.findLastIndex((v, i, a) -> {
+        calls[0]++;
+        if (i == a.length() - 1) {
         for (int j = 0; j < i; j++) {
             a.set(j, 100);
     }
@@ -929,8 +933,7 @@ public class Int32ArrayFindLastIndexPart04Test extends BasTest {
         try {
             a.set(a.length(), 0);
         fail();
-        }
-    catch (RangeError e) {
+        } catch (RangeError e) {
             threwRangeError[0] = true;
         assertEqual("RangeError", e.getClass().getSimpleName());
     }
@@ -960,8 +963,7 @@ public class Int32ArrayFindLastIndexPart04Test extends BasTest {
         try {
             a.set(-1, 0);
         fail();
-        }
-    catch (RangeError e) {
+        } catch (RangeError e) {
             threwRangeError[0] = true;
         assertEqual("RangeError", e.getClass().getSimpleName());
     }
@@ -1328,8 +1330,7 @@ public class Int32ArrayFindLastIndexPart04Test extends BasTest {
     return BasTest.throwTestError("first call boom");
     });
     fail();
-    }
-    catch (Error e) {
+    } catch (Error e) {
     assertEqual("Error", e.getClass().getSimpleName());
     }
     assertEqual(1, calls[0]);

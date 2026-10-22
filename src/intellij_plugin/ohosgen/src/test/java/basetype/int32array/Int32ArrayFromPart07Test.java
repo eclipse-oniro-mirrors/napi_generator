@@ -6,11 +6,10 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on
+ * an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * See the License for the specific language governing permissions andlimitations under the License.
  */
 
 package basetype.int32array;
@@ -643,8 +642,8 @@ public class Int32ArrayFromPart07Test extends BasTest {
     try {
     List<Integer> src = java.util.Arrays.asList(1, 2, 3);
     Int32Array.from(src, (v, index) -> {
-    calls.add(v);
-    if (v == 2) {
+        calls.add(v);
+        if (v == 2) {
     return BasTest.throwTestError("v=2");
     }
     return v;
@@ -676,8 +675,8 @@ public class Int32ArrayFromPart07Test extends BasTest {
     List<Integer> calls = new ArrayList<>();
     try {
     Int32Array.from(al, (v, index) -> {
-    calls.add(v);
-    if (v == 30) {
+        calls.add(v);
+        if (v == 30) {
     return BasTest.throwTestError("last");
     }
     return v;
@@ -737,8 +736,8 @@ public class Int32ArrayFromPart07Test extends BasTest {
     List<Integer> marker = new ArrayList<>();
     try {
     Int32Array.from(t, (v, index) -> {
-    marker.add(v);
-    if (v == 2) {
+        marker.add(v);
+        if (v == 2) {
     return BasTest.throwTestError("v=2");
     }
     return v;
@@ -1054,32 +1053,32 @@ public class Int32ArrayFromPart07Test extends BasTest {
 
     @Test
     void int32ArrayFromPart07TestMindmapTest063() {
-    Set<Integer> s = new LinkedHashSet<>();
-    s.add(1);
-    List<Integer> arr = java.util.Arrays.asList(1);
     Int32Array a1 = Int32Array.from(new int[] {1});
-    Int32Array a2 = Int32Array.from(arr);
-    Int32Array a3 = Int32Array.from(s);
     try {
     a1.set(1, 999);
     fail();
     } catch (RangeError e) {
     assertEqual("RangeError", e.getClass().getSimpleName());
     }
+    assertEqual(1, a1.length());
+    List<Integer> arr = java.util.Arrays.asList(1);
+    Int32Array a2 = Int32Array.from(arr);
     try {
     a2.set(1, 999);
     fail();
     } catch (RangeError e) {
     assertEqual("RangeError", e.getClass().getSimpleName());
     }
+    assertNull(a2.at(1));
+    Set<Integer> s = new LinkedHashSet<>();
+    s.add(1);
+    Int32Array a3 = Int32Array.from(s);
     try {
     a3.set(1, 999);
     fail();
     } catch (RangeError e) {
     assertEqual("RangeError", e.getClass().getSimpleName());
     }
-    assertEqual(1, a1.length());
-    assertNull(a2.at(1));
     assertNull(a3.at(1));
     }
 

@@ -6,11 +6,10 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on
+ * an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * See the License for the specific language governing permissions andlimitations under the License.
  */
 
 package basetype.int32array;
@@ -537,8 +536,8 @@ public class Int32ArrayFindLastPart01Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT32ARRAY_FIND_LAST_PART01_TEST_MINDMAP_3800
      * @tc.name int32ArrayFindLastPart01TestMindmapTest038
-     * @tc.desc Verify findLast short-circuits and reports correct invocation count whe
-     * n match is found during reverse traversal
+     * @tc.desc Verify findLast short-circuits and reports correct invocation count when match is found during reverse
+     * traversal
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -851,7 +850,7 @@ public class Int32ArrayFindLastPart01Test extends BasTest {
     void int32ArrayFindLastPart01TestMindmapTest053() {
     Int32Array arr = new Int32Array(new int[] {5, 6, 7, 8});
     int target = 7;
-    int result = arr.findLast((v) -> v == target);
+    int result = arr.findLast((v) -> Math.abs((double) v - target) < 1.0E-9);
     assertEqual(7, result);
     }
 

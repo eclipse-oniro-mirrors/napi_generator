@@ -6,11 +6,10 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on
+ * an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * See the License for the specific language governing permissions andlimitations under the License.
  */
 
 package basetype.int32array;
@@ -1335,8 +1334,7 @@ public class Int32ArrayCopyWithinPart01Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT32ARRAY_COPY_WITHIN_PART01_TEST_MINDMAP_7400
      * @tc.name int32ArrayCopyWithinPart01TestMindmapTest074
-     * @tc.desc Verify copyWithin with target=0, start=2 copies elements from index 2 t
-     * o end to the beginning of array
+     * @tc.desc Verify copyWithin with target=0, start=2 copies elements from index 2 to end to the beginning of array
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2

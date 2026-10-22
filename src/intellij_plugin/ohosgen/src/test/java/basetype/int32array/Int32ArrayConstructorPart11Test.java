@@ -6,11 +6,10 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on
+ * an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * See the License for the specific language governing permissions andlimitations under the License.
  */
 
 package basetype.int32array;
@@ -588,27 +587,27 @@ public class Int32ArrayConstructorPart11Test extends BasTest {
     @Test
     void int32ArrayConstructorPart11TestMindmapTest029() {
     Int32Array a = new Int32Array();
-    Int32Array b = new Int32Array(1);
-    int v = 1;
-    Int32Array c = new Int32Array(v);
-    int[] fa = new int[] {1};
-    Int32Array d = new Int32Array(fa);
-    double[] fn = new double[] {1};
-    Int32Array e = new Int32Array(fn);
-    List<Integer> ai = java.util.Arrays.asList(1);
-    Int32Array f = new Int32Array(ai);
-    Int32Array g = new Int32Array(new ArrayBuffer(4));
     assertEqual(0, a.length());
+    Int32Array b = new Int32Array(1);
     assertEqual(1, b.length());
     assertEqualInt(0, b.get(0));
+    int v = 1;
+    Int32Array c = new Int32Array(v);
     assertEqual(1, c.length());
     assertEqualInt(0, c.get(0));
+    int[] fa = new int[] {1};
+    Int32Array d = new Int32Array(fa);
     assertEqual(1, d.length());
     assertEqualInt(1, d.get(0));
+    double[] fn = new double[] {1};
+    Int32Array e = new Int32Array(fn);
     assertEqual(1, e.length());
     assertEqualInt(1, e.get(0));
+    List<Integer> ai = java.util.Arrays.asList(1);
+    Int32Array f = new Int32Array(ai);
     assertEqual(1, f.length());
     assertEqualInt(1, f.get(0));
+    Int32Array g = new Int32Array(new ArrayBuffer(4));
     assertEqual(1, g.length());
     assertEqualInt(0, g.get(0));
     }

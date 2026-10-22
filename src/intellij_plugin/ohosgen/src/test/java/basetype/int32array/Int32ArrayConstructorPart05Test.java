@@ -6,11 +6,10 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on
+ * an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * See the License for the specific language governing permissions andlimitations under the License.
  */
 
 package basetype.int32array;
@@ -626,8 +625,8 @@ public class Int32ArrayConstructorPart05Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT32ARRAY_CONSTRUCTOR_PART05_TEST_MINDMAP_0560
      * @tc.name int32ArrayConstructorPart05TestMindmapTest056
-     * @tc.desc Verify two separate Int32Array instances constructed from identical arrays are
-     * distinct objects (not same reference)
+     * @tc.desc Verify two separate Int32Array instances constructed from identical arrays aredistinct objects (not
+     * same reference)
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -684,8 +683,8 @@ public class Int32ArrayConstructorPart05Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT32ARRAY_CONSTRUCTOR_PART05_TEST_MINDMAP_0600
      * @tc.name int32ArrayConstructorPart05TestMindmapTest060
-     * @tc.desc Verify modifying one Int32Array does not affect another independently construct
-     * ed Int32Array with same initial values
+     * @tc.desc Verify modifying one Int32Array does not affect another independently constructed Int32Array with same
+     * initial values
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2

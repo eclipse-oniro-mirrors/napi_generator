@@ -6,11 +6,10 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on
+ * an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * See the License for the specific language governing permissions andlimitations under the License.
  */
 
 package basetype.int32array;
@@ -367,7 +366,9 @@ public class Int32ArrayFindLastIndexPart03Test extends BasTest {
     void int32ArrayFindLastIndexPart03Test015() {
     Int32Array arr = new Int32Array(new int[] {10, 20, 30, 40, 50});
     List<Integer> visited = new ArrayList<>();
-    Int32Array.Int32ArrayFinder pred = (v, i, a) -> { visited.add(i); if (i == 2) {
+    Int32Array.Int32ArrayFinder pred = (v, i, a) -> {
+        visited.add(i);
+        if (i == 2) {
         return BasTest.throwTestError("midBoom");
         }
         return false;
@@ -400,7 +401,9 @@ public class Int32ArrayFindLastIndexPart03Test extends BasTest {
     void int32ArrayFindLastIndexPart03Test016() {
     Int32Array arr = new Int32Array(new int[] {1, 2, 3, 4});
     List<Integer> visited = new ArrayList<>();
-    Int32Array.Int32ArrayFinder pred = (v, i, a) -> { visited.add(i); if (i == 0) {
+    Int32Array.Int32ArrayFinder pred = (v, i, a) -> {
+        visited.add(i);
+        if (i == 0) {
         return BasTest.throwTestError("firstBoom");
         }
         return false;
@@ -482,7 +485,9 @@ public class Int32ArrayFindLastIndexPart03Test extends BasTest {
     void int32ArrayFindLastIndexPart03Test019() {
     Int32Array arr = new Int32Array(new int[] {1, 2, 3, 4, 5});
     int[] callCount = {0};
-    Int32Array.Int32ArrayFinder pred = (v, i, a) -> { callCount[0] = callCount[0] + 1; if (i == 1) {
+    Int32Array.Int32ArrayFinder pred = (v, i, a) -> {
+        callCount[0] = callCount[0] + 1;
+        if (i == 1) {
         return BasTest.throwTestError("shouldNotReach");
         }
         return i == 3;

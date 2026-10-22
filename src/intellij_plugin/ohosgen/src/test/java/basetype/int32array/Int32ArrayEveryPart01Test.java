@@ -6,11 +6,10 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on
+ * an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * See the License for the specific language governing permissions andlimitations under the License.
  */
 
 package basetype.int32array;
@@ -482,8 +481,8 @@ public class Int32ArrayEveryPart01Test extends BasTest {
     int[] secondIdx = {-1};
     int[] callCnt = {0};
     arr.every((e, i, a) -> {
-    callCnt[0]++;
-    if (callCnt[0] == 2) {
+        callCnt[0]++;
+        if (callCnt[0] == 2) {
         secondIdx[0] = i;
         }
     return e != 999;
@@ -814,7 +813,9 @@ public class Int32ArrayEveryPart01Test extends BasTest {
     void int32ArrayEveryPart01TestMindmapTest053() {
     Int32Array arr = new Int32Array(new int[] {1, 2, 3, 4});
     int[] callCount = {0};
-    boolean r = arr.every((e, i, a) -> { callCount[0]++; if (i == 0) {
+    boolean r = arr.every((e, i, a) -> {
+        callCount[0]++;
+        if (i == 0) {
         return true;
         }
         return a.get(i - 1) <= e;

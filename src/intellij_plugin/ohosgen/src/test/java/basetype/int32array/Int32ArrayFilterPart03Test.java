@@ -6,11 +6,10 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on
+ * an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * See the License for the specific language governing permissions andlimitations under the License.
  */
 
 package basetype.int32array;
@@ -434,8 +433,8 @@ public class Int32ArrayFilterPart03Test extends BasTest {
     int[] visited = {0};
     try {
     arr.filter((v, i, a) -> {
-    visited[0] = visited[0] + 1;
-    if (i == 2) {
+        visited[0] = visited[0] + 1;
+        if (i == 2) {
     return BasTest.throwTestError("mid");
     }
     return v > 0;
@@ -652,8 +651,8 @@ public class Int32ArrayFilterPart03Test extends BasTest {
     Int32Array arr = new Int32Array(new int[] {10, 20, 30});
     try {
     arr.filter((v, i, a) -> {
-    a.set(i, v + 100);
-    if (i == 1) {
+        a.set(i, v + 100);
+        if (i == 1) {
     return BasTest.throwTestError("after-write");
     }
     return true;
@@ -1140,8 +1139,8 @@ public class Int32ArrayFilterPart03Test extends BasTest {
     int[] visited = {0};
     try {
     arr.filter((v, i, a) -> {
-    visited[0] = visited[0] + 1;
-    if (i == 3) {
+        visited[0] = visited[0] + 1;
+        if (i == 3) {
     return BasTest.throwTestError("mid-all-same[0]");
     }
     return true;

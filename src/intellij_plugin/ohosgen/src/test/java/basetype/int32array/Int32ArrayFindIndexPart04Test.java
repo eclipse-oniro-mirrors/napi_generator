@@ -6,11 +6,10 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on
+ * an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * See the License for the specific language governing permissions andlimitations under the License.
  */
 
 package basetype.int32array;
@@ -530,8 +529,8 @@ public class Int32ArrayFindIndexPart04Test extends BasTest {
     Int32Array arr = Int32Array.of(10, 20, 30, 40);
     int[] calls = {0};
     arr.findIndex((v, i, a) -> {
-    calls[0] = calls[0] + 1;
-    if (i > 0) {
+        calls[0] = calls[0] + 1;
+        if (i > 0) {
     a.set(i - 1, 0);
     }
     return false;
@@ -555,8 +554,8 @@ public class Int32ArrayFindIndexPart04Test extends BasTest {
     Int32Array arr = Int32Array.of(1, 2, 3, 4);
     List<Integer> seen = new ArrayList<>();
     arr.findIndex((v, i, a) -> {
-    seen.add(v);
-    if (i == 0) {
+        seen.add(v);
+        if (i == 0) {
     a.fill(0);
     }
     return false;
@@ -626,15 +625,14 @@ public class Int32ArrayFindIndexPart04Test extends BasTest {
     int[] touched = {0};
     try {
     arr.findIndex((v, i, a) -> {
-    touched[0] = touched[0] + 1;
-    if (i == 1) {
+        touched[0] = touched[0] + 1;
+        if (i == 1) {
     return BasTest.throwTestError("boom at index 1");
     }
     return false;
     });
     fail();
-    }
-    catch (Error e) {
+    } catch (Error e) {
     assertEqual("Error", e.getClass().getSimpleName());
     assertEqual(2, touched[0]);
     }
@@ -684,8 +682,7 @@ public class Int32ArrayFindIndexPart04Test extends BasTest {
     return BasTest.throwTestError("first call fail");
     });
     fail();
-    }
-    catch (Error e) {
+    } catch (Error e) {
     assertEqual("Error", e.getClass().getSimpleName());
     assertEqual(1, n[0]);
     }
@@ -710,8 +707,7 @@ public class Int32ArrayFindIndexPart04Test extends BasTest {
     throw new RangeError("out of range");
     });
     fail();
-    }
-    catch (RangeError e) {
+    } catch (RangeError e) {
     assertEqual("RangeError", e.getClass().getSimpleName());
     }
     }
@@ -735,8 +731,7 @@ public class Int32ArrayFindIndexPart04Test extends BasTest {
     throw new TypeError("type bad");
     });
     fail();
-    }
-    catch (TypeError e) {
+    } catch (TypeError e) {
     assertEqual("TypeError", e.getClass().getSimpleName());
     }
     }

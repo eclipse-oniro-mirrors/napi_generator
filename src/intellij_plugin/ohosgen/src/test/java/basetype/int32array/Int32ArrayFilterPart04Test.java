@@ -6,11 +6,10 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on
+ * an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * See the License for the specific language governing permissions andlimitations under the License.
  */
 
 package basetype.int32array;
@@ -467,7 +466,6 @@ public class Int32ArrayFilterPart04Test extends BasTest {
     void int32ArrayFilterPart04Test042() {
     ArrayBuffer buf = new ArrayBuffer(20);
     Int32Array a = new Int32Array(buf, 0, 5);
-    Int32Array c = new Int32Array(buf, 4, 4);
     a.set(0, 0);
     a.set(1, 0);
     a.set(2, 0);
@@ -479,6 +477,7 @@ public class Int32ArrayFilterPart04Test extends BasTest {
     }
     return true;
     });
+    Int32Array c = new Int32Array(buf, 4, 4);
     assertEqualInt(111, c.get(1));
     }
 
