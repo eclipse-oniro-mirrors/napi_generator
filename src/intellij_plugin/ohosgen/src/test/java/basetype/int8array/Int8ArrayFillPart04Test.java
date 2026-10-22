@@ -6,11 +6,10 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on
+ * an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * See the License for the specific language governing permissions andlimitations under the License.
  */
 
 package basetype.int8array;
@@ -27,8 +26,8 @@ import org.junit.jupiter.api.Test;
  * @since 2026-10-22
  */
 public class Int8ArrayFillPart04Test extends BasTest {
-    private static int INT8_MAX = 127;
-    private static int INT8_MIN = -128;
+    private static final int INT8_MAX = 127;
+    private static final int INT8_MIN = -128;
 
     /**
      * Verify fill(value) single parameter fills entire array, first and last elements both covered
@@ -980,8 +979,8 @@ public class Int8ArrayFillPart04Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_FILL_PART04_TEST_5000
      * @tc.name int8ArrayFillPart04Test050
-     * @tc.desc Verify fill(6, 0, -2147483648) with end normalizing to 0 results in empty inter
-     * val no-op, array unchanged
+     * @tc.desc Verify fill(6, 0, -2147483648) with end normalizing to 0 results in empty interval no-op, array
+     * unchanged
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -1229,8 +1228,8 @@ public class Int8ArrayFillPart04Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_FILL_PART04_TEST_6200
      * @tc.name int8ArrayFillPart04Test062
-     * @tc.desc Verify fill with const byte variable 100 and literal 100 produce identical $_ge
-     * t(1) results on two Int8Array instances
+     * @tc.desc Verify fill with const byte variable 100 and literal 100 produce identical $_get(1) results on two
+     * Int8Array instances
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2

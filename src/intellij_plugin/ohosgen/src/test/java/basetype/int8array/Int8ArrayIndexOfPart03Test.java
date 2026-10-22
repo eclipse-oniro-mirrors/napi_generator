@@ -6,11 +6,10 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on
+ * an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * See the License for the specific language governing permissions andlimitations under the License.
  */
 
 package basetype.int8array;
@@ -26,8 +25,8 @@ import org.junit.jupiter.api.Test;
  * @since 2026-10-22
  */
 public class Int8ArrayIndexOfPart03Test extends BasTest {
-    private static int INT8_MAX = 127;
-    private static int INT8_MIN = -128;
+    private static final int INT8_MAX = 127;
+    private static final int INT8_MIN = -128;
 
     /**
      * Verify indexOf(30, -1) searches array from the last element and returns index 2
@@ -772,8 +771,8 @@ public class Int8ArrayIndexOfPart03Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_INDEX_OF_PART03_TEST_4300
      * @tc.name int8ArrayIndexOfPart03Test043
-     * @tc.desc Verify indexOf(7, -3) on new Int8Array(new int[] {7, 7, 7}) returns index 0 (ne
-     * gative fromIndex equals -length)
+     * @tc.desc Verify indexOf(7, -3) on new Int8Array(new int[] {7, 7, 7}) returns index 0 (negative fromIndex equals
+     * -length)
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -791,8 +790,8 @@ public class Int8ArrayIndexOfPart03Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_INDEX_OF_PART03_TEST_4400
      * @tc.name int8ArrayIndexOfPart03Test044
-     * @tc.desc Verify indexOf(7, -4) on new Int8Array(new int[] {7, 7, 7}) returns index 0 (ne
-     * gative fromIndex clamps to 0)
+     * @tc.desc Verify indexOf(7, -4) on new Int8Array(new int[] {7, 7, 7}) returns index 0 (negative fromIndex clamps
+     * to 0)
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2

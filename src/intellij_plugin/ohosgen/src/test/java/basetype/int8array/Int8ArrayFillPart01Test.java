@@ -6,11 +6,10 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on
+ * an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * See the License for the specific language governing permissions andlimitations under the License.
  */
 
 package basetype.int8array;
@@ -27,7 +26,7 @@ import org.junit.jupiter.api.Test;
  * @since 2026-10-22
  */
 public class Int8ArrayFillPart01Test extends BasTest {
-    private static int INT8_MAX = 127;
+    private static final int INT8_MAX = 127;
 
     /**
      * Verify fill(v) with 5 writes 5 to all 3 elements on new Int8Array(3)
@@ -1051,8 +1050,8 @@ public class Int8ArrayFillPart01Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_FILL_PART01_TEST_5000
      * @tc.name int8ArrayFillPart01Test050
-     * @tc.desc Verify fill(v, -1, 1) replaces elements in specified range with given value on
-     * new Int8Array(0) and length remains 0
+     * @tc.desc Verify fill(v, -1, 1) replaces elements in specified range with given value onnew Int8Array(0) and
+     * length remains 0
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2

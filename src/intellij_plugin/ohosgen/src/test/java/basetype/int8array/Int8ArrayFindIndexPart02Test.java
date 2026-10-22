@@ -6,11 +6,10 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on
+ * an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * See the License for the specific language governing permissions andlimitations under the License.
  */
 
 package basetype.int8array;
@@ -27,8 +26,8 @@ import org.junit.jupiter.api.Test;
  * @since 2026-10-22
  */
 public class Int8ArrayFindIndexPart02Test extends BasTest {
-    private static int INT8_MAX = 127;
-    private static int INT8_MIN = -128;
+    private static final int INT8_MAX = 127;
+    private static final int INT8_MIN = -128;
 
     /**
      * Verify findIndex with predicate v === 99 returns -1, on new Int8Array(new int[] {10, 20, 30})
@@ -918,7 +917,8 @@ public class Int8ArrayFindIndexPart02Test extends BasTest {
     }
 
     /**
-     * Verify findIndex expects 1 and extremes -128, INT8_MAX intact, on new Int8Array(new int[] {INT8_MIN, 0, INT8_MAX})
+     * Verify findIndex expects 1 and extremes -128, INT8_MAX intact, on new Int8Array(new int[] {INT8_MIN, 0,
+     * INT8_MAX})
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_FIND_INDEX_PART02_TEST_4600
      * @tc.name int8ArrayFindIndexPart02Test046

@@ -6,11 +6,10 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on
+ * an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * See the License for the specific language governing permissions andlimitations under the License.
  */
 
 package basetype.int8array;
@@ -28,8 +27,8 @@ import org.junit.jupiter.api.Test;
  * @since 2026-10-22
  */
 public class Int8ArrayConstructorPart11Test extends BasTest {
-    private static int INT8_MAX = 127;
-    private static int INT8_MIN = -128;
+    private static final int INT8_MAX = 127;
+    private static final int INT8_MIN = -128;
 
     /**
      * Verify length expects 4 from ArrayBuffer, on new Int8Array(new ArrayBuffer(4), 0, 4)
@@ -905,8 +904,8 @@ public class Int8ArrayConstructorPart11Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_CONSTRUCTOR_PART11_TEST_5600
      * @tc.name int8ArrayConstructorPart11Test056
-     * @tc.desc Verify subarray(1, 3) shares buffer, $_set on subarray reflected in original ex
-     * pects 44 from ArrayBuffer on new Int8Array(buf, 0, 4)
+     * @tc.desc Verify subarray(1, 3) shares buffer, $_set on subarray reflected in original expects 44 from
+     * ArrayBuffer on new Int8Array(buf, 0, 4)
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -971,8 +970,8 @@ public class Int8ArrayConstructorPart11Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_CONSTRUCTOR_PART11_TEST_6200
      * @tc.name int8ArrayConstructorPart11Test062
-     * @tc.desc Verify overlapping views viewA/viewB share buffer: $_set via viewA visible in v
-     * iewB on new Int8Array(buf, 0, 2)
+     * @tc.desc Verify overlapping views viewA/viewB share buffer: $_set via viewA visible in viewB on new
+     * Int8Array(buf, 0, 2)
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2

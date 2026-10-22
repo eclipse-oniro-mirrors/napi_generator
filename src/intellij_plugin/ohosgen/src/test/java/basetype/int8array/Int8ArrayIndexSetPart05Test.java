@@ -6,11 +6,10 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on
+ * an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * See the License for the specific language governing permissions andlimitations under the License.
  */
 
 package basetype.int8array;
@@ -27,8 +26,8 @@ import org.junit.jupiter.api.Test;
  * @since 2026-10-22
  */
 public class Int8ArrayIndexSetPart05Test extends BasTest {
-    private static int INT8_MAX = 127;
-    private static int INT8_MIN = -128;
+    private static final int INT8_MAX = 127;
+    private static final int INT8_MIN = -128;
 
     /**
      * Verify $_set then $_get expects 42, with $_get(1), on new Int8Array(3)
@@ -1340,8 +1339,8 @@ public class Int8ArrayIndexSetPart05Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_INDEX_SET_PART05_TEST_6600
      * @tc.name int8ArrayIndexSetPart05Test066
-     * @tc.desc Verify $_set(100, 42) throws RangeError for out-of-bounds index and byteLength
-     * remains 3 on new Int8Array(3)
+     * @tc.desc Verify $_set(100, 42) throws RangeError for out-of-bounds index and byteLengthremains 3 on new
+     * Int8Array(3)
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2

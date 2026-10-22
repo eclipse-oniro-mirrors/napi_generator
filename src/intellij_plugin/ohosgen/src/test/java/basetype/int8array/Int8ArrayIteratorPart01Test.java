@@ -6,11 +6,10 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on
+ * an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * See the License for the specific language governing permissions andlimitations under the License.
  */
 
 package basetype.int8array;
@@ -231,8 +230,8 @@ public class Int8ArrayIteratorPart01Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_ITERATOR_PART01_4700
      * @tc.name int8ArrayIteratorPart01Test047
-     * @tc.desc Verify empty array via Int8Array.of() (static construction), iteratorSymbol() f
-     * irst next() returns done true
+     * @tc.desc Verify empty array via Int8Array.of() (static construction), iteratorSymbol() first next() returns done
+     * true
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2

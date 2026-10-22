@@ -6,11 +6,10 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on
+ * an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * See the License for the specific language governing permissions andlimitations under the License.
  */
 
 package basetype.int8array;
@@ -30,7 +29,7 @@ import org.junit.jupiter.api.Test;
  * @since 2026-10-22
  */
 public class Int8ArrayConstructorPart15Test extends BasTest {
-    private static int INT8_MAX = 127;
+    private static final int INT8_MAX = 127;
 
     /**
      * Verify byteLength of new Int8Array(0) returns 0
@@ -837,7 +836,7 @@ public class Int8ArrayConstructorPart15Test extends BasTest {
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_CONSTRUCTOR_PART15_TEST_4600
      * @tc.name int8ArrayConstructorPart15Test046
      * @tc.desc Verify new Int8Array(buf, 8, 1) throws RangeError, then new Int8Array(buf, 0, 2
-     *) creates view of length 2
+     * ) creates view of length 2
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -1152,8 +1151,8 @@ public class Int8ArrayConstructorPart15Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_CONSTRUCTOR_PART15_TEST_6100
      * @tc.name int8ArrayConstructorPart15Test061
-     * @tc.desc Verify slice(0, 2) creates independent copy and $_set on copy does not affect o
-     * riginal expects 1 from ArrayBuffer on new Int8Array(buf, 0, 4)
+     * @tc.desc Verify slice(0, 2) creates independent copy and $_set on copy does not affect original expects 1 from
+     * ArrayBuffer on new Int8Array(buf, 0, 4)
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -1177,8 +1176,8 @@ public class Int8ArrayConstructorPart15Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_CONSTRUCTOR_PART15_TEST_6200
      * @tc.name int8ArrayConstructorPart15Test062
-     * @tc.desc Verify subarray(0, 2) shares buffer, $_set on subarray reflected in original ex
-     * pects 88 from ArrayBuffer on new Int8Array(buf, 0, 4)
+     * @tc.desc Verify subarray(0, 2) shares buffer, $_set on subarray reflected in original expects 88 from
+     * ArrayBuffer on new Int8Array(buf, 0, 4)
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -1236,8 +1235,8 @@ public class Int8ArrayConstructorPart15Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_CONSTRUCTOR_PART15_TEST_6500
      * @tc.name int8ArrayConstructorPart15Test065
-     * @tc.desc Verify subarray shares buffer, modification is bidirectional expects 44 from Ar
-     * rayBuffer on new Int8Array(buf, 0, 4)
+     * @tc.desc Verify subarray shares buffer, modification is bidirectional expects 44 from ArrayBuffer on new
+     * Int8Array(buf, 0, 4)
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -1474,8 +1473,8 @@ public class Int8ArrayConstructorPart15Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_CONSTRUCTOR_PART15_TEST_7700
      * @tc.name int8ArrayConstructorPart15Test077
-     * @tc.desc Verify subarray(1, 3) shares buffer, $_set on subarray reflected in original ex
-     * pects 99 on new Int8Array(iter)
+     * @tc.desc Verify subarray(1, 3) shares buffer, $_set on subarray reflected in original expects 99 on new
+     * Int8Array(iter)
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2

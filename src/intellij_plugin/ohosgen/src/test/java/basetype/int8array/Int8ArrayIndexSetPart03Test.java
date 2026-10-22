@@ -6,11 +6,10 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on
+ * an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * See the License for the specific language governing permissions andlimitations under the License.
  */
 
 package basetype.int8array;
@@ -27,8 +26,8 @@ import org.junit.jupiter.api.Test;
  * @since 2026-10-22
  */
 public class Int8ArrayIndexSetPart03Test extends BasTest {
-    private static int INT8_MAX = 127;
-    private static int INT8_MIN = -128;
+    private static final int INT8_MAX = 127;
+    private static final int INT8_MIN = -128;
 
     /**
      * Verify $_set(1, 99) then $_get(1) reads value 99 on new Int8Array(new int[] {3, 4, 5})
@@ -51,12 +50,13 @@ public class Int8ArrayIndexSetPart03Test extends BasTest {
     }
 
     /**
-     * Verify $_set expects RangeError throws exception, with $_set(-2, 99), on new Int8Array(new int[] {10, 20, 30, 40})
+     * Verify $_set expects RangeError throws exception, with $_set(-2, 99), on new Int8Array(new int[] {10, 20, 30,
+     * 40})
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_INDEX_SET_PART03_TEST_0200
      * @tc.name int8ArrayIndexSetPart03Test002
-     * @tc.desc Verify $_set expects RangeError throws exception, with $_set(-2, 99), on new In
-     * t8Array(new int[] {10, 20, 30, 40})
+     * @tc.desc Verify $_set expects RangeError throws exception, with $_set(-2, 99), on new Int8Array(new int[] {10,
+     * 20, 30, 40})
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -78,8 +78,8 @@ public class Int8ArrayIndexSetPart03Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_INDEX_SET_PART03_TEST_0300
      * @tc.name int8ArrayIndexSetPart03Test003
-     * @tc.desc Verify $_set expects RangeError throws exception, with $_set(-4, 99), on new In
-     * t8Array([10, 20, 30, 40, 50])
+     * @tc.desc Verify $_set expects RangeError throws exception, with $_set(-4, 99), on new Int8Array([10, 20, 30, 40,
+     * 50])
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -119,12 +119,13 @@ public class Int8ArrayIndexSetPart03Test extends BasTest {
     }
 
     /**
-     * Verify $_set expects RangeError throws exception, with $_set(-5, 99), on new Int8Array(new int[] {10, 20, 30, 40})
+     * Verify $_set expects RangeError throws exception, with $_set(-5, 99), on new Int8Array(new int[] {10, 20, 30,
+     * 40})
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_INDEX_SET_PART03_TEST_0500
      * @tc.name int8ArrayIndexSetPart03Test005
-     * @tc.desc Verify $_set expects RangeError throws exception, with $_set(-5, 99), on new In
-     * t8Array(new int[] {10, 20, 30, 40})
+     * @tc.desc Verify $_set expects RangeError throws exception, with $_set(-5, 99), on new Int8Array(new int[] {10,
+     * 20, 30, 40})
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -251,8 +252,8 @@ public class Int8ArrayIndexSetPart03Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_INDEX_SET_PART03_TEST_1100
      * @tc.name int8ArrayIndexSetPart03Test011
-     * @tc.desc Verify $_set expects RangeError throws exception, with $_set(-5, 99), on new In
-     * t8Array([10, 20, 30, 40, 50])
+     * @tc.desc Verify $_set expects RangeError throws exception, with $_set(-5, 99), on new Int8Array([10, 20, 30, 40,
+     * 50])
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -589,8 +590,8 @@ public class Int8ArrayIndexSetPart03Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_INDEX_SET_PART03_TEST_2700
      * @tc.name int8ArrayIndexSetPart03Test027
-     * @tc.desc Verify $_set(0, 2.220446049250313e-16) then $_get(0) reads truncated value 0 on
-     * new Int8Array(new int[] {0})
+     * @tc.desc Verify $_set(0, 2.220446049250313e-16) then $_get(0) reads truncated value 0 onnew Int8Array(new int[]
+     * {0})
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -930,8 +931,8 @@ public class Int8ArrayIndexSetPart03Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_INDEX_SET_PART03_TEST_4300
      * @tc.name int8ArrayIndexSetPart03Test043
-     * @tc.desc Verify $_set expects RangeError throws exception, with $_set(-2, 10), on new In
-     * t8Array(new int[] {5, 5, 5})
+     * @tc.desc Verify $_set expects RangeError throws exception, with $_set(-2, 10), on new Int8Array(new int[] {5, 5,
+     * 5})
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2

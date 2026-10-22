@@ -6,11 +6,10 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on
+ * an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * See the License for the specific language governing permissions andlimitations under the License.
  */
 
 package basetype.int8array;
@@ -30,7 +29,7 @@ import org.junit.jupiter.api.Test;
  * @since 2026-10-22
  */
 public class Int8ArrayIndexGetPart03Test extends BasTest {
-    private static int INT8_MAX = 127;
+    private static final int INT8_MAX = 127;
 
     /**
      * Verify $_get(1) with empty array, exception assertFail not reached
@@ -292,8 +291,8 @@ public class Int8ArrayIndexGetPart03Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_INDEX_GET_PART03_TEST_1300
      * @tc.name int8ArrayIndexGetPart03Test013
-     * @tc.desc Verify $_get expects RangeError throws exception, with $_get(4), on new Int8Arr
-     * ay(new int[] {10, 20, 30, 40})
+     * @tc.desc Verify $_get expects RangeError throws exception, with $_get(4), on new Int8Array(new int[] {10, 20,
+     * 30, 40})
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -337,8 +336,8 @@ public class Int8ArrayIndexGetPart03Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_INDEX_GET_PART03_TEST_1500
      * @tc.name int8ArrayIndexGetPart03Test015
-     * @tc.desc Verify $_get expects RangeError throws exception, with $_get(-5), on new Int8Ar
-     * ray(new int[] {10, 20, 30, 40})
+     * @tc.desc Verify $_get expects RangeError throws exception, with $_get(-5), on new Int8Array(new int[] {10, 20,
+     * 30, 40})
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -601,7 +600,7 @@ public class Int8ArrayIndexGetPart03Test extends BasTest {
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_INDEX_GET_PART03_TEST_2800
      * @tc.name int8ArrayIndexGetPart03Test028
      * @tc.desc Verify $_get expects RangeError from ArrayBuffer throws exception, with $_get(4
-     *), on new Int8Array(buf, 4, 4)
+     * ), on new Int8Array(buf, 4, 4)
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -716,8 +715,8 @@ public class Int8ArrayIndexGetPart03Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_INDEX_GET_PART03_TEST_3300
      * @tc.name int8ArrayIndexGetPart03Test033
-     * @tc.desc Verify $_get expects RangeError throws exception, with $_get(100), on new Int8A
-     * rray(new int[] {10, 20, 30})
+     * @tc.desc Verify $_get expects RangeError throws exception, with $_get(100), on new Int8Array(new int[] {10, 20,
+     * 30})
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2

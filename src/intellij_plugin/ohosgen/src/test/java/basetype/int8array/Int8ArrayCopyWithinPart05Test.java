@@ -6,11 +6,10 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on
+ * an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * See the License for the specific language governing permissions andlimitations under the License.
  */
 
 package basetype.int8array;
@@ -26,7 +25,7 @@ import org.junit.jupiter.api.Test;
  * @since 2026-10-22
  */
 public class Int8ArrayCopyWithinPart05Test extends BasTest {
-    private static int INT8_MAX = 127;
+    private static final int INT8_MAX = 127;
 
     /**
      * Verify copyWithin(0, 3) copies [44, 55] to head on new Int8Array(new int[] {11, 22, 33, 44, 55})
@@ -108,8 +107,8 @@ public class Int8ArrayCopyWithinPart05Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_COPY_WITHIN_PART05_TEST_0500
      * @tc.name int8ArrayCopyWithinPart05Test005
-     * @tc.desc Verify copyWithin(0, 3, 1) with start>end is a no-op keeping arr[0] 11 on new I
-     * nt8Array([11, 22, 33, 44, 55])
+     * @tc.desc Verify copyWithin(0, 3, 1) with start>end is a no-op keeping arr[0] 11 on new Int8Array([11, 22, 33,
+     * 44, 55])
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -131,8 +130,8 @@ public class Int8ArrayCopyWithinPart05Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_COPY_WITHIN_PART05_TEST_0600
      * @tc.name int8ArrayCopyWithinPart05Test006
-     * @tc.desc Verify copyWithin(0, 2, 2) with start=end is a no-op keeping arr[0] 11 on new I
-     * nt8Array([11, 22, 33, 44, 55])
+     * @tc.desc Verify copyWithin(0, 2, 2) with start=end is a no-op keeping arr[0] 11 on new Int8Array([11, 22, 33,
+     * 44, 55])
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -216,8 +215,8 @@ public class Int8ArrayCopyWithinPart05Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_COPY_WITHIN_PART05_TEST_1000
      * @tc.name int8ArrayCopyWithinPart05Test010
-     * @tc.desc Verify copyWithin(0, 0, 5) copies whole array onto itself keeping [11, 55] on ne
-     * w Int8Array([11, 22, 33, 44, 55])
+     * @tc.desc Verify copyWithin(0, 0, 5) copies whole array onto itself keeping [11, 55] on new Int8Array([11, 22,
+     * 33, 44, 55])
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -255,8 +254,8 @@ public class Int8ArrayCopyWithinPart05Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_COPY_WITHIN_PART05_TEST_1200
      * @tc.name int8ArrayCopyWithinPart05Test012
-     * @tc.desc Verify copyWithin(1, 3, 5) copies [44, 55] to result[1, 2] on new Int8Array(new
-     * int[] {11, 22, 33, 44, 55})
+     * @tc.desc Verify copyWithin(1, 3, 5) copies [44, 55] to result[1, 2] on new Int8Array(newint[] {11, 22, 33, 44,
+     * 55})
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -275,8 +274,8 @@ public class Int8ArrayCopyWithinPart05Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_COPY_WITHIN_PART05_TEST_1300
      * @tc.name int8ArrayCopyWithinPart05Test013
-     * @tc.desc Verify copyWithin(3, 0, 2) copies [11, 22] to result[3, 4] on new Int8Array(new
-     * int[] {11, 22, 33, 44, 55})
+     * @tc.desc Verify copyWithin(3, 0, 2) copies [11, 22] to result[3, 4] on new Int8Array(newint[] {11, 22, 33, 44,
+     * 55})
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -313,8 +312,8 @@ public class Int8ArrayCopyWithinPart05Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_COPY_WITHIN_PART05_TEST_1500
      * @tc.name int8ArrayCopyWithinPart05Test015
-     * @tc.desc Verify copyWithin(-1, 0, 2) via negative target copies 11 to result[4] on new I
-     * nt8Array([11, 22, 33, 44, 55])
+     * @tc.desc Verify copyWithin(-1, 0, 2) via negative target copies 11 to result[4] on new Int8Array([11, 22, 33,
+     * 44, 55])
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -332,8 +331,8 @@ public class Int8ArrayCopyWithinPart05Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_COPY_WITHIN_PART05_TEST_1600
      * @tc.name int8ArrayCopyWithinPart05Test016
-     * @tc.desc Verify copyWithin(-2, 0, 2) via negative target copies [11, 22] to result[3, 4] o
-     * n new Int8Array(new int[] {11, 22, 33, 44, 55})
+     * @tc.desc Verify copyWithin(-2, 0, 2) via negative target copies [11, 22] to result[3, 4] on new Int8Array(new
+     * int[] {11, 22, 33, 44, 55})
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -352,8 +351,8 @@ public class Int8ArrayCopyWithinPart05Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_COPY_WITHIN_PART05_TEST_1700
      * @tc.name int8ArrayCopyWithinPart05Test017
-     * @tc.desc Verify copyWithin(-5, 3, 5) clamps target to 0 copying [44, 55] to head on new I
-     * nt8Array([11, 22, 33, 44, 55])
+     * @tc.desc Verify copyWithin(-5, 3, 5) clamps target to 0 copying [44, 55] to head on new Int8Array([11, 22, 33,
+     * 44, 55])
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -368,12 +367,13 @@ public class Int8ArrayCopyWithinPart05Test extends BasTest {
     }
 
     /**
-     * Verify copyWithin(2, 0, 4) copies [11, 22, 33] to result[2, 3, 4] on new Int8Array(new int[] {11, 22, 33, 44, 55})
+     * Verify copyWithin(2, 0, 4) copies [11, 22, 33] to result[2, 3, 4] on new Int8Array(new int[] {11, 22, 33, 44,
+     * 55})
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_COPY_WITHIN_PART05_TEST_1800
      * @tc.name int8ArrayCopyWithinPart05Test018
-     * @tc.desc Verify copyWithin(2, 0, 4) copies [11, 22, 33] to result[2, 3, 4] on new Int8Ar
-     * ray(new int[] {11, 22, 33, 44, 55})
+     * @tc.desc Verify copyWithin(2, 0, 4) copies [11, 22, 33] to result[2, 3, 4] on new Int8Array(new int[] {11, 22,
+     * 33, 44, 55})
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -393,8 +393,8 @@ public class Int8ArrayCopyWithinPart05Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_COPY_WITHIN_PART05_TEST_1900
      * @tc.name int8ArrayCopyWithinPart05Test019
-     * @tc.desc Verify copyWithin(2, 2, 4) copies [33, 44] to result[2, 3] on new Int8Array(new
-     * int[] {11, 22, 33, 44, 55})
+     * @tc.desc Verify copyWithin(2, 2, 4) copies [33, 44] to result[2, 3] on new Int8Array(newint[] {11, 22, 33, 44,
+     * 55})
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -413,8 +413,8 @@ public class Int8ArrayCopyWithinPart05Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_COPY_WITHIN_PART05_TEST_2000
      * @tc.name int8ArrayCopyWithinPart05Test020
-     * @tc.desc Verify copyWithin(5, 0, 2) with target at length is a no-op keeping [11, 22] on
-     * new Int8Array(new int[] {11, 22, 33, 44, 55})
+     * @tc.desc Verify copyWithin(5, 0, 2) with target at length is a no-op keeping [11, 22] onnew Int8Array(new int[]
+     * {11, 22, 33, 44, 55})
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -452,8 +452,8 @@ public class Int8ArrayCopyWithinPart05Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_COPY_WITHIN_PART05_TEST_2200
      * @tc.name int8ArrayCopyWithinPart05Test022
-     * @tc.desc Verify copyWithin(2147483647, 0, 2) clamps huge target to length as no-op keepi
-     * ng arr[0] 11 on new Int8Array(new int[] {11, 22, 33, 44, 55})
+     * @tc.desc Verify copyWithin(2147483647, 0, 2) clamps huge target to length as no-op keeping arr[0] 11 on new
+     * Int8Array(new int[] {11, 22, 33, 44, 55})
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -471,8 +471,8 @@ public class Int8ArrayCopyWithinPart05Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_COPY_WITHIN_PART05_TEST_2300
      * @tc.name int8ArrayCopyWithinPart05Test023
-     * @tc.desc Verify copyWithin(-6, 3, 5) clamps negative target to 0 copying [44, 55] to head
-     * on new Int8Array(new int[] {11, 22, 33, 44, 55})
+     * @tc.desc Verify copyWithin(-6, 3, 5) clamps negative target to 0 copying [44, 55] to headon new Int8Array(new
+     * int[] {11, 22, 33, 44, 55})
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -531,8 +531,8 @@ public class Int8ArrayCopyWithinPart05Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_COPY_WITHIN_PART05_TEST_2600
      * @tc.name int8ArrayCopyWithinPart05Test026
-     * @tc.desc Verify copyWithin(-15, 3, 5) clamps negative target to 0 copying [44, 55] to hea
-     * d on new Int8Array(new int[] {11, 22, 33, 44, 55})
+     * @tc.desc Verify copyWithin(-15, 3, 5) clamps negative target to 0 copying [44, 55] to head on new Int8Array(new
+     * int[] {11, 22, 33, 44, 55})
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -551,8 +551,8 @@ public class Int8ArrayCopyWithinPart05Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_COPY_WITHIN_PART05_TEST_2700
      * @tc.name int8ArrayCopyWithinPart05Test027
-     * @tc.desc Verify copyWithin(3, 0, 4) copies [11, 22] to result[3, 4] keeping arr[0] 11 on n
-     * ew Int8Array([11, 22, 33, 44, 55])
+     * @tc.desc Verify copyWithin(3, 0, 4) copies [11, 22] to result[3, 4] keeping arr[0] 11 on new Int8Array([11, 22,
+     * 33, 44, 55])
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -627,8 +627,8 @@ public class Int8ArrayCopyWithinPart05Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_COPY_WITHIN_PART05_TEST_3100
      * @tc.name int8ArrayCopyWithinPart05Test031
-     * @tc.desc Verify copyWithin(3, -5, 5) clamps start to 0 copying [11, 22] to result[3, 4] on
-     * new Int8Array(new int[] {11, 22, 33, 44, 55})
+     * @tc.desc Verify copyWithin(3, -5, 5) clamps start to 0 copying [11, 22] to result[3, 4] onnew Int8Array(new
+     * int[] {11, 22, 33, 44, 55})
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -647,8 +647,8 @@ public class Int8ArrayCopyWithinPart05Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_COPY_WITHIN_PART05_TEST_3200
      * @tc.name int8ArrayCopyWithinPart05Test032
-     * @tc.desc Verify copyWithin(0, 5, 5) with start=end=length is a no-op keeping arr[0] 11 o
-     * n new Int8Array(new int[] {11, 22, 33, 44, 55})
+     * @tc.desc Verify copyWithin(0, 5, 5) with start=end=length is a no-op keeping arr[0] 11 on new Int8Array(new
+     * int[] {11, 22, 33, 44, 55})
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -666,8 +666,8 @@ public class Int8ArrayCopyWithinPart05Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_COPY_WITHIN_PART05_TEST_3300
      * @tc.name int8ArrayCopyWithinPart05Test033
-     * @tc.desc Verify copyWithin(0, 6, 7) with out-of-range start is a no-op keeping arr[0] 11
-     * on new Int8Array(new int[] {11, 22, 33, 44, 55})
+     * @tc.desc Verify copyWithin(0, 6, 7) with out-of-range start is a no-op keeping arr[0] 11on new Int8Array(new
+     * int[] {11, 22, 33, 44, 55})
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -703,8 +703,8 @@ public class Int8ArrayCopyWithinPart05Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_COPY_WITHIN_PART05_TEST_3500
      * @tc.name int8ArrayCopyWithinPart05Test035
-     * @tc.desc Verify copyWithin(3, -6, 5) clamps start to 0 copying [11, 22] to result[3, 4] on
-     * new Int8Array(new int[] {11, 22, 33, 44, 55})
+     * @tc.desc Verify copyWithin(3, -6, 5) clamps start to 0 copying [11, 22] to result[3, 4] onnew Int8Array(new
+     * int[] {11, 22, 33, 44, 55})
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -794,8 +794,8 @@ public class Int8ArrayCopyWithinPart05Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_COPY_WITHIN_PART05_TEST_3900
      * @tc.name int8ArrayCopyWithinPart05Test039
-     * @tc.desc Verify copyWithin(0, 2, 0) with start>end is a no-op keeping arr[0] 11 on new I
-     * nt8Array([11, 22, 33, 44, 55])
+     * @tc.desc Verify copyWithin(0, 2, 0) with start>end is a no-op keeping arr[0] 11 on new Int8Array([11, 22, 33,
+     * 44, 55])
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -918,8 +918,8 @@ public class Int8ArrayCopyWithinPart05Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_COPY_WITHIN_PART05_TEST_4500
      * @tc.name int8ArrayCopyWithinPart05Test045
-     * @tc.desc Verify copyWithin(0, 2, -5) with end clamped to 0 is a no-op keeping arr[0] 11
-     * on new Int8Array(new int[] {11, 22, 33, 44, 55})
+     * @tc.desc Verify copyWithin(0, 2, -5) with end clamped to 0 is a no-op keeping arr[0] 11on new Int8Array(new
+     * int[] {11, 22, 33, 44, 55})
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -957,8 +957,8 @@ public class Int8ArrayCopyWithinPart05Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_COPY_WITHIN_PART05_TEST_4700
      * @tc.name int8ArrayCopyWithinPart05Test047
-     * @tc.desc Verify copyWithin(0, 2, 6) clamps end to length copying [33, 44, 55] to head on n
-     * ew Int8Array([11, 22, 33, 44, 55])
+     * @tc.desc Verify copyWithin(0, 2, 6) clamps end to length copying [33, 44, 55] to head on new Int8Array([11, 22,
+     * 33, 44, 55])
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -1001,8 +1001,8 @@ public class Int8ArrayCopyWithinPart05Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_COPY_WITHIN_PART05_TEST_4900
      * @tc.name int8ArrayCopyWithinPart05Test049
-     * @tc.desc Verify copyWithin(0, 2, -6) with end clamped to 0 is a no-op keeping arr[0] 11
-     * on new Int8Array(new int[] {11, 22, 33, 44, 55})
+     * @tc.desc Verify copyWithin(0, 2, -6) with end clamped to 0 is a no-op keeping arr[0] 11on new Int8Array(new
+     * int[] {11, 22, 33, 44, 55})
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -1022,8 +1022,8 @@ public class Int8ArrayCopyWithinPart05Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_COPY_WITHIN_PART05_TEST_5000
      * @tc.name int8ArrayCopyWithinPart05Test050
-     * @tc.desc Verify copyWithin(0, 2, -2147483648) with INT_MIN end clamped to 0 is a no-op k
-     * eeping arr[0] 11 on new Int8Array(new int[] {11, 22, 33, 44, 55})
+     * @tc.desc Verify copyWithin(0, 2, -2147483648) with INT_MIN end clamped to 0 is a no-op keeping arr[0] 11 on new
+     * Int8Array(new int[] {11, 22, 33, 44, 55})
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -1130,8 +1130,8 @@ public class Int8ArrayCopyWithinPart05Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_COPY_WITHIN_PART05_TEST_5500
      * @tc.name int8ArrayCopyWithinPart05Test055
-     * @tc.desc Verify copyWithin(3, -15, 5) clamps start to 0 copying [11, 22] to result[3, 4] o
-     * n new Int8Array(new int[] {11, 22, 33, 44, 55})
+     * @tc.desc Verify copyWithin(3, -15, 5) clamps start to 0 copying [11, 22] to result[3, 4] on new Int8Array(new
+     * int[] {11, 22, 33, 44, 55})
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -1177,8 +1177,8 @@ public class Int8ArrayCopyWithinPart05Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_COPY_WITHIN_PART05_TEST_5700
      * @tc.name int8ArrayCopyWithinPart05Test057
-     * @tc.desc Verify copyWithin(0, 2, -15) with end clamped to 0 is a no-op keeping [11, 55] o
-     * n new Int8Array(new int[] {11, 22, 33, 44, 55})
+     * @tc.desc Verify copyWithin(0, 2, -15) with end clamped to 0 is a no-op keeping [11, 55] on new Int8Array(new
+     * int[] {11, 22, 33, 44, 55})
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -1325,8 +1325,8 @@ public class Int8ArrayCopyWithinPart05Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_COPY_WITHIN_PART05_TEST_6400
      * @tc.name int8ArrayCopyWithinPart05Test064
-     * @tc.desc Verify copyWithin(3, 0, 5) copies [10, 20, 30, 40, 50] to result[3..7] on new Int8A
-     * rray([10, 20, 30, 40, 50, 60, 70, 80])
+     * @tc.desc Verify copyWithin(3, 0, 5) copies [10, 20, 30, 40, 50] to result[3..7] on new Int8Array([10, 20, 30,
+     * 40, 50, 60, 70, 80])
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2

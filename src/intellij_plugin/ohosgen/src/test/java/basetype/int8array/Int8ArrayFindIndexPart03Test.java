@@ -6,11 +6,10 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on
+ * an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * See the License for the specific language governing permissions andlimitations under the License.
  */
 
 package basetype.int8array;
@@ -30,9 +29,9 @@ import org.junit.jupiter.api.Test;
  */
 public class Int8ArrayFindIndexPart03Test extends BasTest {
 
-    private static int INT8_MAX = 127;
+    private static final int INT8_MAX = 127;
 
-    private static int INT8_MIN = -128;
+    private static final int INT8_MIN = -128;
 
     private static boolean helper001(int v) {
     if (v == 2) {
@@ -414,7 +413,8 @@ public class Int8ArrayFindIndexPart03Test extends BasTest {
     @Test
     void int8ArrayFindIndexPart03Test033() {
     Int8Array arr = new Int8Array(new int[] {1, 2, 3});
-    int r = arr.findIndex((value, index, a) -> { int inner = a.findIndex((innerVal, i2, a2) -> {
+    int r = arr.findIndex((value, index, a) -> {
+        int inner = a.findIndex((innerVal, i2, a2) -> {
         return innerVal == value;
         });
         return inner == index;
@@ -844,8 +844,8 @@ public class Int8ArrayFindIndexPart03Test extends BasTest {
     int[] counter = {0};
     try {
     arr.findIndex((value, unusedIndex, array) -> {
-    counter[0] = counter[0] + 1;
-    if (value == 20) {
+        counter[0] = counter[0] + 1;
+        if (value == 20) {
     return BasTest.throwTestError("twenty");
     }
     return false;
@@ -881,8 +881,8 @@ public class Int8ArrayFindIndexPart03Test extends BasTest {
     Int8Array log = new Int8Array(3);
     try {
     arr.findIndex((value, index, array) -> {
-    log.set(index, value);
-    if (value == 2) {
+        log.set(index, value);
+        if (value == 2) {
     return BasTest.throwTestError("mid");
     }
     return false;

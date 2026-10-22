@@ -6,11 +6,10 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on
+ * an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * See the License for the specific language governing permissions andlimitations under the License.
  */
 
 package basetype.int8array;
@@ -31,7 +30,7 @@ import org.junit.jupiter.api.Test;
  * @since 2026-10-22
  */
 public class Int8ArrayFromPart03Test extends BasTest {
-    private static int INT8_MAX = 127;
+    private static final int INT8_MAX = 127;
 
     /**
      * Verify arity 1 Int8Array.from(Int8Array) Int8Array
@@ -1090,8 +1089,8 @@ public class Int8ArrayFromPart03Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_FROM_PART03_TEST_5200
      * @tc.name int8ArrayFromPart03Test052
-     * @tc.desc Verify chained Int8Array.from copies are independent, mutation of intermediate
-     * copies does not affect final result
+     * @tc.desc Verify chained Int8Array.from copies are independent, mutation of intermediatecopies does not affect
+     * final result
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2

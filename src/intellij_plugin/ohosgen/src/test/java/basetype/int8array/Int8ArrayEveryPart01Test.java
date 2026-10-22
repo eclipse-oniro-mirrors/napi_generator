@@ -6,11 +6,10 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on
+ * an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * See the License for the specific language governing permissions andlimitations under the License.
  */
 
 package basetype.int8array;
@@ -32,8 +31,8 @@ import org.junit.jupiter.api.Test;
  * @since 2026-10-22
  */
 public class Int8ArrayEveryPart01Test extends BasTest {
-    private static int INT8_MAX = 127;
-    private static int INT8_MIN = -128;
+    private static final int INT8_MAX = 127;
+    private static final int INT8_MIN = -128;
 
     /**
      * Verify every returns true when all elements are > 0, on new Int8Array(new int[] {1, 2, 3})
@@ -228,8 +227,8 @@ public class Int8ArrayEveryPart01Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_EVERY_PART01_1000
      * @tc.name int8ArrayEveryPart01Test010
-     * @tc.desc Verify every with predicate element >= INT8_MIN && element <= INT8_MAX returns
-     * true for all elements in valid Int8 range
+     * @tc.desc Verify every with predicate element >= INT8_MIN && element <= INT8_MAX returnstrue for all elements in
+     * valid Int8 range
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -652,8 +651,8 @@ public class Int8ArrayEveryPart01Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_EVERY_PART01_2800
      * @tc.name int8ArrayEveryPart01Test028
-     * @tc.desc Verify every returns false when element at index 1 fails i % 2 === 0, on new In
-     * t8Array(new int[] {1, 2, 3})
+     * @tc.desc Verify every returns false when element at index 1 fails i % 2 === 0, on new Int8Array(new int[] {1, 2,
+     * 3})
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -1003,8 +1002,8 @@ public class Int8ArrayEveryPart01Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_EVERY_PART01_4100
      * @tc.name int8ArrayEveryPart01Test041
-     * @tc.desc Verify every stops early when predicate returns false before an element that wo
-     * uld throw, on new Int8Array(new int[] {1, 2, 3})
+     * @tc.desc Verify every stops early when predicate returns false before an element that would throw, on new
+     * Int8Array(new int[] {1, 2, 3})
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2

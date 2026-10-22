@@ -6,11 +6,10 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on
+ * an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * See the License for the specific language governing permissions andlimitations under the License.
  */
 
 package basetype.int8array;
@@ -33,8 +32,8 @@ import org.junit.jupiter.api.Test;
  * @since 2026-10-22
  */
 public class Int8ArrayFindLastIndexPart03Test extends BasTest {
-    private static int INT8_MAX = 127;
-    private static int INT8_MIN = -128;
+    private static final int INT8_MAX = 127;
+    private static final int INT8_MIN = -128;
 
     /**
      * Verify findLastIndex throws RangeError propagates name
@@ -462,8 +461,8 @@ public class Int8ArrayFindLastIndexPart03Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_FINDLASTINDEX_PART03_1600
      * @tc.name int8ArrayFindLastIndexPart03Test016
-     * @tc.desc Verify findLastIndex callback throwing Error propagates and captures value 20 o
-     * n Int8Array.of(10, 20, 30, 40)
+     * @tc.desc Verify findLastIndex callback throwing Error propagates and captures value 20 on Int8Array.of(10, 20,
+     * 30, 40)
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -496,7 +495,7 @@ public class Int8ArrayFindLastIndexPart03Test extends BasTest {
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_FINDLASTINDEX_PART03_1700
      * @tc.name int8ArrayFindLastIndexPart03Test017
      * @tc.desc Verify findLastIndex propagates Error thrown at index 2 after capturing value 3
-     *, on Int8Array.of(1, 2, 3, 4)
+     * , on Int8Array.of(1, 2, 3, 4)
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -1102,8 +1101,8 @@ public class Int8ArrayFindLastIndexPart03Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_FINDLASTINDEX_PART03_4700
      * @tc.name int8ArrayFindLastIndexPart03Test047
-     * @tc.desc Verify findLastIndex callback captures first visited value 1 and returns -1 whe
-     * n predicate always false, on Int8Array.of(1, 2, 3)
+     * @tc.desc Verify findLastIndex callback captures first visited value 1 and returns -1 when predicate always
+     * false, on Int8Array.of(1, 2, 3)
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -1205,8 +1204,8 @@ public class Int8ArrayFindLastIndexPart03Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_FINDLASTINDEX_PART03_5100
      * @tc.name int8ArrayFindLastIndexPart03Test051
-     * @tc.desc Verify findLastIndex with predicate element > threshold returns last matching i
-     * ndex 4, on Int8Array.of(1, 2, 3, 4, 5)
+     * @tc.desc Verify findLastIndex with predicate element > threshold returns last matching index 4, on
+     * Int8Array.of(1, 2, 3, 4, 5)
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2

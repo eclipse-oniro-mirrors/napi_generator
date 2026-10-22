@@ -6,11 +6,10 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on
+ * an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * See the License for the specific language governing permissions andlimitations under the License.
  */
 
 package basetype.int8array;
@@ -26,8 +25,8 @@ import org.junit.jupiter.api.Test;
  * @since 2026-10-22
  */
 public class Int8ArrayFindPart03Test extends BasTest {
-    private static int INT8_MAX = 127;
-    private static int INT8_MIN = -128;
+    private static final int INT8_MAX = 127;
+    private static final int INT8_MIN = -128;
 
     /**
      * Verify find on empty array returns undefined
@@ -350,8 +349,8 @@ public class Int8ArrayFindPart03Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_FIND_PART03_3800
      * @tc.name int8ArrayFindPart03Test038
-     * @tc.desc Verify find with predicate value === -Number.POSITIVE_INFINITY (always false fo
-     * r Int8Array) returns undefined
+     * @tc.desc Verify find with predicate value === -Number.POSITIVE_INFINITY (always false for Int8Array) returns
+     * undefined
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2

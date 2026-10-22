@@ -6,11 +6,10 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on
+ * an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * See the License for the specific language governing permissions andlimitations under the License.
  */
 
 package basetype.int8array;
@@ -28,7 +27,7 @@ import org.junit.jupiter.api.Test;
  * @since 2026-10-22
  */
 public class Int8ArrayIndexOfPart02Test extends BasTest {
-    private static int INT8_MAX = 127;
+    private static final int INT8_MAX = 127;
 
     /**
      * Verify indexOf(20) returns 1 via result variable, on new Int8Array(new int[] {10, 20, 30})
@@ -708,8 +707,8 @@ public class Int8ArrayIndexOfPart02Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_INDEX_OF_PART02_TEST_3800
      * @tc.name int8ArrayIndexOfPart02Test038
-     * @tc.desc Verify indexOf(128) on new Int8Array(new int[] {-128, 0, INT8_MAX}) returns -1
-     * and buffer byteLength unchanged
+     * @tc.desc Verify indexOf(128) on new Int8Array(new int[] {-128, 0, INT8_MAX}) returns -1and buffer byteLength
+     * unchanged
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2

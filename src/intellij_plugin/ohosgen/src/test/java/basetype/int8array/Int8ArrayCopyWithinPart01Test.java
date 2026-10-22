@@ -6,11 +6,10 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on
+ * an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * See the License for the specific language governing permissions andlimitations under the License.
  */
 
 package basetype.int8array;
@@ -837,8 +836,8 @@ public class Int8ArrayCopyWithinPart01Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_COPY_WITHIN_PART01_TEST_4300
      * @tc.name int8ArrayCopyWithinPart01Test043
-     * @tc.desc Verify copyWithin target=0 start=1 end=3 on [1, 2, 3, 4, 5] moves elements so resul
-     * t[0]=2 result[1]=3 result[2]=3
+     * @tc.desc Verify copyWithin target=0 start=1 end=3 on [1, 2, 3, 4, 5] moves elements so result[0]=2 result[1]=3
+     * result[2]=3
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -877,8 +876,8 @@ public class Int8ArrayCopyWithinPart01Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_COPY_WITHIN_PART01_TEST_4500
      * @tc.name int8ArrayCopyWithinPart01Test045
-     * @tc.desc Verify copyWithin return shares buffer with original - mutation via result.$_se
-     * t(0, 99) propagates to arr.$_get(0)
+     * @tc.desc Verify copyWithin return shares buffer with original - mutation via result.$_set(0, 99) propagates to
+     * arr.$_get(0)
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -1055,8 +1054,8 @@ public class Int8ArrayCopyWithinPart01Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_COPY_WITHIN_PART01_TEST_5400
      * @tc.name int8ArrayCopyWithinPart01Test054
-     * @tc.desc Verify copyWithin target=-0x7FFFFFFF start=-0x7FFFFFFF end=-0x7FFFFFFF copies s
-     * ource elements to target range
+     * @tc.desc Verify copyWithin target=-0x7FFFFFFF start=-0x7FFFFFFF end=-0x7FFFFFFF copies source elements to target
+     * range
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -1075,8 +1074,8 @@ public class Int8ArrayCopyWithinPart01Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_COPY_WITHIN_PART01_TEST_5500
      * @tc.name int8ArrayCopyWithinPart01Test055
-     * @tc.desc Verify copyWithin target=0x7FFFFFFF start=0x7FFFFFFF end=0x7FFFFFFF copies sour
-     * ce elements to target range
+     * @tc.desc Verify copyWithin target=0x7FFFFFFF start=0x7FFFFFFF end=0x7FFFFFFF copies source elements to target
+     * range
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -1321,8 +1320,8 @@ public class Int8ArrayCopyWithinPart01Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_COPY_WITHIN_PART01_TEST_6600
      * @tc.name int8ArrayCopyWithinPart01Test066
-     * @tc.desc Verify copyWithin target=1 start=0 end=1 on new Int8Array(new double[] {1.9, -128, 0}) trunc
-     * ates 1.9 to 1 at result[1]
+     * @tc.desc Verify copyWithin target=1 start=0 end=1 on new Int8Array(new double[] {1.9, -128, 0}) truncates 1.9 to
+     * 1 at result[1]
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2

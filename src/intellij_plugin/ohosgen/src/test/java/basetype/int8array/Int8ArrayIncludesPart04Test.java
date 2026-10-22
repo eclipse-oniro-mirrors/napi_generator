@@ -6,11 +6,10 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on
+ * an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * See the License for the specific language governing permissions andlimitations under the License.
  */
 
 package basetype.int8array;
@@ -28,8 +27,8 @@ import org.junit.jupiter.api.Test;
  * @since 2026-10-22
  */
 public class Int8ArrayIncludesPart04Test extends BasTest {
-    private static int INT8_MAX = 127;
-    private static int INT8_MIN = -128;
+    private static final int INT8_MAX = 127;
+    private static final int INT8_MIN = -128;
 
     /**
      * Verify $_set(0, 128) -128 includes(-128) true
@@ -272,8 +271,8 @@ public class Int8ArrayIncludesPart04Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_INCLUDES_PART04_TEST_1400
      * @tc.name int8ArrayIncludesPart04Test014
-     * @tc.desc Verify $_set overwrite: after $_set(1, 30) then $_set(1, 60), includes(30) retu
-     * rns false, includes(60) returns true
+     * @tc.desc Verify $_set overwrite: after $_set(1, 30) then $_set(1, 60), includes(30) returns false, includes(60)
+     * returns true
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2

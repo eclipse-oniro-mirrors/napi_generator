@@ -6,11 +6,10 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on
+ * an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * See the License for the specific language governing permissions andlimitations under the License.
  */
 
 package basetype.int8array;
@@ -28,8 +27,8 @@ import org.junit.jupiter.api.Test;
  * @since 2026-10-22
  */
 public class Int8ArrayIndexOfPart04Test extends BasTest {
-    private static int INT8_MAX = 127;
-    private static int INT8_MIN = -128;
+    private static final int INT8_MAX = 127;
+    private static final int INT8_MIN = -128;
 
     /**
      * Verify indexOf(20) on Int8Array.of(10, 20, 30, 40) returns index 1 and length unchanged
@@ -126,8 +125,8 @@ public class Int8ArrayIndexOfPart04Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_INDEX_OF_PART04_TEST_0500
      * @tc.name int8ArrayIndexOfPart04Test005
-     * @tc.desc Verify indexOf(0) on offset view new Int8Array(new ArrayBuffer(8), 2, 4) return
-     * s index 0 and byteOffset unchanged
+     * @tc.desc Verify indexOf(0) on offset view new Int8Array(new ArrayBuffer(8), 2, 4) returns index 0 and byteOffset
+     * unchanged
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -500,8 +499,8 @@ public class Int8ArrayIndexOfPart04Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_INDEX_OF_PART04_TEST_2400
      * @tc.name int8ArrayIndexOfPart04Test024
-     * @tc.desc Verify indexOf(5) from first occurrence returns index 2 for second occurrence o
-     * n Int8Array.of(5, 3, 5, 3, 5)
+     * @tc.desc Verify indexOf(5) from first occurrence returns index 2 for second occurrence on Int8Array.of(5, 3, 5,
+     * 3, 5)
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -1058,8 +1057,8 @@ public class Int8ArrayIndexOfPart04Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_INDEX_OF_PART04_TEST_5300
      * @tc.name int8ArrayIndexOfPart04Test053
-     * @tc.desc Verify indexOf(99) on with(pos, 99) copy equals original indexOf(20) result pos
-     * on Int8Array.of(10, 20, 30, 40)
+     * @tc.desc Verify indexOf(99) on with(pos, 99) copy equals original indexOf(20) result poson Int8Array.of(10, 20,
+     * 30, 40)
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2

@@ -6,11 +6,10 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on
+ * an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * See the License for the specific language governing permissions andlimitations under the License.
  */
 
 package basetype.int8array;
@@ -28,8 +27,8 @@ import org.junit.jupiter.api.Test;
  * @since 2026-10-22
  */
 public class Int8ArrayConstructorPart03Test extends BasTest {
-    private static int INT8_MAX = 127;
-    private static int INT8_MIN = -128;
+    private static final int INT8_MAX = 127;
+    private static final int INT8_MIN = -128;
 
     /**
      * Verify length expects 4 on new Int8Array(len)
@@ -403,7 +402,7 @@ public class Int8ArrayConstructorPart03Test extends BasTest {
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_CONSTRUCTOR_PART03_TEST_2200
      * @tc.name int8ArrayConstructorPart03Test022
      * @tc.desc Verify new Int8Array(len) constructor creates independent buffers: arr1.$_set(0
-     *, 99) does not affect arr2.$_get(0) expects 0
+     * , 99) does not affect arr2.$_get(0) expects 0
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -949,8 +948,8 @@ public class Int8ArrayConstructorPart03Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_CONSTRUCTOR_PART03_TEST_5200
      * @tc.name int8ArrayConstructorPart03Test052
-     * @tc.desc Verify toSorted() on new Int8Array(len) returns sorted copy with $_get(0) equal
-     * s 1 and original unchanged
+     * @tc.desc Verify toSorted() on new Int8Array(len) returns sorted copy with $_get(0) equals 1 and original
+     * unchanged
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -1309,8 +1308,8 @@ public class Int8ArrayConstructorPart03Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_CONSTRUCTOR_PART03_TEST_7000
      * @tc.name int8ArrayConstructorPart03Test070
-     * @tc.desc Verify subarray(0, 2) shares buffer, $_set on subarray reflected in original ex
-     * pects INT8_MAX on new Int8Array(len)
+     * @tc.desc Verify subarray(0, 2) shares buffer, $_set on subarray reflected in original expects INT8_MAX on new
+     * Int8Array(len)
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -1350,8 +1349,8 @@ public class Int8ArrayConstructorPart03Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_CONSTRUCTOR_PART03_TEST_7200
      * @tc.name int8ArrayConstructorPart03Test072
-     * @tc.desc Verify slice(0, 2) creates independent copy and $_set on copy does not affect o
-     * riginal on new Int8Array(len)
+     * @tc.desc Verify slice(0, 2) creates independent copy and $_set on copy does not affect original on new
+     * Int8Array(len)
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -1410,8 +1409,8 @@ public class Int8ArrayConstructorPart03Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_CONSTRUCTOR_PART03_TEST_7500
      * @tc.name int8ArrayConstructorPart03Test075
-     * @tc.desc Verify $_set expects RangeError throws exception, with $_set(4) OOB index, on n
-     * ew Int8Array(len), and verify arr.length and arr.$_get(0) are unaffected after
+     * @tc.desc Verify $_set expects RangeError throws exception, with $_set(4) OOB index, on new Int8Array(len), and
+     * verify arr.length and arr.$_get(0) are unaffected after
      * exception
      * @tc.size MediumTest
      * @tc.type Function

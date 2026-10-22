@@ -6,11 +6,10 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on
+ * an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * See the License for the specific language governing permissions andlimitations under the License.
  */
 
 package basetype.int8array;
@@ -28,8 +27,8 @@ import org.junit.jupiter.api.Test;
  * @since 2026-10-22
  */
 public class Int8ArrayIndexSetPart04Test extends BasTest {
-    private static int INT8_MAX = 127;
-    private static int INT8_MIN = -128;
+    private static final int INT8_MAX = 127;
+    private static final int INT8_MIN = -128;
 
     /**
      * Verify $_set(1, 200) assigns value to element at specified index
@@ -494,8 +493,8 @@ public class Int8ArrayIndexSetPart04Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_INDEX_SET_PART04_TEST_2300
      * @tc.name int8ArrayIndexSetPart04Test023
-     * @tc.desc Verify $_set(-1, 99) on arr2 throws RangeError while $_set(2, 99) succeeds on n
-     * ew Int8Array(new int[] {1, 2, 3})
+     * @tc.desc Verify $_set(-1, 99) on arr2 throws RangeError while $_set(2, 99) succeeds on new Int8Array(new int[]
+     * {1, 2, 3})
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -522,8 +521,8 @@ public class Int8ArrayIndexSetPart04Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_INDEX_SET_PART04_TEST_2400
      * @tc.name int8ArrayIndexSetPart04Test024
-     * @tc.desc Verify $_set(0, 99) writes 99 and byteOffset remains 1 on offset view new Int8A
-     * rray(new ArrayBuffer(4), 1, 2)
+     * @tc.desc Verify $_set(0, 99) writes 99 and byteOffset remains 1 on offset view new Int8Array(new ArrayBuffer(4),
+     * 1, 2)
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2

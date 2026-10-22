@@ -6,11 +6,10 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on
+ * an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * See the License for the specific language governing permissions andlimitations under the License.
  */
 
 package basetype.int8array;
@@ -31,8 +30,8 @@ import org.junit.jupiter.api.Test;
  * @since 2026-10-22
  */
 public class Int8ArrayEveryPart03Test extends BasTest {
-    private static int INT8_MAX = 127;
-    private static int INT8_MIN = -128;
+    private static final int INT8_MAX = 127;
+    private static final int INT8_MIN = -128;
 
     /**
      * Verify every on empty array returns true, callback () => true, on new Int8Array(0)
@@ -324,8 +323,8 @@ public class Int8ArrayEveryPart03Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_EVERY_PART03_TEST_1300
      * @tc.name int8ArrayEveryPart03Test013
-     * @tc.desc Verify every returns false when no element satisfies predicate: with every((ele
-     * ment: number): boolean => element > 10) on new Int8Array(new int[] {5})
+     * @tc.desc Verify every returns false when no element satisfies predicate: with every((element: number): boolean
+     * => element > 10) on new Int8Array(new int[] {5})
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -556,8 +555,8 @@ public class Int8ArrayEveryPart03Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_EVERY_PART03_TEST_2300
      * @tc.name int8ArrayEveryPart03Test023
-     * @tc.desc Verify every returns true when all elements satisfy predicate: with every((elem
-     * ent: number): boolean => element > 100) on new Int8Array(new int[] {INT8_MAX, INT8_MAX, I
+     * @tc.desc Verify every returns true when all elements satisfy predicate: with every((element: number): boolean =>
+     * element > 100) on new Int8Array(new int[] {INT8_MAX, INT8_MAX, I
      * NT8_MAX}), returns 3
      * @tc.size MediumTest
      * @tc.type Function
@@ -605,8 +604,8 @@ public class Int8ArrayEveryPart03Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_EVERY_PART03_TEST_2500
      * @tc.name int8ArrayEveryPart03Test025
-     * @tc.desc Verify every returns true when all elements satisfy predicate: with every((elem
-     * ent: number): boolean => element === 1) on new Int8Array(new int[] {1, 1, 1, 1, 1}), retu
+     * @tc.desc Verify every returns true when all elements satisfy predicate: with every((element: number): boolean =>
+     * element === 1) on new Int8Array(new int[] {1, 1, 1, 1, 1}), retu
      * rns 5
      * @tc.size MediumTest
      * @tc.type Function
@@ -630,8 +629,8 @@ public class Int8ArrayEveryPart03Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_EVERY_PART03_TEST_2600
      * @tc.name int8ArrayEveryPart03Test026
-     * @tc.desc Verify every throws RangeError when predicate callback throws on matching eleme
-     * nt: with element === 5 on new Int8Array(new int[] {5, 5, 5})
+     * @tc.desc Verify every throws RangeError when predicate callback throws on matching element: with element === 5
+     * on new Int8Array(new int[] {5, 5, 5})
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -685,8 +684,8 @@ public class Int8ArrayEveryPart03Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_EVERY_PART03_TEST_2800
      * @tc.name int8ArrayEveryPart03Test028
-     * @tc.desc Verify every with always-false predicate returns false with 1 call on new Int8A
-     * rray(new int[] {0, 0, 0, 0, 0})
+     * @tc.desc Verify every with always-false predicate returns false with 1 call on new Int8Array(new int[] {0, 0, 0,
+     * 0, 0})
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -712,8 +711,8 @@ public class Int8ArrayEveryPart03Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_EVERY_PART03_TEST_2900
      * @tc.name int8ArrayEveryPart03Test029
-     * @tc.desc Verify every returns true when all elements satisfy predicate: with every((elem
-     * ent: number): boolean => element === 42) on new Int8Array(new int[] {42, 42, 42})
+     * @tc.desc Verify every returns true when all elements satisfy predicate: with every((element: number): boolean =>
+     * element === 42) on new Int8Array(new int[] {42, 42, 42})
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -1363,8 +1362,8 @@ public class Int8ArrayEveryPart03Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_EVERY_PART03_TEST_5100
      * @tc.name int8ArrayEveryPart03Test051
-     * @tc.desc Verify every returns false with 1 call when element 0 fails predicate on new In
-     * t8Array(new int[] {0, 1, 2})
+     * @tc.desc Verify every returns false with 1 call when element 0 fails predicate on new Int8Array(new int[] {0, 1,
+     * 2})
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -1393,8 +1392,8 @@ public class Int8ArrayEveryPart03Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_EVERY_PART03_TEST_5200
      * @tc.name int8ArrayEveryPart03Test052
-     * @tc.desc Verify every returns false with 2 calls when element 0 fails predicate on new I
-     * nt8Array(new int[] {1, 0, 2})
+     * @tc.desc Verify every returns false with 2 calls when element 0 fails predicate on new Int8Array(new int[] {1,
+     * 0, 2})
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -1417,8 +1416,8 @@ public class Int8ArrayEveryPart03Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_EVERY_PART03_TEST_5300
      * @tc.name int8ArrayEveryPart03Test053
-     * @tc.desc Verify every returns false with 3 calls when element 0 fails predicate on new I
-     * nt8Array(new int[] {1, 2, 0})
+     * @tc.desc Verify every returns false with 3 calls when element 0 fails predicate on new Int8Array(new int[] {1,
+     * 2, 0})
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -1545,8 +1544,8 @@ public class Int8ArrayEveryPart03Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_EVERY_PART03_TEST_5800
      * @tc.name int8ArrayEveryPart03Test058
-     * @tc.desc Verify every callback sums elements to 3 before element 0 stops it on new Int8A
-     * rray(new int[] {1, 2, 0, 4, 5})
+     * @tc.desc Verify every callback sums elements to 3 before element 0 stops it on new Int8Array(new int[] {1, 2, 0,
+     * 4, 5})
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -1569,8 +1568,8 @@ public class Int8ArrayEveryPart03Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_EVERY_PART03_TEST_5900
      * @tc.name int8ArrayEveryPart03Test059
-     * @tc.desc Verify every returns false with 51 calls when $_set(50, -1) element fails predi
-     * cate on new Int8Array(100)
+     * @tc.desc Verify every returns false with 51 calls when $_set(50, -1) element fails predicate on new
+     * Int8Array(100)
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -1590,12 +1589,13 @@ public class Int8ArrayEveryPart03Test extends BasTest {
     }
 
     /**
-     * Verify every callback doubling via $_set(index, element * 2) writes 2, 4, 6, on new Int8Array(new int[] {1, 2, 3})
+     * Verify every callback doubling via $_set(index, element * 2) writes 2, 4, 6, on new Int8Array(new int[] {1, 2,
+     * 3})
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_EVERY_PART03_TEST_6000
      * @tc.name int8ArrayEveryPart03Test060
-     * @tc.desc Verify every callback doubling via $_set(index, element * 2) writes 2, 4, 6, on
-     * new Int8Array(new int[] {1, 2, 3})
+     * @tc.desc Verify every callback doubling via $_set(index, element * 2) writes 2, 4, 6, onnew Int8Array(new int[]
+     * {1, 2, 3})
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -1619,8 +1619,8 @@ public class Int8ArrayEveryPart03Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_EVERY_PART03_TEST_6100
      * @tc.name int8ArrayEveryPart03Test061
-     * @tc.desc Verify every propagates RangeError after callback sum reaches 30 on new Int8Arr
-     * ay(new int[] {10, 20, 30})
+     * @tc.desc Verify every propagates RangeError after callback sum reaches 30 on new Int8Array(new int[] {10, 20,
+     * 30})
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -1632,8 +1632,8 @@ public class Int8ArrayEveryPart03Test extends BasTest {
     Int8Array arr = new Int8Array(new int[] {10, 20, 30});
     try {
     boolean result = arr.every((element, index, unusedArray) -> {
-    sum[0] = sum[0] + element;
-    if (index == 1) {
+        sum[0] = sum[0] + element;
+        if (index == 1) {
     throw new RangeError("partial sum[0] error");
     }
     return true;
@@ -1652,8 +1652,7 @@ public class Int8ArrayEveryPart03Test extends BasTest {
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_EVERY_PART03_TEST_6200
      * @tc.name int8ArrayEveryPart03Test062
      * @tc.desc Verify every returns true when all elements satisfy dynamic threshold predicate
-     * : with every((element: number): boolean => element <= threshold) on new Int8Arr
-     * ay([1, 2, 3])
+     * : with every((element: number): boolean => element <= threshold) on new Int8Array([1, 2, 3])
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -1675,8 +1674,8 @@ public class Int8ArrayEveryPart03Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_EVERY_PART03_TEST_6400
      * @tc.name int8ArrayEveryPart03Test064
-     * @tc.desc Verify every propagates RangeError after callback sum reaches 90 on new Int8Arr
-     * ay(new int[] {20, 30, 40})
+     * @tc.desc Verify every propagates RangeError after callback sum reaches 90 on new Int8Array(new int[] {20, 30,
+     * 40})
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -1688,8 +1687,8 @@ public class Int8ArrayEveryPart03Test extends BasTest {
     Int8Array arr = new Int8Array(new int[] {20, 30, 40});
     try {
     boolean result = arr.every((element, unusedIndex, unusedArray) -> {
-    sum[0] = sum[0] + element;
-    if (sum[0] > 50) {
+        sum[0] = sum[0] + element;
+        if (sum[0] > 50) {
     throw new RangeError("sum[0] overflow");
     }
     return true;
@@ -1758,8 +1757,8 @@ public class Int8ArrayEveryPart03Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_EVERY_PART03_TEST_7300
      * @tc.name int8ArrayEveryPart03Test073
-     * @tc.desc Verify every propagates RangeError after callback sum reaches 60 on new Int8Arr
-     * ay(new int[] {10, 20, 30, 40})
+     * @tc.desc Verify every propagates RangeError after callback sum reaches 60 on new Int8Array(new int[] {10, 20,
+     * 30, 40})
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2

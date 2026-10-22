@@ -6,11 +6,10 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on
+ * an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * See the License for the specific language governing permissions andlimitations under the License.
  */
 
 package basetype.int8array;
@@ -28,8 +27,8 @@ import org.junit.jupiter.api.Test;
  * @since 2026-10-22
  */
 public class Int8ArrayEveryPart02Test extends BasTest {
-    private static int INT8_MAX = 127;
-    private static int INT8_MIN = -128;
+    private static final int INT8_MAX = 127;
+    private static final int INT8_MIN = -128;
 
     /**
      * Verify every returns true when all elements pass predicate
@@ -597,8 +596,8 @@ public class Int8ArrayEveryPart02Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_EVERY_PART02_2900
      * @tc.name int8ArrayEveryPart02Test029
-     * @tc.desc Verify every on subarray view returns true when all elements > 0, on new Int8Ar
-     * ray([1, 2, 3, 4]) subarray(1, 3)
+     * @tc.desc Verify every on subarray view returns true when all elements > 0, on new Int8Array([1, 2, 3, 4])
+     * subarray(1, 3)
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -641,8 +640,8 @@ public class Int8ArrayEveryPart02Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_EVERY_PART02_3100
      * @tc.name int8ArrayEveryPart02Test031
-     * @tc.desc Verify every stops at first failing element, callback count is 1 and result fal
-     * se, on new Int8Array(new int[] {0, 1, 2})
+     * @tc.desc Verify every stops at first failing element, callback count is 1 and result false, on new Int8Array(new
+     * int[] {0, 1, 2})
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -853,8 +852,7 @@ public class Int8ArrayEveryPart02Test extends BasTest {
     return BasTest.throwTestError("boom");
     });
     fail();
-    }
-    catch (Error e) {
+    } catch (Error e) {
     assertEqual("Error", e.getClass().getSimpleName());
     }
     }
@@ -882,8 +880,7 @@ public class Int8ArrayEveryPart02Test extends BasTest {
     return BasTest.throwTestError("boom");
     });
     fail();
-    }
-    catch (Error e) {
+    } catch (Error e) {
     assertEqual("Error", e.getClass().getSimpleName());
     }
     }

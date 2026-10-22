@@ -6,11 +6,10 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on
+ * an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * See the License for the specific language governing permissions andlimitations under the License.
  */
 
 package basetype.int8array;
@@ -27,7 +26,7 @@ import org.junit.jupiter.api.Test;
  * @since 2026-10-22
  */
 public class Int8ArrayFillPart03Test extends BasTest {
-    private static int INT8_MAX = 127;
+    private static final int INT8_MAX = 127;
 
     /**
      * Verify fill(value) number overload fills all elements
@@ -920,8 +919,8 @@ public class Int8ArrayFillPart03Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_FILL_PART03_TEST_4800
      * @tc.name int8ArrayFillPart03Test048
-     * @tc.desc Verify fill(v, 0, -2147483648) with end normalized to zero makes start equal en
-     * d, a no-op leaving array unchanged
+     * @tc.desc Verify fill(v, 0, -2147483648) with end normalized to zero makes start equal end, a no-op leaving array
+     * unchanged
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -1325,8 +1324,8 @@ public class Int8ArrayFillPart03Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_FILL_PART03_TEST_6800
      * @tc.name int8ArrayFillPart03Test068
-     * @tc.desc Verify fill(v, 1, 3) fills range 1-2, keeps boundaries 10, 40 and 50, on Int8Ar
-     * ray.of(10, 20, 30, 40, 50)
+     * @tc.desc Verify fill(v, 1, 3) fills range 1-2, keeps boundaries 10, 40 and 50, on Int8Array.of(10, 20, 30, 40,
+     * 50)
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -1369,8 +1368,8 @@ public class Int8ArrayFillPart03Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_FILL_PART03_TEST_7000
      * @tc.name int8ArrayFillPart03Test070
-     * @tc.desc Verify fill(v, 1, 3) fills index 1, keeps boundaries via at(0) and at(-1), on I
-     * nt8Array.of(10, 20, 30, 40)
+     * @tc.desc Verify fill(v, 1, 3) fills index 1, keeps boundaries via at(0) and at(-1), on Int8Array.of(10, 20, 30,
+     * 40)
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2

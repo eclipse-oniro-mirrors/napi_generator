@@ -6,11 +6,10 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on
+ * an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * See the License for the specific language governing permissions andlimitations under the License.
  */
 
 package basetype.int8array;
@@ -27,8 +26,8 @@ import org.junit.jupiter.api.Test;
  * @since 2026-10-22
  */
 public class Int8ArrayConstructorPart04Test extends BasTest {
-    private static int INT8_MAX = 127;
-    private static int INT8_MIN = -128;
+    private static final int INT8_MAX = 127;
+    private static final int INT8_MIN = -128;
 
     /**
      * Verify length expects 3 on new Int8Array(new int[] {10, 20, 30})
@@ -743,8 +742,8 @@ public class Int8ArrayConstructorPart04Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_CONSTRUCTOR_PART04_TEST_3800
      * @tc.name int8ArrayConstructorPart04Test038
-     * @tc.desc Verify copied Int8Array buffer is independent (not same reference) from src.buf
-     * fer, on new Int8Array(new int[] {1, 2, 3})
+     * @tc.desc Verify copied Int8Array buffer is independent (not same reference) from src.buffer, on new
+     * Int8Array(new int[] {1, 2, 3})
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -973,8 +972,8 @@ public class Int8ArrayConstructorPart04Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_CONSTRUCTOR_PART04_TEST_5000
      * @tc.name int8ArrayConstructorPart04Test050
-     * @tc.desc Verify copied Int8Array buffer is independent (not same reference) from src.buf
-     * fer, on new Int8Array(new int[] {1, 2, 3, 4})
+     * @tc.desc Verify copied Int8Array buffer is independent (not same reference) from src.buffer, on new
+     * Int8Array(new int[] {1, 2, 3, 4})
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2

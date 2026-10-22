@@ -6,11 +6,10 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on
+ * an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * See the License for the specific language governing permissions andlimitations under the License.
  */
 
 package basetype.int8array;
@@ -28,7 +27,7 @@ import org.junit.jupiter.api.Test;
  * @since 2026-10-22
  */
 public class Int8ArrayConstructorPart02Test extends BasTest {
-    private static int INT8_MAX = 127;
+    private static final int INT8_MAX = 127;
 
     /**
      * Verify length expects 5 on new Int8Array(len)
@@ -646,8 +645,8 @@ public class Int8ArrayConstructorPart02Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_CONSTRUCTOR_PART02_TEST_3700
      * @tc.name int8ArrayConstructorPart02Test037
-     * @tc.desc Verify subarray(0, 2) shares buffer, $_set on subarray reflected in original ex
-     * pects 99 on new Int8Array(len)
+     * @tc.desc Verify subarray(0, 2) shares buffer, $_set on subarray reflected in original expects 99 on new
+     * Int8Array(len)
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -669,8 +668,8 @@ public class Int8ArrayConstructorPart02Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_CONSTRUCTOR_PART02_TEST_3800
      * @tc.name int8ArrayConstructorPart02Test038
-     * @tc.desc Verify subarray(2, 4) shares buffer, $_set on subarray reflected in original ex
-     * pects 55 on new Int8Array(len)
+     * @tc.desc Verify subarray(2, 4) shares buffer, $_set on subarray reflected in original expects 55 on new
+     * Int8Array(len)
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -715,8 +714,8 @@ public class Int8ArrayConstructorPart02Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_CONSTRUCTOR_PART02_TEST_4100
      * @tc.name int8ArrayConstructorPart02Test041
-     * @tc.desc Verify slice(0, 2) creates independent copy and $_set on copy does not affect o
-     * riginal on new Int8Array(len)
+     * @tc.desc Verify slice(0, 2) creates independent copy and $_set on copy does not affect original on new
+     * Int8Array(len)
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2

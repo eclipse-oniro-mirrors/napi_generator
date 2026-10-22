@@ -6,11 +6,10 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on
+ * an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * See the License for the specific language governing permissions andlimitations under the License.
  */
 
 package basetype.int8array;
@@ -32,15 +31,15 @@ import org.junit.jupiter.api.Test;
  * @since 2026-10-22
  */
 public class Int8ArrayFromPart06Test extends BasTest {
-    private static int INT8_MAX = 127;
+    private static final int INT8_MAX = 127;
 
     /**
      * Verify Int8Array.from(Int8Array) dispatches to Int8Array overload returning new
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_FROM_PART06_TEST_0100
      * @tc.name int8ArrayFromPart06Test001
-     * @tc.desc Verify Int8Array.from(Int8Array) dispatches to Int8Array overload returning new
-     * instance reference-unequal but value-equal to source
+     * @tc.desc Verify Int8Array.from(Int8Array) dispatches to Int8Array overload returning newinstance
+     * reference-unequal but value-equal to source
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -61,8 +60,8 @@ public class Int8ArrayFromPart06Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_FROM_PART06_TEST_0200
      * @tc.name int8ArrayFromPart06Test002
-     * @tc.desc Verify Int8Array.from(FixedArray<int>) dispatches to FixedArray<int> overload r
-     * eturning Int8Array instance
+     * @tc.desc Verify Int8Array.from(FixedArray<int>) dispatches to FixedArray<int> overload returning Int8Array
+     * instance
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -350,8 +349,8 @@ public class Int8ArrayFromPart06Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_FROM_PART06_TEST_2100
      * @tc.name int8ArrayFromPart06Test021
-     * @tc.desc Verify Int8Array.from(Array<number>, mapfn) propagates RangeError thrown by map
-     * fn and source array remains unchanged
+     * @tc.desc Verify Int8Array.from(Array<number>, mapfn) propagates RangeError thrown by mapfn and source array
+     * remains unchanged
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -567,8 +566,8 @@ public class Int8ArrayFromPart06Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_FROM_PART06_TEST_3600
      * @tc.name int8ArrayFromPart06Test036
-     * @tc.desc Verify Int8Array.from(Int8Array) mutating returned instance leaves source uncha
-     * nged (deep-copy semantics)
+     * @tc.desc Verify Int8Array.from(Int8Array) mutating returned instance leaves source unchanged (deep-copy
+     * semantics)
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -588,8 +587,8 @@ public class Int8ArrayFromPart06Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_FROM_PART06_TEST_3700
      * @tc.name int8ArrayFromPart06Test037
-     * @tc.desc Verify Int8Array.from(Set<int>) after source add new element, returned instance
-     * length unchanged (snapshot)
+     * @tc.desc Verify Int8Array.from(Set<int>) after source add new element, returned instancelength unchanged
+     * (snapshot)
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -657,7 +656,7 @@ public class Int8ArrayFromPart06Test extends BasTest {
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_FROM_PART06_TEST_4500
      * @tc.name int8ArrayFromPart06Test045
      * @tc.desc Verify Int8Array.from(Int8Array, mapfn) and Int8Array.from(Array<number>, mapfn
-     *) with mapfn returning index k produce matching key-based values
+     * ) with mapfn returning index k produce matching key-based values
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2

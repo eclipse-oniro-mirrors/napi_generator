@@ -6,11 +6,10 @@
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on
+ * an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * See the License for the specific language governing permissions andlimitations under the License.
  */
 
 package basetype.int8array;
@@ -27,8 +26,8 @@ import org.junit.jupiter.api.Test;
  * @since 2026-10-22
  */
 public class Int8ArrayConstructorPart06Test extends BasTest {
-    private static int INT8_MAX = 127;
-    private static int INT8_MIN = -128;
+    private static final int INT8_MAX = 127;
+    private static final int INT8_MIN = -128;
 
     /**
      * Verify length expects 3, on new Int8Array(new double[] {1.0, 2.0, 3.0})
@@ -1154,8 +1153,8 @@ public class Int8ArrayConstructorPart06Test extends BasTest {
      *
      * @tc.number SUB_COMMONLIBRARY_UTIL_INT8ARRAY_CONSTRUCTOR_PART06_6300
      * @tc.name int8ArrayConstructorPart06Test063
-     * @tc.desc Verify slice creates independent copy and $_set on copy does not affect origina
-     * l expects 1 on new Int8Array(src)
+     * @tc.desc Verify slice creates independent copy and $_set on copy does not affect original expects 1 on new
+     * Int8Array(src)
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
@@ -1266,8 +1265,7 @@ public class Int8ArrayConstructorPart06Test extends BasTest {
     try {
     arr.get(0);
     fail();
-    }
-    catch (RangeError e) {
+    } catch (RangeError e) {
     assertEqual("RangeError", e.getClass().getSimpleName());
     }
     }
