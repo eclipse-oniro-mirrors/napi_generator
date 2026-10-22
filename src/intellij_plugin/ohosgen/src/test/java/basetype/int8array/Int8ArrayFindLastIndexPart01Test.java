@@ -836,32 +836,20 @@ public class Int8ArrayFindLastIndexPart01Test extends BasTest {
     @Test
     void int8ArrayFindLastIndexPart01Test041() {
     Int8Array arr = Int8Array.of(10, 20, 30, 40);
-    boolean[] seen0 = {false};
-    boolean[] seen1 = {false};
-    boolean[] seen2 = {false};
-    boolean[] seen3 = {false};
+    boolean[] seen = {false, false, false, false};
     int result = arr.findLastIndex((value, index, unusedArray) -> {
         if (value < INT8_MIN || value > INT8_MAX) {
         return false;
     }
-    if (index == 0) {
-            seen0[0] = true;
-    }
-    if (index == 1) {
-            seen1[0] = true;
-    }
-    if (index == 2) {
-            seen2[0] = true;
-    }
-    if (index == 3) {
-            seen3[0] = true;
+    if (index >= 0 && index < seen.length) {
+            seen[index] = true;
     }
         return false;
         });
-    assertTrue(seen0[0]);
-    assertTrue(seen1[0]);
-    assertTrue(seen2[0]);
-    assertTrue(seen3[0]);
+    assertTrue(seen[0]);
+    assertTrue(seen[1]);
+    assertTrue(seen[2]);
+    assertTrue(seen[3]);
     assertEqual(-1, result);
     }
 

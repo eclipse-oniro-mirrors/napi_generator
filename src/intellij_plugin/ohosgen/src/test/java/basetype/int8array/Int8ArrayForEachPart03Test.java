@@ -1381,19 +1381,19 @@ public class Int8ArrayForEachPart03Test extends BasTest {
     @Test
     void int8ArrayForEachPart03Test061() {
     Int8Array arr = new Int8Array(new int[] {1, 2});
+    arr.forEach((v, unusedIndex, array) -> {
+        if (v < INT8_MIN || v > INT8_MAX) {
+            return;
+            }
+                });
     Object r1 = null;
+    assertNull(r1);
     arr.forEach((v, unusedIndex, array) -> {
         if (v < INT8_MIN || v > INT8_MAX) {
             return;
             }
                 });
     Object r2 = null;
-    arr.forEach((v, unusedIndex, array) -> {
-        if (v < INT8_MIN || v > INT8_MAX) {
-            return;
-            }
-                });
-    assertNull(r1);
     assertNull(r2);
     }
 

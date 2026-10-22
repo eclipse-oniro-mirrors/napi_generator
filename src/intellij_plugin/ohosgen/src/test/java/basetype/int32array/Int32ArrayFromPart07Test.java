@@ -637,7 +637,6 @@ public class Int32ArrayFromPart07Test extends BasTest {
 
     @Test
     void int32ArrayFromPart07TestMindmapTest033() {
-    String[] msg = {""};
     List<Integer> calls = new ArrayList<>();
     try {
     List<Integer> src = java.util.Arrays.asList(1, 2, 3);
@@ -650,10 +649,9 @@ public class Int32ArrayFromPart07Test extends BasTest {
     });
     fail();
     } catch (Error e) {
-    msg[0] = e.getMessage();
     assertEqual("Error", e.getClass().getSimpleName());
+    assertEqual("v=2", e.getMessage());
     }
-    assertEqual("v=2", msg[0]);
     assertEqual(2, calls.size());
     assertEqualInt(2, calls.get(1));
     }
@@ -702,7 +700,6 @@ public class Int32ArrayFromPart07Test extends BasTest {
 
     @Test
     void int32ArrayFromPart07TestMindmapTest035() {
-    String[] msg = {""};
     try {
     List<Integer> src035 = java.util.Arrays.asList(1, 2, 3);
     Int32Array.from(src035, (v, index) -> {
@@ -714,9 +711,8 @@ public class Int32ArrayFromPart07Test extends BasTest {
     fail();
     } catch (Error e) {
     assertEqual("Error", e.getClass().getSimpleName());
-    msg[0] = e.getMessage();
+    assertEqual("iter mid", e.getMessage());
     }
-    assertEqual("iter mid", msg[0]);
     }
 
     /**
@@ -832,6 +828,7 @@ public class Int32ArrayFromPart07Test extends BasTest {
     @Test
     void int32ArrayFromPart07TestMindmapTest040() {
     Int32Array before = Int32Array.from(new int[] {100});
+    assertEqualInt(100, before.get(0));
     List<Integer> src40 = java.util.Arrays.asList(1);
     try {
     Int32Array.from(src40, (v, index) -> {
@@ -841,8 +838,8 @@ public class Int32ArrayFromPart07Test extends BasTest {
     } catch (Error e) {
     assertEqual("Error", e.getClass().getSimpleName());
     }
-    Int32Array after = Int32Array.from(new int[] {200});
     assertEqualInt(100, before.get(0));
+    Int32Array after = Int32Array.from(new int[] {200});
     assertEqualInt(200, after.get(0));
     }
 

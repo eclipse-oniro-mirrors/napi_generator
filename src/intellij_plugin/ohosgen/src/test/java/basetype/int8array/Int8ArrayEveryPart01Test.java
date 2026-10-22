@@ -1012,7 +1012,6 @@ public class Int8ArrayEveryPart01Test extends BasTest {
     @Test
     void int8ArrayEveryPart01Test041() {
     Int8Array arr = new Int8Array(new int[] {1, 2, 3});
-    boolean[] threw = {false};
     try {
     boolean result = arr.every((e, i, array) -> {
     if (e < INT8_MIN || e > INT8_MAX) {
@@ -1025,10 +1024,8 @@ public class Int8ArrayEveryPart01Test extends BasTest {
     });
     assertFalse(result);
     } catch (RangeError e) {
-    threw[0] = true;
-    assertEqual("RangeError", e.getClass().getSimpleName());
+    fail();
     }
-    assertFalse(threw[0]);
     }
 
     /**
@@ -1076,7 +1073,6 @@ public class Int8ArrayEveryPart01Test extends BasTest {
     @Test
     void int8ArrayEveryPart01Test043() {
     Int8Array arr = new Int8Array(new int[] {1});
-    String[] msg = {""};
     try {
     boolean result = arr.every((e, unusedIndex, array) -> {
     if (e < INT8_MIN || e > INT8_MAX) {
@@ -1088,9 +1084,8 @@ public class Int8ArrayEveryPart01Test extends BasTest {
     fail();
     } catch (Error e) {
     assertEqual("Error", e.getClass().getSimpleName());
-    msg[0] = e.getMessage();
+    assertEqual("custom message 12345", e.getMessage());
     }
-    assertEqual("custom message 12345", msg[0]);
     }
 
     /**

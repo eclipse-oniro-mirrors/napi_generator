@@ -502,20 +502,20 @@ public class Int8ArrayFromPart06Test extends BasTest {
     Int8Array r1 = Int8Array.from(faSrc);
     Int8Array r2 = Int8Array.from(i8Src);
     int[] c1 = {0};
-    int[] c2 = {0};
     r1.forEach((v, k) -> {
     if (k == 0) {
     assertEqual(10, v);
     }
     c1[0] = c1[0] + 1;
     });
+    assertEqual(3, c1[0]);
+    int[] c2 = {0};
     r2.forEach((v, k) -> {
     if (k == 0) {
     assertEqual(10, v);
     }
     c2[0] = c2[0] + 1;
     });
-    assertEqual(3, c1[0]);
     assertEqual(3, c2[0]);
     }
 

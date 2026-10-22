@@ -437,7 +437,6 @@ public class Int32ArrayFilterPart04Test extends BasTest {
     void int32ArrayFilterPart04Test041() {
     ArrayBuffer buf = new ArrayBuffer(16);
     Int32Array a = new Int32Array(buf);
-    Int32Array b = new Int32Array(buf);
     a.set(0, 1);
     a.set(1, 2);
     a.set(2, 3);
@@ -448,6 +447,7 @@ public class Int32ArrayFilterPart04Test extends BasTest {
     }
     return true;
     });
+    Int32Array b = new Int32Array(buf);
     assertEqualInt(77, b.get(3));
     }
 
