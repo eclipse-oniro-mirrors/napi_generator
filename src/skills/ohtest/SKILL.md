@@ -21,6 +21,7 @@ version: "1.0.0"
 | 跑 fuzz | `python3 src/skills/ohtest/fuzztest.py run -ts GetAppStatsMahFuzzTest -p rk3568` | 「编译并跑这个 fuzz 目标」 |
 | 扫 fuzz 套件 | `python3 src/skills/ohtest/find_fuzztest.py` | 「仓库里有哪些 fuzztest」 |
 | ACTS | `python3 src/skills/ohtest/actstest.py run <SuiteName>` | 「在 out 里跑指定 ACTS suite」 |
+| WebView 矩阵补测 | `python3 src/skills/webview-dynamic-coverage/analyze_webview_dynamic.py webview-dynamic.xlsx` | 「按 webview-dynamic.xlsx D 列红字与 I–N 补 ACTS」；见 **webview-dynamic-coverage** skill |
 | 编静态+动静态对比 | `python3 src/skills/ohtest/dyn_static_workflow.py help` | 「编 web 静态 HAP 并对比动静态耗时」 |
 | 动静态对比 | `python3 src/skills/ohtest/compare_dyn_static.py stats\|run\|compare --src-dir <src>` | 「统计 web 动静态可对应用例并对比耗时」 |
 | 覆盖率 | `python3 src/skills/ohtest/coverage_analysis.py run -t <部件> -p rk3568` | 「拉覆盖率并分析」 |

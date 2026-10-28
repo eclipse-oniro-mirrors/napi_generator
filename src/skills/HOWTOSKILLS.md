@@ -1,4 +1,4 @@
-# 如何使用SKILL
+了吗# 如何使用SKILL
 
 > **技能主仓**：本目录（`napi_generator/src/skills`）为远端提交的 **canonical** 源。  
 > 优化 skill **先改这里**，再执行 `/root/aiSkill/.claude/skills/sync-skills.sh pull-xts`（或 `pull`）同步到 Agent 运行时 `.claude/skills`。  
@@ -72,7 +72,7 @@ Sync to AGENTS.md: npx openskills sync
 
 ## 4. 使用工程里的 skill（src/skills 目录概述）
 
-`src/skills` 目录下为本仓库自有的 OpenHarmony / 社区相关技能，共 **17** 个（各目录内有 `SKILL.md` 详述；部分技能另含 `*.py` 入口）。**文档与示例中的命令一律以 `napi_generator` 仓库根下的 `src/skills/...` 为准**（在仓库根执行时可直接写 `python3 src/skills/<技能>/<脚本>.py`）。**运行脚本时请始终使用本仓库内路径**（或环境变量 **`${NAPI_GENERATOR_ROOT}/src/skills/...`**），勿混用编辑器侧技能安装目录中的副本路径。
+`src/skills` 目录下为本仓库自有的 OpenHarmony / 社区相关技能，共 **19** 个（各目录内有 `SKILL.md` 详述；部分技能另含 `*.py` 入口）。**文档与示例中的命令一律以 `napi_generator` 仓库根下的 `src/skills/...` 为准**（在仓库根执行时可直接写 `python3 src/skills/<技能>/<脚本>.py`）。**运行脚本时请始终使用本仓库内路径**（或环境变量 **`${NAPI_GENERATOR_ROOT}/src/skills/...`**），勿混用编辑器侧技能安装目录中的副本路径。
 
 > **区分**：**ohhap** 负责 **HAP 应用** 的 hvigor 构建与签名；**ohbuild** 负责 **fuzz 编译**、**verify-coverage / gn-args**、**build-acts（ACTS suite 在 `test/xts/acts` 下编译）** 等，与 HAP 流程不同（**跑** ACTS 用例见 **ohtest/actstest.py**）。**ohdoc** 负责从 **Word 测试用例模板**（**`template/`** 下 **NAPI测试用例** 模板）生成测试用例 **docx**（需 **python-docx**）：**`napi-test-doc`** 从 **`*.test.ts`** 解析填表（**`napitest{日期}.docx`**；**`--test-dir`** 合并多篇、**`【文件名】`** 分节）；**`csv-test-doc`** 从测试用例列表 **`.csv`**（如 **`11314873…csv`**）按列填表（**`csvtest{日期}.docx`**，默认执行日期 **2026/04/10**；**用例标识**=**用例编号**，**所属攻关任务** 固定 **投屏分享**，**用例追溯**=**功能模块**）。详见 **ohdoc/SKILL.md**、本文 **§4.5**。**ohhdf** 负责 **标准系统（如 rk3568）HDF**：Light / bluehdf 样例、**单编与推送**、**hilog / dmesg / hidumper** 调试（见 **ohhdf/howtohdf.md**、**ohhdf.py**）。**ohipc** 负责 **`foundation/communication/ipc_example`**：**IPC 架构**（**ipcarch.md**）、**零基础长文**（**howtoipc.md**，体例对齐 **howtohdf**）、**`ohipc.py`**：`howto`（**`--full`**）、`arch`、`paths`、**build / push / `test` / `test-concurrent` / `perf` / `test-parcel`** 等。**rkflash** 负责 **Rockchip 镜像同步与烧录**（与 HAP/fuzz 无关）。**ohrecord** 为 **系统侧 snapshot_record 录屏 MP4** 流程，与 **ohproj** HAP 模板互补（详文见 **ohproj/SKILL.md** 第十节）。
 
@@ -100,6 +100,8 @@ Sync to AGENTS.md: npx openskills sync
 | **ohxtsdynamic** | **@ComponentV2 动态 ArkUI + Hypium XTS**；异常参数 undefined/null；**§九～十** 批次与报告；normal SDK + 默认 hvigor；**arkui-dynamic-xts-generator/** 仅 README，正文外置下载 | `ohxtsdynamic/ohxtsflow.py`；**ohxtsdynamic/SKILL.md** v1.4+ |
 | **ohxtscapi** | **ArkUI CAPI + Hypium XTS**；NAPI/C++ 用例；**run-capi-pipeline**（编签→设备→门禁→commit）；**arkui-capi-xts-generator-v3/** | `ohxtscapi/ohxtscflow.py`；**ohxtscapi/SKILL.md** |
 | **ohos-gate-compliance** | **PR 门禁统一入口**：`scripts/gate_review.py`（pipeline 自动）、`arkts_patterns.py`、`scan_gate_patterns.py`；按 ets/capi 选规则 | `ohos-gate-compliance/SKILL.md` |
+| **webview-dynamic-coverage** | 按 **`webview-dynamic.xlsx`** 端到端：**解析 → 编写/生成 → build-acts → sync HAP → actstest 多轮 → 报告**；user37 云服务+OH；一覆盖点一条 `it()` | **`run_webview_dynamic_pipeline.py`**、`analyze_webview_dynamic.py`、**SKILL.md** v2.0 |
+| **c-ndk-coverage**（**xts-coverage-check**） | **web 模块**：`*arkwebxts` 多批待补对比、**黄底 vs 旧批**；Excel↔ACTS（C NDK / web 六维度）；**lookup** 建议 **`--subdir web`** | **`xts_coverage_check.py`**（**excel** / **lookup** / **web-batches** / **web-yellow**）、**compare_arkweb_batches.py**、**compare_yellow_vs_batch.py** |
 
 **常见限制（摘要）**
 
@@ -117,6 +119,8 @@ Sync to AGENTS.md: npx openskills sync
 - **ohrecord**：依赖 **hdc** 连接设备；全量 **`build`** 与镜像侧改动见文档，录制路径须落在 **`/data/test/media`** 并注意 **SELinux 标签**（见该技能 `SKILL.md`）。
 - **ohxtsstatic**：编排依赖 **ohhap/ohhdc**；规范与排障以本目录 **SKILL.md**、**compile_error_hints.md** 为准；**ArkUI 接口范式** 见 **`arkui-static-xts-generator/`**（**须从 [arkUISkill（GitCode）](https://gitcode.com/qq_44921954/arkUISkill) 自行下载放置**，见 **`arkui-static-xts-generator/README.md`**；**勿提交 categories/common 正文**）；**静态用例工程**编译前设置 **`OHOS_USE_HVIGOR_STATIC=1`**，使 **`hapbuild`** 使用 **`hvigor-static`**（见 **SKILL.md**）。
 - **ohxtsdynamic**：与 **ohxtsstatic** 互补，面向 **@ComponentV2** 动态组件；SDK 用 **normal**（`source use-ohos-sdk.sh normal`），**勿设** **`OHOS_USE_HVIGOR_STATIC`**；**arkui-dynamic-xts-generator/** 同静态，**仅 README 入库**，正文外置下载；编排 **`ohxtsdynamic/ohxtsflow.py`** + **ohhap/ohhdc**。
+- **webview-dynamic-coverage**：**`webview-dynamic.xlsx`** 在 **OH 根**（与 `src/` 同级）；**`pip install openpyxl`**；一体化 **`python3 …/run_webview_dynamic_pipeline.py all --oh-root … --src-dir …`**；跑测前 **`sync-haps`**；报告 **`webview_dynamic_acts_report.md`**；设备适配见 **`device_adaptation.md`**。
+- **c-ndk-coverage**：**web 模块**台账目录 `*arkwebxts`（**`web-batches`** / **`web-yellow`**）；**`lookup --subdir web`** 对 **`acts/web`**；未命中默认 **exit 2**；**webview** 格式需 **openpyxl**。
 
 **环境与路径（常用）**
 
@@ -165,6 +169,7 @@ Agent 多由自然语言触发；下表为**用户可说的提示句**与**典�
 | **ohrecord** | 「准备 snapshot_record 目录与标签」「录一段屏并拉回 MP4」「麦克风 audio / 音乐 play / 摄像头 cam」「查录屏相关 hilog」 | `prep-device` / `record --seconds 60 -f /data/test/media/x.mp4` / `pull --remote …` / `verify-host-so` / `verify-device-so` / **`audio-*` / `play-*` / `cam-*`**（含 **`audio-pull`**）/ `cam-run --pull --verify -- auto 10` / `hilog-capture` / `targets`（命令前加 **`python3 src/skills/ohrecord/ohrecord.py`**；**`-f` 同 `--file`**；完整见 **ohrecord/SKILL.md**） |
 | **ohxtsstatic** | 「一体化 static + Hypium」「§〇 路由+检查点」「SDK+明细+docs」「build-all/deploy-test」 | `python3 src/skills/ohxtsstatic/ohxtsflow.py` 同上；**SKILL.md** + **compile_error_hints** + **arkui-static-xts-generator/**（外置下载） |
 | **ohxtsdynamic** | 「动态 ChipV2/CounterV2 XTS」「异常参数 compile_probe」「deploy-test / run-dynamic-pipeline」 | `python3 src/skills/ohxtsdynamic/ohxtsflow.py build-all` / `deploy-test` / `run-dynamic-pipeline`；**normal SDK**；**arkui-dynamic-xts-generator/**（外置下载） |
+| **c-ndk-coverage** | 「web 模块有没有 XTS」「对比 1028/1015 arkwebxts 黄底」「三批待补交集」 | `… lookup <符号> --subdir web`；`… web-batches --oh-root <OH根> [--batch LABEL:DIR …]`；`… web-yellow --new-dir 20261028arkwebxts --old-dir 20261015arkwebxts`（**c-ndk-coverage/SKILL.md**） |
 
 ### 4.4 ohhap：构建与签名（Windows / Linux 对照）
 
