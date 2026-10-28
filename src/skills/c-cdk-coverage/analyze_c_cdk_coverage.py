@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Parse c_ndk_result*.xlsx sheet「C用例覆盖度明细」, map 接口覆盖=0 APIs to XTS cases in master.
+Parse C CDK 台账 xlsx（末 sheet「C用例覆盖度明细」）, map 接口覆盖=0 APIs to XTS cases in master.
 
 Column semantics (sheet C用例覆盖度明细):
   24 接口覆盖: 1=工具判定已覆盖, 0=未覆盖（待补接口覆盖，等价于旧表「否」）
@@ -317,7 +317,7 @@ def markdown_report(
     xlsx: Path, records: list[dict], scope: str, summary: dict
 ) -> str:
     lines = [
-        "# C NDK 接口覆盖 ↔ XTS 用例对照表",
+        "# C CDK 接口覆盖 ↔ XTS 用例对照表",
         "",
         f"来源：`{xlsx}` 工作表 **C用例覆盖度明细**",
         f"生成时间：{datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')}",
@@ -371,8 +371,8 @@ def main() -> int:
     parser.add_argument(
         "xlsx",
         nargs="?",
-        default="c_ndk_result(4).xlsx",
-        help="Path to c_ndk_result xlsx",
+        default="c_cdk_result(4).xlsx",
+        help="Path to C CDK 台账 xlsx",
     )
     parser.add_argument(
         "--oh-root",
@@ -467,9 +467,9 @@ def main() -> int:
         ),
     }
 
-    md_out = args.md_out or (oh_root / "c_ndk_master_coverage_table.md")
+    md_out = args.md_out or (oh_root / "c_cdk_master_coverage_table.md")
     json_out = args.json_out or (
-        skill_dir / "c_ndk_master_coverage_table.json"
+        skill_dir / "c_cdk_master_coverage_table.json"
     )
 
     md_out.write_text(

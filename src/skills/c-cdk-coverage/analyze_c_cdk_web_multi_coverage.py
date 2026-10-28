@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-C NDK 多维度覆盖对照（子系统 web）：按 Excel「C用例覆盖度明细」六列判定待补。
+C CDK 多维度覆盖对照（子系统 web）：按 Excel「C用例覆盖度明细」六列判定待补。
 
 待补规则（与 webview-dynamic 一致）：单元格为 **否**、**空**、或 **0**（接口/调用等列底层多为 0/1）。
 
@@ -26,7 +26,7 @@ from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
 
-from analyze_c_ndk_coverage import (
+from analyze_c_cdk_coverage import (
     build_basename_index,
     build_case_index,
     load_detail_sheet,
@@ -154,7 +154,7 @@ def markdown_report(
     api_rows: list[dict],
 ) -> str:
     lines = [
-        "# C NDK 多维度覆盖 ↔ XTS（子系统 web）",
+        "# C CDK 多维度覆盖 ↔ XTS（子系统 web）",
         "",
         f"来源：`{xlsx}` → **C用例覆盖度明细**，子系统 **{subsystem}**",
         f"生成时间：{datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')}",
@@ -238,7 +238,7 @@ def markdown_report(
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("xlsx", nargs="?", default="c_ndk_result(4).xlsx")
+    parser.add_argument("xlsx", nargs="?", default="c_cdk_result(4).xlsx")
     parser.add_argument("--subsystem", default="web")
     parser.add_argument("--oh-root", type=Path, default=None)
     parser.add_argument(
@@ -357,8 +357,8 @@ def main() -> int:
         "apis_no_master": apis_no_master,
     }
 
-    md_out = args.md_out or (oh_root / "c_ndk_web_multi_coverage_table.md")
-    json_out = args.json_out or (oh_root / "c_ndk_web_multi_coverage_table.json")
+    md_out = args.md_out or (oh_root / "c_cdk_web_multi_coverage_table.md")
+    json_out = args.json_out or (oh_root / "c_cdk_web_multi_coverage_table.json")
 
     md_out.write_text(
         markdown_report(xlsx, args.subsystem, summary, gap_tasks, api_rows),

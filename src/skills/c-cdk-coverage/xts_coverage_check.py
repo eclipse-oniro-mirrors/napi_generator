@@ -3,15 +3,15 @@
 """
 两种 XTS 覆盖核对方式：
 
-  1) excel  — 读台账 xlsx，对照 master ACTS（C NDK / web 多维度 / webview-dynamic）
+  1) excel  — 读台账 xlsx，对照 master ACTS（C CDK / web 多维度 / webview-dynamic）
   2) lookup — 给一个或多个接口名，在 test/xts/acts 里搜用例与文件
 
 Usage:
   python3 xts_coverage_check.py lookup fetchCookieSync OH_ArkWeb_CreateErrorInfo
   python3 xts_coverage_check.py lookup PermissionRequest --subdir web --md-out out.md
 
-  python3 xts_coverage_check.py excel c_ndk_result.xlsx --format c-ndk --scope unsatisfied
-  python3 xts_coverage_check.py excel c_ndk_result.xlsx --format c-ndk-web --subsystem web
+  python3 xts_coverage_check.py excel ledger.xlsx --format c-cdk --scope unsatisfied
+  python3 xts_coverage_check.py excel ledger.xlsx --format c-cdk-web --subsystem web
   python3 xts_coverage_check.py excel webview-dynamic.xlsx --format webview --scope user37
 
   # web 模块 ArkWeb 台账多批对比 / 新批黄底 vs 旧批
@@ -73,61 +73,72 @@ def cmd_lookup(args: argparse.Namespace) -> int:
     return 0 if any_hit or args.allow_miss else 2
 
 
+def _extend_excel_outputs(cmd: list[str], args: argparse.Namespace) -> None:
+    if args.md_out:
+        cmd.extend(["--md-out", args.md_out])
+    if args.json_out:
+        cmd.extend(["--json-out", args.json_out])
+    if args.oh_root:
+        cmd.extend(["--oh-root", args.oh_root])
+
+
+def _excel_cmd_c_cdk(
+    args: argparse.Namespace, xlsx: Path, py: str, skill: Path
+) -> list[str]:
+    cmd = [
+        py,
+        str(skill / "analyze_c_cdk_coverage.py"),
+        str(xlsx),
+        "--scope",
+        args.scope,
+    ]
+    if args.kit:
+        cmd.extend(["--kit", args.kit])
+    _extend_excel_outputs(cmd, args)
+    return cmd
+
+
+def _excel_cmd_c_cdk_web(
+    args: argparse.Namespace, xlsx: Path, py: str, skill: Path
+) -> list[str]:
+    cmd = [
+        py,
+        str(skill / "analyze_c_cdk_web_multi_coverage.py"),
+        str(xlsx),
+        "--subsystem",
+        args.subsystem,
+    ]
+    _extend_excel_outputs(cmd, args)
+    return cmd
+
+
+def _excel_cmd_webview(
+    args: argparse.Namespace, xlsx: Path, py: str, skill: Path
+) -> list[str]:
+    wv = skill.parent / "webview-dynamic-coverage" / "analyze_webview_dynamic.py"
+    cmd = [py, str(wv), str(xlsx), "--scope", args.scope]
+    if args.json_out:
+        cmd.extend(["--json", args.json_out])
+    md = args.md_out or str(
+        skill.parent / "webview-dynamic-coverage/webview_dynamic_gaps.md"
+    )
+    cmd.extend(["--md", md])
+    return cmd
+
+
+_EXCEL_BUILDERS = {
+    "c-cdk": _excel_cmd_c_cdk,
+    "c-cdk-web": _excel_cmd_c_cdk_web,
+    "webview": _excel_cmd_webview,
+}
+
+
 def cmd_excel(args: argparse.Namespace) -> int:
-    xlsx = Path(args.xlsx)
-    fmt = args.format
-    py = sys.executable
-    skill = SKILL_DIR
-
-    if fmt == "c-ndk":
-        cmd = [
-            py,
-            str(skill / "analyze_c_ndk_coverage.py"),
-            str(xlsx),
-            "--scope",
-            args.scope,
-        ]
-        if args.kit:
-            cmd.extend(["--kit", args.kit])
-        if args.md_out:
-            cmd.extend(["--md-out", args.md_out])
-        if args.json_out:
-            cmd.extend(["--json-out", args.json_out])
-        if args.oh_root:
-            cmd.extend(["--oh-root", args.oh_root])
-    elif fmt == "c-ndk-web":
-        cmd = [
-            py,
-            str(skill / "analyze_c_ndk_web_multi_coverage.py"),
-            str(xlsx),
-            "--subsystem",
-            args.subsystem,
-        ]
-        if args.md_out:
-            cmd.extend(["--md-out", args.md_out])
-        if args.json_out:
-            cmd.extend(["--json-out", args.json_out])
-        if args.oh_root:
-            cmd.extend(["--oh-root", args.oh_root])
-    elif fmt == "webview":
-        wv = skill.parent / "webview-dynamic-coverage" / "analyze_webview_dynamic.py"
-        cmd = [
-            py,
-            str(wv),
-            str(xlsx),
-            "--scope",
-            args.scope,
-        ]
-        if args.json_out:
-            cmd.extend(["--json", args.json_out])
-        md = args.md_out or str(
-            skill.parent / "webview-dynamic-coverage/webview_dynamic_gaps.md"
-        )
-        cmd.extend(["--md", md])
-    else:
-        print(f"未知 format: {fmt}", file=sys.stderr)
+    builder = _EXCEL_BUILDERS.get(args.format)
+    if not builder:
+        print(f"未知 format: {args.format}", file=sys.stderr)
         return 1
-
+    cmd = builder(args, Path(args.xlsx), sys.executable, SKILL_DIR)
     print("Run:", " ".join(cmd), file=sys.stderr)
     return subprocess.call(cmd)
 
@@ -225,17 +236,17 @@ def main() -> int:
     p_e.add_argument("--oh-root", help="OH 工程根（含 src/test/xts/acts）")
     p_e.add_argument(
         "--format",
-        choices=("c-ndk", "c-ndk-web", "webview"),
-        default="c-ndk",
-        help="c-ndk=C用例覆盖度明细; c-ndk-web=六维度 web; webview=webview-dynamic.xlsx",
+        choices=("c-cdk", "c-cdk-web", "webview"),
+        default="c-cdk",
+        help="c-cdk=C用例覆盖度明细; c-cdk-web=六维度 web; webview=webview-dynamic.xlsx",
     )
     p_e.add_argument(
         "--scope",
         default="unsatisfied",
-        help="c-ndk: all|need_iface|unsatisfied; webview: user37|red30|…",
+        help="c-cdk: all|need_iface|unsatisfied; webview: user37|red30|…",
     )
-    p_e.add_argument("--subsystem", default="web", help="c-ndk-web 子系统")
-    p_e.add_argument("--kit", default=None, help="c-ndk 按 KIT 过滤")
+    p_e.add_argument("--subsystem", default="web", help="c-cdk-web 子系统")
+    p_e.add_argument("--kit", default=None, help="c-cdk 按 KIT 过滤")
     p_e.add_argument("--md-out", default=None)
     p_e.add_argument("--json-out", default=None)
     p_e.set_defaults(func=cmd_excel)

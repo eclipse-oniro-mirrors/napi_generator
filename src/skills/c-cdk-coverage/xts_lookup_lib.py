@@ -8,7 +8,7 @@ import re
 from collections import defaultdict
 from pathlib import Path
 
-from analyze_c_ndk_coverage import CASE_PATTERNS, build_case_index, looks_like_case_name
+from analyze_c_cdk_coverage import CASE_PATTERNS, build_case_index, looks_like_case_name
 
 SKIP_PATH_PARTS = ("/build/", "/cache/", "/out/", "/node_modules/")
 

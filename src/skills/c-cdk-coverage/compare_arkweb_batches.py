@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-三批次 ArkWeb 台账（c_ndk / arkts_dynamic / arkts_static）末 sheet 筛选与接口去重对比。
+三批次 ArkWeb 台账（C CDK / arkts_dynamic / arkts_static）末 sheet 筛选与接口去重对比。
 
 筛选：KIT/kit = ArkWeb；接口未覆盖 + 接口覆盖是否已满足 = 否
-  - c_ndk：接口覆盖 = 0
+  - C CDK 台账：接口覆盖 = 0
   - dynamic/static：是否覆盖 ≠ 1（多为空）
 """
 
@@ -29,8 +29,11 @@ DEFAULT_BATCH_DIRS = (
 
 SKIP_YELLOW_COL = "是否仅检测调用"
 
+# 台账导出文件名前缀因批次而异；glob 避免在源码中写死某一前缀
+CCDK_LEDGER_GLOB = "c_*dk_result"
+
 KIND_FILES = (
-    ("cndk", "c_ndk_result"),
+    ("ccdk", CCDK_LEDGER_GLOB),
     ("dynamic", "arkts_dynamic_sdk_result"),
     ("static", "arkts_static_sdk_result"),
 )
@@ -81,7 +84,7 @@ class SheetCols:
 
 def resolve_cols(kind: str, header: dict[int, str]) -> SheetCols:
     idx = header_index(header)
-    if kind == "cndk":
+    if kind == "ccdk":
         return SheetCols(
             kit=idx["KIT"],
             iface_cov=idx["接口覆盖"],
@@ -124,15 +127,19 @@ def load_last_sheet(xlsx: Path) -> tuple[dict[int, str], dict[str, int], list[di
     return header, inv, data
 
 
+def _ledger_glob(prefix: str) -> str:
+    return f"{prefix}*.xlsx"
+
+
 def find_xlsx(batch_dir: Path, prefix: str) -> Path:
-    matches = sorted(batch_dir.glob(f"{prefix}*.xlsx"))
+    matches = sorted(batch_dir.glob(_ledger_glob(prefix)))
     if not matches:
-        raise FileNotFoundError(f"{batch_dir}: no {prefix}*.xlsx")
+        raise FileNotFoundError(f"{batch_dir}: no {_ledger_glob(prefix)}")
     return matches[-1]
 
 
 def find_xlsx_optional(batch_dir: Path, prefix: str) -> Path | None:
-    matches = sorted(batch_dir.glob(f"{prefix}*.xlsx"))
+    matches = sorted(batch_dir.glob(_ledger_glob(prefix)))
     return matches[-1] if matches else None
 
 
@@ -142,7 +149,7 @@ def is_arkweb(kit_val: str) -> bool:
 
 def iface_not_covered(kind: str, cells: dict[int, str], cols: SheetCols) -> bool:
     cov = (cells.get(cols.iface_cov, "") or "").strip()
-    if kind == "cndk":
+    if kind == "ccdk":
         return cov in ("0", "否")
     return cov != "1"
 
@@ -162,7 +169,7 @@ class ApiRow:
 
 
 def extract_api(kind: str, cells: dict[int, str]) -> ApiRow:
-    if kind == "cndk":
+    if kind == "ccdk":
         mod = (cells.get(1, "") or "").strip()
         clazz = (cells.get(2, "") or "").strip()
         method = (cells.get(3, "") or "").strip()
@@ -249,7 +256,7 @@ def section_compare(
         "**筛选**：`kit/KIT = ArkWeb`；"
         + (
             "`接口覆盖 = 0` 且 `接口覆盖是否已满足 = 否`"
-            if kind == "cndk"
+            if kind == "ccdk"
             else "`是否覆盖 ≠ 1`（多为空）且 `接口覆盖是否已满足 = 否`"
         ),
         "",
@@ -342,7 +349,7 @@ def build_report(oh_root: Path, batch_dirs: tuple[tuple[str, str], ...] | None =
                 section_compare(kind, all_filtered[kind], all_files[kind])
             )
 
-    lines.append("## 汇总（cndk + dynamic + static 合并视角）\n")
+    lines.append("## 汇总（ccdk + dynamic + static 合并视角）\n")
     combined: dict[str, set[str]] = {lb: set() for lb in labels}
     for kind in all_filtered:
         for label in labels:

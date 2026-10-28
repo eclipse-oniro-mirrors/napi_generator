@@ -3,7 +3,7 @@ name: xts-coverage-check
 description: >-
   核对接口是否在 XTS/ACTS 有用例覆盖：Excel 台账对照 master、单接口 lookup（建议 --subdir web）；
   web 模块 ArkWeb 多批 *arkwebxts 待补对比、新批黄底 vs 旧批。
-  触发：查 XTS 覆盖、arkwebxts、c_ndk_result、OH_ArkWeb、loadUrl、台账黄底未找到。
+  触发：查 XTS 覆盖、arkwebxts、C CDK 台账、OH_ArkWeb、loadUrl、台账黄底未找到。
 author: "napi_generator"
 version: "1.1.0"
 ---
@@ -14,7 +14,7 @@ version: "1.1.0"
 
 在 **OH 工程根**（含 `src/test/xts/acts`）执行；脚本自动解析 `acts` 路径。
 
-依赖：C NDK / 黄底解析用标准库读 xlsx；**webview-dynamic** 需 `openpyxl`。
+依赖：C CDK 台账 / 黄底解析用标准库读 xlsx；**webview-dynamic** 需 `openpyxl`。
 
 ---
 
@@ -22,17 +22,17 @@ version: "1.1.0"
 
 | `--format` | 适用文件 | 说明 |
 |------------|----------|------|
-| **`c-ndk`**（默认） | `c_ndk_result*.xlsx`，表 **「C用例覆盖度明细」** | **KIT=ArkWeb** 等；接口覆盖=0 ↔ master **acts** |
-| **`c-ndk-web`** | 同上 | **web 子系统** 六维度待补 ↔ XTS |
+| **`c-cdk`**（默认） | C CDK 台账 `c_*dk_result*.xlsx`，表 **「C用例覆盖度明细」** | **KIT=ArkWeb** 等；接口覆盖=0 ↔ master **acts** |
+| **`c-cdk-web`** | 同上 | **web 子系统** 六维度待补 ↔ XTS |
 | **`webview`** | **`webview-dynamic.xlsx`** | 缺口解析（补测见 webview-dynamic-coverage） |
 
 ```bash
-python3 src/napi_generator/src/skills/c-ndk-coverage/xts_coverage_check.py excel \
-  /path/to/c_ndk_result.xlsx --format c-ndk --scope unsatisfied \
+python3 src/napi_generator/src/skills/c-cdk-coverage/xts_coverage_check.py excel \
+  /path/to/ledger.xlsx --format c-cdk --scope unsatisfied \
   --kit ArkWeb --oh-root /mnt/vdb/ohos/master
 ```
 
-**`--scope`（c-ndk）**：`all` | `need_iface` | `unsatisfied`（接口覆盖=0 且 已满足=否）。
+**`--scope`（c-cdk）**：`all` | `need_iface` | `unsatisfied`（接口覆盖=0 且 已满足=否）。
 
 ---
 
@@ -54,11 +54,11 @@ OH 根下目录约定：`20261015arkwebxts/` 等，内含：
 
 | 文件前缀 | 类型 |
 |----------|------|
-| `c_ndk_result*.xlsx` | C NDK（末 sheet「C用例覆盖度明细」） |
+| `c_*dk_result*.xlsx` | C CDK（末 sheet「C用例覆盖度明细」） |
 | `arkts_dynamic_sdk_result*.xlsx` | 动态 ArkTS（末 sheet「接口覆盖详情」） |
 | `arkts_static_sdk_result*.xlsx` | 静态 ArkTS（同上） |
 
-**筛选（与脚本一致）**：`kit/KIT = ArkWeb`；c_ndk 为 `接口覆盖=0` 且 `接口覆盖是否已满足=否`；dynamic/static 为 `是否覆盖≠1` 且 `已满足=否`。
+**筛选（与脚本一致）**：`kit/KIT = ArkWeb`；C CDK 为 `接口覆盖=0` 且 `接口覆盖是否已满足=否`；dynamic/static 为 `是否覆盖≠1` 且 `已满足=否`。
 
 ### 3a. 多批待补交集 / 差集
 
@@ -102,7 +102,7 @@ python3 .../xts_coverage_check.py web-yellow \
 - 「web 模块 / ArkWeb 接口 XTS 有没有覆盖」
 - 「对比 1028 和 1015 arkwebxts」「黄底是没找到吗」
 - 「三批 webxts 待补重复/不重复」
-- 「c_ndk_result / loadUrl / 17100002 有没有用例」（lookup + `--subdir web`）
+- 「C CDK 台账 / loadUrl / 17100002 有没有用例」（lookup + `--subdir web`）
 
 ---
 
@@ -114,4 +114,4 @@ python3 .../xts_coverage_check.py web-yellow \
 | **compare_arkweb_batches.py** | 多批 ArkWeb 待补对比 |
 | **compare_yellow_vs_batch.py** | 黄底 vs 旧批（含 focus 报告） |
 | **xts_lookup_lib.py** | lookup 与 `resolve_acts_root` |
-| **analyze_c_ndk_*.py** | C NDK / web 六维度 ↔ acts |
+| **analyze_c_cdk_*.py** | C CDK / web 六维度 ↔ acts |

@@ -101,7 +101,7 @@ Sync to AGENTS.md: npx openskills sync
 | **ohxtscapi** | **ArkUI CAPI + Hypium XTS**；NAPI/C++ 用例；**run-capi-pipeline**（编签→设备→门禁→commit）；**arkui-capi-xts-generator-v3/** | `ohxtscapi/ohxtscflow.py`；**ohxtscapi/SKILL.md** |
 | **ohos-gate-compliance** | **PR 门禁统一入口**：`scripts/gate_review.py`（pipeline 自动）、`arkts_patterns.py`、`scan_gate_patterns.py`；按 ets/capi 选规则 | `ohos-gate-compliance/SKILL.md` |
 | **webview-dynamic-coverage** | 按 **`webview-dynamic.xlsx`** 端到端：**解析 → 编写/生成 → build-acts → sync HAP → actstest 多轮 → 报告**；user37 云服务+OH；一覆盖点一条 `it()` | **`run_webview_dynamic_pipeline.py`**、`analyze_webview_dynamic.py`、**SKILL.md** v2.0 |
-| **c-ndk-coverage**（**xts-coverage-check**） | **web 模块**：`*arkwebxts` 多批待补对比、**黄底 vs 旧批**；Excel↔ACTS（C NDK / web 六维度）；**lookup** 建议 **`--subdir web`** | **`xts_coverage_check.py`**（**excel** / **lookup** / **web-batches** / **web-yellow**）、**compare_arkweb_batches.py**、**compare_yellow_vs_batch.py** |
+| **c-cdk-coverage**（**xts-coverage-check**） | **web 模块**：`*arkwebxts` 多批待补对比、**黄底 vs 旧批**；Excel↔ACTS（C CDK / web 六维度）；**lookup** 建议 **`--subdir web`** | **`xts_coverage_check.py`**（**excel** / **lookup** / **web-batches** / **web-yellow**）、**compare_arkweb_batches.py**、**compare_yellow_vs_batch.py** |
 
 **常见限制（摘要）**
 
@@ -120,7 +120,7 @@ Sync to AGENTS.md: npx openskills sync
 - **ohxtsstatic**：编排依赖 **ohhap/ohhdc**；规范与排障以本目录 **SKILL.md**、**compile_error_hints.md** 为准；**ArkUI 接口范式** 见 **`arkui-static-xts-generator/`**（**须从 [arkUISkill（GitCode）](https://gitcode.com/qq_44921954/arkUISkill) 自行下载放置**，见 **`arkui-static-xts-generator/README.md`**；**勿提交 categories/common 正文**）；**静态用例工程**编译前设置 **`OHOS_USE_HVIGOR_STATIC=1`**，使 **`hapbuild`** 使用 **`hvigor-static`**（见 **SKILL.md**）。
 - **ohxtsdynamic**：与 **ohxtsstatic** 互补，面向 **@ComponentV2** 动态组件；SDK 用 **normal**（`source use-ohos-sdk.sh normal`），**勿设** **`OHOS_USE_HVIGOR_STATIC`**；**arkui-dynamic-xts-generator/** 同静态，**仅 README 入库**，正文外置下载；编排 **`ohxtsdynamic/ohxtsflow.py`** + **ohhap/ohhdc**。
 - **webview-dynamic-coverage**：**`webview-dynamic.xlsx`** 在 **OH 根**（与 `src/` 同级）；**`pip install openpyxl`**；一体化 **`python3 …/run_webview_dynamic_pipeline.py all --oh-root … --src-dir …`**；跑测前 **`sync-haps`**；报告 **`webview_dynamic_acts_report.md`**；设备适配见 **`device_adaptation.md`**。
-- **c-ndk-coverage**：**web 模块**台账目录 `*arkwebxts`（**`web-batches`** / **`web-yellow`**）；**`lookup --subdir web`** 对 **`acts/web`**；未命中默认 **exit 2**；**webview** 格式需 **openpyxl**。
+- **c-cdk-coverage**：**web 模块**台账目录 `*arkwebxts`（**`web-batches`** / **`web-yellow`**）；**`lookup --subdir web`** 对 **`acts/web`**；未命中默认 **exit 2**；**webview** 格式需 **openpyxl**。
 
 **环境与路径（常用）**
 
@@ -169,7 +169,7 @@ Agent 多由自然语言触发；下表为**用户可说的提示句**与**典�
 | **ohrecord** | 「准备 snapshot_record 目录与标签」「录一段屏并拉回 MP4」「麦克风 audio / 音乐 play / 摄像头 cam」「查录屏相关 hilog」 | `prep-device` / `record --seconds 60 -f /data/test/media/x.mp4` / `pull --remote …` / `verify-host-so` / `verify-device-so` / **`audio-*` / `play-*` / `cam-*`**（含 **`audio-pull`**）/ `cam-run --pull --verify -- auto 10` / `hilog-capture` / `targets`（命令前加 **`python3 src/skills/ohrecord/ohrecord.py`**；**`-f` 同 `--file`**；完整见 **ohrecord/SKILL.md**） |
 | **ohxtsstatic** | 「一体化 static + Hypium」「§〇 路由+检查点」「SDK+明细+docs」「build-all/deploy-test」 | `python3 src/skills/ohxtsstatic/ohxtsflow.py` 同上；**SKILL.md** + **compile_error_hints** + **arkui-static-xts-generator/**（外置下载） |
 | **ohxtsdynamic** | 「动态 ChipV2/CounterV2 XTS」「异常参数 compile_probe」「deploy-test / run-dynamic-pipeline」 | `python3 src/skills/ohxtsdynamic/ohxtsflow.py build-all` / `deploy-test` / `run-dynamic-pipeline`；**normal SDK**；**arkui-dynamic-xts-generator/**（外置下载） |
-| **c-ndk-coverage** | 「web 模块有没有 XTS」「对比 1028/1015 arkwebxts 黄底」「三批待补交集」 | `… lookup <符号> --subdir web`；`… web-batches --oh-root <OH根> [--batch LABEL:DIR …]`；`… web-yellow --new-dir 20261028arkwebxts --old-dir 20261015arkwebxts`（**c-ndk-coverage/SKILL.md**） |
+| **c-cdk-coverage** | 「web 模块有没有 XTS」「对比 1028/1015 arkwebxts 黄底」「三批待补交集」 | `… lookup <符号> --subdir web`；`… web-batches --oh-root <OH根> [--batch LABEL:DIR …]`；`… web-yellow --new-dir 20261028arkwebxts --old-dir 20261015arkwebxts`（**c-cdk-coverage/SKILL.md**） |
 
 ### 4.4 ohhap：构建与签名（Windows / Linux 对照）
 
