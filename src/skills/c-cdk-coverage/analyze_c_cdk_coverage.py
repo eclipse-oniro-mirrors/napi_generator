@@ -44,6 +44,7 @@ CASE_PATTERNS = (
     re.compile(r"\bHWTEST_F\s*\(\s*(\w{4,80})"),
 )
 
+
 def looks_like_case_name(name: str) -> bool:
     if len(name) < 8 or len(name) > 120:
         return False
@@ -129,6 +130,19 @@ def parse_case_ids(raw42: str, raw53: str) -> list[str]:
     return list(dict.fromkeys(out))
 
 
+def _case_names_in_source(text: str, suffix: str) -> set[str]:
+    found: set[str] = set()
+    for name in CASE_PATTERNS[0].findall(text):
+        if looks_like_case_name(name):
+            found.add(name)
+    if suffix in {".cpp", ".c", ".cc"}:
+        for pat in CASE_PATTERNS[2:]:
+            for name in pat.findall(text):
+                if looks_like_case_name(name):
+                    found.add(name)
+    return found
+
+
 def build_case_index(xts_root: Path) -> dict[str, list[str]]:
     """Map Hypium/HWTEST case name -> relative paths under xts_root."""
     index: dict[str, list[str]] = defaultdict(list)
@@ -144,16 +158,7 @@ def build_case_index(xts_root: Path) -> dict[str, list[str]]:
         except OSError:
             continue
         rel = path.relative_to(xts_root).as_posix()
-        found: set[str] = set()
-        for name in CASE_PATTERNS[0].findall(text):
-            if looks_like_case_name(name):
-                found.add(name)
-        if path.suffix in {".cpp", ".c", ".cc"}:
-            for pat in CASE_PATTERNS[2:]:
-                for name in pat.findall(text):
-                    if looks_like_case_name(name):
-                        found.add(name)
-        for name in found:
+        for name in _case_names_in_source(text, path.suffix):
             if rel not in index[name]:
                 index[name].append(rel)
     return index
@@ -256,6 +261,24 @@ def verify_in_master(
     return "无对应用例", [], []
 
 
+def _coverage_label(iface: str, master_status: str) -> str:
+    if iface == "1":
+        return "已覆盖(Excel接口覆盖=1)"
+    if master_status == "有对应用例":
+        return "待补(工具=0)但master有用例"
+    if master_status == "Excel未关联用例":
+        return "待补(工具=0)且Excel未关联用例"
+    return "待补(工具=0)且master无对应用例"
+
+
+def _iface_priority(excel_need: bool, satisfied: str) -> str:
+    if excel_need and satisfied == "否":
+        return "高"
+    if excel_need:
+        return "中"
+    return "-"
+
+
 def row_to_record(cells: dict[int, str], row_num: int, **verify) -> dict:
     iface = cells.get(COL["iface_cov"], "").strip()
     api = f"{cells.get(COL['module'], '')}::{cells.get(COL['method'], '')}"
@@ -275,22 +298,8 @@ def row_to_record(cells: dict[int, str], row_num: int, **verify) -> dict:
     )
     excel_need = iface == "0"
     satisfied = cells.get(COL["iface_satisfied"], "")
-
-    if iface == "1":
-        cover_label = "已覆盖(Excel接口覆盖=1)"
-    elif master_status == "有对应用例":
-        cover_label = "待补(工具=0)但master有用例"
-    elif master_status == "Excel未关联用例":
-        cover_label = "待补(工具=0)且Excel未关联用例"
-    else:
-        cover_label = "待补(工具=0)且master无对应用例"
-
-    if excel_need and satisfied == "否":
-        priority = "高"
-    elif excel_need:
-        priority = "中"
-    else:
-        priority = "-"
+    cover_label = _coverage_label(iface, master_status)
+    priority = _iface_priority(excel_need, satisfied)
 
     return {
         "excel_row": row_num,
@@ -313,10 +322,32 @@ def row_to_record(cells: dict[int, str], row_num: int, **verify) -> dict:
     }
 
 
+def _md_record_row(r: dict) -> str:
+    api = f"`{r['module']}` / `{r['method']}`"
+    cases = ", ".join(f"`{x}`" for x in r["excel_case_ids"][:3])
+    if len(r["excel_case_ids"]) > 3:
+        cases += f" …(+{len(r['excel_case_ids'])-3})"
+    if not cases:
+        cases = "—"
+    files = ", ".join(f"`{x}`" for x in r["master_matched_files"][:2])
+    if len(r["master_matched_files"]) > 2:
+        files += f" …(+{len(r['master_matched_files'])-2})"
+    if not files:
+        files = "—"
+    master = r["master_status"]
+    if r["master_matched_cases"]:
+        master += "：" + ", ".join(r["master_matched_cases"][:2])
+    sat = r["excel_iface_satisfied"] or "—"
+    return (
+        f"| {r['excel_row']} | {api} | {r['excel_iface_cov']} | "
+        f"{sat} | **{r['coverage_label']}** | {master} | {cases} | {files} |"
+    )
+
+
 def markdown_report(
     xlsx: Path, records: list[dict], scope: str, summary: dict
 ) -> str:
-    lines = [
+    head = [
         "# C CDK 接口覆盖 ↔ XTS 用例对照表",
         "",
         f"来源：`{xlsx}` 工作表 **C用例覆盖度明细**",
@@ -344,100 +375,13 @@ def markdown_report(
         "| Excel行 | 模块/方法 | 接口覆盖 | 已满足 | 覆盖结论 | master | Excel 用例 | master 文件 |",
         "|---:|---|:---:|:---:|---|---|---|---|",
     ]
-    for r in records:
-        api = f"`{r['module']}` / `{r['method']}`"
-        cases = ", ".join(f"`{x}`" for x in r["excel_case_ids"][:3])
-        if len(r["excel_case_ids"]) > 3:
-            cases += f" …(+{len(r['excel_case_ids'])-3})"
-        if not cases:
-            cases = "—"
-        files = ", ".join(f"`{x}`" for x in r["master_matched_files"][:2])
-        if len(r["master_matched_files"]) > 2:
-            files += f" …(+{len(r['master_matched_files'])-2})"
-        if not files:
-            files = "—"
-        master = r["master_status"]
-        if r["master_matched_cases"]:
-            master += "：" + ", ".join(r["master_matched_cases"][:2])
-        lines.append(
-            f"| {r['excel_row']} | {api} | {r['excel_iface_cov']} | "
-            f"{r['excel_iface_satisfied'] or '—'} | **{r['coverage_label']}** | {master} | {cases} | {files} |"
-        )
-    return "\n".join(lines) + "\n"
+    return "\n".join(head + [_md_record_row(r) for r in records]) + "\n"
 
 
-def main() -> int:
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument(
-        "xlsx",
-        nargs="?",
-        default="c_cdk_result(4).xlsx",
-        help="Path to C CDK 台账 xlsx",
-    )
-    parser.add_argument(
-        "--oh-root",
-        type=Path,
-        default=None,
-        help="OH tree root (default: auto from script location)",
-    )
-    parser.add_argument(
-        "--scope",
-        choices=("need_iface", "unsatisfied", "all"),
-        default="unsatisfied",
-        help="need_iface=第24列接口覆盖=0(6179); unsatisfied=24=0且第43列是否已满足=否(全表373); all=全部行",
-    )
-    parser.add_argument(
-        "--kit",
-        default="",
-        help="仅统计指定 KIT（如 ArkWeb）；与 unsatisfied 联用时全表373，ArkWeb 为14条",
-    )
-    parser.add_argument("--json-out", type=Path, default=None)
-    parser.add_argument("--md-out", type=Path, default=None)
-    args = parser.parse_args()
-
-    from xts_lookup_lib import resolve_acts_root
-
-    oh_root, acts = resolve_acts_root(
-        args.oh_root.resolve() if args.oh_root else None
-    )
-    oh_root = oh_root.resolve()
-    xlsx = Path(args.xlsx)
-    if not xlsx.is_file():
-        xlsx = oh_root / args.xlsx
-    if not xlsx.is_file():
-        print(f"找不到 xlsx: {xlsx}", file=sys.stderr)
-        return 1
-
-    xts = oh_root / "src/test/xts"
-    if not acts.is_dir():
-        print(f"acts 目录不存在: {acts}", file=sys.stderr)
-        return 1
-
-    print("Indexing ACTS cases under", acts, file=sys.stderr)
-    case_index = build_case_index(acts)
-    basename_index = build_basename_index(acts)
-    print(f"  indexed {len(case_index)} case names", file=sys.stderr)
-
-    shared, rows = load_detail_sheet(xlsx)
-    file_cache: dict[str, str] = {}
-    verify_kw = {
-        "file_cache": file_cache,
-        "case_index": case_index,
-        "acts": acts,
-        "xts": xts,
-        "basename_index": basename_index,
-    }
-
-    all_records: list[dict] = []
-    for row in rows[1:]:
-        cells = read_row(row, shared)
-        row_num = int(row.get("r", 0))
-        rec = row_to_record(cells, row_num, **verify_kw)
-        all_records.append(rec)
-
-    if args.scope == "need_iface":
+def _filter_records(all_records: list[dict], scope: str, kit: str) -> list[dict]:
+    if scope == "need_iface":
         records = [r for r in all_records if r["excel_need_iface"]]
-    elif args.scope == "unsatisfied":
+    elif scope == "unsatisfied":
         records = [
             r
             for r in all_records
@@ -445,10 +389,13 @@ def main() -> int:
         ]
     else:
         records = all_records
-    if args.kit:
-        records = [r for r in records if r.get("kit") == args.kit]
+    if kit:
+        records = [r for r in records if r.get("kit") == kit]
+    return records
 
-    summary = {
+
+def _build_summary(all_records: list[dict]) -> dict:
+    return {
         "total_rows": len(all_records),
         "iface_1": sum(1 for r in all_records if r["excel_iface_cov"] == "1"),
         "iface_0": sum(1 for r in all_records if r["excel_iface_cov"] == "0"),
@@ -467,11 +414,65 @@ def main() -> int:
         ),
     }
 
-    md_out = args.md_out or (oh_root / "c_cdk_master_coverage_table.md")
-    json_out = args.json_out or (
-        skill_dir / "c_cdk_master_coverage_table.json"
-    )
 
+def _parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "xlsx",
+        nargs="?",
+        default="c_cdk_result(4).xlsx",
+        help="Path to C CDK 台账 xlsx",
+    )
+    parser.add_argument("--oh-root", type=Path, default=None)
+    parser.add_argument(
+        "--scope",
+        choices=("need_iface", "unsatisfied", "all"),
+        default="unsatisfied",
+    )
+    parser.add_argument("--kit", default="")
+    parser.add_argument("--json-out", type=Path, default=None)
+    parser.add_argument("--md-out", type=Path, default=None)
+    return parser.parse_args()
+
+
+def _load_all_records(xlsx: Path, acts: Path, xts: Path) -> list[dict]:
+    case_index = build_case_index(acts)
+    basename_index = build_basename_index(acts)
+    shared, rows = load_detail_sheet(xlsx)
+    verify_kw = {
+        "file_cache": {},
+        "case_index": case_index,
+        "acts": acts,
+        "xts": xts,
+        "basename_index": basename_index,
+    }
+    return [
+        row_to_record(read_row(row, shared), int(row.get("r", 0)), **verify_kw)
+        for row in rows[1:]
+    ]
+
+
+def main() -> int:
+    args = _parse_args()
+    from xts_lookup_lib import resolve_acts_root
+
+    oh_root, acts = resolve_acts_root(
+        args.oh_root.resolve() if args.oh_root else None
+    )
+    oh_root = oh_root.resolve()
+    xlsx = Path(args.xlsx)
+    if not xlsx.is_file():
+        xlsx = oh_root / args.xlsx
+    if not xlsx.is_file() or not acts.is_dir():
+        print(f"找不到 xlsx 或 acts: {xlsx}", file=sys.stderr)
+        return 1
+
+    all_records = _load_all_records(xlsx, acts, oh_root / "src/test/xts")
+    records = _filter_records(all_records, args.scope, args.kit)
+    summary = _build_summary(all_records)
+    skill_dir = Path(__file__).resolve().parent
+    md_out = args.md_out or (oh_root / "c_cdk_master_coverage_table.md")
+    json_out = args.json_out or (skill_dir / "c_cdk_master_coverage_table.json")
     md_out.write_text(
         markdown_report(xlsx, records, args.scope, summary), encoding="utf-8"
     )
@@ -485,7 +486,6 @@ def main() -> int:
     }
     json_out.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"Wrote {len(records)} rows -> {md_out}")
-    print(f"JSON -> {json_out}")
     return 0
 
 

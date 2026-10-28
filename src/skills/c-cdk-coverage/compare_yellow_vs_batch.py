@@ -111,12 +111,14 @@ def load_last_sheet_rows(xlsx: Path) -> tuple[dict[int, str], list[dict], set[in
     return header, parsed, yellow_xf
 
 
+
 @dataclass
 class ApiRow:
     api_id: str
     label: str
     kit: str
     row: dict[str, str]
+
 
 
 def header_index(header: dict[int, str]) -> dict[str, int]:
@@ -222,6 +224,50 @@ def identity_row_yellow(xlsx: Path, kind: str) -> dict[str, str]:
     return out
 
 
+def _focus_kind_section(
+    kind: str,
+    prefix: str,
+    new_d: Path,
+    old_d: Path,
+    new_label: str,
+    old_label: str,
+) -> list[str]:
+    from compare_arkweb_batches import filter_batch, find_xlsx
+
+    new_x = find_xlsx(new_d, prefix)
+    old_x = find_xlsx(old_d, prefix)
+    u_old = {a.api_id: a.label for a in filter_batch(old_x, kind)}
+    y_new = yellow_unsat_rows(new_x, kind)
+    id_y = identity_row_yellow(new_x, kind)
+    overlap = {k: y_new[k] for k in y_new if k in u_old}
+    new_only = {k: y_new[k] for k in y_new if k not in u_old}
+    old_not_y = {k: u_old[k] for k in u_old if k not in y_new}
+    lines = [
+        f"## {kind}",
+        "",
+        "| 指标 | 条数 |",
+        "|------|------|",
+        f"| {old_label} 待补 | {len(u_old)} |",
+        f"| {new_label} 黄底+未满足 | {len(y_new)} |",
+        f"| 两批均有（旧待补且新仍黄+未满足） | {len(overlap)} |",
+        f"| {new_label} 有、{old_label} 无 | {len(new_only)} |",
+        f"| {old_label} 待补、不在新「黄+未满足」 | {len(old_not_y)} |",
+        f"| {new_label} 整行标识列黄（master 未匹配） | {len(id_y)} |",
+        "",
+    ]
+    if new_only:
+        lines.append(f"### {new_label} 新增（{len(new_only)}）\n")
+        for k in sorted(new_only):
+            lines.append(f"- {new_only[k].label} `{k}`")
+        lines.append("")
+    if overlap and len(overlap) <= 40:
+        lines.append(f"### 两批重叠仍黄+未满足（{len(overlap)}）\n")
+        for k in sorted(overlap):
+            lines.append(f"- {overlap[k].label} `{k}`")
+        lines.append("")
+    return lines
+
+
 def build_focus_report(
     oh_root: Path,
     new_dir: str,
@@ -229,8 +275,6 @@ def build_focus_report(
     new_label: str | None = None,
     old_label: str | None = None,
 ) -> str:
-    from compare_arkweb_batches import filter_batch, find_xlsx
-
     new_label = new_label or new_dir.replace("arkwebxts", "").replace("xts", "") or new_dir
     old_label = old_label or old_dir.replace("arkwebxts", "").replace("xts", "") or old_dir
     new_d = oh_root / new_dir
@@ -250,38 +294,28 @@ def build_focus_report(
         "",
     ]
     for kind, prefix in LEDGER_KINDS:
-        new_x = find_xlsx(new_d, prefix)
-        old_x = find_xlsx(old_d, prefix)
-        u_old = {a.api_id: a.label for a in filter_batch(old_x, kind)}
-        y_new = yellow_unsat_rows(new_x, kind)
-        id_y = identity_row_yellow(new_x, kind)
-        overlap = {k: y_new[k] for k in y_new if k in u_old}
-        new_only = {k: y_new[k] for k in y_new if k not in u_old}
-        old_not_y = {k: u_old[k] for k in u_old if k not in y_new}
-        lines += [
-            f"## {kind}",
-            "",
-            "| 指标 | 条数 |",
-            "|------|------|",
-            f"| {old_label} 待补 | {len(u_old)} |",
-            f"| {new_label} 黄底+未满足 | {len(y_new)} |",
-            f"| 两批均有（旧待补且新仍黄+未满足） | {len(overlap)} |",
-            f"| {new_label} 有、{old_label} 无 | {len(new_only)} |",
-            f"| {old_label} 待补、不在新「黄+未满足」 | {len(old_not_y)} |",
-            f"| {new_label} 整行标识列黄（master 未匹配） | {len(id_y)} |",
-            "",
-        ]
-        if new_only:
-            lines.append(f"### {new_label} 新增（{len(new_only)}）\n")
-            for k in sorted(new_only):
-                lines.append(f"- {new_only[k].label} `{k}`")
-            lines.append("")
-        if overlap and len(overlap) <= 40:
-            lines.append(f"### 两批重叠仍黄+未满足（{len(overlap)}）\n")
-            for k in sorted(overlap):
-                lines.append(f"- {overlap[k].label} `{k}`")
-            lines.append("")
+        lines.extend(
+            _focus_kind_section(kind, prefix, new_d, old_d, new_label, old_label)
+        )
     return "\n".join(lines)
+
+
+def _yellow_api_table(
+    lines: list[str], title: str, items: list[ApiRow], new_label: str, limit: int = 300
+) -> None:
+    lines.append(f"### {title}（{len(items)}）\n")
+    if not items:
+        lines.append("_无_\n")
+        return
+    lines.append(f"| 接口 | api_id | {new_label} 是否覆盖 | {new_label} 已满足 |")
+    lines.append("|------|--------|-----------------|-------------|")
+    for a in items[:limit]:
+        cov = a.row.get("是否覆盖", a.row.get("接口覆盖", ""))
+        sat = a.row.get("接口覆盖是否已满足", "")
+        lines.append(f"| {a.label} | `{a.api_id}` | {cov} | {sat} |")
+    if len(items) > limit:
+        lines.append(f"\n> 仅展示前 {limit} 条。\n")
+    lines.append("")
 
 
 def md_report(
@@ -321,57 +355,20 @@ def md_report(
         "",
     ]
 
-    def table(title: str, items: list[ApiRow], limit: int = 300):
-        lines.append(f"### {title}（{len(items)}）\n")
-        if not items:
-            lines.append("_无_\n")
-            return
-        lines.append(f"| 接口 | api_id | {new_label} 是否覆盖 | {new_label} 已满足 |")
-        lines.append("|------|--------|-----------------|-------------|")
-        inv_keys = ("是否覆盖", "接口覆盖是否已满足")
-        for a in items[:limit]:
-            cov = a.row.get("是否覆盖", a.row.get("接口覆盖", ""))
-            sat = a.row.get("接口覆盖是否已满足", "")
-            lines.append(f"| {a.label} | `{a.api_id}` | {cov} | {sat} |")
-        if len(items) > limit:
-            lines.append(f"\n> 仅展示前 {limit} 条。\n")
-        lines.append("")
-
-    table(f"{old_label} 已包含（{new_label} 仍黄底未找到）", in_1015)
-    table(f"{old_label} 无（{new_label} 新出现且黄底）", only_1028)
+    _yellow_api_table(
+        lines, f"{old_label} 已包含（{new_label} 仍黄底未找到）", in_1015, new_label
+    )
+    _yellow_api_table(
+        lines, f"{old_label} 无（{new_label} 新出现且黄底）", only_1028, new_label
+    )
     return "\n".join(lines)
 
 
-def main() -> int:
-    ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--oh-root", type=Path, default=Path("/mnt/vdb/ohos/master"))
-    ap.add_argument("--new-dir", default="20261028arkwebxts")
-    ap.add_argument("--old-dir", default="20261015arkwebxts")
-    ap.add_argument("--new-label", default=None, help="报告中的新批次简称")
-    ap.add_argument("--old-label", default=None, help="报告中的旧批次简称")
-    ap.add_argument("--md-out", type=Path, default=None, help="全量黄行 md")
-    ap.add_argument(
-        "--focus-out",
-        type=Path,
-        default=None,
-        help="聚焦 md（推荐；排除「是否仅检测调用」黄底）",
-    )
-    args = ap.parse_args()
-    root = args.oh_root.resolve()
+def _write_full_yellow_md(args: argparse.Namespace, root: Path) -> Path:
     new_d = root / args.new_dir
     old_d = root / args.old_dir
     new_label = args.new_label or args.new_dir
     old_label = args.old_label or args.old_dir
-
-    focus = build_focus_report(
-        root, args.new_dir, args.old_dir, new_label, old_label
-    )
-    focus_out = args.focus_out or (
-        root / f"arkweb_{new_label}_yellow_vs_{old_label}_focus.md"
-    )
-    focus_out.write_text(focus, encoding="utf-8")
-    print(f"Wrote {focus_out}")
-
     sections = [
         f"# {new_label} web 台账黄底 vs {old_label}（全量黄行）",
         "",
@@ -383,14 +380,11 @@ def main() -> int:
     for kind, prefix in LEDGER_KINDS:
         new_x = sorted(new_d.glob(f"{prefix}*.xlsx"))[-1]
         old_x = sorted(old_d.glob(f"{prefix}*.xlsx"))[-1]
-        yellow = extract_yellow_arkweb(new_x, kind)
-        k_old = all_arkweb_keys(old_x, kind)
-        k_new = all_arkweb_keys(new_x, kind)
         sections.append(
             md_report(
-                yellow,
-                k_old,
-                k_new,
+                extract_yellow_arkweb(new_x, kind),
+                all_arkweb_keys(old_x, kind),
+                all_arkweb_keys(new_x, kind),
                 kind,
                 f"{args.new_dir}/{new_x.name}",
                 f"{args.old_dir}/{old_x.name}",
@@ -398,10 +392,33 @@ def main() -> int:
                 old_label,
             )
         )
-
-    md = "\n".join(sections)
     out = args.md_out or (root / f"arkweb_{new_label}_yellow_vs_{old_label}.md")
-    out.write_text(md, encoding="utf-8")
+    out.write_text("\n".join(sections), encoding="utf-8")
+    return out
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--oh-root", type=Path, default=Path("/mnt/vdb/ohos/master"))
+    ap.add_argument("--new-dir", default="20261028arkwebxts")
+    ap.add_argument("--old-dir", default="20261015arkwebxts")
+    ap.add_argument("--new-label", default=None)
+    ap.add_argument("--old-label", default=None)
+    ap.add_argument("--md-out", type=Path, default=None)
+    ap.add_argument("--focus-out", type=Path, default=None)
+    args = ap.parse_args()
+    root = args.oh_root.resolve()
+    new_label = args.new_label or args.new_dir
+    old_label = args.old_label or args.old_dir
+    focus = build_focus_report(
+        root, args.new_dir, args.old_dir, new_label, old_label
+    )
+    focus_out = args.focus_out or (
+        root / f"arkweb_{new_label}_yellow_vs_{old_label}_focus.md"
+    )
+    focus_out.write_text(focus, encoding="utf-8")
+    print(f"Wrote {focus_out}")
+    out = _write_full_yellow_md(args, root)
     print(f"Wrote {out}")
     return 0
 

@@ -212,63 +212,39 @@ def cmd_web_yellow(args: argparse.Namespace) -> int:
     return 0
 
 
-def main() -> int:
-    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--oh-root", help="OH 工程根（含 src/test/xts/acts）")
-    sub = parser.add_subparsers(dest="cmd", required=True)
+def _add_lookup_parser(sub: argparse._SubParsersAction) -> None:
+    p = sub.add_parser("lookup", help="按接口名/符号在 ACTS 中检索")
+    p.add_argument("patterns", nargs="+")
+    p.add_argument("--oh-root")
+    p.add_argument("--subdir", default=None)
+    p.add_argument("--max-files", type=int, default=40)
+    p.add_argument("--md-out", type=Path, default=None)
+    p.add_argument("--json-out", type=Path, default=None)
+    p.add_argument("--allow-miss", action="store_true")
+    p.set_defaults(func=cmd_lookup)
 
-    p_l = sub.add_parser("lookup", help="按接口名/符号在 ACTS 中检索")
-    p_l.add_argument("patterns", nargs="+", help="如 fetchCookieSync、OH_ArkWeb_*、PermissionRequest.grant")
-    p_l.add_argument("--oh-root", help="OH 工程根（含 src/test/xts/acts）")
-    p_l.add_argument("--subdir", default=None, help="限定 acts 子目录，如 web")
-    p_l.add_argument("--max-files", type=int, default=40)
-    p_l.add_argument("--md-out", type=Path, default=None)
-    p_l.add_argument("--json-out", type=Path, default=None)
-    p_l.add_argument(
-        "--allow-miss",
-        action="store_true",
-        help="即使全部未命中也返回 exit 0",
-    )
-    p_l.set_defaults(func=cmd_lookup)
 
-    p_e = sub.add_parser("excel", help="按 Excel 台账批量对照 ACTS")
-    p_e.add_argument("xlsx", help="xlsx 路径")
-    p_e.add_argument("--oh-root", help="OH 工程根（含 src/test/xts/acts）")
-    p_e.add_argument(
-        "--format",
-        choices=("c-cdk", "c-cdk-web", "webview"),
-        default="c-cdk",
-        help="c-cdk=C用例覆盖度明细; c-cdk-web=六维度 web; webview=webview-dynamic.xlsx",
-    )
-    p_e.add_argument(
-        "--scope",
-        default="unsatisfied",
-        help="c-cdk: all|need_iface|unsatisfied; webview: user37|red30|…",
-    )
-    p_e.add_argument("--subsystem", default="web", help="c-cdk-web 子系统")
-    p_e.add_argument("--kit", default=None, help="c-cdk 按 KIT 过滤")
-    p_e.add_argument("--md-out", default=None)
-    p_e.add_argument("--json-out", default=None)
-    p_e.set_defaults(func=cmd_excel)
+def _add_excel_parser(sub: argparse._SubParsersAction) -> None:
+    p = sub.add_parser("excel", help="按 Excel 台账批量对照 ACTS")
+    p.add_argument("xlsx")
+    p.add_argument("--oh-root")
+    p.add_argument("--format", choices=("c-cdk", "c-cdk-web", "webview"), default="c-cdk")
+    p.add_argument("--scope", default="unsatisfied")
+    p.add_argument("--subsystem", default="web")
+    p.add_argument("--kit", default=None)
+    p.add_argument("--md-out", default=None)
+    p.add_argument("--json-out", default=None)
+    p.set_defaults(func=cmd_excel)
 
-    p_wb = sub.add_parser(
-        "web-batches",
-        help="web 模块：多批 *arkwebxts 目录 ArkWeb 待补接口交集/差集",
-    )
+
+def _add_web_parsers(sub: argparse._SubParsersAction) -> None:
+    p_wb = sub.add_parser("web-batches", help="多批 *arkwebxts 待补对比")
     p_wb.add_argument("--oh-root", type=Path, required=True)
-    p_wb.add_argument(
-        "--batch",
-        action="append",
-        metavar="LABEL:DIRNAME",
-        help="如 20261028:20261028arkwebxts；可多次",
-    )
+    p_wb.add_argument("--batch", action="append", metavar="LABEL:DIRNAME")
     p_wb.add_argument("--md-out", type=Path, default=None)
     p_wb.set_defaults(func=cmd_web_batches)
 
-    p_wy = sub.add_parser(
-        "web-yellow",
-        help="web 模块：新批台账黄底（master 未找到）vs 旧批",
-    )
+    p_wy = sub.add_parser("web-yellow", help="新批黄底 vs 旧批")
     p_wy.add_argument("--oh-root", type=Path, default=Path("."))
     p_wy.add_argument("--new-dir", default="20261028arkwebxts")
     p_wy.add_argument("--old-dir", default="20261015arkwebxts")
@@ -278,6 +254,16 @@ def main() -> int:
     p_wy.add_argument("--focus-out", type=Path, default=None)
     p_wy.set_defaults(func=cmd_web_yellow)
 
+
+def main() -> int:
+    parser = argparse.ArgumentParser(
+        description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+    parser.add_argument("--oh-root", help="OH 工程根（含 src/test/xts/acts）")
+    sub = parser.add_subparsers(dest="cmd", required=True)
+    _add_lookup_parser(sub)
+    _add_excel_parser(sub)
+    _add_web_parsers(sub)
     args = parser.parse_args()
     return args.func(args)
 

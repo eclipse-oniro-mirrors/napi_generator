@@ -75,11 +75,13 @@ def header_index(header: dict[int, str]) -> dict[str, int]:
     return out
 
 
+
 @dataclass
 class SheetCols:
     kit: int
     iface_cov: int
     iface_satisfied: int
+
 
 
 def resolve_cols(kind: str, header: dict[int, str]) -> SheetCols:
@@ -159,6 +161,7 @@ def iface_unsatisfied(cells: dict[int, str], cols: SheetCols) -> bool:
     return sat == "否"
 
 
+
 @dataclass
 class ApiRow:
     api_id: str
@@ -166,6 +169,7 @@ class ApiRow:
     module: str
     clazz: str
     method: str
+
 
 
 def extract_api(kind: str, cells: dict[int, str]) -> ApiRow:
@@ -231,6 +235,30 @@ def md_table(headers: list[str], rows: list[list[str]]) -> str:
     return "\n".join(lines)
 
 
+def _section_only_blocks(
+    labels: list[str], only: dict[str, set[str]], id_to_label: dict[str, str]
+) -> list[str]:
+    lines = ["### 各批独有（仅该批出现）\n"]
+    for lb in labels:
+        ids = sorted(only[lb])
+        lines.append(f"#### {lb} 独有（{len(ids)} 条）\n")
+        if ids:
+            rows = [[id_to_label[i], i] for i in ids]
+            lines.append(md_table(["接口", "api_id"], rows[:200]))
+            if len(ids) > 200:
+                lines.append(f"\n> 仅展示前 200 条。\n")
+        else:
+            lines.append("_无_\n")
+        lines.append("")
+    return lines
+
+
+def _batch_filter_desc(kind: str) -> str:
+    if kind == "ccdk":
+        return "`接口覆盖 = 0` 且 `接口覆盖是否已满足 = 否`"
+    return "`是否覆盖 ≠ 1`（多为空）且 `接口覆盖是否已满足 = 否`"
+
+
 def section_compare(
     kind: str,
     batch_apis: dict[str, list[ApiRow]],
@@ -249,16 +277,11 @@ def section_compare(
         for lb in labels
     }
     only = {lb: sets[lb] - union_other[lb] for lb in labels}
-
+    filter_desc = _batch_filter_desc(kind)
     lines = [
         f"## {kind}（末 sheet「接口覆盖详情」/「C用例覆盖度明细」）",
         "",
-        "**筛选**：`kit/KIT = ArkWeb`；"
-        + (
-            "`接口覆盖 = 0` 且 `接口覆盖是否已满足 = 否`"
-            if kind == "ccdk"
-            else "`是否覆盖 ≠ 1`（多为空）且 `接口覆盖是否已满足 = 否`"
-        ),
+        f"**筛选**：`kit/KIT = ArkWeb`；{filter_desc}",
         "",
         "### 各批次源文件与条数",
         "",
@@ -278,26 +301,13 @@ def section_compare(
     else:
         lines.append("_无_\n")
 
-    lines.append("### 各批独有（仅该批出现）\n")
-    for lb in labels:
-        ids = sorted(only[lb])
-        lines.append(f"#### {lb} 独有（{len(ids)} 条）\n")
-        if ids:
-            rows = [[id_to_label[i], i] for i in ids]
-            lines.append(md_table(["接口", "api_id"], rows[:200]))
-            if len(ids) > 200:
-                lines.append(f"\n> 仅展示前 200 条。\n")
-        else:
-            lines.append("_无_\n")
-        lines.append("")
-
-    lines.append("### 两两交集规模\n")
-    pair_rows = []
-    for i, a in enumerate(labels):
-        for b in labels[i + 1 :]:
-            pair_rows.append([f"{a} ∩ {b}", str(len(sets[a] & sets[b]))])
-    lines.append(md_table(["集合", "条数"], pair_rows))
-    lines.append("")
+    lines.extend(_section_only_blocks(labels, only, id_to_label))
+    pair_rows = [
+        [f"{a} ∩ {b}", str(len(sets[a] & sets[b]))]
+        for i, a in enumerate(labels)
+        for b in labels[i + 1 :]
+    ]
+    lines += ["### 两两交集规模\n", md_table(["集合", "条数"], pair_rows), ""]
     return lines
 
 

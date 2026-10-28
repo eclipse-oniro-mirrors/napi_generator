@@ -55,17 +55,9 @@ def cases_in_file(text: str) -> list[str]:
     return sorted(found)
 
 
-def search_pattern_in_acts(
-    pattern: str,
-    acts: Path,
-    subdir: str | None = None,
-    max_files: int = 40,
-) -> dict:
-    regex = pattern_to_regex(pattern)
-    root = acts / subdir if subdir else acts
-    if not root.is_dir():
-        root = acts
-
+def _scan_files_for_pattern(
+    regex: re.Pattern[str], root: Path, acts: Path, max_files: int
+) -> list[dict]:
     file_hits: list[dict] = []
     for path in root.rglob("*"):
         if path.suffix not in {".ets", ".ts", ".cpp", ".c", ".cc"}:
@@ -79,36 +71,72 @@ def search_pattern_in_acts(
             continue
         if not regex.search(text):
             continue
-        rel = path.relative_to(acts).as_posix()
-        rel = "acts/" + rel
+        rel = "acts/" + path.relative_to(acts).as_posix()
         cases = cases_in_file(text)
         file_hits.append(
-            {
-                "file": rel,
-                "cases": cases[:20],
-                "case_count": len(cases),
-            }
+            {"file": rel, "cases": cases[:20], "case_count": len(cases)}
         )
         if len(file_hits) >= max_files:
             break
+    return file_hits
 
-    case_index = build_case_index(root if subdir else acts)
-    case_name_hits: list[str] = []
+
+def _case_name_hits(pattern: str, case_index: dict[str, list[str]]) -> list[str]:
+    hits: list[str] = []
     pl = pattern.lower()
-    for cname, paths in case_index.items():
+    for cname in case_index:
         if pl in cname.lower() or pattern in cname:
-            case_name_hits.append(cname)
-            if len(case_name_hits) >= 30:
+            hits.append(cname)
+            if len(hits) >= 30:
                 break
+    return hits
 
-    covered = bool(file_hits or case_name_hits)
+
+def search_pattern_in_acts(
+    pattern: str,
+    acts: Path,
+    subdir: str | None = None,
+    max_files: int = 40,
+) -> dict:
+    regex = pattern_to_regex(pattern)
+    root = acts / subdir if subdir else acts
+    if not root.is_dir():
+        root = acts
+    file_hits = _scan_files_for_pattern(regex, root, acts, max_files)
+    case_index = build_case_index(root if subdir else acts)
+    case_name_hits = _case_name_hits(pattern, case_index)
     return {
         "pattern": pattern,
-        "covered_in_xts": covered,
+        "covered_in_xts": bool(file_hits or case_name_hits),
         "files": file_hits,
         "file_count": len(file_hits),
         "cases_by_name_match": case_name_hits[:30],
     }
+
+
+def _lookup_result_md_lines(r: dict) -> list[str]:
+    status = "**有用例引用**" if r["covered_in_xts"] else "**未找到引用**"
+    lines = [f"## `{r['pattern']}` — {status}", ""]
+    if r["cases_by_name_match"]:
+        lines.append("### 用例名匹配（it / @tc.name 索引）")
+        for c in r["cases_by_name_match"][:15]:
+            lines.append(f"- `{c}`")
+        if len(r["cases_by_name_match"]) > 15:
+            lines.append(f"- … 共 {len(r['cases_by_name_match'])} 条")
+        lines.append("")
+    if r["files"]:
+        lines.append("### 源码文件（含符号/接口文本）")
+        for fh in r["files"][:15]:
+            lines.append(f"- `{fh['file']}`")
+            if fh["cases"]:
+                sample = ", ".join(f"`{c}`" for c in fh["cases"][:5])
+                lines.append(f"  - 同文件用例：{sample}")
+        if r["file_count"] > 15:
+            lines.append(f"- … 共 {r['file_count']} 个文件")
+    elif not r["cases_by_name_match"]:
+        lines.append("_无匹配文件或用例名。_")
+    lines.append("")
+    return lines
 
 
 def markdown_lookup_report(results: list[dict], acts: Path) -> str:
@@ -119,26 +147,5 @@ def markdown_lookup_report(results: list[dict], acts: Path) -> str:
         "",
     ]
     for r in results:
-        status = "**有用例引用**" if r["covered_in_xts"] else "**未找到引用**"
-        lines.append(f"## `{r['pattern']}` — {status}")
-        lines.append("")
-        if r["cases_by_name_match"]:
-            lines.append("### 用例名匹配（it / @tc.name 索引）")
-            for c in r["cases_by_name_match"][:15]:
-                lines.append(f"- `{c}`")
-            if len(r["cases_by_name_match"]) > 15:
-                lines.append(f"- … 共 {len(r['cases_by_name_match'])} 条")
-            lines.append("")
-        if r["files"]:
-            lines.append("### 源码文件（含符号/接口文本）")
-            for fh in r["files"][:15]:
-                lines.append(f"- `{fh['file']}`")
-                if fh["cases"]:
-                    sample = ", ".join(f"`{c}`" for c in fh["cases"][:5])
-                    lines.append(f"  - 同文件用例：{sample}")
-            if r["file_count"] > 15:
-                lines.append(f"- … 共 {r['file_count']} 个文件")
-        elif not r["cases_by_name_match"]:
-            lines.append("_无匹配文件或用例名。_")
-        lines.append("")
+        lines.extend(_lookup_result_md_lines(r))
     return "\n".join(lines)
