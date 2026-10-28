@@ -1,0 +1,7 @@
+# 运行/对照 master 生成的报告与映射（勿入库，避免单笔 commit 超 2000 行）
+webview_dynamic_acts_mapping.json
+webview_dynamic_master_coverage_table.json
+webview_dynamic_master_coverage_table.md
+webview_dynamic_tasks.json
+webview_dynamic_acts_report.md
+webview_dynamic_gaps.md
