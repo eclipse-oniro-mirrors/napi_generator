@@ -28,165 +28,7 @@ EVENT_BASE = 203100
 BUTTON_ID = "WebCustomErrorCode"
 CUSTOM = 32159
 
-
-def load_cloud_tasks() -> list[dict]:
-    spec = importlib.util.spec_from_file_location("analyze", ANALYZER)
-    mod = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(mod)
-    shared, rows, red, cell = mod.load_sheet(XLSX)
-    tasks, _ = mod.parse_rows(shared, rows, red, cell, scope="user37")
-    return [t for t in tasks if t.get("category_d") == "云服务"]
-
-
-def action(cp: str) -> str:
-    return "cp_" + cp.replace(".", "_").replace("#", "_")
-
-
-def it_name(cp: str) -> str:
-    s = cp.replace(".", "_").replace("#", "_")
-    return "testWebviewDynamic_" + re.sub(r"[^A-Za-z0-9_]", "_", s)[:80]
-
-
-def expected(t: dict) -> str:
-    cp, dim = t["coverage_point_id"], t["dimension"]
-    if cp == "WebResourceHandler.didFail#N":
-        return "'17100021'"
-    if dim == "I":
-        return "true"
-    if dim == "J":
-        if "WebSchemeHandlerResponse" in cp and ("getCustomErrorCode" in cp or "setCustomErrorCode" in cp):
-            return "0"
-        return str(CUSTOM)
-    if dim == "K":
-        return "0"
-    if dim == "L":
-        return "'spec-ok'"
-    if dim == "M":
-        if "getCustomErrorCode" in cp and "WebSchemeHandlerResponse" in cp:
-            return "0"
-        return str(CUSTOM) if "getCustomErrorCode" in cp else "true"
-    return str(CUSTOM)
-
-
-def switch_case(t: dict, eid: int) -> str:
-    act = action(t["coverage_point_id"])
-    cp, dim = t["coverage_point_id"], t["dimension"]
-    lines = [f"            case '{act}': {{"]
-
-    if cp.startswith("WebSchemeHandlerResponse.setCustomErrorCode"):
-        if dim == "K":
-            lines += [
-                "              let response = new web_webview.WebSchemeHandlerResponse();",
-                "              response.setCustomErrorCode(0);",
-                f"              Utils.emitEvent(0, {eid});",
-            ]
-        elif dim == "L":
-            lines += [
-                "              try {",
-                "                let response = new web_webview.WebSchemeHandlerResponse();",
-                "                response.setCustomErrorCode(CUSTOM_ERROR_CODE);",
-                "                Utils.emitEvent('spec-ok', 203099);",
-                "              } catch (error) {",
-                "                Utils.emitEvent('spec-ok', 203099);",
-                "              }",
-                f"              Utils.emitEvent('spec-ok', {eid});",
-            ]
-        else:
-            lines += [
-                "              let response = new web_webview.WebSchemeHandlerResponse();",
-                "              response.setCustomErrorCode(CUSTOM_ERROR_CODE);",
-                f"              Utils.emitEvent(true, {eid});" if dim == "I" else f"              Utils.emitEvent(response.getCustomErrorCode(), {eid});",
-            ]
-    elif cp.startswith("WebSchemeHandlerResponse.getCustomErrorCode"):
-        lines += [
-            "              let response = new web_webview.WebSchemeHandlerResponse();",
-            "              response.setCustomErrorCode(CUSTOM_ERROR_CODE);",
-            f"              Utils.emitEvent(response.getCustomErrorCode(), {eid});" if dim != "I" else f"              Utils.emitEvent(true, {eid});",
-        ]
-    elif cp.startswith("WebResourceHandler.didFail"):
-        if dim == "N":
-            lines += [
-                "              try {",
-                "                let errorCode = '';",
-                "                this.schemeHandler = new web_webview.WebSchemeHandler();",
-                "                this.schemeHandler.onRequestStart((_request, resourceHandler) => {",
-                "                  try {",
-                "                    resourceHandler.didFinish();",
-                "                    resourceHandler.didFail(WebNetErrorList.ERR_FAILED, true, CUSTOM_ERROR_CODE);",
-                "                  } catch (error) {",
-                "                    errorCode = String((error as BusinessError).code);",
-                "                  }",
-                f"                  Utils.emitEvent(errorCode, {eid});",
-                "                  return true;",
-                "                });",
-                "                this.controller.clearWebSchemeHandler();",
-                "                this.controller.setWebSchemeHandler('https', this.schemeHandler);",
-                "                this.controller.loadUrl(`${TEST_URL}?t=${Date.now()}`);",
-                "              } catch (error) {",
-                f"                Utils.emitEvent(String((error as BusinessError).code), {eid});",
-                "              }",
-            ]
-        elif dim == "K":
-            lines += [
-                "              this.schemeHandler = new web_webview.WebSchemeHandler();",
-                "              this.schemeHandler.onRequestStart((_request, resourceHandler) => {",
-                "                resourceHandler.didFail(WebNetErrorList.ERR_FAILED, true, 0);",
-                f"                Utils.emitEvent(0, {eid});",
-                "                return true;",
-                "              });",
-                "              this.controller.clearWebSchemeHandler();",
-                "              this.controller.setWebSchemeHandler('https', this.schemeHandler);",
-                "              this.controller.loadUrl(`${TEST_URL}?t=${Date.now()}`);",
-            ]
-        else:
-            lines += [
-                "              this.customErrorCode = -1;",
-                "              this.schemeHandler = new web_webview.WebSchemeHandler();",
-                "              this.schemeHandler.onRequestStart((_request, resourceHandler) => {",
-                "                resourceHandler.didFail(WebNetErrorList.ERR_FAILED, true, CUSTOM_ERROR_CODE);",
-                "                return true;",
-                "              });",
-                "              this.controller.clearWebSchemeHandler();",
-                "              this.controller.setWebSchemeHandler('https', this.schemeHandler);",
-                "              this.controller.loadUrl(`${TEST_URL}?t=${Date.now()}`);",
-                f"              await Utils.waitForExist(() => this.customErrorCode, '{act}', CUSTOM_ERROR_CODE, 1000, 10);",
-                f"              Utils.emitEvent(this.customErrorCode, {eid});" if dim != "I" else f"              Utils.emitEvent(true, {eid});",
-            ]
-    elif cp.startswith("WebResourceResponse.setResponseBody"):
-        if dim == "I":
-            body = "'<html><body>body-i</body></html>'"
-            emit = f"Utils.emitEvent(true, {eid});"
-        elif dim == "K":
-            body = "''"
-            emit = f"Utils.emitEvent(0, {eid});"
-        elif dim == "L":
-            body = "'<html>spec</html>'"
-            emit = f"Utils.emitEvent('spec-ok', {eid});"
-        else:
-            body = "'<html>body</html>'"
-            emit = f"Utils.emitEvent(true, {eid});"
-        lines += [
-            "              let resourceResponse = new WebResourceResponse();",
-            f"              resourceResponse.setResponseBody({body});",
-            f"              {emit}",
-        ]
-    elif cp.startswith("WebResourceError.getCustomErrorCode"):
-        if dim == "I":
-            lines += [f"              Utils.emitEvent(true, {eid});"]
-        else:
-            code = "0" if dim == "K" else "CUSTOM_ERROR_CODE"
-            lines += [f"              await this.emitWebResourceCustomError({code}, {eid});"]
-    else:
-        lines += [f"              Utils.emitEvent(true, {eid});"]
-
-    lines.append("              break;")
-    lines.append("            }")
-    return "\n".join(lines)
-
-
-def gen_page(tasks: list[dict]) -> str:
-    cases = "\n".join(switch_case(t, EVENT_BASE + i) for i, t in enumerate(tasks))
-    return f'''/*
+_PAGE_ETS_HEAD = f'''/*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -263,7 +105,9 @@ struct WebCustomErrorCode {{
           await Utils.waitForExist(() => this.isPageEnd, 'WebCustomErrorCodeIsPageEnd', 1, 1000);
           this.isReceive = -1;
           switch (this.str) {{
-{cases}
+'''
+
+_PAGE_ETS_TAIL = '''
             default: {{
               console.error('WebCustomErrorCode unknown action: ' + this.str);
               break;
@@ -272,7 +116,7 @@ struct WebCustomErrorCode {{
         }})
       }}
 
-      Web({{ src: $rawfile('index.html'), controller: this.controller }})
+      Web({ src: $rawfile('index.html'), controller: this.controller })
         .javaScriptAccess(true)
         .domStorageAccess(true)
         .onErrorReceive((event) => {{
@@ -288,37 +132,7 @@ struct WebCustomErrorCode {{
 }}
 '''
 
-
-def gen_test(tasks: list[dict]) -> str:
-    its = []
-    for i, t in enumerate(tasks):
-        name = it_name(t["coverage_point_id"])
-        act = action(t["coverage_point_id"])
-        eid = EVENT_BASE + i
-        exp = expected(t)
-        its.append(
-            f'''    /**
-     * @tc.name   SUB_WEB_WEBCUSTOMERRORCODE_DYN_{i + 1:04d}
-     * @tc.number SUB_WEB_WEBCUSTOMERRORCODE_DYN_{i + 1:04d}
-     * @tc.desc   coverage {t["coverage_point_id"]} ({t["dimension_name"]})
-     */
-    it('SUB_WEB_WEBCUSTOMERRORCODE_DYN_{i + 1:04d}', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {{
-      Utils.emitEvent('{act}', {EVENT_SUITE});
-      let isReturn = 0;
-      Utils.registerBaseEvent('{name}', {exp}, {eid}, () => {{
-        isReturn = 1;
-      }}, (backData: events_emitter.EventData, expected: Object) => {{
-        expect(backData?.data?.ACTION).assertEqual(expected);
-      }});
-      await Utils.waitAndClickComponent(driver, '{BUTTON_ID}');
-      if (await Utils.waitForExist(() => isReturn, '{name}_returnCheck', 1, 5000)) {{
-        done();
-      }}
-    }})
-'''
-        )
-    body = "\n".join(its)
-    return f'''/*
+_TEST_ETS_HEAD = f'''/*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -384,10 +198,96 @@ export default function WebCustomErrorCode() {{
       done();
     }});
 
-{body}
+'''
+
+_TEST_ETS_TAIL = '''
   }});
 }}
 '''
+
+
+def load_cloud_tasks() -> list[dict]:
+    spec = importlib.util.spec_from_file_location("analyze", ANALYZER)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    shared, rows, red, cell = mod.load_sheet(XLSX)
+    tasks, _ = mod.parse_rows(shared, rows, red, cell, scope="user37")
+    return [t for t in tasks if t.get("category_d") == "云服务"]
+
+
+def action(cp: str) -> str:
+    return "cp_" + cp.replace(".", "_").replace("#", "_")
+
+
+def it_name(cp: str) -> str:
+    s = cp.replace(".", "_").replace("#", "_")
+    return "testWebviewDynamic_" + re.sub(r"[^A-Za-z0-9_]", "_", s)[:80]
+
+
+def expected(t: dict) -> str:
+    cp, dim = t.get("coverage_point_id", ""), t.get("dimension", "")
+    if cp == "WebResourceHandler.didFail#N":
+        return "'17100021'"
+    if dim == "I":
+        return "true"
+    if dim == "J":
+        if "WebSchemeHandlerResponse" in cp and ("getCustomErrorCode" in cp or "setCustomErrorCode" in cp):
+            return "0"
+        return str(CUSTOM)
+    if dim == "K":
+        return "0"
+    if dim == "L":
+        return "'spec-ok'"
+    if dim == "M":
+        if "getCustomErrorCode" in cp and "WebSchemeHandlerResponse" in cp:
+            return "0"
+        return str(CUSTOM) if "getCustomErrorCode" in cp else "true"
+    return str(CUSTOM)
+
+
+def switch_case(t: dict, eid: int) -> str:
+    from cloud_webview_switch import switch_case_lines
+
+    return switch_case_lines(t, eid, action)
+
+
+def gen_page(tasks: list[dict]) -> str:
+    cases = "\n".join(switch_case(t, EVENT_BASE + i) for i, t in enumerate(tasks))
+    return _PAGE_ETS_HEAD + cases + _PAGE_ETS_TAIL
+
+
+def _cloud_one_it(i: int, t: dict) -> str:
+    cp = t.get("coverage_point_id", "")
+    name = it_name(cp)
+    act = action(cp)
+    eid = EVENT_BASE + i
+    exp = expected(t)
+    dim_name = t.get("dimension_name", "")
+    n = i + 1
+    return f'''    /**
+     * @tc.name   SUB_WEB_WEBCUSTOMERRORCODE_DYN_{n:04d}
+     * @tc.number SUB_WEB_WEBCUSTOMERRORCODE_DYN_{n:04d}
+     * @tc.desc   coverage {cp} ({dim_name})
+     */
+    it('SUB_WEB_WEBCUSTOMERRORCODE_DYN_{n:04d}', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {{
+      Utils.emitEvent('{act}', {EVENT_SUITE});
+      let isReturn = 0;
+      Utils.registerBaseEvent('{name}', {exp}, {eid}, () => {{
+        isReturn = 1;
+      }}, (backData: events_emitter.EventData, expected: Object) => {{
+        expect(backData?.data?.ACTION).assertEqual(expected);
+      }});
+      await Utils.waitAndClickComponent(driver, '{BUTTON_ID}');
+      if (await Utils.waitForExist(() => isReturn, '{name}_returnCheck', 1, 5000)) {{
+        done();
+      }}
+    }})
+'''
+
+
+def gen_test(tasks: list[dict]) -> str:
+    body = "\n".join(_cloud_one_it(i, t) for i, t in enumerate(tasks))
+    return _TEST_ETS_HEAD + body + _TEST_ETS_TAIL
 
 
 def main() -> int:

@@ -27,282 +27,7 @@ EVENT_SUITE = 127200
 EVENT_BASE = 127300
 BUTTON_ID = "WebMonitoredBlankScreenButton"
 
-ENUM_MEMBERS = [
-    ("DNS_RESOLVE_FAILED", 101),
-    ("REQUEST_TIMED_OUT", 102),
-    ("CONNECTION_REFUSED", 103),
-    ("CONNECTION_RESET", 104),
-    ("SSL_ERROR", 105),
-    ("CERT_ERROR", 106),
-    ("INTERNET_DISCONNECTED", 107),
-    ("REDIRECT_LOOP", 108),
-    ("PROXY_ERROR", 109),
-    ("OTHER_NETWORK_ERROR", 199),
-    ("MAIN_DOC_EMPTY", 201),
-    ("HTTP_4XX_ERROR", 202),
-    ("HTTP_5XX_ERROR", 203),
-    ("JS_GLOBAL_BUNDLE_LOAD_FAILED", 210),
-    ("CSS_LOAD_FAILED", 211),
-    ("MULTI_RESOURCE_LOAD_FAILED", 212),
-    ("CORS_BLOCKED", 213),
-    ("CSP_BLOCKED", 214),
-    ("MIXED_CONTENT_BLOCKED", 215),
-    ("JS_RUNTIME_ERROR", 301),
-    ("NO_FIRST_CONTENTFUL_PAINT", 312),
-    ("RENDERER_CRASHED", 401),
-    ("RENDERER_KILLED", 402),
-    ("GPU_PROCESS_CRASHED", 403),
-    ("GPU_PROCESS_WATCHDOG_TIMEOUT", 404),
-    ("WEB_VIEW_ZERO_SIZE", 501),
-]
-ENUM_BY_NAME = dict(ENUM_MEMBERS)
-
-
-def load_oh_tasks() -> list[dict]:
-    proc = subprocess.run(
-        [sys.executable, str(ANALYZER), str(XLSX), "--scope", "user37", "--md", "/dev/null"],
-        capture_output=True,
-        text=True,
-        check=True,
-    )
-    # analyzer prints md to stdout when --md is /dev/null it still writes md - check code
-    # use inline parse instead
-    import importlib.util
-
-    spec = importlib.util.spec_from_file_location("analyze", ANALYZER)
-    mod = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(mod)
-    shared, rows, red_font_ids, cell_font = mod.load_sheet(XLSX)
-    tasks, _ = mod.parse_rows(shared, rows, red_font_ids, cell_font, scope="user37")
-    return [t for t in tasks if t.get("category_d") == "OH"]
-
-
-def cp_action(cp_id: str) -> str:
-    return "cp_" + cp_id.replace(".", "_").replace("#", "_")
-
-
-def it_name(cp_id: str) -> str:
-    s = cp_id.replace(".", "_").replace("#", "_")
-    return "testMonitoredBlank_" + re.sub(r"[^A-Za-z0-9_]", "_", s)[:90]
-
-
-def expected_for_task(t: dict) -> str:
-    cp = t["coverage_point_id"]
-    dim = t["dimension"]
-    if cp.startswith("BlankScreenReason.") and dim in ("I", "J"):
-        member = cp.split(".")[1].split("#")[0]
-        return str(ENUM_BY_NAME[member])
-    if cp == "global.MonitoredBlankScreenEventInfo#I":
-        return str(ENUM_BY_NAME["DNS_RESOLVE_FAILED"])
-    if cp == "global.MonitoredBlankScreenEventInfo#J":
-        return str(ENUM_BY_NAME["REQUEST_TIMED_OUT"])
-    if cp == "MonitoredBlankScreenEventInfo.url#I":
-        return "'https://oh-monitored-blank.test/url-i'"
-    if cp == "MonitoredBlankScreenEventInfo.url#J":
-        return "'https://oh-monitored-blank.test/page'"
-    if cp == "MonitoredBlankScreenEventInfo.reason#I":
-        return str(ENUM_BY_NAME["CERT_ERROR"])
-    if cp == "MonitoredBlankScreenEventInfo.reason#J":
-        return str(ENUM_BY_NAME["DNS_RESOLVE_FAILED"])
-    if cp == "MonitoredBlankScreenEventInfo.extraMsg#I":
-        return "'extra-msg-i'"
-    if cp == "MonitoredBlankScreenEventInfo.extraMsg#J":
-        return "'extra-msg-j'"
-    if cp.startswith("WebAttribute.onMonitoredBlankScreen") and dim in ("I", "J", "K", "L", "M"):
-        if dim == "J":
-            return str(ENUM_BY_NAME["MAIN_DOC_EMPTY"])
-        if dim == "K":
-            return str(ENUM_BY_NAME["HTTP_4XX_ERROR"])
-        return "true"
-    if cp == "global.OnMonitorBlankScreenCallback#J":
-        return str(ENUM_BY_NAME["OTHER_NETWORK_ERROR"])
-    return "true"
-
-
-def gen_page_switch_cases(tasks: list[dict]) -> str:
-    lines: list[str] = []
-    for t in tasks:
-        action = cp_action(t["coverage_point_id"])
-        cp = t["coverage_point_id"]
-        dim = t["dimension"]
-        eid = EVENT_BASE + tasks.index(t)
-        if cp.startswith("BlankScreenReason.") and dim == "I":
-            member = cp.split(".")[1].split("#")[0]
-            lines.append(
-                f'            case "{action}": {{\n'
-                f"              Utils.emitEvent(BlankScreenReason.{member}, {eid});\n"
-                f"              break;\n"
-                f"            }}"
-            )
-        elif cp.startswith("BlankScreenReason.") and dim == "J":
-            member = cp.split(".")[1].split("#")[0]
-            val = ENUM_BY_NAME[member]
-            lines.append(
-                f'            case "{action}": {{\n'
-                f"              this.invokeMonitoredCallback({{\n"
-                f"                url: 'https://oh-monitored-blank.test/{member.lower()}',\n"
-                f"                reason: BlankScreenReason.{member},\n"
-                f"                extraMsg: 'reason-j'\n"
-                f"              }}, {eid}, {val});\n"
-                f"              break;\n"
-                f"            }}"
-            )
-        elif cp == "global.MonitoredBlankScreenEventInfo#I":
-            lines.append(
-                f'            case "{action}": {{\n'
-                f"              let info: MonitoredBlankScreenEventInfo = {{\n"
-                f"                url: 'https://oh-monitored-blank.test/info-i',\n"
-                f"                reason: BlankScreenReason.DNS_RESOLVE_FAILED,\n"
-                f"                extraMsg: 'info-i'\n"
-                f"              }};\n"
-                f"              Utils.emitEvent(info.reason, {eid});\n"
-                f"              break;\n"
-                f"            }}"
-            )
-        elif cp == "global.MonitoredBlankScreenEventInfo#J":
-            lines.append(
-                f'            case "{action}": {{\n'
-                f"              this.invokeMonitoredCallback({{\n"
-                f"                url: 'https://oh-monitored-blank.test/info-j',\n"
-                f"                reason: BlankScreenReason.REQUEST_TIMED_OUT,\n"
-                f"                extraMsg: 'info-j'\n"
-                f"              }}, {eid}, BlankScreenReason.REQUEST_TIMED_OUT);\n"
-                f"              break;\n"
-                f"            }}"
-            )
-        elif cp == "MonitoredBlankScreenEventInfo.url#I":
-            lines.append(
-                f'            case "{action}": {{\n'
-                f"              let urlSample: string = 'https://oh-monitored-blank.test/url-i';\n"
-                f"              Utils.emitEvent(urlSample, {eid});\n"
-                f"              break;\n"
-                f"            }}"
-            )
-        elif cp == "MonitoredBlankScreenEventInfo.url#J":
-            lines.append(
-                f'            case "{action}": {{\n'
-                f"              this.invokeMonitoredCallback({{\n"
-                f"                url: 'https://oh-monitored-blank.test/page',\n"
-                f"                reason: BlankScreenReason.SSL_ERROR,\n"
-                f"                extraMsg: 'url-j'\n"
-                f"              }}, {eid}, 'https://oh-monitored-blank.test/page');\n"
-                f"              break;\n"
-                f"            }}"
-            )
-        elif cp == "MonitoredBlankScreenEventInfo.reason#I":
-            lines.append(
-                f'            case "{action}": {{\n'
-                f"              Utils.emitEvent(BlankScreenReason.CERT_ERROR, {eid});\n"
-                f"              break;\n"
-                f"            }}"
-            )
-        elif cp == "MonitoredBlankScreenEventInfo.reason#J":
-            lines.append(
-                f'            case "{action}": {{\n'
-                f"              this.invokeMonitoredCallback({{\n"
-                f"                url: 'https://oh-monitored-blank.test/reason-j',\n"
-                f"                reason: BlankScreenReason.DNS_RESOLVE_FAILED,\n"
-                f"                extraMsg: 'reason-field-j'\n"
-                f"              }}, {eid}, BlankScreenReason.DNS_RESOLVE_FAILED);\n"
-                f"              break;\n"
-                f"            }}"
-            )
-        elif cp == "MonitoredBlankScreenEventInfo.extraMsg#I":
-            lines.append(
-                f'            case "{action}": {{\n'
-                f"              Utils.emitEvent('extra-msg-i', {eid});\n"
-                f"              break;\n"
-                f"            }}"
-            )
-        elif cp == "MonitoredBlankScreenEventInfo.extraMsg#J":
-            lines.append(
-                f'            case "{action}": {{\n'
-                f"              this.invokeMonitoredCallback({{\n"
-                f"                url: 'https://oh-monitored-blank.test/extra-j',\n"
-                f"                reason: BlankScreenReason.PROXY_ERROR,\n"
-                f"                extraMsg: 'extra-msg-j'\n"
-                f"              }}, {eid}, 'extra-msg-j');\n"
-                f"              break;\n"
-                f"            }}"
-            )
-        elif cp == "global.OnMonitorBlankScreenCallback#I":
-            lines.append(
-                f'            case "{action}": {{\n'
-                f"              Utils.emitEvent(this.handleMonitoredBlank != null, {eid});\n"
-                f"              break;\n"
-                f"            }}"
-            )
-        elif cp == "global.OnMonitorBlankScreenCallback#J":
-            lines.append(
-                f'            case "{action}": {{\n'
-                f"              this.invokeMonitoredCallback({{\n"
-                f"                url: 'https://oh-monitored-blank.test/callback-j',\n"
-                f"                reason: BlankScreenReason.OTHER_NETWORK_ERROR,\n"
-                f"                extraMsg: 'callback-j'\n"
-                f"              }}, {eid}, BlankScreenReason.OTHER_NETWORK_ERROR);\n"
-                f"              break;\n"
-                f"            }}"
-            )
-        elif cp == "WebAttribute.onMonitoredBlankScreen#I":
-            lines.append(
-                f'            case "{action}": {{\n'
-                f"              Utils.emitEvent(true, {eid});\n"
-                f"              break;\n"
-                f"            }}"
-            )
-        elif cp == "WebAttribute.onMonitoredBlankScreen#J":
-            lines.append(
-                f'            case "{action}": {{\n'
-                f"              this.invokeMonitoredCallback({{\n"
-                f"                url: 'https://oh-monitored-blank.test/on-j',\n"
-                f"                reason: BlankScreenReason.MAIN_DOC_EMPTY,\n"
-                f"                extraMsg: 'on-j'\n"
-                f"              }}, {eid}, BlankScreenReason.MAIN_DOC_EMPTY);\n"
-                f"              break;\n"
-                f"            }}"
-            )
-        elif cp == "WebAttribute.onMonitoredBlankScreen#K":
-            lines.append(
-                f'            case "{action}": {{\n'
-                f"              this.invokeMonitoredCallback({{\n"
-                f"                url: 'https://oh-monitored-blank.test/on-k',\n"
-                f"                reason: BlankScreenReason.HTTP_4XX_ERROR,\n"
-                f"                extraMsg: 'on-k'\n"
-                f"              }}, {eid}, BlankScreenReason.HTTP_4XX_ERROR);\n"
-                f"              break;\n"
-                f"            }}"
-            )
-        elif cp == "WebAttribute.onMonitoredBlankScreen#L":
-            lines.append(
-                f'            case "{action}": {{\n'
-                f"              this.invokeMonitoredCallback({{\n"
-                f"                url: 'https://oh-monitored-blank.test/on-l',\n"
-                f"                reason: BlankScreenReason.HTTP_5XX_ERROR,\n"
-                f"                extraMsg: 'on-l'\n"
-                f"              }}, {eid}, true);\n"
-                f"              break;\n"
-                f"            }}"
-            )
-        elif cp == "WebAttribute.onMonitoredBlankScreen#M":
-            lines.append(
-                f'            case "{action}": {{\n'
-                f"              Utils.emitEvent(true, {eid});\n"
-                f"              break;\n"
-                f"            }}"
-            )
-        else:
-            lines.append(
-                f'            case "{action}": {{\n'
-                f"              Utils.emitEvent(true, {eid});\n"
-                f"              break;\n"
-                f"            }}"
-            )
-    return "\n".join(lines)
-
-
-def gen_page(tasks: list[dict]) -> str:
-    switch = gen_page_switch_cases(tasks)
-    return f'''/**
+_MON_PAGE_HEAD = f'''/**
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -385,7 +110,9 @@ struct WebMonitoredBlankScreen {{
         Button("web click").key('{BUTTON_ID}').onClick(async () => {{
           await Utils.waitForExist(() => this.isReceive, this.str + ' isReceive', 1, 1000);
           switch (this.str) {{
-{switch}
+'''
+
+_MON_PAGE_TAIL = '''
             default: {{
               console.error('WebMonitoredBlankScreen unknown action: ' + this.str);
               break;
@@ -394,7 +121,7 @@ struct WebMonitoredBlankScreen {{
         }})
       }}
 
-      Web({{ src: this.mServer.getAssetUrl('dataSubmit.html'), controller: this.controller }})
+      Web({ src: this.mServer.getAssetUrl('dataSubmit.html'), controller: this.controller })
         .javaScriptAccess(true)
         .onDetectedBlankScreen((_event: BlankScreenDetectionEventInfo) => {{
           this.onMonitoredRegistered = true;
@@ -410,19 +137,128 @@ struct WebMonitoredBlankScreen {{
 }}
 '''
 
+ENUM_MEMBERS = [
+    ("DNS_RESOLVE_FAILED", 101),
+    ("REQUEST_TIMED_OUT", 102),
+    ("CONNECTION_REFUSED", 103),
+    ("CONNECTION_RESET", 104),
+    ("SSL_ERROR", 105),
+    ("CERT_ERROR", 106),
+    ("INTERNET_DISCONNECTED", 107),
+    ("REDIRECT_LOOP", 108),
+    ("PROXY_ERROR", 109),
+    ("OTHER_NETWORK_ERROR", 199),
+    ("MAIN_DOC_EMPTY", 201),
+    ("HTTP_4XX_ERROR", 202),
+    ("HTTP_5XX_ERROR", 203),
+    ("JS_GLOBAL_BUNDLE_LOAD_FAILED", 210),
+    ("CSS_LOAD_FAILED", 211),
+    ("MULTI_RESOURCE_LOAD_FAILED", 212),
+    ("CORS_BLOCKED", 213),
+    ("CSP_BLOCKED", 214),
+    ("MIXED_CONTENT_BLOCKED", 215),
+    ("JS_RUNTIME_ERROR", 301),
+    ("NO_FIRST_CONTENTFUL_PAINT", 312),
+    ("RENDERER_CRASHED", 401),
+    ("RENDERER_KILLED", 402),
+    ("GPU_PROCESS_CRASHED", 403),
+    ("GPU_PROCESS_WATCHDOG_TIMEOUT", 404),
+    ("WEB_VIEW_ZERO_SIZE", 501),
+]
+ENUM_BY_NAME = dict(ENUM_MEMBERS)
 
-def gen_test(tasks: list[dict]) -> str:
-    its: list[str] = []
-    for i, t in enumerate(tasks):
-        action = cp_action(t["coverage_point_id"])
-        name = it_name(t["coverage_point_id"])
-        eid = EVENT_BASE + i
-        exp_js = expected_for_task(t)
-        its.append(
-            f'''    /**
+
+def _enum_code(name: str, default: int = 0) -> int:
+    return ENUM_BY_NAME.get(name, default)
+
+
+def load_oh_tasks() -> list[dict]:
+    proc = subprocess.run(
+        [sys.executable, str(ANALYZER), str(XLSX), "--scope", "user37", "--md", "/dev/null"],
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+    # analyzer prints md to stdout when --md is /dev/null it still writes md - check code
+    # use inline parse instead
+    import importlib.util
+
+    spec = importlib.util.spec_from_file_location("analyze", ANALYZER)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    shared, rows, red_font_ids, cell_font = mod.load_sheet(XLSX)
+    tasks, _ = mod.parse_rows(shared, rows, red_font_ids, cell_font, scope="user37")
+    return [t for t in tasks if t.get("category_d") == "OH"]
+
+
+def cp_action(cp_id: str) -> str:
+    return "cp_" + cp_id.replace(".", "_").replace("#", "_")
+
+
+def it_name(cp_id: str) -> str:
+    s = cp_id.replace(".", "_").replace("#", "_")
+    return "testMonitoredBlank_" + re.sub(r"[^A-Za-z0-9_]", "_", s)[:90]
+
+
+def expected_for_task(t: dict) -> str:
+    cp = t.get("coverage_point_id", "")
+    dim = t.get("dimension", "")
+    if cp.startswith("BlankScreenReason.") and dim in ("I", "J"):
+        member = cp.split(".")[1].split("#")[0]
+        return str(_enum_code(member))
+    if cp == "global.MonitoredBlankScreenEventInfo#I":
+        return str(_enum_code("DNS_RESOLVE_FAILED"))
+    if cp == "global.MonitoredBlankScreenEventInfo#J":
+        return str(_enum_code("REQUEST_TIMED_OUT"))
+    if cp == "MonitoredBlankScreenEventInfo.url#I":
+        return "'https://oh-monitored-blank.test/url-i'"
+    if cp == "MonitoredBlankScreenEventInfo.url#J":
+        return "'https://oh-monitored-blank.test/page'"
+    if cp == "MonitoredBlankScreenEventInfo.reason#I":
+        return str(_enum_code("CERT_ERROR"))
+    if cp == "MonitoredBlankScreenEventInfo.reason#J":
+        return str(_enum_code("DNS_RESOLVE_FAILED"))
+    if cp == "MonitoredBlankScreenEventInfo.extraMsg#I":
+        return "'extra-msg-i'"
+    if cp == "MonitoredBlankScreenEventInfo.extraMsg#J":
+        return "'extra-msg-j'"
+    if cp.startswith("WebAttribute.onMonitoredBlankScreen") and dim in ("I", "J", "K", "L", "M"):
+        if dim == "J":
+            return str(_enum_code("MAIN_DOC_EMPTY"))
+        if dim == "K":
+            return str(_enum_code("HTTP_4XX_ERROR"))
+        return "true"
+    if cp == "global.OnMonitorBlankScreenCallback#J":
+        return str(_enum_code("OTHER_NETWORK_ERROR"))
+    return "true"
+
+
+def gen_page_switch_cases(tasks: list[dict]) -> str:
+    import oh_monitored_switch as oms
+
+    oms.ENUM_BY_NAME = ENUM_BY_NAME
+    return "\n".join(
+        oms.switch_case_for_task(t, EVENT_BASE + i, cp_action)
+        for i, t in enumerate(tasks)
+    )
+
+
+def gen_page(tasks: list[dict]) -> str:
+    switch = gen_page_switch_cases(tasks)
+    return _MON_PAGE_HEAD + switch + _MON_PAGE_TAIL
+
+
+def _gen_one_it(i: int, t: dict) -> str:
+    cp = t.get("coverage_point_id", "")
+    action = cp_action(cp)
+    name = it_name(cp)
+    eid = EVENT_BASE + i
+    exp_js = expected_for_task(t)
+    dim_name = t.get("dimension_name", "")
+    return f'''    /**
      * @tc.name   {name}
      * @tc.number SUB_WEB_MONITORED_BLANK_{i + 1:04d}
-     * @tc.desc   coverage {t["coverage_point_id"]} ({t["dimension_name"]})
+     * @tc.desc   coverage {cp} ({dim_name})
      */
     it('{name}', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {{
       Utils.emitEvent("{action}", {EVENT_SUITE});
@@ -442,8 +278,9 @@ def gen_test(tasks: list[dict]) -> str:
       done();
     }})
 '''
-        )
-    body = "\n".join(its)
+
+
+def _test_file_preamble() -> str:
     return f'''/**
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -496,10 +333,12 @@ export default function webMonitoredBlankScreen() {{
       done();
     }})
 
-{body}
-  }})
-}}
 '''
+
+
+def gen_test(tasks: list[dict]) -> str:
+    body = "\n".join(_gen_one_it(i, t) for i, t in enumerate(tasks))
+    return _test_file_preamble() + body + "\n  }})\n}}\n"
 
 
 def main() -> int:

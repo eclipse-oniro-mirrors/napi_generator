@@ -172,7 +172,7 @@ class ApiRow:
 
 
 
-def extract_api(kind: str, cells: dict[int, str]) -> ApiRow:
+def _row_fields(kind: str, cells: dict[int, str]) -> tuple[str, str, str, str]:
     if kind == "ccdk":
         mod = (cells.get(1, "") or "").strip()
         clazz = (cells.get(2, "") or "").strip()
@@ -180,16 +180,23 @@ def extract_api(kind: str, cells: dict[int, str]) -> ApiRow:
         sig4 = (cells.get(4, "") or "").strip()
         sig5 = (cells.get(5, "") or "").strip()
         sig = sig4 if "(" in sig4 else sig5
-    elif kind == "dynamic":
-        mod = (cells.get(1, "") or "").strip()
-        clazz = (cells.get(2, "") or "").strip()
-        method = (cells.get(3, "") or "").strip()
-        sig = (cells.get(5, "") or "").strip()
-    else:
-        mod = (cells.get(1, "") or "").strip()
-        clazz = (cells.get(3, "") or "").strip()
-        method = (cells.get(4, "") or "").strip()
-        sig = (cells.get(6, "") or "").strip()
+        return mod, clazz, method, sig
+    if kind == "dynamic":
+        return (
+            (cells.get(1, "") or "").strip(),
+            (cells.get(2, "") or "").strip(),
+            (cells.get(3, "") or "").strip(),
+            (cells.get(5, "") or "").strip(),
+        )
+    return (
+        (cells.get(1, "") or "").strip(),
+        (cells.get(3, "") or "").strip(),
+        (cells.get(4, "") or "").strip(),
+        (cells.get(6, "") or "").strip(),
+    )
+
+
+def _api_id_and_label(mod: str, clazz: str, method: str, sig: str) -> tuple[str, str]:
     if method.startswith("OH_"):
         api_id = method
     elif clazz and method and len(method) <= 64 and "(" not in method[:20]:
@@ -201,6 +208,12 @@ def extract_api(kind: str, cells: dict[int, str]) -> ApiRow:
         label = f"{clazz}.{method}"
     elif mod and method:
         label = f"{mod} :: {method}"
+    return api_id, label
+
+
+def extract_api(kind: str, cells: dict[int, str]) -> ApiRow:
+    mod, clazz, method, sig = _row_fields(kind, cells)
+    api_id, label = _api_id_and_label(mod, clazz, method, sig)
     return ApiRow(api_id=api_id, label=label, module=mod, clazz=clazz, method=method)
 
 

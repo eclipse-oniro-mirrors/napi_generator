@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import sys
 import zipfile
@@ -130,16 +131,23 @@ def parse_case_ids(raw42: str, raw53: str) -> list[str]:
     return list(dict.fromkeys(out))
 
 
-def _case_names_in_source(text: str, suffix: str) -> set[str]:
+def _hypium_case_names(text: str) -> set[str]:
+    return {n for n in CASE_PATTERNS[0].findall(text) if looks_like_case_name(n)}
+
+
+def _hwtest_case_names(text: str) -> set[str]:
     found: set[str] = set()
-    for name in CASE_PATTERNS[0].findall(text):
-        if looks_like_case_name(name):
-            found.add(name)
+    for pat in CASE_PATTERNS[2:]:
+        for name in pat.findall(text):
+            if looks_like_case_name(name):
+                found.add(name)
+    return found
+
+
+def _case_names_in_source(text: str, suffix: str) -> set[str]:
+    found = _hypium_case_names(text)
     if suffix in {".cpp", ".c", ".cc"}:
-        for pat in CASE_PATTERNS[2:]:
-            for name in pat.findall(text):
-                if looks_like_case_name(name):
-                    found.add(name)
+        found |= _hwtest_case_names(text)
     return found
 
 
@@ -159,8 +167,9 @@ def build_case_index(xts_root: Path) -> dict[str, list[str]]:
             continue
         rel = path.relative_to(xts_root).as_posix()
         for name in _case_names_in_source(text, path.suffix):
-            if rel not in index[name]:
-                index[name].append(rel)
+            paths = index[name]
+            if rel not in paths:
+                paths.append(rel)
     return index
 
 
@@ -183,7 +192,7 @@ def normalize_case_path(case_path: str) -> str:
     if ";" in p:
         p = p.split(";")[0].strip()
     if p.startswith("xts_acts/"):
-        p = p[len("xts_acts/") :]
+        p = p[len("xts_acts/"):]
     return p
 
 
@@ -207,6 +216,54 @@ def resolve_excel_path(
     return hits[0] if hits else None
 
 
+def _acts_rel_path(resolved: Path, acts: Path, xts: Path) -> str:
+    root = acts if str(resolved).startswith(str(acts)) else xts
+    rel = resolved.relative_to(root).as_posix()
+    if root == acts:
+        rel = os.path.join("acts", rel)
+    return rel
+
+
+def _match_in_resolved_file(
+    resolved: Path,
+    method: str,
+    case_ids: list[str],
+    file_cache: dict[str, str],
+) -> tuple[list[str], list[str]]:
+    key = str(resolved)
+    text = file_cache.get(key)
+    if text is None:
+        text = resolved.read_text(encoding="utf-8", errors="ignore")
+        file_cache[key] = text
+    matched_cases: list[str] = []
+    for cid in case_ids:
+        if cid in text:
+            matched_cases.append(cid)
+    if method and method in text and not matched_cases:
+        matched_cases.append(f"(symbol:{method})")
+    return matched_cases, [key]
+
+
+def _merge_case_index_hits(
+    case_ids: list[str],
+    case_index: dict[str, list[str]],
+    matched_cases: list[str],
+    matched_files: list[str],
+) -> None:
+    seen_cases = set(matched_cases)
+    for cid in case_ids:
+        if cid in seen_cases:
+            continue
+        rels = case_index.get(cid, [])
+        if not rels:
+            continue
+        matched_cases.append(cid)
+        seen_cases.add(cid)
+        for rel in rels:
+            if rel not in matched_files:
+                matched_files.append(rel)
+
+
 def verify_in_master(
     method: str,
     case_ids: list[str],
@@ -217,42 +274,22 @@ def verify_in_master(
     xts: Path,
     basename_index: dict[str, list[Path]],
 ) -> tuple[str, list[str], list[str]]:
-    """
-    Returns (master_status, matched_cases, matched_files_rel).
-    master_status: 有用例 | 无对应用例 | Excel未关联用例
-    """
     matched_files: list[str] = []
     matched_cases: list[str] = []
 
     resolved = resolve_excel_path(case_path, acts, xts, basename_index)
     if resolved:
-        root = acts if str(resolved).startswith(str(acts)) else xts
-        rel = resolved.relative_to(root).as_posix()
-        if root == acts:
-            rel = "acts/" + rel
-        matched_files.append(rel)
-        key = str(resolved)
-        if key not in file_cache:
-            file_cache[key] = resolved.read_text(encoding="utf-8", errors="ignore")
-        text = file_cache[key]
-        if case_ids:
-            for cid in case_ids:
-                if cid in text:
-                    matched_cases.append(cid)
-        if method and method in text and not matched_cases:
-            matched_cases.append(f"(symbol:{method})")
+        matched_files.append(_acts_rel_path(resolved, acts, xts))
+        from_file, _ = _match_in_resolved_file(
+            resolved, method, case_ids, file_cache
+        )
+        matched_cases.extend(from_file)
 
-    for cid in case_ids:
-        if cid in matched_cases:
-            continue
-        for rel in case_index.get(cid, []):
-            matched_cases.append(cid)
-            if rel not in matched_files:
-                matched_files.append(rel)
+    _merge_case_index_hits(case_ids, case_index, matched_cases, matched_files)
 
     if not case_ids and not case_path:
-        if method:
-            for rel in case_index.get(f"(symbol:{method})", []):
+        for rel in case_index.get(f"(symbol:{method})", []):
+            if rel not in matched_files:
                 matched_files.append(rel)
         return "Excel未关联用例", matched_cases, matched_files
 
