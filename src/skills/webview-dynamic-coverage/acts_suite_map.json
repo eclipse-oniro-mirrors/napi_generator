@@ -1,0 +1,16 @@
+{
+  "云服务": {
+    "suite": "ActsWebNetworkInterceptionDevFourTest",
+    "acts_subpath": "web/web_load/network_interception/ace_network_interception_dev_four",
+    "page_file": "WebCustomErrorCode.ets",
+    "test_file": "WebCustomErrorCode.test.ets",
+    "describe_hint": "WebCustomErrorCode"
+  },
+  "OH": {
+    "suite": "ActsWebSystemEventsTest",
+    "acts_subpath": "web/DFX/system_events",
+    "page_file": "WebMonitoredBlankScreen.ets",
+    "test_file": "WebMonitoredBlankScreen.test.ets",
+    "describe_hint": "WebMonitoredBlankScreenTest"
+  }
+}
