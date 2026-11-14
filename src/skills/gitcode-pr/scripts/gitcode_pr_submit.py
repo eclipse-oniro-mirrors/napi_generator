@@ -242,64 +242,70 @@ def cmd_all(args) -> int:
     return 0
 
 
-def main() -> int:
-    p = argparse.ArgumentParser(description="gitcode PR 提交一体化（issue 创建/关联/触发构建）")
-    p.add_argument("--owner", default=DEFAULT_OWNER, help=f"仓库属主（默认 {DEFAULT_OWNER}）")
-    p.add_argument("--repo", default=DEFAULT_REPO, help=f"仓库名（默认 {DEFAULT_REPO}）")
-    sub = p.add_subparsers(dest="cmd", required=True)
-
+def _add_core_parsers(sub: argparse._SubParsersAction) -> None:
     pi = sub.add_parser("issue", help="创建 issue")
     pi.add_argument("--title", required=True)
-    pi.add_argument("--body", default=None, help="描述（与 --body-file 二选一）")
-    pi.add_argument("--body-file", default=None, help="描述文件（与 --body 二选一）")
+    pi.add_argument("--body", default=None)
+    pi.add_argument("--body-file", default=None)
     pi.set_defaults(fn=cmd_issue)
 
     pp = sub.add_parser("pr", help="创建 PR 并自动关联 issue")
     pp.add_argument("--title", required=True)
-    pp.add_argument("--head", required=True, help="fork 分支，形如 nicklaus0602:req2-submit-02")
+    pp.add_argument("--head", required=True)
     pp.add_argument("--base", default="master")
     pp.add_argument("--body", default=None)
     pp.add_argument("--body-file", default=None)
-    pp.add_argument("--issue", type=int, required=True, help="关联的 Issue 编号")
+    pp.add_argument("--issue", type=int, required=True)
     pp.set_defaults(fn=cmd_pr)
 
-    pl = sub.add_parser("link", help="已有 PR：PATCH 描述追加 issue 链接并验证")
-    pl.add_argument("pr", type=int, help="PR 编号")
-    pl.add_argument("--issue", type=int, required=True, help="关联的 Issue 编号")
+    pl = sub.add_parser("link", help="已有 PR：PATCH 描述追加 issue 链接")
+    pl.add_argument("pr", type=int)
+    pl.add_argument("--issue", type=int, required=True)
     pl.set_defaults(fn=cmd_link)
 
-    pb = sub.add_parser("build", help="评论 start build 触发门禁")
-    pb.add_argument("pr", type=int, help="PR 编号")
-    pb.add_argument("--delay", type=int, default=60, help="触发前等待秒数（默认 60，规范要求）")
+
+def _add_report_parsers(sub: argparse._SubParsersAction) -> None:
+    pb = sub.add_parser("build", help="评论 start build")
+    pb.add_argument("pr", type=int)
+    pb.add_argument("--delay", type=int, default=60)
     pb.set_defaults(fn=cmd_build)
 
-    pd = sub.add_parser(
-        "describe-report",
-        help="PATCH PR 描述追加本地 CI 同签验板结果（截图路径）",
-    )
-    pd.add_argument("pr", type=int, help="PR 编号")
-    pd.add_argument("--screenshot", default="", help="summary_top.png 路径")
-    pd.add_argument("--report-html", default="", help="summary_report.html 路径")
-    pd.add_argument("--summary", default="", help="一行汇总，如 6 modules 289/289")
-    pd.add_argument("--section", default=None, help="自定义 Markdown 段")
-    pd.add_argument("--section-file", default=None, help="自定义 Markdown 文件")
+    pd = sub.add_parser("describe-report", help="PATCH PR 描述追加验板结果")
+    pd.add_argument("pr", type=int)
+    pd.add_argument("--screenshot", default="")
+    pd.add_argument("--report-html", default="")
+    pd.add_argument("--summary", default="")
+    pd.add_argument("--section", default=None)
+    pd.add_argument("--section-file", default=None)
     pd.set_defaults(fn=cmd_describe_report)
 
-    pa = sub.add_parser("all", help="一键：issue→PR→（可选）触发构建")
-    pa.add_argument("--issue-title", default=None, help="自动创建 issue 时必填")
+    pa = sub.add_parser("all", help="一键：issue→PR→（可选）构建")
+    pa.add_argument("--issue-title", default=None)
     pa.add_argument("--issue-body", default=None)
     pa.add_argument("--issue-body-file", default=None)
-    pa.add_argument("--issue", type=int, default=None, help="复用已有 issue 编号")
+    pa.add_argument("--issue", type=int, default=None)
     pa.add_argument("--pr-title", required=True)
     pa.add_argument("--head", required=True)
     pa.add_argument("--base", default="master")
     pa.add_argument("--pr-body", default=None)
     pa.add_argument("--pr-body-file", default=None)
-    pa.add_argument("--build", action="store_true", help="创建后自动触发 start build")
+    pa.add_argument("--build", action="store_true")
     pa.add_argument("--delay", type=int, default=60)
     pa.set_defaults(fn=cmd_all)
 
-    args = p.parse_args()
+
+def build_parser() -> argparse.ArgumentParser:
+    p = argparse.ArgumentParser(description="gitcode PR 提交一体化")
+    p.add_argument("--owner", default=DEFAULT_OWNER)
+    p.add_argument("--repo", default=DEFAULT_REPO)
+    sub = p.add_subparsers(dest="cmd", required=True)
+    _add_core_parsers(sub)
+    _add_report_parsers(sub)
+    return p
+
+
+def main() -> int:
+    args = build_parser().parse_args()
     return args.fn(args)
 
 

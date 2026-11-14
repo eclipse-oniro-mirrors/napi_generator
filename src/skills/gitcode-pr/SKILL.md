@@ -31,7 +31,7 @@ version: "1.3.0"
 | # | 规则 | 说明 |
 |---|------|------|
 | **4** | **本地验板 = 门禁同签** | `sign_ci_identical` / `pr_local_verify`；**禁** hapbuild autosign 辅助包混门禁主包 |
-| **5** | **全套 kit + 全模块 aa test** | Test.json 全部 HAP；**禁** `-s class` 当交付绿 |
+| **5** | **全套 kit + 全模块设备 unittest** | Test.json 全部 HAP；**禁** `-s class` 当交付绿 |
 | **6** | **PR 描述贴汇总截图** | `summary_top.png`；失败读 log 修到绿再贴；已合入禁推的 PR 不再改码 |
 
 **标准顺序（硬门禁）**：  
@@ -91,8 +91,14 @@ python3 scripts/pr_delivery_track.py track 45360 --once --stop-on-fail \
 # exit 0=合入；1=进行中；2=编译/CodeCheck（已拉 log）；3=仅冒烟（可自动 rebuild）；4=门禁绿待合入/可贴板测
 python3 scripts/pr_delivery_track.py fetch-static-haps 45360 \
   --out /tmp/pr45360_static_haps
-# 解压出 suites/acts/acts/testcases → bm install / aa test → describe-report 贴截图
+# 解压出 suites/acts/acts/testcases → 装包 / 设备 unittest → describe-report 贴截图
 python3 scripts/pr_delivery_track.py rebuild 45360
+
+# ⑤ 本地/下载的门禁 log、板测报告：一律脚本解析（禁止把整份 log 塞进上下文）
+python3 scripts/parse_ci_build_log.py "/path/build.log (33).zip" --out /tmp/ci_analyze.json
+python3 scripts/parse_xdevice_report.py /path/2026-11-14-16-19-45 --out /tmp/rpt.json
+python3 scripts/pr_delivery_track.py analyze-log /path/build.log.zip
+python3 scripts/pr_delivery_track.py analyze-report /path/xdevice_report_dir
 
 # 兼容旧入口（默认 interval 已改为 900s）
 python3 scripts/pr_gate_follow.py watch 45112 --once --auto-fetch --stop-on-fail

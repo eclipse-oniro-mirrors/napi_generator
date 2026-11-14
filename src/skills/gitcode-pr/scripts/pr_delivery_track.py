@@ -22,10 +22,12 @@ import tarfile
 import time
 import urllib.error
 import urllib.request
-import zipfile
 from datetime import datetime
 from pathlib import Path
 from typing import Any
+
+from log_artifacts import analyze_ci_log_dir, open_artifact
+from xdevice_report import analyze_xdevice_report, dump_json as dump_report_json
 
 DEFAULT_OWNER = "openharmony"
 DEFAULT_REPO = "xts_acts"
@@ -196,43 +198,11 @@ def save_and_extract_log(url: str, out_dir: Path) -> Path:
     out_dir.mkdir(parents=True, exist_ok=True)
     blob_path = out_dir / "artifact.bin"
     download(url, blob_path)
-    extract_dir = out_dir / "extracted"
-    extract_dir.mkdir(parents=True, exist_ok=True)
-    blob = blob_path.read_bytes()
-    if zipfile.is_zipfile(blob_path):
-        with zipfile.ZipFile(blob_path) as zf:
-            zf.extractall(extract_dir)
-        return extract_dir
-    try:
-        with tarfile.open(blob_path, "r:*") as tf:
-            tf.extractall(extract_dir)
-        return extract_dir
-    except tarfile.TarError:
-        pass
-    (extract_dir / "build.log.txt").write_bytes(blob)
-    return extract_dir
+    return open_artifact(blob_path, out_dir / "extracted")
 
 
 def analyze_dir(root: Path) -> dict:
-    errors: list[str] = []
-    hints: list[str] = []
-    scanned = 0
-    for p in root.rglob("*"):
-        if not p.is_file() or p.stat().st_size > 80_000_000:
-            continue
-        scanned += 1
-        try:
-            text = p.read_text(encoding="utf-8", errors="ignore")
-        except OSError:
-            continue
-        for ln in text.splitlines():
-            if any(k in ln for k in ("Error:", "error:", "G.FMT", "G.EXT", "ESE")):
-                s = ln.strip()[:400]
-                if s and s not in errors and len(errors) < 40:
-                    errors.append(s)
-        if "Failed to resolve OhmUrl" in text and "@ohos/hypium" in text:
-            hints.append("prefer @ohos/hypium-dynamic / project hypium alias")
-    return {"errors": errors, "hints": hints, "files_scanned": scanned}
+    return analyze_ci_log_dir(root)
 
 
 def comment_start_build(owner: str, repo: str, pr: int, delay: int) -> bool:
@@ -246,32 +216,41 @@ def comment_start_build(owner: str, repo: str, pr: int, delay: int) -> bool:
     return isinstance(d, dict) and ("note_id" in d or d.get("id"))
 
 
+def _member_out_name(name: str) -> str | None:
+    rel = name.replace("\\", "/")
+    if TESTCASES_MARK not in rel:
+        return None
+    idx = rel.find(TESTCASES_MARK)
+    out_name = rel[idx + len(TESTCASES_MARK) :].lstrip("/")
+    return out_name or None
+
+
+def _copy_tar_member(tf: tarfile.TarFile, member: tarfile.TarInfo, target: Path) -> bool:
+    src = tf.extractfile(member)
+    if src is None:
+        return False
+    target.parent.mkdir(parents=True, exist_ok=True)
+    with target.open("wb") as out, src:
+        while True:
+            chunk = src.read(1024 * 1024)
+            if not chunk:
+                break
+            out.write(chunk)
+    return True
+
+
 def extract_testcases_from_tar(tar_path: Path, dest: Path) -> int:
     dest.mkdir(parents=True, exist_ok=True)
     count = 0
     with tarfile.open(tar_path, "r:*") as tf:
         for m in tf.getmembers():
-            if TESTCASES_MARK not in m.name.replace("\\", "/"):
-                continue
             if not m.isfile():
                 continue
-            rel = m.name.replace("\\", "/")
-            idx = rel.find(TESTCASES_MARK)
-            out_name = rel[idx + len(TESTCASES_MARK) :].lstrip("/")
+            out_name = _member_out_name(m.name)
             if not out_name:
                 continue
-            target = dest / out_name
-            target.parent.mkdir(parents=True, exist_ok=True)
-            src = tf.extractfile(m)
-            if src is None:
-                continue
-            with target.open("wb") as out, src:
-                while True:
-                    chunk = src.read(1024 * 1024)
-                    if not chunk:
-                        break
-                    out.write(chunk)
-            count += 1
+            if _copy_tar_member(tf, m, dest / out_name):
+                count += 1
     return count
 
 
@@ -405,43 +384,67 @@ def cmd_rebuild(args: argparse.Namespace) -> int:
     return 0 if ok else 1
 
 
+def _track_round_action(
+    args: argparse.Namespace, log_path: Path, round_n: int, st: dict, cls: dict
+) -> int | None:
+    """Return exit code to stop, or None to keep polling."""
+    if st["merged"] or st["state"] in ("closed", "merged"):
+        log_line(log_path, "DONE: merged or closed — stop")
+        return 0
+    if cls["needs_fix"]:
+        code = handle_compile_fail(args, log_path, round_n)
+        return code if args.once or args.stop_on_fail else None
+    if cls["needs_rebuild_only"]:
+        code = handle_smoke_fail(args, log_path)
+        return code if args.once else None
+    if cls["gate_greenish"]:
+        comments = list_comments(args.owner, args.repo, args.pr)
+        code = handle_green(args, log_path, comments)
+        if args.once or args.stop_on_green:
+            return code
+        log_line(log_path, "WAIT: green but not merged — keep polling")
+        return None
+    log_line(log_path, "WAIT: build in progress / no terminal labels")
+    return 1 if args.once else None
+
+
 def cmd_track(args: argparse.Namespace) -> int:
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
     log_path = Path(args.log) if args.log else out / "track.log"
     log_line(log_path, f"START track PR#{args.pr} interval={args.interval}s")
     log_line(log_path, f"out={out}")
-    rounds = 0
-    while rounds < args.max_rounds:
-        rounds += 1
+    for rounds in range(1, args.max_rounds + 1):
         st = pr_state(args.owner, args.repo, args.pr)
         cls = classify_labels(st.get("labels") or [])
         write_round_snapshot(log_path, rounds, st, cls)
-        if st["merged"] or st["state"] in ("closed", "merged"):
-            log_line(log_path, "DONE: merged or closed — stop")
-            return 0
-        if cls["needs_fix"]:
-            code = handle_compile_fail(args, log_path, rounds)
-            if args.once or args.stop_on_fail:
-                return code
-        elif cls["needs_rebuild_only"]:
-            code = handle_smoke_fail(args, log_path)
-            if args.once:
-                return code
-        elif cls["gate_greenish"]:
-            comments = list_comments(args.owner, args.repo, args.pr)
-            code = handle_green(args, log_path, comments)
-            if args.once or args.stop_on_green:
-                return code
-            log_line(log_path, "WAIT: green but not merged — keep polling")
-        else:
-            log_line(log_path, "WAIT: build in progress / no terminal labels")
-            if args.once:
-                return 1
+        stop = _track_round_action(args, log_path, rounds, st, cls)
+        if stop is not None:
+            return stop
         log_line(log_path, f"SLEEP {args.interval}s")
         time.sleep(args.interval)
     log_line(log_path, "MAX_ROUNDS reached")
     return 5
+
+
+def cmd_analyze_log(args: argparse.Namespace) -> int:
+    from log_artifacts import analyze_ci_artifact
+
+    path = Path(args.path)
+    work = Path(args.work) if args.work else None
+    report = analyze_ci_artifact(path, work)
+    out = Path(args.out) if args.out else None
+    print(dump_report_json(report, out))
+    return 0 if report.get("ok") else 1
+
+
+def cmd_analyze_report(args: argparse.Namespace) -> int:
+    report = analyze_xdevice_report(Path(args.path), hilog=not args.no_hilog)
+    out = Path(args.out) if args.out else None
+    print(dump_report_json(report, out))
+    if report.get("error"):
+        return 2
+    return 0 if report.get("ok") else 1
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -480,6 +483,18 @@ def build_parser() -> argparse.ArgumentParser:
     pb.add_argument("pr", type=int)
     pb.add_argument("--delay", type=int, default=60)
     pb.set_defaults(fn=cmd_rebuild)
+
+    pl = sub.add_parser("analyze-log", help="Parse CI build.log zip/tar/dir")
+    pl.add_argument("path")
+    pl.add_argument("--work", default=None)
+    pl.add_argument("--out", default=None)
+    pl.set_defaults(fn=cmd_analyze_log)
+
+    pr = sub.add_parser("analyze-report", help="Parse xdevice report dir")
+    pr.add_argument("path")
+    pr.add_argument("--out", default=None)
+    pr.add_argument("--no-hilog", action="store_true")
+    pr.set_defaults(fn=cmd_analyze_report)
 
     return p
 

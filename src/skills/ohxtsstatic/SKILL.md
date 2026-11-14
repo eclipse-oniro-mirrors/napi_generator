@@ -1108,6 +1108,7 @@ cp -rf $SDK_H/* entry/src/hypium/ && rm -rf entry/src/hypium/testAbility entry/s
 | 编译/CodeCheck 来回 | 规则未进 skill、只修个案 | 同任务内加固 **ohos-gate-compliance**（见 workspace `gate-compliance-hardening`）；`INT_AS_NUMBER`→`toDouble()`；noperm 禁 `stateManagement`→用 `globalThis.context` |
 | 门禁跟踪差 | 人工刷评论、漏产物 | 用 **gitcode-pr** `pr_delivery_track.py`：**默认每 15 分钟**轮询至合入；编译/CodeCheck 失败拉 log；**仅冒烟失败→自动 rebuild**；跟踪写日志文件 |
 | 静态本地难编 | hypium/SDK 与 CI 不一致 | **禁止**用过期本地 HAP 宣称通过；优先拉 CI **`dayu200_xts_static` version 包** → 只解压 `suites/acts/acts/testcases` 再装测（见下） |
+| 大 log 拖垮 Agent | 整份 build.log / 报告塞进上下文 | **禁止**人工通读；用 `parse_ci_build_log.py` / `parse_xdevice_report.py` 出 JSON 再决策 |
 | PR 描述无六维表 | 只写散文/清单 | 描述模板硬要求六维表 + Issue 链接 + 验板截图；缺表视为未交付 |
 
 #### 13.14.2 错误码入参纪律（BackToCaller 类）
@@ -1132,11 +1133,15 @@ python3 .../gitcode-pr/scripts/pr_delivery_track.py fetch-static-haps <PR> \
   --out /tmp/pr<PR>_static_haps
 
 # 解压根下常见：suites/acts/acts/testcases/*.hap（及依赖）
-# 3) bm install → aa test → failures=0 且 disabled=0
-# 4) xdevice 截图 → gitcode_pr_submit.py describe-report <PR> --image ...
+# 3) 装包 → 设备 unittest → failures=0 且 disabled=0
+# 4) xdevice 截图 → gitcode_pr_submit.py describe-report <PR> --screenshot ...
+
+# 编译失败 / 板测失败：脚本解析（勿把整 zip / 整份 hilog 读进上下文）
+python3 .../gitcode-pr/scripts/parse_ci_build_log.py "/path/build.log (N).zip" --out /tmp/ci.json
+python3 .../gitcode-pr/scripts/parse_xdevice_report.py /path/2026-11-14-16-19-45 --out /tmp/rpt.json
 ```
 
-**硬门禁**：未贴六维表 / 未贴验板截图 → 不算闭环；跟踪日志须能看出每轮 labels、动作（fetch/rebuild/wait/board）。
+**硬门禁**：未贴六维表 / 未贴验板截图 → 不算闭环；跟踪日志须能看出每轮 labels、动作（fetch/rebuild/wait/board）；log/报告解析必须走脚本。
 
 #### 13.14.4 本类批次提交前清单
 

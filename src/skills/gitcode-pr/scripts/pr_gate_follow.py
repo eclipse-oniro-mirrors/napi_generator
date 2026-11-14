@@ -215,26 +215,9 @@ def collect_text_files(root: Path) -> list[Path]:
 
 
 def analyze_dir(root: Path) -> dict:
-    errors: list[str] = []
-    hints: list[str] = []
-    for p in collect_text_files(root):
-        try:
-            text = p.read_text(encoding="utf-8", errors="ignore")
-        except OSError:
-            continue
-        for m in ARKTS_ERR.finditer(text):
-            line = m.group(0).strip()
-            if line not in errors:
-                errors.append(line[:500])
-        if "@ohos/hypium" in text and "Failed to resolve OhmUrl" in text:
-            if HYPUM_FIX not in hints:
-                hints.append(HYPUM_FIX)
-        if "G.FMT" in text or "CodeCheck" in text or "codecheck" in text.lower():
-            for ln in text.splitlines():
-                if any(k in ln for k in ("G.FMT", "G.EXT", "ERROR", "Fail")):
-                    if ln.strip() not in errors and len(errors) < 80:
-                        errors.append(ln.strip()[:400])
-    return {"errors": errors[:40], "hints": hints, "files_scanned": len(list(root.rglob("*")))}
+    from log_artifacts import analyze_ci_log_dir
+
+    return analyze_ci_log_dir(root)
 
 
 def cmd_status(args: argparse.Namespace) -> int:
