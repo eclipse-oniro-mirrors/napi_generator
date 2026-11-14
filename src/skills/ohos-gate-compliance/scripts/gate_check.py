@@ -43,7 +43,7 @@ import git_checker  # noqa: E402
 import skill_checker  # noqa: E402
 import java_checker  # noqa: E402
 
-SKILLS_ROOT = Path("/root/aiSkill/napi_generator/src/skills")
+SKILLS_ROOT = Path(__file__).resolve().parents[2]
 
 
 # ---------------------------------------------------------------- code 子命令

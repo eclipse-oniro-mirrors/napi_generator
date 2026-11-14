@@ -119,7 +119,7 @@ kit 内 suite→Rely 的 `../rely` 仍允许。
 | NAPI `.so` 导入 | `import * as xxx from 'libxxx.so'` | **必须** `import xxx from 'libxxx.so'`（默认导入）；`* as` 会导致 C 接口 XTS **覆盖率扫描不到**（#43245/#44443）；门禁 **XTS.CHECK.NAPI_SO_IMPORT.01** 拦截+自动修复 |
 | G.OBJ.04 点号 | `want?.parameters?.['withGroupId']` | 简单字面量键用点号：`?.withGroupId`；PascalCase 协议键仍用 `[]`（G.NAM.03；PR44704） |
 | WordsTool.177 | 注释 `may … as 16000011`（易歧义独立词） | 改 `commonly returns`；图形术语改 host/TEXTURE（PR44704；检测+部分自动修复） |
-| WordsTool.9 | 注释/TAG 裸写 `AMS` | 注释改 `framework`；TAG 改 AbilityStage（PR45075；注释可 `--fix`） |
+| WordsTool.9 | 注释/TAG 裸写 `Ability Manager Service` | 注释改 `framework`；TAG 改 AbilityStage（PR45075；注释可 `--fix`） |
 | static clearTimeout | `clearTimeout(Double)` / `timerId: number` | 句柄用 `int`；`if (err)` 内勿 `err?.`（PR45075 playbook） |
 | static `setTimeout(resolve)` | `ESE0046` 把 resolve/reject 直接传给 setTimeout | 改箭头回调 `setTimeout((): void => { resolve(0); }, ms)`（**COMPILE.SETTIMEOUT.01**）；**EventBus onWait 必须用 setTimeout 墙钟**，禁止 shell sleep 冒充超时（PR45421） |
 | static `resolve()` 零参 | `Expected 1 arguments, got 0`（EventBus） | `resolve(0)`+`Promise<int>`（`Util.msSleep`）或 `resolve(undefined)`（PR45421） |

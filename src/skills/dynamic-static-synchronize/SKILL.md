@@ -117,7 +117,7 @@ python3 scripts/sync_advanced_dialog.py \
 
 **断言清理（需求3）**：检查转换后文件与全项目测试文件：
 ```bash
-grep -rn "expect(.*+ *''\|expect(.*'' *+" <proj>/entry/src/main/src/test/
+grep -r -n "expect(.*+ *''\|expect(.*'' *+" <proj>/entry/src/main/src/test/
 ```
 命中处按语义判定：断言两侧都是 number → 去掉 `+ ''`；一侧是字符串字面量 → 保留并说明。
 
@@ -378,9 +378,9 @@ python3 scripts/rerun_and_report.py --logs-only --out /path/to/report_dir
    `gen_xdevice_summary_report.py --out <dir> --device <SN> --version <ver> "label:suite:parsed.json" ...`
    （或 `merge_xdevice_reports.py --out <dir> <report_dir>...`）→ 仅官方 Element Plus 模板 `summary_report.html`
 2. **截图**：唯一工具 `xts-develop-master-cycle/scripts/screenshot-xdevice-summary.sh <report_dir>`
-   （puppeteer 渲染官方 Vue 模板，等 `.summary/.statistic/.details-table` 就绪）→ 交付 `summary_top.png`
+   （puppeteer 渲染官方 Element Plus 单页 模板，等 `.summary/.statistic/.details-table` 就绪）→ 交付 `summary_top.png`
    （Summary → Test Details，最多 10 行 Module）；多 HAP 只截合并后那一张
-3. **禁止**：wkhtmltoimage 等无 JS 引擎工具截图 Vue 模板；自写 HTML 再截图；`--batch`/`batch_index.html` 作为对外交付
+3. **禁止**：wkhtmltoimage 等无 JS 引擎工具截图 Element Plus 单页 模板；自写 HTML 再截图；`--batch`/`batch_index.html` 作为对外交付
 4. 规范出处：`ohxtsdynamic/REPORTING.md`、`ohxtsstatic/REPORTING.md`「HTML / 截图硬门禁」；
    工具脚本：`xts-develop-master-cycle/scripts/{merge_xdevice_reports.py, screenshot-xdevice-summary.sh}`、
    `advancedComponents/gen_xdevice_summary_report.py`（xts_acts_local_tools 下）

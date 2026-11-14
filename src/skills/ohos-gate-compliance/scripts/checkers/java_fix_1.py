@@ -1322,7 +1322,7 @@ def _fix_dcl02_copywithin_to(text: str) -> tuple[str, int]:
 
 
 def _fix_dcl02_null_before_assert(text: str) -> tuple[str, int]:
-    """G.DCL.02：Object rN = null 下沉到 assertNull(rN) 前（forEach 返回值测例）。"""
+    """G.DCL.02：Object resultObj = null 下沉到 assertNull(resultObj) 前（forEach 返回值测例）。"""
     lines = text.splitlines(True)
     pending: dict[str, str] = {}  # name -> indent of original decl
     out: list[str] = []

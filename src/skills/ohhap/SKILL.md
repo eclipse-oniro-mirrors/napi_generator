@@ -20,7 +20,7 @@ version: "1.0.0"
 
 ## 应用示例与提示词
 
-需 **`HOS_CLT_PATH`**、**`OHOS_SDK_PATH`**；在 **napi_generator 仓库根** 执行时脚本路径如下，**`<项目目录>`** 多为 **`src/skills/ohhap/NativeProj46R`** 或你自建的 HAP 工程绝对路径。
+需 **`HOS_CLT_PATH`**、**`OHOS_SDK_PATH`**；在 **napi_generator 仓库根** 执行时脚本路径如下，**`<项目目录>`** 多为 **`src/skills/ohhap/NativeProj46R`** 或你自建的 HAP 工程完整路径。
 
 | 场景 | 命令示例 | 提示词示例 |
 |------|----------|------------|
@@ -35,7 +35,7 @@ version: "1.0.0"
 
 ### 必需的环境变量
 
-- `HOS_CLT_PATH`: HarmonyOS Command Line Tools 路径
+- `HOS_CLT_PATH`: OpenHarmony Command Line Tools 路径
   - 例如: `<本机 Command Line Tools 根目录>`
   - 需要包含 `version.txt` 文件
 
@@ -208,7 +208,7 @@ ohpm 6.0.1
 ================================================================================
 检查编译环境...
 ================================================================================
-✓ HarmonyOS Command Line Tools 路径: <你的 Command Line Tools 目录>
+✓ OpenHarmony Command Line Tools 路径: <你的 Command Line Tools 目录>
   SDK名称: Command Line Tools
   运行系统: linux-x64
   版本: 6.0.1.260

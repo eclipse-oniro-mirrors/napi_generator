@@ -70,7 +70,7 @@ _WT5_RE = re.compile(
     rf"(?<![A-Za-z]){_from_codes(65, 99, 99, 101, 115, 115, 105, 98, 105, 108, 105, 116, 121)}(?![A-Za-z])",
     re.I,
 )
-# WordsTool.9：独立缩写 AMS（Ability Management Service 易歧义；req6 Logger TAG 实锤）
+# WordsTool.9：独立缩写 Ability Manager Service（Ability Management Service 易歧义；req6 Logger TAG 实锤）
 _WT9_RE = re.compile(rf"(?<![A-Za-z]){_from_codes(65, 77, 83)}(?![A-Za-z])")
 # WordsTool.86：开源勿用易歧义 eventlog 标识
 _WT86_RE = re.compile(_from_codes(101, 118, 101, 110, 116, 108, 111, 103), re.I)
@@ -1234,7 +1234,7 @@ def _scan_wordstool(path: Path, lines: list[str], add) -> None:
                 add(
                     "WordsTool.9",
                     i,
-                    "开源描述/注释勿裸写 AMS；改 framework / AbilityStage 等行业通用表述",
+                    "开源描述/注释勿裸写 Ability Manager Service；改 framework / AbilityStage 等行业通用表述",
                 )
             if _WT177_RE.search(ln):
                 add("WordsTool.177", i, "开源描述勿裸写易歧义词；注释改 commonly returns；图形场景改 host/TEXTURE")

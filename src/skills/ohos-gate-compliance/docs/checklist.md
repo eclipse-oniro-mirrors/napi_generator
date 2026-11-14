@@ -115,7 +115,7 @@
 - [ ] **ThreadWorker 路径必须是相对当前文件的字符串字面量**（如 `'../workers/Worker.ets'`）。`useNormalizedOHMUrl: true` 时编译器只改写字面量；`entry_test/ets/workers/Worker` 或经变量传入的 `.ets` 在 OpenHarmony 7.0.0.46 上都是 10200007，AbilityStage 顶层一构造整包 unavailable（PR44444）。禁止把路径收进 helper 再 `new ThreadWorker(变量)`
 - [ ] **G.FMT.03**：表达式换行运算符放行末；禁止续行行首 `+ JSON.stringify(...)`，须 `'...' +\nJSON...`（PR44444 MainAbility；`--fix` 可机械挪 `+`）
 - [ ] **G.EXT.01**：类属性须 `public`/`private`/`protected`；**`static readonly FOO = 1` 也要加 `public`**（req6 IDL proxy/stub）
-- [ ] **WordsTool.9**：勿裸写独立缩写 `AMS`（含注释）；注释改 `framework`，TAG/描述改 `AbilityStage` / `Stage Ability`（req6 / PR45075；`--fix` 可改注释）
+- [ ] **WordsTool.9**：勿裸写独立缩写 `Ability Manager Service`（含注释）；注释改 `framework`，TAG/描述改 `AbilityStage` / `Stage Ability`（req6 / PR45075；`--fix` 可改注释）
 - [ ] **XTS.CHECK.ASSERTFAIL.01**：`beforeAll`/`afterEach`/`beforeEach` 内禁止无条件 `expect().assertFail()`；try/catch 仅打日志后勿再 assertFail；unsubscribe 成功回调内 `assertFail` 紧邻 `done()` 须删（req7 CallTest / req10 CallFunction_0700）
 - [ ] **afterEach 禁止 terminate TestAbility**：`AppStorage`/`abilityContext` 若是用例宿主，`afterEach` 里 `terminateSelf` 会在首条 PASS 后杀掉 runner，下一条永久卡住。应对齐动态版只收 EntryAbility（如 `UIAbilityContext` / `entryAbilityContext`）（PR45421 MoveAbility-static 14-10-19）
 - [ ] **async afterEach 必须 `done()`**：静态 Hypium 不会等待无 `done` 的 async `afterEach`；下一条会与未完成的 `terminateSelf` 竞态（hilog：0200 `it begin` 后立刻 `TestAbility onDestroy`）
@@ -123,7 +123,7 @@
 - [ ] **EventBus onWait 必须用 `setTimeout` 墙钟超时**：禁止 `AbilityDelegator.executeShellCommand('sleep N')` 冒充超时——该 sleep **几乎立即返回**（18-51-20：0200 FAIL 仅 0.138s）。句柄 `int`；`setTimeout(resolve)` 直接传参改箭头回调（**COMPILE.SETTIMEOUT.01**）
 - [ ] **静态 `Promise` 的 `resolve()` 必须带 1 参**：`resolve()` → CI `Expected 1 arguments, got 0`（PR45421 EventBus）；用 `resolve(0)` + `Promise<int>`（同工程 `Util.msSleep`）或 `resolve(undefined)` + `Promise<void>`
 - [ ] **改超时后 hilog 核墙钟**：`onWait`→`timeout`/`resolve`/`emit` 间隔须接近设定值；对不上禁止提交/宣称已修
-- [ ] **ensureForeground 须 await `aa start`**：fire-and-forget 的 `aa start` 可在 `moveAbilityToBackground` 后把宿主再拉回前台，导致 `onApplicationBackground` 永不到达
+- [ ] **ensureForeground 须 await `Ability 启动命令`**：fire-and-forget 的 `Ability 启动命令` 可在 `moveAbilityToBackground` 后把宿主再拉回前台，导致 `onApplicationBackground` 永不到达
 - [ ] **`startAbility(EntryAbility1)` 后须 `Promise.all([EntryFg, TestBg])` 再 move**：只等 Entry FG 会在 TestAbility 尚未 BG 时就 `moveAbilityToBackground`，Entry `onBackground` 可 5s 内不到（PR45421 0300；hilog 20-46-49）
 - [ ] **错误路径保留 assertFail（req3）**：js/ts→ets 或批量改写时，**勿删** `.catch` / 失败分支内的 `expect().assertFail()`（openlink `StartAbility_OpenLink_0400/1600–2100`、`OpenLink_0300/0600/0700` 实锤：删后触发 ASSERTION.01「用例没有断言」）
 - [ ] **回调错误分支须判 code（XTS.CHECK.ERR_CODE.01 / PR43852）**：CommonEvent / ability 成功回调常带 **truthy `{code:0}`**；**禁止** `if (err) { assertFail; return }`（会把成功当失败）。须 `if (err && err.code !== 0)`，且失败分支保留 `expect().assertFail()`
@@ -174,7 +174,7 @@
     - 勿用 `error as BusinessError`（见 ERROR_CODE.01）；`gate_review.check_async_testcase_02` 三子规则均可检出（修复后复扫应 0 违规）
 - [ ] **XTS.CHECK.ASSERTION.01**：每个 `it()` 用例体须含至少一处 `expect(...)`；异常参数覆盖可用 `hit` 计数后 `expect(hit).assertEqual(N)`。Web emitter 范式仅 `Utils.registerEvent` **不够**（断言在 Utils 内，门禁扫不到）；须在 `it`/`registerEvent` 回调内再写 `expect(...)`
 - [ ] **XTS.CHECK.TCNUMBER.01**：`@tc.number` 须 `SUB_<子系统>_<部件>_<若干_测试_信息>_<4位数字>`（**至少 5 段**）。反例 `SUB_WEB_FLINGSPEEDLIMIT_0100`（4 段）；正例 `SUB_WEB_WEBATTRIBUTE_FLINGSPEEDLIMIT_0100` / `SUB_WEB_SCROLLLAYOUT_POLICY_0100`
-- [ ] **WordsTool.5**：勿写独立词 `accessibility`（含 `import { accessibility }`、`accessibility.Capability`）；`@kit.AccessibilityKit` / `myaccessibilityapp` 复合标识不命中。`enableAbility` 勿用 `string[]`（CI 10505001 拒 `Capability[]`）；用 `('retrieve' | 'gesture')[]`（PR44545）
+- [ ] **WordsTool.5**：勿写独立词 `a11y`（含 `import { a11y }`、`a11y.Capability`）；`@kit.AccessibilityKit` / `myaccessibilityapp` 复合标识不命中。`enableAbility` 勿用 `string[]`（CI 10505001 拒 `Capability[]`）；用 `('retrieve' | 'gesture')[]`（PR44545）
 - [ ] **XTS.CHECK.HAPNAME.01**：`ohos_js_app_suite` / `ohos_js_app_static_suite` 且 **`test_hap = true`** 时，`hap_name` 须匹配 `^Acts[A-Za-z0-9]+Test$`（同步改 GN target 名与 `Test.json` 的 `*.hap`）。**禁止**用 `*Rely` 作 test HAP 名（`*Rely` 留给 `ohos_app_assist_suite`）。PR45112：`ActsAbilityApi26NoPermissionRely`→`ActsAbilityApi26NoPermissionTest`
 - [ ] **XTS.CHECK.ALL_TIME_TRUE_ASSERTION.01**：禁止恒真断言：`expect(true).assertTrue()`、字面量 `expect('emitFoo').assertContain('Foo')`（子串恒成立）、`expect(x).assertEqual(x)`、`expect(*.length >= 0).assertTrue()`。改为业务条件（如回调内 `isReturn = true` 后 `expect(isReturn).assertTrue()`；`commonEventValues.length > 0`；字段用 typeof/枚举范围）
   - API 成功/业务错误二选一路径：成功分支断言业务字段（如 `abilityResult.resultCode`），勿 `expect(true)` / 勿 `isReturn=true` 后立刻 `expect(isReturn).assertTrue()`（PR45112 BackToCaller 返工）
@@ -185,7 +185,7 @@
   - soft-skip / 设备不可用路径：**禁止** `expect(true).assertTrue()` 垫断言；直接 `done(); return;`（或空 body 结束）。PR44669 TopFloatingBarLegacy 实锤
   - HyperSnap getLastError（PR44817）：勿再叠 `assertEqual(info.code)` / `msg.length >= 0`；用 `assertErrorInfo` 类硬断言即可
   - **ResourceColor / 主题色 undefined**：新镜像上「省略」Inspector 常为 `null`，显式 `undefined` 常解析为 `#AARRGGBB`；勿硬比相等。两侧同为 sentinel → `assertEqual`；一侧 `null` 且另一侧 `#…` → `expect(color.length >= 7).assertTrue()`（PR44669 AbnormalStatic 0700–1100）
-  - 静态 `aa test` **不自动 loadContent**：event 10 无监听则回调 `done()` 永不触发→180s 超时；`beforeAll` 须 `aa start EntryAbility`，用例末尾按姐妹套件再调 `done()`（PR44545）
+  - 静态 `设备 unittest` **不自动 loadContent**：event 10 无监听则回调 `done()` 永不触发→180s 超时；`beforeAll` 须 `Ability 启动命令 EntryAbility`，用例末尾按姐妹套件再调 `done()`（PR44545）
 - [ ] **XTS.CHECK.FAKE_COVERAGE.（01～04）假覆盖零容忍**（PR44669/44715 接口人红线；**静态 + 动态同等**；门禁可检）
   - **禁止仅枚举数值**：`expect(TabVisibility.VISIBLE).assertEqual(0)` / `expect(TabsSidebarDisplayStyle.DISPLACE).assertEqual(1)` 作为唯一证据 → **假覆盖**。规格可写页面 Text/`AppStorage` 绑定，且**必须**同批有真实挂载或 Inspector/`$attrs`/`assertPropSame`/返回值旗标
   - **禁止仅节点存在**：`expect(strJson.length > 2).assertTrue()` / 只认「节点在不在」→ 改为具体属性或业务旗标

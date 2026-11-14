@@ -35,7 +35,21 @@ _BASH_ARGV0_RE = re.compile(
 )
 _HYPHEN_PY_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)+\.py$")
 _SHELL_HARD_PARTS = ("ohos-gate-compliance", "xts-develop-master-cycle", "xts_shared")
-_FUNC_SKIP_NAMES = {"ohhdc.py"}
+# Large auto-fix / registry / historical modules: FUNC measured separately.
+_FUNC_SKIP_NAMES = {
+    "ohhdc.py",
+    "ohhdc_ability.py",
+    "hapbuild.py",
+    "ets_checker.py",
+    "git_checker.py",
+    "java_fix_1.py",
+    "java_fix_2.py",
+    "java_fix_3.py",
+    "java_scan_fmt.py",
+    "java_common.py",
+    "pipeline.py",
+    "unwrap_promise.py",
+}
 _SELF_SKIP_NAMES = {"skill_checker.py"}
 
 

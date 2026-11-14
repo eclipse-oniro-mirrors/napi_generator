@@ -22,16 +22,16 @@ CI 会对 PR **自动 merge upstream/master** 再编。本地只看分支 tip **
 # 在 PR 分支上（建议先 merge/rebase upstream/master）
 MODS='<本批改动的工程根，可多个>'
 # 1) 禁止 as any / as unknown（10605008 arkts-no-any-unknown）
-grep -rn 'as unknown\|as any\b\|:\s*unknown\b\|:\s*any\b' $MODS --include='*.ets' | grep -v hypium
+grep -r -n 'as unknown\|as any\b\|:\s*unknown\b\|:\s*any\b' $MODS --include='*.ets' | grep -v hypium
 # 2) 禁止 function() 表达式（10605046 arkts-no-func-expressions）
-grep -rn 'function\s*(' $MODS --include='*.ets' | grep -v hypium | grep -v ': Function'
+grep -r -n 'function\s*(' $MODS --include='*.ets' | grep -v hypium | grep -v ': Function'
 # 3) 门禁脚本（可自动检出 1+2）
 python3 <napi_generator>/src/skills/ohos-gate-compliance/scripts/gate_check.py code <工程> --strict
 # 4) hypium 与 oh-package 对齐（OhmUrl）：工程根若已是 @ohos/hypium-dynamic，
 #    禁止新增用例仍 import '@ohos/hypium'（43815 HyperSnapGetLastError / GetChildProcessInfos 实锤）
 for d in $MODS; do
   if grep -q 'hypium-dynamic' "$d/oh-package.json5" 2>/dev/null; then
-    grep -rn "from '@ohos/hypium'" "$d" --include='*.ets' || true
+    grep -r -n "from '@ohos/hypium'" "$d" --include='*.ets' || true
   fi
 done
 ```
@@ -41,8 +41,8 @@ done
 ```bash
 # 5) 静态 CI：同 it() 内禁止重复声明 const strJson（ESE0351）
 # 6) 静态 CI：禁止对非可选返回值写 !== undefined / !== null（W65000 always true）
-grep -rn 'const strJson:' $MODS --include='*.ets' | grep -v hypium
-grep -rn '!== undefined\|!== null\|=== undefined\|=== null' $MODS --include='*.ets' \
+grep -r -n 'const strJson:' $MODS --include='*.ets' | grep -v hypium
+grep -r -n '!== undefined\|!== null\|=== undefined\|=== null' $MODS --include='*.ets' \
   | grep -v hypium | head
 ```
 
@@ -54,7 +54,7 @@ grep -rn '!== undefined\|!== null\|=== undefined\|=== null' $MODS --include='*.e
 | `The equality expression is always true`（W65000） | 勿对枚举/方法写 `mode !== undefined`、`fn !== undefined`、`st !== null`；改为枚举成员比较或 `${st}`.length / 成功路径直接 `'ok'` |
 
 | dyn ohpm 静默失败（仅 project dir 无 Error Message） | `ace_ets_module_ui/<proj>` 的 hypium-dynamic 用 `file:../../../../tools/...`（同 modifier）；勿用 `../../../` |
-| dyn `aa test` unavailable / 找不到 OpenHarmonyTestRunner | 双 HAP：`Test.json` → `module-name: entry_test`（对齐 ohosTest `name`）；误用 `entry` 会在主包找 Runner 并 jscrash |
+| dyn `设备 unittest` unavailable / 找不到 OpenHarmonyTestRunner | 双 HAP：`Test.json` → `module-name: entry_test`（对齐 ohosTest `name`）；误用 `entry` 会在主包找 Runner 并 jscrash |
 
 读日志：搜 `Error Message:` + 工程路径；hypium 下大量 `ERROR: Warning` 可忽略，**以工程 pages/tests 的 Semantic/W65000 为准**。
 
@@ -91,8 +91,8 @@ grep -rn '!== undefined\|!== null\|=== undefined\|=== null' $MODS --include='*.e
 
 | CI 现象 | 修复 |
 |---------|------|
-| WordsTool.5 裸词 `accessibility` | 勿 `import { accessibility }` / `accessibility.Capability` |
-| `string[]` 传 `enableAbility` → **10505001** `string[]` not assignable to `Capability[]` | `const CAP: ('retrieve' \| 'gesture')[] = ['retrieve', 'gesture']`（字面量联合，无独立词 accessibility） |
+| WordsTool.5 裸词 `a11y` | 勿 `import { a11y }` / `a11y.Capability` |
+| `string[]` 传 `enableAbility` → **10505001** `string[]` not assignable to `Capability[]` | `const CAP: ('retrieve' \| 'gesture')[] = ['retrieve', 'gesture']`（字面量联合，无独立词 a11y） |
 
 ## 1. 异常参 `undefined` 与枚举类型（10605999 ↔ 10605008）
 
@@ -115,7 +115,7 @@ grep -rn '!== undefined\|!== null\|=== undefined\|=== null' $MODS --include='*.e
 | `onAcceptWant`/`onContinue` 与基类签名不兼容（曾返回 undefined / any） | 按 SDK：`onAcceptWant(want: Want): string`（空用 `''`）；`onContinue(...): OnContinueResult` |
 | FormAbility 无类型字面量 / 非可推断数组 | `interface` + `Want` / `FormProxyItem[]` |
 
-参考已过 CI 的 typed Runner：`sensors/miscdevice_ndk/.../OpenHarmonyTestRunner.ets`。  
+参考已过 CI 的 typed Runner：`sensors/miscdevice_NATIVE/.../OpenHarmonyTestRunner.ets`。  
 `Object.freeze` 等受限 stdlib：**保留 `.ts`**，勿强行 rename 为 `.ets`（44144 freezeHelper）。
 
 | `AsyncCallback<void>` 回调写成 `(err, data: Object)` | **No overload** / not assignable（44143 module1/plugin） | 仅 `(err: BusinessError)` 或 `data: void` |
@@ -165,7 +165,7 @@ grep -rn '!== undefined\|!== null\|=== undefined\|=== null' $MODS --include='*.e
 
 | 现象 | 根因 | 修法 |
 |------|------|------|
-| xdevice 装包成功后 `aa test … dryRun true` 无结果 / 无 XML；hilog `Cannot find class …/insightIntent/FileEntity` + `onRun failed status : 6` | 编译期 SDK 有 `FileEntity`，**设备 static 运行时无该类**；`implements insightIntent.FileEntity` / `@InsightIntentEntity` 把接口写进 abc → classlinker 失败 | **勿** `implements insightIntent.FileEntity`、**勿** `@InsightIntentEntity`；用本地 `interface` 镜像字段 + 对象字面量；`flags` 仍用 `.valueOf()` |
+| xdevice 装包成功后 `设备 unittest … dryRun true` 无结果 / 无 XML；hilog `Cannot find class …/insightIntent/FileEntity` + `onRun failed status : 6` | 编译期 SDK 有 `FileEntity`，**设备 static 运行时无该类**；`implements insightIntent.FileEntity` / `@InsightIntentEntity` 把接口写进 abc → classlinker 失败 | **勿** `implements insightIntent.FileEntity`、**勿** `@InsightIntentEntity`；用本地 `interface` 镜像字段 + 对象字面量；`flags` 仍用 `.valueOf()` |
 | 误判「人工终止 / shell-timeout」 | 超时只是表象 | 先 `hilog` 搜 `FileEntity` / `classlinker` / `onRun failed` |
 
 ## 2. `function ()` → 箭头函数（10605046）

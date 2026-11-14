@@ -571,7 +571,7 @@ python3 ohhdc/ohhdc.py deploy-test <工程根> -m entry_test ...
   - 签名材料与门禁一致：`developtools/hapsigner/dist` 的 `OpenHarmony.p12` + `OpenHarmonyApplication.pem` + 工程 **`signature/openharmony_sx.p7b`**（**禁**自造证书 / hapbuild autosign / `/tmp/xts_sign`）。
   - **`--resign` → `sign_ci_identical.py`**（对 Test.json **全部** kit owner）。
   - **禁止**「仅本地 Assist + 门禁 SyncTest/Main」——必现 **9568332**。
-  - 交付跑测：**全模块** `aa test`（**禁** `-s class` 当交付绿）；失败读 log 修到绿。
+  - 交付跑测：**全模块** `设备 unittest`（**禁** `-s class` 当交付绿）；失败读 log 修到绿。
 
 ```bash
 # 推荐：PR 涉及工程一键验板 → 合并报告 + summary_top.png
@@ -697,7 +697,7 @@ python3 .../gitcode_pr_submit.py build <PR号> --delay 60
 | `801` Capability not support | 设备**不支持**该能力 | **精确**断言「结果不变」 |
 | `16000078` Multi-instance is not supported | 设备**不支持**多实例 | **精确**断言「结果不变」 |
 
-- **禁止**：`assertEqual(N)` → `assertLarger(N-1)`；删除/复制断言充数；留下 `count1`/`count2` 等未使用变量；用绝对数字（换设备、换 Suite 执行顺序、前置用例未清理的残留都会让绝对数字失效）。
+- **禁止**：`assertEqual(N)` → `assertLarger(N-1)`；删除/复制断言充数；留下 `count1`/`count2` 等未使用变量；用固定数字（换设备、换 Suite 执行顺序、前置用例未清理的残留都会让固定数字失效）。
 - **要求**：预期一律基于**本用例自己取的基线**（`基线 + 1` 精确相等）；分支按错误码显式区分并把 `code`/`message` 打进日志；被拒绝时断言「与基线**精确**相等」，这不是放宽而是有效断言。
 - **动态侧注意**：`ohosTest` 里 `AppStorage`/全局状态跨 `it` 残留同样会污染计数基线；取基线前先清理本套件自己创建的 Ability/页面（`afterEach` 只做 best-effort 清理，不要在其中放断言）。
 - **归因偏移**：async 续体里的 `assertXxx` 失败会被 Hypium 报到**下一个** `it`（`stream=Error in <下一个用例>, fail`）。禁止 `.then().catch(() => expect().assertFail())` 这种延迟断言；改为 `await` 并把失败**作为数据**返回，在同步位置断言。

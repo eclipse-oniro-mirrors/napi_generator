@@ -1104,7 +1104,7 @@ cp -rf $SDK_H/* entry/src/hypium/ && rm -rf entry/src/hypium/testAbility entry/s
 | 接口遗漏 / 表与仓不一致 | 无六维台账、多版本混交 | 开干前建**接口六维表**（调用/入参/参数规格/返回值/错误码/权限）；一接口一条 `it`；PR body **必须贴完整六维表**（见 **gitcode-pr ONE-SHOT-DELIVER**） |
 | 假覆盖 / soft-OR | `code===A \|\| code===B`、catch 吞错仍 pass | **禁止 soft-OR**；一码一条；难复现维标「澄清」且不得冒充已覆盖 |
 | 错误码碰运气（如 16000074 vs 401） | 未对照 SDK/demo 入参就改 expect | 先查 **SDK `.d.ets` + 仓内 demo/依赖 HAP** 再定 expect；改码后 **hilog 核实际抛错**；禁止只改数字碰绿 |
-| 质量差 / 反复修 | 未跑本地门禁、未对齐已稳套件 | 首次 push 前：`gate_review.py --skip-test-check`；对照同工程已绿套件；**禁止**大面积试错式改写 |
+| 质量差 / 反复修 | 未跑本地门禁、未对齐已稳套件 | 初次 push 前：`gate_review.py --skip-test-check`；对照同工程已绿套件；**禁止**大面积试错式改写 |
 | 编译/CodeCheck 来回 | 规则未进 skill、只修个案 | 同任务内加固 **ohos-gate-compliance**（见 workspace `gate-compliance-hardening`）；`INT_AS_NUMBER`→`toDouble()`；noperm 禁 `stateManagement`→用 `globalThis.context` |
 | 门禁跟踪差 | 人工刷评论、漏产物 | 用 **gitcode-pr** `pr_delivery_track.py`：**默认每 15 分钟**轮询至合入；编译/CodeCheck 失败拉 log；**仅冒烟失败→自动 rebuild**；跟踪写日志文件 |
 | 静态本地难编 | hypium/SDK 与 CI 不一致 | **禁止**用过期本地 HAP 宣称通过；优先拉 CI **`dayu200_xts_static` version 包** → 只解压 `suites/acts/acts/testcases` 再装测（见下） |
