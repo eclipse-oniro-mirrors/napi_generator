@@ -33,7 +33,7 @@
 2. 实现：真实调用 + 枚举/文档错误码硬断言（201 优先独立 noperm）
 3. 新建工程：build-profile.compileSdkVersion = 当前 api_full（现 "26.1.0"）
    ← 抄同目录已绿 peer，禁止手写 26.0.0/26.0.1
-4. Test.json：testcase-timeout≥30000；shell-timeout 勿小于整套 aa test 需要
+4. Test.json：testcase-timeout≥30000；shell-timeout 勿小于整套「设备 unittest」需要
 5. gate_check.py code <工程> --fix --strict
 6. 编签 + freshness + 全模块板测（禁 -s class 当交付绿）
 7. 建/更 PR：body 含 六维表 + 测试报告截图 + Issue 链接
@@ -45,7 +45,7 @@
 
 | 现象 | 根因 | 防呆 |
 |------|------|------|
-| 上条 PASSED，下条卡满 shell-timeout（如 600s），后续大量 BLOCKED | `async (done)` 路径未调用 `done()`；或 `await terminateSelf`/`moveAbilityToBackground`/`aa start` 永不 settle；或 fire-and-forget `.then` 竞态 | 二次调用类用例：**串行**；`terminateSelf`/`moveAbility*`/`executeShellCommand(aa start)` **有上限轮询**（`.then`+`shell sleep`，**禁止**裸 `await api()`）；**finally 必 `done()`** |
+| 上条 PASSED，下条卡满 shell-timeout（如 600s），后续大量 BLOCKED | `async (done)` 路径未调用 `done()`；或 `await terminateSelf`/`moveAbilityToBackground`/`Ability 启动命令` 永不 settle；或 fire-and-forget `.then` 竞态 | 二次调用类用例：**串行**；`terminateSelf`/`moveAbility*`/`executeShellCommand`（Ability 启动命令） **有上限轮询**（`.then`+`shell sleep`，**禁止**裸 `await api()`）；**finally 必 `done()`** |
 | 门禁 HAP 仍挂、已有 finally/done | **仅包住 host 不够**：`await context.moveAbilityToBackground()` 永不 settle 时，`try` 到不了 `finally`，`done()` 仍不跑（#45399 门禁产物复现） | API 调用一律 `moveOnceBounded` 式：启动 Promise → 轮询 settled → 超时返回错误码，**不 await 裸 Promise** |
 | 静态 `setTimeout(resolve, ms)` 编不过 | `COMPILE.SETTIMEOUT.01`（ESE0046） | 改箭头回调 `setTimeout((): void => { resolve(); }, ms)`；**EventBus onWait 必须 setTimeout 墙钟**，禁 shell sleep 冒充超时（PR45421） |
 | OnApplication / LifeCycle 很快 timeout | `AbilityDelegator sleep` 几乎立即返回 | 对照动态 `EventBus`；hilog 核 `onWait`→`emit` 墙钟 |

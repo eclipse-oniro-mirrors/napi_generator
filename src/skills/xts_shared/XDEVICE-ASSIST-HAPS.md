@@ -44,7 +44,7 @@ python3 xts_shared/pr_local_verify.py \
 
 1. 解析 Test.json **完整** AppInstallKit（禁只装 Assist）  
 2. 对每个 owner **CI 同签**  
-3. `aa test` **全模块**（禁 `-s class` 过滤当交付）  
+3. 「设备 unittest」**全模块**（禁 `-s class` 过滤当交付）  
 4. 产出合并 `summary_report.html` + `summary_top.png`  
 
 失败 → 读 log 修码 → 重跑；**禁止**未绿就写「测试通过」。

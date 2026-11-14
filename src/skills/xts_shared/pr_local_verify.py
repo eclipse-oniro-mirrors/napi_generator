@@ -6,7 +6,7 @@ Workflow skill expects after local develop / before claiming done:
   1) Final code built → unsigned HAPs
   2) CI-identical sign (dist OpenHarmony.* + project openharmony_sx.p7b)
      for Test.json FULL kit set (Main/Test/Assist/Rely…)
-  3) aa test FULL module (no -s class filter) on device
+  3) 设备 unittest FULL module (no -s class filter) on device
   4) gen-xdevice-report per module → merge → summary_top.png
   5) Agent pastes screenshot into PR description; on fail read logs & fix
 
@@ -257,32 +257,18 @@ def gen_report(log: Path) -> Path | None:
     return None
 
 
-def main() -> int:
-    ap = argparse.ArgumentParser(description="PR local verify (CI-identical HAPs)")
-    ap.add_argument("--repo", required=True, help="xts_acts worktree root")
-    ap.add_argument("--projects", nargs="*", default=[], help="project roots (abs or repo-rel)")
-    ap.add_argument("--from-diff", default="", help="git base ref to discover projects")
-    ap.add_argument("--out", required=True, help="output dir for logs/reports/screenshot")
-    ap.add_argument("--build", action="store_true", help="try hapbuild if no unsigned")
-    ap.add_argument("--skip-shot", action="store_true")
-    args = ap.parse_args()
-
-    repo = Path(args.repo).resolve()
-    out = Path(args.out).resolve()
-    out.mkdir(parents=True, exist_ok=True)
-
-    projects: list[Path] = []
-    for p in args.projects:
+def _collect_projects(repo: Path, projects: list[str], from_diff: str) -> list[Path]:
+    found: list[Path] = []
+    for p in projects:
         pp = Path(p)
         if not pp.is_absolute():
             pp = repo / p
-        projects.append(pp.resolve())
-    if args.from_diff:
-        projects.extend(projects_from_diff(repo, args.from_diff))
-    # unique, only those with Test.json
+        found.append(pp.resolve())
+    if from_diff:
+        found.extend(projects_from_diff(repo, from_diff))
     uniq: list[Path] = []
     seen: set[Path] = set()
-    for p in projects:
+    for p in found:
         if p in seen:
             continue
         if not (p / "Test.json").is_file():
@@ -290,65 +276,54 @@ def main() -> int:
             continue
         seen.add(p)
         uniq.append(p)
-    if not uniq:
-        raise SystemExit("FAIL: no projects to verify")
+    return uniq
 
-    print(f"PROJECTS ({len(uniq)}):")
-    for p in uniq:
-        print(" ", p.relative_to(repo) if str(p).startswith(str(repo)) else p)
 
-    report_dirs: list[Path] = []
-    failures: list[str] = []
+def _relabel_report_module(html: Path, label: str) -> None:
+    js = html.parent / "static" / "data.js"
+    if not js.is_file():
+        return
+    t = js.read_text(encoding="utf-8")
+    m = re.search(r"window\.reportData\s*=\s*(\{.*\})\s*;?\s*$", t, re.S)
+    if not m:
+        return
+    data = json.loads(m.group(1))
+    for mod in data.get("modules") or []:
+        mod["name"] = label
+        mod["modulename"] = label
+    js.write_text(
+        "window.reportData = "
+        + json.dumps(data, ensure_ascii=False, separators=(",", ":"))
+        + ";",
+        encoding="utf-8",
+    )
 
-    for proj in uniq:
-        label = _suite_label(proj)
-        print(f"\n======== {label} ========")
-        if args.build:
-            try:
-                ensure_unsigned(proj, build=True)
-            except SystemExit as e:
-                print(e)
-        staging = out / "haps" / label
-        try:
-            # ensure primary unsigned
-            ensure_unsigned(proj, build=bool(args.build))
-            install_kit(proj, staging)
-        except SystemExit as e:
-            failures.append(f"{label}: install/sign: {e}")
-            continue
-        log = out / f"{label}.log"
-        rc = aa_test(proj, log)
-        run, fail, err = parse_result(log)
-        print(f"RESULT {label}: run={run} fail={fail} err={err} aa_rc={rc}")
-        if fail or err or rc != 0 or run == 0:
-            failures.append(f"{label}: fail={fail} err={err} run={run} (see {log})")
-            # still try report for evidence
-        html = gen_report(log)
-        if html and html.is_file():
-            # rename module in data.js
-            js = html.parent / "static" / "data.js"
-            if js.is_file():
-                t = js.read_text(encoding="utf-8")
-                m = re.search(r"window\.reportData\s*=\s*(\{.*\})\s*;?\s*$", t, re.S)
-                if m:
-                    data = json.loads(m.group(1))
-                    for mod in data.get("modules") or []:
-                        mod["name"] = label
-                        mod["modulename"] = label
-                    js.write_text(
-                        "window.reportData = "
-                        + json.dumps(data, ensure_ascii=False, separators=(",", ":"))
-                        + ";",
-                        encoding="utf-8",
-                    )
-            report_dirs.append(html.parent)
 
-    if not report_dirs:
-        print("FAIL: no reports generated", file=sys.stderr)
-        for f in failures:
-            print(" ", f, file=sys.stderr)
-        return 2
+def _verify_one(
+    proj: Path, out: Path, do_build: bool, report_dirs: list[Path], failures: list[str]
+) -> None:
+    label = _suite_label(proj)
+    print(f"\n======== {label} ========")
+    staging = out / "haps" / label
+    try:
+        ensure_unsigned(proj, build=do_build)
+        install_kit(proj, staging)
+    except SystemExit as e:
+        failures.append(f"{label}: install/sign: {e}")
+        return
+    log = out / f"{label}.log"
+    rc = aa_test(proj, log)
+    run, fail, err = parse_result(log)
+    print(f"RESULT {label}: run={run} fail={fail} err={err} device_rc={rc}")
+    if fail or err or rc != 0 or run == 0:
+        failures.append(f"{label}: fail={fail} err={err} run={run} (see {log})")
+    html = gen_report(log)
+    if html and html.is_file():
+        _relabel_report_module(html, label)
+        report_dirs.append(html.parent)
 
+
+def _merge_and_shot(out: Path, report_dirs: list[Path], skip_shot: bool) -> Path:
     merged = out / "merged"
     if merged.exists():
         shutil.rmtree(merged)
@@ -360,24 +335,48 @@ def main() -> int:
         _run(cmd, check=False)
     else:
         shutil.copytree(report_dirs[0], merged)
-
     shot = merged / "summary_top.png"
-    if not args.skip_shot and SHOT.is_file() and (merged / "summary_report.html").is_file():
-        _run(["bash", str(SHOT), str(merged / "summary_report.html")], check=False)
+    html = merged / "summary_report.html"
+    if not skip_shot and SHOT.is_file() and html.is_file():
+        _run(["bash", str(SHOT), str(html)], check=False)
+    return merged
 
+
+def main() -> int:
+    ap = argparse.ArgumentParser(description="PR local verify (CI-identical HAPs)")
+    ap.add_argument("--repo", required=True)
+    ap.add_argument("--projects", nargs="*", default=[])
+    ap.add_argument("--from-diff", default="")
+    ap.add_argument("--out", required=True)
+    ap.add_argument("--build", action="store_true")
+    ap.add_argument("--skip-shot", action="store_true")
+    args = ap.parse_args()
+    repo = Path(args.repo).resolve()
+    out = Path(args.out).resolve()
+    out.mkdir(parents=True, exist_ok=True)
+    uniq = _collect_projects(repo, args.projects, args.from_diff)
+    if not uniq:
+        raise SystemExit("FAIL: no projects to verify")
+    print(f"PROJECTS ({len(uniq)}):")
+    for p in uniq:
+        print(" ", p)
+    report_dirs: list[Path] = []
+    failures: list[str] = []
+    for proj in uniq:
+        _verify_one(proj, out, bool(args.build), report_dirs, failures)
+    if not report_dirs:
+        print("FAIL: no reports generated", file=sys.stderr)
+        return 2
+    merged = _merge_and_shot(out, report_dirs, args.skip_shot)
     print("\n======== DELIVERABLES ========")
     print(f"REPORT_HTML={merged / 'summary_report.html'}")
-    if shot.is_file():
-        print(f"SCREENSHOT_PNG={shot}")
-    else:
-        print("SCREENSHOT_PNG=MISSING")
-
+    shot = merged / "summary_top.png"
+    print(f"SCREENSHOT_PNG={shot if shot.is_file() else 'MISSING'}")
     if failures:
-        print("\n======== FAILURES (Agent must read logs & fix) ========")
+        print("\n======== FAILURES ========")
         for f in failures:
             print(" ", f)
         return 1
-
     print("\nALL GREEN — paste SCREENSHOT_PNG into PR description.")
     return 0
 

@@ -319,25 +319,9 @@ def _ingest_extra_haps(
     return 0
 
 
-def pack(
-    proj: Path,
-    out_zip: Path | None,
-    resign: bool,
-    dry_run: bool,
-    extras: list[str] | None = None,
-) -> int:
-    proj = proj.resolve()
-    tj = _load_test_json(proj)
-    names = _kit_hap_names(tj)
-    if not names:
-        print("FAIL: AppInstallKit test-file-name empty", file=sys.stderr)
-        return 1
-    bundle = _bundle_name(proj, tj)
-    perms = _collect_request_permissions(proj)
-    print(f"bundle={bundle}")
-    print(f"kits={names}")
-    print(f"requestPermissions={perms}")
-
+def _collect_owners(
+    proj: Path, names: list[str]
+) -> tuple[list[Path], dict[str, Path]]:
     owners: list[Path] = []
     owner_by_name: dict[str, Path] = {}
     for name in names:
@@ -350,28 +334,19 @@ def pack(
             owners.append(owner)
         ob = _app_bundle(owner)
         print(f"OWNER {name} <- {owner} (app.bundleName={ob or '?'})")
+    return owners, owner_by_name
 
-    missing_owners = [n for n in names if n not in owner_by_name]
-    if missing_owners and not extras:
-        print(f"FAIL: cannot resolve owners: {missing_owners}", file=sys.stderr)
-        return 1
 
-    # Same-bundle completeness: every kit hap whose AppScope matches driver
-    # bundle must be present (blocks Assist-only packaging).
-    same_bundle_names = []
+def _same_bundle_names(owner_by_name: dict[str, Path], bundle: str) -> list[str]:
+    out: list[str] = []
     for name, owner in owner_by_name.items():
         ob = _app_bundle(owner)
         if ob and ob == bundle:
-            same_bundle_names.append(name)
-    if same_bundle_names:
-        print(f"same-bundle kits ({bundle}): {same_bundle_names}")
+            out.append(name)
+    return out
 
-    if resign and not dry_run:
-        acls = perms or []
-        rc = _resign_owners(owners, acls if acls else [])
-        if rc != 0:
-            return rc
 
+def _map_signed_haps(proj: Path, names: list[str]) -> tuple[dict[str, Path], list[str]]:
     mapping: dict[str, Path] = {}
     missing: list[str] = []
     for name in names:
@@ -382,44 +357,37 @@ def pack(
         else:
             missing.append(name)
             print(f"MISS {name}")
+    return mapping, missing
 
-    extras_map: dict[str, Path] = {}
-    if extras:
-        rc = _ingest_extra_haps(extras_map, extras, resign and not dry_run, perms or [])
-        if rc != 0:
-            return rc
-        for name, path in extras_map.items():
-            mapping[name] = path
-            if name in missing:
-                missing.remove(name)
-            print(f"OK  {name} <- {path} (extra)")
 
-    if missing:
-        print(f"FAIL: missing HAPs: {missing}", file=sys.stderr)
-        print(
-            "HINT: build Assist/Rely locally, or pass --extra-hap /path/to.hap:KitName.hap",
-            file=sys.stderr,
-        )
-        return 1
-
-    # Hard reject: zip that omits a same-bundle kit entry while including another
-    if same_bundle_names:
-        present_same = [n for n in same_bundle_names if n in mapping]
-        if len(present_same) != len(same_bundle_names):
-            print(
-                f"FAIL: incomplete same-bundle kit set for {bundle}: "
-                f"have={present_same} need={same_bundle_names}",
-                file=sys.stderr,
-            )
-            return 1
-
-    if dry_run:
-        print("DRY-RUN ok")
+def _merge_extras(
+    mapping: dict[str, Path],
+    missing: list[str],
+    extras: list[str] | None,
+    resign: bool,
+    perms: list[str],
+) -> int:
+    if not extras:
         return 0
-    if not out_zip:
-        print("FAIL: --out required unless --dry-run", file=sys.stderr)
-        return 1
+    extras_map: dict[str, Path] = {}
+    rc = _ingest_extra_haps(extras_map, extras, resign, perms)
+    if rc != 0:
+        return rc
+    for name, path in extras_map.items():
+        mapping[name] = path
+        if name in missing:
+            missing.remove(name)
+        print(f"OK  {name} <- {path} (extra)")
+    return 0
 
+
+def _write_kit_zip(
+    out_zip: Path,
+    mapping: dict[str, Path],
+    bundle: str,
+    perms: list[str],
+    names: list[str],
+) -> int:
     out_zip = out_zip.resolve()
     out_zip.parent.mkdir(parents=True, exist_ok=True)
     staging = out_zip.parent / (out_zip.stem + "_staging")
@@ -440,6 +408,53 @@ def pack(
     shutil.rmtree(staging)
     print(f"ZIP={out_zip}")
     return 0
+
+
+def pack(
+    proj: Path,
+    out_zip: Path | None,
+    resign: bool,
+    dry_run: bool,
+    extras: list[str] | None = None,
+) -> int:
+    proj = proj.resolve()
+    tj = _load_test_json(proj)
+    names = _kit_hap_names(tj)
+    if not names:
+        print("FAIL: AppInstallKit test-file-name empty", file=sys.stderr)
+        return 1
+    bundle = _bundle_name(proj, tj)
+    perms = _collect_request_permissions(proj)
+    print(f"bundle={bundle}\nkits={names}\nrequestPermissions={perms}")
+    owners, owner_by_name = _collect_owners(proj, names)
+    missing_owners = [n for n in names if n not in owner_by_name]
+    if missing_owners and not extras:
+        print(f"FAIL: cannot resolve owners: {missing_owners}", file=sys.stderr)
+        return 1
+    same = _same_bundle_names(owner_by_name, bundle)
+    if same:
+        print(f"same-bundle kits ({bundle}): {same}")
+    if resign and not dry_run:
+        rc = _resign_owners(owners, perms or [])
+        if rc != 0:
+            return rc
+    mapping, missing = _map_signed_haps(proj, names)
+    rc = _merge_extras(mapping, missing, extras, resign and not dry_run, perms or [])
+    if rc != 0:
+        return rc
+    if missing:
+        print(f"FAIL: missing HAPs: {missing}", file=sys.stderr)
+        return 1
+    if same and len([n for n in same if n in mapping]) != len(same):
+        print(f"FAIL: incomplete same-bundle kit set for {bundle}", file=sys.stderr)
+        return 1
+    if dry_run:
+        print("DRY-RUN ok")
+        return 0
+    if not out_zip:
+        print("FAIL: --out required unless --dry-run", file=sys.stderr)
+        return 1
+    return _write_kit_zip(out_zip, mapping, bundle, perms or [], names)
 
 
 def main() -> int:

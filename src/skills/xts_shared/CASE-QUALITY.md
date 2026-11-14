@@ -111,7 +111,7 @@
 10. **p7b**：新建工程用 `gen-xts-signature-p7b.sh`，禁拷模板 p7b。  
 11. **交付验板签名**：仅 `sign_ci_identical`（dist + 工程 `openharmony_sx.p7b`）；禁 hapbuild autosign 当交付。  
 12. **编签后 freshness**：改码必重编重签再测（`local-hap-fresh` 门禁）。  
-13. **Test.json 全套 kit 再测**：有 Assist/Rely 时 **必须** CI 同签后与主测包一并安装再 `aa test`；**禁止**只装 ohosTest 后把「Invalid moduleName / 缺 feature」写成用例失败或产品问题。  
+13. **Test.json 全套 kit 再测**：有 Assist/Rely 时 **必须** CI 同签后与主测包一并安装再「设备 unittest」；**禁止**只装 ohosTest 后把「Invalid moduleName / 缺 feature」写成用例失败或产品问题。  
 14. **门禁产物缺 Assist**：用 `pack_xdevice_assist_haps.py <工程> --resign` 打出同签 zip（可再拆 assist-only）给手测；**禁止** hapbuild 签 Assist 混门禁 SyncTest（9568332）。  
 
 ## 假绿信号（一票否决）
