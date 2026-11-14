@@ -5,6 +5,7 @@
 ②违禁文件：staged/新增不得含 autosign、oh_modules、build/、*.hap
 ③bundleName/module 改动清单：AppScope/app.json5、config.json、module.json5（提示确认必要性）
 ④numstat 可疑整文件重写：insertions==deletions 且超过阈值
+⑤CI.HVIGOR.01：staged hvigor/oh-package modelVersion 禁止 6.0.0（对齐 upstream/master 26.0.0）
 用法：check-precommit.py [--base origin/master] [--cwd <repo>]
 退出码：0 全部通过；1 有硬门禁违规；2 仅有需确认项
 """
@@ -27,22 +28,28 @@ def sh(cmd: str, cwd: Path) -> str:
 
 
 for _g in ("/root/aiSkill/.claude/skills/ohos-gate-compliance/scripts/checkers",
-            "/root/aiSkill/napi_generator/src/skills/ohos-gate-compliance/scripts/checkers",
-            str(Path(__file__).resolve().parents[3] / "skills/ohos-gate-compliance/scripts/checkers")):
+            "/root/aiSkill/napi_generator/src/skills/ohos-gate-compliance/scripts/checkers"):
     if Path(_g).is_dir():
         sys.path.insert(0, _g)
         break
 
 
 def _audit(base: str, cwd: Path) -> tuple[int, list[str]]:
-    """委托统一门禁 skill：git 层检查（版权/违禁/compileSdk/重写/新增行质量）。"""
+    """委托统一门禁 skill：git 层检查（版权/违禁/compileSdk/modelVersion/重写/新增行质量）。"""
     import git_checker
+    # 提交前自动升 modelVersion，避免 Agent 走 git-commit-agent 时漏修
+    n = git_checker.auto_fix_model_version_staged(cwd)
+    if n:
+        print(f"[CI.HVIGOR.01] 已自动修复并 git add {n} 处 modelVersion 6.0.0→26.0.0"
+              f"（须对齐 upstream/master，禁止抄本地旧工程）")
     hits = (git_checker.check_copyright(cwd, base)
             + git_checker.check_forbidden(cwd)
             + git_checker.check_compile_sdk_staged(cwd)
+            + git_checker.check_model_version_staged(cwd)
             + git_checker.check_suspicious_rewrites(cwd)
             + git_checker.check_staged_code_quality(cwd))
-    hard = {h.rule for h in hits if h.rule in ("COPYRIGHT.01", "FORBIDDEN.01", "CI.SDK.01")}
+    hard = {h.rule for h in hits if h.rule in (
+        "COPYRIGHT.01", "FORBIDDEN.01", "CI.SDK.01", "CI.HVIGOR.01")}
     problems = []
     for h in hits:
         tag = "HARD" if h.rule in hard else "CHECK"
@@ -66,7 +73,6 @@ def main() -> None:
     else:
         print("⚠️ 有需确认项，确认后提交")
     sys.exit(rc)
-
 
 
 if __name__ == "__main__":
