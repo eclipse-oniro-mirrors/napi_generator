@@ -11,6 +11,10 @@
 - 默认 release；system（release + hos_system_app + AllowAppUsePrivilegeExtension）解决
   202/9568344；debug 仅特定必须条件（device-ids 绑定等）使用
 - 同 bundle 多 hap 必须同一套证书签名（9568329 verify signature failed）
+
+WARNING: /tmp/xts_sign certs != gate developtools/hapsigner/dist.
+For PR delivery verify / mix with gate HAPs use xts_shared/sign_ci_identical.py
+(see XDEVICE-ASSIST-HAPS.md / PR-DELIVER.md). Do NOT use this script for that.
 """
 from __future__ import annotations
 

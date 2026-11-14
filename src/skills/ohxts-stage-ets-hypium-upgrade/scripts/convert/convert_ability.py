@@ -88,11 +88,16 @@ def convert_project(proj: Path, dry_run: bool = False) -> dict:
                            fix_code_quality(dq_to_sq(apply_arkts_fixes(text))))
         converted.append((f, new_p))
     ref_changed = 0
+    model_fixed = 0
     if not dry_run:
         ref_changed = update_srcentry(proj, converted)
         cleanup_leftover_ts(proj)  # 检视：新增 .ets 必须删除遗留 .ts
+        # 提交前铁律：modelVersion 6.0.0 会被 XTS preprocess 拒绝（req4/5/6）
+        from build.fixers.fix_config import fix_model_version
+        model_fixed = len(fix_model_version(proj))
     return {"converted": len(converted), "ref_changed": ref_changed,
-            "files": [(str(o), str(n)) for o, n in converted]}
+            "files": [(str(o), str(n)) for o, n in converted],
+            "model_ver_fixed": model_fixed}
 
 
 def main() -> None:

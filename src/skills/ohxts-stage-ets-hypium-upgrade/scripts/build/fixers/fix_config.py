@@ -148,3 +148,31 @@ def fix_ets_ets_dir(proj: Path, match: dict, err_file: str = "") -> list[str]:
             if f.is_dir() and not any(f.iterdir()):
                 f.rmdir()
     return changed
+
+
+_MODEL_VER_BAD = '"modelVersion": "6.0.0"'
+_MODEL_VER_OK = '"modelVersion": "26.0.0"'
+_MODEL_VER_NAMES = ("hvigor-config.json5", "oh-package.json5")
+
+
+def fix_model_version(proj: Path, match: dict | None = None,
+                      err_file: str = "") -> list[str]:
+    """XTS preprocess：modelVersion 6.0.0 → 26.0.0（req4/5/6 CI 实锤）。
+
+    命中文件：hvigor/hvigor-config.json5、oh-package.json5。
+    """
+    del match, err_file
+    changed: list[str] = []
+    for name in _MODEL_VER_NAMES:
+        for f in proj.rglob(name):
+            if any(p in f.parts for p in ("build", "oh_modules", ".hvigor", "node_modules")):
+                continue
+            try:
+                text = f.read_text(encoding="utf-8", errors="replace")
+            except OSError:
+                continue
+            if _MODEL_VER_BAD not in text:
+                continue
+            f.write_text(text.replace(_MODEL_VER_BAD, _MODEL_VER_OK), encoding="utf-8")
+            changed.append(str(f))
+    return changed
