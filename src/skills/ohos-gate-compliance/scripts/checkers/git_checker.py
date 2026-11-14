@@ -22,24 +22,43 @@ FORBIDDEN_STRICT = ("autosign/", "oh_modules", "/build/", ".hap")
 def sh(cmd: str, cwd: Path | None = None) -> str:
     """执行 git 命令（列表参数，无 shell；管道场景由调用方用 git() 列表过滤）。"""
     r = subprocess.run(cmd.split(), cwd=str(cwd) if cwd else None,
-                       capture_output=True, text=True)
-    return r.stdout
+                       capture_output=True)
+    return (r.stdout or b"").decode("utf-8", errors="replace")
 
 
 def git(args: list[str], cwd: Path | None = None) -> str:
-    """git 命令（列表参数）。"""
+    """git 命令（列表参数）。Binary/non-UTF8 blobs decode with replace."""
     r = subprocess.run(["git"] + args, cwd=str(cwd) if cwd else None,
-                       capture_output=True, text=True)
-    return r.stdout
+                       capture_output=True)
+    return (r.stdout or b"").decode("utf-8", errors="replace")
+
+
+def _copyright_file_list(cwd: Path, mb: str, head: str) -> list[str]:
+    """Commit-time: only staged AM (large branches). Else mb..head for MR-wide."""
+    staged = git(["diff", "--cached", "--diff-filter=AM", "--name-only"], cwd).splitlines()
+    if staged:
+        return staged
+    return git(["diff", "--diff-filter=AM", "--name-only", f"{mb}..{head}"], cwd).splitlines()
+
+
+def _diff_for_copyright(cwd: Path, mb: str, head: str, path: str) -> str:
+    """Staged path: diff merge-base vs index; else mb..head."""
+    staged = git(["diff", "--cached", "--name-only", "--", path], cwd).strip()
+    if staged:
+        return git(["diff", mb, "--cached", "--", path], cwd)
+    return git(["diff", f"{mb}..{head}", "--", path], cwd)
 
 
 def check_copyright(cwd: Path, base: str = "origin/master", head: str = "HEAD") -> list[Hit]:
     """① merge-base 对比：AM 文件删版权行且新版本无头；② 基线有头变更后无头；③ 重命名丢头。"""
     hits: list[Hit] = []
     mb = sh(f"git merge-base {base} {head}", cwd).strip() or base
+    files = _copyright_file_list(cwd, mb, head)
     # ① 逐文件：diff 删了 Copyright 行且新版本无版权头才报（年份更新/CRLF 重写不误报）
-    for f in git(["diff", "--diff-filter=AM", "--name-only", f"{mb}..{head}"], cwd).splitlines():
-        d = git(["diff", f"{mb}..{head}", "--", f], cwd)
+    for f in files:
+        d = _diff_for_copyright(cwd, mb, head, f)
+        if "Binary files" in d or "differ\n" in d[:80]:
+            continue
         deleted = [ln for ln in d.splitlines()
                    if ln.startswith("-") and "Copyright" in ln]
         if not deleted:
@@ -49,8 +68,8 @@ def check_copyright(cwd: Path, base: str = "origin/master", head: str = "HEAD") 
                 hits.append(Hit("COPYRIGHT.01", f, 0, "删除 Copyright 行且新版本无版权头"))
         except OSError:
             continue
-    # ② 普通文件：基线有头、变更后无头
-    for f in git(["diff", "--name-only", f"{mb}..{head}"], cwd).splitlines():
+    # ② 普通文件：基线有头、变更后无头（仅本次文件列表，避免大分支扫 2万+）
+    for f in files:
         b = subprocess.run(["git", "show", f"{mb}:{f}"], cwd=str(cwd),
                            capture_output=True).stdout
         if b == b"":
@@ -61,8 +80,12 @@ def check_copyright(cwd: Path, base: str = "origin/master", head: str = "HEAD") 
             continue
         if COPYRIGHT_RE.search(b) and not COPYRIGHT_RE.search(h):
             hits.append(Hit("COPYRIGHT.01", f, 0, "版权头丢失（基线有头、变更后无头）"))
-    # ③ 重命名 old→new：old 基线有头、new 无头
-    for line in git(["diff", "--name-status", "-M", f"{mb}..{head}"], cwd).splitlines():
+    # ③ 重命名：仅 staged 时看 cached name-status；否则 mb..head
+    if git(["diff", "--cached", "--name-only"], cwd).strip():
+        status_args = ["diff", "--cached", "--name-status", "-M"]
+    else:
+        status_args = ["diff", "--name-status", "-M", f"{mb}..{head}"]
+    for line in git(status_args, cwd).splitlines():
         parts = line.split("\t")
         if len(parts) < 3 or not parts[0].startswith("R"):
             continue
@@ -113,6 +136,53 @@ def check_compile_sdk_staged(cwd: Path) -> list[Hit]:
         for i, line in enumerate(staged.splitlines(), 1):
             hits.extend(_sdk_line_hits(f, i, line))
     return hits
+
+
+_MODEL_VER_BAD = re.compile(r'"modelVersion"\s*:\s*"6\.0\.0"')
+
+
+def check_model_version_staged(cwd: Path) -> list[Hit]:
+    """staged hvigor-config / oh-package modelVersion 禁止 6.0.0（须对齐 upstream 26.0.0）。
+
+    2026-09-20 req3 CI 实锤：gate_review / git-commit-agent 漏扫配置导致反复入仓。
+    取值须参考 **upstream/master** 同类工程，禁止抄本地未更新的旧工程。
+    """
+    hits: list[Hit] = []
+    for f in git(["diff", "--cached", "--name-only", "-z"], cwd).split("\x00"):
+        if not f.endswith(("hvigor-config.json5", "oh-package.json5")):
+            continue
+        staged = subprocess.run(
+            ["git", "show", f":{f}"], cwd=str(cwd),
+            capture_output=True, text=True).stdout
+        for i, line in enumerate(staged.splitlines(), 1):
+            if _MODEL_VER_BAD.search(line):
+                hits.append(Hit(
+                    "CI.HVIGOR.01", f, i,
+                    'modelVersion "6.0.0" 不合规，须 "26.0.0"（对齐 upstream/master）'))
+    return hits
+
+
+def auto_fix_model_version_staged(cwd: Path) -> int:
+    """提交前自动把 staged 配置中的 modelVersion 6.0.0→26.0.0，并 git add。"""
+    fixed = 0
+    for f in git(["diff", "--cached", "--name-only", "-z"], cwd).split("\x00"):
+        if not f.endswith(("hvigor-config.json5", "oh-package.json5")):
+            continue
+        fp = cwd / f
+        if not fp.is_file():
+            continue
+        text = fp.read_text(encoding="utf-8", errors="replace")
+        if '"modelVersion": "6.0.0"' not in text and '"modelVersion":"6.0.0"' not in text:
+            continue
+        text2 = re.sub(
+            r'("modelVersion"\s*:\s*")6\.0\.0(")',
+            r'\g<1>26.0.0\2', text)
+        if text2 == text:
+            continue
+        fp.write_text(text2, encoding="utf-8")
+        subprocess.run(["git", "add", "--", f], cwd=str(cwd), check=False)
+        fixed += 1
+    return fixed
 
 
 def check_suspicious_rewrites(cwd: Path, threshold: int = 20) -> list[Hit]:

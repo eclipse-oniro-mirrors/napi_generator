@@ -41,6 +41,7 @@ import ets_checker  # noqa: E402
 import config_checker  # noqa: E402
 import git_checker  # noqa: E402
 import skill_checker  # noqa: E402
+import java_checker  # noqa: E402
 
 SKILLS_ROOT = Path("/root/aiSkill/napi_generator/src/skills")
 
@@ -64,7 +65,12 @@ def _changed_target(rel: str, repo: Path, profile: str) -> Path | None:
         return None
     if any(seg in fp.parts for seg in ets_checker.EXCLUDE_DIRS):
         return None
-    if fp.suffix in (".ets", ".ts", ".js") or fp.name == "build-profile.json5":
+    if fp.suffix in (".ets", ".ts", ".js") or fp.name in (
+            "build-profile.json5", "hvigor-config.json5", "oh-package.json5"):
+        return fp
+    if fp.name == "BUILD.gn":
+        return fp
+    if fp.name in ("Test.json", "syscap.json"):
         return fp
     if profile == "capi" and fp.suffix in (".cpp", ".h", ".cc"):
         return fp
@@ -75,6 +81,9 @@ def _append_dir_targets(out: list[Path], p: Path, profile: str) -> None:
     """收集目录下 ETS/build-profile，capi 时追加 C++ 源码。"""
     out.extend(ets_checker.collect_files([str(p)]))
     out.extend(p.rglob("build-profile.json5"))
+    out.extend(p.rglob("hvigor-config.json5"))
+    out.extend(p.rglob("oh-package.json5"))
+    out.extend(p.rglob("BUILD.gn"))
     if profile == "capi":
         out.extend(p.rglob("*.cpp"))
         out.extend(p.rglob("*.h"))
@@ -113,6 +122,18 @@ def scan_code_file(fp: Path, text: str, profile: str) -> list[Hit]:
     hits: list[Hit] = []
     if fp.name == "build-profile.json5":
         return config_checker.scan_config_file(fp, text)
+    if fp.name in ("hvigor-config.json5", "oh-package.json5"):
+        return config_checker.scan_model_version(fp, text)
+    if fp.name == "Test.json":
+        return config_checker.scan_test_json(fp, text)
+    if fp.name == "syscap.json":
+        return config_checker.scan_syscap_json(fp, text)
+    if fp.name == "BUILD.gn":
+        hits = config_checker.scan_static_project_naming(fp, text)
+        hits.extend(config_checker.scan_hap_name(fp, text))
+        hits.extend(config_checker.scan_group_peer_dotdot(fp, text))
+        hits.extend(config_checker.scan_suite_parent_registration(fp, text))
+        return hits
     if fp.suffix in (".ets", ".ts", ".js"):
         hits.extend(ets_checker.scan_ets_file(fp, text))
     if profile == "capi" and fp.suffix in (".cpp", ".h", ".cc"):
@@ -236,6 +257,44 @@ def cmd_skill(args) -> int:
     return 1 if (hits and args.strict) else 0
 
 
+# ---------------------------------------------------------------- java-check 子命令
+
+
+def cmd_java_check(args) -> int:
+    targets = java_checker.collect_java_files([Path(p) for p in args.paths])
+    if not targets:
+        print("[gate] 无可扫描 Java 文件")
+        return 0
+    if args.fix:
+        for fp in targets:
+            try:
+                text = fp.read_text(encoding="utf-8", errors="replace")
+            except OSError:
+                continue
+            new_text, n = java_checker.fix_java_file(fp, text)
+            if n:
+                fp.write_text(new_text, encoding="utf-8", newline="\n")
+        if not args.no_rescan:
+            targets = java_checker.collect_java_files([Path(p) for p in args.paths])
+    want = set(args.rule.split(",")) if args.rule else set()
+    hits: list[Hit] = []
+    for fp in targets:
+        try:
+            text = fp.read_text(encoding="utf-8", errors="replace")
+        except OSError:
+            continue
+        hits.extend(java_checker.scan_java_file(fp, text))
+    if want:
+        hits = [h for h in hits if h.rule in want]
+    if args.json:
+        print(json.dumps({"total": len(hits),
+                          "hits": [h.__dict__ for h in hits]}, ensure_ascii=False))
+    else:
+        print(f"[gate] === Java 门禁检查（{len(targets)} 文件）===")
+        print(format_hits(hits, "java"))
+    return 1 if (hits and args.strict) else 0
+
+
 # ---------------------------------------------------------------- main
 
 
@@ -262,6 +321,15 @@ def main() -> int:
     p_skill.add_argument("--json", action="store_true")
     p_skill.add_argument("--cwd", default="", help="git 仓库目录（--staged 用）")
     p_skill.set_defaults(func=cmd_skill)
+
+    p_java = sub.add_parser("java-check", help="Java 门禁检查（basetype 转换产物）")
+    p_java.add_argument("paths", nargs="+", help="Java 文件或目录")
+    p_java.add_argument("--fix", action="store_true", help="自动修复")
+    p_java.add_argument("--no-rescan", action="store_true", help="修复后不再复查")
+    p_java.add_argument("--strict", action="store_true", help="有违规退出码 1")
+    p_java.add_argument("--json", action="store_true")
+    p_java.add_argument("--rule", default="", help="只检查指定规则（逗号分隔）")
+    p_java.set_defaults(func=cmd_java_check)
 
     # pipeline 子命令 → 兼容 gate_review.py
     import pipeline
