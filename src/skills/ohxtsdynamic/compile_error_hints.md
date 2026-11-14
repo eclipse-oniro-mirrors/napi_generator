@@ -82,7 +82,10 @@ hdc shell "hidumper -s PowerManagerService -a '-s' | grep 'Current State'"
 | `requestPermissionsFromUser` 返回 `authResults:[2]`、`dialogShownResults:[false]` | **受限权限不弹窗**（READ_PASTEBOARD 等），直接拒绝 | 见 **§2.1 受限权限授权三件套**——**先查权限，勿改代码** |
 | PBS 日志 `IsPermissionGranted# permission denied` / `GetPasteDataInner# check permission failed` | 剪贴板权限未授予 → copy/paste 静默失效 | **§2.1**：copy 后剪贴板 `records:0`、paste 后 input 仍空均为此症 |
 | ATM 日志 `Perm(...) need acl` / `Acl of ... is invalid` | **profile 的 `acls.allowed-acls` 缺该权限** | profile 加 `allowed-acls` 后**重签双包**（主+测同一 profile，否则 `module name not found`） |
-| 装包 `9568289` `grant request permissions failed` | 安装时授权受限权限失败：profile ACL 未授权 **或** 设备 install_list 未注册 | **§2.1** 三步逐查 |
+| 装包 `9568289` `grant request permissions failed` | 安装时授权受限权限失败：profile ACL 未授权 **或** 设备 install_list 未注册 | **§2.1** 三步逐查；多 HAP 见 **§2.2** |
+| 装包 `9568332` `sign info inconsistent` | 同 bundle 的 Test/Main(/Form) **证书不一致**（常只换测包） | **§2.2** 成套同签替换；先 `bm uninstall -n <bundle>` |
+| 装包 `9568286` | release/debug 类型混装 | 全套 **release**；见 **§2.2** |
+| xdevice `unavailable`（kits 含 Main+Test） | 本地板拒装 CI 原包 / 混签；**非**工程结构错误 | **`xts_shared/pack_xdevice_assist_haps.py --resign`**；**勿**合并成单 HAP；**CI 不阻塞** |
 | `module name is not found`（设备 unittest） | 主/测 HAP 用了**不同 profile** 签名 | 统一 profile 重签双包后 `bm uninstall` + 重装 |
 | 装包 `9568450` / `9568289` | release 包用了 `-g`，或 PASTEBOARD 未进 profile ACL | `hdc install` 无 `-g`；profile 加 restricted-permissions |
 
@@ -124,8 +127,27 @@ hdc install xxx.hap   # 报 9568289 grant request permissions failed
 - 测试失败**先查权限/环境，再动代码**——本次 Copy/Cut 2 用例"本地失败"实为本地签名配置缺失，代码与原仓库**零差异**；
 - 本地 workaround（`compatibleSdkVersion` 数字、`: void` 注解等）**提交前必须 `git checkout -- .` 还原**；判断标准：改动仅编译适配、无逻辑变更；
 - `compileSdkVersion` 字符串/数字之争、ESE71336 注解等均为**本地编译器差异**，CI 工具链不同，勿提交。
+
+### 2.2 同 bundle 多 HAP（Main+Test[+Form]）本地交付验板 = 门禁同签（2026-10-31）
+
+**背景**：`Test.json` AppInstallKit 常同时列出 `*Test.hap` + `*Main.hap`（及 Assist/Rely/Form）。同 `bundleName` 多 HAP **结构合理**。混签（hapbuild autosign / `/tmp/xts_sign` Assist + 门禁主包）→ **9568332**。
+
+**门禁签名真相**：`developtools/hapsigner/dist`（OpenHarmony.p12 + OpenHarmonyApplication.pem）+ 工程 `signature/openharmony_sx.p7b`。本地交付验板必须同此材料（`sign_ci_identical`）；**禁止**自造证书。
+
+| 步骤 | 命令 / 要点 |
+|------|-------------|
+| 1 最终代码编出 unsigned | 动态：`ohxtsflow build-all`；确认各 kit owner 有 unsigned |
+| 2 **CI 同签**全套 | `pack_xdevice_assist_haps.py <工程> --resign`（内部调 `sign_ci_identical`）或 `pr_local_verify.py` |
+| 3 全模块板测 | **禁** `-s class` 当交付；装齐 Test.json kit |
+| 4 报告截图 | 合并 `summary_report.html` + `summary_top.png` → `gitcode-pr describe-report` |
+
+**禁止**：合并 Main/Test 模块；只换一个包；本地 zip 当 CI 产物；**门禁主包 + 本地单独 Assist**；用 stage `sign_one.py`/`/tmp/xts_sign` 做 **PR 交付验板**。  
+详述：**`XDEVICE-ASSIST-HAPS.md`**、**`PR-DELIVER.md`**、**SKILL §9.12**。
+
+| 现象 / 报错 | 原因 | 处理 |
+|-------------|------|------|
 | `queue.shift()` 编译错误 | ArkTS 不支持 | Inspector BFS 改索引遍历 |
-| 整段 `$attrs` 断言不稳定 | 含 `id` 等噪声 | 改 `assertPropSame` 单属性（§2.1） |
+| 整段 `$attrs` 断言不稳定 | 含 `id` 等噪声 | 改 `assertPropSame` 单属性 |
 | `Type 'null' is not assignable` | 预期行为 | 记 `abnormal_compile_failures.md`，**不提交** null 用例 |
 | `chipGroupPadding.top` + `undefined` 编不过 | `Length` 非可选 | 记失败表，**不提交**该 undefined 用例 |
 | **CI/GN HAP 签名失败** | 模板拷贝 p7b，bundle 与 app.json5 不一致 | **§9.11** / **`xts_shared/gen-xts-signature-p7b.sh`** |

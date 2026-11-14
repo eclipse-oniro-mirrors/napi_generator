@@ -19,6 +19,7 @@ ohxtsstatic 全流程编排入口：串联 ohhap / ohhdc / ohtest / ohproj 惯�
   python3 src/skills/ohxtsstatic/ohxtsflow.py analyze-test-log <日志文件>  # 摘要失败原因与优化提示
   python3 src/skills/ohxtsstatic/ohxtsflow.py hints
   python3 src/skills/ohxtsstatic/ohxtsflow.py workflow-print
+  python3 src/skills/ohxtsstatic/ohxtsflow.py pack-assist <工程根> [--resign] [--out zip]
 """
 
 from __future__ import annotations
@@ -391,6 +392,26 @@ def cmd_hints(_: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_pack_assist(ns: argparse.Namespace) -> int:
+    """Local xdevice multi-HAP assist zip (shared with ohxtsdynamic)."""
+    script = _SKILLS_ROOT / "xts_shared" / "pack_xdevice_assist_haps.py"
+    if not script.is_file():
+        alt = Path("/root/aiSkill/.claude/skills/xts_shared/pack_xdevice_assist_haps.py")
+        script = alt if alt.is_file() else script
+    if not script.is_file():
+        print(f"❌ 未找到 {script}；见 xts_shared/XDEVICE-ASSIST-HAPS.md", file=sys.stderr)
+        return 1
+    cmd = [sys.executable, str(script), ns.project]
+    if getattr(ns, "resign", False):
+        cmd.append("--resign")
+    if getattr(ns, "dry_run", False):
+        cmd.append("--dry-run")
+    if getattr(ns, "out", ""):
+        cmd.extend(["--out", ns.out])
+    print("RUN:", " ".join(cmd))
+    return subprocess.call(cmd)
+
+
 def cmd_workflow_print(_: argparse.Namespace) -> int:
     md = _repo_skills() / "SKILL.md"
     if not md.is_file():
@@ -492,6 +513,7 @@ def _command_handlers() -> dict[str, object]:
         "logs": cmd_logs,
         "hints": cmd_hints,
         "workflow-print": cmd_workflow_print,
+        "pack-assist": cmd_pack_assist,
     }
 
 
@@ -531,6 +553,14 @@ def main() -> int:
 
     sp.add_parser("hints", help="打印 compile_error_hints.md")
     sp.add_parser("workflow-print", help="从 SKILL.md 摘录阶段流水线")
+    pa = sp.add_parser(
+        "pack-assist",
+        help="本地 xdevice 多 HAP 辅助包（同 bundle；见 xts_shared/XDEVICE-ASSIST-HAPS.md）",
+    )
+    pa.add_argument("project")
+    pa.add_argument("--resign", action="store_true")
+    pa.add_argument("--dry-run", action="store_true")
+    pa.add_argument("--out", default="")
 
     ns = ap.parse_args()
     handler = _command_handlers().get(ns.cmd)

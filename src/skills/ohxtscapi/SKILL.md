@@ -5,7 +5,7 @@ description: >-
   编签、设备跑测、三层报告。SDK 用 normal。触发词：CAPI XTS、OH_ArkUI_、
   libnativefunc、libnativerender、NapiFuncInit、ohxtscapi。含 §签名 Profile 新建工程 p7b 硬门禁。
 author: "napi_generator"
-version: "1.1.0"
+version: "1.1.1"
 ---
 
 # ohxtscapi：ArkUI CAPI XTS 一体化 Skill
@@ -198,6 +198,7 @@ python3 src/skills/ohxtscapi/ohxtscflow.py run-capi-pipeline \
 - **C++ CodeCheck**：多行函数调用续行须 **G.FMT.06-CPP**（实参续行 8 空格），规则见统一门禁 `ohos-gate-compliance/rules/rules_cpp.json`（`gate_check.py code --profile capi` 自动检查+修复）
 - 生成器目录 **仅 README 入库**；`fetch-capi-generator.sh` 拉取的内容 **不提交**
 - 单笔 commit **<2000 行**；用例与 CodeCheck fix **分 commit**
+- **PR / 门禁**：与 static/dynamic 共用 **gitcode-pr**（Issue 关联、`start build`、**`pr_delivery_track.py` 15min 跟进至合入**）；一次交付见 **`xts_shared/ONE-SHOT-DELIVER.md`**
 
 ---
 

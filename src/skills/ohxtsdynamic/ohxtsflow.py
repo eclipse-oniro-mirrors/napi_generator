@@ -17,6 +17,7 @@ ohxtsdynamic 全流程编排：动态 ArkUI（@ComponentV2）XTS 编签与设备
   python3 ohxtsflow.py gen-xdevice-report <日志文件>
   python3 ohxtsflow.py analyze-test-log <日志文件>
   python3 ohxtsflow.py hints
+  python3 ohxtsflow.py pack-assist <工程根> [--resign] [--out zip]  # 本地 xdevice 多 HAP
 """
 
 from __future__ import annotations
@@ -375,6 +376,27 @@ def cmd_hints(_: argparse.Namespace) -> int:
     return 0 if p.is_file() else 1
 
 
+def cmd_pack_assist(ns: argparse.Namespace) -> int:
+    """Local xdevice multi-HAP assist zip (xts_shared/pack_xdevice_assist_haps.py)."""
+    script = _SKILLS_ROOT / "xts_shared" / "pack_xdevice_assist_haps.py"
+    if not script.is_file():
+        # runtime mirror under .claude
+        alt = Path("/root/aiSkill/.claude/skills/xts_shared/pack_xdevice_assist_haps.py")
+        script = alt if alt.is_file() else script
+    if not script.is_file():
+        print(f"❌ 未找到 {script}；见 xts_shared/XDEVICE-ASSIST-HAPS.md", file=sys.stderr)
+        return 1
+    cmd = [sys.executable, str(script), ns.project]
+    if ns.resign:
+        cmd.append("--resign")
+    if ns.dry_run:
+        cmd.append("--dry-run")
+    if ns.out:
+        cmd.extend(["--out", ns.out])
+    print("RUN:", " ".join(cmd))
+    return subprocess.call(cmd)
+
+
 def _command_handlers() -> dict[str, object]:
     return {
         "env": cmd_env,
@@ -387,6 +409,7 @@ def _command_handlers() -> dict[str, object]:
         "gen-hypium-report": cmd_gen_hypium_report,
         "analyze-test-log": cmd_analyze_test_log,
         "hints": cmd_hints,
+        "pack-assist": cmd_pack_assist,
     }
 
 
@@ -471,6 +494,14 @@ def main() -> int:
     _add_dynamic_parsers(sp)
     _add_report_log_parsers(sp)
     sp.add_parser("hints")
+    pa = sp.add_parser(
+        "pack-assist",
+        help="本地 xdevice 多 HAP 辅助包（同 bundle 同签/ACL；见 XDEVICE-ASSIST-HAPS.md）",
+    )
+    pa.add_argument("project")
+    pa.add_argument("--resign", action="store_true")
+    pa.add_argument("--dry-run", action="store_true")
+    pa.add_argument("--out", default="")
 
     ns = ap.parse_args()
     handler = _command_handlers().get(ns.cmd)
