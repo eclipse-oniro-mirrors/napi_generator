@@ -96,7 +96,7 @@ def wrap_ternary_line(line: str) -> tuple[list[str], int] | None:
         if pos < 0:
             break
         out.append(ind + "    " + expr[: pos + 3].rstrip())
-        expr = expr[pos + 3 :].lstrip()
+        expr = expr[pos + 3:].lstrip()
         n += 1
     out.append(ind + "    " + expr)
     return out, n + 1

@@ -3,7 +3,6 @@
 """Java code gate scan/fix (orchestrator)."""
 from __future__ import annotations
 
-from collections.abc import Callable
 from pathlib import Path
 
 from base import Hit
@@ -136,6 +135,8 @@ from java_fix_2 import (
 from java_fix_3 import _fix_format_intl_complexity
 
 __all__ = ["collect_java_files", "EXCLUDE_DIRS", "scan_java_file", "fix_java_file"]
+
+from collections.abc import Callable
 
 _TextScan = Callable[[str, Path], list[Hit]]
 _LinesScan = Callable[[list[str], Path], list[Hit]]

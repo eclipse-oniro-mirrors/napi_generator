@@ -1036,26 +1036,37 @@ def _check_catch_missing_done(lines: list[str]) -> list[tuple[int, str]]:
     return hits
 
 
+def _then_closes_before_catch(text: str, then_pos: int, catch_pos: int) -> bool:
+    """True if .then(...)'s closing paren is followed (ws-only) by catch_pos."""
+    open_p = then_pos + len(".then(") - 1
+    close_p = _match_paren(text, open_p)
+    nxt = close_p + 1
+    while nxt < len(text) and text[nxt] in " \t\r\n":
+        nxt += 1
+    return nxt == catch_pos
+
+
+def _line_or_prev_has_await(text: str, then_pos: int) -> bool:
+    """True if .then line or previous line starts with await."""
+    line_start = text.rfind("\n", 0, then_pos) + 1
+    line = text[line_start:then_pos]
+    prev_start = text.rfind("\n", 0, line_start - 1) + 1 if line_start > 0 else 0
+    prev = text[prev_start:line_start]
+    return (
+        re.match(r"\s*await\b", line) is not None
+        or re.match(r"\s*await\b", prev) is not None
+    )
+
+
 def _chain_awaited(text: str, catch_pos: int) -> bool:
-    """判断 .catch 所在链是否被 await：找该链的 .then（其闭括号后紧跟本 .catch），
-    检查 .then 所在行/上一行是否以 await 开头（覆盖 await X.then(...) 与跨行
-    await X({...}).then(...) 两种形态）。"""
+    """True if the .catch chain is under await (.then then catch)."""
     k = catch_pos
     while k > 0:
         then_pos = text.rfind(".then(", 0, k)
         if then_pos == -1:
             return False
-        open_p = then_pos + len(".then(") - 1
-        close_p = _match_paren(text, open_p)
-        nxt = close_p + 1
-        while nxt < len(text) and text[nxt] in " \t\r\n":
-            nxt += 1
-        if nxt == catch_pos:
-            line_start = text.rfind("\n", 0, then_pos) + 1
-            line = text[line_start:then_pos]
-            prev_start = text.rfind("\n", 0, line_start - 1) + 1 if line_start > 0 else 0
-            prev = text[prev_start:line_start]
-            return re.match(r"\s*await\b", line) is not None or re.match(r"\s*await\b", prev) is not None
+        if _then_closes_before_catch(text, then_pos, catch_pos):
+            return _line_or_prev_has_await(text, then_pos)
         k = then_pos - 1
     return False
 
@@ -1803,7 +1814,7 @@ def fix_wordstool_9(text: str) -> tuple[str, int]:
 
 def fix_wordstool_86(text: str) -> tuple[str, int]:
     """WordsTool.86：禁词标识改 statusMsg。"""
-    needle = "".join(chr(c) for c in (101,118,101,110,116,76,111,103))
+    needle = "".join(chr(c) for c in (101, 118, 101, 110, 116, 76, 111, 103))
     n = text.count(needle)
     if n:
         text = text.replace(needle, "statusMsg")

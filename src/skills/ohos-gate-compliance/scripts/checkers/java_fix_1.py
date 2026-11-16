@@ -247,8 +247,10 @@ def _fix_underscore_lambda_params(text: str) -> tuple[str, int]:
             continue
         new_line = line
         for old in sorted(special.keys(), key=len, reverse=True):
-            if old in new_line:
-                new_line = re.sub(r"\b" + re.escape(old) + r"\b", special[old], new_line)
+            repl = special.get(old)
+            if repl is not None and old in new_line:
+                pat = "".join((r"\b", re.escape(old), r"\b"))
+                new_line = re.sub(pat, repl, new_line)
                 n += line.count(old)
 
         def strip_us(m):
@@ -752,7 +754,8 @@ def _fix_nam03_class_name(text: str) -> tuple[str, int]:
         old = m.group(1)
         renames[old] = old.replace("_", "")
     for old, new in renames.items():
-        text, c = re.subn(r"\b" + re.escape(old) + r"\b", new, text)
+        pat = "".join((r"\b", re.escape(old), r"\b"))
+        text, c = re.subn(pat, new, text)
         n += c
     return text, n
 

@@ -136,7 +136,7 @@ def _fix_common_view_javadoc(text: str) -> tuple[str, int]:
          _SLICE_EMPTY),
     ]
     for pat, jdoc in pairs:
-        text, c = re.subn(pat, jdoc + r"\1", text, count=1)
+        text, c = re.subn(pat, "".join((jdoc, r"\1")), text, count=1)
         n += c
     return text, n
 
@@ -451,6 +451,49 @@ def _fix_prm10_temp_return(text: str) -> tuple[str, int]:
     return "\n".join(out), n
 
 
+def _fmt07_empty_stmt(line: str) -> str:
+    return "continue;" if re.search(r"\b(?:for|while)\b", line) else ";"
+
+
+def _fmt07_skip_blank(lines: list[str], j: int) -> int:
+    while j < len(lines) and lines[j].strip() == "":
+        j += 1
+    return j
+
+
+def _fmt07_skip_comment_block(lines: list[str], k: int) -> int:
+    while k < len(lines) and (
+            not lines[k].strip()
+            or lines[k].strip().startswith("//")
+            or lines[k].strip().startswith("*")
+            or lines[k].strip().startswith("/*")):
+        k += 1
+    return k
+
+
+def _fmt07_try_fill_empty(
+    lines: list[str], i: int, line: str, ind: str, out: list[str],
+) -> tuple[int, int] | None:
+    """Return (next_i, fixes) if empty/comment-only block filled; else None."""
+    j = _fmt07_skip_blank(lines, i + 1)
+    if j >= len(lines):
+        return None
+    if re.match(r"^\s*\}\s*$", lines[j]):
+        out.append(line)
+        out.append(ind + "    " + _fmt07_empty_stmt(line))
+        out.append(lines[j])
+        return j + 1, 1
+    if not (lines[j].strip().startswith("//") or lines[j].strip().startswith("/*")):
+        return None
+    k = _fmt07_skip_comment_block(lines, j)
+    if k < len(lines) and re.match(r"^\s*\}\s*$", lines[k]):
+        out.append(line)
+        out.append(ind + "    " + _fmt07_empty_stmt(line))
+        out.append(lines[k])
+        return k + 1, 1
+    return None
+
+
 def _fix_fmt07_empty_block(text: str) -> tuple[str, int]:
     """G.FMT.07：空块（含仅注释）改为 continue;/空语句，支持嵌套括号。"""
     n = 0
@@ -466,39 +509,11 @@ def _fix_fmt07_empty_block(text: str) -> tuple[str, int]:
             i += 1
             continue
         ind = re.match(r"^(\s*)", line).group(1)
-        j = i + 1
-        while j < len(lines) and lines[j].strip() == "":
-            j += 1
-        if j >= len(lines):
-            out.append(line)
-            i += 1
+        filled = _fmt07_try_fill_empty(lines, i, line, ind, out)
+        if filled is not None:
+            i, c = filled
+            n += c
             continue
-        # 纯空 }
-        if re.match(r"^\s*\}\s*$", lines[j]):
-            out.append(line)
-            stmt = "continue;" if re.search(r"\b(?:for|while)\b", line) else ";"
-            out.append(ind + "    " + stmt)
-            out.append(lines[j])
-            n += 1
-            i = j + 1
-            continue
-        # 仅注释后接 }
-        if lines[j].strip().startswith("//") or lines[j].strip().startswith("/*"):
-            k = j
-            while k < len(lines) and (
-                    not lines[k].strip()
-                    or lines[k].strip().startswith("//")
-                    or lines[k].strip().startswith("*")
-                    or lines[k].strip().startswith("/*")):
-                k += 1
-            if k < len(lines) and re.match(r"^\s*\}\s*$", lines[k]):
-                out.append(line)
-                stmt = "continue;" if re.search(r"\b(?:for|while)\b", line) else ";"
-                out.append(ind + "    " + stmt)
-                out.append(lines[k])
-                n += 1
-                i = k + 1
-                continue
         out.append(line)
         i += 1
     return "\n".join(out), n
@@ -700,8 +715,11 @@ def _fix_obj05_assert_equal(text: str, fp: Path) -> tuple[str, int]:
             "public static void assertEqual(Integer expected, double actual)",
             "public static void assertEqual(int expected, Double actual)",
             "public static void assertEqual(double expected, Double actual)"):
-        pat = re.compile(
-            r"/\*\*(?:[^*]|\*(?!/))*\*/\s*" + re.escape(sig) + r" \{[^}]*\}")
+        pat = re.compile("".join((
+            r"/\*\*(?:[^*]|\*(?!/))*\*/\s*",
+            re.escape(sig),
+            r" \{[^}]*\}",
+        )))
         text, c = pat.subn("", text, count=1)
         n += c
     text = re.sub(r"(?:\n[ \t]*){3,}", "\n\n", text)

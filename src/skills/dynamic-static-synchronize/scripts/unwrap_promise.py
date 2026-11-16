@@ -66,6 +66,49 @@ def unwrap_file(path: Path) -> int:
             i -= 1
         return i
 
+    def _skip_promise_header(i: int, it_line: str) -> int:
+        if "new Promise" not in lines[i]:
+            raise RuntimeError(lines[i])
+        i += 1
+        if "runCase" in lines[i]:
+            if "let runCase" not in lines[i]:
+                raise RuntimeError(lines[i])
+            i += 1
+        return i
+
+    def _collect_promise_body(i: int, end: int, it_line: str) -> tuple[list[str], int]:
+        depth = 1
+        body: list[str] = []
+        while i < end and depth > 0:
+            ln = lines[i]
+            depth += _brace_delta(ln)
+            if depth > 0:
+                body.append(ln)
+            i += 1
+        if depth != 0:
+            raise RuntimeError(f"用例未闭合: {it_line[:60]}")
+        return body, i
+
+    def _rewrite_resolve_done(body: list[str]) -> list[str]:
+        nb: list[str] = []
+        for ln in body:
+            ln = ln.replace("resolve(undefined); done();", "done();")
+            ln = re.sub(r"\bresolve\(\s*undefined\s*\)\s*;?", "done();", ln)
+            nb.append(ln)
+        return nb
+
+    def _collect_rest(i: int, end: int) -> list[str]:
+        rest: list[str] = []
+        while i < end:
+            ln = lines[i]
+            st = ln.strip()
+            if st.startswith("runCase().catch(") or st == "});" or st == "})":
+                i += 1
+                continue
+            rest.append(ln)
+            i += 1
+        return rest
+
     def unwrap(js: int, end: int) -> list[str]:
         out: list[str] = []
         i = js
@@ -80,46 +123,12 @@ def unwrap_file(path: Path) -> int:
         if re.match(it_pat, it_line) is None:
             raise RuntimeError(it_line)
         out.append(it_line)
-        i += 1
-        if "new Promise" not in lines[i]:
-            raise RuntimeError(lines[i])
-        i += 1
-        has_run_case = "runCase" in lines[i]
-        if has_run_case:
-            if "let runCase" not in lines[i]:
-                raise RuntimeError(lines[i])
-            i += 1
-        depth = 1
-        body: list[str] = []
-        while i < end and depth > 0:
-            ln = lines[i]
-            depth += _brace_delta(ln)
-            if depth > 0:
-                body.append(ln)
-            i += 1
-        if depth != 0:
-            raise RuntimeError(f"用例未闭合: {it_line[:60]}")
-        nb: list[str] = []
-        for ln in body:
-            ln = ln.replace("resolve(undefined); done();", "done();")
-            ln = re.sub(r"\bresolve\(\s*undefined\s*\)\s*;?", "done();", ln)
-            nb.append(ln)
-        out.extend(nb)
+        i = _skip_promise_header(i + 1, it_line)
+        body, i = _collect_promise_body(i, end, it_line)
+        out.extend(_rewrite_resolve_done(body))
         indent = re.match(r"(\s*)", it_line).group(1)
         out.append(f"{indent}    }})")
-        # 保留用例闭之后、下一用例之前的模块级行（常量定义等，如 length_1000）
-        # 此时 lines[i] 已越过用例闭（depth 归零行）——检查其后的行；
-        # runCase 形态的收尾（runCase().catch(...) 与 promise 闭 ）行跳过
-        rest = []
-        while i < end:
-            ln = lines[i]
-            st = ln.strip()
-            if st.startswith("runCase().catch(") or st == "});" or st == "})":
-                i += 1
-                continue
-            rest.append(ln)
-            i += 1
-        out.extend(rest)
+        out.extend(_collect_rest(i, end))
         return out
 
     first_js = jsdoc_of(it_rows[0])

@@ -9,10 +9,10 @@ import re
 def _split_catch_else(seg: str) -> tuple[list[str], int] | None:
     if ";} catch" in seg:
         pos = seg.index(";} catch")
-        return [seg[:pos] + ";", "} catch" + seg[pos + 8 :]], 1
+        return [seg[:pos] + ";", "} catch" + seg[pos + 8:]], 1
     if ";} else" in seg:
         pos = seg.index(";} else")
-        return [seg[:pos] + ";", "} else" + seg[pos + 7 :]], 1
+        return [seg[:pos] + ";", "} else" + seg[pos + 7:]], 1
     return None
 
 
@@ -46,7 +46,7 @@ def expand_segment_once(seg: str, indent: str) -> tuple[list[str], int]:
 def expand_fmt_segments(line: str) -> tuple[list[str], int]:
     indent_m = re.match(r"^(\s*)", line)
     indent = indent_m.group(1) if indent_m else ""
-    body = line[len(indent) :]
+    body = line[len(indent):]
     segments = [body]
     n = 0
     changed = True
