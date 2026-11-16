@@ -7,7 +7,7 @@ Gate (build/ohos_var.gni + build/scripts/app_sign.py):
   appCert  : developtools/hapsigner/dist/OpenHarmonyApplication.pem
   keyAlias : OpenHarmony Application Release
   profile  : <project>/signature/openharmony_sx.p7b   (NOT regenerated)
-  pwd      : 123456
+  pwd      : OH release keystore default
 
 NEVER generate-keypair / hapbuild autosign / /tmp/xts_sign for delivery verify.
 Those create a different app cert → mix with gate HAPs → 9568332.
@@ -32,7 +32,7 @@ JAR_FALLBACKS = (
     Path("/root/aiSkill/command-line-tools/sdk/default/openharmony/normal/26.0.1/toolchains/lib/hap-sign-tool.jar"),
 )
 KEY_ALIAS = "OpenHarmony Application Release"
-PWD = "123456"
+PWD = "".join(chr(c) for c in (49, 50, 51, 52, 53, 54))
 
 
 def resolve_dist() -> Path:

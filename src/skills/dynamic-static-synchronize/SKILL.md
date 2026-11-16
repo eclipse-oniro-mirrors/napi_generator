@@ -330,7 +330,7 @@ python3 scripts/test_static.py <sta_proj> [--suite <Suite>]
 | 动态工程 AppScope bundleName 大小写与 ohosTest 不一致 | 官方工程规范问题 | 签名 profile 以 AppScope 为准；haP 内 bundle 名与之一致即可安装 |
 | hvigor clean 全量编译报 SDK d.ts 警告（W0440/W125428） | SDK 自身诊断 | 属警告可忽略；真错误看 Semantic error ESE 行 |
 | import uitest 的静态工程 TestAbility 前台冻结（Tests run: 0，LIFECYCLE_HALF_TIMEOUT） | 静态 hypium 检测到 uitest 后同步执行 loadAndSetUpUiTest（起 server-daemon ~3s），落在 TestAbility 前台事务窗口内超 AAFWK 2.5s 看门狗阈值 | TestAbility 中 hypiumTest 用 setTimeout(0) 延迟到事务完成后执行；用例内勿用 msSleep 阻塞主线程等事件（改定时器兜底） |
-| 冻结日志定位法 | /data/log/eventlog/LIFECYCLE_HALF_TIMEOUT-<pid>*.log 含事务时间线；对比 onCreate→onWindowStageCreate 间隔定位慢环节 | 先测已知正常工程间隔做基线（无 uitest 约 1.4s） |
+| 冻结日志定位法 | /data/log/<status-log>/LIFECYCLE_HALF_TIMEOUT-<pid>*.log 含事务时间线；对比 onCreate→onWindowStageCreate 间隔定位慢环节 | 先测已知正常工程间隔做基线（无 uitest 约 1.4s） |
 | 全量背景窗口阶段名字解析为前台能力名（includes 断言全失效） | 静态运行时背景 stage 的 UIContext 解析异常 | 只保留前台能力名/长度断言；已销毁 stage 调 getMainWindowSync 抛 1300005 → 循环内 try/catch |
 
 ### 去 promise 包裹（审查意见固化，2026-09-02）

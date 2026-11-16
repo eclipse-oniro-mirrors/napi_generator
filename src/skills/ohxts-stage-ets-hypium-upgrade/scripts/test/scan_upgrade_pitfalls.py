@@ -61,6 +61,7 @@ FLOATING_THEN_RE = re.compile(
     re.M,
 )
 
+
 def _git_diff_files(diff_range: str) -> list[Path]:
     out = subprocess.check_output(
         ["git", "diff", "--name-only", diff_range], text=True)
@@ -214,7 +215,6 @@ def scan_module_src_ts_stale(root: Path) -> list[str]:
     return hits
 
 
-
 def scan_model_version(proj: Path) -> list[str]:
     """hvigor-config / oh-package modelVersion 6.0.0 → CI.HVIGOR.01。"""
     hits: list[str] = []
@@ -338,57 +338,54 @@ def scan_smashed_tc_doc(fp: Path) -> list[str]:
     return hits
 
 
-def scan_targets(paths: list[Path], diff: str | None) -> list[str]:
-    hits: list[str] = []
+def _scan_source_file(fp: Path) -> list[str]:
+    """Run all per-file pitfall scanners on one source path."""
+    out: list[str] = []
+    out.extend(scan_assert_file(fp))
+    out.extend(scan_ipc_string_rename(fp))
+    out.extend(scan_duplicate_hypium(fp))
+    out.extend(scan_brace_typo(fp))
+    out.extend(scan_subscribe_cb_err(fp))
+    out.extend(scan_floating_then(fp))
+    out.extend(scan_smashed_tc_doc(fp))
+    out.extend(scan_then_err_undefined(fp))
+    return out
+
+
+def _scan_project_meta(proj: Path) -> list[str]:
+    """Project-level pitfall scanners (Test.json / modelVersion / pairs)."""
+    out: list[str] = []
+    out.extend(scan_test_json_module(proj))
+    out.extend(scan_model_version(proj))
+    out.extend(scan_ts_ets_pairs(proj))
+    out.extend(scan_module_src_ts_stale(proj))
+    for sub in ("ohosTest", "main"):
+        mod = proj / "entry" / "src" / sub / "ets"
+        if mod.is_dir():
+            out.extend(scan_duplicate_struct_index(mod))
+    return out
+
+
+def _collect_scan_inputs(
+    paths: list[Path], diff: str | None,
+) -> tuple[list[Path], set[Path]]:
+    """Resolve file list and project roots from paths or git diff."""
     files: list[Path] = []
     projs: set[Path] = set()
     if diff:
-        files = _git_diff_files(diff)
-        projs = _project_roots_from_files(files)
-        for fp in files:
-            if fp.is_file():
-                hits.extend(scan_assert_file(fp))
-                hits.extend(scan_ipc_string_rename(fp))
-                hits.extend(scan_duplicate_hypium(fp))
-                hits.extend(scan_brace_typo(fp))
-                hits.extend(scan_subscribe_cb_err(fp))
-                hits.extend(scan_floating_then(fp))
-                hits.extend(scan_smashed_tc_doc(fp))
-                hits.extend(scan_then_err_undefined(fp))
-    else:
-        for raw in paths:
-            p = Path(raw)
-            if p.is_file():
-                files.append(p)
-                hits.extend(scan_assert_file(p))
-                hits.extend(scan_ipc_string_rename(p))
-                hits.extend(scan_duplicate_hypium(p))
-                hits.extend(scan_brace_typo(p))
-                hits.extend(scan_subscribe_cb_err(p))
-                hits.extend(scan_floating_then(p))
-                hits.extend(scan_smashed_tc_doc(p))
-                hits.extend(scan_then_err_undefined(p))
-            elif p.is_dir():
-                projs.add(p)
-                for fp in list(p.rglob("*.ets")) + list(p.rglob("*.ts")):
-                    hits.extend(scan_assert_file(fp))
-                    hits.extend(scan_ipc_string_rename(fp))
-                    hits.extend(scan_duplicate_hypium(fp))
-                    hits.extend(scan_brace_typo(fp))
-                    hits.extend(scan_subscribe_cb_err(fp))
-                    hits.extend(scan_floating_then(fp))
-                    hits.extend(scan_smashed_tc_doc(fp))
-                    hits.extend(scan_then_err_undefined(fp))
-    for proj in sorted(projs):
-        hits.extend(scan_test_json_module(proj))
-        hits.extend(scan_model_version(proj))
-        hits.extend(scan_ts_ets_pairs(proj))
-        hits.extend(scan_module_src_ts_stale(proj))
-        for sub in ("ohosTest", "main"):
-            mod = proj / "entry" / "src" / sub / "ets"
-            if mod.is_dir():
-                hits.extend(scan_duplicate_struct_index(mod))
-    # dedupe
+        files = [fp for fp in _git_diff_files(diff) if fp.is_file()]
+        return files, _project_roots_from_files(files)
+    for raw in paths:
+        p = Path(raw)
+        if p.is_file():
+            files.append(p)
+        elif p.is_dir():
+            projs.add(p)
+            files.extend(list(p.rglob("*.ets")) + list(p.rglob("*.ts")))
+    return files, projs
+
+
+def _dedupe_hits(hits: list[str]) -> list[str]:
     seen: set[str] = set()
     out: list[str] = []
     for h in hits:
@@ -396,6 +393,16 @@ def scan_targets(paths: list[Path], diff: str | None) -> list[str]:
             seen.add(h)
             out.append(h)
     return out
+
+
+def scan_targets(paths: list[Path], diff: str | None) -> list[str]:
+    hits: list[str] = []
+    files, projs = _collect_scan_inputs(paths, diff)
+    for fp in files:
+        hits.extend(_scan_source_file(fp))
+    for proj in sorted(projs):
+        hits.extend(_scan_project_meta(proj))
+    return _dedupe_hits(hits)
 
 
 def main() -> int:

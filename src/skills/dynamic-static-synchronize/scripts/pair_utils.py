@@ -130,7 +130,7 @@ def extract_it_block(src: str, case_name: str) -> str | None:
         if seen and depth <= 0:
             end = j
             break
-    return "".join(lines[js : end + 1])
+    return "".join(lines[js:end + 1])
 
 
 def static_only_names(dyn_names: list[str], sta_names: list[str]) -> list[str]:

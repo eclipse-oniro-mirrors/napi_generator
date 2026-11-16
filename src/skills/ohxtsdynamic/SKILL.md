@@ -687,7 +687,7 @@ python3 .../gitcode_pr_submit.py build <PR号> --delay 60
 
 ### 9.8.1 禁止「Ability 启动失败就把预期减一」（2026-09，P0）
 
-接口人反馈：某 `getAllWindowStages` 测试套里「有一个 Ability 启动失败，然后 PR 里直接把预期结果减一了，但是他们黄区启动成功了，就过不了」。作者本地设备 `startAbility` 失败，于是把精确预期降级成 `assertLarger(N-1)`（或删掉名字断言），黄区设备上该 Ability 能起来、真实值更大，放宽后的断言虽然仍过，但**语义已失效且掩盖了真实环境差异**。
+接口人反馈：某 `getAllWindowStages` 测试套里「有一个 Ability 启动失败，然后 PR 里直接把预期结果减一了，但是黄区启动成功了，就过不了」。作者本地设备 `startAbility` 失败，于是把精确预期降级成 `assertLarger(N-1)`（或删掉名字断言），黄区设备上该 Ability 能起来、真实值更大，放宽后的断言虽然仍过，但**语义已失效且掩盖了真实环境差异**。
 
 **动/静都适用的判定与做法**（静态侧完整规则见 **ohxtsstatic §13.13**，同一批次同一套思路）：
 

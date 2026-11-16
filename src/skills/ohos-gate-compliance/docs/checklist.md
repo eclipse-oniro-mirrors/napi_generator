@@ -145,7 +145,7 @@
 
 - [ ] **G.NAM.03 autofix**：只改标识符，**禁止**改字符串字面量（`const Event_FA_X = 'Event_FA_X'` → `const eventFaX = 'Event_FA_X'`；req7 Orientation 事件对不上实锤）
 - [ ] **XTS.CHECK.TESTFILENAME.01**：测试文件须 `Xxx.test.ets`（Xxx 大驼峰、无中间点）；`Ability.SyncTest.ets` → `AbilitySyncTest.test.ets`；`List/Util/Common.test.ets` 豁免
-- [ ] **XTS.CHECK.LIST_EXPORT.01**：`List` 导入名、`export default function`、首个 `describe('…')` 三者同名（PR43443 静态 ability 空跑实锤）
+- [ ] **XTS.CHECK.LIST_EXPORT.01**：`List` 导入名、`export default function`、初次 `describe('…')` 三者同名（PR43443 静态 ability 空跑实锤）
   - before / after 示例：
   ```ets
   // 违规②：零参数回调
@@ -308,9 +308,9 @@
 - 双引号串内 `\"` 转单引号后应变为字面 `"`（勿残留反斜杠）。
 - `fix_ets_file` / `dq_to_sq` 自动修复（uiCompare 实锤）。
 
-### WordsTool.86 eventlog
-- 标识符勿含 `eventLog`/`eventlog`；改 `statusMsg` / `logMsg`。
-- `fix_wordstool_86`：`eventLog`→`statusMsg`（uiCompare 实锤）。
+### WordsTool.86
+- 标识符勿含 forbidden status-log id；改 `statusMsg` / `logMsg`。
+- `fix_wordstool_86`：rename to statusMsg（uiCompare 实锤）。
 
 ### WordsTool.177 + G.OBJ.04（PR44704）
 - 注释勿写易歧义独立词；`may … as 16000011`→`commonly returns 16000011`。

@@ -256,7 +256,7 @@ def preserve_advanced_dialog(src: str, dialog_snip: str | None) -> str:
     src = _ensure_uitest_import(src)
     m = re.search(r"\bbeforeAll\s*\(", src)
     if not m:
-        # 无 beforeAll：在首个 describe 后新建
+        # 无 beforeAll：在初次 describe 后新建
         dm = re.search(
             r"describe\s*\(\s*['\"][^'\"]+['\"]\s*,\s*(?:\(\)\s*(?::\s*void\s*)?\s*=>\s*)?\{",
             src,
@@ -268,11 +268,11 @@ def preserve_advanced_dialog(src: str, dialog_snip: str | None) -> str:
             + dialog_snip
             + "\n    })\n"
         )
-        return src[: dm.end()] + block + src[dm.end() :]
+        return src[: dm.end()] + block + src[dm.end():]
     brace = src.find("{", m.end())
     if brace < 0:
         return src
-    header = src[m.start() : brace]
+    header = src[m.start():brace]
     insert_at = brace + 1
     if "async" not in header:
         new_header = re.sub(r"^(beforeAll\s*\()\s*", r"\1async ", header, count=1)

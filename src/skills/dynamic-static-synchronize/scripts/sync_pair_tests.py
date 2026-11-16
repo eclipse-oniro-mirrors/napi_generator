@@ -103,7 +103,7 @@ def ensure_list_imports(s_list: Path, modules: list[str]) -> None:
         for m in re.finditer(r"(?m)^import .+$", text):
             pass
         if m:
-            text = text[: m.end()] + "\n" + import_line + text[m.end() :]
+            text = text[: m.end()] + "\n" + import_line + text[m.end():]
         else:
             text = "'use static';\n" + import_line + text
         # 在 testsuite 体内调用

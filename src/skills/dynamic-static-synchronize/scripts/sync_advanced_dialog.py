@@ -46,7 +46,7 @@ def ensure_uitest_import(text: str) -> str:
     for m in re.finditer(r"^import .+ from ['\"][^'\"]+['\"];?\s*$", text, flags=re.M):
         pass
     if m:
-        return text[: m.end()] + "\n" + UITEST_IMPORT + text[m.end() :]
+        return text[: m.end()] + "\n" + UITEST_IMPORT + text[m.end():]
     return UITEST_IMPORT + text
 
 
@@ -54,20 +54,20 @@ def ensure_before_all_import(text: str) -> str:
     m = re.search(r"import\s*\{([^}]*)\}\s*from\s*['\"][^'\"]*hypium[^'\"]*['\"]", text)
     if not m or "beforeAll" in m.group(1):
         return text
-    return text[: m.start(1)] + m.group(1).rstrip() + ", beforeAll" + text[m.end(1) :]
+    return text[: m.start(1)] + m.group(1).rstrip() + ", beforeAll" + text[m.end(1):]
 
 
 def find_before_all_call_body(text: str) -> tuple[int, int, str] | None:
     """返回 (kw_start, body_open, header)。只匹配 beforeAll( 调用。"""
     for m in re.finditer(r"\bbeforeAll\s*\(", text):
         line_start = text.rfind("\n", 0, m.start()) + 1
-        line_prefix = text[line_start : m.start()]
+        line_prefix = text[line_start:m.start()]
         if "import " in line_prefix:
             continue
         brace = text.find("{", m.end())
         if brace < 0:
             continue
-        header = text[m.start() : brace]
+        header = text[m.start():brace]
         if len(header) > 200:
             continue
         return m.start(), brace + 1, header
@@ -84,9 +84,10 @@ def inject_dialog(text: str) -> tuple[str, str]:
         kw, body_open, header = found
         if "async" not in header:
             new_header = re.sub(r"^(beforeAll\s*\()\s*", r"\1async ", header, count=1)
-            text = text[:kw] + new_header + text[body_open - 1 :]
+            text = text[:kw] + new_header + text[body_open - 1:]
             found = find_before_all_call_body(text)
-            assert found is not None
+            if found is None:
+                raise RuntimeError("unexpected None")
             kw, body_open, header = found
         text = text[:body_open] + "\n" + DIALOG_BODY + text[body_open:]
         return text, "injected"
@@ -98,7 +99,7 @@ def inject_dialog(text: str) -> tuple[str, str]:
     if not m:
         return text, "fail"
     block = "\n    beforeAll(async () => {\n" + DIALOG_BODY + "    })\n"
-    return text[: m.end()] + block + text[m.end() :], "created"
+    return text[: m.end()] + block + text[m.end():], "created"
 
 
 def sync_pair(sta: Path, dyn: Path) -> list[str]:

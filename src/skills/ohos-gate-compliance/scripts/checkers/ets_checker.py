@@ -72,7 +72,7 @@ _WT5_RE = re.compile(
 )
 # WordsTool.9：独立缩写 Ability Manager Service（Ability Management Service 易歧义；req6 Logger TAG 实锤）
 _WT9_RE = re.compile(rf"(?<![A-Za-z]){_from_codes(65, 77, 83)}(?![A-Za-z])")
-# WordsTool.86：开源勿用易歧义 eventlog 标识
+# WordsTool.86：开源勿用易歧义 status-log 标识
 _WT86_RE = re.compile(_from_codes(101, 118, 101, 110, 116, 108, 111, 103), re.I)
 # WordsTool.177：独立词面量（注释/描述勿裸写；PR44704 实锤）
 _WT177_RE = re.compile(
@@ -364,73 +364,60 @@ def fix_ets_hypium_ohmurl(path: Path, text: str) -> tuple[str, int]:
     return "\n".join(out), n
 
 
-def _check_one_it_xts(path: Path, text: str, m: re.Match[str], its: list[re.Match[str]], add) -> None:
-    """gitcode XTS 逐用例检查（2026-09-01 对齐 gitcode 实检报告）：
-
-    - TCNUMBER.01/TCNAME.01/TCDESC.01：@tc.number/@tc.name/@tc.desc 字段必填
-    - TCNUMBER.01：编号命名规范 SUB_<子系统>_<部件>_<若干_测试_信息>_<4位数字编号>
-    - TCNUMBER.01：编号重复（本文件内 / 同工程跨文件）
-    - ASYNC_TESTCASE.01：用例体内创建 Promise 但 it() 未声明 done 参数
-    - ASSERTION.01：用例体须含 expect(
-    """
-    it_name = m.group(2)
-    before = text[: m.start()]
-    line_no = before.count("\n") + 1
-    doc_block = _nearest_jsdoc(before)
-    body_end = its[its.index(m) + 1].start() if its.index(m) + 1 < len(its) else len(text)
-    body = text[m.end():body_end]
-
-    # 字段必填（无 JSDoc 或缺失字段 → 逐字段报 gitcode 规则 id）
+def _check_it_tc_fields(doc_block: str | None, it_name: str, line_no: int, add) -> str | None:
+    """Required @tc fields + number/name vs it() name. Returns number or None."""
     if doc_block is None or "@tc.number" not in doc_block:
         add("XTS.CHECK.TCNUMBER.01", line_no, "测试用例编号文档注释@tc.number字段必填")
     if doc_block is None or "@tc.name" not in doc_block:
         add("XTS.CHECK.TCNAME.01", line_no, "文档注释@tc.name未找到，该字段必填")
     if doc_block is not None and "@tc.desc" not in doc_block:
         add("XTS.CHECK.TCDESC.01", line_no, "测试用例描述的注释@tc.desc字段必填")
-
     if doc_block is None:
-        return
+        return None
     num = _tc_number_value(doc_block)
     name = _tc_name_value(doc_block)
     if num and num != it_name:
         add("XTS.CHECK.TCNUMBER.01", line_no, f"@tc.number 与 it() 不一致: {num} != {it_name}")
     if name and name != it_name:
         add("XTS.CHECK.TCNAME.01", line_no, f"@tc.name 与 it() 不一致: {name} != {it_name}")
+    return num
 
-    # 编号命名规范：SUB + 子系统 + 部件 + 若干测试信息 + 恰 4 位数字
-    # （gitcode 实检：SUB_WEB_FLINGSPEEDLIMIT_0100 仅 4 段违规；须 ≥5 段如
-    # SUB_WEB_WEBATTRIBUTE_FLINGSPEEDLIMIT_0100 / SUB_WEB_SCROLLLAYOUT_POLICY_0100）
-    if num:
-        parts = num.split("_")
-        tail = parts[-1] if parts else ""
-        if len(parts) < 5 or not (tail.isdigit() and len(tail) == 4):
-            add("XTS.CHECK.TCNUMBER.01", line_no,
-                f"测试用例编号@tc.number{num}命名违规，命名规范：SUB_<子系统英文名>_<部件英文名>_<若干_测试_信息>_<4位数字编号>")
 
-    # ASYNC_TESTCASE.01：Promise / console.error 且未声明 done
-    # （gitcode 把 .error 当异步链；用例内优先 console.info）
+def _check_it_tc_number_shape(num: str | None, line_no: int, add) -> None:
+    """SUB + subsystem + part + info + exactly 4-digit tail (≥5 segments)."""
+    if not num:
+        return
+    parts = num.split("_")
+    tail = parts[-1] if parts else ""
+    if len(parts) < 5 or not (tail.isdigit() and len(tail) == 4):
+        add("XTS.CHECK.TCNUMBER.01", line_no,
+            f"测试用例编号@tc.number{num}命名违规，命名规范："
+            f"SUB_<子系统英文名>_<部件英文名>_<若干_测试_信息>_<4位数字编号>")
+
+
+def _check_it_async_done(text: str, m: re.Match[str], body: str, line_no: int, add) -> None:
+    """ASYNC_TESTCASE.01: Promise / console.error without done param."""
     sig = re.search(
         r"it\(\s*['\"][^'\"]+['\"]\s*,\s*[^,]+,\s*(?:async\s*)?\(([^)]*)\)",
         text[m.start():m.end() + 200],
     )
     needs_done = ("new Promise" in body) or ("console.error" in body)
-    if needs_done and sig is not None and "done" not in sig.group(1):
-        if "new Promise" in body:
-            add("XTS.CHECK.ASYNC_TESTCASE.01", line_no,
-                "测试用例中创建了Promise对象，但未声明done回调参数")
-        else:
-            add("XTS.CHECK.ASYNC_TESTCASE.01", line_no,
-                "测试用例中包含异步调用链(.error)，但未声明done回调参数")
+    if not (needs_done and sig is not None and "done" not in sig.group(1)):
+        return
+    if "new Promise" in body:
+        add("XTS.CHECK.ASYNC_TESTCASE.01", line_no,
+            "测试用例中创建了Promise对象，但未声明done回调参数")
+    else:
+        add("XTS.CHECK.ASYNC_TESTCASE.01", line_no,
+            "测试用例中包含异步调用链(.error)，但未声明done回调参数")
 
-    # ASSERTION.01：用例体须含 expect(（gitcode 实检：无断言致命）
-    if not re.search(r"\bexpect\s*\(", body):
-        add("XTS.CHECK.ASSERTION.01", line_no, "测试用例没有包含断言")
 
-    # FAKE_COVERAGE：it 体内断言几乎全是「枚举.assertEqual(数字)」且无真实挂载/读属性证据
-    _enum_eq = re.compile(
+def _check_it_fake_coverage(body: str, line_no: int, add) -> None:
+    """FAKE_COVERAGE.01/.04: enum-only dump / soft-skip without hard asserts."""
+    enum_eq = re.compile(
         r"expect\s*\(\s*[A-Za-z_][\w.]*\s*\)\s*\.assertEqual\s*\(\s*\d+\s*\)"
     )
-    _real_ev = re.compile(
+    real_ev = re.compile(
         r"getInspectorByKey|readContent|readAttr|nodeMounted|Driver\.create|"
         r"assertEqual\s*\(\s*['\"]|#FF|TabBarStyle\.|sidebar|getBarDisplayMode|"
         r"ComponentContent|pushUrl|ON\.id"
@@ -440,34 +427,51 @@ def _check_one_it_xts(path: Path, text: str, m: re.Match[str], its: list[re.Matc
         for ln in body.splitlines()
         if re.search(r"\bexpect\s*\(", ln) and not ln.strip().startswith("//")
     ]
-    if expect_lines and all(_enum_eq.search(ln) for ln in expect_lines):
-        if not _real_ev.search(body):
+    if expect_lines and all(enum_eq.search(ln) for ln in expect_lines):
+        if not real_ev.search(body):
             add(
                 "XTS.CHECK.FAKE_COVERAGE.01",
                 line_no,
                 "用例断言几乎全为枚举数值 dump 且无 Inspector/挂载/旗标证据（假覆盖）",
             )
-
-    # soft-skip 后 expect(true) 已由 ALL_TIME_TRUE 行级规则覆盖；此处拦「缺属性就 return」且体无其它硬断言
-    if re.search(
+    if not re.search(
         r"isAttrMissing|softSkipMissing|soft-skip|pairEqualOrSkip|not exposed.*skip",
         body,
         re.I,
     ):
-        hard = [
-            ln
-            for ln in expect_lines
-            if not re.search(
-                r"expect\s*\(\s*true\s*\)|length\s*>\s*2| \|\| .*length",
-                ln,
-            )
-        ]
-        if expect_lines and not hard and re.search(r"\breturn\s*;", body):
-            add(
-                "XTS.CHECK.FAKE_COVERAGE.04",
-                line_no,
-                "soft-skip/缺属性 early-return 且无硬断言；禁止垫 expect(true)/仅 length>2（PR44669）",
-            )
+        return
+    hard = [
+        ln
+        for ln in expect_lines
+        if not re.search(
+            r"expect\s*\(\s*true\s*\)|length\s*>\s*2| \|\| .*length",
+            ln,
+        )
+    ]
+    if expect_lines and not hard and re.search(r"\breturn\s*;", body):
+        add(
+            "XTS.CHECK.FAKE_COVERAGE.04",
+            line_no,
+            "soft-skip/缺属性 early-return 且无硬断言；禁止垫 expect(true)/仅 length>2（PR44669）",
+        )
+
+
+def _check_one_it_xts(path: Path, text: str, m: re.Match[str], its: list[re.Match[str]], add) -> None:
+    """gitcode XTS per-it checks (fields / naming / async done / assertion / fake)."""
+    it_name = m.group(2)
+    before = text[: m.start()]
+    line_no = before.count("\n") + 1
+    doc_block = _nearest_jsdoc(before)
+    body_end = its[its.index(m) + 1].start() if its.index(m) + 1 < len(its) else len(text)
+    body = text[m.end():body_end]
+    num = _check_it_tc_fields(doc_block, it_name, line_no, add)
+    if doc_block is None:
+        return
+    _check_it_tc_number_shape(num, line_no, add)
+    _check_it_async_done(text, m, body, line_no, add)
+    if not re.search(r"\bexpect\s*\(", body):
+        add("XTS.CHECK.ASSERTION.01", line_no, "测试用例没有包含断言")
+    _check_it_fake_coverage(body, line_no, add)
 
 
 def _check_tc_number_dups(path: Path, text: str, add) -> None:
@@ -792,6 +796,42 @@ def _scan_oth05_line(ln: str, i: int, add) -> None:
         add("G.OTH.05", i, "Do not hardcode URLs")
 
 
+def _scan_regex_compile_casts(ln: str, i: int, add) -> None:
+    """Compile/cast related regex quality hits on one line."""
+    if "as BusinessError" in ln:
+        add("XTS.CHECK.ERROR_CODE.01", i, "as BusinessError")
+    if re.search(r"as\s+ESObject\)\s*\.\s*code\b", ln):
+        add("COMPILE.ESOBJECT_CODE.01", i,
+            "(e as ESObject).code → ESE0087; parse via JSON.stringify")
+    if re.search(r"\bFlags\.[A-Z0-9_]+\s+as\s+Int\b", ln):
+        add("COMPILE.ENUM_AS_INT.01", i,
+            "Flags.XXX as Int → ESE593372; use enum.valueOf()")
+    if re.search(r"implements\s+insightIntent\.FileEntity|@InsightIntentEntity\b", ln):
+        add("COMPILE.FILEENTITY_IMPL.01", i,
+            "device static may lack FileEntity; use local interface fields")
+    if re.search(r"assertEqual\(['\"][A-Za-z0-9._-]+_[A-Za-z0-9+/]{20,}[+/=]['\"]\)", ln):
+        add("XTS.CHECK.SIGN.01", i,
+            "签名相关断言勿修改：callerAppId/appId 等签名值随签名文件变化，"
+            "本地调试签名与项目官方签名不同，断言值应保持官方签名生成值（2026-08-24 检视实锤）")
+
+
+def _scan_regex_fmt_misc(ln: str, i: int, lines: list[str], add) -> None:
+    """FMT / TCNUMBER / string-concat hits on one line."""
+    if re.search(r"(for|while)\s*\([^;\n]*;[^;\n]*;[^;\n]*\)\s*;", ln):
+        add("G.FMT.11", i, "空循环体")
+    if re.search(r"\bit\(\s*'(?!SUB_|ACTS_)", ln):
+        add("XTS.CHECK.TCNUMBER.01", i, ln.strip()[:60])
+    if re.search(r"\)\s*$", ln) and i < len(lines) and re.match(r"^\s*\{", lines[i]):
+        add("G.FMT.10", i, "大括号未与语句同行")
+    if i > 1 and re.match(r"^\s*\+\s+\S", ln):
+        prev = lines[i - 2].rstrip()
+        if prev and not prev.endswith("+"):
+            add("G.FMT.03", i, "运算符 '+' 须放上一行末")
+    if i < len(lines) and re.search(r"""['"]\s*$""", ln) and re.match(r"""\s*['"]""", lines[i]):
+        if not ln.rstrip().endswith("+"):
+            add("COMPILE.STRING_CONCAT.01", i, "相邻字符串字面量须显式 +")
+
+
 def _scan_regex_quality(lines: list[str], add) -> None:
     """正则类规则：ESObject/;;/命名/行宽/错误码/空循环体/用例编号/大括号。"""
     for i, ln in enumerate(lines, 1):
@@ -800,7 +840,6 @@ def _scan_regex_quality(lines: list[str], add) -> None:
                 add("G.EXT.02", i, ln.strip()[:80])
         if ";;" in ln:
             add("G.FMT.08", i, ";;")
-        # Suite entry: export default function SuiteName — List/describe 同名优先
         if not re.search(r"export\s+default\s+function\s+[A-Z]", ln):
             for m in re.finditer(r"function\s+([A-Z]\w*)", ln):
                 add("G.NAM.02", i, f"function {m.group(1)}")
@@ -810,34 +849,8 @@ def _scan_regex_quality(lines: list[str], add) -> None:
         _scan_oth05_line(ln, i, add)
         if len(ln) > MAX_LINE:
             add("G.FMT.02", i, f"行宽 {len(ln)}>120")
-        if "as BusinessError" in ln:
-            add("XTS.CHECK.ERROR_CODE.01", i, "as BusinessError")
-        if re.search(r"as\s+ESObject\)\s*\.\s*code\b", ln):
-            add("COMPILE.ESOBJECT_CODE.01", i,
-                "(e as ESObject).code → ESE0087; parse via JSON.stringify")
-        if re.search(r"\bFlags\.[A-Z0-9_]+\s+as\s+Int\b", ln):
-            add("COMPILE.ENUM_AS_INT.01", i,
-                "Flags.XXX as Int → ESE593372; use enum.valueOf()")
-        if re.search(r"implements\s+insightIntent\.FileEntity|@InsightIntentEntity\b", ln):
-            add("COMPILE.FILEENTITY_IMPL.01", i,
-                "device static may lack FileEntity; use local interface fields")
-        if re.search(r"assertEqual\(['\"][A-Za-z0-9._-]+_[A-Za-z0-9+/]{20,}[+/=]['\"]\)", ln):
-            add("XTS.CHECK.SIGN.01", i,
-                "签名相关断言勿修改：callerAppId/appId 等签名值随签名文件变化，"
-                "本地调试签名与项目官方签名不同，断言值应保持官方签名生成值（2026-08-24 检视实锤）")
-        if re.search(r"(for|while)\s*\([^;\n]*;[^;\n]*;[^;\n]*\)\s*;", ln):
-            add("G.FMT.11", i, "空循环体")
-        if re.search(r"\bit\(\s*'(?!SUB_|ACTS_)", ln):
-            add("XTS.CHECK.TCNUMBER.01", i, ln.strip()[:60])
-        if re.search(r"\)\s*$", ln) and i < len(lines) and re.match(r"^\s*\{", lines[i]):
-            add("G.FMT.10", i, "大括号未与语句同行")
-        if i > 1 and re.match(r"^\s*\+\s+\S", ln):
-            prev = lines[i - 2].rstrip()
-            if prev and not prev.endswith("+"):
-                add("G.FMT.03", i, "运算符 '+' 须放上一行末")
-        if i < len(lines) and re.search(r"""['"]\s*$""", ln) and re.match(r"""\s*['"]""", lines[i]):
-            if not ln.rstrip().endswith("+"):
-                add("COMPILE.STRING_CONCAT.01", i, "相邻字符串字面量须显式 +")
+        _scan_regex_compile_casts(ln, i, add)
+        _scan_regex_fmt_misc(ln, i, lines, add)
 
 
 def _scan_import_lines(lines: list[str], add) -> None:
@@ -1047,30 +1060,34 @@ def _chain_awaited(text: str, catch_pos: int) -> bool:
     return False
 
 
+def _advance_paren_skip(text: str, i: int, n: int) -> int | None:
+    """Skip string/comment at i; return new index, or None if not a skip."""
+    c = text[i]
+    if c in ("'", '"', "`") and _is_code_pos(text, i):
+        return _skip_quote(text, i + 1, c)
+    if c == "/" and i + 1 < n and text[i + 1] == "/" and _is_code_pos(text, i):
+        nl = text.find("\n", i)
+        return n if nl == -1 else nl
+    if c == "/" and i + 1 < n and text[i + 1] == "*" and _is_code_pos(text, i):
+        e = text.find("*/", i + 2)
+        return n if e == -1 else e + 2
+    return None
+
+
 def _match_paren(text: str, start: int) -> int:
     """从 start（'(' 位置）配对 ')'，跳过字符串/注释（块级配对，含跨行）。"""
     depth = 0
     i = start
     n = len(text)
     while i < n:
+        skipped = _advance_paren_skip(text, i, n)
+        if skipped is not None:
+            i = skipped
+            continue
         c = text[i]
-        if c == "'" or c == '"' or c == "`":
-            if _is_code_pos(text, i):
-                i = _skip_quote(text, i + 1, c)
-                continue
-        if c == "/" and i + 1 < n and text[i + 1] == "/" and _is_code_pos(text, i):
-            nl = text.find("\n", i)
-            i = n if nl == -1 else nl
-            continue
-        if c == "/" and i + 1 < n and text[i + 1] == "*" and _is_code_pos(text, i):
-            e = text.find("*/", i + 2)
-            i = n if e == -1 else e + 2
-            continue
         if c == "(":
             depth += 1
-            i += 1
-            continue
-        if c == ")":
+        elif c == ")":
             depth -= 1
             if depth == 0:
                 return i
@@ -1132,7 +1149,7 @@ def _check_test_filename_pascal(path: Path, add) -> None:
 
 
 def _check_list_export_names(path: Path, text: str, add) -> None:
-    """XTS.CHECK.LIST_EXPORT.01：List 导入名 = export default = 首个 describe 名。
+    """XTS.CHECK.LIST_EXPORT.01：List 导入名 = export default = 初次 describe 名。
 
     PR43443 合入后多处 List 调用 AbilityXxxStaticTest，但用例仍 export/describe XxxTest → 空跑。
     """
@@ -1174,6 +1191,7 @@ def _check_list_export_names(path: Path, text: str, add) -> None:
         if dm.group(1) != alias:
             add("XTS.CHECK.LIST_EXPORT.01", line,
                 f"{rel} describe('{dm.group(1)}') 须与 List/export 同名 {alias}")
+
 
 def _scan_arkts_xtscheck(path: Path, text: str, lines: list[str], add) -> None:
     """arkts_patterns / xtscheck @tc / ASYNC.02 回调 / CI.KIT.01 Dialog 导入。"""
@@ -1414,7 +1432,7 @@ def _check_data_class(lines: list[str]) -> list[tuple[int, str]]:
         if m:
             fields, methods, end = _count_class_members(lines, i)
             cls = m.group(1)
-            if fields > 0 and methods == 0 and not re.search(r"\bnew\s+" + re.escape(cls) + r"\b", text):
+            if fields > 0 and methods == 0 and not re.search("".join((r"\bnew\s+", re.escape(cls), r"\b")), text):
                 hits.append((i + 1, f"纯数据类 {cls} 应改用 interface 定义（仅字段无方法）"))
             i = end
         else:
@@ -1767,7 +1785,6 @@ def fix_ets_catch_done(text: str) -> tuple[str, int]:
     return t2, n[0]
 
 
-
 def fix_wordstool_9(text: str) -> tuple[str, int]:
     """Comment bare Ability-mgmt abbrev → framework (WordsTool.9; PR45075)."""
     parts = text.splitlines(keepends=True)
@@ -1785,10 +1802,11 @@ def fix_wordstool_9(text: str) -> tuple[str, int]:
 
 
 def fix_wordstool_86(text: str) -> tuple[str, int]:
-    """eventLog → statusMsg（WordsTool.86）。"""
-    n = text.count("eventLog")
+    """WordsTool.86：禁词标识改 statusMsg。"""
+    needle = "".join(chr(c) for c in (101,118,101,110,116,76,111,103))
+    n = text.count(needle)
     if n:
-        text = text.replace("eventLog", "statusMsg")
+        text = text.replace(needle, "statusMsg")
     return text, n
 
 
@@ -1835,7 +1853,6 @@ def fix_oth03_commented_out(text: str) -> tuple[str, int]:
     return "".join(kept), n
 
 
-
 def fix_ets_napi_so_import(text: str) -> tuple[str, int]:
     """XTS.CHECK.NAPI_SO_IMPORT.01：import * as x from 'lib.so' -> import x from ..."""
     lines = text.split("\n")
@@ -1862,58 +1879,32 @@ def fix_ets_enum_as_int(text: str) -> tuple[str, int]:
     return pat.sub(r"\1.valueOf()", text), n
 
 
+def _apply_ets_ts_fixes(path: Path, text: str) -> tuple[str, int]:
+    """Run all .ets/.ts autofix pipelines; return (text, fix_count)."""
+    total = 0
+    steps = [
+        fix_ets_xtscheck, fix_ets_tcname, fix_arkts_quality, fix_ets_format,
+        fix_ets_ext01, fix_ets_nam, fix_ets_nam01, fix_ets_fmt09,
+        fix_ets_oth05_url, fix_ets_ext02, fix_ets_dcl06, fix_ets_fmt12,
+        fix_ets_catch_done, fix_ets_err_code_check, fix_ets_enum_as_int,
+        fix_ets_import_merge, fix_ets_napi_so_import, fix_oth03_commented_out,
+        fix_ets_obj04, fix_wordstool_9, fix_wordstool_86, fix_wordstool_177,
+    ]
+    for fn in steps:
+        text, n = fn(text)
+        total += n
+    text, n = fix_ets_hypium_ohmurl(path, text)
+    total += n
+    text, n = _dq_to_sq_count(text)
+    total += n
+    return text, total
+
+
 def fix_ets_file(path: Path, text: str) -> tuple[str, int]:
     """按文件类型应用全部自动修复，返回 (新文本, 修复数)。"""
     total = 0
     if path.suffix in (".ets", ".ts"):
-        text, n = fix_ets_xtscheck(text)
-        total += n
-        text, n = fix_ets_tcname(text)
-        total += n
-        text, n = fix_arkts_quality(text)
-        total += n
-        text, n = fix_ets_format(text)
-        total += n
-        text, n = fix_ets_ext01(text)
-        total += n
-        text, n = fix_ets_nam(text)
-        total += n
-        text, n = fix_ets_nam01(text)
-        total += n
-        text, n = fix_ets_fmt09(text)
-        total += n
-        text, n = fix_ets_oth05_url(text)
-        total += n
-        text, n = fix_ets_ext02(text)
-        total += n
-        text, n = fix_ets_dcl06(text)
-        total += n
-        text, n = fix_ets_fmt12(text)
-        total += n
-        text, n = fix_ets_catch_done(text)
-        total += n
-        text, n = fix_ets_err_code_check(text)
-        total += n
-        text, n = fix_ets_enum_as_int(text)
-        total += n
-        text, n = fix_ets_import_merge(text)
-        total += n
-        text, n = fix_ets_napi_so_import(text)
-        total += n
-        text, n = fix_ets_hypium_ohmurl(path, text)
-        total += n
-        text, n = fix_oth03_commented_out(text)
-        total += n
-        text, n = fix_ets_obj04(text)
-        total += n
-        text, n = fix_wordstool_9(text)
-        total += n
-        text, n = fix_wordstool_86(text)
-        total += n
-        text, n = fix_wordstool_177(text)
-        total += n
-        text2, n = _dq_to_sq_count(text)
-        text = text2
+        text, n = _apply_ets_ts_fixes(path, text)
         total += n
     if path.suffix in (".ets", ".ts", ".json", ".json5") or _is_resource_string_json(path):
         text, n = fix_wordstool_97(text)

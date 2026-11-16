@@ -19,18 +19,8 @@ version: "2.0.0"
 |------|------|------|
 | **代码门禁检查**（核心） | XTS 用例工程提交前（ETS/ArkTS + C++） | `gate_check.py code` |
 | **skill 门禁检查** | 提交 napi_generator/src/skills 时（pre-commit hook 自动） | `gate_check.py skill` |
-| **Java 门禁检查** | basetype ETS→Java 转换产物提交前 | `gate_check.py java-check` |
 
 ## 入口命令
-
-```bash
-# Java 门禁（basetype 转换产物）：扫描 + 自动修复
-python3 src/skills/ohos-gate-compliance/scripts/gate_check.py java-check <目录> [--fix] [--strict]
-# 示例：五项目批量修复
-python3 .../gate_check.py java-check \
-  src/intellij_plugin/ohosgen/src/test/java/basetype/{uint8array,uint8array2,uint16array,uint16array2,uint8clampedarray,common} \
-  --fix --strict
-```
 
 ```bash
 # 代码门禁：扫描工程（自动识别 ets/capi profile），--fix 自动修复两轮后复查
@@ -58,7 +48,6 @@ python3 .../scripts/commit_utils.py -m "test(ability): xxx" --cwd <仓库>
 | `rules/rules_config.json` | 3 | CI.SDK.01、**CI.HVIGOR.01**（modelVersion 禁 6.0.0→26.0.0）、**XTS.CHECK.HAPNAME.01**（test_hap=true 须 Acts…Test） |
 | `rules/rules_cpp.json` | 11+ | G.FMT.06-CPP（自动修复）、**G.FMT.17-CPP**（`{` 后禁空行，自动修复）、G.FMT.05 行宽（napi desc 自动折行）、G.FUD.05 nbnc≤50、FUNC.CC≤20 / FUNC.DEPTH≤4 / MAGIC.NUM / **G.CNS.02-CPP**（MakeIntArray/vals[N] 裸长度）/ G.NAM.03-CPP / HEADER.NBNC≤300（启发式）、OAT.3 许可证头 |
 | `rules/rules_skill.json` | 9 | FILE.NBNC≤2000、FUNC.NBNC≤50、FUNC.CC≤20、FUNC.DEPTH≤4、G.NAM.01、G.EDV.04（禁 shell=True/bash argv0）、SYNTAX、WordsTool 词表、PY.COMPILE |
-| `rules/rules_java.json` | 6 | G.OTH.03 未用 import、G.CMT.02 类 Javadoc+@since、G.FMT.13 `; }`、G.ERR.02 catch 收窄、G.CMT.01 public Javadoc、G.NAM.06 `$xN`/非 final UPPER 字段 |
 
 规则字段：`{id, name, category, severity, detect, pattern, fix}`；detect 取值
 `regex/heuristic/length/ast/build/manual`，对应 checkers 内实现。
@@ -72,7 +61,6 @@ python3 .../scripts/commit_utils.py -m "test(ability): xxx" --cwd <仓库>
 | `config_checker.py` | build-profile / BUILD.gn hap_name / modelVersion / 父 group 挂接 | CI.SDK.01；**HAPNAME.01**；**CI.BUILDGN.PARENT.01** / **PEER_DOTDOT.01** |
 | `git_checker.py` | git 层：版权头（merge-base）/违禁文件/整文件重写/数据安全/新增行质量 | 无（报告） |
 | `skill_checker.py` | skill 仓：Python AST 门禁 + WordsTool 词表 + py_compile | 无（报告） |
-| `java_checker.py` | Java basetype：6 条 CodeCheck 规则（rules_java.json） | G.OTH.03/G.CMT/G.FMT.13/G.ERR.02/G.NAM.06 |
 | `pipeline.py` | 设备整测通过后：测试校验→profile→两轮修复→commit（兼容 gate_review.py） | 聚合以上修复 |
 | `commit_utils.py` | 提交编排：审计→行数（≤1900）→`-sm -F`→提交后验证 | 无 |
 
@@ -147,7 +135,7 @@ kit 内 suite→Rely 的 `../rely` 仍允许。
 | 静态 `Int as number`（ESE123811） | `hilog(..., observerId as number)` | `Int.toDouble(observerId)`；**COMPILE.INT_AS_NUMBER.01**（PR45360） |
 | 动态 ohosTest `stateManagement` | `import { AppStorage } from '@ohos.arkui.stateManagement'` | 模块不存在；`globalThis.context` / AppStorage 全局；**COMPILE.DYN_STATEMGMT.01**（PR45360） |
 | backToCaller 16000074 vs 401 | `xts_…`/`''`/长假数字串却 expect 16000074 | **`'0'`** → 16000074（actsbackdemohap）；空串 → 401（PR45360 板测） |
-| 静态 Intent dryRun 挂死 | `implements insightIntent.FileEntity` / `@InsightIntentEntity` | 板端无 FileEntity → classlinker + onRun 6；本地 interface 字段镜像（playbook §1.2.2） |
+| 静态 FileEntity dryRun 挂死 | `implements insightIntent.FileEntity` / `@InsightIntentEntity` | 板端无 FileEntity → classlinker + onRun 6；本地 interface 字段镜像（playbook §1.2.2） |
 | 静态 FocusedUid typeof | `typeof focusedUid === 'number'` | SDK 为 `int`；用 `>= 0` 等，勿再 `as BusinessError` 吞 AssertException（§1.2.1） |
 | 静态 W65000/ESE0351 | `!== undefined`/`strJson` 重声明 | 枚举比较 / 改名；见 `docs/ci-arkts-compile-playbook.md` §0.1 |
 | function 表达式 | publish/then 仍用 `function ()` | 改 `() =>`（10605046）；**merge master 后再扫**（ts→ets 合入易带回） |

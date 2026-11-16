@@ -177,7 +177,7 @@ def build_report(proj_list: list[dict], items: list[dict], out_dir: Path) -> Pat
 
 
 def screenshot(out_dir: Path) -> Path:
-    r = subprocess.run(["bash", str(SCREENSHOT_SH), str(out_dir)],
+    r = subprocess.run([str(SCREENSHOT_SH), str(out_dir)],
                        capture_output=True, text=True, timeout=600)
     m = re.search(r"SCREENSHOT_PNG=(\S+)", r.stdout)
     return Path(m.group(1)) if m else None

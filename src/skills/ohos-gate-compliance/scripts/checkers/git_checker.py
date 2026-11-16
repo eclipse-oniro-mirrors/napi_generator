@@ -49,12 +49,9 @@ def _diff_for_copyright(cwd: Path, mb: str, head: str, path: str) -> str:
     return git(["diff", f"{mb}..{head}", "--", path], cwd)
 
 
-def check_copyright(cwd: Path, base: str = "origin/master", head: str = "HEAD") -> list[Hit]:
-    """① merge-base 对比：AM 文件删版权行且新版本无头；② 基线有头变更后无头；③ 重命名丢头。"""
+def _copyright_deleted_in_diff(cwd: Path, mb: str, head: str, files: list[str]) -> list[Hit]:
+    """① diff deleted Copyright line and new file has no header."""
     hits: list[Hit] = []
-    mb = sh(f"git merge-base {base} {head}", cwd).strip() or base
-    files = _copyright_file_list(cwd, mb, head)
-    # ① 逐文件：diff 删了 Copyright 行且新版本无版权头才报（年份更新/CRLF 重写不误报）
     for f in files:
         d = _diff_for_copyright(cwd, mb, head, f)
         if "Binary files" in d or "differ\n" in d[:80]:
@@ -68,7 +65,12 @@ def check_copyright(cwd: Path, base: str = "origin/master", head: str = "HEAD") 
                 hits.append(Hit("COPYRIGHT.01", f, 0, "删除 Copyright 行且新版本无版权头"))
         except OSError:
             continue
-    # ② 普通文件：基线有头、变更后无头（仅本次文件列表，避免大分支扫 2万+）
+    return hits
+
+
+def _copyright_baseline_lost(cwd: Path, mb: str, files: list[str]) -> list[Hit]:
+    """② baseline had header, working tree lost it."""
+    hits: list[Hit] = []
     for f in files:
         b = subprocess.run(["git", "show", f"{mb}:{f}"], cwd=str(cwd),
                            capture_output=True).stdout
@@ -80,7 +82,12 @@ def check_copyright(cwd: Path, base: str = "origin/master", head: str = "HEAD") 
             continue
         if COPYRIGHT_RE.search(b) and not COPYRIGHT_RE.search(h):
             hits.append(Hit("COPYRIGHT.01", f, 0, "版权头丢失（基线有头、变更后无头）"))
-    # ③ 重命名：仅 staged 时看 cached name-status；否则 mb..head
+    return hits
+
+
+def _copyright_rename_lost(cwd: Path, mb: str, head: str) -> list[Hit]:
+    """③ rename dropped copyright header."""
+    hits: list[Hit] = []
     if git(["diff", "--cached", "--name-only"], cwd).strip():
         status_args = ["diff", "--cached", "--name-status", "-M"]
     else:
@@ -98,6 +105,16 @@ def check_copyright(cwd: Path, base: str = "origin/master", head: str = "HEAD") 
             continue
         if COPYRIGHT_RE.search(b) and not COPYRIGHT_RE.search(h):
             hits.append(Hit("COPYRIGHT.01", new, 0, f"重命名后版权头丢失: {old} -> {new}"))
+    return hits
+
+
+def check_copyright(cwd: Path, base: str = "origin/master", head: str = "HEAD") -> list[Hit]:
+    """① merge-base 对比：AM 文件删版权行且新版本无头；② 基线有头变更后无头；③ 重命名丢头。"""
+    mb = sh(f"git merge-base {base} {head}", cwd).strip() or base
+    files = _copyright_file_list(cwd, mb, head)
+    hits = _copyright_deleted_in_diff(cwd, mb, head, files)
+    hits.extend(_copyright_baseline_lost(cwd, mb, files))
+    hits.extend(_copyright_rename_lost(cwd, mb, head))
     return hits
 
 

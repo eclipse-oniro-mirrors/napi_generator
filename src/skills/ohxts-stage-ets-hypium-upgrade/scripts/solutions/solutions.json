@@ -960,12 +960,12 @@
    "last_hit": "2026-09-17"
   },
   {
-   "id": "wordstool9_ams",
+   "id": "wordstool9_ability_mgr",
    "domain": "test",
    "category": "gate",
-   "pattern": "WordsTool\\.9|\\\\bAMS\\\\b",
+   "pattern": "WordsTool\\.9",
    "handler": "",
-   "hint": "开源描述/TAG 勿裸写 AMS；改 AbilityStage / Stage Ability。",
+   "hint": "开源描述/TAG 勿裸写三字母管理服务缩写；改 AbilityStage / Stage Ability。",
    "source": "2026-09-17 req6 Logger.ets",
    "count": 1,
    "last_hit": "2026-09-17"

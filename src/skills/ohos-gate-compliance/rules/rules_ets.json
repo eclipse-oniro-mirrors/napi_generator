@@ -199,7 +199,7 @@
       "severity": "致命",
       "detect": "heuristic",
       "pattern": "list-export-name",
-      "fix": "List.test.ets 的 import X from './Foo.test'、Foo.test.ets 的 export default function X、以及其首个 describe('X') 三者同名；改 export/describe 对齐 List"
+      "fix": "List.test.ets 的 import X from './Foo.test'、Foo.test.ets 的 export default function X、以及其初次 describe('X') 三者同名；改 export/describe 对齐 List"
     },
     {
       "id": "XTS.CHECK.ERROR_CODE.01",
@@ -581,21 +581,21 @@
     },
     {
       "id": "WordsTool.9",
-      "name": "勿裸写 AMS 缩写",
+      "name": "勿裸写 Ability 管理服务三字母缩写",
       "category": "gate",
       "severity": "一般",
       "detect": "regex",
-      "pattern": "(AMS 由脚本 chr 拼接检测)",
+      "pattern": "(三字母缩写由脚本 chr 拼接检测)",
       "fix": "注释改 framework；TAG/描述改 AbilityStage / Stage Ability（req6/PR45075；注释可自动修）"
     },
     {
       "id": "WordsTool.86",
-      "name": "勿用易歧义 eventlog 标识",
+      "name": "勿用易歧义 status-log 标识",
       "category": "gate",
       "severity": "一般",
       "detect": "regex",
-      "pattern": "(eventlog 由脚本 chr 拼接检测)",
-      "fix": "eventLog→statusMsg（自动修复；uiCompare MeasurableUniqueId0040 实锤）"
+      "pattern": "(禁词由脚本 chr 拼接检测)",
+      "fix": "禁词标识→statusMsg（自动修复；uiCompare MeasurableUniqueId0040 实锤）"
     },
     {
       "id": "WordsTool.177",

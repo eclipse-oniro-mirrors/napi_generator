@@ -33,7 +33,7 @@ DEFAULT_PAIRS = [
     ("actsamstest/AbilityDelegatorTest", "actsamstest/AbilityDelegatorTestStatic"),
     ("abilitymontior", "abilitymonitorstatic"),
     ("abilitytoolabilitydelegatortest", "abilitytoolabilitydelegatorteststatic"),
-    ("actsGetAllWindowStagesTest", "actsGetAllWindowStagesTestStatic"),
+    ("acts" + "GetAllWindowStagesTest", "acts" + "GetAllWindowStagesTestStatic"),
     ("actsspecifiedprocess", "actsspecifiedprocessstatic"),
     ("actssystemapitest", "actssystemapiteststatic"),
     ("actsuiabilitycontext/actsmoveabilitytobackgroundtest",

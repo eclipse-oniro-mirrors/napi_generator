@@ -228,7 +228,8 @@ def aa_test(proj: Path, log: Path) -> int:
     print("RUN:", " ".join(cmd))
     with log.open("w", encoding="utf-8") as f:
         p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
-        assert p.stdout is not None
+        if p.stdout is None:
+            raise RuntimeError("unexpected None")
         for line in p.stdout:
             sys.stdout.write(line)
             f.write(line)

@@ -221,7 +221,7 @@ def _member_out_name(name: str) -> str | None:
     if TESTCASES_MARK not in rel:
         return None
     idx = rel.find(TESTCASES_MARK)
-    out_name = rel[idx + len(TESTCASES_MARK) :].lstrip("/")
+    out_name = rel[idx + len(TESTCASES_MARK):].lstrip("/")
     return out_name or None
 
 

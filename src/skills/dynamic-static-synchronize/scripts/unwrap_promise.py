@@ -21,6 +21,21 @@ import sys
 from pathlib import Path
 
 
+def _skip_quoted(ln: str, i: int) -> int:
+    """Skip a quote-delimited span starting at ln[i]; return index after close."""
+    q = ln[i]
+    i += 1
+    n = len(ln)
+    while i < n:
+        if ln[i] == "\\":
+            i += 2
+            continue
+        if ln[i] == q:
+            return i + 1
+        i += 1
+    return n
+
+
 def _brace_delta(ln: str) -> int:
     """行内 { } 净增（跳过 ' \" ` 字符串与模板串）。"""
     d = 0
@@ -29,16 +44,9 @@ def _brace_delta(ln: str) -> int:
     while i < n:
         c = ln[i]
         if c in ("'", '"', "`"):
-            q = c
-            i += 1
-            while i < n:
-                if ln[i] == "\\":
-                    i += 2
-                    continue
-                if ln[i] == q:
-                    break
-                i += 1
-        elif c == "{":
+            i = _skip_quoted(ln, i)
+            continue
+        if c == "{":
             d += 1
         elif c == "}":
             d -= 1
@@ -65,14 +73,21 @@ def unwrap_file(path: Path) -> int:
             out.append(lines[i])
             i += 1
         it_line = lines[i]
-        assert re.match(r"\s*it\(['\"]SUB_.*async \(done: \(\) => void\): Promise<void> => \{$", it_line), it_line
+        it_pat = (
+            r"\s*it\(['\"]SUB_.*async \(done: \(\) => void\): "
+            r"Promise<void> => \{$"
+        )
+        if re.match(it_pat, it_line) is None:
+            raise RuntimeError(it_line)
         out.append(it_line)
         i += 1
-        assert "new Promise" in lines[i], lines[i]
+        if "new Promise" not in lines[i]:
+            raise RuntimeError(lines[i])
         i += 1
         has_run_case = "runCase" in lines[i]
         if has_run_case:
-            assert "let runCase" in lines[i], lines[i]
+            if "let runCase" not in lines[i]:
+                raise RuntimeError(lines[i])
             i += 1
         depth = 1
         body: list[str] = []
@@ -82,7 +97,8 @@ def unwrap_file(path: Path) -> int:
             if depth > 0:
                 body.append(ln)
             i += 1
-        assert depth == 0, f"用例未闭合: {it_line[:60]}"
+        if depth != 0:
+            raise RuntimeError(f"用例未闭合: {it_line[:60]}")
         nb: list[str] = []
         for ln in body:
             ln = ln.replace("resolve(undefined); done();", "done();")
@@ -113,7 +129,8 @@ def unwrap_file(path: Path) -> int:
         if lines[i] in ("  })", "  });"):
             close_i = i
             break
-    assert close_i is not None, "describe 闭合未找到"
+    if close_i is None:
+        raise RuntimeError("describe 闭合未找到")
     tail = lines[close_i:]  # 保留 describe 闭及其后可能的模块级辅助函数
     new_lines = list(head)
     for idx, it_i in enumerate(it_rows):

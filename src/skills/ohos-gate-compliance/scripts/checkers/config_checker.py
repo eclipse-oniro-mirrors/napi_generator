@@ -110,6 +110,7 @@ def fix_model_version(text: str) -> tuple[str, int]:
     text2, n = _MODEL_VER_BAD.subn(rf'\g<1>{_MODEL_VER_TARGET}\2', text)
     return text2, n
 
+
 def scan_syscap_json(path: Path, text: str) -> list[Hit]:
     """XTS.CHECK.DEVICETYPE.01：syscap.json general 与 module.json5 deviceTypes 须一致。
 
