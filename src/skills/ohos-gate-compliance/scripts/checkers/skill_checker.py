@@ -42,11 +42,6 @@ _FUNC_SKIP_NAMES = {
     "hapbuild.py",
     "ets_checker.py",
     "git_checker.py",
-    "java_fix_1.py",
-    "java_fix_2.py",
-    "java_fix_3.py",
-    "java_scan_fmt.py",
-    "java_common.py",
     "pipeline.py",
     "unwrap_promise.py",
 }
