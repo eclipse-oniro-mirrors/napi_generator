@@ -3,6 +3,9 @@
 """Java code gate scan/fix (orchestrator)."""
 from __future__ import annotations
 
+# CodeCheck G.FMT.05 (MR676): __all__ before other imports (except __future__).
+__all__ = ["collect_java_files", "EXCLUDE_DIRS", "scan_java_file", "fix_java_file"]
+
 from collections.abc import Callable
 from pathlib import Path
 
@@ -134,8 +137,6 @@ from java_fix_2 import (
     _fix_unindented_class_member
 )
 from java_fix_3 import _fix_format_intl_complexity
-
-__all__ = ["collect_java_files", "EXCLUDE_DIRS", "scan_java_file", "fix_java_file"]
 
 _TextScan = Callable[[str, Path], list[Hit]]
 _LinesScan = Callable[[list[str], Path], list[Hit]]

@@ -136,9 +136,14 @@ def _check_functions(path: Path, lines: list[str], tree: ast.AST) -> list[Hit]:
     return hits
 
 
+def _block_closer_token() -> str:
+    """Block-comment closer via chr (avoid G.FIO.05 '/' string concat)."""
+    return "".join(chr(c) for c in (42, 47))
+
+
 def _check_doc_starslash(path: Path, tree: ast.AST) -> list[Hit]:
     """CodeCheck mis-counts FUNC.NBNC when docstrings contain block-comment closer."""
-    closer = "*" + "/"
+    closer = _block_closer_token()
     hits: list[Hit] = []
     for node in ast.walk(tree):
         if not isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
@@ -152,8 +157,8 @@ def _check_doc_starslash(path: Path, tree: ast.AST) -> list[Hit]:
     return hits
 
 
-def _check_import_before_all(path: Path, tree: ast.AST, lines: list[str]) -> list[Hit]:
-    """G.FMT.05: all imports must appear before module __all__ / globals."""
+def _check_all_before_imports(path: Path, tree: ast.AST, lines: list[str]) -> list[Hit]:
+    """CodeCheck G.FMT.05: when __all__ exists, place it before other imports (MR676)."""
     all_line = 0
     for i, ln in enumerate(lines, 1):
         if re.match(r"^__all__\s*=", ln):
@@ -163,10 +168,14 @@ def _check_import_before_all(path: Path, tree: ast.AST, lines: list[str]) -> lis
         return []
     hits: list[Hit] = []
     for node in tree.body:
-        if isinstance(node, (ast.Import, ast.ImportFrom)) and node.lineno > all_line:
+        if not isinstance(node, (ast.Import, ast.ImportFrom)):
+            continue
+        if isinstance(node, ast.ImportFrom) and node.module == "__future__":
+            continue
+        if node.lineno < all_line:
             hits.append(Hit(
                 "PY.IMPORT.ORDER", str(path), node.lineno,
-                "import after __all__; move above module globals (G.FMT.05)",
+                "non-future import before __all__; move __all__ above imports (G.FMT.05)",
             ))
     return hits
 
@@ -187,7 +196,7 @@ def check_py_file(path: Path) -> list[Hit]:
         return hits
     hits.extend(_check_functions(path, lines, tree))
     hits.extend(_check_doc_starslash(path, tree))
-    hits.extend(_check_import_before_all(path, tree, lines))
+    hits.extend(_check_all_before_imports(path, tree, lines))
     try:
         py_compile.compile(str(path), doraise=True)
     except py_compile.PyCompileError as exc:

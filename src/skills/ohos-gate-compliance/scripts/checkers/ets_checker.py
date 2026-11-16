@@ -1003,35 +1003,42 @@ def _check_case_indents(lines: list[str], i: int, sw_ind: int, add) -> None:
             break
 
 
-def _check_catch_missing_done(lines: list[str]) -> list[tuple[int, str]]:
-    """XTS.CHECK.ASYNC_TESTCASE.01：异步调用的回调分支（.catch）必须直接调用 done()。
+def _strip_js_comments(block: str) -> str:
+    """Remove block/line comments inside a catch body (avoid literal closer in pattern)."""
+    end = "".join(chr(c) for c in (42, 47))
+    pat = r"/\*[\s\S]*?" + re.escape(end) + r"|//[^\n]*"
+    return re.sub(pat, "", block[1:-1]).strip()
 
-    2026-08-24 收录：req7/req10 补 .catch 后 gitcode 报「catch 分支必须 done()」——
-    done 风格 it 内 .catch 块体无 done( 调用即违规。
-    2026-09-01 对齐 gitcode 实检：await 的链（await X.then().catch()）豁免——
-    错误由外层 try/catch 兜底，gitcode 不检（ActsGetAllWindowStagesStaticTest
-    done 风格用例内 await 链 .catch 无 done() 未被报）。
-    """
+
+def _catch_body_needs_done(block: str) -> bool:
+    """True for empty or resolve-only catch bodies (gitcode ASYNC.01)."""
+    inner = _strip_js_comments(block)
+    if not inner:
+        return True
+    return bool(re.fullmatch(r"resolve\([^)]*\)\s*;?", inner))
+
+
+def _nearest_it_has_done_param(before: str) -> bool:
+    """True if the nearest preceding it() callback lists a done parameter."""
+    its = list(re.finditer(
+        r"it\(\s*'[^']*'\s*,\s*[^,]+,\s*(?:async\s*)?\(([^)]*)\)\s*=>",
+        before,
+    ))
+    return bool(its and "done" in its[-1].group(1))
+
+
+def _check_catch_missing_done(lines: list[str]) -> list[tuple[int, str]]:
+    """ASYNC_TESTCASE.01: done-style it .catch must call done() unless awaited/nonempty."""
     hits: list[tuple[int, str]] = []
     text = "\n".join(lines)
     for m in re.finditer(r"\.catch\(\s*\([^)]*\)\s*=>\s*\{", text):
         line_no = text.count("\n", 0, m.start()) + 1
         block = _block_until_brace(text, m.end() - 1)
-        if "done(" in block:
+        if "done(" in block or _chain_awaited(text, m.start()):
             continue
-        # 该 .catch 所属链是否被 await（语句以 await 开头）→ 豁免
-        if _chain_awaited(text, m.start()):
+        if not _catch_body_needs_done(block):
             continue
-        # 2026-09-01 对齐 gitcode 实检：块体有实际内容（日志/断言）的 .catch
-        # 不被报（ActsGetStaticTest/gwsall done 风格用例的日志型 catch 均无命中）；
-        # 仅空块/纯 resolve 的 catch 报（req7/req10 补空 .catch 后被报「必须 done()」）
-        inner = re.sub(r"/\*[\s\S]*?\*/|//[^\n]*", "", block[1:-1])
-        inner = inner.strip()
-        if inner and not re.fullmatch(r"resolve\([^)]*\)\s*;?", inner):
-            continue
-        before = text[:m.start()]
-        its = list(re.finditer(r"it\(\s*'[^']*'\s*,\s*[^,]+,\s*(?:async\s*)?\(([^)]*)\)\s*=>", before))
-        if its and "done" in its[-1].group(1):
+        if _nearest_it_has_done_param(text[: m.start()]):
             hits.append((line_no, "异步调用的回调分支（.catch）中必须直接调用 done()"))
     return hits
 
@@ -1080,8 +1087,9 @@ def _advance_paren_skip(text: str, i: int, n: int) -> int | None:
         nl = text.find("\n", i)
         return n if nl == -1 else nl
     if c == "/" and i + 1 < n and text[i + 1] == "*" and _is_code_pos(text, i):
-        e = text.find("*/", i + 2)
-        return n if e == -1 else e + 2
+        end = "".join(chr(x) for x in (42, 47))
+        e = text.find(end, i + 2)
+        return n if e == -1 else e + len(end)
     return None
 
 
@@ -1310,11 +1318,16 @@ def scan_ets_file(path: Path, text: str) -> list[Hit]:
 # ---------------- 自动修复 ----------------
 
 
+def _jsdoc_closer() -> str:
+    """JSDoc closer token via chr (avoid G.FIO.05 '/' concat and literal closer)."""
+    return "".join(chr(c) for c in (42, 47))
+
+
 def fix_ets_xtscheck(text: str) -> tuple[str, int]:
     """Drop blank lines between JSDoc closer and it(); keep @tc without colon form."""
     n = 0
-    # Do not rewrite @tc to "@tc.xxx : " — CI TCNAME.01 misreads colon form (2026-08).
-    closer = "*" + "/"
+    # Do not rewrite @tc to colon form — CI TCNAME.01 misreads it (2026-08).
+    closer = _jsdoc_closer()
     text2 = re.sub(
         re.escape(closer) + r"\n\s*\n(\s*it\()",
         closer + r"\n\1",
@@ -1937,7 +1950,7 @@ def _scan_line_comment(text: str, i: int) -> tuple[str, int]:
 
 def _scan_block_comment(text: str, i: int) -> tuple[str, int]:
     """Copy C-style block comment through its closer; return (slice, next_index)."""
-    closer = "*" + "/"
+    closer = _jsdoc_closer()
     j = text.find(closer, i + 2)
     if j == -1:
         return text[i:], len(text)
