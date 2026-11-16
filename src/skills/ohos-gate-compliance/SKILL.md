@@ -18,6 +18,7 @@ version: "2.0.0"
 | 功能 | 时机 | 入口 |
 |------|------|------|
 | **代码门禁检查**（核心） | XTS 用例工程提交前（ETS/ArkTS + C++） | `gate_check.py code` |
+| **Java 转换门禁** | basetype ETS→Java 转换产物提交前 | `gate_check.py java-check` |
 | **skill 门禁检查** | 提交 napi_generator/src/skills 时（pre-commit hook 自动） | `gate_check.py skill` |
 
 ## 入口命令
@@ -30,6 +31,8 @@ python3 .../gate_check.py code <工程> --base origin/master
 python3 .../gate_check.py code <工程> --staged
 # 指定 profile / 只看某类规则
 python3 .../gate_check.py code <工程> --profile capi --rule G.FMT.02,G.NAM.03
+# Java 转换门禁（basetype 产物：扫描 + 可选自动修复）
+python3 .../gate_check.py java-check <目录或.java> [--fix] [--strict]
 # skill 门禁（提交 src/skills 前；hook 已自动执行）
 python3 .../gate_check.py skill [<skill目录>] [--staged] [--strict]
 # pipeline（设备整测通过后门禁 review + commit，兼容原 gate_review.py）
@@ -47,6 +50,7 @@ python3 .../scripts/commit_utils.py -m "test(ability): xxx" --cwd <仓库>
 | `rules/rules_ets.json` | 39+ | G.EXT/G.FMT/G.NAM、XTS.CHECK.*、COMPILE.*（import/any/**func-expr**/private）、xtscheck、CI.KIT、WordsTool、ArkTS Quality；CI 编 HAP 见 `docs/ci-arkts-compile-playbook.md` |
 | `rules/rules_config.json` | 3 | CI.SDK.01、**CI.HVIGOR.01**（modelVersion 禁 6.0.0→26.0.0）、**XTS.CHECK.HAPNAME.01**（test_hap=true 须 Acts…Test） |
 | `rules/rules_cpp.json` | 11+ | G.FMT.06-CPP（自动修复）、**G.FMT.17-CPP**（`{` 后禁空行，自动修复）、G.FMT.05 行宽（napi desc 自动折行）、G.FUD.05 nbnc≤50、FUNC.CC≤20 / FUNC.DEPTH≤4 / MAGIC.NUM / **G.CNS.02-CPP**（MakeIntArray/vals[N] 裸长度）/ G.NAM.03-CPP / HEADER.NBNC≤300（启发式）、OAT.3 许可证头 |
+| `rules/rules_java.json` | 25 | basetype Java：G.OTH/G.CMT/G.FMT/G.NAM/G.ERR/G.DCL/G.MET/G.TYP/G.OBJ |
 | `rules/rules_skill.json` | 9 | FILE.NBNC≤2000、FUNC.NBNC≤50、FUNC.CC≤20、FUNC.DEPTH≤4、G.NAM.01、G.EDV.04（禁 shell=True/bash argv0）、SYNTAX、WordsTool 词表、PY.COMPILE |
 
 规则字段：`{id, name, category, severity, detect, pattern, fix}`；detect 取值
@@ -58,6 +62,7 @@ python3 .../scripts/commit_utils.py -m "test(ability): xxx" --cwd <仓库>
 |------|------|----------|
 | `ets_checker.py` | ETS/TS/JS 全量规则（迁移自 code_selfcheck+arkts_patterns+gate_review） | @tc 冒号/空行、ArkTS Quality、G.FMT.10/08/11/**03**、WordsTool.97/177、**G.OBJ.04** 点号、引号转换 dq_to_sq |
 | `cpp_checker.py` | C++ 规则（fmt06/fmt05/fmt17 修复 + 启发式 CC/深度/魔法数/头文件/许可证头） | G.FMT.06-CPP 缩进；G.FMT.05 napi desc 折行；**G.FMT.17-CPP** `{` 后空行 |
+| `java_checker.py` + `java_scan_*` / `java_fix_*` | basetype Java 转换门禁（显式 import；FUNC 已拆分） | Javadoc/FMT/命名/catch/局部变量下沉等（`--fix`） |
 | `config_checker.py` | build-profile / BUILD.gn hap_name / modelVersion / 父 group 挂接 | CI.SDK.01；**HAPNAME.01**；**CI.BUILDGN.PARENT.01** / **PEER_DOTDOT.01** |
 | `git_checker.py` | git 层：版权头（merge-base）/违禁文件/整文件重写/数据安全/新增行质量 | 无（报告） |
 | `skill_checker.py` | skill 仓：Python AST 门禁 + WordsTool 词表 + py_compile | 无（报告） |

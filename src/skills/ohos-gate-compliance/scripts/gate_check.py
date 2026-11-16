@@ -7,6 +7,7 @@
           ETS 规则 38 条（rules_ets.json），C++ 规则 8 条（rules_cpp.json，含启发式）。
   skill   skill 门禁检查：仅在提交 napi_generator/src/skills 下 skill 代码时运行
           （Python AST 门禁 + WordsTool 词表 + py_compile）。
+  java-check  basetype ETS→Java 转换产物门禁（扫描 + 可选自动修复）。
   pipeline  设备测试通过后的门禁 review + commit（兼容原 gate_review.py 入口）。
 
 用法：
@@ -15,6 +16,8 @@
   # 只查改动代码（--base 分支对比 / --staged 暂存区）
   python3 gate_check.py code <path> --base origin/master
   python3 gate_check.py code <path> --staged
+  # Java 转换门禁（basetype 产物）
+  python3 gate_check.py java-check <path...> [--fix] [--strict] [--json] [--rule IDS]
   # skill 门禁（napi_generator/src/skills 提交前）
   python3 gate_check.py skill [<paths...>] [--staged] [--strict] [--json]
   # pipeline（设备整测通过后）
@@ -41,6 +44,7 @@ import ets_checker  # noqa: E402
 import config_checker  # noqa: E402
 import git_checker  # noqa: E402
 import skill_checker  # noqa: E402
+import java_checker  # noqa: E402
 
 SKILLS_ROOT = Path(__file__).resolve().parents[2]
 
@@ -260,9 +264,39 @@ def cmd_skill(args) -> int:
 
 
 def cmd_java_check(args) -> int:
-    """Java basetype checker deferred (CodeCheck FUNC limits); follow-up PR."""
-    print("[gate] java-check not shipped in this revision; use follow-up PR")
-    return 0
+    """Java basetype conversion gate: scan (+ optional --fix) then report."""
+    targets = java_checker.collect_java_files([Path(p) for p in args.paths])
+    if not targets:
+        print("[gate] 无可扫描 Java 文件")
+        return 0
+    if args.fix:
+        for fp in targets:
+            try:
+                text = fp.read_text(encoding="utf-8", errors="replace")
+            except OSError:
+                continue
+            new_text, n = java_checker.fix_java_file(fp, text)
+            if n:
+                fp.write_text(new_text, encoding="utf-8", newline="\n")
+        if not args.no_rescan:
+            targets = java_checker.collect_java_files([Path(p) for p in args.paths])
+    want = set(args.rule.split(",")) if args.rule else set()
+    hits: list[Hit] = []
+    for fp in targets:
+        try:
+            text = fp.read_text(encoding="utf-8", errors="replace")
+        except OSError:
+            continue
+        hits.extend(java_checker.scan_java_file(fp, text))
+    if want:
+        hits = [h for h in hits if h.rule in want]
+    if args.json:
+        print(json.dumps({"total": len(hits),
+                          "hits": [h.__dict__ for h in hits]}, ensure_ascii=False))
+    else:
+        print(f"[gate] === Java 转换门禁检查（{len(targets)} 文件）===")
+        print(format_hits(hits, "java"))
+    return 1 if (hits and args.strict) else 0
 
 
 # ---------------------------------------------------------------- main
