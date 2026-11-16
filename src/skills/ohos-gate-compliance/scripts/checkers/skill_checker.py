@@ -180,6 +180,39 @@ def _check_all_before_imports(path: Path, tree: ast.AST, lines: list[str]) -> li
     return hits
 
 
+
+def _check_slash_star_literal(path: Path, lines: list[str]) -> list[Hit]:
+    """ets_checker only: CodeCheck mis-parses FUNC.NBNC when block-comment tokens appear."""
+    if path.name != "ets_checker.py":
+        return []
+    hits: list[Hit] = []
+    for i, ln in enumerate(lines, 1):
+        if "*/" in ln or "/*" in ln:
+            hits.append(Hit(
+                "PY.DOC.STARSLASH", str(path), i,
+                "ets_checker source has block-comment opener/closer; build via chr/join",
+            ))
+    return hits
+
+
+def _check_fio_slash_concat(path: Path, tree: ast.AST, src: str) -> list[Hit]:
+    """ets_checker only: string + with '/' trips CodeCheck G.FIO.05."""
+    if path.name != "ets_checker.py":
+        return []
+    hits: list[Hit] = []
+    for node in ast.walk(tree):
+        if not (isinstance(node, ast.BinOp) and isinstance(node.op, ast.Add)):
+            continue
+        for side in (node.left, node.right):
+            if isinstance(side, ast.Constant) and isinstance(side.value, str) and "/" in side.value:
+                hits.append(Hit(
+                    "PY.FIO.SLASH_CONCAT", str(path), node.lineno,
+                    "string + with '/' looks like path concat to CodeCheck G.FIO.05; use join",
+                ))
+                break
+    return hits
+
+
 def check_py_file(path: Path) -> list[Hit]:
     hits: list[Hit] = []
     try:
@@ -197,6 +230,8 @@ def check_py_file(path: Path) -> list[Hit]:
     hits.extend(_check_functions(path, lines, tree))
     hits.extend(_check_doc_starslash(path, tree))
     hits.extend(_check_all_before_imports(path, tree, lines))
+    hits.extend(_check_slash_star_literal(path, lines))
+    hits.extend(_check_fio_slash_concat(path, tree, text))
     try:
         py_compile.compile(str(path), doraise=True)
     except py_compile.PyCompileError as exc:

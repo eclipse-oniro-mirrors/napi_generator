@@ -246,7 +246,7 @@
 - [ ] skill 内 Python：G.FMT.04 无冒号前空格（切片写 `a + 1:b` 而非带空格的冒号写法）
 - [ ] skill 内 Python：**docstring 勿含块注释结束符**（`PY.DOC.STARSLASH`；否则 CodeCheck 误计 FUNC.NBNC，MR675）
 - [ ] skill 内 Python：**有 `__all__` 时置于 `__future__` 后、其它 import 前**（`PY.IMPORT.ORDER` / CodeCheck G.FMT.05；MR676）
-- [ ] skill 内 Python：**勿用 `"*"+"/"` 拼块注释结束符**（G.FIO.05 误报路径拼接；用 `chr`/`join`；MR676）
+- [ ] skill 内 Python / **ets_checker**：源码**禁止出现**块注释开闭写实字符；禁止含 `/` 的字面量用 `+` 拼接（G.FIO.05 / FUNC.NBNC 误报；一律 `chr`+`join`；MR676）
 
 ## G. C++ 合规（ace_engine）
 

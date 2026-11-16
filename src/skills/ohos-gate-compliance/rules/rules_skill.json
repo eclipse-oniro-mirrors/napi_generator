@@ -12,6 +12,7 @@
   {"id": "WordsTool.*", "name": "文档/脚本禁用词", "category": "skill", "severity": "提示", "detect": "regex", "pattern": "wordstool", "fix": "词表见 skill_checker（敏感词 chr 拼接，命中提示替换表述）"},
   {"id": "PY.COMPILE", "name": "py_compile 编译校验", "category": "skill", "severity": "致命", "detect": "build", "pattern": "py-compile", "fix": "修复编译错误"},
   {"id": "PY.DOC.STARSLASH", "name": "docstring 禁块注释结束符", "category": "skill", "severity": "致命", "detect": "ast", "pattern": "doc-starslash", "fix": "docstring 勿写块注释结束符；改表述或字符串拼接（MR675 CodeCheck 误计 nbnc）"},
-  {"id": "PY.IMPORT.ORDER", "name": "__all__ 须在其它 import 之前", "category": "skill", "severity": "致命", "detect": "ast", "pattern": "all-before-imports", "fix": "有 __all__ 时置于 __future__ 之后、其它 import 之前（CodeCheck G.FMT.05；MR676）"}
+  {"id": "PY.IMPORT.ORDER", "name": "__all__ 须在其它 import 之前", "category": "skill", "severity": "致命", "detect": "ast", "pattern": "all-before-imports", "fix": "有 __all__ 时置于 __future__ 之后、其它 import 之前（CodeCheck G.FMT.05；MR676）"},
+  {"id": "PY.FIO.SLASH_CONCAT", "name": "ets_checker 禁含/的字符串用+拼接", "category": "skill", "severity": "致命", "detect": "ast", "pattern": "slash-concat", "fix": "ets_checker 内改用 join；避免 CodeCheck G.FIO.05（MR676）"}
  ]
 }

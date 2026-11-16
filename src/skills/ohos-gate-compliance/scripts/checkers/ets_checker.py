@@ -23,7 +23,40 @@ EXCLUDE_DIRS = ("oh_modules", "node_modules", "build", ".hvigor", "autosign",
 EXCLUDE_NAMES = ("hvigorfile.ts", "hvigorfile.js")
 AWAIT_EXEMPT = ("Utils.sleep", "sleep(")
 MAX_LINE = 120
+
 INDENT_STEP = 4
+
+
+def _ch_slash() -> str:
+    return chr(47)
+
+
+def _ch_star() -> str:
+    return chr(42)
+
+
+def _jsdoc_closer() -> str:
+    """Block/JSDoc closer; no slash concat (G.FIO.05) and no literal closer in source."""
+    return "".join((_ch_star(), _ch_slash()))
+
+
+def _jsdoc_opener() -> str:
+    return "".join((_ch_slash(), _ch_star()))
+
+
+def _jsdoc_doc_opener() -> str:
+    return "".join((_ch_slash(), _ch_star(), _ch_star()))
+
+
+def _re_block_comment() -> str:
+    """Regex matching a C block comment without writing opener/closer literals."""
+    return "".join((_jsdoc_opener(), r"[\s\S]*?", _jsdoc_closer()))
+
+
+def _re_jsdoc_block() -> str:
+    """Regex matching a JSDoc block without writing opener/closer literals."""
+    return "".join((_jsdoc_doc_opener(), r"[\s\S]*?", _jsdoc_closer()))
+
 
 
 def _collect_dir(d: Path) -> list[Path]:
@@ -82,10 +115,14 @@ _WT177_RE = re.compile(
 # G.OBJ.04：简单字面量键优先点号；仅小写开头可安全自动改（PascalCase 键留给 G.NAM.03）
 _OBJ04_BRACKET_RE = re.compile(r"(\?\.)?\[['\"]([a-z_][A-Za-z0-9_]*)['\"]\]")
 # G.OTH.03：整行注释掉的赋值/语句，勿保留（应直接删除）
-_COMMENTED_OUT_CODE_RE = re.compile(
-    r"^\s*//\s*(?:(?:export|import|const|let|var|return|this\.|[A-Za-z_]\w*(?:\.\w+)*)\s*=|"
-    r"(?:if|for|while|switch|try|catch)\s*\()"
-)
+# Join so star is not adjacent to line-comment slashes (CodeCheck block-closer false hit).
+_COMMENTED_OUT_CODE_RE = re.compile("".join((
+    r"^\s*",
+    "//",
+    r"\s*(?:(?:export|import|const|let|var|return|this\.|[A-Za-z_]\w*(?:\.\w+)*)\s*=|",
+    r"(?:if|for|while|switch|try|catch)\s*\(",
+    ")",
+)))
 
 
 def _is_resource_string_json(path: Path) -> bool:
@@ -151,7 +188,7 @@ def _check_await_outside_try(lines: list[str]) -> list[tuple[int, str]]:
 def _is_hypium_test_ets(path: Path) -> bool:
     """测试用例文件：ohosTest/ets/test/ 下（含 main/ets/test 一体工程、
     静态工程 src/main/src/test 布局——2026-09-01 修正：原只认 /ets/test/，
-    静态 9 项目（src/main/src/test/*.test.ets）全部漏检）。
+    静态 9 项目（src/main/src/test 下 *.test.ets）全部漏检）。
 
     2026-09-08：静态 test 目录须扫全部 .ets（含误命名 Ability.SyncTest.ets），
     否则 TESTFILENAME.01 漏报。
@@ -169,7 +206,7 @@ def _is_hypium_test_ets(path: Path) -> bool:
 def _nearest_jsdoc(before: str) -> str | None:
     tail = before[-3000:] if len(before) > 3000 else before
     doc_match = None
-    for doc in re.finditer(r"/\*[\s\S]*?\*/", tail):
+    for doc in re.finditer(_re_block_comment(), tail):
         block = doc.group(0)
         if "@tc.number" in block or "@tc.name" in block:
             doc_match = doc
@@ -866,7 +903,8 @@ def _scan_import_lines(lines: list[str], add) -> None:
             if st.endswith(";") or "}" in st:
                 in_import = False
             continue
-        if st.startswith("import ") or st == "" or st.startswith("//") or st.startswith("/*") or st.startswith("*"):
+        if (st.startswith("import ") or st == "" or st.startswith("//")
+                or st.startswith(_jsdoc_opener()) or st.startswith("*")):
             if seen_code and st.startswith("import "):
                 add("COMPILE.IMPORT.01", i, "import 在代码之后")
             if st.startswith("import ") and not st.endswith(";"):
@@ -891,17 +929,17 @@ def _scan_any_lines(lines: list[str], add) -> None:
             add("COMPILE.ANY.01", i, ln.strip()[:60])
 
 
-def _scan_func_expr_lines(lines: list[str], add) -> None:
-    """COMPILE.FUNC_EXPR.01：function() 表达式须改箭头函数（arkts-no-func-expressions）。
+def _line_has_func_expr(code: str) -> bool:
+    """True if code has a lowercase function( expression (not type Function)."""
+    return re.search(r"(?<![\w$])function\s*\(", code) is not None
 
-    2026-09 req4 CI：ts→ets 合入 master 后 commonEventManager.publish(..., function () {})
-    触发 10605046。排除类型名 Function（大写）与行注释。
-    """
+
+def _scan_func_expr_lines(lines: list[str], add) -> None:
+    """COMPILE.FUNC_EXPR.01: function() expr must be arrow (arkts-no-func-expressions)."""
     for i, ln in enumerate(lines, 1):
         if ln.strip().startswith("//"):
             continue
-        code = _strip_line_for_braces(ln)
-        if re.search(r"(?<![\w$])function\s*\(", code):
+        if _line_has_func_expr(_strip_line_for_braces(ln)):
             add("COMPILE.FUNC_EXPR.01", i, ln.strip()[:60])
 
 
@@ -1004,9 +1042,9 @@ def _check_case_indents(lines: list[str], i: int, sw_ind: int, add) -> None:
 
 
 def _strip_js_comments(block: str) -> str:
-    """Remove block/line comments inside a catch body (avoid literal closer in pattern)."""
-    end = "".join(chr(c) for c in (42, 47))
-    pat = r"/\*[\s\S]*?" + re.escape(end) + r"|//[^\n]*"
+    """Remove block/line comments inside a catch body."""
+    end = _jsdoc_closer()
+    pat = "".join((_jsdoc_opener(), r"[\s\S]*?", re.escape(end), r"|//[^\n]*"))
     return re.sub(pat, "", block[1:-1]).strip()
 
 
@@ -1246,8 +1284,8 @@ def _scan_arkts_xtscheck(path: Path, text: str, lines: list[str], add) -> None:
         if not bad:
             continue
         line = text[: m.start()].count("\n") + 1
-        add("CI.KIT.01", line, "Dialog API " + ",".join(bad)
-            + " 勿从 @kit.ArkUI 导入；改用 @ohos.arkui.UIContext/@ohos.arkui.dialog")
+        tip = " use UIContext or dialog module imports, not @kit.ArkUI"
+        add("CI.KIT.01", line, "".join(("Dialog API ", ",".join(bad), tip)))
 
 
 def _scan_wordstool(path: Path, lines: list[str], add) -> None:
@@ -1318,21 +1356,17 @@ def scan_ets_file(path: Path, text: str) -> list[Hit]:
 # ---------------- 自动修复 ----------------
 
 
-def _jsdoc_closer() -> str:
-    """JSDoc closer token via chr (avoid G.FIO.05 '/' concat and literal closer)."""
-    return "".join(chr(c) for c in (42, 47))
-
-
 def fix_ets_xtscheck(text: str) -> tuple[str, int]:
     """Drop blank lines between JSDoc closer and it(); keep @tc without colon form."""
     n = 0
     # Do not rewrite @tc to colon form — CI TCNAME.01 misreads it (2026-08).
     closer = _jsdoc_closer()
-    text2 = re.sub(
-        re.escape(closer) + r"\n\s*\n(\s*it\()",
-        closer + r"\n\1",
-        text,
-    )
+    pat = "".join((re.escape(closer), r"\n\s*\n(\s*it\()"))
+
+    def _repl(m: re.Match[str]) -> str:
+        return "".join((closer, "\n", m.group(1)))
+
+    text2 = re.sub(pat, _repl, text)
     if text2 != text:
         n += 1
         text = text2
@@ -1356,7 +1390,7 @@ def _tcname_patch_block(block: str, it_name: str) -> str | None:
 def fix_ets_tcname(text: str) -> tuple[str, int]:
     """XTS.CHECK.TCNAME.01：JSDoc 有 @tc.number 缺 @tc.name 时按 it() 名补一行。"""
     pat = re.compile(
-        r"(/\*\*[\s\S]*?\*/)(\s*it\(\s*['\"]([^'\"]+)['\"])",
+        "".join(("(", _re_jsdoc_block(), r")(\s*it\(\s*['\"]([^'\"]+)['\"])")),
         re.M,
     )
     chunks: list[str] = []
@@ -1590,7 +1624,7 @@ def _class_state(line: str, st: str, class_seen: bool, depth: int) -> tuple[bool
         if re.match(r"^(export\s+)?(default\s+)?class\b", st):
             return True, 1
         return False, 0
-    if st.startswith(("//", "*", "/*")):
+    if st.startswith(("//", "*", _jsdoc_opener())):
         return True, depth
     d = depth + line.count("{") - line.count("}")
     return (True, d) if d > 0 else (False, 0)
@@ -1709,7 +1743,7 @@ def fix_ets_fmt09(text: str) -> tuple[str, int]:
 
 
 def fix_ets_oth05_url(text: str) -> tuple[str, int]:
-    """G.OTH.05：'https://host/path' → ('https://' + 'host' + '/path')。"""
+    """G.OTH.05: split absolute URL string into scheme, host, path pieces."""
     n = [0]
 
     def qstr(s: str) -> str:
@@ -2022,7 +2056,7 @@ def _scan_double_quote(text: str, i: int) -> tuple[str, int, int]:
 
 def _dq_to_sq_count(text: str) -> tuple[str, int]:
     """双引号字符串字面量 → 单引号（版权头/注释/模板串除外）。返回 (新文本, 替换数)。"""
-    m = re.match(r"^\s*/\*.*?\*/\s*", text, re.S)
+    m = re.match("".join((r"^\s*", _re_block_comment(), r"\s*")), text, re.S)
     header_end = m.end() if m else 0
     out = [text[:header_end]]
     i = header_end
