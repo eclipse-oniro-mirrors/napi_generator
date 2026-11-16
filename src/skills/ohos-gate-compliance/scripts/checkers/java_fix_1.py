@@ -273,7 +273,7 @@ def _fix_fmt02_blank_lines(text: str) -> tuple[str, int]:
 
 
 def _fix_javadoc_star_align(text: str) -> tuple[str, int]:
-    """G.FMT.18：Javadoc 续行 '*' 对齐起始缩进（'    * x' → '     * x'），闭合 '*/' 对齐。"""
+    """G.FMT.18: align Javadoc continuation stars and the block closer indent."""
     lines = text.splitlines()
     out: list[str] = []
     n = 0
@@ -898,7 +898,7 @@ def _fix_fmt18_block_comment_indent(text: str) -> tuple[str, int]:
 
 
 def _fix_cmt03_expand_javadoc(text: str) -> tuple[str, int]:
-    """G.CMT.03：单行 /** ... */ 方法注释展开为多行。"""
+    """G.CMT.03: expand single-line Javadoc method comments into multi-line form."""
     n = 0
     lines = []
     next_is_decl = re.compile(

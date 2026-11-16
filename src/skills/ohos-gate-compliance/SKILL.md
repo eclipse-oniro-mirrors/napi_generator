@@ -158,6 +158,8 @@ kit 内 suite→Rely 的 `../rely` 仍允许。
 | soft-skip 假绿 | 缺属性 `return` + `expect(true)` / `softSkipMissing` 后无硬断言 | **FAKE_COVERAGE.04** + ALL_TIME_TRUE；有属性硬断言，无属性则跳过勿垫绿 |
 | 一 `it` 软 OR 两错误码 / `isReturn` 紧接恒真 | `code===A \|\| code===B`；`isReturn=true` 后立刻 assertTrue | **FAKE_COVERAGE.05** + ALL_TIME_TRUE；一码一条 + 业务字段（PR45112） |
 | 回调与返回值混写 | 用 `getBarDisplayMode` 结果写入 `onBarDisplayModeChange` 旗标 | 分字段；回调只由注册 handler 写；可 flip/UiTest 促发（PR44715） |
+| skill docstring 含块注释结束符 | `"""... */ ..."""` 致 CodeCheck 误计 FUNC.NBNC=70 | **PY.DOC.STARSLASH**：改表述或 `"*"+"/"` 拼接（MR675） |
+| skill import 插在 `__all__` 后 | `Callable` 挪到 `__all__` 之后躲误报 | **PY.IMPORT.ORDER**：全部 import 置于 `__all__` 前（G.FMT.05；MR675） |
 
 ## ArkTS 断言质量（自动？· 动静态共用）
 

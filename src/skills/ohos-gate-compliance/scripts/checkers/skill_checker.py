@@ -136,6 +136,41 @@ def _check_functions(path: Path, lines: list[str], tree: ast.AST) -> list[Hit]:
     return hits
 
 
+def _check_doc_starslash(path: Path, tree: ast.AST) -> list[Hit]:
+    """CodeCheck mis-counts FUNC.NBNC when docstrings contain block-comment closer."""
+    closer = "*" + "/"
+    hits: list[Hit] = []
+    for node in ast.walk(tree):
+        if not isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
+            continue
+        doc = ast.get_docstring(node)
+        if doc and closer in doc:
+            hits.append(Hit(
+                "PY.DOC.STARSLASH", str(path), node.lineno,
+                f"{getattr(node, 'name', '?')} docstring contains block-comment closer",
+            ))
+    return hits
+
+
+def _check_import_before_all(path: Path, tree: ast.AST, lines: list[str]) -> list[Hit]:
+    """G.FMT.05: all imports must appear before module __all__ / globals."""
+    all_line = 0
+    for i, ln in enumerate(lines, 1):
+        if re.match(r"^__all__\s*=", ln):
+            all_line = i
+            break
+    if all_line == 0:
+        return []
+    hits: list[Hit] = []
+    for node in tree.body:
+        if isinstance(node, (ast.Import, ast.ImportFrom)) and node.lineno > all_line:
+            hits.append(Hit(
+                "PY.IMPORT.ORDER", str(path), node.lineno,
+                "import after __all__; move above module globals (G.FMT.05)",
+            ))
+    return hits
+
+
 def check_py_file(path: Path) -> list[Hit]:
     hits: list[Hit] = []
     try:
@@ -151,6 +186,8 @@ def check_py_file(path: Path) -> list[Hit]:
         hits.append(Hit("SYNTAX", str(path), exc.lineno or 1, str(exc)))
         return hits
     hits.extend(_check_functions(path, lines, tree))
+    hits.extend(_check_doc_starslash(path, tree))
+    hits.extend(_check_import_before_all(path, tree, lines))
     try:
         py_compile.compile(str(path), doraise=True)
     except py_compile.PyCompileError as exc:

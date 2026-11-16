@@ -86,12 +86,11 @@ _MODEL_VER_FILES = frozenset({"hvigor-config.json5", "oh-package.json5"})
 
 
 def scan_model_version(path: Path, text: str) -> list[Hit]:
-    """CI.HVIGOR.01：modelVersion 禁止 6.0.0，须对齐 upstream/master（当前 26.0.0）。
+    """CI.HVIGOR.01: forbid modelVersion 6.0.0; align upstream/master (now 26.0.0).
 
-    2026-09-17 req4/5/6、2026-09-20 req3 CI 实锤：XTS preprocess Hvigor check 报
-    “hvigor-config.json5 … does not meet the requirements” 并列出 6.0.0 路径。
-    **取值参考**：`git fetch upstream && git grep modelVersion upstream/master --
-    '**/hvigor-config.json5'`；禁止抄本地 develop 未同步的旧工程（可能仍是 6.0.0）。
+    CI preprocess Hvigor rejects stale 6.0.0 paths. Prefer:
+    git fetch upstream && git grep modelVersion upstream/master -- hvigor-config.json5
+    Do not copy unsynced local develop trees that still pin 6.0.0.
     """
     if path.name not in _MODEL_VER_FILES:
         return []

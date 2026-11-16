@@ -1311,14 +1311,15 @@ def scan_ets_file(path: Path, text: str) -> list[Hit]:
 
 
 def fix_ets_xtscheck(text: str) -> tuple[str, int]:
-    """去掉 */ 与 it() 之间空行。
-
-    注意：禁止把 @tc 字段规范化为「@tc.xxx : 」冒号格式——gitcode 门禁解析
-    @tc.name/@tc.number 值时不识别冒号格式（值读到 ":" 判为不一致，TCNAME.01
-    误报，2026-08-24 五笔 PR 实测回退后才消除）。存量无冒号格式保持原样。
-    """
+    """Drop blank lines between JSDoc closer and it(); keep @tc without colon form."""
     n = 0
-    text2 = re.sub(r"\*/\n\s*\n(\s*it\()", r"*/\n\1", text)
+    # Do not rewrite @tc to "@tc.xxx : " — CI TCNAME.01 misreads colon form (2026-08).
+    closer = "*" + "/"
+    text2 = re.sub(
+        re.escape(closer) + r"\n\s*\n(\s*it\()",
+        closer + r"\n\1",
+        text,
+    )
     if text2 != text:
         n += 1
         text = text2
@@ -1935,11 +1936,13 @@ def _scan_line_comment(text: str, i: int) -> tuple[str, int]:
 
 
 def _scan_block_comment(text: str, i: int) -> tuple[str, int]:
-    """/* */ 块注释：原样复制。"""
-    j = text.find("*/", i + 2)
+    """Copy C-style block comment through its closer; return (slice, next_index)."""
+    closer = "*" + "/"
+    j = text.find(closer, i + 2)
     if j == -1:
         return text[i:], len(text)
-    return text[i:j + 2], j + 2
+    end = j + len(closer)
+    return text[i:end], end
 
 
 def _scan_quoted(text: str, i: int, q: str) -> tuple[str, int]:

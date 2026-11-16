@@ -244,6 +244,8 @@
 - [ ] **WordsTool.143 / .5**：本地开发套件缩写、a11y 全称勿裸写；改 NATIVE、a11y；本地 `tools/` 生成器可 gitignore 规避 Python nbnc
 - [ ] skill 内 Python：函数嵌套深度 ≤4、nbnc 行数 ≤50（超限须拆 helper）
 - [ ] skill 内 Python：G.FMT.04 无冒号前空格（切片写 `a + 1:b` 而非带空格的冒号写法）
+- [ ] skill 内 Python：**docstring 勿含块注释结束符**（`PY.DOC.STARSLASH`；否则 CodeCheck 误计 FUNC.NBNC，MR675）
+- [ ] skill 内 Python：**全部 import 在 `__all__` / 模块全局之前**（`PY.IMPORT.ORDER` / G.FMT.05；禁半截 import 插在 `__all__` 后）
 
 ## G. C++ 合规（ace_engine）
 
