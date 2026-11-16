@@ -172,7 +172,7 @@
     - `if (!(await ...))` 须重构：先 `const v = await ...` 再判断
     - 无分号的 await 语句（`await driver.waitForComponent(...)` 行尾无 `;`）同样要包
     - 勿用 `error as BusinessError`（见 ERROR_CODE.01）；`gate_review.check_async_testcase_02` 三子规则均可检出（修复后复扫应 0 违规）
-- [ ] **XTS.CHECK.ASSERTION.01**：每个 `it()` 用例体须含至少一处 `expect(...)`；异常参数覆盖可用 `hit` 计数后 `expect(hit).assertEqual(N)`。Web emitter 范式仅 `Utils.registerEvent` **不够**（断言在 Utils 内，门禁扫不到）；须在 `it`/`registerEvent` 回调内再写 `expect(...)`
+- [ ] **XTS.CHECK.ASSERTION.01**：每个 `it()` 用例体须含至少一处 `expect(...)`；异常参数覆盖可用 `hit` 计数后 `expect(hit).assertEqual(N)`。Web emitter 范式仅 `Utils.registerEvent` **不够**（断言在 Utils 内，门禁扫不到）；须在 `it`/`registerEvent` 回调内再写 `expect(...)`。**`assertPropSame` 等导入 Helper 不算**（PR45484：Helper 内有 expect，it 无 → CodeCheck 仍报 ASSERTION.01）；异常参应对齐静态写法在 it 内 `expect(a).assertEqual(b)`
 - [ ] **XTS.CHECK.TCNUMBER.01**：`@tc.number` 须 `SUB_<子系统>_<部件>_<若干_测试_信息>_<4位数字>`（**至少 5 段**）。反例 `SUB_WEB_FLINGSPEEDLIMIT_0100`（4 段）；正例 `SUB_WEB_WEBATTRIBUTE_FLINGSPEEDLIMIT_0100` / `SUB_WEB_SCROLLLAYOUT_POLICY_0100`
 - [ ] **WordsTool.5**：勿写独立词 `a11y`（含 `import { a11y }`、`a11y.Capability`）；`@kit.AccessibilityKit` / `myaccessibilityapp` 复合标识不命中。`enableAbility` 勿用 `string[]`（CI 10505001 拒 `Capability[]`）；用 `('retrieve' | 'gesture')[]`（PR44545）
 - [ ] **XTS.CHECK.HAPNAME.01**：`ohos_js_app_suite` / `ohos_js_app_static_suite` 且 **`test_hap = true`** 时，`hap_name` 须匹配 `^Acts[A-Za-z0-9]+Test$`（同步改 GN target 名与 `Test.json` 的 `*.hap`）。**禁止**用 `*Rely` 作 test HAP 名（`*Rely` 留给 `ohos_app_assist_suite`）。PR45112：`ActsAbilityApi26NoPermissionRely`→`ActsAbilityApi26NoPermissionTest`

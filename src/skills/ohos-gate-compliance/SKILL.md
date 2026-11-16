@@ -125,6 +125,7 @@ kit 内 suite→Rely 的 `../rely` 仍允许。
 | hook/成功路径 assertFail | `beforeAll` 或 try/catch 后 / unsubscribe 成功回调内无条件 `expect().assertFail()` | 删除；错误路径断言放在 catch/.catch 内（门禁 XTS.CHECK.ASSERTFAIL.01） |
 | 误删失败路径 assertFail | js/ts→ets 或批量改写时删掉 `.catch` 内 `expect().assertFail()` | **保留**；删后用例无 `expect(` → ASSERTION.01（req3 openlink 实锤） |
 | Promise 成功路径无 expect | `await api(...);` 仅 hilog / 无 `expect(` | 成功后补业务断言（勿 `expect(true)`）；**XTS.CHECK.ASSERTION.01**（PR45280 Call_static） |
+| 仅调用导入断言 helper | `assertPropSame(...)` 在 Helper 内有 expect，it 体无 | **ASSERTION.01**：`expect(` 须出现在 **it() 体**；导入 helper 不计（PR45484）；同文件 helper 亦建议 it 内再写 expect |
 | 回调裸 `if (err)` + assertFail | CommonEvent 成功带 `{code:0}` 仍进失败分支 | **`if (err && err.code !== 0)`**；门禁 **XTS.CHECK.ERR_CODE.01** 检测+`--fix`（PR43852） |
 | 回调错误分支无 assertFail | `if (err && err.code !== 0) { log; return }` 未断言 | 加 `expect().assertFail()`（PR43852 检视） |
 | 字符串折行断词 | `debugApp`/`callerUid` 等被拆行 | 仅在逗号等边界折行（UiAbility17） |
