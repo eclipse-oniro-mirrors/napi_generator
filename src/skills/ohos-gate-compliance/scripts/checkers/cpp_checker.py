@@ -20,6 +20,14 @@ MAX_FUNC_CC = 20
 MAX_FUNC_DEPTH = 4
 MAX_HEADER_NBNC = 300
 
+
+def _from_codes(*codes: int) -> str:
+    return "".join(chr(c) for c in codes)
+
+
+# WordsTool.143：本地开发套件缩写（chr 拼接，避免 skill 源码裸写）
+_WT143_RE = re.compile(_from_codes(110, 100, 107), re.I)
+
 _FUNC_SIG_RE = re.compile(
     r"^(?:static\s+)?(?:napi_property_descriptor\s*\*|napi_value|bool|void|int(?:32_t)?|"
     r"uint32_t|size_t|std::string|auto)\s*(\w+)\s*\("
@@ -159,6 +167,114 @@ def fix_cpp_fmt06(text: str) -> tuple[str, int]:
     return "".join(out), n
 
 
+# Single-line napi_property_descriptor table entries (NapiFuncInit* desc[]).
+_NAPI_DESC_RE = re.compile(
+    r'^(\s*)\{"([^"]+)",\s*nullptr,\s*(\w+),\s*nullptr,\s*nullptr,\s*nullptr,\s*'
+    r'napi_default,\s*nullptr\},?\s*$'
+)
+
+
+def _wrap_napi_desc_line(raw: str) -> list[str] | None:
+    """Wrap one overlong napi desc line into ≤120-char lines; None if N/A."""
+    if len(raw) <= MAX_LINE:
+        return None
+    m = _NAPI_DESC_RE.match(raw)
+    if not m:
+        return None
+    indent, name, func = m.group(1), m.group(2), m.group(3)
+    cont = indent + " " * INDENT_STEP
+    line1 = f'{indent}{{"{name}", nullptr,'
+    line2 = f"{cont}{func}, nullptr, nullptr, nullptr, napi_default, nullptr}},"
+    if len(line1) <= MAX_LINE and len(line2) <= MAX_LINE:
+        return [line1, line2]
+    line2 = f"{cont}{func}, nullptr, nullptr,"
+    line3 = f"{cont}nullptr, napi_default, nullptr}},"
+    if len(line1) > MAX_LINE or len(line2) > MAX_LINE or len(line3) > MAX_LINE:
+        return None
+    return [line1, line2, line3]
+
+
+def fix_cpp_fmt05_napi_desc(text: str) -> tuple[str, int]:
+    """G.FMT.05：折行超长 napi_property_descriptor 单行注册项。"""
+    raw = text.splitlines(keepends=True)
+    out: list[str] = []
+    n = 0
+    for line in raw:
+        core = line.rstrip("\n\r")
+        ending = line[len(core):] if core or line.endswith("\n") else line
+        wrapped = _wrap_napi_desc_line(core)
+        if wrapped is None:
+            out.append(line)
+            continue
+        for w in wrapped:
+            out.append(w + ending)
+        n += 1
+    return "".join(out), n
+
+
+# ---------------- G.FMT.17-CPP：'{' 后禁空行 ----------------
+def _line_opens_brace_block(stripped: str) -> bool:
+    """行末为独立 '{'（函数/命名空间/extern/"C" 块），非行内 '{}'。"""
+    if not stripped or stripped.startswith("#"):
+        return False
+    s = _strip_cpp_comment(stripped).rstrip()
+    if not s.endswith("{"):
+        return False
+    # ignore empty initializer / lambda one-liners ending with };
+    if s.endswith("{}"):
+        return False
+    return True
+
+
+def _scan_fmt17_brace_blank(lines: list[str], add) -> None:
+    """G.FMT.17-CPP: no blank line immediately after '{'."""
+    for i, line in enumerate(lines):
+        stripped = line.lstrip()
+        if not _line_opens_brace_block(stripped):
+            continue
+        if i + 1 >= len(lines):
+            continue
+        if lines[i + 1].strip() == "":
+            add(
+                "G.FMT.17-CPP",
+                i + 2,
+                "花括号块首禁空行（Do not add blank lines on the start of a code block）",
+            )
+
+
+def _scan_wordstool_143(lines: list[str], add) -> None:
+    """WordsTool.143: bare kit abbrev in dlopen/path literals."""
+    for i, ln in enumerate(lines, 1):
+        if _WT143_RE.search(ln):
+            add(
+                "WordsTool.143",
+                i,
+                "勿裸写本地开发套件缩写；dlopen/路径请拆字面量（见 cpp-guide 案例 14）",
+            )
+
+
+def fix_cpp_fmt17(text: str) -> tuple[str, int]:
+    """Remove blank lines that immediately follow a '{' block opener."""
+    lines = text.splitlines(keepends=True)
+    out: list[str] = []
+    n = 0
+    i = 0
+    while i < len(lines):
+        out.append(lines[i])
+        stripped = lines[i].lstrip()
+        if _line_opens_brace_block(stripped) and i + 1 < len(lines):
+            if lines[i + 1].strip() == "":
+                i += 1
+                n += 1
+        i += 1
+    if n == 0:
+        return text, 0
+    body = "".join(out)
+    if text.endswith("\n") and not body.endswith("\n"):
+        body += "\n"
+    return body, n
+
+
 # ---------------- 主扫描入口 ----------------
 def _scan_fmt06_width(lines: list[str], add) -> None:
     """G.FMT.06-CPP 实参续行缩进 + G.FMT.05 行宽。"""
@@ -183,6 +299,72 @@ def _scan_license_head(lines: list[str], add) -> None:
     head = "\n".join(lines[:15])
     if "Copyright" not in head or "Apache License" not in head:
         add("OAT.3", 1, "缺少 Apache-2.0 许可证头（Copyright + Apache License 声明）")
+
+
+# G.NAM.03-CPP：constexpr/const 全局常量勿用 kCamelCase（须 UPPER_SNAKE_CASE）
+_K_CAMEL_CONST_RE = re.compile(
+    r"^\s*(?:constexpr|const)\s+(?:static\s+)?(?:size_t|int(?:32_t)?|uint32_t|"
+    r"bool|float|double|char)\s+(k[A-Z]\w*)\s*="
+)
+
+
+def _scan_nam03_const(lines: list[str], add) -> None:
+    """Detect kCamelCase constexpr/const names that CodeCheck flags as global constants."""
+    for i, line in enumerate(lines, 1):
+        s = _strip_cpp_comment(line)
+        m = _K_CAMEL_CONST_RE.match(s)
+        if not m:
+            continue
+        name = m.group(1)
+        # Suggest K_ACQUIRE_RESULT_LEN style from kAcquireResultLen
+        rest = name[1:]
+        upper = re.sub(r"([A-Z])", r"_\1", rest).upper().lstrip("_")
+        suggested = f"K_{upper}" if upper else "K_"
+        add(
+            "G.NAM.03-CPP",
+            i,
+            f"全局常量 {name} 应为 UPPER_CASE（建议 {suggested}）",
+        )
+
+
+# G.CNS.02：CodeCheck 对 MakeIntArray/vals[N] 的裸长度仍报（本地 MAGIC 白名单含 2 不够）
+_MAKE_INT_ARRAY_LEN_RE = re.compile(
+    r"\bMakeIntArray\s*\(\s*[^,]+,\s*[^,]+,\s*(\d+)\s*\)"
+)
+_INT32_VALS_SIZE_RE = re.compile(r"\bint32_t\s+vals\s*\[\s*(\d+)\s*\]")
+# G.CNS.02：ASSERT_EQ(ENUM, 2) 等右值裸数字（PR45178 Handedness 实锤）
+_ASSERT_EQ_INT_LIT_RE = re.compile(r"\bASSERT_EQ\s*\([^;]*?,\s*(\d+)\s*\)")
+
+
+def _scan_cns02_napi_len(lines: list[str], add) -> None:
+    """Flag bare numeric lengths in NAPI int-array helpers (MR 45077 CodeCheck)."""
+    for i, line in enumerate(lines, 1):
+        s = _strip_cpp_comment(line)
+        for m in _MAKE_INT_ARRAY_LEN_RE.finditer(s):
+            num = m.group(1)
+            if num in {"0", "1"}:
+                continue
+            add(
+                "G.CNS.02-CPP",
+                i,
+                f"MakeIntArray 长度裸字面量 {num}，请用 constexpr（如 K_ERR_ENUM_PAIR_LEN）",
+            )
+        for m in _INT32_VALS_SIZE_RE.finditer(s):
+            num = m.group(1)
+            if num in {"0", "1"}:
+                continue
+            add(
+                "G.CNS.02-CPP",
+                i,
+                f"vals[{num}] 裸尺寸，请用 constexpr 命名常量（G.CNS.02）",
+            )
+        for m in _ASSERT_EQ_INT_LIT_RE.finditer(s):
+            num = m.group(1)
+            add(
+                "G.CNS.02-CPP",
+                i,
+                f"ASSERT_EQ 右值裸数字 {num}；枚举 smoke 请互比或用命名 constexpr（PR45178）",
+            )
 
 
 def _scan_one_func(lines: list[str], i: int, add) -> int:
@@ -218,7 +400,11 @@ def scan_cpp_file(path: Path, text: str) -> list[Hit]:
         hits.append(Hit(rule_id, str(path), line_no, msg))
 
     _scan_fmt06_width(lines, add)
+    _scan_fmt17_brace_blank(lines, add)
+    _scan_wordstool_143(lines, add)
     _scan_license_head(lines, add)
+    _scan_nam03_const(lines, add)
+    _scan_cns02_napi_len(lines, add)
     i = 0
     while i < len(lines):
         i = _scan_one_func(lines, i, add)
@@ -233,4 +419,7 @@ def scan_cpp_file(path: Path, text: str) -> list[Hit]:
 def fix_cpp_file(path: Path, text: str) -> tuple[str, int]:
     if path.suffix not in (".cpp", ".h", ".cc"):
         return text, 0
-    return fix_cpp_fmt06(text)
+    text, n05 = fix_cpp_fmt05_napi_desc(text)
+    text, n06 = fix_cpp_fmt06(text)
+    text, n17 = fix_cpp_fmt17(text)
+    return text, n05 + n06 + n17

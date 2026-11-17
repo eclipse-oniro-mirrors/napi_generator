@@ -77,19 +77,37 @@ def _is_resource_string_json(path: Path) -> bool:
 
 def gate_target_files(project: Path, profile: str) -> list[Path]:
     repo = find_git_root(project)
-    bp = project / "build-profile.json5"
+    config_names = frozenset({
+        "build-profile.json5", "hvigor-config.json5", "oh-package.json5",
+        "Test.json", "syscap.json",
+    })
+
+    def _append_project_configs(out: list[Path]) -> None:
+        """工程内配置文件必须进门禁（CI.HVIGOR.01 / CI.SDK.01）；勿漏 hvigor/oh-package。"""
+        for name in ("build-profile.json5", "oh-package.json5"):
+            fp = project / name
+            if fp.is_file():
+                out.append(fp)
+        hv = project / "hvigor" / "hvigor-config.json5"
+        if hv.is_file():
+            out.append(hv)
+        for fp in project.rglob("oh-package.json5"):
+            if not any(s in fp.parts for s in _SKIP_PARTS):
+                out.append(fp)
+        for fp in project.rglob("hvigor-config.json5"):
+            if not any(s in fp.parts for s in _SKIP_PARTS):
+                out.append(fp)
+
     if repo is None:
         out = project_source_files(project, profile)
-        if bp.is_file():
-            out.append(bp)
-        return out
+        _append_project_configs(out)
+        return sorted(set(out))
     try:
         rel_proj = project.resolve().relative_to(repo.resolve())
     except ValueError:
         out = project_source_files(project, profile)
-        if bp.is_file():
-            out.append(bp)
-        return out
+        _append_project_configs(out)
+        return sorted(set(out))
     status = subprocess.run(
         ["git", "-C", str(repo), "status", "--porcelain", str(rel_proj)],
         capture_output=True, text=True,
@@ -104,15 +122,16 @@ def gate_target_files(project: Path, profile: str) -> list[Path]:
         fp = repo / rel
         if not fp.is_file():
             continue
-        if (fp.name == "build-profile.json5" or _suffix_ok(fp.suffix, profile)
+        if (fp.name in config_names or _suffix_ok(fp.suffix, profile)
                 or _is_resource_string_json(fp)):
             paths.append(fp)
+    # 脏工作区时也强制纳入工程配置，避免仅改 .ets 时漏扫残留 6.0.0
+    _append_project_configs(paths)
     if paths:
         return sorted(set(paths))
     out = project_source_files(project, profile)
-    if bp.is_file():
-        out.append(bp)
-    return out
+    _append_project_configs(out)
+    return sorted(set(out))
 
 
 def scan_project(project: Path, profile: str, fix: bool) -> tuple[list[Hit], int]:

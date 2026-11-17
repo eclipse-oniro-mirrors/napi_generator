@@ -1,349 +1,655 @@
 {
- "version": "2.0",
- "desc": "ETS/ArkTS 门禁规则注册表（代码门禁检查）。detect=regex/heuristic/length 由 ets_checker 实现，build/manual 仅编译期/人工。",
- "rules": [
-  {
-   "id": "G.EXT.02",
-   "name": "避免使用ESObject",
-   "category": "gate",
-   "severity": "提示",
-   "detect": "regex",
-   "pattern": ":\\s*ESObject\\b|\\bESObject;",
-   "exclude": "Record<string, ESObject>",
-   "fix": "替换为具体类型：testrunner 用 AbilityDelegatorRegistry.AbilityDelegator|undefined 联合；subscriber→commonEvent.CommonEventSubscriber；回调数据→commonEvent.CommonEventData；参数对象→Record<string,string>；MessageSequence→rpc.MessageSequence"
-  },
-  {
-   "id": "G.EXT.01",
-   "name": "类属性可访问修饰符",
-   "category": "gate",
-   "severity": "提示",
-   "detect": "heuristic",
-   "pattern": "^\\s+[a-zA-Z_]\\w*\\s*:\\s*(string|number|boolean|LocalStorage|Array|Record)[^,)]*[;=]",
-   "fix": "补 public/private（外部访问用 public，仅类内用 private；interface 转 class 需补修饰符+初始化）"
-  },
-  {
-   "id": "G.FMT.02",
-   "name": "行宽不超过120",
-   "category": "gate",
-   "severity": "提示",
-   "detect": "length",
-   "pattern": "len>120",
-   "fix": "字符串字面量拆分为拼接、import 拆行、长表达式换行"
-  },
-  {
-   "id": "G.FMT.08",
-   "name": "多余分号",
-   "category": "gate",
-   "severity": "提示",
-   "detect": "regex",
-   "pattern": ";;",
-   "fix": ";; → ;"
-  },
-  {
-   "id": "G.FMT.10",
-   "name": "大括号与语句同行",
-   "category": "gate",
-   "severity": "提示",
-   "detect": "regex",
-   "pattern": "\\)\\n\\s*\\{",
-   "fix": ")\\n{ → ) {（转化脚本 fix_code_quality 已自动处理）"
-  },
-  {
-   "id": "G.FMT.11",
-   "name": "for/while空循环体",
-   "category": "gate",
-   "severity": "提示",
-   "detect": "regex",
-   "pattern": "(for|while)\\s*\\([^;\\n]*;[^;\\n]*;[^;\\n]*\\)\\s*;",
-   "fix": "for (...); → for (...) { }"
-  },
-  {
-   "id": "G.FMT.12",
-   "name": "switch case缩进",
-   "category": "gate",
-   "severity": "提示",
-   "detect": "heuristic",
-   "pattern": "case-indent",
-   "fix": "case/default 相对 switch 缩进一层（switch 8 空格 → case 10 空格、语句 12 空格）"
-  },
-  {
-   "id": "G.NAM.02",
-   "name": "函数名小驼峰",
-   "category": "gate",
-   "severity": "提示",
-   "detect": "regex",
-   "pattern": "function\\s+[A-Z]",
-   "fix": "PublishCallBackOne → publishCallBackOne（同步更新调用处）"
-  },
-  {
-   "id": "G.NAM.03",
-   "name": "变量小驼峰",
-   "category": "gate",
-   "severity": "提示",
-   "detect": "regex",
-   "pattern": "\\blet\\s+([a-z]+_[a-z_]+|[A-Z][a-z][A-Za-z0-9]*)\\s*[:=]",
-   "fix": "MainAbilityName → mainAbilityName；event_case2000 → eventCase2000（同步更新引用）"
-  },
-  {
-   "id": "XTS.CHECK.ASYNC_TESTCASE.01",
-   "name": "异步回调分支必须调用done()",
-   "category": "gate",
-   "severity": "致命",
-   "detect": "heuristic",
-   "pattern": "then-catch-no-done",
-   "fix": ".then/.catch 分支内直接调用 done()；或将 .then/.catch 链重构为 await + try/catch"
-  },
-  {
-   "id": "XTS.CHECK.ASYNC_TESTCASE.02",
-   "name": "await异步API需try/catch捕获",
-   "category": "gate",
-   "severity": "致命",
-   "detect": "heuristic",
-   "pattern": "await-outside-try",
-   "fix": "await 异步调用包 try/catch；回调须声明 err 且块体内检查/使用 （(err, data) => { if (err) {...} }，uiextensioncontext 2026-08-21 实锤）"
-  },
-  {
-   "id": "XTS.CHECK.ERROR_CODE.01",
-   "name": "禁止错误码类型转换",
-   "category": "gate",
-   "severity": "致命",
-   "detect": "regex",
-   "pattern": "as BusinessError",
-   "fix": "catch(e) 中不要 const err = e as BusinessError；日志直接 JSON.stringify(e)"
-  },
-  {
-   "id": "XTS.CHECK.TCNUMBER.01",
-   "name": "用例编号SUB_规范",
-   "category": "gate",
-   "severity": "致命",
-   "detect": "regex",
-   "pattern": "\\bit\\(\\s*'(?!SUB_)",
-   "fix": "it('名 与 @tc.name/@tc.number 同步改为 SUB_<子系统>_<部件>_<测试信息>_<4位数字>"
-  },
-  {
-   "id": "COMPILE.PRIVATE.01",
-   "name": "private字段类外访问",
-   "category": "compile",
-   "severity": "致命",
-   "detect": "heuristic",
-   "pattern": "private-field-outside",
-   "fix": "类字段被外部 recvSequence.num 等访问时用 public；仅类内用 private（编译错误 10505001 类）"
-  },
-  {
-   "id": "COMPILE.CALLBACK.01",
-   "name": "回调参数与API签名不符",
-   "category": "compile",
-   "severity": "致命",
-   "detect": "build",
-   "pattern": "callback-type",
-   "fix": "按 API 签名声明回调：Caller.onRelease 回调为 (msg: string)；loadContent 回调 data: void"
-  },
-  {
-   "id": "COMPILE.INTERFACE.01",
-   "name": "interface转class需修饰符+初始化",
-   "category": "compile",
-   "severity": "致命",
-   "detect": "manual",
-   "pattern": "interface-to-class",
-   "fix": "ArkTS 规范 interface 改 class：public/private 修饰符 + 默认初始化"
-  },
-  {
-   "id": "COMPILE.IMPORT.01",
-   "name": "import语句错位（须在文件顶部）",
-   "category": "compile",
-   "severity": "致命",
-   "detect": "heuristic",
-   "pattern": "misplaced-import",
-   "fix": "import 只能出现在文件顶部（其他语句之前）；转换脚本/自动修复勿在 import 前插入代码"
-  },
-  {
-   "id": "COMPILE.IMPORT.02",
-   "name": "import 拆分/合并语法错误",
-   "category": "compile",
-   "severity": "致命",
-   "detect": "heuristic",
-   "pattern": "broken-import",
-   "fix": "import { a, b,\\n  c } from '...' 必须完整闭合；多行 import 首行不能以 'import {' 重复开头；拆行勿丢成员"
-  },
-  {
-   "id": "COMPILE.IMPORT.03",
-   "name": "import 不存在的导出成员",
-   "category": "compile",
-   "severity": "致命",
-   "detect": "build",
-   "pattern": "no-exported-member",
-   "fix": "如 @kit.AbilityKit 无 xtConstant；对照 SDK 声明文件核对成员名（wantConstant 等）"
-  },
-  {
-   "id": "COMPILE.UNDEFINED.01",
-   "name": "使用未定义变量（大小写易错）",
-   "category": "compile",
-   "severity": "致命",
-   "detect": "build",
-   "pattern": "cannot-find-name",
-   "fix": "TAG/tag 等全局变量名与定义保持一致；自动插入的代码引用变量前确认作用域"
-  },
-  {
-   "id": "COMPILE.ANY.01",
-   "name": "any/unknown 需显式类型（arkts-no-any-unknown）",
-   "category": "compile",
-   "severity": "致命",
-   "detect": "regex",
-   "pattern": "\\bany\\b|\\bunknown\\b|:\\s*any\\b",
-   "fix": "testNapi 等未声明类型返回值需显式标注：let x: string = testNapi.xxx(); 按用法定类型"
-  },
-  {
-   "id": "COMPILE.NULL.01",
-   "name": "可能 undefined 需判空/可选链",
-   "category": "compile",
-   "severity": "致命",
-   "detect": "build",
-   "pattern": "possibly-undefined",
-   "fix": "want.parameters?.flag、commonEventData && commonEventData.event 等；回调可选参数使用前判空"
-  },
-  {
-   "id": "ARKTS_NO_INT",
-   "name": "使用 int 应改 number",
-   "category": "gate",
-   "severity": "提示",
-   "detect": "regex",
-   "pattern": "\\bint\\b",
-   "fix": "int → number（'use static' 工程豁免）"
-  },
-  {
-   "id": "ARKTS_NO_STRING_WRAPPER",
-   "name": "大写 String 应改 string",
-   "category": "gate",
-   "severity": "提示",
-   "detect": "regex",
-   "pattern": "undefined\\s*\\|\\s*String\\b|Record<String\\b|: String\\b",
-   "fix": "自动修复 undefined|String → undefined|string 等"
-  },
-  {
-   "id": "TESTTYPE_CASE",
-   "name": "TestType.Function 大小写",
-   "category": "gate",
-   "severity": "提示",
-   "detect": "regex",
-   "pattern": "TestType\\.Function\\b",
-   "fix": "自动修复 TestType.Function → TestType.FUNCTION"
-  },
-  {
-   "id": "BARE_KEY_RISK",
-   "name": "key 无下划线",
-   "category": "gate",
-   "severity": "提示",
-   "detect": "regex",
-   "pattern": "\\.key\\(\\s*['\"](?!.*_.+)[^'\"]+['\"]\\s*\\)",
-   "fix": "按「页面名_组件名」命名"
-  },
-  {
-   "id": "G.EXT.03",
-   "name": "Array<T> 应改 T[]",
-   "category": "gate",
-   "severity": "提示",
-   "detect": "regex",
-   "pattern": "\\bArray\\s*<",
-   "fix": "自动修复 Array<Ident> → Ident[]（单层标识符泛参）"
-  },
-  {
-   "id": "XTS.CHECK.ALL_TIME_TRUE_ASSERTION.01",
-   "name": "禁恒真断言",
-   "category": "gate",
-   "severity": "致命",
-   "detect": "regex",
-   "pattern": "expect\\s*\\(\\s*true\\s*\\)\\s*\\.assertTrue\\s*\\(",
-   "fix": "改为真实断言"
-  },
-  {
-   "id": "WordsTool.22",
-   "name": "勿裸写音频状态",
-   "category": "gate",
-   "severity": "提示",
-   "detect": "regex",
-   "pattern": "(音频状态由脚本 chr 拼接检测)",
-   "fix": "用数值常量或改 UI id"
-  },
-  {
-   "id": "STATIC_FONTCOLOR_RISK",
-   "name": "static 文件 number 赋色值",
-   "category": "gate",
-   "severity": "提示",
-   "detect": "heuristic",
-   "pattern": "static-fontcolor",
-   "fix": "fontColor 需 ResourceColor"
-  },
-  {
-   "id": "xtscheck",
-   "name": "@tc JSDoc 规范",
-   "category": "gate",
-   "severity": "提示",
-   "detect": "heuristic",
-   "pattern": "tc-jsdoc",
-   "fix": "@tc.number : 与 it() 一致；禁 forEach 动态 it()；自动修复冒号格式"
-  },
-  {
-   "id": "CI.KIT.01",
-   "name": "Dialog API 勿从 @kit.ArkUI 导入",
-   "category": "gate",
-   "severity": "提示",
-   "detect": "heuristic",
-   "pattern": "dialog-kit-import",
-   "fix": "改用 @ohos.arkui.UIContext / @ohos.arkui.dialog"
-  },
-  {
-   "id": "WordsTool.97",
-   "name": "勿写易歧义产品名",
-   "category": "gate",
-   "severity": "提示",
-   "detect": "regex",
-   "pattern": "(产品名由脚本 chr 拼接检测)",
-   "fix": "字体族用 sans-serif（自动修复 string.json）"
-  },
-  {
-   "id": "WordsTool.66",
-   "name": "勿保留双字符片段",
-   "category": "gate",
-   "severity": "提示",
-   "detect": "regex",
-   "pattern": "(双字符片段由脚本 chr 拼接检测)",
-   "fix": "uuid 类编号改 SUB_* 语义号"
-  },
-  {
-   "id": "WordsTool.143",
-   "name": "勿裸写本地开发套件缩写",
-   "category": "gate",
-   "severity": "提示",
-   "detect": "regex",
-   "pattern": "(本地开发套件由脚本 chr 拼接检测)",
-   "fix": "改 NATIVE 或「专用提供方」"
-  },
-  {
-   "id": "WordsTool.100",
-   "name": "勿写易歧义厂商域名",
-   "category": "gate",
-   "severity": "提示",
-   "detect": "regex",
-   "pattern": "(品牌词干由脚本 chr 拼接检测)",
-   "fix": "Web(src) 用 $rawfile('…')"
-  },
-  {
-   "id": "G.FMT.04",
-   "name": ": 前勿空格（py）",
-   "category": "gate",
-   "severity": "提示",
-   "detect": "regex",
-   "pattern": " +:",
-   "fix": "自动修复（py 文件）"
-  },
-  {
-   "id": "G.FMT.05",
-   "name": "行宽≤120",
-   "category": "gate",
-   "severity": "提示",
-   "detect": "length",
-   "pattern": "len>120",
-   "fix": "折行（import 行豁免）"
-  }
- ]
+  "version": "2.0",
+  "desc": "ETS/ArkTS 门禁规则注册表（代码门禁检查）。detect=regex/heuristic/length 由 ets_checker 实现，build/manual 仅编译期/人工。",
+  "rules": [
+    {
+      "id": "G.EXT.02",
+      "name": "避免使用ESObject",
+      "category": "gate",
+      "severity": "提示",
+      "detect": "regex",
+      "pattern": ":\\s*ESObject\\b|\\bESObject;",
+      "exclude": "Record<string, ESObject>",
+      "fix": "替换为具体类型：testrunner 用 AbilityDelegatorRegistry.AbilityDelegator|undefined 联合；subscriber→commonEvent.CommonEventSubscriber；回调数据→commonEvent.CommonEventData；参数对象→Record<string,string>；MessageSequence→rpc.MessageSequence"
+    },
+    {
+      "id": "G.EXT.01",
+      "name": "类属性可访问修饰符",
+      "category": "gate",
+      "severity": "提示",
+      "detect": "heuristic",
+      "pattern": "^\\s+[a-zA-Z_]\\w*\\s*:\\s*(string|number|boolean|LocalStorage|Array|Record)[^,)]*[;=]",
+      "fix": "补 public/private（外部访问用 public，仅类内用 private；interface 转 class 需补修饰符+初始化；`static readonly` 亦须加 public）"
+    },
+    {
+      "id": "G.FMT.02",
+      "name": "行宽不超过120",
+      "category": "gate",
+      "severity": "提示",
+      "detect": "length",
+      "pattern": "len>120",
+      "fix": "字符串字面量拆分为拼接、import 拆行、长表达式换行"
+    },
+    {
+      "id": "G.FMT.08",
+      "name": "多余分号",
+      "category": "gate",
+      "severity": "提示",
+      "detect": "regex",
+      "pattern": ";;",
+      "fix": ";; → ;"
+    },
+    {
+      "id": "G.FMT.10",
+      "name": "大括号与语句同行",
+      "category": "gate",
+      "severity": "提示",
+      "detect": "regex",
+      "pattern": "\\)\\n\\s*\\{",
+      "fix": ")\\n{ → ) {（转化脚本 fix_code_quality 已自动处理）"
+    },
+    {
+      "id": "COMPILE.STRING_CONCAT.01",
+      "name": "相邻字符串须显式加号",
+      "category": "gate",
+      "severity": "提示",
+      "detect": "heuristic",
+      "pattern": "adjacent-string-literal",
+      "fix": "行尾补 +（CI ArkTS 10505001 不接受隐式拼接；PR44444 SendableContext）"
+    },
+    {
+      "id": "G.FMT.03",
+      "name": "运算符放行末",
+      "category": "gate",
+      "severity": "提示",
+      "detect": "heuristic",
+      "pattern": "leading-binary-plus",
+      "fix": "续行行首 '+' 移到上一行末（PR44444 MainAbility console.log 拼接实锤）"
+    },
+    {
+      "id": "G.FMT.09",
+      "name": "控制语句体须加大括号",
+      "category": "gate",
+      "severity": "提示",
+      "detect": "regex",
+      "pattern": "(if|for|while)\\s*\\([^)]*\\)\\s+(?!\\{)\\S",
+      "fix": "if (cond) stmt; → if (cond) { stmt; }（uiCompareTest_all / DialogOrder 实锤）"
+    },
+    {
+      "id": "G.FMT.11",
+      "name": "for/while空循环体",
+      "category": "gate",
+      "severity": "提示",
+      "detect": "regex",
+      "pattern": "(for|while)\\s*\\([^;\\n]*;[^;\\n]*;[^;\\n]*\\)\\s*;",
+      "fix": "for (...); → for (...) { }"
+    },
+    {
+      "id": "G.FMT.12",
+      "name": "switch case缩进",
+      "category": "gate",
+      "severity": "提示",
+      "detect": "heuristic",
+      "pattern": "case-indent",
+      "fix": "case/default 相对 switch 缩进一层（switch 8 空格 → case 10 空格、语句 12 空格）"
+    },
+    {
+      "id": "G.NAM.01",
+      "name": "类名大驼峰",
+      "category": "gate",
+      "severity": "提示",
+      "detect": "regex",
+      "pattern": "(class|struct|enum)\\s+[a-z_]|\\b(class|struct|enum)\\s+\\w*_",
+      "fix": "sizeTmp→SizeTmp；gridModifier_Foo→GridModifierFoo（去下划线，uiCompare 实锤）"
+    },
+    {
+      "id": "G.NAM.02",
+      "name": "函数名小驼峰",
+      "category": "gate",
+      "severity": "提示",
+      "detect": "regex",
+      "pattern": "function\\s+[A-Z]",
+      "fix": "PopupBuilder→popupBuilder；MenuItemBuilder→menuItemBuilder（同步更新调用处）"
+    },
+    {
+      "id": "G.OTH.05",
+      "name": "禁止硬编码公网URL",
+      "category": "gate",
+      "severity": "一般",
+      "detect": "regex",
+      "pattern": "['\"]https?://(?!www\\\\.apache\\\\.org)[^/'\"]+",
+      "fix": "整段 URL 字面量拆成 scheme+host+path 拼接；业务资源优先 $rawfile / resource://"
+    },
+    {
+      "id": "G.ERR.03",
+      "name": "JSON.stringify须捕获异常",
+      "category": "gate",
+      "severity": "一般",
+      "detect": "heuristic",
+      "pattern": "json-stringify-no-try",
+      "fix": "日志中 JSON.stringify(want/obj) 先 try/catch 赋给局部字符串再插值（UIExtensionProvider 实锤）"
+    },
+    {
+      "id": "G.NAM.03",
+      "name": "变量小驼峰",
+      "category": "gate",
+      "severity": "提示",
+      "detect": "regex",
+      "pattern": "\\b(?:let|const|var)\\s+([a-z]+_[a-z_]+|[A-Z][a-z][A-Za-z0-9]*)\\s*[:=]|\\b\\w+\\s*\\(\\s*([A-Z][a-z][A-Za-z0-9]*)\\s*[,)]|^\\s+([A-Z][a-z][A-Za-z0-9]*)\\s*[?:]?\\s*:",
+      "fix": "MainAbilityName → mainAbilityName；interface Abstract → Record + ['Abstract']（协议键保留字面量，PR44143）；onDump(Param) → onDump(param)"
+    },
+    {
+      "id": "G.TYP.04",
+      "name": "字符串使用单引号",
+      "category": "gate",
+      "severity": "提示",
+      "detect": "regex",
+      "pattern": "dq-string",
+      "fix": "双引号字面量改单引号（内容含裸 ' 则保留双引号；\\\" 转 \"）；fix_ets_file 调 dq_to_sq（uiCompare 实锤）"
+    },
+    {
+      "id": "XTS.CHECK.ASYNC_TESTCASE.01",
+      "name": "异步用例done回调规范",
+      "category": "gate",
+      "severity": "致命",
+      "detect": "heuristic",
+      "pattern": "promise-no-done-param|console-error-no-done",
+      "fix": "用例体内创建 Promise 或使用 console.error 时 it() 须声明 done，或将 console.error 改为 console.info（gitcode 把 .error 当异步链，2026-09-15 实锤）。可将 .then/.catch 链重构为 await + try/catch。.catch 内不必强制 done()"
+    },
+    {
+      "id": "XTS.CHECK.PROJECT_NAMING.01",
+      "name": "静态工程目录名以static结尾",
+      "category": "gate",
+      "severity": "致命",
+      "detect": "heuristic",
+      "pattern": "static-dir-suffix",
+      "fix": "ohos_js_app_static_suite 工程目录须以 static 结尾：*statictest → *teststatic（如 actsXxxstatictest → actsXxxteststatic）"
+    },
+    {
+      "id": "XTS.CHECK.ASYNC_TESTCASE.02",
+      "name": "await异步API需try/catch捕获",
+      "category": "gate",
+      "severity": "致命",
+      "detect": "heuristic",
+      "pattern": "await-outside-try",
+      "fix": "await 异步调用包 try/catch；回调须声明 err 且块体内检查/使用 （(err, data) => { if (err && err.code !== 0) {...} }，uiextensioncontext 2026-08-21 实锤；BusinessError 禁止裸 if (err)）；.catch((e) => { hilog...failed. }) 须 JSON.stringify(e) 使用参数"
+    },
+    {
+      "id": "XTS.CHECK.ERR_CODE.01",
+      "name": "BusinessError回调禁止裸if(err)",
+      "category": "gate",
+      "severity": "致命",
+      "detect": "heuristic",
+      "pattern": "truthy-err-assertfail",
+      "fix": "if (err){…assertFail} 遇成功回调 {code:0} 会误失败；须 if (err && err.code !== 0)（PR43852 GetAppContext/GetCurrentTopAbility；--fix 可自动改）"
+    },
+    {
+      "id": "XTS.CHECK.TESTFILENAME.01",
+      "name": "测试文件名大驼峰",
+      "category": "gate",
+      "severity": "致命",
+      "detect": "heuristic",
+      "pattern": "test-filename-pascal",
+      "fix": "测试 ets 须 Xxx.test.ets，Xxx 为大驼峰且无中间点：Ability.SyncTest.ets → AbilitySyncTest.test.ets；List/Util/Common.test.ets 豁免"
+    },
+    {
+      "id": "XTS.CHECK.LIST_EXPORT.01",
+      "name": "List 导入与 export default 一致",
+      "category": "gate",
+      "severity": "致命",
+      "detect": "heuristic",
+      "pattern": "list-export-name",
+      "fix": "List.test.ets 的 import X from './Foo.test'、Foo.test.ets 的 export default function X、以及其初次 describe('X') 三者同名；改 export/describe 对齐 List"
+    },
+    {
+      "id": "XTS.CHECK.ERROR_CODE.01",
+      "name": "禁止错误码类型转换",
+      "category": "gate",
+      "severity": "致命",
+      "detect": "regex",
+      "pattern": "as BusinessError",
+      "fix": "catch(e) 中不要 const err = e as BusinessError；日志直接 JSON.stringify(e)"
+    },
+    {
+      "id": "XTS.CHECK.TCNUMBER.01",
+      "name": "用例编号SUB_规范",
+      "category": "gate",
+      "severity": "致命",
+      "detect": "regex",
+      "pattern": "\\bit\\(\\s*'(?!SUB_|ACTS_)|SUBsuffix-4digits|number-duplicate|number-missing",
+      "fix": "编号须 SUB_<子系统>_<部件>_<若干_测试_信息>_<4位数字>：非 SUB_ 前缀改名；末段非恰 4 位数字重编号（如 14800→1480，对应动态编号×10 保持可追溯）；@tc.number 字段必填且与 it() 一致；同文件/同工程跨文件不得重复（新增用例在套件内自编号）"
+    },
+    {
+      "id": "XTS.CHECK.TCNAME.01",
+      "name": "用例名称@tc.name规范",
+      "category": "gate",
+      "severity": "致命",
+      "detect": "heuristic",
+      "pattern": "tc-name-missing",
+      "fix": "autofix: fix_ets_tcname 在 @tc.number 后补 @tc.name=<it()>；须与 it() 一致（PR43852 GetAbilityState_0700）"
+    },
+    {
+      "id": "XTS.CHECK.TCDESC.01",
+      "name": "用例描述@tc.desc必填",
+      "category": "gate",
+      "severity": "致命",
+      "detect": "heuristic",
+      "pattern": "tc-desc-missing",
+      "fix": "每条用例 JSDoc 须含 @tc.desc 描述（gitcode 实检：12800 无 JSDoc 被报「@tc.desc字段必填」）"
+    },
+    {
+      "id": "XTS.CHECK.STATIC_HEADER.01",
+      "name": "静态工程ets首行须'use static'",
+      "category": "gate",
+      "severity": "致命",
+      "detect": "heuristic",
+      "pattern": "first-line-use-static",
+      "fix": "静态工程（工程内任一 ets 首行为 'use static'）的全部 ets 源文件首行加 'use static';（含 src 下的 lib/Common 等辅助文件，hypium 框架目录除外）"
+    },
+    {
+      "id": "COMPILE.PRIVATE.01",
+      "name": "private字段类外访问",
+      "category": "compile",
+      "severity": "致命",
+      "detect": "heuristic",
+      "pattern": "private-field-outside",
+      "fix": "类字段被外部 recvSequence.num 等访问时用 public；仅类内用 private（编译错误 10505001 类）"
+    },
+    {
+      "id": "COMPILE.CALLBACK.01",
+      "name": "回调参数与API签名不符",
+      "category": "compile",
+      "severity": "致命",
+      "detect": "build",
+      "pattern": "callback-type",
+      "fix": "按 API 签名声明回调：Caller.onRelease 回调为 (msg: string)；loadContent 回调 data: void"
+    },
+    {
+      "id": "COMPILE.INTERFACE.01",
+      "name": "interface转class需修饰符+初始化",
+      "category": "compile",
+      "severity": "致命",
+      "detect": "manual",
+      "pattern": "interface-to-class",
+      "fix": "ArkTS 规范 interface 改 class：public/private 修饰符 + 默认初始化"
+    },
+    {
+      "id": "CI.OHM.01",
+      "name": "动态工程须用 @ohos/hypium-dynamic",
+      "category": "compile",
+      "severity": "致命",
+      "detect": "heuristic",
+      "pattern": "from '@ohos/hypium'",
+      "fix": "oh-package 已声明 hypium-dynamic 时，import 须为 @ohos/hypium-dynamic（否则 CI Failed to resolve OhmUrl；44113/43815）"
+    },
+    {
+      "id": "COMPILE.IMPORT.01",
+      "name": "import语句错位（须在文件顶部）",
+      "category": "compile",
+      "severity": "致命",
+      "detect": "heuristic",
+      "pattern": "misplaced-import",
+      "fix": "import 只能出现在文件顶部（其他语句之前）；转换脚本/自动修复勿在 import 前插入代码"
+    },
+    {
+      "id": "COMPILE.IMPORT.02",
+      "name": "import 拆分/合并语法错误",
+      "category": "compile",
+      "severity": "致命",
+      "detect": "heuristic",
+      "pattern": "broken-import",
+      "fix": "import { a, b,\\n  c } from '...' 必须完整闭合；多行 import 首行不能以 'import {' 重复开头；拆行勿丢成员"
+    },
+    {
+      "id": "COMPILE.IMPORT.03",
+      "name": "import 不存在的导出成员",
+      "category": "compile",
+      "severity": "致命",
+      "detect": "build",
+      "pattern": "no-exported-member",
+      "fix": "如 @kit.AbilityKit 无 xtConstant；对照 SDK 声明文件核对成员名（wantConstant 等）"
+    },
+    {
+      "id": "COMPILE.UNDEFINED.01",
+      "name": "使用未定义变量（大小写易错）",
+      "category": "compile",
+      "severity": "致命",
+      "detect": "build",
+      "pattern": "cannot-find-name",
+      "fix": "TAG/tag 等全局变量名与定义保持一致；自动插入的代码引用变量前确认作用域"
+    },
+    {
+      "id": "COMPILE.ANY.01",
+      "name": "any/unknown 需显式类型（arkts-no-any-unknown）",
+      "category": "compile",
+      "severity": "致命",
+      "detect": "regex",
+      "pattern": ":\\s*(any|unknown)\\b|\\bas\\s+(any|unknown)\\b",
+      "fix": "禁止 : any/: unknown 与 as any/as unknown。异常参传 undefined 时直接传 undefined（勿 as unknown as T；undefined as T 若 10605999 也不要经 unknown 中转）。返回值显式标注具体类型。见 docs/ci-arkts-compile-playbook.md"
+    },
+    {
+      "id": "COMPILE.FUNC_EXPR.01",
+      "name": "禁止 function 表达式（arkts-no-func-expressions）",
+      "category": "compile",
+      "severity": "致命",
+      "detect": "regex",
+      "pattern": "(?<![\\w$])function\\s*\\(",
+      "fix": "function () {} 改为 () => {}（publish/then 回调等）。ts→ets 后合入 master 易带回旧 function()；提交前对 PR 模块 grep function\\s*\\(。见 docs/ci-arkts-compile-playbook.md"
+    },
+    {
+      "id": "COMPILE.NULL.01",
+      "name": "可能 undefined 需判空/可选链",
+      "category": "compile",
+      "severity": "致命",
+      "detect": "build",
+      "pattern": "possibly-undefined",
+      "fix": "want.parameters?.flag、commonEventData && commonEventData.event 等；回调可选参数使用前判空"
+    },
+    {
+      "id": "COMPILE.ENUM_AS_INT.01",
+      "name": "枚举 Flags 禁 as Int（ESE593372）",
+      "category": "compile",
+      "severity": "致命",
+      "detect": "regex",
+      "pattern": "\\bFlags\\.[A-Z0-9_]+\\s+as\\s+Int\\b",
+      "fix": "静态 FileEntity.flags?: Int/int：用 enum.valueOf()，禁止 Flags.XXX as Int（CI ESE593372）。number 字段亦勿强转 Int。见 docs/ci-arkts-compile-playbook.md"
+    },
+    {
+      "id": "COMPILE.INT_AS_NUMBER.01",
+      "name": "静态禁 Int as number（ESE123811）",
+      "category": "compile",
+      "severity": "致命",
+      "detect": "heuristic",
+      "pattern": "static-int-as-number",
+      "fix": "'use static' 下 `observerId as number` 等 → ESE123811；改 Int.toDouble(x)（PR45360 FocusedApplicationChanged）"
+    },
+    {
+      "id": "COMPILE.DYN_STATEMGMT.01",
+      "name": "ohosTest 禁 import stateManagement",
+      "category": "compile",
+      "severity": "致命",
+      "detect": "heuristic",
+      "pattern": "dyn-statemgmt-import",
+      "fix": "动态 ohosTest 无 @ohos.arkui.stateManagement；用 TestAbility 写入的 globalThis.context，或裸用 AppStorage 全局（PR45360 NoPermissionApi26）"
+    },
+    {
+      "id": "COMPILE.FILEENTITY_IMPL.01",
+      "name": "禁 implements insightIntent.FileEntity（板端 classlinker）",
+      "category": "compile",
+      "severity": "致命",
+      "detect": "regex",
+      "pattern": "implements\\s+insightIntent\\.FileEntity|@InsightIntentEntity\\b",
+      "fix": "设备 static 运行时可能无 FileEntity：勿 implements / @InsightIntentEntity；用本地 interface 字段镜像。见 docs/ci-arkts-compile-playbook.md §1.2.2"
+    },
+    {
+      "id": "COMPILE.SETTIMEOUT.01",
+      "name": "禁止 setTimeout(resolve/reject) 直接传参（ESE0046）",
+      "category": "compile",
+      "severity": "致命",
+      "detect": "heuristic",
+      "pattern": "static-settimeout",
+      "fix": "用箭头回调：setTimeout((): void => { resolve(); }, ms)。EventBus onWait / 事件等待必须用 setTimeout 墙钟超时，禁止 AbilityDelegator shell sleep 冒充等待（sleep 几乎立即返回；PR45421 18-51-20）。仅 HyperSnap 类短轮询延时才可考虑 shell sleep。"
+    },
+    {
+      "id": "ARKTS_NO_INT",
+      "name": "使用 int 应改 number",
+      "category": "gate",
+      "severity": "提示",
+      "detect": "regex",
+      "pattern": "\\bint\\b",
+      "fix": "int → number（'use static' 工程豁免）"
+    },
+    {
+      "id": "ARKTS_NO_STRING_WRAPPER",
+      "name": "大写 String 应改 string",
+      "category": "gate",
+      "severity": "提示",
+      "detect": "regex",
+      "pattern": "undefined\\s*\\|\\s*String\\b|Record<String\\b|: String\\b",
+      "fix": "自动修复 undefined|String → undefined|string 等"
+    },
+    {
+      "id": "TESTTYPE_CASE",
+      "name": "TestType.Function 大小写",
+      "category": "gate",
+      "severity": "提示",
+      "detect": "regex",
+      "pattern": "TestType\\.Function\\b",
+      "fix": "自动修复 TestType.Function → TestType.FUNCTION"
+    },
+    {
+      "id": "BARE_KEY_RISK",
+      "name": "key 无下划线",
+      "category": "gate",
+      "severity": "提示",
+      "detect": "regex",
+      "pattern": "\\.key\\(\\s*['\"](?!.*_.+)[^'\"]+['\"]\\s*\\)",
+      "fix": "按「页面名_组件名」命名"
+    },
+    {
+      "id": "G.EXT.03",
+      "name": "Array<T> 应改 T[]",
+      "category": "gate",
+      "severity": "提示",
+      "detect": "regex",
+      "pattern": "\\bArray\\s*<",
+      "fix": "自动修复 Array<Ident> → Ident[]（单层标识符泛参）"
+    },
+    {
+      "id": "XTS.CHECK.ASSERTION.01",
+      "name": "用例须含断言",
+      "category": "gate",
+      "severity": "致命",
+      "detect": "heuristic",
+      "pattern": "it() body without expect(",
+      "fix": "每个 it() 用例体须含至少一处 expect(...).assert*"
+    },
+    {
+      "id": "XTS.CHECK.ALL_TIME_TRUE_ASSERTION.01",
+      "name": "禁恒真断言",
+      "category": "gate",
+      "severity": "致命",
+      "detect": "regex",
+      "pattern": "expect\\s*\\(\\s*true\\s*\\)\\s*\\.assertTrue\\s*\\(",
+      "fix": "改为真实断言"
+    },
+    {
+      "id": "XTS.CHECK.FAKE_COVERAGE.01",
+      "name": "禁仅枚举数值假覆盖",
+      "category": "gate",
+      "severity": "严重",
+      "detect": "heuristic",
+      "pattern": "expect(Enum.X).assertEqual(N) without mount/Inspector",
+      "fix": "枚举规格可辅以页面 Text 绑定；须同时有真实组件挂载或 Inspector/$attrs/返回值旗标（PR44669/44715）"
+    },
+    {
+      "id": "XTS.CHECK.FAKE_COVERAGE.02",
+      "name": "禁仅节点存在性断言",
+      "category": "gate",
+      "severity": "严重",
+      "detect": "regex",
+      "pattern": "expect(.*\\.length\\s*>\\s*2)\\.assertTrue",
+      "fix": "改为具体 $attrs 值或业务旗标 assertEqual（PR44669 Tabs 整改）"
+    },
+    {
+      "id": "XTS.CHECK.FAKE_COVERAGE.03",
+      "name": "禁 || length>0 恒软断言",
+      "category": "gate",
+      "severity": "严重",
+      "detect": "regex",
+      "pattern": "expect(.*\\|\\|.*length\\s*>\\s*0)\\.assertTrue",
+      "fix": "去掉恒真兜底分支，保留可失败的硬条件（PR44715）"
+    },
+    {
+      "id": "XTS.CHECK.FAKE_COVERAGE.04",
+      "name": "禁 soft-skip 无硬断言",
+      "category": "gate",
+      "severity": "严重",
+      "detect": "heuristic",
+      "pattern": "isAttrMissing/softSkip early-return without hard expect",
+      "fix": "缺属性时 done();return 或跳过；禁止 expect(true)；有属性则硬断言（PR44669）"
+    },
+    {
+      "id": "XTS.CHECK.FAKE_COVERAGE.05",
+      "name": "禁一条用例软 OR 两错误码",
+      "category": "gate",
+      "severity": "严重",
+      "detect": "regex",
+      "pattern": "expect\\s*\\(\\s*[^)]*\\.code\\s*===\\s*\\w+\\s*\\|\\|\\s*[^)]*\\.code\\s*===\\s*\\w+\\s*\\)\\s*\\.assertTrue\\s*\\(",
+      "fix": "每错误码单独 it + expect(code).assertEqual(单码)（PR45112 接口人）"
+    },
+    {
+      "id": "WordsTool.22",
+      "name": "勿裸写音频状态",
+      "category": "gate",
+      "severity": "提示",
+      "detect": "regex",
+      "pattern": "(音频状态由脚本 chr 拼接检测)",
+      "fix": "用数值常量或改 UI id"
+    },
+    {
+      "id": "STATIC_FONTCOLOR_RISK",
+      "name": "static 文件 number 赋色值",
+      "category": "gate",
+      "severity": "提示",
+      "detect": "heuristic",
+      "pattern": "static-fontcolor",
+      "fix": "fontColor 需 ResourceColor"
+    },
+    {
+      "id": "xtscheck",
+      "name": "@tc JSDoc 规范",
+      "category": "gate",
+      "severity": "提示",
+      "detect": "heuristic",
+      "pattern": "tc-jsdoc",
+      "fix": "@tc.number : 与 it() 一致；禁 forEach 动态 it()；自动修复冒号格式"
+    },
+    {
+      "id": "CI.KIT.01",
+      "name": "Dialog API 勿从 @kit.ArkUI 导入",
+      "category": "gate",
+      "severity": "提示",
+      "detect": "heuristic",
+      "pattern": "dialog-kit-import",
+      "fix": "改用 @ohos.arkui.UIContext / @ohos.arkui.dialog"
+    },
+    {
+      "id": "WordsTool.97",
+      "name": "勿写易歧义产品名",
+      "category": "gate",
+      "severity": "提示",
+      "detect": "regex",
+      "pattern": "(产品名由脚本 chr 拼接检测)",
+      "fix": "字体族用 sans-serif（自动修复 string.json）"
+    },
+    {
+      "id": "WordsTool.66",
+      "name": "勿保留双字符片段",
+      "category": "gate",
+      "severity": "提示",
+      "detect": "regex",
+      "pattern": "(双字符片段由脚本 chr 拼接检测)",
+      "fix": "uuid 类编号改 SUB_* 语义号"
+    },
+    {
+      "id": "WordsTool.143",
+      "name": "勿裸写本地开发套件缩写",
+      "category": "gate",
+      "severity": "提示",
+      "detect": "regex",
+      "pattern": "(本地开发套件由脚本 chr 拼接检测)",
+      "fix": "改 NATIVE 或「专用提供方」"
+    },
+    {
+      "id": "WordsTool.100",
+      "name": "勿写易歧义厂商域名",
+      "category": "gate",
+      "severity": "提示",
+      "detect": "regex",
+      "pattern": "(品牌词干由脚本 chr 拼接检测)",
+      "fix": "Web(src) 用 $rawfile('…')"
+    },
+    {
+      "id": "WordsTool.5",
+      "name": "勿裸写易歧义无障碍相关独立词",
+      "category": "gate",
+      "severity": "一般",
+      "detect": "regex",
+      "pattern": "(独立词由脚本 chr 拼接检测；复合 API 标识不命中)",
+      "fix": "@tc.desc 等改行业通用表述或写 API 全称"
+    },
+    {
+      "id": "WordsTool.9",
+      "name": "勿裸写 Ability 管理服务三字母缩写",
+      "category": "gate",
+      "severity": "一般",
+      "detect": "regex",
+      "pattern": "(三字母缩写由脚本 chr 拼接检测)",
+      "fix": "注释改 framework；TAG/描述改 AbilityStage / Stage Ability（req6/PR45075；注释可自动修）"
+    },
+    {
+      "id": "WordsTool.86",
+      "name": "勿用易歧义 status-log 标识",
+      "category": "gate",
+      "severity": "一般",
+      "detect": "regex",
+      "pattern": "(禁词由脚本 chr 拼接检测)",
+      "fix": "禁词标识→statusMsg（自动修复；uiCompare MeasurableUniqueId0040 实锤）"
+    },
+    {
+      "id": "WordsTool.177",
+      "name": "勿裸写 WordsTool.177 易歧义独立词",
+      "category": "gate",
+      "severity": "一般",
+      "detect": "regex",
+      "pattern": "(独立词由脚本 chr 拼接检测)",
+      "fix": "注释 may … as→commonly returns；图形场景改 host/TEXTURE（PR44704 自动修复前者）"
+    },
+    {
+      "id": "G.OBJ.04",
+      "name": "简单属性优先点号访问",
+      "category": "gate",
+      "severity": "一般",
+      "detect": "regex",
+      "pattern": "(\\?\\.)?\\[['\"][a-z_][A-Za-z0-9_]*['\"]\\]",
+      "fix": "['withGroupId']→.withGroupId；PascalCase 协议键保留 []（G.NAM.03；PR44704）"
+    },
+    {
+      "id": "G.OTH.03",
+      "name": "不用的代码段直接删除勿注释掉",
+      "category": "gate",
+      "severity": "一般",
+      "detect": "regex",
+      "pattern": "^\\s*//\\s*(赋值|控制语句)",
+      "fix": "删除整行注释掉的赋值/控制语句"
+    },
+    {
+      "id": "G.FMT.04",
+      "name": ": 前勿空格（py）",
+      "category": "gate",
+      "severity": "提示",
+      "detect": "regex",
+      "pattern": " +:",
+      "fix": "自动修复（py 文件）"
+    },
+    {
+      "id": "G.FMT.05",
+      "name": "行宽≤120",
+      "category": "gate",
+      "severity": "提示",
+      "detect": "length",
+      "pattern": "len>120",
+      "fix": "折行（import 行豁免）"
+    },
+    {
+      "id": "XTS.CHECK.NAPI_SO_IMPORT.01",
+      "name": "NAPI lib*.so 禁止 import * as（覆盖率扫描）",
+      "category": "xts",
+      "severity": "严重",
+      "detect": "regex",
+      "pattern": "import\\s+\\*\\s+as\\s+\\w+\\s+from\\s+['\"][^'\"]+\\.so['\"]",
+      "fix": "改为默认导入：import xxx from 'libxxx.so'（勿 import * as）；C-API/XTS 覆盖率扫描依赖默认导入形态"
+    }
+  ]
 }

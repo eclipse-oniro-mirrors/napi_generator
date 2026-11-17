@@ -28,7 +28,8 @@ version: "2.1.0"
 | 4️⃣ 测试+失败处置 | `scripts/test/test_one.py` / `test_batch.py` / `triage.py` | **统一方案库 domain=test** |
 | 5️⃣ 进度表更新+报告 | `scripts/report/update_xlsx.py` / `progress_report.py` / `gen_xdevice_report.py` / **`gen_xdevice_summary.py`** | TSV/XLSX 数据在 dongwei/进度/；单工程 xdevice HTML 自包含；**多模块合并用官方 xdevice 模板渲染（--shot 自动截图 summary_top.png）** |
 | 6️⃣ **问题方案库** | `scripts/solutions/search_solution.py` / `add_solution.py` | **solutions/solutions.json（55 条方案）** |
-| 7️⃣ **门禁/编译规则自检** | **统一门禁 skill**：`ohos-gate-compliance/scripts/gate_check.py code <工程> --fix --strict` | 提交前扫描 ESObject/多余分号/大括号/行宽/命名/用例编号/await 捕获/done()/错误码转换/private 越权等（规则注册表 `rules/rules_ets.json` 38 条），命中报规则号+位置+修复建议，`--fix` 自动修复 |
+| 7️⃣ **门禁/编译规则自检** | **统一门禁 skill**：`ohos-gate-compliance/scripts/gate_check.py code <工程> --fix --strict` | 提交前扫描 ESObject/多余分号/大括号/行宽/命名/用例编号/await 捕获/错误码转换/private 越权/hook 误留 assertFail 等（规则注册表 `rules/rules_ets.json`）；**勿再为过门禁在 .catch 硬插 done()**（2026-09-10 接口人确认误报） |
+| 8️⃣ **提交前踩坑扫描** | `scripts/test/scan_upgrade_pitfalls.py`（assertFail / Test.json / IPC / 双份.ts / module 路径） | 提交硬拦截；`dongwei/commit_push/submit_req1.py` 已默认调用 |
 
 公共库：`scripts/common/`（paths/git_utils/hdc_utils/build_utils/proj_utils/arkts_fixes）。
 引号转换与机械格式修复已并入统一门禁 skill（`ohos-gate-compliance/scripts/checkers/ets_checker.py` 的 `dq_to_sq`/`fix_code_quality`）。
@@ -141,9 +142,42 @@ python3 report/update_xlsx.py && python3 report/progress_report.py --snapshot
 
 `test_one.py --html`：测试通过后自动生成 xdevice HTML 报告（REPORT_HTML= 输出，供截图门禁/报告留存）。
 
+## 需求1 分批 PR 踩坑固化（2026-09-10 req7～11，09-10 加固）
+
+**2026-09-17 req4/5/6 加固**：转换后自动 `fix_model_version`（6.0.0→26.0.0）；`scan_upgrade_pitfalls` 增补 modelVersion / `) {;` 笔误 / subscribe err / 浮动 `.then`；方案库 `hvigor_modelversion_6_to_26`。
+
+**2026-09-20 req3 再加固（防复发）**：
+- **取值必须对齐 `upstream/master`**（`git fetch upstream && git grep modelVersion upstream/master -- '**/hvigor-config.json5'`），**禁止**抄本地 develop 未同步的旧工程（本地仍可能是 6.0.0）。
+- **漏洞**：`gate_review` 的 `gate_target_files` 曾漏扫 `hvigor-config.json5`/`oh-package.json5`；`git-commit-agent`/`check_precommit` 只拦 `CI.SDK.01` 不拦 `CI.HVIGOR.01` → Agent 手工 commit 可把错误版本推上去。
+- **现已**：pipeline 强制纳入配置文件；`check_precommit` + `git-commit-agent` 提交前自动修并 HARD 拦截 `CI.HVIGOR.01`。
+
+
+| 问题 | 根因 | 脚本/门禁 |
+|------|------|-----------|
+| 测试全挂 `error in beforeAll` | hook / 成功路径误留 `expect().assertFail()` | `test/scan_bad_assertions.py`；门禁 `XTS.CHECK.ASSERTFAIL.01` |
+| CallFunction 成功仍 Fail | unsubscribe 成功回调里 `assertFail()` 紧邻 `done()` | 同上 + ASSERTFAIL.01 扩检 |
+| 辅助包 unavailable | Test.json rely 未进本 PR diff，CI 增量不编 | `dongwei/commit_push/check_assist_packages.py`（提交硬拦截） |
+| LastExit Collected suite 0 | `Test.json` `module-name: entry`，ohosTest 实为 `entry_test` | `test/scan_upgrade_pitfalls.py` |
+| CallTest mark blocked 双 suite | MainAbility/pages 也调 Hypium.hypiumTest；beforeAll start MainAbility 二次跑套件 | 页面去掉 hypiumTest，仅 TestAbility 跑测；`scan_upgrade_pitfalls` 扫非 TestAbility 的 hypiumTest |
+| ts→ets 残留双份 / 路径未同步 | 同名 `.ts`+`.ets` 并存，或 `module.json5` `srcEntry` 仍写 `.ts` | 删 `.ts`、改配置为 `.ets`；`scan_upgrade_pitfalls` 扫双份与 stale srcEntry（PR 43107） |
+| Orientation 事件 timeout | 门禁 `fix_ets_nam` 用 `\b` 把 **字符串字面量**一并改成 camelCase，用例与 helper 事件名不一致 | **已修** `ohos-gate-compliance` `fix_ets_nam`（跳过字符串/注释）；pitfalls 扫 `const eventX='eventX'` |
+| 多笔 PR 重复跑同一批 HAP | 检视同类改动复制进 req7～11 | `common/pr_overlap_check.py`（与更早兄弟分支交叉阻断） |
+| catch 里硬插 `done()` | 旧门禁误报诱导 | **已删除检查与 autofix**；接口人确认不必补 |
+
+```bash
+# 提交前本地扫全部已知踩坑（推荐）
+python3 test/scan_upgrade_pitfalls.py --diff upstream/master...HEAD
+# 仅危险断言
+python3 test/scan_bad_assertions.py --diff upstream/master...HEAD
+# 与更早 req*-submit-* 去重
+python3 common/pr_overlap_check.py --worktree <wt> --wt-root /root/aiSkill/develop/xts_acts_wt
+```
+
+**硬规则（Agent）**：G.NAM 只改标识符；`const Event_FA_X = 'Event_FA_X'` 改名后须为 `const eventFaX = 'Event_FA_X'`（**字符串保持原协议值**）。
+
 ## 关联
 
 - 需求说明：https://gitcode.com/fengqiang/mydoc/blob/main/suffix_update.md
 - 编测：自包含（见「编测能力自包含说明」）；历史参考：ohxtsdynamic/ohhdc/ohhap
-- 提交：`xts-git-commit`（scripts/do_commit.py + check_precommit.py）
+- 提交：`xts-git-commit`（scripts/do_commit.py + check_precommit.py）；分批 PR：`dongwei/commit_push/submit_req1.py`
 - 进度数据：`/root/aiSkill/develop/dongwei/进度/`（需求1进度表.xlsx、test_summary.tsv、报告）

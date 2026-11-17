@@ -164,6 +164,11 @@ def convert_batch(subdir: str, ext: str = "ts", dry_run: bool = False,
             quotes_changed = convert_proj_quotes(proj)  # 代码规范：双引号→单引号（版权头除外）
             if quotes_changed:
                 print(f"  [引号转换] {proj} 替换 {quotes_changed} 处双引号")
+            # XTS preprocess：modelVersion 6.0.0 会被拒（req4/5/6）
+            from build.fixers.fix_config import fix_model_version
+            mv = fix_model_version(proj)
+            if mv:
+                print(f"  [modelVersion] {proj} 修复 {len(mv)} 处 6.0.0→26.0.0")
     return {"converted": converted, "skipped": skipped, "ref_changed": ref_changed,
             "renamed": renamed, "files": len(files)}
 

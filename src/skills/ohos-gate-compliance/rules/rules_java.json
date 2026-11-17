@@ -1,0 +1,204 @@
+{
+  "rules": [
+    {
+      "id": "G.OTH.03",
+      "name": "Do not import unused types",
+      "category": "G.OTH",
+      "severity": "major",
+      "detect": "heuristic",
+      "fix": "删除未使用的 import（禁止注释保留）"
+    },
+    {
+      "id": "G.CMT.02",
+      "name": "Public class Javadoc with description and @since",
+      "category": "G.CMT",
+      "severity": "major",
+      "detect": "heuristic",
+      "fix": "顶层 public 类 Javadoc 补功能说明与 @since"
+    },
+    {
+      "id": "G.FMT.06",
+      "name": "Block brace on line end / closing brace on own line",
+      "category": "G.FMT",
+      "severity": "hint",
+      "detect": "heuristic",
+      "fix": "非空块右大括号另起一行（statement; } → statement;\\n}）"
+    },
+    {
+      "id": "G.FMT.09",
+      "name": "One statement per line",
+      "category": "G.FMT",
+      "severity": "hint",
+      "detect": "heuristic",
+      "fix": "一行多语句拆行（如 ;};}); → 分行）"
+    },
+    {
+      "id": "G.FMT.13",
+      "name": "Format spacing around braces and lambda arrow",
+      "category": "G.FMT",
+      "severity": "hint",
+      "detect": "regex",
+      "fix": "'; }' 去多余空格；') ->' / '-> {' lambda 补空格；'{ stmt' 块体换行"
+    },
+    {
+      "id": "G.FMT.02",
+      "name": "Single empty line between copyright, package, imports and class",
+      "category": "G.FMT",
+      "severity": "hint",
+      "detect": "heuristic",
+      "fix": "版权/package/import/类声明之间仅保留 1 空行"
+    },
+    {
+      "id": "G.FMT.14",
+      "name": "No vertical alignment with multiple spaces",
+      "category": "G.FMT",
+      "severity": "hint",
+      "detect": "regex",
+      "fix": "lambda '->  ' 等连续多空格收敛为单空格"
+    },
+    {
+      "id": "G.FMT.18",
+      "name": "Block comment indent matches context",
+      "category": "G.FMT",
+      "severity": "hint",
+      "detect": "heuristic",
+      "fix": "类内 @tc Javadoc 续行补 ' *' 对齐（非 '/*' 紧贴）"
+    },
+    {
+      "id": "G.CMT.03",
+      "name": "Method Javadoc multi-line with description",
+      "category": "G.CMT",
+      "severity": "hint",
+      "detect": "heuristic",
+      "fix": "单行 /** ... */ 方法注释展开为多行"
+    },
+    {
+      "id": "G.OBJ.04",
+      "name": "Do not hide class field with local variable",
+      "category": "G.OBJ",
+      "severity": "critical",
+      "detect": "heuristic",
+      "fix": "类字段与局部变量同名时重命名类字段为 sharedXxx"
+    },
+    {
+      "id": "G.DCL.02",
+      "name": "Declare local variables near first use",
+      "category": "G.DCL",
+      "severity": "hint",
+      "detect": "heuristic",
+      "fix": "声明与首次使用间隔 >10 行时将声明移至使用前；Object resultObj=null + assertNull 下沉到 assert 前"
+    },
+    {
+      "id": "G.ERR.02",
+      "name": "Do not catch Exception or RuntimeException",
+      "category": "G.ERR",
+      "severity": "normal",
+      "detect": "regex",
+      "fix": "按 assertEqual 期望异常类型收窄 catch"
+    },
+    {
+      "id": "G.ERR.05",
+      "name": "Avoid throw raw Error in test code",
+      "category": "G.ERR",
+      "severity": "normal",
+      "detect": "regex",
+      "fix": "throw new Error(...) → BasTest.throwTestError(...)"
+    },
+    {
+      "id": "G.CMT.01",
+      "name": "Missing javadoc on public/protected member",
+      "category": "G.CMT",
+      "severity": "hint",
+      "detect": "heuristic",
+      "fix": "public/protected 成员补简短 Javadoc"
+    },
+    {
+      "id": "G.FMT.05",
+      "name": "Conditional and loop blocks must use braces",
+      "category": "G.FMT",
+      "severity": "hint",
+      "detect": "regex",
+      "fix": "单行 if/for/while 补 { } 块"
+    },
+    {
+      "id": "G.FMT.10",
+      "name": "Each line has a maximum of 120 half-width characters",
+      "category": "G.FMT",
+      "severity": "hint",
+      "detect": "heuristic",
+      "fix": "超长行折行（@tc.desc / 长实参）"
+    },
+    {
+      "id": "G.CMT.06",
+      "name": "Missing empty line between code and comment",
+      "category": "G.CMT",
+      "severity": "hint",
+      "detect": "heuristic",
+      "fix": "'}' 与 @tc Javadoc 之间补空行"
+    },
+    {
+      "id": "G.NAM.03",
+      "name": "Class/interface/enum must be named in upperCamelCase style",
+      "category": "G.NAM",
+      "severity": "hint",
+      "detect": "regex",
+      "fix": "DummyObj_038 → DummyObj038"
+    },
+    {
+      "id": "G.TYP.08",
+      "name": "Should assign Locale when using String.toLowerCase/toUpperCase",
+      "category": "G.TYP",
+      "severity": "normal",
+      "detect": "regex",
+      "fix": "toLowerCase() → toLowerCase(java.util.Locale.ROOT)"
+    },
+    {
+      "id": "G.TYP.05",
+      "name": "Do not directly use == for floating point Infinity",
+      "category": "G.TYP",
+      "severity": "critical",
+      "detect": "regex",
+      "fix": "== Double.POSITIVE_INFINITY → Double.isInfinite(x) && x > 0"
+    },
+    {
+      "id": "G.MET.03",
+      "name": "Do not assign value to method parameter",
+      "category": "G.MET",
+      "severity": "hint",
+      "detect": "regex",
+      "fix": "参数赋值：lc→localeKey；amount→amountIn+局部副本等"
+    },
+    {
+      "id": "G.FMT.07",
+      "name": "Avoid empty code blocks",
+      "category": "G.FMT",
+      "severity": "hint",
+      "detect": "regex",
+      "fix": "空 for/while（含仅注释）插入 continue;（支持嵌套括号）"
+    },
+    {
+      "id": "G.OBJ.05",
+      "name": "Avoid overload primitive and wrapper",
+      "category": "G.OBJ",
+      "severity": "normal",
+      "detect": "heuristic",
+      "fix": "BasTest 删除 assertEqual(int, Integer)；新增 assertEqualInt(int, Number) 消歧"
+    },
+    {
+      "id": "G.OBJ.01",
+      "name": "Do not modify field with public which is not final",
+      "category": "G.OBJ",
+      "severity": "hint",
+      "detect": "heuristic",
+      "fix": "EntryResult/IteratorResult public 字段加 final"
+    },
+    {
+      "id": "G.NAM.06",
+      "name": "Non-constant field lowerCamelCase",
+      "category": "G.NAM",
+      "severity": "hint",
+      "detect": "regex",
+      "fix": "lambda 占位 $xN/_a 改合法标识符；private static int INT8_MAX 等 UPPER 字段改为 private static final"
+    }
+  ]
+}

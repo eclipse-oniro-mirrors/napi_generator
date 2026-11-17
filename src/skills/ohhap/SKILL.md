@@ -20,7 +20,7 @@ version: "1.0.0"
 
 ## 应用示例与提示词
 
-需 **`HOS_CLT_PATH`**、**`OHOS_SDK_PATH`**；在 **napi_generator 仓库根** 执行时脚本路径如下，**`<项目目录>`** 多为 **`src/skills/ohhap/NativeProj46R`** 或你自建的 HAP 工程绝对路径。
+需 **`HOS_CLT_PATH`**、**`OHOS_SDK_PATH`**；在 **napi_generator 仓库根** 执行时脚本路径如下，**`<项目目录>`** 多为 **`src/skills/ohhap/NativeProj46R`** 或自行准备的 HAP 工程完整路径。
 
 | 场景 | 命令示例 | 提示词示例 |
 |------|----------|------------|
@@ -35,7 +35,7 @@ version: "1.0.0"
 
 ### 必需的环境变量
 
-- `HOS_CLT_PATH`: HarmonyOS Command Line Tools 路径
+- `HOS_CLT_PATH`: OpenHarmony Command Line Tools 路径
   - 例如: `<本机 Command Line Tools 根目录>`
   - 需要包含 `version.txt` 文件
 
@@ -208,13 +208,13 @@ ohpm 6.0.1
 ================================================================================
 检查编译环境...
 ================================================================================
-✓ HarmonyOS Command Line Tools 路径: <你的 Command Line Tools 目录>
+✓ OpenHarmony Command Line Tools 路径: <Command Line Tools 目录>
   SDK名称: Command Line Tools
   运行系统: linux-x64
   版本: 6.0.1.260
   Hvigor版本: 6.21.2
   OHPM版本: 6.0.1
-✓ OpenHarmony SDK 路径: <你的 ohos-sdk 目录>
+✓ OpenHarmony SDK 路径: <ohos-sdk 目录>
   SDK版本: OpenHarmony_6.0.0.47
 ✓ Node.js 版本: v18.20.1 (符合要求)
 ✓ Hvigor 版本: 6.21.2 (符合要求)
@@ -288,4 +288,4 @@ ohpm 6.0.1
 3. 版本不一致时会显示警告，但构建仍会继续
 4. 构建过程可能需要较长时间，请耐心等待
 5. 签名功能需要 Java 环境，确保 `java` 命令可用
-6. 签名过程中会使用默认密码 `123456`，生产环境请使用自己的证书和密码
+6. 签名过程中会使用默认密钥库口令（开发证书常见默认值），生产环境请使用自己的证书和密码

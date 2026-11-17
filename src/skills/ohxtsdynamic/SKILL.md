@@ -4,9 +4,9 @@ description: >-
   OpenHarmony 动态 ArkUI（@ComponentV2）Hypium XTS 一体化技能：常规 API 用例 +
   异常参数（undefined/null）编译探测与成对 Inspector 断言。配合 arkui-dynamic-xts-generator；
   SDK 用 normal（Dyn）。触发词：动态 XTS、ChipV2、ChipGroupV2、异常参数、undefined、null、
-  异常参数、undefined、null、AbnormalAssert、compile_probe、ohxtsdynamic。含 §九/§9.10 多批次开发经验（含 BCM 动+静 CI 踩坑）、§9.11 新建工程 p7b 硬门禁、阶段2～4 **双 HAP 编测硬门禁**（主+ohosTest 须 build-all）、§十/REPORTING.md 报告整合。默认轻量化调试；显式申明才走源码级调试。
+  异常参数、undefined、null、AbnormalAssert、compile_probe、ohxtsdynamic。含 §九/§9.10 多批次开发经验（含 BCM 动+静 CI 踩坑）、§9.11 新建工程 p7b 硬门禁、§9.12 同 bundle 多 HAP **CI 同签交付验板**（pr_local_verify）、阶段2～4 **双 HAP 编测硬门禁**（主+ohosTest 须 build-all）、§十/REPORTING.md 报告整合。默认轻量化调试；显式申明才走源码级调试。
 author: "napi_generator"
-version: "1.5.3"
+version: "1.5.5"
 ---
 
 # ohxtsdynamic：动态 ArkUI XTS 一体化 Skill
@@ -91,6 +91,35 @@ version: "1.5.3"
 
 ---
 
+## 断言质量硬门禁（假覆盖零容忍 · 动态与静态同等 · PR44669/44715）
+
+**适用范围**：**动态（ohxtsdynamic）与静态（ohxtsstatic）同一红线**，不因 `@ComponentV2` / ohosTest 双包而放宽。接口人对空断言、恒真断言、假覆盖直接差评。交付前 **必须**自检并跑 `ohos-gate-compliance`（**FAKE_COVERAGE.01～04** + ALL_TIME_TRUE.01）；细则亦见 gate `docs/checklist.md`。
+
+| 禁止（假） | 要求（真） |
+|------------|------------|
+| `expect(Enum.X).assertEqual(0)` 当唯一证据 | 页面真实挂载/链式调用该枚举；规格可用 Text/`AppStorage` 旗标 + Inspector/`assertPropSame` |
+| `expect(strJson.length > 2).assertTrue()` / 只认节点存在 | 具体 `$attrs`（如 `JSON.parse(node).$attrs.barStyle`）或业务旗标 |
+| `expect(true).assertTrue()` / soft-skip 垫绿 | 缺能力：`return`（勿垫 assert）；有能力：硬 `assertEqual` / `assertPropSame` |
+| `expect(a \|\| x.length > 0).assertTrue()` | 去掉恒软兜底 |
+| `softSkipMissing` 后整条 `it` 无硬断言 | 有属性则比；无属性则跳过；禁止 `expect(true)` 充数 |
+| 用 A API 返回值冒充 B 回调已触发 | 分字段旗标；`onXxx` 只由注册回调写入 |
+| 异常参整段 `$attrs` JSON 对比 | **单属性** `assertPropSame(uId, dId, attr, …)`（§2.1） |
+
+**API1.2（调用/入参/参数规格/返回值）**：动态 PR 描述同样须附四类矩阵；每格能指到预览页真实调用点（含 `ChipV2Options` / Tabs 链式 API）。
+
+```typescript
+// BAD — 枚举 dump / 存在性假覆盖（动静态都禁）
+expect(TabsSidebarDisplayStyle.DISPLACE).assertEqual(1);
+expect(JSON.stringify(node).length > 2).assertTrue();
+
+// GOOD — 真实挂载 + 具体属性（动态常用 JSON.parse 路径）
+expect(JSON.parse(getInspectorByKey('tabs_x')).$attrs.sidebarDisplayStyle)
+  .assertEqual('SidebarDisplayStyle.DISPLACE');
+// 异常成对：assertPropSame('abn_u', 'abn_d', 'enabled', 'root');
+```
+
+**动态侧额外注意**：`ohosTest` 与主包拆分时，断言只放测试包；主包 Helper **禁止** `expect`。`getAllWindowStages` 类计数勿用 `assertLarger(N-1)` 降预期（见 **§9.9**）。
+
 ## 一、动态 ArkUI 硬约束
 
 **多批次开发经验**（路径、流程、异常范式）见 **§九**；写码前**先打开工程内已 Pass 的相近页面**复制骨架。
@@ -102,6 +131,7 @@ version: "1.5.3"
 5. **路由**：ACTS 工程常用 `router.pushUrl({ url: 'MainAbility/pages/chipV2/ChipV2Api1' })`，与 **`main_pages.json`** 一致。
 6. **日志**：建议前缀 **`[ARKUI_DYN]`**。
 7. **`@tc.*` JSDoc（开发期硬门禁）**：**写每条 `it` 的同一时刻**须写全六字段（`number/name/desc/type/size/level`），且 **`@tc.number` = `@tc.name` = `it('…')` 首参一致**；**禁止**先写裸 `it`、提交前再补 @tc。缺任一条 → 用例未写完，不得编签/设备。提交前脚本仅**复核**（见 **§9.4**）。
+8. **不新增中文注释（开发期硬门禁）**：开发、调试、修改问题，**都不新增中文注释**；**不要**在项目代码中标记中文的问题、功能说明。说明写会话/PR/commit；`@tc.*` 必填字段按同仓风格（可中文 desc），禁止额外中文问题/功能标注。
 
 ---
 
@@ -528,6 +558,33 @@ python3 ohhdc/ohhdc.py deploy-test <工程根> -m entry_test ...
 | 异常批次假失败 | `run_abnormal_device_test.sh` clean 卸载 |
 | 全量 List 失败误判新用例 | `deploy-test --class SuiteName` |
 | **CI/GN 验签失败** | 模板拷贝 p7b，bundle 与 app.json5 不一致 | **§9.11** `gen-xts-signature-p7b.sh` |
+| 回调裸 `if (err){assertFail}` | CommonEvent/ability 成功带 `{code:0}` 仍失败 | **`if (err && err.code !== 0)`**；门禁 **XTS.CHECK.ERR_CODE.01**（PR43852） |
+| 本地 xdevice `9568289`/`9568332`；kits 含 Main+Test/Assist | 缺 ACL / **混签**；**非**结构问题 | **§9.12** **CI 同签**全套；**禁** hapbuild autosign Assist + 门禁主包；**勿**合并单 HAP |
+
+### 9.12 同 bundle 多 HAP / 本地交付验板 = 门禁同签（与 static 共用）
+
+`Test.json` AppInstallKit 同时装多 HAP（`*Test`+`*Main` / SyncTest+Assist / Rely…）时：
+
+- **结构合理**：多 module 同 bundle，不要改成单 HAP。
+- **门禁**：Assist/Rely **进 PR diff**（`check_assist_packages`）→ 流水线用 dist+p7b 同签；本地 zip **不**进仓。
+- **本地交付验板（P0，2026-10-31；效力 ≈ 下载门禁产物）**：
+  - 签名材料与门禁一致：`developtools/hapsigner/dist` 的 `OpenHarmony.p12` + `OpenHarmonyApplication.pem` + 工程 **`signature/openharmony_sx.p7b`**（**禁**自造证书 / hapbuild autosign / `/tmp/xts_sign`）。
+  - **`--resign` → `sign_ci_identical.py`**（对 Test.json **全部** kit owner）。
+  - **禁止**「仅本地 Assist + 门禁 SyncTest/Main」——必现 **9568332**。
+  - 交付跑测：**全模块** `设备 unittest`（**禁** `-s class` 当交付绿）；失败读 log 修到绿。
+
+```bash
+# 推荐：PR 涉及工程一键验板 → 合并报告 + summary_top.png
+python3 xts_shared/pr_local_verify.py \
+  --repo <xts_acts> --from-diff origin/master --out /tmp/pr_verify
+
+# 或仅打全套 CI 同签 zip
+python3 ohxtsdynamic/ohxtsflow.py pack-assist <工程根> --resign --out /tmp/kit.zip
+python3 xts_shared/pack_xdevice_assist_haps.py <工程根> --resign --out /tmp/kit.zip
+python3 xts_shared/sign_ci_identical.py --project <工程根>
+```
+
+截图贴 PR：`gitcode-pr describe-report`；详述 **`XDEVICE-ASSIST-HAPS.md`**、**`PR-DELIVER.md`**、**`CASE-QUALITY.md`**、**`compile_error_hints.md` §2.2**。
 
 ### 9.11 新建工程：signature/openharmony_sx.p7b（P0 硬门禁，与 static/CAPI 共用）
 
@@ -574,7 +631,39 @@ grep bundleName <工程根>/AppScope/app.json5
 [ ] 存疑路径已获用户确认
 [ ] git commit -sm；禁止 git add -A
 [ ] **p7b（§9.11）**：已 gen-xts-signature-p7b.sh；bundle 与 app.json5 一致；**禁止模板拷贝**
+[ ] **多 HAP 本地报告（§9.12）**：`pr_local_verify` 或 `pack-assist --resign`（**CI 同签**）；未混装；未把本地 zip 当 CI 产物提交
+[ ] **用例质量（CASE-QUALITY）**：接口人条目无遗漏；禁假覆盖 / 只跑新 class
 ```
+
+### 9.7.1 PR 提交与门禁触发（硬门禁，与 ohxtsstatic / gitcode-pr 共用）
+
+> **用户要求「提交 PR / 推仓 / 触发门禁」时必须走本流程。** CI 拒绝未关联 Issue 的 PR（`The PR is not associated with any Issue`）。  
+> **交付验板**：本地 CI 同签全套绿 + 汇总截图写入 PR 描述（效力 ≈ 下载门禁产物）。**已合入禁推的 PR 不再改码。**
+
+**标准顺序（不可跳步）**：
+
+1. 用例质量（**CASE-QUALITY**）+ 本地门禁 + `git commit -sm`（**xts-git-commit**）→ `git push`
+2. **创建或复用 Issue** → **创建/链 PR**（描述含 Issue 链接）
+3. **`pr_local_verify`**（最终 tip；CI 同签；全模块）→ Read `summary_top.png` → **`describe-report`** 写入 PR
+4. **验证**：`GET pulls/{n}/issues` 非空；测试段已含绿结果/截图
+5. **等 ≥60s** 后 **`start build`**
+
+```bash
+# 推荐：一键（新建 Issue + PR + 关联 + 等 60s 触发）
+python3 /root/aiSkill/napi_generator/src/skills/gitcode-pr/scripts/gitcode_pr_submit.py all \
+  --issue-title "[新需求]: <简述>" --issue-body "<背景/覆盖范围>" \
+  --pr-title "test(arkui): <简述>" \
+  --head "nicklaus0602/<fork仓>:<分支>" --base master \
+  --pr-body-file body.md --build
+
+# 已有 PR 仅补关联再触发
+python3 .../gitcode_pr_submit.py link <PR号> --issue <Issue号>
+python3 .../gitcode_pr_submit.py build <PR号> --delay 60
+```
+
+细则见 **`gitcode-pr/SKILL.md`**。**禁止**：只 push 就 `start build`；禁止未验证关联即宣称已触发门禁。
+
+**门禁跟进（合入前）**：与 static 共用 **`pr_delivery_track.py`**（默认 15min；编译/CodeCheck→拉 log；仅冒烟→rebuild；绿→贴图；`track.log`）。一次交付铁律见 **`xts_shared/ONE-SHOT-DELIVER.md`**；静态 Ability 六维踩坑见 **ohxtsstatic §13.14**。
 
 ### 9.8 交付前自检（设备）
 
@@ -591,8 +680,28 @@ grep bundleName <工程根>/AppScope/app.json5
 [ ] 异常：compile_probe 结论与跑测一致
 [ ] 每条 it 前有完整 /** @tc.number … @tc.level */（**编写 `it` 时同批写全**，非提交前补；缺任一条不得编签/设备）
 [ ] 页面 id/key 符合 §9.4「页面名_组件名[_01]」；用例引用已同步
+[ ] **假覆盖零容忍（与 static 同等）**：无裸枚举 dump、无 length>2 仅存在性、无 expect(true)/soft-skip 垫绿；API1.2 四类可追溯；已跑 gate FAKE_COVERAGE.01～04
 [ ] 会话三列表格报告
+[ ] **PR（用户要求推仓时）**：已关联 Issue → 验证 `pulls/{n}/issues` → 等 60s → `start build`（§9.7.1 / **gitcode-pr**）
 ```
+
+### 9.8.1 禁止「Ability 启动失败就把预期减一」（2026-09，P0）
+
+接口人反馈：某 `getAllWindowStages` 测试套里「有一个 Ability 启动失败，然后 PR 里直接把预期结果减一了，但是黄区启动成功了，就过不了」。作者本地设备 `startAbility` 失败，于是把精确预期降级成 `assertLarger(N-1)`（或删掉名字断言），黄区设备上该 Ability 能起来、真实值更大，放宽后的断言虽然仍过，但**语义已失效且掩盖了真实环境差异**。
+
+**动/静都适用的判定与做法**（静态侧完整规则见 **ohxtsstatic §13.13**，同一批次同一套思路）：
+
+| 现象 | 本质 | 正确处理 |
+|------|------|----------|
+| `16000017` Another ability is being started | **瞬时**并发启动 | 重试；重试前先轮询到状态稳定 |
+| `801` Capability not support | 设备**不支持**该能力 | **精确**断言「结果不变」 |
+| `16000078` Multi-instance is not supported | 设备**不支持**多实例 | **精确**断言「结果不变」 |
+
+- **禁止**：`assertEqual(N)` → `assertLarger(N-1)`；删除/复制断言充数；留下 `count1`/`count2` 等未使用变量；用固定数字（换设备、换 Suite 执行顺序、前置用例未清理的残留都会让固定数字失效）。
+- **要求**：预期一律基于**本用例自己取的基线**（`基线 + 1` 精确相等）；分支按错误码显式区分并把 `code`/`message` 打进日志；被拒绝时断言「与基线**精确**相等」，这不是放宽而是有效断言。
+- **动态侧注意**：`ohosTest` 里 `AppStorage`/全局状态跨 `it` 残留同样会污染计数基线；取基线前先清理本套件自己创建的 Ability/页面（`afterEach` 只做 best-effort 清理，不要在其中放断言）。
+- **归因偏移**：async 续体里的 `assertXxx` 失败会被 Hypium 报到**下一个** `it`（`stream=Error in <下一个用例>, fail`）。禁止 `.then().catch(() => expect().assertFail())` 这种延迟断言；改为 `await` 并把失败**作为数据**返回，在同步位置断言。
+- **自检**：单套件全绿后整测连跑 **≥5 次**；除 `OHOS_REPORT_RESULT: Failure: 0` 外，还须核对 hilog 中 `[Hypium][fail]` 计数为 0（防延迟断言被吞）。
 
 ### 9.9 已验证样例（可直接对照）
 
@@ -675,4 +784,4 @@ grep bundleName <工程根>/AppScope/app.json5
 
 **本地工具根**：`/root/aiSkill/develop/xts_acts_local_tools/xts_acts_0622/`（不进 develop 仓 Git）。
 
-**提交**：遵循 **xts-git-commit**；报告脚本/HTML 默认不 commit。
+**提交**：遵循 **xts-git-commit**；用户要求推仓/触发门禁时遵循 **gitcode-pr**（Issue 关联 → start build）；报告脚本/HTML 默认不 commit。

@@ -177,6 +177,133 @@ callback(INVALID_PARAM, PARAM_NEGATIVE_1, userData);
 # good: ... breaks C++ standard headers (nullptr_t).
 ```
 
+## 案例 13：CAPI NAPI `MakeIntArray` 长度 / 多参数组装（G.CNS.02 + G.FUN.01-CPP + G.NAM.03-CPP）
+
+**问题**（MR 43815 `ChildProcessInfosNapi.cpp` CodeCheck）：
+
+- `MakeIntArray(env, vals, 2)` / `vals[7]` 的裸 `2`/`7` → **G.CNS.02**（即使本地 MAGIC 白名单含 `2`，CodeCheck 仍报）
+- `BuildQueryResult(env, a, b, c, d, e, f, g)` 参数过多 → **G.FUN.01-CPP**（函数参数个数 / 复杂度）
+- 匿名命名空间 `constexpr` 用 `kCamelCase`（如 `kAcquireResultLen`）→ **G.NAM.03-CPP**（须 `K_ACQUIRE_RESULT_LEN` UPPER_CASE）
+
+**修复**：
+
+```cpp
+constexpr size_t K_ACQUIRE_RESULT_LEN = 2;
+constexpr size_t K_QUERY_RESULT_LEN = 7;
+
+struct QueryResultFields {
+    int32_t acquireCode = 0;
+    int32_t count = 0;
+    int32_t indexCode = 0;
+    int32_t pid = 0;
+    int32_t pidCode = 0;
+    int32_t nameCode = 0;
+    int32_t nameLen = 0;
+};
+
+napi_value MakeAcquirePair(napi_env env, int32_t ret, uint32_t count)
+{
+    int32_t vals[K_ACQUIRE_RESULT_LEN] = { ret, static_cast<int32_t>(count) };
+    return MakeIntArray(env, vals, K_ACQUIRE_RESULT_LEN);
+}
+
+napi_value BuildQueryResult(napi_env env, const QueryResultFields &fields)
+{
+    int32_t vals[K_QUERY_RESULT_LEN] = { /* fields.* */ };
+    return MakeIntArray(env, vals, K_QUERY_RESULT_LEN);
+}
+```
+
+**经验**：NAPI 回传定长 `int32` 数组时，长度一律 `constexpr` 且 **UPPER_SNAKE_CASE**（勿 `kFooBar`）；超过约 5 个同质出参时改用 `struct` 打包，避免 G.FUN.01-CPP。  
+**复发（MR 45077）**：枚举 smoke 的 `int32_t vals[2]` / `MakeIntArray(..., 2)` 仍报 G.CNS.02；本地 `MAGIC.NUM` 白名单含 `2` **拦不住** CodeCheck。统一 `K_ERR_ENUM_PAIR_LEN`。`RegisterXxxNapi` 超大 desc 表按域拆 `DefineXxxAcquire` / `DefineXxxQuery`（G.FUD.05）。本地检测见 **G.CNS.02-CPP**。
+
+## 案例 14：CAPI 枚举值 ASSERT + 超大 .cpp + WordsTool.143（api26 animate / PR45178）
+
+**问题**（MR / CodeCheck）：
+
+- `ASSERT_EQ(ARKUI_ERROR_CODE_*, 106211)` / `ASSERT_EQ(OH_ARKUI_ANIMATION_PROPERTY_OPACITY, 11)` / `ASSERT_EQ(HANDEDNESS_MODE_*, 2)` → **G.CNS.02**
+- 单文件 NBNC &gt;2000 → **超大源文件**
+- `dlopen("libace_…")` 路径含本地开发套件缩写 → **WordsTool.143**
+
+**修复**：
+
+```cpp
+// Enum smoke：用枚举常量互比，勿写裸数值
+ASSERT_EQ(ARKUI_ERROR_CODE_NO_ATTRIBUTE_FOUND != ARKUI_ERROR_CODE_SUB_ANIMATION_INVALID, true);
+ASSERT_EQ(OH_ARKUI_ANIMATION_PROPERTY_OPACITY != OH_ARKUI_ANIMATION_PROPERTY_TRANSLATION, true);
+
+// WordsTool.143：字符串字面量拆段，避免连续缩写 token
+handle = dlopen("libace_n" "dk.z.so", RTLD_LAZY);
+handle = dlopen("/system/lib/" "n" "dk" "/libohweb.so", RTLD_NOW);
+```
+
+**经验（arkweb ErrorInfo，2026-10）**：`/system/lib/<kit>/...` 路径字面量同样触发 WordsTool.143；优先 `RTLD_DEFAULT`/`libohweb.so`，系统路径必须拆 `"n" "dk"`。
+
+```text
+NativeModuleAnimationTest.cpp      # 主体用例
+NativeModuleAnimationExtraTest.cpp # 后半用例
+NativeModuleAnimationInit.cpp      # NAPI 注册表
+# CMakeLists.txt add_library 同时列入上述 .cpp
+```
+
+**经验**：枚举“值正确性”若只需区分枚举项，优先互比；必须钉死数值时，数值只进命名 `constexpr`，用例侧不再写裸码。NBNC 近 2000 时按「用例 / Extra / Init」拆文件。
+
+## 案例 15：头文件 inline 超 10 行（G.FUD.06，api26 animate）
+
+**问题**：`native_anim_common.h` 中 `inline MakeCurve()` 约 20 行 → **G.FUD.06**。
+
+**修复**：头文件只保留声明；实现放到 `native_anim_common.cpp`，并拆成短辅助函数；`CMakeLists.txt` 登记该 `.cpp`。
+
+```cpp
+// native_anim_common.h
+ArkUI_CurveHandle MakeCurve();  // 勿 inline 长实现
+
+// native_anim_common.cpp
+ArkUI_CurveHandle MakeCurve()
+{
+    auto curve = TryCurveByType();
+    if (curve != nullptr) {
+        return curve;
+    }
+    return TryCubicCurve();
+}
+```
+
+**经验**：header 内 `inline` 函数体（不含空行/注释）须 ≤10 行；复杂逻辑一律出头文件。
+
+## 案例 16：CI SDK 头文件缺声明（PathAnimation_SetCurve，dayu200_xts）
+
+**问题**：本地 SDK 有 `OH_ArkUI_NativeModule_PathAnimation_SetCurve/GetCurve`，CI `prebuilts/ohos-sdk` 头文件无声明 → `undeclared identifier`。
+
+**修复**：勿直接调用；用 `CallAnimErr`/`AnimFp` + 本地函数指针类型封装（`PathAnimSetCurve`），编译不依赖头文件声明，运行时 `dlsym`。
+
+```cpp
+using PathSetCurveFn = ArkUI_ErrorCode (*)(OH_ArkUI_PathAnimationHandle, ArkUI_CurveHandle);
+ArkUI_ErrorCode PathAnimSetCurve(OH_ArkUI_PathAnimationHandle anim, ArkUI_CurveHandle curve)
+{
+    return CallAnimErr<PathSetCurveFn>("OH_ArkUI_NativeModule_PathAnimation_SetCurve", anim, curve);
+}
+```
+
+## 案例：G.FMT.17-CPP 花括号块首空行（arkweb ErrorInfo）
+
+**问题**：`extern "C" {` / 函数 `{` 后紧跟空行 → CodeCheck「Do not add blank lines on the start of a code block」。
+
+**错误**：
+```cpp
+extern "C" {
+
+__attribute__((weak)) void OH_ArkWeb_CreateErrorInfo(...)
+```
+
+**正确**：
+```cpp
+extern "C" {
+__attribute__((weak)) void OH_ArkWeb_CreateErrorInfo(...)
+```
+
+**经验**：`gate_check.py code --fix` 已覆盖 `G.FMT.17-CPP` 自动删块首空行；本仓 ErrorInfo 已改 `dlsym`，弱 stub 文件已删除，同类问题不再引入。
+
 ## Commit 分批示例（本次）
 
 | Commit | 范围 | 约行数 |

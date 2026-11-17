@@ -206,7 +206,7 @@
    "category": "arkts",
    "pattern": "arkts-no-untyped-obj-literals|Object literal must correspond to some explicitly declared class or interface",
    "handler": "",
-   "hint": "声明接口再赋给变量；Record 字面量用 {...} as Record<string, X> 断言",
+   "hint": "对象字面量须有显式类型：声明接口再赋给变量；API 已知类型直接声明：let commonEventPublishData: commonEvent.CommonEventPublishData = {...}；Record 字面量用 {...} as Record<string, X> 断言",
    "source": "SKILL 1.5 速查表（ability/arkui 实战）",
    "count": 0,
    "last_hit": ""
@@ -673,10 +673,10 @@
    "category": "",
    "pattern": "arkts-no-any-unknown.*At File",
    "handler": "",
-   "hint": "箭头函数参数隐式 any → 补显式类型：context: common.UIAbilityContext（需 import common from '@ohos.app.ability.common'）、startType: string 等按用法推断",
+   "hint": "函数参数/变量隐式 any → 补显式类型：context: common.UIAbilityContext（需 import common from '@ohos.app.ability.common'）；onCreate(want: Want, launchParam: AbilityConstant.LaunchParam)；异步回调 (error: BusinessError, data: void)（AsyncCallback<void>）；多属性动态参数定义 interface（如 MultiInstanceParams{nextStep:number;stepNum:number;step:string[];startId?:number}）后参数: MultiInstanceParams；AppStorage.get 补泛型：AppStorage.get<common.UIAbilityContext>(\"Xxx\")!；AbilityStage.onAcceptWant(want: Want): string | undefined（import Want）；模块级变量补类型：let onAcceptWantCalledSeq: string；按用法推断（startType: string 等）；辅助包(rely/assist hap)迁移同样适用",
    "source": "2026-08-17 批量闭环",
-   "count": 0,
-   "last_hit": ""
+   "count": 1,
+   "last_hit": "2026-08-31"
   },
   {
    "id": "9568267_install_entry_already_exist",
@@ -750,7 +750,7 @@
    "category": "",
    "pattern": "is possibly 'undefined'",
    "handler": "fix_arkts.fix_parameters_nullcheck",
-   "hint": "ArkTS 严格空值检查（SDK12）：对象属性可能为 undefined 时访问其成员需补可选链——want?.parameters.case→want?.parameters?.case、commonEventData.parameters.result→commonEventData.parameters?.result；重复 import 同符号时删重复行（fix_duplicate_identifier）",
+   "hint": "ArkTS 严格空值检查（SDK12）：对象属性可能为 undefined 时访问其成员需补可选链——want?.parameters.case→want?.parameters?.case、commonEventData.parameters.result→commonEventData.parameters?.result；明确非空（前置检查/语义保证）时用非空断言 !：abilityWant.parameters!.nextStep、parameters: abilityWant!.parameters!、调用处 abilityWant.parameters! as MultiInstanceParams；Want.parameters 断言 Record：let parameters = want.parameters as Record<string, Object>（声明在使用前）；Object 值与 number 比较用 Number(x) 转换；重复 import 同符号时删重复行（fix_duplicate_identifier）",
    "source": "PR 43051 dayu200_xts_acts CI 编译日志（analyze_build_log.py 分析）",
    "count": 1,
    "last_hit": "2026-08-18"
@@ -856,6 +856,119 @@
    "source": "build.log (10) req2",
    "count": 0,
    "last_hit": ""
+  },
+  {
+   "id": "arkts_no_implicit_return_types",
+   "domain": "build",
+   "category": "arkts",
+   "pattern": "arkts-no-implicit-return-types|Function return type inference is limited",
+   "handler": "",
+   "hint": "函数返回类型显式声明：onAcceptWant(want: Want): string | undefined（混合 return undefined/string 时用联合类型）；onCreate(): void；避免隐式返回类型推断受限",
+   "source": "2026-08-31 req2 multiinstance 辅助包 appa~d 编译闭环（72 条 ArkTS 严格模式错误）",
+   "count": 1,
+   "last_hit": "2026-08-31"
+  },
+  {
+   "id": "assertfail_in_beforeall",
+   "domain": "test",
+   "category": "assertion",
+   "pattern": "error in beforeAll function|failDetail.*beforeAll|expect\\(\\)\\.assertFail",
+   "handler": "",
+   "hint": "检查 beforeAll/afterEach 是否误留无条件 expect().assertFail()，或 try/catch 后成功路径 assertFail；删除即可（req7 CallTest 26/26）。提交前跑 test/scan_bad_assertions.py",
+   "source": "2026-09-10 req7 ActsCallTestEntryTest 报告",
+   "count": 1,
+   "last_hit": "2026-09-10"
+  },
+  {
+   "id": "assist_hap_unavailable",
+   "domain": "test",
+   "category": "deps",
+   "pattern": "unavailable|AppInstallKit|install.*Rely|missing.*RelyHap",
+   "handler": "",
+   "hint": "Test.json kits 辅助 hap 须进入本 PR diff（CI 按 PR_FILE_PATHS 增量编）；用 dongwei/commit_push/check_assist_packages.py --auto-add，内容与上游一致时须先做需求1 迁移；submit_req1 默认硬拦截缺失",
+   "source": "2026-09 req7～8 辅助包缺失",
+   "count": 1,
+   "last_hit": "2026-09-10"
+  },
+  {
+   "id": "catch_done_false_positive",
+   "domain": "test",
+   "category": "async",
+   "pattern": "catch.*必须.*done|异步调用的回调分支.*done",
+   "handler": "",
+   "hint": "勿在 .catch 硬插 done()：2026-09-10 接口人确认原门禁为误报，平台已删；本地 gate 也不再检/不修",
+   "source": "2026-09-10 接口人确认",
+   "count": 1,
+   "last_hit": "2026-09-10"
+  },
+  {
+   "id": "pitfall-nam-ipc-testjson-assertfail-20260910",
+   "pattern": "execute timeout 30000ms|Collected suite count is: 0|AssertException|Acts_SingleInstanceCallFunction_0700",
+   "hint": "①G.NAM 只改标识符勿改 CommonEvent 字符串（const eventX='Event_X'）；②Test.json module-name 对齐 ohosTest（多为 entry_test）；③成功路径勿 assertFail+done。提交前 scan_upgrade_pitfalls.py --diff upstream/master...HEAD",
+   "tags": [
+    "req7",
+    "req9",
+    "req10",
+    "orientation",
+    "lastexit",
+    "callfunction",
+    "G.NAM"
+   ]
+  },
+  {
+   "id": "hvigor_modelversion_6_to_26",
+   "domain": "build",
+   "category": "config",
+   "pattern": "hvigor-config\\.json5.*does not meet the requirements|modelVersion.?6\\.0\\.0|The hvigor-config\\.json5 in the following directory does not meet",
+   "handler": "fix_config.fix_model_version",
+   "hint": "hvigor-config.json5 与 oh-package.json5 的 modelVersion 从 6.0.0 改为 26.0.0（与 API26 peer 对齐）。XTS preprocess Hvigor check 会整批失败。",
+   "source": "2026-09-17 req4/5/6 CI build.log 实锤",
+   "count": 3,
+   "last_hit": "2026-09-17"
+  },
+  {
+   "id": "async_subscribe_err_unused",
+   "domain": "test",
+   "category": "gate",
+   "pattern": "XTS\\.CHECK\\.ASYNC_TESTCASE\\.02|异步回调函数缺失错误处理|未检查或使用err参数",
+   "handler": "",
+   "hint": "commonEvent.subscribe(sub,(err,data)=>{...}) 块内须 if(err){...;return;} 后再用 data；createSubscriber().then 浮空链须补 .catch。",
+   "source": "2026-09-17 req4/req5 CodeCheck",
+   "count": 2,
+   "last_hit": "2026-09-17"
+  },
+  {
+   "id": "fmt10_brace_same_line_and_typo",
+   "domain": "test",
+   "category": "gate",
+   "pattern": "G\\.FMT\\.10|Opening curly brace does not appear on the same line|Statement inside of curly braces should be on next line",
+   "handler": "",
+   "hint": "方法签名与 { 同行：foo(): void {；禁止 onCreate() {; 这类笔误；禁止 ): void\\n{ 换行大括号。",
+   "source": "2026-09-17 req5/req6 CodeCheck",
+   "count": 2,
+   "last_hit": "2026-09-17"
+  },
+  {
+   "id": "ext01_static_readonly_needs_public",
+   "domain": "test",
+   "category": "gate",
+   "pattern": "G\\.EXT\\.01|Please add accessible access modifiers",
+   "handler": "",
+   "hint": "类属性/方法补 public|private；static readonly COMMAND_X = 1 须写成 public static readonly。",
+   "source": "2026-09-17 req6 IDL proxy/stub",
+   "count": 1,
+   "last_hit": "2026-09-17"
+  },
+  {
+   "id": "wordstool9_ability_mgr",
+   "domain": "test",
+   "category": "gate",
+   "pattern": "WordsTool\\.9",
+   "handler": "",
+   "hint": "开源描述/TAG 勿裸写三字母管理服务缩写；改 AbilityStage / Stage Ability。",
+   "source": "2026-09-17 req6 Logger.ets",
+   "count": 1,
+   "last_hit": "2026-09-17"
   }
  ]
 }

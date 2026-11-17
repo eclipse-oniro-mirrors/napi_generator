@@ -1,0 +1,51 @@
+{
+  "version": "2.0",
+  "desc": "工程配置门禁（build-profile / hvigor-config / oh-package）。由 config_checker 实现。",
+  "rules": [
+    {
+      "id": "CI.SDK.01",
+      "name": "compile/targetSdkVersion 须为 M.S.F 字符串",
+      "category": "gate",
+      "severity": "严重",
+      "detect": "regex",
+      "pattern": "compileSdkVersion|targetSdkVersion",
+      "fix": "写成当前 api_full_version 完整字符串（现 \"26.0.1\"），禁止数字/\"26\"/过期 \"26.0.0\""
+    },
+    {
+      "id": "CI.HVIGOR.01",
+      "name": "hvigor/oh-package modelVersion 禁止 6.0.0",
+      "category": "gate",
+      "severity": "致命",
+      "detect": "regex",
+      "pattern": "\"modelVersion\"\\s*:\\s*\"6\\.0\\.0\"",
+      "fix": "改为 \"26.0.0\"（对齐 upstream/master 同类工程；禁止抄本地未更新的旧工程 6.0.0；2026-09-17/20 XTS preprocess 实锤）"
+    },
+    {
+      "id": "XTS.CHECK.HAPNAME.01",
+      "name": "test_hap=true 的 js_app suite hap_name 须 Acts…Test",
+      "category": "gate",
+      "severity": "致命",
+      "detect": "heuristic",
+      "pattern": "hap_name|test_hap",
+      "fix": "ohos_js_app_suite / ohos_js_app_static_suite 且 test_hap=true 时 hap_name 须 ^Acts[A-Za-z0-9]+Test$；勿用 *Rely（Rely 留给 ohos_app_assist_suite）。PR45112 实锤"
+    },
+    {
+      "id": "CI.BUILDGN.PARENT.01",
+      "name": "ohos_js_app*_suite 须在最近父 group BUILD.gn 注册",
+      "category": "gate",
+      "severity": "致命",
+      "detect": "heuristic",
+      "pattern": "ohos_js_app_suite|group\\(",
+      "fix": "对照同级工程：在父目录 BUILD.gn 的 group deps 写 \"dirname:SuiteName\"。禁止缺省父挂接。PR45331"
+    },
+    {
+      "id": "CI.BUILDGN.PEER_DOTDOT.01",
+      "name": "纯 group 聚合禁止 ../ 挂同级套件",
+      "category": "gate",
+      "severity": "致命",
+      "detect": "heuristic",
+      "pattern": "\"\\.\\./",
+      "fix": "group() 聚合器勿写 \"../peerSuite:…\"；同级套件挂父 BUILD.gn。suite 工程 deps 同 kit 内 Rely 仍可用 ../。PR45250 反面教材 / PR45331 纠正"
+    }
+  ]
+}

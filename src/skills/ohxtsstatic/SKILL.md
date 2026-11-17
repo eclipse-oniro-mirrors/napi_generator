@@ -1,8 +1,8 @@
 ---
 name: ohxtsstatic
-description: "OpenHarmony ArkTS use static + Hypium XTS 一体化技能：三要素 + 工程根；**会话正式测试报告**须含**三列表格**；§十四/REPORTING.md 汇总与未覆盖报告。含 §十三/§13.10～§13.11 多批次开发经验（BCM CI、dialog api26 Hypium/板端）。ohxtsflow/ohhdc、arkui-static-xts-generator。默认轻量化调试；显式申明才走源码级调试。"
+description: "OpenHarmony ArkTS use static + Hypium XTS 一体化技能：三要素 + 工程根；**会话正式测试报告**须含**三列表格**；§十四/REPORTING.md 汇总与未覆盖报告。含 §十三/§13.10～§13.14（BCM CI、dialog api26、AbilityKit 六维/假覆盖/CI 产物验板）、§13.7.1 同 bundle 多 HAP **CI 同签交付验板**（pr_local_verify）。ohxtsflow/ohhdc、arkui-static-xts-generator。默认轻量化调试；显式申明才走源码级调试。"
 author: "napi_generator"
-version: "1.5.0"
+version: "1.6.0"
 ---
 
 # ohxtsstatic：ArkTS **`use static`** + Hypium 静态 XTS **一体化** Skill
@@ -72,6 +72,33 @@ version: "1.5.0"
 **无设备或环境阻塞时**：须在本节语义下明确写出 **阻塞原因**、**已完成的阶段**、**复测命令**；仍须在会话中给出**结构化报告**（结果列为「跳过 / 未执行」），不得宣称「开发已完成」。
 
 **执行约定**：用户说「开发 / 完成某批用例」时，Agent **默认按 §六 阶段 0→5 推满**；最小设备闭环为 **`run-static-pipeline <工程>`**（或 **`build-all` + `static-device-test`**）。
+
+### 断言质量硬门禁（假覆盖零容忍 · 静态与动态同等 · PR44669/44715）
+
+接口人红线：**空断言 / 恒真断言 / 假覆盖**会直接差评。**动态工程（ohxtsdynamic）同一套标准，不放宽。** 交付前 Agent **必须自检**，并跑 `ohos-gate-compliance`（含 **FAKE_COVERAGE.01～04**）。
+
+**一批需求尽善尽美**（`xts_shared/CASE-QUALITY.md` · PR45112）：需求表逐行真实调用；禁静默省略；SDK 缺符号先报用户再更新；权限码 201 另起无权限 rely 硬断言；「白名单不涉及」≠ 跳过整接口。
+
+| 禁止（假） | 要求（真） |
+|------------|------------|
+| `expect(Enum.X).assertEqual(0)` 当唯一证据 | 页面真实链式调用该枚举；规格可用 `Text(\`${Enum.X}\`)` + 挂载/Inspector/旗标 |
+| `expect(strJson.length > 2).assertTrue()` | 断言具体 `$attrs`（如 `barStyle`）或业务 Text 旗标 |
+| `expect(true).assertTrue()` / soft-skip 垫绿 | 缺能力：`return` 且**不再**垫 assert；有能力：硬 `assertEqual` |
+| `expect(a \|\| x.length > 0).assertTrue()` | 去掉恒软兜底 |
+| 用 A API 返回值冒充 B 回调已触发 | 分字段旗标；`onXxx` 只由注册回调写入 |
+| Inspector 不吐字段就「节点存在」糊弄 | 真实调用 + 返回值/回调 probe（如 `getBarDisplayMode`→Text、`searchFilter` 独立 probe 旗标） |
+
+**API1.2（调用/入参/参数规格/返回值）**：PR 描述须附四类矩阵表；每格能指到页面上的真实调用点。
+
+```typescript
+// BAD — 枚举 dump 假覆盖
+expect(TabVisibility.VISIBLE).assertEqual(0);
+
+// GOOD — 规格 Text + 真实挂载证据
+expect(readContent('tabs_visVisibleSpec')).assertEqual('0');
+expect(nodeMounted('tabs_tabVisible')).assertTrue();
+expect(readAttrString('tabs', 'barStyle')).assertEqual('TabBarStyle.SIDEBAR_ADAPTABLE');
+```
 
 ---
 
@@ -253,6 +280,10 @@ version: "1.5.0"
 
 **提交前自检脚本**（§二 C）仅用于**复核**，**不能**替代开发阶段一次性写全；缺 `@tc` 的 `it` **视为用例未写完**，不得进入编签/设备阶段，更不得宣称批次完成。
 
+### 1.5 不新增中文注释（开发期硬门禁）
+
+开发、调试、修改问题，**都不新增中文注释**；**不要**在项目代码中标记中文的问题、功能说明。说明写在会话回复、PR/commit 或台账。`@tc.*` 等 Hypium 必填字段按同仓既有风格填写（可中文 `@tc.desc`），禁止额外 `// 修复…` / `/* 功能：… */`。
+
 ---
 
 ## 二、编码落地（流水线第 2～5 步：工作流 A–D + 自检）
@@ -263,8 +294,10 @@ version: "1.5.0"
 
 - **多批次经验**：路径、命名、页面/断言范式见 **§十三**；新批次**先打开已 Pass 同类套件**再动笔。
 - 打开**本工程**中已稳定的一条套件，**优先与 §〇 大类一致**（例如同为属性 2.x 或事件 3.x），如 **`.../test/old/`** 下结构接近的 `*.test.ets`。  
-- 对齐：**`UtilsTest.startAbility`**（若工程使用）、**`beforeEach` 路由**（`router.clear()` / `replaceUrl`）、**`afterEach` 清理**。  
-- **`main_pages.json`** 中 **path** 与 **`Router.replaceUrl({ url: 'pages/...' })`** **逐字一致**。
+- 对齐：**`UtilsTest.startAbility`**（若工程使用）、**`beforeEach` 路由**（`router.clear()` / `pushUrl` + sleep）、**`afterEach` 清理**。  
+- **`main_pages.json`** 中 **path** 与 **`Router.pushUrl({ url: 'pages/...' })`** **逐字一致**。  
+- **Tabs / Swiper 套件切页（PR44122 实锤）**：含 `TabBarStyle.SIDEBAR*` 的页之间 **禁止裸 `replaceUrl` 且无等待**——易在 `ArcSwiper…DestroyPeerImpl` **SIGSEGV**，后续用例全部 `mark blocked`。对齐已绿 **`TabsSidebarStyle`**：`clear()` → `pushUrl` → `await sleep(≥2500)`；上一套件 `afterAll` 可再 `clear()`。  
+- **静态 apiCoverage（PR44122 CI 多轮实锤）**：禁原生 Tabs、`TabsController`、页面 `.transition(TransitionEffect.*, cb)`、**页面侧 `ContentTransition` / advanced Filter·Popover·Pulse·ToolBar 控件树**（易在 `ArcSwiperContentTransitionProxyInner::DestroyPeerImpl` SIGSEGV，首条 Coverage 用例挂掉后整套 blocked）。Coverage 页只留 flag Text + Radio/Rating/Slider/Button；EntryAbility **勿**直进 `CoverageStaticIndex`（先 `pages/index/index`）。枚举/Options/TransitionEffect 用 TS；异常参用同 id Text；`List.test` 建议 Coverage→Tabs。SIDEBAR 原生改由 **`tabs_static`**。  
 
 ### B. 页面（预览页 `.ets`）
 
@@ -348,7 +381,7 @@ PY
 |----|------|
 | 根布局 | 优先 **`Column`**，**`.width('100%').height('100%')`** 链在**根组件**闭合 `}` 之后，不要像挂在 `build()` 名上 |
 | 纵向分配 | 多按钮：`layoutWeight(1)` + **`constraintSize({ minHeight: 0, maxHeight: '7%~18%' })`**，按单屏控件数量粗调百分比 |
-| 文案 | **短标签**；长说明放注释或日志 |
+| 文案 | **短标签**；长说明放会话报告/hilog，**不新增中文注释**（§1.5） |
 | 路由 | **`main_pages.json` ↔ `replaceUrl`** 必须对齐 |
 | 定位 | 测试优先 **`ON.id`** / **Inspector key**；避免长串 **`ON.text`**；若改页面文案须同步 **`ON.text` 断言** |
 
@@ -539,6 +572,7 @@ python3 src/skills/ohxtsstatic/ohxtsflow.py analyze-test-log <本机日志文件
 - [ ] 仅 `git add` 明确路径；禁止 `git add -A`；无 `hypium/`、工程内 `autosign/`、`build/`、`tools/vendor/`
 - [ ] `git commit -sm` + `Co-authored-by: Agent`；`git log -1` 含 `Signed-off-by`
 - [ ] 单笔 commit ≤ 1900 行（本地；硬上限 2000）；用例与 fix 分 commit
+- [ ] **PR / 门禁（用户要求推仓时，硬门禁）**：commit → push → **关联 Issue**（`gitcode_pr_submit.py pr|link`）→ 验证 `GET pulls/{n}/issues` → **等 ≥60s** → **`start build`**。细则 **gitcode-pr/SKILL.md**；**禁止**未关联 Issue 就触发构建
 
 **工具链**
 
@@ -625,16 +659,34 @@ cases:
 读 API 文档 + SDK .d.ets
   → §〇 归类，打开 categories 文档，列出检查点
   → 在工程内找同类已稳套件对齐（路由/生命周期/断言形态）
+  → 有动态对照工程时：先打开动态同名实现（EventBus/wait/生命周期），再写静态；禁止另发明等待机制
   → 写预览页 .ets（可观测 id / AppStorage 出口）
   → 写 *.test.ets（单 it 单测试点）
   → main_pages.json + List.test.ets 注册
   → source signing-materials/env.sh → hapbuild build
   → python3 src/skills/ohhdc/ohhdc.py static-deploy-test <工程> -s YourSuiteTest
+  → 若改过 onWait/超时：hilog 核 onWait→timeout/resolve/emit 墙钟须接近设定值
   → 会话三列表格报告（附 OHOS_REPORT_RESULT）
   →（用户要求时）git commit -sm，diff 审计后 push
+  →（用户要求 PR/门禁时）gitcode-pr：Issue → PR 描述关联 → 等 60s → start build
 ```
 
 **粒度**：用户给的明细表**默认一行一条 `it`**；多属性同一接口可同页多样本（不同 `id`），但**每条 `it` 只验一个测试点**。
+
+### 13.1.1 PR 提交与门禁触发（硬门禁）
+
+与 **ohxtsdynamic §9.7.1**、**gitcode-pr** 相同：
+
+```bash
+python3 /root/aiSkill/napi_generator/src/skills/gitcode-pr/scripts/gitcode_pr_submit.py all \
+  --issue-title "[新需求]: <简述>" --issue-body "<覆盖范围>" \
+  --pr-title "test(arkui): <简述>" \
+  --head "nicklaus0602/<fork仓>:<分支>" --base master \
+  --pr-body-file body.md --build
+# 已有 PR：link <PR> --issue <N> → build <PR> --delay 60
+```
+
+CI 拒未关联 Issue 的构建；**禁止**只 push 就评论 `start build`。
 
 ### 13.2 工程路径与命名（chip_static 等静态一体）
 
@@ -702,6 +754,7 @@ afterEach  → sleep(500)；清理本套件 AppStorage 键
 - **异常 undefined**：**必须** `u` 与 `d` 对比，`assertSystemMaterialSame('abn_bgSysMat_u', 'abn_bgSysMat_d')`
 - **禁止**整段 `$attrs` JSON 对比（含 `id` 噪声）
 - 单页 `assertUndefined` **不算**成对异常覆盖
+- **ResourceColor 特例**（Tabs sidebar*Color 等）：新镜像 Inspector 对「省略」常 dump `null`，对显式 `undefined` 常 dump 主题 `#AARRGGBB`。禁止 `expect(true)` 垫过；用 sentinel/`#` 分支做真实 `expect`（见 ohos-gate-compliance checklist ALL_TIME_TRUE 条；PR44669）
 
 **Hypium**：`findComponent(ON.id(...)).click()`；Inspector **链式** `getElement('$attrs').getString(...)`；`expect` 内不用可选链。
 
@@ -767,6 +820,23 @@ python3 src/skills/ohhap/hapbuild.py build <静态一体工程>
 | hvigor-static 报找不到 components（`metaVersion` 3.0.2） | 本地临时将 SDK 各包 `oh-uni-package.json` 的 `metaVersion` 改为 **3.0.1**（勿提交 SDK） |
 | `@ohos/hypium-binary` 预编译 abc 与设备 etsstdlib ABI 不一致（如 `Array.create`/`Map.get` Y vs Object）→ Runner 起不来或协程挂死 | **勿**先 sync GitCode 覆盖；用本机已验证 `entry/src/hypium`（SDK `src_static` + 最小补丁，删掉模板 `testAbility`/`testrunner`）；**禁止提交** `hypium/`；Runner/用例改相对路径 `../../../hypium` |
 | 误用 `source use-ohos-sdk.sh static` 导致 SDK 路径漂移 | 显式：`OHOS_SDK_PATH=$HOS_CLT_PATH/sdk/default/openharmony/static` + `OHOS_USE_HVIGOR_STATIC=1` |
+| 本地 xdevice 多 HAP `9568289`/`9568332` | 混签或缺 ACL；**非**应合并单 HAP | **§13.7.1** **CI 同签**全套；**禁** hapbuild autosign Assist + 门禁主包；见 **`XDEVICE-ASSIST-HAPS.md`** |
+
+### 13.7.1 同 bundle 多 HAP / 本地交付验板 = 门禁同签（与 ohxtsdynamic §9.12 共用）
+
+**P0（2026-10-31）**：本地交付验板签名必须与门禁一致——`developtools/hapsigner/dist` + 工程 `signature/openharmony_sx.p7b`（**`sign_ci_identical`**）。  
+**禁止** hapbuild autosign / `/tmp/xts_sign` / 「本地 Assist + 门禁 SyncTest」混装（**9568332**）。Assist/Rely 应进 PR diff；本地 zip 不进仓。
+
+静态一体工程通常单 HAP；若依赖动态套件 `Test.json` 含多 HAP，或 PR 多工程交付：
+
+```bash
+python3 xts_shared/pr_local_verify.py \
+  --repo <xts_acts> --from-diff origin/master --out /tmp/pr_verify
+# 或
+python3 xts_shared/pack_xdevice_assist_haps.py <含Test.json工程> --resign --out /tmp/kit.zip
+```
+
+截图贴 PR：`gitcode-pr describe-report`（**保留**用户已贴测试报告图）。**禁止**为装包失败合并模块。见 **`PR-DELIVER.md`**、**`CASE-QUALITY.md`（参数规格硬清单 + 一批尽善尽美）**、**ohxtsdynamic `compile_error_hints.md` §2.2**。
 
 ### 13.8 CodeCheck、异常参数、Git 与提交纪律
 
@@ -908,10 +978,12 @@ import { Entry, Column, ContextMenuOptions, ... } from '@ohos.arkui.component';
 - **禁止**：见仓内其它项目有 `done` 就批量删除；**禁止**把本条规则套到 dialog_api26 等动态 HAP。
 - **写前必看**：同工程最近 Pass 的 `*.test.ets` 回调签名，**禁止**从动态工程或其它 hypium 版本照搬 `done`。
 
-#### 13.11.3 板端缺符号时的覆盖策略
+#### 13.11.3 板端 / CI runtimeapi 缺符号时的覆盖策略
 
 - `CacheMaxCountForHSP*` / `menuSystemMaterial` 等在旧镜像上可能 **LinkerVerificationError**。
 - **允许**：页面 stub + 文件头注释说明固件补齐后恢复；用例侧用 **已绿同域 API**（如 `ImmersiveStyle` / `ImmersiveMaterial`）覆盖枚举/构造。
+- **CI 静态 runtimeapi 未导出新枚举**（如 PR#45158：`HandednessFollowMode`）：**禁止**直接 `import` 该枚举；写法对齐同模块已绿页（如 `CustomDialogSystemMaterial`）：`new CustomDialogController({ builder: () => this.xxx(...), adaptToHandedness: N } as CustomDialogControllerOptions)`；枚举断言用常量 `0/1/2`（假覆盖风险须在 PR 说明）。**禁止**自建 opts 类再赋 `builder` 后 cast（会丢 memo）。
+- **`@Builder` 调用约定**：**必须**写在 `CustomDialogController({ builder: () => this.xxx() })` 对象字面量闭包内；**禁止** `opts.builder = () => this.xxx()` / 普通方法转调（CI 报 `__memo_context` / `No matching call signature`）。
 - **禁止**：页面空转却宣称「接口行为已测」；禁止为此去 **`sync_hypium_from_gitcode.py`**（见工作区 hypium 规则）。
 
 #### 13.11.4 静态编签环境与提交前恢复
@@ -1006,6 +1078,82 @@ cp -rf $SDK_H/* entry/src/hypium/ && rm -rf entry/src/hypium/testAbility entry/s
 [ ] 单套件调试全绿 + 整测一次连跑全绿（45/45）
 ```
 
+
+### 13.13 EventBus / 生命周期等待（PR45421 MoveAbility-static 实锤）
+
+| 项 | 要求 |
+|----|------|
+| 对照 | 有动态工程（如 `actsmoveabilitytobackgroundtest`）时，**先打开动态 `EventBus.ets`** 再改静态；禁止另发明 wait |
+| onWait | **`setTimeout` 墙钟超时**（`timeoutId: int`）；对齐动态 |
+| 禁止 | 用 `AbilityDelegator.executeShellCommand('sleep N')` 冒充 onWait 超时——该 sleep **几乎立即返回**（hilog：名义 5s → 实际 ~0.1s timeout，emit 在 timeout 之后） |
+| ESE0046 | 禁止 `setTimeout(resolve, ms)`；用 `setTimeout((): void => { resolve(); }, ms)`（门禁 **COMPILE.SETTIMEOUT.01**） |
+| 验收 | 改超时后 hilog 核 `onWait`→`timeout`/`resolve`/`emit` 间隔；对不上禁止宣称已修 |
+| afterEach | 勿 terminate TestAbility；async afterEach 必 `done()`（见 ohos-gate-compliance checklist） |
+| startAbility→move | `startAbility(EntryAbility1)` 后须 `Promise.all([EntryFg, TestBg])` 再 move；只等 Entry FG 会导致 Entry `onBackground` 超时（PR45421 0300） |
+
+详见 **ohos-gate-compliance** `docs/ci-arkts-compile-playbook.md` §0.2c、`docs/checklist.md`。
+
+### 13.14 AbilityKit 静态交付纪律（PR45360 / 26.0.1+26.1.0 实锤）
+
+本批（Focused / BrandColor / HyperSnap / FileEntity / AppProcess / BackToCaller + noperm）前后 3～4 天反复踩坑。**新静态 Ability/Kit 批次开干前必读**；禁止再走「遗漏 → 假覆盖 → 碰运气改码 → 门禁盲跟」路径。
+
+#### 13.14.1 问题根因 → 强制对策
+
+| 痛点 | 根因 | 强制对策 |
+|------|------|----------|
+| 接口遗漏 / 表与仓不一致 | 无六维台账、多版本混交 | 开干前建**接口六维表**（调用/入参/参数规格/返回值/错误码/权限）；一接口一条 `it`；PR body **必须贴完整六维表**（见 **gitcode-pr ONE-SHOT-DELIVER**） |
+| 假覆盖 / soft-OR | `code===A \|\| code===B`、catch 吞错仍 pass | **禁止 soft-OR**；一码一条；难复现维标「澄清」且不得冒充已覆盖 |
+| 错误码碰运气（如 16000074 vs 401） | 未对照 SDK/demo 入参就改 expect | 先查 **SDK `.d.ets` + 仓内 demo/依赖 HAP** 再定 expect；改码后 **hilog 核实际抛错**；禁止只改数字碰绿 |
+| 质量差 / 反复修 | 未跑本地门禁、未对齐已稳套件 | 初次 push 前：`gate_review.py --skip-test-check`；对照同工程已绿套件；**禁止**大面积试错式改写 |
+| 编译/CodeCheck 来回 | 规则未进 skill、只修个案 | 同任务内加固 **ohos-gate-compliance**（见 workspace `gate-compliance-hardening`）；`INT_AS_NUMBER`→`toDouble()`；noperm 禁 `stateManagement`→用 `globalThis.context` |
+| 门禁跟踪差 | 人工刷评论、漏产物 | 用 **gitcode-pr** `pr_delivery_track.py`：**默认每 15 分钟**轮询至合入；编译/CodeCheck 失败拉 log；**仅冒烟失败→自动 rebuild**；跟踪写日志文件 |
+| 静态本地难编 | hypium/SDK 与 CI 不一致 | **禁止**用过期本地 HAP 宣称通过；优先拉 CI **`dayu200_xts_static` version 包** → 只解压 `suites/acts/acts/testcases` 再装测（见下） |
+| 大 log 拖垮 Agent | 整份 build.log / 报告塞进上下文 | **禁止**人工通读；用 `parse_ci_build_log.py` / `parse_xdevice_report.py` 出 JSON 再决策 |
+| PR 描述无六维表 | 只写散文/清单 | 描述模板硬要求六维表 + Issue 链接 + 验板截图；缺表视为未交付 |
+
+#### 13.14.2 错误码入参纪律（BackToCaller 类）
+
+| 现象 | 正确路径 |
+|------|----------|
+| `backToCallerAppWithResult` 空 `requestCode` → **401** | 可单独成条（非法/空参）；**不是** 16000074 |
+| 目标码 **16000074**（无 caller） | 用短合法形如 **`'0'`**（对齐 `actsbackdemohap`）；长假 id 仍可能 401 |
+| noperm **201** | 独立 noperm 工程硬断言；禁止与业务码 soft-OR |
+
+改 expect 前：`hilog` 搜 `call err=` / `BusinessError`；对不上禁止宣称「已覆盖该错误码」。
+
+#### 13.14.3 静态 CI 产物验板（本地编不过时）
+
+```bash
+# 1) 跟踪 + 拉产物（默认 interval=900s）
+python3 .../gitcode-pr/scripts/pr_delivery_track.py track <PR> \
+  --interval 900 --out /tmp/pr<PR>_track --log /tmp/pr<PR>_track/track.log
+
+# 2) 仅下载 dayu200_xts_static version 包并抽出 testcases
+python3 .../gitcode-pr/scripts/pr_delivery_track.py fetch-static-haps <PR> \
+  --out /tmp/pr<PR>_static_haps
+
+# 解压根下常见：suites/acts/acts/testcases/*.hap（及依赖）
+# 3) 装包 → 设备 unittest → failures=0 且 disabled=0
+# 4) xdevice 截图 → gitcode_pr_submit.py describe-report <PR> --screenshot ...
+
+# 编译失败 / 板测失败：脚本解析（勿把整 zip / 整份 hilog 读进上下文）
+python3 .../gitcode-pr/scripts/parse_ci_build_log.py "/path/build.log (N).zip" --out /tmp/ci.json
+python3 .../gitcode-pr/scripts/parse_xdevice_report.py /path/2026-11-14-16-19-45 --out /tmp/rpt.json
+```
+
+**硬门禁**：未贴六维表 / 未贴验板截图 → 不算闭环；跟踪日志须能看出每轮 labels、动作（fetch/rebuild/wait/board）；log/报告解析必须走脚本。
+
+#### 13.14.4 本类批次提交前清单
+
+```
+[ ] 六维表与用例一一对应（无 soft-OR、无遗漏行）
+[ ] PR body 含完整六维表 + Issue 链接
+[ ] gate_review 本地通过；编译/CodeCheck 规则已写入 gate skill（若本批踩过）
+[ ] 错误码 expect 有 hilog/SDK/demo 依据
+[ ] 静态：CI testcases 或同签新鲜 HAP 板测绿；截图已贴 PR
+[ ] pr_delivery_track 日志保留至合入（或用户宣布停跟）
+```
+
 ---
 
 ## 十四、报告与覆盖率整合（2026-06）
@@ -1029,4 +1177,4 @@ cp -rf $SDK_H/* entry/src/hypium/ && rm -rf entry/src/hypium/testAbility entry/s
 /root/aiSkill/develop/xts_acts_local_tools/xts_acts_0622/
 ```
 
-**关联 skill**：`xts-git-commit`（提交纪律 + commit 后截图）、`xts-develop-master-cycle`（master/xdevice 整仓报告与截图脚本）。
+**关联 skill**：`xts-git-commit`（提交纪律 + commit 后截图）、`gitcode-pr`（Issue 关联 + start build）、`xts-develop-master-cycle`（master/xdevice 整仓报告与截图脚本）。

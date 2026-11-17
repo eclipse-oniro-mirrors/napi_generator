@@ -62,6 +62,13 @@ if [ -x "$CHECK_BP" ]; then
   "$CHECK_BP" || exit 1
 fi
 
+# CI.HVIGOR.01：staged hvigor/oh-package modelVersion 禁止 6.0.0（对齐 upstream/master）
+CHECK_PC="$SCRIPT_DIR/check_precommit.py"
+if [ -f "$CHECK_PC" ]; then
+  python3 "$CHECK_PC" --cwd "$(pwd)" --base upstream/master 2>/dev/null \
+    || python3 "$CHECK_PC" --cwd "$(pwd)" --base origin/master || exit 1
+fi
+
 # 本地软上限 1900（门禁硬上限 2000；预留缓冲，规避平台与 shortstat 统计偏差）
 MAX_COMMIT_LINES=1900
 shortstat=$(git diff --cached --shortstat 2>/dev/null || true)

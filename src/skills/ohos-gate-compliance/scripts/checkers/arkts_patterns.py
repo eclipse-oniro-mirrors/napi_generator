@@ -70,6 +70,61 @@ RULES: list[tuple[str, re.Pattern[str], str]] = [
         re.compile(r"expect\s*\(\s*true\s*\)\s*\.assertTrue\s*\("),
         "禁止 expect(true).assertTrue 恒真断言（XTS.CHECK.ALL_TIME_TRUE_ASSERTION.01）",
     ),
+    # gitcode 亦扫字面量 assertContain 恒真（PR44545：expect('emitX').assertContain('X')）
+    (
+        "XTS.CHECK.ALL_TIME_TRUE_ASSERTION.01",
+        re.compile(
+            r"expect\s*\(\s*['\"]([^'\"]+)['\"]\s*\)\s*\.assertContain\s*\(\s*['\"]([^'\"]+)['\"]\s*\)"
+        ),
+        "禁止字面量 expect('a').assertContain('b') 恒真断言；改业务变量如 isReturn 后 expect(isReturn).assertTrue()",
+    ),
+    # PR44817：expect(x).assertEqual(x) / length>=0 恒真
+    (
+        "XTS.CHECK.ALL_TIME_TRUE_ASSERTION.01",
+        re.compile(
+            r"expect\s*\(\s*([A-Za-z_][\w.]*)\s*\)\s*\.assertEqual\s*\(\s*\1\s*\)"
+        ),
+        "禁止 expect(x).assertEqual(x) 恒真断言（XTS.CHECK.ALL_TIME_TRUE_ASSERTION.01）",
+    ),
+    (
+        "XTS.CHECK.ALL_TIME_TRUE_ASSERTION.01",
+        re.compile(
+            r"expect\s*\(\s*[^)]*\.length\s*>=\s*0\s*\)\s*\.assertTrue\s*\("
+        ),
+        "禁止 expect(*.length >= 0).assertTrue 恒真断言；改 typeof/业务长度或具体内容断言",
+    ),
+    # 仅 JSON length>2 / 节点存在性（整改前 Tabs 弱覆盖；PR44669）
+    # 枚举 dump「整用例仅有 expect(Enum).assertEqual(N)」见 ets_checker FAKE_COVERAGE.01 启发式
+    (
+        "XTS.CHECK.FAKE_COVERAGE.02",
+        re.compile(
+            r"expect\s*\(\s*[^)]*\.length\s*>\s*2\s*\)\s*\.assertTrue\s*\("
+        ),
+        "疑似仅「节点 JSON length>2」存在性断言；须断言具体属性值或业务旗标（PR44669）",
+    ),
+    # || length>0 兜底易恒软绿（PR44715）
+    (
+        "XTS.CHECK.FAKE_COVERAGE.03",
+        re.compile(
+            r"expect\s*\([^;]*\|\|[^;]*length\s*>\s*0\s*\)\s*\.assertTrue\s*\("
+        ),
+        "疑似恒软通过：|| length>0 兜底；去掉恒真分支，保留硬条件（PR44715）",
+    ),
+    # PR45112 返工：一条用例软 OR 两错误码 / isReturn 紧接恒真（接口人要求一码一条）
+    (
+        "XTS.CHECK.FAKE_COVERAGE.05",
+        re.compile(
+            r"expect\s*\(\s*[^)]*\.code\s*===\s*\w+\s*\|\|\s*[^)]*\.code\s*===\s*\w+\s*\)\s*\.assertTrue\s*\("
+        ),
+        "禁止一条 expect 软 OR 两错误码；每码单独 it + assertEqual（PR45112 接口人）",
+    ),
+    (
+        "XTS.CHECK.ALL_TIME_TRUE_ASSERTION.01",
+        re.compile(
+            r"isReturn\s*=\s*true\s*;\s*(?:console\.[^;]+;\s*)*expect\s*\(\s*isReturn\s*\)\s*\.assertTrue\s*\("
+        ),
+        "禁止 isReturn=true 后立刻 expect(isReturn).assertTrue 恒真；成功路径断言业务字段（PR45112）",
+    ),
     (
         "WordsTool.22",
         re.compile(rf"\b{_AUDIO_STATE}\b"),
@@ -79,6 +134,13 @@ RULES: list[tuple[str, re.Pattern[str], str]] = [
         "XTS.CHECK.ERROR_CODE.01",
         re.compile(r"\bas\s+BusinessError\b"),
         "禁止对错误码/异常做 as BusinessError（XTS.CHECK.ERROR_CODE.01）",
+    ),
+    # Static CI ESE0087 (PR44143 2026-09): (e as ESObject).code — Property 'code' does not
+    # exist on type 'ESValue'. Prefer JSON.stringify + parse digits, or Utils.errorCode.
+    (
+        "COMPILE.ESOBJECT_CODE.01",
+        re.compile(r"as\s+ESObject\)\s*\.\s*code\b"),
+        "禁止 (e as ESObject).code（静态 ESE0087）；用 JSON.stringify 解析 code",
     ),
 ]
 
@@ -142,6 +204,14 @@ def _match_arkts_rule(
     if rule_id == "BARE_KEY_RISK":
         m = re.search(r"\.key\(\s*['\"]([^'\"]+)['\"]", line)
         if m and "_" in m.group(1):
+            return None
+    # 字面量 assertContain：仅当 needle 是 haystack 子串时视为恒真
+    if rule_id == "XTS.CHECK.ALL_TIME_TRUE_ASSERTION.01" and "assertContain" in line:
+        m = re.search(
+            r"expect\s*\(\s*['\"]([^'\"]+)['\"]\s*\)\s*\.assertContain\s*\(\s*['\"]([^'\"]+)['\"]\s*\)",
+            line,
+        )
+        if not m or m.group(2) not in m.group(1):
             return None
     return PatternHit(0, rule_id, msg)
 

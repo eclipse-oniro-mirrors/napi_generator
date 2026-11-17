@@ -27,7 +27,7 @@
    "severity": "提示",
    "detect": "length",
    "pattern": "len>120",
-   "fix": "折行"
+   "fix": "自动修复：napi_property_descriptor 单行注册项按名/函数指针折行；其余手工折行"
   },
   {
    "id": "FUNC.CC",
@@ -57,6 +57,24 @@
    "fix": "抽 constexpr 命名常量（白名单 0/1/2/-1/1000；排除 case 标签/数组尺寸/宏行）"
   },
   {
+   "id": "G.NAM.03-CPP",
+   "name": "全局常量 UPPER_SNAKE_CASE",
+   "category": "gate",
+   "severity": "提示",
+   "detect": "regex",
+   "pattern": "kCamelCase-constexpr",
+   "fix": "constexpr/const 全局常量改为 K_FOO_BAR；勿用 kFooBar（MR 43815 CodeCheck）"
+  },
+  {
+   "id": "G.CNS.02-CPP",
+   "name": "NAPI 数组长度禁裸字面量",
+   "category": "gate",
+   "severity": "严重",
+   "detect": "regex",
+   "pattern": "MakeIntArray-len / vals[N]",
+   "fix": "MakeIntArray 第三参与 int32_t vals[N] 改用 constexpr（K_ERR_ENUM_PAIR_LEN 等；MR 45077）"
+  },
+  {
    "id": "HEADER.NBNC",
    "name": "头文件 nbnc≤300",
    "category": "gate",
@@ -73,6 +91,24 @@
    "detect": "regex",
    "pattern": "license-header",
    "fix": "补 Apache-2.0 版权头（Copyright + License 声明）"
+  },
+  {
+   "id": "G.FMT.17-CPP",
+   "name": "花括号块首禁空行",
+   "category": "gate",
+   "severity": "一般",
+   "detect": "heuristic",
+   "pattern": "brace-leading-blank",
+   "fix": "自动修复：删除 '{' 后紧跟的空行（Do not add blank lines on the start of a code block）"
+  },
+  {
+   "id": "WordsTool.143",
+   "name": "勿裸写本地开发套件缩写",
+   "category": "gate",
+   "severity": "一般",
+   "detect": "regex",
+   "pattern": "(本地开发套件由脚本 chr 拼接检测)",
+   "fix": "dlopen/路径拆字面量，如 \"/system/lib/\" \"n\" \"dk\" \"/libohweb.so\""
   }
  ]
 }

@@ -22,6 +22,7 @@
 | 连锁 **`Cannot find module '@ohos.arkui.component'`** / **`Cannot find type 'Builder'`** | 多为 misplaced-imports 导致解析失败 | 先修文件头顺序，勿先改 hypium/SDK |
 | **`Object literal must correspond to some explicitly declared class or interface`**（`arkts-no-untyped-obj-literals`） | 嵌套 Options 无类型（如 `previewAnimationOptions`、`mask`） | 内层 `as ContextMenuAnimationOptions` / `MenuMaskType`；外层 `as ContextMenuOptions`（**§13.10.2**） |
 | **`Cannot find name 'int'`** | 静态页误用 ArkTS 1.1 的 `int` | 改为 **`number`** |
+| **ESE985118** `flags`/`id` 等 `Double\|undefined` cannot implement `Int\|undefined`（#45280 FileEntity） | 实现接口时字段写成 `number`，静态 SDK 接口为 **`Int`** | 类成员与字面量改为 **`flags?: Int`**，赋值 `xxx as Int` |
 | **`Type 'null' is not compatible with ... AnchoredColorMode`**（静态 api23/menu） | 静态 **禁止** Options 内 `colorMode: null`、`position: null` | null 用例放**动态** Popup；静态用**省略字段**表达 undefined（**§13.10.3**） |
 | CI **`check_hvigor`**：`compileSdkVersion` 与 `api_version` 不一致 | 误改为 `"26"` 或数字 | OpenHarmony CI 通常 **`"26.0.0"`**；对照已绿 commit，勿仅按本地 hvigor 改（**§13.10.4**） |
 
@@ -53,6 +54,7 @@
 | **单条用例 >60s 未完成**（无 `consuming` 输出） | 流程卡死（弹窗未点、事件未回、页面未加载） | **立即中止**查因（hilog grep 用例名找卡点），**禁止**等 240s 超时耗整轮 |
 | `requestPermissionsFromUser` 返回 `authResults:[2]` + `dialogShownResults:[false]` | **受限权限不弹窗**（READ_PASTEBOARD 等），直接拒绝 | 见 **ohxtsdynamic/compile_error_hints.md §2.1**（签名 profile ACL + 设备 install_list 三件套）；**先查权限，勿改代码** |
 | 装包 `9568289` `grant request permissions failed` | profile ACL 未授权 **或** 设备 install_list 未注册 | 同上 §2.1；主/测包须同一 profile 签名（否则 `module name is not found`） |
+| 装包 `9568332` / `9568286`；xdevice kits 含 Main+Test 仍 `unavailable` | 同 bundle **混签**（hapbuild autosign≠门禁 dist）或缺 ACL；**非**「应合并成单 HAP」 | **`sign_ci_identical` / `pack … --resign` / `pr_local_verify`**（dist+工程 p7b）；见 **ohxtsdynamic/compile_error_hints.md §2.2** / **`XDEVICE-ASSIST-HAPS.md`** / **`PR-DELIVER.md`** |
 | 本地能跑、`git diff` 全是编译适配（`compatibleSdkVersion` 数字、`: void` 注解） | 本地编译器差异（ESE71336 等） | **提交前 `git checkout -- .` 还原**；仅逻辑修复才提交 |
 
 ---
