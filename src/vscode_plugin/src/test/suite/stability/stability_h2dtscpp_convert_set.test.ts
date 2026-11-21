@@ -19,11 +19,19 @@ import { transParseObj, generateFunctions } from '../../../gen/gendtscpp';
 import { doParseTs } from '../../../parse/parsets';
 import { runCompatSafe } from './stability_helpers';
 
-suite('Stability_H2DTSCPP_CONVERT_SET_Part01', function() {
+suite('Stability_H2DTSCPP_CONVERT_SET', function() {
   this.timeout(600000);
   vscode.window.showInformationMessage('Start Stability_H2DTSCPP_CONVERT_SET_Part01.');
 
-
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_SET_0001
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_SET_0001
+   * @tc.desc   Stability convert h2dtscpp/set: class-field convert; type Set<string>; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_set_0001', () => {
     try {
       const converted = transParseObj({
@@ -44,6 +52,15 @@ suite('Stability_H2DTSCPP_CONVERT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_SET_0002
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_SET_0002
+   * @tc.desc   Stability convert h2dtscpp/set: global-function convert; type Set<string>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_set_0002', () => {
     try {
       const converted = transParseObj({
@@ -73,6 +90,15 @@ suite('Stability_H2DTSCPP_CONVERT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_SET_0003
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_SET_0003
+   * @tc.desc   Stability convert h2dtscpp/set: class-method convert; type Set<string>; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_set_0003', () => {
     try {
       const converted = transParseObj({
@@ -98,6 +124,15 @@ suite('Stability_H2DTSCPP_CONVERT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_SET_0004
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_SET_0004
+   * @tc.desc   Stability convert h2dtscpp/set: parse-convert-gen pipeline; type Set<string>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_set_0004', () => {
     try {
       const parsed = doParseTs('h2cpp17.ts', `function h2cpp17(p: Set<string>): Set<string> { return p; }`);
@@ -121,6 +156,15 @@ suite('Stability_H2DTSCPP_CONVERT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_SET_0005
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_SET_0005
+   * @tc.desc   Stability convert h2dtscpp/set: type-alias and global-function convert; type
+   *            Set<string>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_set_0005', () => {
     try {
       const converted = transParseObj({
@@ -155,6 +199,15 @@ suite('Stability_H2DTSCPP_CONVERT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_SET_0006
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_SET_0006
+   * @tc.desc   Stability convert h2dtscpp/set: class-field convert; type Set<number>; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_set_0006', () => {
     try {
       const converted = transParseObj({
@@ -175,6 +228,15 @@ suite('Stability_H2DTSCPP_CONVERT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_SET_0007
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_SET_0007
+   * @tc.desc   Stability convert h2dtscpp/set: global-function convert; type Set<number>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_set_0007', () => {
     try {
       const converted = transParseObj({
@@ -204,6 +266,15 @@ suite('Stability_H2DTSCPP_CONVERT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_SET_0008
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_SET_0008
+   * @tc.desc   Stability convert h2dtscpp/set: class-method convert; type Set<number>; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_set_0008', () => {
     try {
       const converted = transParseObj({
@@ -229,6 +300,15 @@ suite('Stability_H2DTSCPP_CONVERT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_SET_0009
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_SET_0009
+   * @tc.desc   Stability convert h2dtscpp/set: parse-convert-gen pipeline; type Set<number>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_set_0009', () => {
     try {
       const parsed = doParseTs('h2cpp18.ts', `function h2cpp18(p: Set<number>): Set<number> { return p; }`);
@@ -252,6 +332,15 @@ suite('Stability_H2DTSCPP_CONVERT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_SET_0010
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_SET_0010
+   * @tc.desc   Stability convert h2dtscpp/set: type-alias and global-function convert; type
+   *            Set<number>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_set_0010', () => {
     try {
       const converted = transParseObj({
@@ -286,6 +375,15 @@ suite('Stability_H2DTSCPP_CONVERT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_SET_0011
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_SET_0011
+   * @tc.desc   Stability convert h2dtscpp/set: class-field convert; type Set<boolean>; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_set_0011', () => {
     try {
       const converted = transParseObj({
@@ -306,6 +404,15 @@ suite('Stability_H2DTSCPP_CONVERT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_SET_0012
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_SET_0012
+   * @tc.desc   Stability convert h2dtscpp/set: global-function convert; type Set<boolean>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_set_0012', () => {
     try {
       const converted = transParseObj({
@@ -335,6 +442,15 @@ suite('Stability_H2DTSCPP_CONVERT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_SET_0013
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_SET_0013
+   * @tc.desc   Stability convert h2dtscpp/set: class-method convert; type Set<boolean>; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_set_0013', () => {
     try {
       const converted = transParseObj({
@@ -360,6 +476,15 @@ suite('Stability_H2DTSCPP_CONVERT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_SET_0014
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_SET_0014
+   * @tc.desc   Stability convert h2dtscpp/set: parse-convert-gen pipeline; type Set<boolean>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_set_0014', () => {
     try {
       const parsed = doParseTs('h2cpp19.ts', `function h2cpp19(p: Set<boolean>): Set<boolean> { return p; }`);
@@ -383,6 +508,15 @@ suite('Stability_H2DTSCPP_CONVERT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_SET_0015
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_SET_0015
+   * @tc.desc   Stability convert h2dtscpp/set: type-alias and global-function convert; type
+   *            Set<boolean>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_set_0015', () => {
     try {
       const converted = transParseObj({
@@ -417,6 +551,15 @@ suite('Stability_H2DTSCPP_CONVERT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_SET_0016
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_SET_0016
+   * @tc.desc   Stability convert h2dtscpp/set: class-field convert; type Set<any>; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_set_0016', () => {
     try {
       const converted = transParseObj({
@@ -437,6 +580,15 @@ suite('Stability_H2DTSCPP_CONVERT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_SET_0017
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_SET_0017
+   * @tc.desc   Stability convert h2dtscpp/set: global-function convert; type Set<any>; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_set_0017', () => {
     try {
       const converted = transParseObj({
@@ -466,6 +618,15 @@ suite('Stability_H2DTSCPP_CONVERT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_SET_0018
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_SET_0018
+   * @tc.desc   Stability convert h2dtscpp/set: class-method convert; type Set<any>; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_set_0018', () => {
     try {
       const converted = transParseObj({
@@ -491,6 +652,15 @@ suite('Stability_H2DTSCPP_CONVERT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_SET_0019
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_SET_0019
+   * @tc.desc   Stability convert h2dtscpp/set: parse-convert-gen pipeline; type Set<any>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_set_0019', () => {
     try {
       const parsed = doParseTs('h2cpp67.ts', `function h2cpp67(p: Set<any>): Set<any> { return p; }`);
@@ -514,6 +684,15 @@ suite('Stability_H2DTSCPP_CONVERT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_SET_0020
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_SET_0020
+   * @tc.desc   Stability convert h2dtscpp/set: type-alias and global-function convert; type
+   *            Set<any>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_set_0020', () => {
     try {
       const converted = transParseObj({
@@ -548,6 +727,15 @@ suite('Stability_H2DTSCPP_CONVERT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_SET_0021
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_SET_0021
+   * @tc.desc   Stability convert h2dtscpp/set: class-field convert; type Set<object>; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_set_0021', () => {
     try {
       const converted = transParseObj({
@@ -568,6 +756,15 @@ suite('Stability_H2DTSCPP_CONVERT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_SET_0022
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_SET_0022
+   * @tc.desc   Stability convert h2dtscpp/set: global-function convert; type Set<object>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_set_0022', () => {
     try {
       const converted = transParseObj({
@@ -597,6 +794,15 @@ suite('Stability_H2DTSCPP_CONVERT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_SET_0023
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_SET_0023
+   * @tc.desc   Stability convert h2dtscpp/set: class-method convert; type Set<object>; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_set_0023', () => {
     try {
       const converted = transParseObj({
@@ -622,6 +828,15 @@ suite('Stability_H2DTSCPP_CONVERT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_SET_0024
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_SET_0024
+   * @tc.desc   Stability convert h2dtscpp/set: parse-convert-gen pipeline; type Set<object>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_set_0024', () => {
     try {
       const parsed = doParseTs('h2cpp68.ts', `function h2cpp68(p: Set<object>): Set<object> { return p; }`);
@@ -645,6 +860,15 @@ suite('Stability_H2DTSCPP_CONVERT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_SET_0025
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_SET_0025
+   * @tc.desc   Stability convert h2dtscpp/set: type-alias and global-function convert; type
+   *            Set<object>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_set_0025', () => {
     try {
       const converted = transParseObj({
@@ -676,6 +900,190 @@ suite('Stability_H2DTSCPP_CONVERT_SET_Part01', function() {
         "gen must reference function");
     } catch (err) {
       assert.fail(`h2dtscpp_convert_set_0025 execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_SET_0026
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_SET_0026
+   * @tc.desc   Stability convert h2dtscpp/set: class-field convert; type Set<number>[]; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_set_0026', () => {
+    try {
+      const converted = transParseObj({
+        enums: [], unions: [], structs: [],
+        classes: [{ name: 'SampleClass354', alias: '',
+          variableList: [{ type: 'Set<number>[]', name: 'value', arraySize: 0, arraySizeList: [] }],
+          functionList: []
+        }],
+        funcs: [], types: []
+      });
+      assert.ok(converted.classes.length >= 1);
+      assert.strictEqual(converted.classes[0].name, 'SampleClass354');
+      assert.ok(converted.classes[0].variableList.length >= 1);
+      assert.strictEqual(converted.classes[0].variableList[0].name, 'value');
+      assert.strictEqual(converted.classes[0].variableList[0].type, "Set<number>[]",
+        "h2dtscpp_convert_set_0026 class var type convert convert output");
+    } catch (err) {
+      assert.fail(`h2dtscpp_convert_set_0026 execution error: ${err}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_SET_0027
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_SET_0027
+   * @tc.desc   Stability convert h2dtscpp/set: global-function convert; type Set<number>[];
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_set_0027', () => {
+    try {
+      const converted = transParseObj({
+        enums: [], unions: [], structs: [],
+        classes: [],
+        funcs: [{ type: 'function', name: 'globalRun354', returns: 'Set<number>[]',
+          parameters: [{ type: 'Set<number>[]', name: 'gparam', arraySize: 0, arraySizeList: [] }]
+        }],
+        types: []
+      });
+      assert.ok(converted.funcs.length >= 1);
+      assert.strictEqual(converted.funcs[0].name, 'globalRun354');
+      assert.strictEqual(converted.funcs[0].returns, "Set<number>[]",
+        "h2dtscpp_convert_set_0027 global return type convert convert output");
+      assert.ok(converted.funcs[0].parameters.length >= 1);
+      assert.strictEqual(converted.funcs[0].parameters[0].type, "Set<number>[]",
+        "h2dtscpp_convert_set_0027 global param type convert convert output");
+      const generated = generateFunctions(converted, 'sample354_global.d.ts');
+      assert.ok(generated !== undefined && typeof generated === 'object');
+      assert.strictEqual(typeof generated.napiHContent, "string", "napiH must be string");
+      assert.ok(generated.napiHContent.length > 0, "napiH must be non-empty");
+      assert.strictEqual(typeof generated.napiCppContent, "string", "napiCpp must be string");
+      assert.ok((generated.napiHContent.includes('globalRun354') || generated.napiCppContent.includes('globalRun354')),
+        "gen must reference function");
+      assert.strictEqual((generated.napiHContent + generated.napiCppContent).includes('globalRun354'), true,
+        "gen must reference function");
+    } catch (err) {
+      assert.fail(`h2dtscpp_convert_set_0027 execution error: ${err}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_SET_0028
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_SET_0028
+   * @tc.desc   Stability convert h2dtscpp/set: class-method convert; type Set<number>[];
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_set_0028', () => {
+    try {
+      const converted = transParseObj({
+        enums: [], unions: [], structs: [],
+        classes: [{ name: 'SampleClass354', alias: '',
+          variableList: [],
+          functionList: [{ type: 'function', name: 'run', returns: 'Set<number>[]',
+            parameters: [{ type: 'Set<number>[]', name: 'param', arraySize: 0, arraySizeList: [] }]
+          }]
+        }],
+        funcs: [], types: []
+      });
+      assert.ok(converted.classes.length >= 1);
+      assert.ok(converted.classes[0].functionList.length >= 1);
+      assert.strictEqual(converted.classes[0].functionList[0].name, 'run');
+      assert.strictEqual(converted.classes[0].functionList[0].returns, "Set<number>[]",
+        "h2dtscpp_convert_set_0028 class method return type convert convert output");
+      assert.ok(converted.classes[0].functionList[0].parameters.length >= 1);
+      assert.strictEqual(converted.classes[0].functionList[0].parameters[0].type, "Set<number>[]",
+        "h2dtscpp_convert_set_0028 class method param type convert convert output");
+    } catch (err) {
+      assert.fail(`h2dtscpp_convert_set_0028 execution error: ${err}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_SET_0029
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_SET_0029
+   * @tc.desc   Stability convert h2dtscpp/set: parse-convert-gen pipeline; type Set<number>[];
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_set_0029', () => {
+    try {
+      const parsed = doParseTs('h2cpp354.ts', `function h2cpp354(p: Set<number>[]): Set<number>[] { return p; }`);
+      assert.ok(parsed !== undefined && typeof parsed === 'object', "parse result must be object");
+      const converted = transParseObj(parsed);
+      assert.ok(converted.funcs.length >= 1);
+      assert.strictEqual(converted.funcs[0].name, 'h2cpp354');
+      assert.strictEqual(converted.funcs[0].returns, "Set<number>[]",
+        "h2dtscpp_convert_set_0029 parse return type convert convert output");
+      assert.ok(converted.funcs[0].parameters.length >= 1);
+      assert.strictEqual(converted.funcs[0].parameters[0].type, "Set<number>[]",
+        "h2dtscpp_convert_set_0029 parse param type convert convert output");
+      const generated = generateFunctions(converted, 'h2cpp354.d.ts');
+      assert.ok(generated !== undefined && typeof generated === 'object');
+      assert.strictEqual(typeof generated.napiHContent, "string", "napiH must be string");
+      assert.ok(generated.napiHContent.length > 0, "napiH must be non-empty");
+      assert.strictEqual(typeof generated.napiCppContent, "string", "napiCpp must be string");
+      assert.ok((generated.napiHContent.includes('h2cpp354') || generated.napiCppContent.includes('h2cpp354')),
+        "gen must reference function");
+      assert.strictEqual((generated.napiHContent + generated.napiCppContent).includes('h2cpp354'), true,
+        "gen must reference function");
+    } catch (err) {
+      assert.fail(`h2dtscpp_convert_set_0029 execution error: ${err}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_SET_0030
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_SET_0030
+   * @tc.desc   Stability convert h2dtscpp/set: type-alias and global-function convert; type
+   *            Set<number>[]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_set_0030', () => {
+    try {
+      const converted = transParseObj({
+        enums: [], unions: [], structs: [],
+        classes: [],
+        funcs: [{ type: 'function', name: 'typeFn354', returns: 'Set<number>[]',
+          parameters: [{ type: 'Set<number>[]', name: 'p', arraySize: 0, arraySizeList: [] }]
+        }],
+        types: [{ name: 'Alias354', alias: 'Set<number>[]', members: [], functions: [], types: []
+        }]
+      });
+      assert.ok(Array.isArray(converted.types) && converted.types.length >= 1);
+      assert.strictEqual(converted.types[0].name, 'Alias354');
+      assert.strictEqual(converted.types[0].alias, 'Set<number>[]');
+      assert.ok(Array.isArray(converted.types[0].types));
+      assert.ok(converted.funcs.length >= 1);
+      assert.strictEqual(converted.funcs[0].name, 'typeFn354');
+      assert.strictEqual(converted.funcs[0].returns, "Set<number>[]",
+        "h2dtscpp_convert_set_0030 type fn return type convert convert output");
+      assert.ok(converted.funcs[0].parameters.length >= 1);
+      assert.strictEqual(converted.funcs[0].parameters[0].type, "Set<number>[]",
+        "h2dtscpp_convert_set_0030 type fn param type convert convert output");
+      const generated = generateFunctions(converted, 'sample354_type.d.ts');
+      assert.ok(generated !== undefined && typeof generated === 'object');
+      assert.strictEqual(typeof generated.napiHContent, "string", "napiH must be string");
+      assert.ok(generated.napiHContent.length > 0, "napiH must be non-empty");
+      assert.strictEqual(typeof generated.napiCppContent, "string", "napiCpp must be string");
+      assert.ok((generated.napiHContent.includes('typeFn354') || generated.napiCppContent.includes('typeFn354')),
+        "gen must reference function");
+      assert.strictEqual((generated.napiHContent + generated.napiCppContent).includes('typeFn354'), true,
+        "gen must reference function");
+    } catch (err) {
+      assert.fail(`h2dtscpp_convert_set_0030 execution error: ${err}`);
     }
   });
 });

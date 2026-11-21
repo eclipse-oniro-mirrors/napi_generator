@@ -19,11 +19,19 @@ import { transParseObj, generateFunctions } from '../../../gen/gendtscpp';
 import { doParseTs } from '../../../parse/parsets';
 import { runCompatSafe } from './stability_helpers';
 
-suite('Stability_H2DTSCPP_COMPAT_OBJECT_Part01', function() {
+suite('Stability_H2DTSCPP_COMPAT_OBJECT', function() {
   this.timeout(600000);
   vscode.window.showInformationMessage('Start Stability_H2DTSCPP_COMPAT_OBJECT_Part01.');
 
-
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_OBJECT_0001
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_OBJECT_0001
+   * @tc.desc   Stability compat h2dtscpp/object: runCompatSafe(transParseObj literal); number
+   *            keyword misspelled (Record<string, numbr>); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_object_0001', function() {
     this.timeout(15000);
     try {
@@ -50,6 +58,15 @@ suite('Stability_H2DTSCPP_COMPAT_OBJECT_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_OBJECT_0002
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_OBJECT_0002
+   * @tc.desc   Stability compat h2dtscpp/object: runCompatSafe(transParseObj literal); string
+   *            keyword misspelled (Record<strng, number>); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_object_0002', function() {
     this.timeout(15000);
     try {
@@ -76,6 +93,15 @@ suite('Stability_H2DTSCPP_COMPAT_OBJECT_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_OBJECT_0003
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_OBJECT_0003
+   * @tc.desc   Stability compat h2dtscpp/object: runCompatSafe(transParseObj literal); malformed
+   *            type Record<string, number>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_object_0003', function() {
     this.timeout(15000);
     try {
@@ -102,6 +128,15 @@ suite('Stability_H2DTSCPP_COMPAT_OBJECT_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_OBJECT_0004
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_OBJECT_0004
+   * @tc.desc   Stability compat h2dtscpp/object: runCompatSafe(transParseObj literal); malformed
+   *            type Record<string, number>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_object_0004', function() {
     this.timeout(15000);
     try {
@@ -128,6 +163,15 @@ suite('Stability_H2DTSCPP_COMPAT_OBJECT_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_OBJECT_0005
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_OBJECT_0005
+   * @tc.desc   Stability compat h2dtscpp/object: runCompatSafe(transParseObj literal); malformed
+   *            type Recordstring, number>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_object_0005', function() {
     this.timeout(15000);
     try {
@@ -154,6 +198,15 @@ suite('Stability_H2DTSCPP_COMPAT_OBJECT_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_OBJECT_0006
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_OBJECT_0006
+   * @tc.desc   Stability compat h2dtscpp/object: runCompatSafe(transParseObj literal); malformed
+   *            type Record<string, number; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_object_0006', function() {
     this.timeout(15000);
     try {
@@ -180,6 +233,15 @@ suite('Stability_H2DTSCPP_COMPAT_OBJECT_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_OBJECT_0007
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_OBJECT_0007
+   * @tc.desc   Stability compat h2dtscpp/object: runCompatSafe(transParseObj literal); malformed
+   *            type Record<string, number>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_object_0007', function() {
     this.timeout(15000);
     try {
@@ -206,6 +268,15 @@ suite('Stability_H2DTSCPP_COMPAT_OBJECT_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_OBJECT_0008
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_OBJECT_0008
+   * @tc.desc   Stability compat h2dtscpp/object: runCompatSafe(transParseObj literal); trailing
+   *            comma on type (Record<string, number>,); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_object_0008', function() {
     this.timeout(15000);
     try {
@@ -232,6 +303,15 @@ suite('Stability_H2DTSCPP_COMPAT_OBJECT_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_OBJECT_0009
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_OBJECT_0009
+   * @tc.desc   Stability compat h2dtscpp/object: runCompatSafe(transParseObj literal); malformed
+   *            type Record<string, number>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_object_0009', function() {
     this.timeout(15000);
     try {
@@ -258,6 +338,15 @@ suite('Stability_H2DTSCPP_COMPAT_OBJECT_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_OBJECT_0010
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_OBJECT_0010
+   * @tc.desc   Stability compat h2dtscpp/object: runCompatSafe(transParseObj literal); malformed
+   *            type InvalidTypeXYZ; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_object_0010', function() {
     this.timeout(15000);
     try {
@@ -284,6 +373,15 @@ suite('Stability_H2DTSCPP_COMPAT_OBJECT_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_OBJECT_0011
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_OBJECT_0011
+   * @tc.desc   Stability compat h2dtscpp/object: runCompatSafe(transParseObj literal); malformed
+   *            type Record<string, string>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_object_0011', function() {
     this.timeout(15000);
     try {
@@ -310,6 +408,15 @@ suite('Stability_H2DTSCPP_COMPAT_OBJECT_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_OBJECT_0012
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_OBJECT_0012
+   * @tc.desc   Stability compat h2dtscpp/object: runCompatSafe(transParseObj literal); string
+   *            keyword misspelled (Record<strng, strng>); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_object_0012', function() {
     this.timeout(15000);
     try {
@@ -336,6 +443,15 @@ suite('Stability_H2DTSCPP_COMPAT_OBJECT_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_OBJECT_0013
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_OBJECT_0013
+   * @tc.desc   Stability compat h2dtscpp/object: runCompatSafe(transParseObj literal); malformed
+   *            type Record<string, string>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_object_0013', function() {
     this.timeout(15000);
     try {
@@ -362,6 +478,15 @@ suite('Stability_H2DTSCPP_COMPAT_OBJECT_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_OBJECT_0014
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_OBJECT_0014
+   * @tc.desc   Stability compat h2dtscpp/object: runCompatSafe(transParseObj literal); malformed
+   *            type Record<string, string>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_object_0014', function() {
     this.timeout(15000);
     try {
@@ -388,6 +513,15 @@ suite('Stability_H2DTSCPP_COMPAT_OBJECT_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_OBJECT_0015
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_OBJECT_0015
+   * @tc.desc   Stability compat h2dtscpp/object: runCompatSafe(transParseObj literal); malformed
+   *            type Recordstring, string>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_object_0015', function() {
     this.timeout(15000);
     try {
@@ -414,6 +548,15 @@ suite('Stability_H2DTSCPP_COMPAT_OBJECT_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_OBJECT_0016
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_OBJECT_0016
+   * @tc.desc   Stability compat h2dtscpp/object: runCompatSafe(transParseObj literal); malformed
+   *            type Record<string, string; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_object_0016', function() {
     this.timeout(15000);
     try {
@@ -440,6 +583,15 @@ suite('Stability_H2DTSCPP_COMPAT_OBJECT_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_OBJECT_0017
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_OBJECT_0017
+   * @tc.desc   Stability compat h2dtscpp/object: runCompatSafe(transParseObj literal); malformed
+   *            type Record<string, string>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_object_0017', function() {
     this.timeout(15000);
     try {
@@ -466,6 +618,15 @@ suite('Stability_H2DTSCPP_COMPAT_OBJECT_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_OBJECT_0018
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_OBJECT_0018
+   * @tc.desc   Stability compat h2dtscpp/object: runCompatSafe(transParseObj literal); trailing
+   *            comma on type (Record<string, string>,); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_object_0018', function() {
     this.timeout(15000);
     try {
@@ -489,58 +650,6 @@ suite('Stability_H2DTSCPP_COMPAT_OBJECT_Part01', function() {
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
       assert.fail(`h2dtscpp_compat_object_0018 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_object_0019', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C304', alias: '',
-            variableList: [{ type: 'Record<string, string>', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_object_0019 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_object_0019 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_object_0019 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "Record<string, string>",
-          "h2dtscpp_compat_object_0019 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_object_0019 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_object_0020', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C304', alias: '',
-            variableList: [{ type: 'InvalidTypeXYZ', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_object_0020 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_object_0020 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_object_0020 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "InvalidTypeXYZ",
-          "h2dtscpp_compat_object_0020 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_object_0020 execution error: ${String(err)}`);
     }
   });
 });

@@ -15,26 +15,44 @@
 
 import * as assert from 'assert';
 import * as vscode from 'vscode';
-import { transTskey2Ckey } from '../../../../gen/gendts';
-import * as parsec from '../../../../parse/parsec';
+import { transTskey2Ckey } from '../../../gen/gendts';
+import * as parsec from '../../../parse/parsec';
 import { runCompatSafe } from './stability_helpers';
 
 suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
   this.timeout(600000);
   vscode.window.showInformationMessage('Start Stability_H2DTS_CONVERT_BASIC_Part01.');
 
-
-  test('h2dts_convert_basic_0001', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0001_INT
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0001_INT
+   * @tc.desc   Stability convert h2dts/basic: baseline type-string convert; type int; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_basic_0001_int', () => {
     try {
       const result = transTskey2Ckey('int');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_basic_0001 convert output non-empty");
-      assert.strictEqual(result, "number", "h2dts_convert_basic_0001 convert output");
+      assert.ok(typeof result === 'string' && result.length > 0,
+        "h2dts_convert_basic_0001_int convert output non-empty");
+      assert.strictEqual(result, "number", "h2dts_convert_basic_0001_int convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_basic_0001 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_basic_0001_int execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_basic_0002', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0002_INT
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0002_INT
+   * @tc.desc   Stability convert h2dts/basic: function-param convert; type int; strictEqual convert
+   *            output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_basic_0002_int', () => {
     try {
       const r = parsec.parseFunction(`void sample1(int p0);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
@@ -42,65 +60,111 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0002 param convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_basic_0002 param convert output");
+        "h2dts_convert_basic_0002_int param convert output non-empty");
+      assert.strictEqual(converted, "number", "h2dts_convert_basic_0002_int param convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_basic_0002 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_basic_0002_int execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_basic_0003', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0003_NUMBER
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0003_NUMBER
+   * @tc.desc   Stability convert h2dts/basic: function-return convert; type int; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_basic_0003_number', () => {
     try {
       const r = parsec.parseFunction(`int sampleRet1();`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       const converted = transTskey2Ckey(r[0].returns);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0003 return convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_basic_0003 return convert output");
+        "h2dts_convert_basic_0003_number return convert output non-empty");
+      assert.strictEqual(converted, "number", "h2dts_convert_basic_0003_number return convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_basic_0003 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_basic_0003_number execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_basic_0004', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0004_INT
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0004_INT
+   * @tc.desc   Stability convert h2dts/basic: class-field convert; type int; strictEqual convert
+   *            output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_basic_0004_int', () => {
     try {
       const r = parsec.parseClass(`class SampleClass1 { public: int field; };`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].variableList && r[0].variableList.length >= 1);
       const converted = transTskey2Ckey(r[0].variableList[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0004 class field convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_basic_0004 class field convert output");
+        "h2dts_convert_basic_0004_int class field convert output non-empty");
+      assert.strictEqual(converted, "number", "h2dts_convert_basic_0004_int class field convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_basic_0004 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_basic_0004_int execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_basic_0005', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0005_INT
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0005_INT
+   * @tc.desc   Stability convert h2dts/basic: parse-convert-gen pipeline; type int; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_basic_0005_int', () => {
     try {
       const r = parsec.parseFunction(`void pipeline1(int p);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0005 pipeline convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_basic_0005 pipeline convert output");
+        "h2dts_convert_basic_0005_int pipeline convert output non-empty");
+      assert.strictEqual(converted, "number", "h2dts_convert_basic_0005_int pipeline convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_basic_0005 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_basic_0005_int execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_basic_0006', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0006_SIZE_T
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0006_SIZE_T
+   * @tc.desc   Stability convert h2dts/basic: baseline type-string convert; type size_t;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_basic_0006_size_t', () => {
     try {
       const result = transTskey2Ckey('size_t');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_basic_0006 convert output non-empty");
-      assert.strictEqual(result, "number", "h2dts_convert_basic_0006 convert output");
+      assert.ok(typeof result === 'string' && result.length > 0,
+        "h2dts_convert_basic_0006_size_t convert output non-empty");
+      assert.strictEqual(result, "number", "h2dts_convert_basic_0006_size_t convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_basic_0006 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_basic_0006_size_t execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_basic_0007', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0007_SIZE_T
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0007_SIZE_T
+   * @tc.desc   Stability convert h2dts/basic: function-param convert; type size_t; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_basic_0007_size_t', () => {
     try {
       const r = parsec.parseFunction(`void sample2(size_t p0);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
@@ -108,64 +172,110 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0007 param convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_basic_0007 param convert output");
+        "h2dts_convert_basic_0007_size_t param convert output non-empty");
+      assert.strictEqual(converted, "number", "h2dts_convert_basic_0007_size_t param convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_basic_0007 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_basic_0007_size_t execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_basic_0008', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0008_NUMBER
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0008_NUMBER
+   * @tc.desc   Stability convert h2dts/basic: function-return convert; type size_t; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_basic_0008_number', () => {
     try {
       const r = parsec.parseFunction(`size_t sampleRet2();`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       const converted = transTskey2Ckey(r[0].returns);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0008 return convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_basic_0008 return convert output");
+        "h2dts_convert_basic_0008_number return convert output non-empty");
+      assert.strictEqual(converted, "number", "h2dts_convert_basic_0008_number return convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_basic_0008 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_basic_0008_number execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_basic_0009', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0009_SIZE_T
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0009_SIZE_T
+   * @tc.desc   Stability convert h2dts/basic: class-field convert; type size_t; strictEqual convert
+   *            output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_basic_0009_size_t', () => {
     try {
       const r = parsec.parseClass(`class SampleClass2 { public: size_t field; };`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].variableList && r[0].variableList.length >= 1);
       const converted = transTskey2Ckey(r[0].variableList[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0009 class field convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_basic_0009 class field convert output");
+        "h2dts_convert_basic_0009_size_t class field convert output non-empty");
+      assert.strictEqual(converted, "number", "h2dts_convert_basic_0009_size_t class field convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_basic_0009 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_basic_0009_size_t execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_basic_0010', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0010_SIZE_T
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0010_SIZE_T
+   * @tc.desc   Stability convert h2dts/basic: parse-convert-gen pipeline; type size_t; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_basic_0010_size_t', () => {
     try {
       const r = parsec.parseFunction(`void pipeline2(size_t p);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0010 pipeline convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_basic_0010 pipeline convert output");
+        "h2dts_convert_basic_0010_size_t pipeline convert output non-empty");
+      assert.strictEqual(converted, "number", "h2dts_convert_basic_0010_size_t pipeline convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_basic_0010 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_basic_0010_size_t execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_basic_0011', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0011_DOUBLE
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0011_DOUBLE
+   * @tc.desc   Stability convert h2dts/basic: baseline type-string convert; type double;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_basic_0011_double', () => {
     try {
       const result = transTskey2Ckey('double');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_basic_0011 convert output non-empty");
-      assert.strictEqual(result, "number", "h2dts_convert_basic_0011 convert output");
+      assert.ok(typeof result === 'string' && result.length > 0,
+        "h2dts_convert_basic_0011_double convert output non-empty");
+      assert.strictEqual(result, "number", "h2dts_convert_basic_0011_double convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_basic_0011 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_basic_0011_double execution error: ${String(err)}`);
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0012
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0012
+   * @tc.desc   Stability convert h2dts/basic: function-param convert; type double; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0012', () => {
     try {
       const r = parsec.parseFunction(`void sample3(double p0);`);
@@ -181,6 +291,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0013
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0013
+   * @tc.desc   Stability convert h2dts/basic: function-return convert; type double; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0013', () => {
     try {
       const r = parsec.parseFunction(`double sampleRet3();`);
@@ -194,6 +313,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0014
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0014
+   * @tc.desc   Stability convert h2dts/basic: class-field convert; type double; strictEqual convert
+   *            output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0014', () => {
     try {
       const r = parsec.parseClass(`class SampleClass3 { public: double field; };`);
@@ -208,6 +336,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0015
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0015
+   * @tc.desc   Stability convert h2dts/basic: parse-convert-gen pipeline; type double; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0015', () => {
     try {
       const r = parsec.parseFunction(`void pipeline3(double p);`);
@@ -222,6 +359,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0016
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0016
+   * @tc.desc   Stability convert h2dts/basic: baseline type-string convert; type float; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0016', () => {
     try {
       const result = transTskey2Ckey('float');
@@ -232,6 +378,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0017
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0017
+   * @tc.desc   Stability convert h2dts/basic: function-param convert; type float; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0017', () => {
     try {
       const r = parsec.parseFunction(`void sample4(float p0);`);
@@ -247,6 +402,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0018
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0018
+   * @tc.desc   Stability convert h2dts/basic: function-return convert; type float; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0018', () => {
     try {
       const r = parsec.parseFunction(`float sampleRet4();`);
@@ -260,6 +424,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0019
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0019
+   * @tc.desc   Stability convert h2dts/basic: class-field convert; type float; strictEqual convert
+   *            output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0019', () => {
     try {
       const r = parsec.parseClass(`class SampleClass4 { public: float field; };`);
@@ -274,6 +447,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0020
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0020
+   * @tc.desc   Stability convert h2dts/basic: parse-convert-gen pipeline; type float; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0020', () => {
     try {
       const r = parsec.parseFunction(`void pipeline4(float p);`);
@@ -288,6 +470,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0021
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0021
+   * @tc.desc   Stability convert h2dts/basic: baseline type-string convert; type short; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0021', () => {
     try {
       const result = transTskey2Ckey('short');
@@ -298,6 +489,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0022
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0022
+   * @tc.desc   Stability convert h2dts/basic: function-param convert; type short; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0022', () => {
     try {
       const r = parsec.parseFunction(`void sample5(short p0);`);
@@ -313,6 +513,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0023
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0023
+   * @tc.desc   Stability convert h2dts/basic: function-return convert; type short; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0023', () => {
     try {
       const r = parsec.parseFunction(`short sampleRet5();`);
@@ -326,6 +535,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0024
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0024
+   * @tc.desc   Stability convert h2dts/basic: class-field convert; type short; strictEqual convert
+   *            output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0024', () => {
     try {
       const r = parsec.parseClass(`class SampleClass5 { public: short field; };`);
@@ -340,6 +558,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0025
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0025
+   * @tc.desc   Stability convert h2dts/basic: parse-convert-gen pipeline; type short; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0025', () => {
     try {
       const r = parsec.parseFunction(`void pipeline5(short p);`);
@@ -354,6 +581,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0026
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0026
+   * @tc.desc   Stability convert h2dts/basic: baseline type-string convert; type long; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0026', () => {
     try {
       const result = transTskey2Ckey('long');
@@ -364,6 +600,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0027
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0027
+   * @tc.desc   Stability convert h2dts/basic: function-param convert; type long; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0027', () => {
     try {
       const r = parsec.parseFunction(`void sample6(long p0);`);
@@ -379,6 +624,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0028
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0028
+   * @tc.desc   Stability convert h2dts/basic: function-return convert; type long; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0028', () => {
     try {
       const r = parsec.parseFunction(`long sampleRet6();`);
@@ -392,6 +646,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0029
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0029
+   * @tc.desc   Stability convert h2dts/basic: class-field convert; type long; strictEqual convert
+   *            output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0029', () => {
     try {
       const r = parsec.parseClass(`class SampleClass6 { public: long field; };`);
@@ -406,6 +669,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0030
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0030
+   * @tc.desc   Stability convert h2dts/basic: parse-convert-gen pipeline; type long; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0030', () => {
     try {
       const r = parsec.parseFunction(`void pipeline6(long p);`);
@@ -420,6 +692,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0031
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0031
+   * @tc.desc   Stability convert h2dts/basic: baseline type-string convert; type uint8_t;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0031', () => {
     try {
       const result = transTskey2Ckey('uint8_t');
@@ -430,6 +711,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0032
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0032
+   * @tc.desc   Stability convert h2dts/basic: function-param convert; type uint8_t; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0032', () => {
     try {
       const r = parsec.parseFunction(`void sample7(uint8_t p0);`);
@@ -445,6 +735,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0033
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0033
+   * @tc.desc   Stability convert h2dts/basic: function-return convert; type uint8_t; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0033', () => {
     try {
       const r = parsec.parseFunction(`uint8_t sampleRet7();`);
@@ -458,6 +757,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0034
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0034
+   * @tc.desc   Stability convert h2dts/basic: class-field convert; type uint8_t; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0034', () => {
     try {
       const r = parsec.parseClass(`class SampleClass7 { public: uint8_t field; };`);
@@ -472,6 +780,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0035
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0035
+   * @tc.desc   Stability convert h2dts/basic: parse-convert-gen pipeline; type uint8_t; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0035', () => {
     try {
       const r = parsec.parseFunction(`void pipeline7(uint8_t p);`);
@@ -486,6 +803,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0036
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0036
+   * @tc.desc   Stability convert h2dts/basic: baseline type-string convert; type uint16_t;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0036', () => {
     try {
       const result = transTskey2Ckey('uint16_t');
@@ -496,6 +822,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0037
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0037
+   * @tc.desc   Stability convert h2dts/basic: function-param convert; type uint16_t; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0037', () => {
     try {
       const r = parsec.parseFunction(`void sample8(uint16_t p0);`);
@@ -511,6 +846,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0038
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0038
+   * @tc.desc   Stability convert h2dts/basic: function-return convert; type uint16_t; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0038', () => {
     try {
       const r = parsec.parseFunction(`uint16_t sampleRet8();`);
@@ -524,6 +868,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0039
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0039
+   * @tc.desc   Stability convert h2dts/basic: class-field convert; type uint16_t; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0039', () => {
     try {
       const r = parsec.parseClass(`class SampleClass8 { public: uint16_t field; };`);
@@ -538,6 +891,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0040
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0040
+   * @tc.desc   Stability convert h2dts/basic: parse-convert-gen pipeline; type uint16_t;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0040', () => {
     try {
       const r = parsec.parseFunction(`void pipeline8(uint16_t p);`);
@@ -552,6 +914,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0041
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0041
+   * @tc.desc   Stability convert h2dts/basic: baseline type-string convert; type uint32_t;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0041', () => {
     try {
       const result = transTskey2Ckey('uint32_t');
@@ -562,6 +933,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0042
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0042
+   * @tc.desc   Stability convert h2dts/basic: function-param convert; type uint32_t; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0042', () => {
     try {
       const r = parsec.parseFunction(`void sample9(uint32_t p0);`);
@@ -577,6 +957,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0043
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0043
+   * @tc.desc   Stability convert h2dts/basic: function-return convert; type uint32_t; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0043', () => {
     try {
       const r = parsec.parseFunction(`uint32_t sampleRet9();`);
@@ -590,6 +979,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0044
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0044
+   * @tc.desc   Stability convert h2dts/basic: class-field convert; type uint32_t; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0044', () => {
     try {
       const r = parsec.parseClass(`class SampleClass9 { public: uint32_t field; };`);
@@ -604,6 +1002,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0045
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0045
+   * @tc.desc   Stability convert h2dts/basic: parse-convert-gen pipeline; type uint32_t;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0045', () => {
     try {
       const r = parsec.parseFunction(`void pipeline9(uint32_t p);`);
@@ -618,6 +1025,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0046
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0046
+   * @tc.desc   Stability convert h2dts/basic: baseline type-string convert; type uint64_t;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0046', () => {
     try {
       const result = transTskey2Ckey('uint64_t');
@@ -628,6 +1044,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0047
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0047
+   * @tc.desc   Stability convert h2dts/basic: function-param convert; type uint64_t; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0047', () => {
     try {
       const r = parsec.parseFunction(`void sample10(uint64_t p0);`);
@@ -643,6 +1068,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0048
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0048
+   * @tc.desc   Stability convert h2dts/basic: function-return convert; type uint64_t; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0048', () => {
     try {
       const r = parsec.parseFunction(`uint64_t sampleRet10();`);
@@ -656,6 +1090,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0049
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0049
+   * @tc.desc   Stability convert h2dts/basic: class-field convert; type uint64_t; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0049', () => {
     try {
       const r = parsec.parseClass(`class SampleClass10 { public: uint64_t field; };`);
@@ -670,6 +1113,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0050
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0050
+   * @tc.desc   Stability convert h2dts/basic: parse-convert-gen pipeline; type uint64_t;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0050', () => {
     try {
       const r = parsec.parseFunction(`void pipeline10(uint64_t p);`);
@@ -684,6 +1136,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0051
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0051
+   * @tc.desc   Stability convert h2dts/basic: baseline type-string convert; type int8_t;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0051', () => {
     try {
       const result = transTskey2Ckey('int8_t');
@@ -694,6 +1155,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0052
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0052
+   * @tc.desc   Stability convert h2dts/basic: function-param convert; type int8_t; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0052', () => {
     try {
       const r = parsec.parseFunction(`void sample11(int8_t p0);`);
@@ -709,6 +1179,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0053
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0053
+   * @tc.desc   Stability convert h2dts/basic: function-return convert; type int8_t; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0053', () => {
     try {
       const r = parsec.parseFunction(`int8_t sampleRet11();`);
@@ -722,6 +1201,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0054
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0054
+   * @tc.desc   Stability convert h2dts/basic: class-field convert; type int8_t; strictEqual convert
+   *            output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0054', () => {
     try {
       const r = parsec.parseClass(`class SampleClass11 { public: int8_t field; };`);
@@ -736,6 +1224,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0055
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0055
+   * @tc.desc   Stability convert h2dts/basic: parse-convert-gen pipeline; type int8_t; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0055', () => {
     try {
       const r = parsec.parseFunction(`void pipeline11(int8_t p);`);
@@ -750,6 +1247,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0056
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0056
+   * @tc.desc   Stability convert h2dts/basic: baseline type-string convert; type int16_t;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0056', () => {
     try {
       const result = transTskey2Ckey('int16_t');
@@ -760,6 +1266,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0057
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0057
+   * @tc.desc   Stability convert h2dts/basic: function-param convert; type int16_t; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0057', () => {
     try {
       const r = parsec.parseFunction(`void sample12(int16_t p0);`);
@@ -775,6 +1290,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0058
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0058
+   * @tc.desc   Stability convert h2dts/basic: function-return convert; type int16_t; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0058', () => {
     try {
       const r = parsec.parseFunction(`int16_t sampleRet12();`);
@@ -788,6 +1312,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0059
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0059
+   * @tc.desc   Stability convert h2dts/basic: class-field convert; type int16_t; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0059', () => {
     try {
       const r = parsec.parseClass(`class SampleClass12 { public: int16_t field; };`);
@@ -802,6 +1335,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0060
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0060
+   * @tc.desc   Stability convert h2dts/basic: parse-convert-gen pipeline; type int16_t; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0060', () => {
     try {
       const r = parsec.parseFunction(`void pipeline12(int16_t p);`);
@@ -816,6 +1358,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0061
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0061
+   * @tc.desc   Stability convert h2dts/basic: baseline type-string convert; type int32_t;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0061', () => {
     try {
       const result = transTskey2Ckey('int32_t');
@@ -826,6 +1377,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0062
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0062
+   * @tc.desc   Stability convert h2dts/basic: function-param convert; type int32_t; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0062', () => {
     try {
       const r = parsec.parseFunction(`void sample13(int32_t p0);`);
@@ -841,6 +1401,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0063
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0063
+   * @tc.desc   Stability convert h2dts/basic: function-return convert; type int32_t; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0063', () => {
     try {
       const r = parsec.parseFunction(`int32_t sampleRet13();`);
@@ -854,6 +1423,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0064
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0064
+   * @tc.desc   Stability convert h2dts/basic: class-field convert; type int32_t; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0064', () => {
     try {
       const r = parsec.parseClass(`class SampleClass13 { public: int32_t field; };`);
@@ -868,6 +1446,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0065
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0065
+   * @tc.desc   Stability convert h2dts/basic: parse-convert-gen pipeline; type int32_t; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0065', () => {
     try {
       const r = parsec.parseFunction(`void pipeline13(int32_t p);`);
@@ -882,6 +1469,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0066
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0066
+   * @tc.desc   Stability convert h2dts/basic: baseline type-string convert; type int64_t;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0066', () => {
     try {
       const result = transTskey2Ckey('int64_t');
@@ -892,6 +1488,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0067
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0067
+   * @tc.desc   Stability convert h2dts/basic: function-param convert; type int64_t; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0067', () => {
     try {
       const r = parsec.parseFunction(`void sample14(int64_t p0);`);
@@ -907,6 +1512,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0068
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0068
+   * @tc.desc   Stability convert h2dts/basic: function-return convert; type int64_t; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0068', () => {
     try {
       const r = parsec.parseFunction(`int64_t sampleRet14();`);
@@ -920,6 +1534,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0069
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0069
+   * @tc.desc   Stability convert h2dts/basic: class-field convert; type int64_t; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0069', () => {
     try {
       const r = parsec.parseClass(`class SampleClass14 { public: int64_t field; };`);
@@ -934,6 +1557,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0070
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0070
+   * @tc.desc   Stability convert h2dts/basic: parse-convert-gen pipeline; type int64_t; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0070', () => {
     try {
       const r = parsec.parseFunction(`void pipeline14(int64_t p);`);
@@ -948,6 +1580,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0071
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0071
+   * @tc.desc   Stability convert h2dts/basic: baseline type-string convert; type bool; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0071', () => {
     try {
       const result = transTskey2Ckey('bool');
@@ -958,6 +1599,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0072
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0072
+   * @tc.desc   Stability convert h2dts/basic: function-param convert; type bool; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0072', () => {
     try {
       const r = parsec.parseFunction(`void sample15(bool p0);`);
@@ -973,6 +1623,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0073
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0073
+   * @tc.desc   Stability convert h2dts/basic: function-return convert; type bool; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0073', () => {
     try {
       const r = parsec.parseFunction(`bool sampleRet15();`);
@@ -986,6 +1645,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0074
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0074
+   * @tc.desc   Stability convert h2dts/basic: class-field convert; type bool; strictEqual convert
+   *            output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0074', () => {
     try {
       const r = parsec.parseClass(`class SampleClass15 { public: bool field; };`);
@@ -1000,6 +1668,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0075
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0075
+   * @tc.desc   Stability convert h2dts/basic: parse-convert-gen pipeline; type bool; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0075', () => {
     try {
       const r = parsec.parseFunction(`void pipeline15(bool p);`);
@@ -1014,6 +1691,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0076
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0076
+   * @tc.desc   Stability convert h2dts/basic: baseline type-string convert; type char; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0076', () => {
     try {
       const result = transTskey2Ckey('char');
@@ -1024,6 +1710,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0077
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0077
+   * @tc.desc   Stability convert h2dts/basic: function-param convert; type char; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0077', () => {
     try {
       const r = parsec.parseFunction(`void sample16(char p0);`);
@@ -1039,6 +1734,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0078
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0078
+   * @tc.desc   Stability convert h2dts/basic: function-return convert; type char; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0078', () => {
     try {
       const r = parsec.parseFunction(`char sampleRet16();`);
@@ -1052,6 +1756,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0079
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0079
+   * @tc.desc   Stability convert h2dts/basic: class-field convert; type char; strictEqual convert
+   *            output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0079', () => {
     try {
       const r = parsec.parseClass(`class SampleClass16 { public: char field; };`);
@@ -1066,6 +1779,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0080
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0080
+   * @tc.desc   Stability convert h2dts/basic: parse-convert-gen pipeline; type char; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0080', () => {
     try {
       const r = parsec.parseFunction(`void pipeline16(char p);`);
@@ -1080,6 +1802,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0081
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0081
+   * @tc.desc   Stability convert h2dts/basic: baseline type-string convert; type char8_t;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0081', () => {
     try {
       const result = transTskey2Ckey('char8_t');
@@ -1090,6 +1821,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0082
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0082
+   * @tc.desc   Stability convert h2dts/basic: function-param convert; type char8_t; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0082', () => {
     try {
       const r = parsec.parseFunction(`void sample18(char8_t p0);`);
@@ -1105,6 +1845,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0083
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0083
+   * @tc.desc   Stability convert h2dts/basic: function-return convert; type char8_t; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0083', () => {
     try {
       const r = parsec.parseFunction(`char8_t sampleRet18();`);
@@ -1118,6 +1867,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0084
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0084
+   * @tc.desc   Stability convert h2dts/basic: class-field convert; type char8_t; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0084', () => {
     try {
       const r = parsec.parseClass(`class SampleClass18 { public: char8_t field; };`);
@@ -1132,6 +1890,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0085
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0085
+   * @tc.desc   Stability convert h2dts/basic: parse-convert-gen pipeline; type char8_t; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0085', () => {
     try {
       const r = parsec.parseFunction(`void pipeline18(char8_t p);`);
@@ -1146,6 +1913,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0086
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0086
+   * @tc.desc   Stability convert h2dts/basic: baseline type-string convert; type char16_t;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0086', () => {
     try {
       const result = transTskey2Ckey('char16_t');
@@ -1156,6 +1932,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0087
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0087
+   * @tc.desc   Stability convert h2dts/basic: function-param convert; type char16_t; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0087', () => {
     try {
       const r = parsec.parseFunction(`void sample19(char16_t p0);`);
@@ -1171,6 +1956,15 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_BASIC_0088
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_BASIC_0088
+   * @tc.desc   Stability convert h2dts/basic: function-return convert; type char16_t; strictEqual
+   *            convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dts_convert_basic_0088', () => {
     try {
       const r = parsec.parseFunction(`char16_t sampleRet19();`);
@@ -1181,812 +1975,6 @@ suite('Stability_H2DTS_CONVERT_BASIC_Part01', function() {
       assert.strictEqual(converted, "string", "h2dts_convert_basic_0088 return convert output");
     } catch (err) {
       assert.fail(`h2dts_convert_basic_0088 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0089', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass19 { public: char16_t field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0089 class field convert output non-empty");
-      assert.strictEqual(converted, "string", "h2dts_convert_basic_0089 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0089 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0090', () => {
-    try {
-      const r = parsec.parseFunction(`void pipeline19(char16_t p);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0090 pipeline convert output non-empty");
-      assert.strictEqual(converted, "string", "h2dts_convert_basic_0090 pipeline convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0090 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0091', () => {
-    try {
-      const result = transTskey2Ckey('char32_t');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_basic_0091 convert output non-empty");
-      assert.strictEqual(result, "string", "h2dts_convert_basic_0091 convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0091 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0092', () => {
-    try {
-      const r = parsec.parseFunction(`void sample20(char32_t p0);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(typeof r[0] === 'object');
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0092 param convert output non-empty");
-      assert.strictEqual(converted, "string", "h2dts_convert_basic_0092 param convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0092 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0093', () => {
-    try {
-      const r = parsec.parseFunction(`char32_t sampleRet20();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0093 return convert output non-empty");
-      assert.strictEqual(converted, "string", "h2dts_convert_basic_0093 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0093 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0094', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass20 { public: char32_t field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0094 class field convert output non-empty");
-      assert.strictEqual(converted, "string", "h2dts_convert_basic_0094 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0094 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0095', () => {
-    try {
-      const r = parsec.parseFunction(`void pipeline20(char32_t p);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0095 pipeline convert output non-empty");
-      assert.strictEqual(converted, "string", "h2dts_convert_basic_0095 pipeline convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0095 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0096', () => {
-    try {
-      const result = transTskey2Ckey('std::string');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_basic_0096 convert output non-empty");
-      assert.strictEqual(result, "string", "h2dts_convert_basic_0096 convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0096 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0097', () => {
-    try {
-      const r = parsec.parseFunction(`void sample218(std::string p0);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(typeof r[0] === 'object');
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0097 param convert output non-empty");
-      assert.strictEqual(converted, "string", "h2dts_convert_basic_0097 param convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0097 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0098', () => {
-    try {
-      const r = parsec.parseFunction(`std::string sampleRet218();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0098 return convert output non-empty");
-      assert.strictEqual(converted, "string", "h2dts_convert_basic_0098 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0098 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0099', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass218 { public: std::string field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0099 class field convert output non-empty");
-      assert.strictEqual(converted, "string", "h2dts_convert_basic_0099 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0099 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0100', () => {
-    try {
-      const r = parsec.parseFunction(`void pipeline218(std::string p);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0100 pipeline convert output non-empty");
-      assert.strictEqual(converted, "string", "h2dts_convert_basic_0100 pipeline convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0100 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0101', () => {
-    try {
-      const result = transTskey2Ckey('char *');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_basic_0101 convert output non-empty");
-      assert.strictEqual(result, "string", "h2dts_convert_basic_0101 convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0101 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0102', () => {
-    try {
-      const r = parsec.parseFunction(`void sample220(char * p0);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(typeof r[0] === 'object');
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0102 param convert output non-empty");
-      assert.strictEqual(converted, "string", "h2dts_convert_basic_0102 param convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0102 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0103', () => {
-    try {
-      const r = parsec.parseFunction(`char * sampleRet220();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0103 return convert output non-empty");
-      assert.strictEqual(converted, "string", "h2dts_convert_basic_0103 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0103 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0104', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass220 { public: char * field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0104 class field convert output non-empty");
-      assert.strictEqual(converted, "string", "h2dts_convert_basic_0104 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0104 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0105', () => {
-    try {
-      const r = parsec.parseFunction(`void pipeline220(char * p);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0105 pipeline convert output non-empty");
-      assert.strictEqual(converted, "string", "h2dts_convert_basic_0105 pipeline convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0105 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0106', () => {
-    try {
-      const result = transTskey2Ckey('long long');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_basic_0106 convert output non-empty");
-      assert.strictEqual(result, "number", "h2dts_convert_basic_0106 convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0106 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0107', () => {
-    try {
-      const r = parsec.parseFunction(`void sample221(long long p0);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(typeof r[0] === 'object');
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0107 param convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_basic_0107 param convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0107 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0108', () => {
-    try {
-      const r = parsec.parseFunction(`long long sampleRet221();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0108 return convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_basic_0108 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0108 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0109', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass221 { public: long long field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0109 class field convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_basic_0109 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0109 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0110', () => {
-    try {
-      const r = parsec.parseFunction(`void pipeline221(long long p);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0110 pipeline convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_basic_0110 pipeline convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0110 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0111', () => {
-    try {
-      const result = transTskey2Ckey('unsigned short');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_basic_0111 convert output non-empty");
-      assert.strictEqual(result, "number", "h2dts_convert_basic_0111 convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0111 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0112', () => {
-    try {
-      const r = parsec.parseFunction(`void sample222(unsigned short p0);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(typeof r[0] === 'object');
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0112 param convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_basic_0112 param convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0112 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0113', () => {
-    try {
-      const r = parsec.parseFunction(`unsigned short sampleRet222();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0113 return convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_basic_0113 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0113 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0114', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass222 { public: unsigned short field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0114 class field convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_basic_0114 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0114 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0115', () => {
-    try {
-      const r = parsec.parseFunction(`void pipeline222(unsigned short p);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0115 pipeline convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_basic_0115 pipeline convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0115 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0116', () => {
-    try {
-      const result = transTskey2Ckey('unsigned long');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_basic_0116 convert output non-empty");
-      assert.strictEqual(result, "number", "h2dts_convert_basic_0116 convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0116 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0117', () => {
-    try {
-      const r = parsec.parseFunction(`void sample223(unsigned long p0);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(typeof r[0] === 'object');
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0117 param convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_basic_0117 param convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0117 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0118', () => {
-    try {
-      const r = parsec.parseFunction(`unsigned long sampleRet223();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0118 return convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_basic_0118 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0118 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0119', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass223 { public: unsigned long field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0119 class field convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_basic_0119 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0119 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0120', () => {
-    try {
-      const r = parsec.parseFunction(`void pipeline223(unsigned long p);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0120 pipeline convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_basic_0120 pipeline convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0120 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0121', () => {
-    try {
-      const result = transTskey2Ckey('unsigned long long');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_basic_0121 convert output non-empty");
-      assert.strictEqual(result, "number", "h2dts_convert_basic_0121 convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0121 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0122', () => {
-    try {
-      const r = parsec.parseFunction(`void sample224(unsigned long long p0);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(typeof r[0] === 'object');
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0122 param convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_basic_0122 param convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0122 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0123', () => {
-    try {
-      const r = parsec.parseFunction(`unsigned long long sampleRet224();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0123 return convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_basic_0123 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0123 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0124', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass224 { public: unsigned long long field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0124 class field convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_basic_0124 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0124 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0125', () => {
-    try {
-      const r = parsec.parseFunction(`void pipeline224(unsigned long long p);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0125 pipeline convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_basic_0125 pipeline convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0125 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0126', () => {
-    try {
-      const result = transTskey2Ckey('int *');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_basic_0126 convert output non-empty");
-      assert.strictEqual(result, "number", "h2dts_convert_basic_0126 convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0126 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0127', () => {
-    try {
-      const r = parsec.parseFunction(`void sample229(int * p0);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(typeof r[0] === 'object');
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0127 param convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_basic_0127 param convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0127 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0128', () => {
-    try {
-      const r = parsec.parseFunction(`int * sampleRet229();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0128 return convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_basic_0128 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0128 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0129', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass229 { public: int * field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0129 class field convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_basic_0129 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0129 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0130', () => {
-    try {
-      const r = parsec.parseFunction(`void pipeline229(int * p);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0130 pipeline convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_basic_0130 pipeline convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0130 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0131', () => {
-    try {
-      const result = transTskey2Ckey('int$#');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_basic_0131 convert output non-empty");
-      assert.strictEqual(result, "number", "h2dts_convert_basic_0131 convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0131 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0132', () => {
-    try {
-      const r = parsec.parseFunction(`void sample290(int$# p0);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(typeof r[0] === 'object');
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0132 param convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_basic_0132 param convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0132 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0133', () => {
-    try {
-      const r = parsec.parseFunction(`int$# sampleRet290();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0133 return convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_basic_0133 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0133 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0134', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass290 { public: int$# field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0134 class field convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_basic_0134 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0134 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0135', () => {
-    try {
-      const r = parsec.parseFunction(`void pipeline290(int$# p);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0135 pipeline convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_basic_0135 pipeline convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0135 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0136', () => {
-    try {
-      const result = transTskey2Ckey('unsigned');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_basic_0136 convert output non-empty");
-      assert.strictEqual(result, "number", "h2dts_convert_basic_0136 convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0136 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0137', () => {
-    try {
-      const r = parsec.parseFunction(`void sample306(unsigned p0);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(typeof r[0] === 'object');
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0137 param convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_basic_0137 param convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0137 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0138', () => {
-    try {
-      const r = parsec.parseFunction(`unsigned sampleRet306();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0138 return convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_basic_0138 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0138 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0139', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass306 { public: unsigned field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0139 class field convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_basic_0139 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0139 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0140', () => {
-    try {
-      const r = parsec.parseFunction(`void pipeline306(unsigned p);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0140 pipeline convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_basic_0140 pipeline convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0140 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0141', () => {
-    try {
-      const result = transTskey2Ckey('unsigned int');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_basic_0141 convert output non-empty");
-      assert.strictEqual(result, "number", "h2dts_convert_basic_0141 convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0141 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0142', () => {
-    try {
-      const r = parsec.parseFunction(`void sample626(unsigned int p0);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(typeof r[0] === 'object');
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0142 param convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_basic_0142 param convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0142 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0143', () => {
-    try {
-      const r = parsec.parseFunction(`unsigned int sampleRet626();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0143 return convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_basic_0143 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0143 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0144', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass626 { public: unsigned int field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0144 class field convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_basic_0144 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0144 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0145', () => {
-    try {
-      const r = parsec.parseFunction(`void pipeline626(unsigned int p);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0145 pipeline convert output non-empty");
-      assert.strictEqual(converted, "number", "h2dts_convert_basic_0145 pipeline convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0145 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0146', () => {
-    try {
-      const result = transTskey2Ckey('unsigned char');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_basic_0146 convert output non-empty");
-      assert.strictEqual(result, "string", "h2dts_convert_basic_0146 convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0146 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0147', () => {
-    try {
-      const r = parsec.parseFunction(`void sample628(unsigned char p0);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(typeof r[0] === 'object');
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0147 param convert output non-empty");
-      assert.strictEqual(converted, "string", "h2dts_convert_basic_0147 param convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0147 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0148', () => {
-    try {
-      const r = parsec.parseFunction(`unsigned char sampleRet628();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0148 return convert output non-empty");
-      assert.strictEqual(converted, "string", "h2dts_convert_basic_0148 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0148 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_basic_0149', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass628 { public: unsigned char field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_basic_0149 class field convert output non-empty");
-      assert.strictEqual(converted, "string", "h2dts_convert_basic_0149 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_basic_0149 execution error: ${String(err)}`);
     }
   });
 });

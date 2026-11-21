@@ -21,10 +21,594 @@ import { runCompatSafe } from './stability_helpers';
 
 suite('Stability_H2DTSCPP_COMPAT_FUNC_Part05', function() {
   this.timeout(600000);
-  vscode.window.showInformationMessage('Start Stability_H2DTSCPP_COMPAT_FUNC_Part05.');
+  vscode.window.showInformationMessage('Start Stability_H2DTSCPP_COMPAT_FUNC_Part01.');
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0043_P0_STRNG_P1_STRNG_STRNG
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0043_P0_STRNG_P1_STRNG_STRNG
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); string keyword
+   *            misspelled ((p0:strng,p1:strng)=>strng); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0043_p0_strng_p1_strng_strng', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C46', alias: '',
+            variableList: [{ type: '(p0:strng,p1:strng)=>strng', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_func_0043_p0_strng_p1_strng_strng convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0043_p0_strng_p1_strng_strng must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_func_0043_p0_strng_p1_strng_strng must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<strng(strng, strng)>",
+          "h2dtscpp_compat_func_0043_p0_strng_p1_strng_strng field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_func_0043_p0_strng_p1_strng_strng execution error: ${String(err)}`);
+    }
+  });
 
-  test('h2dtscpp_compat_func_0001', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0044_P0_STRING_P1_STRING_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0044_P0_STRING_P1_STRING_STRING
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); malformed type
+   *            (p0:string,p1:string)=>string; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0044_p0_string_p1_string_string', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C46', alias: '',
+            variableList: [{ type: '(p0:string,p1:string)=>string', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_func_0044_p0_string_p1_string_string convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0044_p0_string_p1_string_string must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_func_0044_p0_string_p1_string_string must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type,
+          "std::function<std::string(std::string, std::string)>", "h2dtscpp_compat_func_0044_p0_string_p1_string_string field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_func_0044_p0_string_p1_string_string execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0045_P0_STRING_P1_STRING_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0045_P0_STRING_P1_STRING_STRING
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); malformed type
+   *            (p0:string,p1:string)=>string; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0045_p0_string_p1_string_string', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C46', alias: '',
+            variableList: [{ type: '(p0:string,p1:string)=>string', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_func_0045_p0_string_p1_string_string convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0045_p0_string_p1_string_string must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_func_0045_p0_string_p1_string_string must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type,
+          "std::function<std::string(std::string, std::string)>", "h2dtscpp_compat_func_0045_p0_string_p1_string_string field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_func_0045_p0_string_p1_string_string execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0046_P0_STRING_P1_STRING_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0046_P0_STRING_P1_STRING_STRING
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); malformed type
+   *            (p0:string,p1:string)=>string; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0046_p0_string_p1_string_string', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C46', alias: '',
+            variableList: [{ type: '(p0:string,p1:string)=>string', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_func_0046_p0_string_p1_string_string convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0046_p0_string_p1_string_string must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_func_0046_p0_string_p1_string_string must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type,
+          "std::function<std::string(std::string, std::string)>", "h2dtscpp_compat_func_0046_p0_string_p1_string_string field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_func_0046_p0_string_p1_string_string execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0047_P0_STRING_P1_STRING_STRIN
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0047_P0_STRING_P1_STRING_STRIN
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); malformed type
+   *            (p0:string,p1:string)=>strin; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0047_p0_string_p1_string_strin', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C46', alias: '',
+            variableList: [{ type: '(p0:string,p1:string)=>strin', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_func_0047_p0_string_p1_string_strin convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0047_p0_string_p1_string_strin must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_func_0047_p0_string_p1_string_strin must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<strin(std::string, std::string)>",
+          "h2dtscpp_compat_func_0047_p0_string_p1_string_strin field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_func_0047_p0_string_p1_string_strin execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0048_P0_STRING_P1_STRING_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0048_P0_STRING_P1_STRING_STRING
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); malformed type
+   *            (p0:string,p1:string)=>string; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0048_p0_string_p1_string_string', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C46', alias: '',
+            variableList: [{ type: '(p0:string,p1:string)=>string', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_func_0048_p0_string_p1_string_string convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0048_p0_string_p1_string_string must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_func_0048_p0_string_p1_string_string must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type,
+          "std::function<std::string(std::string, std::string)>", "h2dtscpp_compat_func_0048_p0_string_p1_string_string field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_func_0048_p0_string_p1_string_string execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0049_P0_STRING_P1_STRING_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0049_P0_STRING_P1_STRING_STRING
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); trailing comma
+   *            on type ((p0:string,p1:string)=>string,); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0049_p0_string_p1_string_string', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C46', alias: '',
+            variableList: [{ type: '(p0:string,p1:string)=>string,', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_func_0049_p0_string_p1_string_string convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0049_p0_string_p1_string_string must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_func_0049_p0_string_p1_string_string must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<string,(std::string, std::string)>",
+          "h2dtscpp_compat_func_0049_p0_string_p1_string_string field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_func_0049_p0_string_p1_string_string execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0050_P0_STRING_P1_STRING_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0050_P0_STRING_P1_STRING_STRING
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); malformed type
+   *            (p0:string,p1:string)=>string; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0050_p0_string_p1_string_string', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C46', alias: '',
+            variableList: [{ type: '(p0:string,p1:string)=>string', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_func_0050_p0_string_p1_string_string convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0050_p0_string_p1_string_string must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_func_0050_p0_string_p1_string_string must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type,
+          "std::function<std::string(std::string, std::string)>", "h2dtscpp_compat_func_0050_p0_string_p1_string_string field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_func_0050_p0_string_p1_string_string execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0051_INVALIDTYPEXYZ
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0051_INVALIDTYPEXYZ
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); malformed type
+   *            InvalidTypeXYZ; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0051_invalidtypexyz', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C46', alias: '',
+            variableList: [{ type: 'InvalidTypeXYZ', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_func_0051_invalidtypexyz convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0051_invalidtypexyz must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_func_0051_invalidtypexyz must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "InvalidTypeXYZ",
+          "h2dtscpp_compat_func_0051_invalidtypexyz field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_func_0051_invalidtypexyz execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0052_P0_BOOLEAN_P1_NUMBR_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0052_P0_BOOLEAN_P1_NUMBR_STRING
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); number keyword
+   *            misspelled ((p0:boolean,p1:numbr)=>string); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0052_p0_boolean_p1_numbr_string', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C47', alias: '',
+            variableList: [{ type: '(p0:boolean,p1:numbr)=>string', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_func_0052_p0_boolean_p1_numbr_string convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0052_p0_boolean_p1_numbr_string must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_func_0052_p0_boolean_p1_numbr_string must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<std::string(bool, numbr)>",
+          "h2dtscpp_compat_func_0052_p0_boolean_p1_numbr_string field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_func_0052_p0_boolean_p1_numbr_string execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0053_P0_BOOLEAN_P1_NUMBER_STRNG
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0053_P0_BOOLEAN_P1_NUMBER_STRNG
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); string keyword
+   *            misspelled ((p0:boolean,p1:number)=>strng); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0053_p0_boolean_p1_number_strng', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C47', alias: '',
+            variableList: [{ type: '(p0:boolean,p1:number)=>strng', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_func_0053_p0_boolean_p1_number_strng convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0053_p0_boolean_p1_number_strng must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_func_0053_p0_boolean_p1_number_strng must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<strng(bool, double)>",
+          "h2dtscpp_compat_func_0053_p0_boolean_p1_number_strng field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_func_0053_p0_boolean_p1_number_strng execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0054_P0_BOOLEA_P1_NUMBER_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0054_P0_BOOLEA_P1_NUMBER_STRING
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ((p0:boolea,p1:number)=>string); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0054_p0_boolea_p1_number_string', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C47', alias: '',
+            variableList: [{ type: '(p0:boolea,p1:number)=>string', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_func_0054_p0_boolea_p1_number_string convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0054_p0_boolea_p1_number_string must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_func_0054_p0_boolea_p1_number_string must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<std::string(boolea, double)>",
+          "h2dtscpp_compat_func_0054_p0_boolea_p1_number_string field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_func_0054_p0_boolea_p1_number_string execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0055_P0_BOOLEAN_P1_NUMBER_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0055_P0_BOOLEAN_P1_NUMBER_STRING
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ((p0:boolean,p1:number)=>string); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0055_p0_boolean_p1_number_string', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C47', alias: '',
+            variableList: [{ type: '(p0:boolean,p1:number)=>string', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_func_0055_p0_boolean_p1_number_string convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0055_p0_boolean_p1_number_string must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_func_0055_p0_boolean_p1_number_string must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<std::string(bool, double)>",
+          "h2dtscpp_compat_func_0055_p0_boolean_p1_number_string field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_func_0055_p0_boolean_p1_number_string execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0056_P0_BOOLEAN_P1_NUMBER_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0056_P0_BOOLEAN_P1_NUMBER_STRING
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ((p0:boolean,p1:number)=>string); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0056_p0_boolean_p1_number_string', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C47', alias: '',
+            variableList: [{ type: '(p0:boolean,p1:number)=>string', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_func_0056_p0_boolean_p1_number_string convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0056_p0_boolean_p1_number_string must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_func_0056_p0_boolean_p1_number_string must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<std::string(bool, double)>",
+          "h2dtscpp_compat_func_0056_p0_boolean_p1_number_string field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_func_0056_p0_boolean_p1_number_string execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0057_P0_BOOLEAN_P1_NUMBER_STRIN
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0057_P0_BOOLEAN_P1_NUMBER_STRIN
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ((p0:boolean,p1:number)=>strin); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0057_p0_boolean_p1_number_strin', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C47', alias: '',
+            variableList: [{ type: '(p0:boolean,p1:number)=>strin', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_func_0057_p0_boolean_p1_number_strin convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0057_p0_boolean_p1_number_strin must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_func_0057_p0_boolean_p1_number_strin must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<strin(bool, double)>",
+          "h2dtscpp_compat_func_0057_p0_boolean_p1_number_strin field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_func_0057_p0_boolean_p1_number_strin execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0058_P0_BOOLEAN_P1_NUMBER_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0058_P0_BOOLEAN_P1_NUMBER_STRING
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ((p0:boolean,p1:number)=>string); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0058_p0_boolean_p1_number_string', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C47', alias: '',
+            variableList: [{ type: '(p0:boolean,p1:number)=>string', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_func_0058_p0_boolean_p1_number_string convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0058_p0_boolean_p1_number_string must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_func_0058_p0_boolean_p1_number_string must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<std::string(bool, double)>",
+          "h2dtscpp_compat_func_0058_p0_boolean_p1_number_string field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_func_0058_p0_boolean_p1_number_string execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0001_P0_NUMBER_P1_NUMBER_BOOLEA
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0001_P0_NUMBER_P1_NUMBER_BOOLEA
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ((p0:number,p1:number)=>boolea); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0001_p0_number_p1_number_boolea', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -37,20 +621,30 @@ suite('Stability_H2DTSCPP_COMPAT_FUNC_Part05', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0001 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0001 must have class");
+          "h2dtscpp_compat_func_0001_p0_number_p1_number_boolea convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0001_p0_number_p1_number_boolea must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0001 must have field");
+          "h2dtscpp_compat_func_0001_p0_number_p1_number_boolea must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<boolea(double, double)>",
-          "h2dtscpp_compat_func_0001 field type");
+          "h2dtscpp_compat_func_0001_p0_number_p1_number_boolea field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0001 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_func_0001_p0_number_p1_number_boolea execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_func_0002', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0002_P0_NUMBER_P1_NUMBER_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0002_P0_NUMBER_P1_NUMBER_BOOLEAN
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ((p0:number,p1:number)=>boolean); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0002_p0_number_p1_number_boolean', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -63,20 +657,30 @@ suite('Stability_H2DTSCPP_COMPAT_FUNC_Part05', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0002 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0002 must have class");
+          "h2dtscpp_compat_func_0002_p0_number_p1_number_boolean convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0002_p0_number_p1_number_boolean must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0002 must have field");
+          "h2dtscpp_compat_func_0002_p0_number_p1_number_boolean must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<bool(double, double)>",
-          "h2dtscpp_compat_func_0002 field type");
+          "h2dtscpp_compat_func_0002_p0_number_p1_number_boolean field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0002 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_func_0002_p0_number_p1_number_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_func_0003', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0003_P0_NUMBER_P1_NUMBER_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0003_P0_NUMBER_P1_NUMBER_BOOLEAN
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ((p0:number,p1:number)=>boolean); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0003_p0_number_p1_number_boolean', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -89,20 +693,30 @@ suite('Stability_H2DTSCPP_COMPAT_FUNC_Part05', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0003 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0003 must have class");
+          "h2dtscpp_compat_func_0003_p0_number_p1_number_boolean convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0003_p0_number_p1_number_boolean must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0003 must have field");
+          "h2dtscpp_compat_func_0003_p0_number_p1_number_boolean must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<bool(double, double)>",
-          "h2dtscpp_compat_func_0003 field type");
+          "h2dtscpp_compat_func_0003_p0_number_p1_number_boolean field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0003 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_func_0003_p0_number_p1_number_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_func_0004', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0004_P0_NUMBER_P1_NUMBER_BOOLEA
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0004_P0_NUMBER_P1_NUMBER_BOOLEA
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ((p0:number,p1:number)=>boolea); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0004_p0_number_p1_number_boolea', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -115,20 +729,30 @@ suite('Stability_H2DTSCPP_COMPAT_FUNC_Part05', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0004 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0004 must have class");
+          "h2dtscpp_compat_func_0004_p0_number_p1_number_boolea convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0004_p0_number_p1_number_boolea must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0004 must have field");
+          "h2dtscpp_compat_func_0004_p0_number_p1_number_boolea must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<boolea(double, double)>",
-          "h2dtscpp_compat_func_0004 field type");
+          "h2dtscpp_compat_func_0004_p0_number_p1_number_boolea field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0004 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_func_0004_p0_number_p1_number_boolea execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_func_0005', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0005_P0_NUMBER_P1_NUMBER_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0005_P0_NUMBER_P1_NUMBER_BOOLEAN
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ((p0:number,p1:number)=>boolean); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0005_p0_number_p1_number_boolean', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -141,20 +765,30 @@ suite('Stability_H2DTSCPP_COMPAT_FUNC_Part05', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0005 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0005 must have class");
+          "h2dtscpp_compat_func_0005_p0_number_p1_number_boolean convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0005_p0_number_p1_number_boolean must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0005 must have field");
+          "h2dtscpp_compat_func_0005_p0_number_p1_number_boolean must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<bool(double, double)>",
-          "h2dtscpp_compat_func_0005 field type");
+          "h2dtscpp_compat_func_0005_p0_number_p1_number_boolean field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0005 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_func_0005_p0_number_p1_number_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_func_0006', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0006_P0_NUMBER_P1_NUMBER_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0006_P0_NUMBER_P1_NUMBER_BOOLEAN
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ((p0:number,p1:number)=>boolean,); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0006_p0_number_p1_number_boolean', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -167,20 +801,30 @@ suite('Stability_H2DTSCPP_COMPAT_FUNC_Part05', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0006 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0006 must have class");
+          "h2dtscpp_compat_func_0006_p0_number_p1_number_boolean convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0006_p0_number_p1_number_boolean must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0006 must have field");
+          "h2dtscpp_compat_func_0006_p0_number_p1_number_boolean must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<boolean,(double, double)>",
-          "h2dtscpp_compat_func_0006 field type");
+          "h2dtscpp_compat_func_0006_p0_number_p1_number_boolean field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0006 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_func_0006_p0_number_p1_number_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_func_0007', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0007_P0_NUMBER_P1_NUMBER_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0007_P0_NUMBER_P1_NUMBER_BOOLEAN
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ((p0:number,p1:number)=>boolean); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0007_p0_number_p1_number_boolean', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -193,20 +837,30 @@ suite('Stability_H2DTSCPP_COMPAT_FUNC_Part05', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0007 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0007 must have class");
+          "h2dtscpp_compat_func_0007_p0_number_p1_number_boolean convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0007_p0_number_p1_number_boolean must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0007 must have field");
+          "h2dtscpp_compat_func_0007_p0_number_p1_number_boolean must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<bool(double, double)>",
-          "h2dtscpp_compat_func_0007 field type");
+          "h2dtscpp_compat_func_0007_p0_number_p1_number_boolean field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0007 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_func_0007_p0_number_p1_number_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_func_0008', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0008_INVALIDTYPEXYZ
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0008_INVALIDTYPEXYZ
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); malformed type
+   *            InvalidTypeXYZ; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0008_invalidtypexyz', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -219,19 +873,30 @@ suite('Stability_H2DTSCPP_COMPAT_FUNC_Part05', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0008 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0008 must have class");
+          "h2dtscpp_compat_func_0008_invalidtypexyz convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0008_invalidtypexyz must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0008 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "InvalidTypeXYZ", "h2dtscpp_compat_func_0008 field type");
+          "h2dtscpp_compat_func_0008_invalidtypexyz must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "InvalidTypeXYZ",
+          "h2dtscpp_compat_func_0008_invalidtypexyz field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0008 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_func_0008_invalidtypexyz execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_func_0009', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0009_P0_NUMBR_P1_BOOLEAN_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0009_P0_NUMBR_P1_BOOLEAN_BOOLEAN
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); number keyword
+   *            misspelled ((p0:numbr,p1:boolean)=>boolean); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0009_p0_numbr_p1_boolean_boolean', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -244,20 +909,30 @@ suite('Stability_H2DTSCPP_COMPAT_FUNC_Part05', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0009 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0009 must have class");
+          "h2dtscpp_compat_func_0009_p0_numbr_p1_boolean_boolean convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0009_p0_numbr_p1_boolean_boolean must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0009 must have field");
+          "h2dtscpp_compat_func_0009_p0_numbr_p1_boolean_boolean must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<bool(numbr, bool)>",
-          "h2dtscpp_compat_func_0009 field type");
+          "h2dtscpp_compat_func_0009_p0_numbr_p1_boolean_boolean field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0009 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_func_0009_p0_numbr_p1_boolean_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_func_0010', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0010_P0_NUMBER_P1_BOOLEAN_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0010_P0_NUMBER_P1_BOOLEAN_BOOLEAN
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ((p0:number,p1:boolean)=>boolean); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0010_p0_number_p1_boolean_boolean', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -270,20 +945,30 @@ suite('Stability_H2DTSCPP_COMPAT_FUNC_Part05', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0010 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0010 must have class");
+          "h2dtscpp_compat_func_0010_p0_number_p1_boolean_boolean convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0010_p0_number_p1_boolean_boolean must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0010 must have field");
+          "h2dtscpp_compat_func_0010_p0_number_p1_boolean_boolean must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<bool(double, bool)>",
-          "h2dtscpp_compat_func_0010 field type");
+          "h2dtscpp_compat_func_0010_p0_number_p1_boolean_boolean field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0010 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_func_0010_p0_number_p1_boolean_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_func_0011', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0011_P0_NUMBER_P1_BOOLEA_BOOLEA
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0011_P0_NUMBER_P1_BOOLEA_BOOLEA
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ((p0:number,p1:boolea)=>boolea); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0011_p0_number_p1_boolea_boolea', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -296,20 +981,30 @@ suite('Stability_H2DTSCPP_COMPAT_FUNC_Part05', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0011 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0011 must have class");
+          "h2dtscpp_compat_func_0011_p0_number_p1_boolea_boolea convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0011_p0_number_p1_boolea_boolea must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0011 must have field");
+          "h2dtscpp_compat_func_0011_p0_number_p1_boolea_boolea must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<boolea(double, boolea)>",
-          "h2dtscpp_compat_func_0011 field type");
+          "h2dtscpp_compat_func_0011_p0_number_p1_boolea_boolea field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0011 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_func_0011_p0_number_p1_boolea_boolea execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_func_0012', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0012_P0_NUMBER_P1_BOOLEAN_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0012_P0_NUMBER_P1_BOOLEAN_BOOLEAN
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ((p0:number,p1:boolean)=>boolean); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0012_p0_number_p1_boolean_boolean', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -322,20 +1017,30 @@ suite('Stability_H2DTSCPP_COMPAT_FUNC_Part05', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0012 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0012 must have class");
+          "h2dtscpp_compat_func_0012_p0_number_p1_boolean_boolean convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0012_p0_number_p1_boolean_boolean must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0012 must have field");
+          "h2dtscpp_compat_func_0012_p0_number_p1_boolean_boolean must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<bool(double, bool)>",
-          "h2dtscpp_compat_func_0012 field type");
+          "h2dtscpp_compat_func_0012_p0_number_p1_boolean_boolean field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0012 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_func_0012_p0_number_p1_boolean_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_func_0013', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0013_P0_NUMBER_P1_BOOLEAN_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0013_P0_NUMBER_P1_BOOLEAN_BOOLEAN
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ((p0:number,p1:boolean)=>boolean); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0013_p0_number_p1_boolean_boolean', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -348,20 +1053,30 @@ suite('Stability_H2DTSCPP_COMPAT_FUNC_Part05', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0013 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0013 must have class");
+          "h2dtscpp_compat_func_0013_p0_number_p1_boolean_boolean convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0013_p0_number_p1_boolean_boolean must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0013 must have field");
+          "h2dtscpp_compat_func_0013_p0_number_p1_boolean_boolean must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<bool(double, bool)>",
-          "h2dtscpp_compat_func_0013 field type");
+          "h2dtscpp_compat_func_0013_p0_number_p1_boolean_boolean field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0013 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_func_0013_p0_number_p1_boolean_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_func_0014', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0014_P0_NUMBER_P1_BOOLEAN_BOOLEA
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0014_P0_NUMBER_P1_BOOLEAN_BOOLEA
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ((p0:number,p1:boolean)=>boolea); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0014_p0_number_p1_boolean_boolea', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -374,20 +1089,30 @@ suite('Stability_H2DTSCPP_COMPAT_FUNC_Part05', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0014 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0014 must have class");
+          "h2dtscpp_compat_func_0014_p0_number_p1_boolean_boolea convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0014_p0_number_p1_boolean_boolea must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0014 must have field");
+          "h2dtscpp_compat_func_0014_p0_number_p1_boolean_boolea must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<boolea(double, bool)>",
-          "h2dtscpp_compat_func_0014 field type");
+          "h2dtscpp_compat_func_0014_p0_number_p1_boolean_boolea field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0014 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_func_0014_p0_number_p1_boolean_boolea execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_func_0015', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0015_P0_NUMBER_P1_BOOLEAN_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0015_P0_NUMBER_P1_BOOLEAN_BOOLEAN
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ((p0:number,p1:boolean)=>boolean); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0015_p0_number_p1_boolean_boolean', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -400,20 +1125,30 @@ suite('Stability_H2DTSCPP_COMPAT_FUNC_Part05', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0015 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0015 must have class");
+          "h2dtscpp_compat_func_0015_p0_number_p1_boolean_boolean convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0015_p0_number_p1_boolean_boolean must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0015 must have field");
+          "h2dtscpp_compat_func_0015_p0_number_p1_boolean_boolean must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<bool(double, bool)>",
-          "h2dtscpp_compat_func_0015 field type");
+          "h2dtscpp_compat_func_0015_p0_number_p1_boolean_boolean field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0015 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_func_0015_p0_number_p1_boolean_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_func_0016', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0016_P0_NUMBER_P1_BOOLEAN_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0016_P0_NUMBER_P1_BOOLEAN_BOOLEAN
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ((p0:number,p1:boolean)=>boolean,); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0016_p0_number_p1_boolean_boolean', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -426,20 +1161,30 @@ suite('Stability_H2DTSCPP_COMPAT_FUNC_Part05', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0016 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0016 must have class");
+          "h2dtscpp_compat_func_0016_p0_number_p1_boolean_boolean convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0016_p0_number_p1_boolean_boolean must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0016 must have field");
+          "h2dtscpp_compat_func_0016_p0_number_p1_boolean_boolean must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<boolean,(double, bool)>",
-          "h2dtscpp_compat_func_0016 field type");
+          "h2dtscpp_compat_func_0016_p0_number_p1_boolean_boolean field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0016 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_func_0016_p0_number_p1_boolean_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_func_0017', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0017_P0_NUMBER_P1_BOOLEAN_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0017_P0_NUMBER_P1_BOOLEAN_BOOLEAN
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ((p0:number,p1:boolean)=>boolean); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0017_p0_number_p1_boolean_boolean', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -452,20 +1197,30 @@ suite('Stability_H2DTSCPP_COMPAT_FUNC_Part05', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0017 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0017 must have class");
+          "h2dtscpp_compat_func_0017_p0_number_p1_boolean_boolean convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0017_p0_number_p1_boolean_boolean must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0017 must have field");
+          "h2dtscpp_compat_func_0017_p0_number_p1_boolean_boolean must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<bool(double, bool)>",
-          "h2dtscpp_compat_func_0017 field type");
+          "h2dtscpp_compat_func_0017_p0_number_p1_boolean_boolean field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0017 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_func_0017_p0_number_p1_boolean_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_func_0018', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0018_INVALIDTYPEXYZ
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0018_INVALIDTYPEXYZ
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); malformed type
+   *            InvalidTypeXYZ; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0018_invalidtypexyz', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -478,19 +1233,30 @@ suite('Stability_H2DTSCPP_COMPAT_FUNC_Part05', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0018 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0018 must have class");
+          "h2dtscpp_compat_func_0018_invalidtypexyz convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0018_invalidtypexyz must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0018 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "InvalidTypeXYZ", "h2dtscpp_compat_func_0018 field type");
+          "h2dtscpp_compat_func_0018_invalidtypexyz must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "InvalidTypeXYZ",
+          "h2dtscpp_compat_func_0018_invalidtypexyz field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0018 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_func_0018_invalidtypexyz execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_func_0019', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0019_P0_STRING_P1_STRING_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0019_P0_STRING_P1_STRING_BOOLEAN
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ((p0:string,p1:string)=>boolean); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0019_p0_string_p1_string_boolean', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -503,20 +1269,30 @@ suite('Stability_H2DTSCPP_COMPAT_FUNC_Part05', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0019 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0019 must have class");
+          "h2dtscpp_compat_func_0019_p0_string_p1_string_boolean convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0019_p0_string_p1_string_boolean must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0019 must have field");
+          "h2dtscpp_compat_func_0019_p0_string_p1_string_boolean must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<bool(std::string, std::string)>",
-          "h2dtscpp_compat_func_0019 field type");
+          "h2dtscpp_compat_func_0019_p0_string_p1_string_boolean field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0019 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_func_0019_p0_string_p1_string_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_func_0020', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0020_P0_STRNG_P1_STRNG_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0020_P0_STRNG_P1_STRNG_BOOLEAN
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); string keyword
+   *            misspelled ((p0:strng,p1:strng)=>boolean); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0020_p0_strng_p1_strng_boolean', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -529,20 +1305,30 @@ suite('Stability_H2DTSCPP_COMPAT_FUNC_Part05', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0020 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0020 must have class");
+          "h2dtscpp_compat_func_0020_p0_strng_p1_strng_boolean convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0020_p0_strng_p1_strng_boolean must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0020 must have field");
+          "h2dtscpp_compat_func_0020_p0_strng_p1_strng_boolean must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<bool(strng, strng)>",
-          "h2dtscpp_compat_func_0020 field type");
+          "h2dtscpp_compat_func_0020_p0_strng_p1_strng_boolean field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0020 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_func_0020_p0_strng_p1_strng_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_func_0021', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0021_P0_STRING_P1_STRING_BOOLEA
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0021_P0_STRING_P1_STRING_BOOLEA
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ((p0:string,p1:string)=>boolea); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0021_p0_string_p1_string_boolea', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -555,20 +1341,30 @@ suite('Stability_H2DTSCPP_COMPAT_FUNC_Part05', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0021 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0021 must have class");
+          "h2dtscpp_compat_func_0021_p0_string_p1_string_boolea convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0021_p0_string_p1_string_boolea must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0021 must have field");
+          "h2dtscpp_compat_func_0021_p0_string_p1_string_boolea must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<boolea(std::string, std::string)>",
-          "h2dtscpp_compat_func_0021 field type");
+          "h2dtscpp_compat_func_0021_p0_string_p1_string_boolea field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0021 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_func_0021_p0_string_p1_string_boolea execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_func_0022', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0022_P0_STRING_P1_STRING_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0022_P0_STRING_P1_STRING_BOOLEAN
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ((p0:string,p1:string)=>boolean); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0022_p0_string_p1_string_boolean', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -581,20 +1377,30 @@ suite('Stability_H2DTSCPP_COMPAT_FUNC_Part05', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0022 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0022 must have class");
+          "h2dtscpp_compat_func_0022_p0_string_p1_string_boolean convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0022_p0_string_p1_string_boolean must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0022 must have field");
+          "h2dtscpp_compat_func_0022_p0_string_p1_string_boolean must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<bool(std::string, std::string)>",
-          "h2dtscpp_compat_func_0022 field type");
+          "h2dtscpp_compat_func_0022_p0_string_p1_string_boolean field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0022 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_func_0022_p0_string_p1_string_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_func_0023', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0023_P0_STRING_P1_STRING_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0023_P0_STRING_P1_STRING_BOOLEAN
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ((p0:string,p1:string)=>boolean); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0023_p0_string_p1_string_boolean', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -607,20 +1413,30 @@ suite('Stability_H2DTSCPP_COMPAT_FUNC_Part05', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0023 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0023 must have class");
+          "h2dtscpp_compat_func_0023_p0_string_p1_string_boolean convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0023_p0_string_p1_string_boolean must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0023 must have field");
+          "h2dtscpp_compat_func_0023_p0_string_p1_string_boolean must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<bool(std::string, std::string)>",
-          "h2dtscpp_compat_func_0023 field type");
+          "h2dtscpp_compat_func_0023_p0_string_p1_string_boolean field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0023 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_func_0023_p0_string_p1_string_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_func_0024', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0024_P0_STRING_P1_STRING_BOOLEA
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0024_P0_STRING_P1_STRING_BOOLEA
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ((p0:string,p1:string)=>boolea); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0024_p0_string_p1_string_boolea', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -633,20 +1449,30 @@ suite('Stability_H2DTSCPP_COMPAT_FUNC_Part05', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0024 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0024 must have class");
+          "h2dtscpp_compat_func_0024_p0_string_p1_string_boolea convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0024_p0_string_p1_string_boolea must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0024 must have field");
+          "h2dtscpp_compat_func_0024_p0_string_p1_string_boolea must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<boolea(std::string, std::string)>",
-          "h2dtscpp_compat_func_0024 field type");
+          "h2dtscpp_compat_func_0024_p0_string_p1_string_boolea field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0024 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_func_0024_p0_string_p1_string_boolea execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_func_0025', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0025_P0_STRING_P1_STRING_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0025_P0_STRING_P1_STRING_BOOLEAN
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ((p0:string,p1:string)=>boolean); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0025_p0_string_p1_string_boolean', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -659,20 +1485,30 @@ suite('Stability_H2DTSCPP_COMPAT_FUNC_Part05', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0025 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0025 must have class");
+          "h2dtscpp_compat_func_0025_p0_string_p1_string_boolean convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0025_p0_string_p1_string_boolean must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0025 must have field");
+          "h2dtscpp_compat_func_0025_p0_string_p1_string_boolean must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<bool(std::string, std::string)>",
-          "h2dtscpp_compat_func_0025 field type");
+          "h2dtscpp_compat_func_0025_p0_string_p1_string_boolean field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0025 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_func_0025_p0_string_p1_string_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_func_0026', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0026_P0_STRING_P1_STRING_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0026_P0_STRING_P1_STRING_BOOLEAN
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ((p0:string,p1:string)=>boolean,); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0026_p0_string_p1_string_boolean', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -685,20 +1521,30 @@ suite('Stability_H2DTSCPP_COMPAT_FUNC_Part05', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0026 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0026 must have class");
+          "h2dtscpp_compat_func_0026_p0_string_p1_string_boolean convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0026_p0_string_p1_string_boolean must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0026 must have field");
+          "h2dtscpp_compat_func_0026_p0_string_p1_string_boolean must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type,
-          "std::function<boolean,(std::string, std::string)>", "h2dtscpp_compat_func_0026 field type");
+          "std::function<boolean,(std::string, std::string)>", "h2dtscpp_compat_func_0026_p0_string_p1_string_boolean field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0026 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_func_0026_p0_string_p1_string_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_func_0027', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0027_P0_STRING_P1_STRING_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0027_P0_STRING_P1_STRING_BOOLEAN
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ((p0:string,p1:string)=>boolean); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0027_p0_string_p1_string_boolean', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -711,20 +1557,30 @@ suite('Stability_H2DTSCPP_COMPAT_FUNC_Part05', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0027 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0027 must have class");
+          "h2dtscpp_compat_func_0027_p0_string_p1_string_boolean convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0027_p0_string_p1_string_boolean must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0027 must have field");
+          "h2dtscpp_compat_func_0027_p0_string_p1_string_boolean must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<bool(std::string, std::string)>",
-          "h2dtscpp_compat_func_0027 field type");
+          "h2dtscpp_compat_func_0027_p0_string_p1_string_boolean field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0027 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_func_0027_p0_string_p1_string_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_func_0028', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0028_INVALIDTYPEXYZ
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0028_INVALIDTYPEXYZ
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); malformed type
+   *            InvalidTypeXYZ; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0028_invalidtypexyz', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -737,19 +1593,30 @@ suite('Stability_H2DTSCPP_COMPAT_FUNC_Part05', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0028 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0028 must have class");
+          "h2dtscpp_compat_func_0028_invalidtypexyz convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0028_invalidtypexyz must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0028 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "InvalidTypeXYZ", "h2dtscpp_compat_func_0028 field type");
+          "h2dtscpp_compat_func_0028_invalidtypexyz must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "InvalidTypeXYZ",
+          "h2dtscpp_compat_func_0028_invalidtypexyz field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0028 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_func_0028_invalidtypexyz execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_func_0029', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0029_P0_BOOLEAN_P1_NUMBR_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0029_P0_BOOLEAN_P1_NUMBR_BOOLEAN
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); number keyword
+   *            misspelled ((p0:boolean,p1:numbr)=>boolean); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0029_p0_boolean_p1_numbr_boolean', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -762,20 +1629,30 @@ suite('Stability_H2DTSCPP_COMPAT_FUNC_Part05', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0029 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0029 must have class");
+          "h2dtscpp_compat_func_0029_p0_boolean_p1_numbr_boolean convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0029_p0_boolean_p1_numbr_boolean must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0029 must have field");
+          "h2dtscpp_compat_func_0029_p0_boolean_p1_numbr_boolean must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<bool(bool, numbr)>",
-          "h2dtscpp_compat_func_0029 field type");
+          "h2dtscpp_compat_func_0029_p0_boolean_p1_numbr_boolean field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0029 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_func_0029_p0_boolean_p1_numbr_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_func_0030', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0030_P0_BOOLEAN_P1_NUMBER_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0030_P0_BOOLEAN_P1_NUMBER_BOOLEAN
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ((p0:boolean,p1:number)=>boolean); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0030_p0_boolean_p1_number_boolean', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -788,20 +1665,30 @@ suite('Stability_H2DTSCPP_COMPAT_FUNC_Part05', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0030 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0030 must have class");
+          "h2dtscpp_compat_func_0030_p0_boolean_p1_number_boolean convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0030_p0_boolean_p1_number_boolean must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0030 must have field");
+          "h2dtscpp_compat_func_0030_p0_boolean_p1_number_boolean must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<bool(bool, double)>",
-          "h2dtscpp_compat_func_0030 field type");
+          "h2dtscpp_compat_func_0030_p0_boolean_p1_number_boolean field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0030 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_func_0030_p0_boolean_p1_number_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_func_0031', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0031_P0_BOOLEA_P1_NUMBER_BOOLEA
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0031_P0_BOOLEA_P1_NUMBER_BOOLEA
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ((p0:boolea,p1:number)=>boolea); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0031_p0_boolea_p1_number_boolea', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -814,20 +1701,30 @@ suite('Stability_H2DTSCPP_COMPAT_FUNC_Part05', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0031 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0031 must have class");
+          "h2dtscpp_compat_func_0031_p0_boolea_p1_number_boolea convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0031_p0_boolea_p1_number_boolea must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0031 must have field");
+          "h2dtscpp_compat_func_0031_p0_boolea_p1_number_boolea must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<boolea(boolea, double)>",
-          "h2dtscpp_compat_func_0031 field type");
+          "h2dtscpp_compat_func_0031_p0_boolea_p1_number_boolea field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0031 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_func_0031_p0_boolea_p1_number_boolea execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_func_0032', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0032_P0_BOOLEAN_P1_NUMBER_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0032_P0_BOOLEAN_P1_NUMBER_BOOLEAN
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ((p0:boolean,p1:number)=>boolean); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0032_p0_boolean_p1_number_boolean', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -840,20 +1737,30 @@ suite('Stability_H2DTSCPP_COMPAT_FUNC_Part05', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0032 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0032 must have class");
+          "h2dtscpp_compat_func_0032_p0_boolean_p1_number_boolean convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0032_p0_boolean_p1_number_boolean must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0032 must have field");
+          "h2dtscpp_compat_func_0032_p0_boolean_p1_number_boolean must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<bool(bool, double)>",
-          "h2dtscpp_compat_func_0032 field type");
+          "h2dtscpp_compat_func_0032_p0_boolean_p1_number_boolean field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0032 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_func_0032_p0_boolean_p1_number_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_func_0033', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0033_P0_BOOLEAN_P1_NUMBER_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0033_P0_BOOLEAN_P1_NUMBER_BOOLEAN
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ((p0:boolean,p1:number)=>boolean); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0033_p0_boolean_p1_number_boolean', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -866,20 +1773,30 @@ suite('Stability_H2DTSCPP_COMPAT_FUNC_Part05', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0033 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0033 must have class");
+          "h2dtscpp_compat_func_0033_p0_boolean_p1_number_boolean convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0033_p0_boolean_p1_number_boolean must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0033 must have field");
+          "h2dtscpp_compat_func_0033_p0_boolean_p1_number_boolean must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<bool(bool, double)>",
-          "h2dtscpp_compat_func_0033 field type");
+          "h2dtscpp_compat_func_0033_p0_boolean_p1_number_boolean field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0033 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_func_0033_p0_boolean_p1_number_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_func_0034', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0034_P0_BOOLEAN_P1_NUMBER_BOOLEA
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0034_P0_BOOLEAN_P1_NUMBER_BOOLEA
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ((p0:boolean,p1:number)=>boolea); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0034_p0_boolean_p1_number_boolea', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -892,20 +1809,30 @@ suite('Stability_H2DTSCPP_COMPAT_FUNC_Part05', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0034 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0034 must have class");
+          "h2dtscpp_compat_func_0034_p0_boolean_p1_number_boolea convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0034_p0_boolean_p1_number_boolea must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0034 must have field");
+          "h2dtscpp_compat_func_0034_p0_boolean_p1_number_boolea must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<boolea(bool, double)>",
-          "h2dtscpp_compat_func_0034 field type");
+          "h2dtscpp_compat_func_0034_p0_boolean_p1_number_boolea field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0034 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_func_0034_p0_boolean_p1_number_boolea execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_func_0035', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0035_P0_BOOLEAN_P1_NUMBER_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0035_P0_BOOLEAN_P1_NUMBER_BOOLEAN
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ((p0:boolean,p1:number)=>boolean); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0035_p0_boolean_p1_number_boolean', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -918,20 +1845,30 @@ suite('Stability_H2DTSCPP_COMPAT_FUNC_Part05', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0035 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0035 must have class");
+          "h2dtscpp_compat_func_0035_p0_boolean_p1_number_boolean convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0035_p0_boolean_p1_number_boolean must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0035 must have field");
+          "h2dtscpp_compat_func_0035_p0_boolean_p1_number_boolean must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<bool(bool, double)>",
-          "h2dtscpp_compat_func_0035 field type");
+          "h2dtscpp_compat_func_0035_p0_boolean_p1_number_boolean field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0035 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_func_0035_p0_boolean_p1_number_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_func_0036', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0036_P0_BOOLEAN_P1_NUMBER_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0036_P0_BOOLEAN_P1_NUMBER_BOOLEAN
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ((p0:boolean,p1:number)=>boolean,); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0036_p0_boolean_p1_number_boolean', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -944,20 +1881,30 @@ suite('Stability_H2DTSCPP_COMPAT_FUNC_Part05', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0036 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0036 must have class");
+          "h2dtscpp_compat_func_0036_p0_boolean_p1_number_boolean convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0036_p0_boolean_p1_number_boolean must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0036 must have field");
+          "h2dtscpp_compat_func_0036_p0_boolean_p1_number_boolean must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<boolean,(bool, double)>",
-          "h2dtscpp_compat_func_0036 field type");
+          "h2dtscpp_compat_func_0036_p0_boolean_p1_number_boolean field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0036 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_func_0036_p0_boolean_p1_number_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_func_0037', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0037_P0_BOOLEAN_P1_NUMBER_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0037_P0_BOOLEAN_P1_NUMBER_BOOLEAN
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ((p0:boolean,p1:number)=>boolean); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0037_p0_boolean_p1_number_boolean', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -970,20 +1917,30 @@ suite('Stability_H2DTSCPP_COMPAT_FUNC_Part05', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0037 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0037 must have class");
+          "h2dtscpp_compat_func_0037_p0_boolean_p1_number_boolean convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0037_p0_boolean_p1_number_boolean must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0037 must have field");
+          "h2dtscpp_compat_func_0037_p0_boolean_p1_number_boolean must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<bool(bool, double)>",
-          "h2dtscpp_compat_func_0037 field type");
+          "h2dtscpp_compat_func_0037_p0_boolean_p1_number_boolean field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0037 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_func_0037_p0_boolean_p1_number_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_func_0038', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0038_INVALIDTYPEXYZ
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_FUNC_0038_INVALIDTYPEXYZ
+   * @tc.desc   Stability compat h2dtscpp/func: runCompatSafe(transParseObj literal); malformed type
+   *            InvalidTypeXYZ; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_func_0038_invalidtypexyz', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -996,922 +1953,17 @@ suite('Stability_H2DTSCPP_COMPAT_FUNC_Part05', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0038 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0038 must have class");
+          "h2dtscpp_compat_func_0038_invalidtypexyz convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_func_0038_invalidtypexyz must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0038 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "InvalidTypeXYZ", "h2dtscpp_compat_func_0038 field type");
+          "h2dtscpp_compat_func_0038_invalidtypexyz must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "InvalidTypeXYZ",
+          "h2dtscpp_compat_func_0038_invalidtypexyz field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0038 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_func_0039', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C53', alias: '',
-            variableList: [{ type: '(p0:boolean,p1:boolean)=>boolean', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0039 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0039 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0039 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<bool(bool, bool)>",
-          "h2dtscpp_compat_func_0039 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0039 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_func_0040', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C53', alias: '',
-            variableList: [{ type: '(p0:boolean,p1:boolean)=>boolean', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0040 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0040 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0040 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<bool(bool, bool)>",
-          "h2dtscpp_compat_func_0040 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0040 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_func_0041', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C53', alias: '',
-            variableList: [{ type: '(p0:boolea,p1:boolea)=>boolea', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0041 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0041 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0041 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<boolea(boolea, boolea)>",
-          "h2dtscpp_compat_func_0041 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0041 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_func_0042', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C53', alias: '',
-            variableList: [{ type: '(p0:boolean,p1:boolean)=>boolean', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0042 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0042 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0042 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<bool(bool, bool)>",
-          "h2dtscpp_compat_func_0042 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0042 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_func_0043', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C53', alias: '',
-            variableList: [{ type: '(p0:boolean,p1:boolean)=>boolean', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0043 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0043 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0043 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<bool(bool, bool)>",
-          "h2dtscpp_compat_func_0043 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0043 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_func_0044', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C53', alias: '',
-            variableList: [{ type: '(p0:boolean,p1:boolean)=>boolea', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0044 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0044 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0044 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<boolea(bool, bool)>",
-          "h2dtscpp_compat_func_0044 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0044 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_func_0045', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C53', alias: '',
-            variableList: [{ type: '(p0:boolean,p1:boolean)=>boolean', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0045 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0045 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0045 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<bool(bool, bool)>",
-          "h2dtscpp_compat_func_0045 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0045 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_func_0046', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C53', alias: '',
-            variableList: [{ type: '(p0:boolean,p1:boolean)=>boolean,', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0046 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0046 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0046 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<boolean,(bool, bool)>",
-          "h2dtscpp_compat_func_0046 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0046 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_func_0047', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C53', alias: '',
-            variableList: [{ type: '(p0:boolean,p1:boolean)=>boolean', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0047 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0047 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0047 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<bool(bool, bool)>",
-          "h2dtscpp_compat_func_0047 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0047 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_func_0048', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C53', alias: '',
-            variableList: [{ type: 'InvalidTypeXYZ', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0048 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0048 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0048 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "InvalidTypeXYZ", "h2dtscpp_compat_func_0048 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0048 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_func_0049', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C54', alias: '',
-            variableList: [{ type: '(p0:numbr,p1:numbr)=>void', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0049 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0049 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0049 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<void(numbr, numbr)>",
-          "h2dtscpp_compat_func_0049 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0049 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_func_0050', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C54', alias: '',
-            variableList: [{ type: '(p0:number,p1:number)=>void', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0050 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0050 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0050 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<void(double, double)>",
-          "h2dtscpp_compat_func_0050 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0050 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_func_0051', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C54', alias: '',
-            variableList: [{ type: '(p0:number,p1:number)=>void', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0051 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0051 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0051 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<void(double, double)>",
-          "h2dtscpp_compat_func_0051 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0051 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_func_0052', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C54', alias: '',
-            variableList: [{ type: '(p0:number,p1:number)=>void', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0052 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0052 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0052 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<void(double, double)>",
-          "h2dtscpp_compat_func_0052 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0052 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_func_0053', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C54', alias: '',
-            variableList: [{ type: '(p0:number,p1:number)=>void', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0053 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0053 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0053 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<void(double, double)>",
-          "h2dtscpp_compat_func_0053 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0053 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_func_0054', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C54', alias: '',
-            variableList: [{ type: '(p0:number,p1:number)=>voi', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0054 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0054 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0054 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<voi(double, double)>",
-          "h2dtscpp_compat_func_0054 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0054 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_func_0055', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C54', alias: '',
-            variableList: [{ type: '(p0:number,p1:number)=>void', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0055 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0055 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0055 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<void(double, double)>",
-          "h2dtscpp_compat_func_0055 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0055 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_func_0056', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C54', alias: '',
-            variableList: [{ type: '(p0:number,p1:number)=>void,', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0056 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0056 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0056 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<void,(double, double)>",
-          "h2dtscpp_compat_func_0056 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0056 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_func_0057', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C54', alias: '',
-            variableList: [{ type: '(p0:number,p1:number)=>void', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0057 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0057 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0057 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<void(double, double)>",
-          "h2dtscpp_compat_func_0057 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0057 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_func_0058', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C54', alias: '',
-            variableList: [{ type: 'InvalidTypeXYZ', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0058 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0058 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0058 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "InvalidTypeXYZ", "h2dtscpp_compat_func_0058 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0058 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_func_0059', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C55', alias: '',
-            variableList: [{ type: '(p0:numbr,p1:boolean)=>void', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0059 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0059 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0059 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<void(numbr, bool)>",
-          "h2dtscpp_compat_func_0059 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0059 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_func_0060', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C55', alias: '',
-            variableList: [{ type: '(p0:number,p1:boolean)=>void', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0060 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0060 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0060 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<void(double, bool)>",
-          "h2dtscpp_compat_func_0060 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0060 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_func_0061', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C55', alias: '',
-            variableList: [{ type: '(p0:number,p1:boolea)=>void', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0061 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0061 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0061 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<void(double, boolea)>",
-          "h2dtscpp_compat_func_0061 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0061 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_func_0062', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C55', alias: '',
-            variableList: [{ type: '(p0:number,p1:boolean)=>void', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0062 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0062 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0062 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<void(double, bool)>",
-          "h2dtscpp_compat_func_0062 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0062 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_func_0063', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C55', alias: '',
-            variableList: [{ type: '(p0:number,p1:boolean)=>void', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0063 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0063 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0063 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<void(double, bool)>",
-          "h2dtscpp_compat_func_0063 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0063 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_func_0064', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C55', alias: '',
-            variableList: [{ type: '(p0:number,p1:boolean)=>voi', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0064 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0064 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0064 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<voi(double, bool)>",
-          "h2dtscpp_compat_func_0064 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0064 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_func_0065', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C55', alias: '',
-            variableList: [{ type: '(p0:number,p1:boolean)=>void', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0065 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0065 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0065 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<void(double, bool)>",
-          "h2dtscpp_compat_func_0065 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0065 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_func_0066', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C55', alias: '',
-            variableList: [{ type: '(p0:number,p1:boolean)=>void,', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0066 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0066 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0066 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<void,(double, bool)>",
-          "h2dtscpp_compat_func_0066 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0066 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_func_0067', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C55', alias: '',
-            variableList: [{ type: '(p0:number,p1:boolean)=>void', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0067 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0067 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0067 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<void(double, bool)>",
-          "h2dtscpp_compat_func_0067 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0067 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_func_0068', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C55', alias: '',
-            variableList: [{ type: 'InvalidTypeXYZ', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0068 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0068 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0068 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "InvalidTypeXYZ", "h2dtscpp_compat_func_0068 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0068 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_func_0069', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C56', alias: '',
-            variableList: [{ type: '(p0:string,p1:string)=>void', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0069 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0069 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0069 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<void(std::string, std::string)>",
-          "h2dtscpp_compat_func_0069 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0069 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_func_0070', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C56', alias: '',
-            variableList: [{ type: '(p0:strng,p1:strng)=>void', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0070 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0070 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0070 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<void(strng, strng)>",
-          "h2dtscpp_compat_func_0070 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0070 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_func_0071', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C56', alias: '',
-            variableList: [{ type: '(p0:string,p1:string)=>void', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0071 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0071 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0071 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<void(std::string, std::string)>",
-          "h2dtscpp_compat_func_0071 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0071 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_func_0072', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C56', alias: '',
-            variableList: [{ type: '(p0:string,p1:string)=>void', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0072 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0072 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0072 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<void(std::string, std::string)>",
-          "h2dtscpp_compat_func_0072 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0072 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_func_0073', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C56', alias: '',
-            variableList: [{ type: '(p0:string,p1:string)=>void', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_func_0073 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_func_0073 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_func_0073 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<void(std::string, std::string)>",
-          "h2dtscpp_compat_func_0073 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_func_0073 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_func_0038_invalidtypexyz execution error: ${String(err)}`);
     }
   });
 });

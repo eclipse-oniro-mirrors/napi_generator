@@ -19,11 +19,19 @@ import { transCkey2Dtskey, transParseObj, generateFunctions } from '../../../gen
 import { doParseTs } from '../../../parse/parsets';
 import { runCompatSafe } from './stability_helpers';
 
-suite('Stability_DTS2CPP_CONVERT_OBJECT_Part01', function() {
+suite('Stability_DTS2CPP_CONVERT_OBJECT', function() {
   this.timeout(600000);
   vscode.window.showInformationMessage('Start Stability_DTS2CPP_CONVERT_OBJECT_Part01.');
 
-
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_OBJECT_0001
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_OBJECT_0001
+   * @tc.desc   Stability convert dts2cpp/object: baseline type-string convert; type Record<string,
+   *            number>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_object_0001', () => {
     try {
       const result = transCkey2Dtskey('Record<string, number>');
@@ -35,6 +43,15 @@ suite('Stability_DTS2CPP_CONVERT_OBJECT_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_OBJECT_0002
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_OBJECT_0002
+   * @tc.desc   Stability convert dts2cpp/object: function-param convert; type Record<string,
+   *            number>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_object_0002', () => {
     try {
       const converted = transParseObj(doParseTs('sample303.ts', `
@@ -49,6 +66,15 @@ suite('Stability_DTS2CPP_CONVERT_OBJECT_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_OBJECT_0003
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_OBJECT_0003
+   * @tc.desc   Stability convert dts2cpp/object: function-return convert; type Record<string,
+   *            number>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_object_0003', () => {
     try {
       const converted = transParseObj(doParseTs('sampleRet303.ts', `
@@ -68,6 +94,15 @@ suite('Stability_DTS2CPP_CONVERT_OBJECT_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_OBJECT_0004
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_OBJECT_0004
+   * @tc.desc   Stability convert dts2cpp/object: class-field convert; type Record<string, number>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_object_0004', () => {
     try {
       const converted = transParseObj(doParseTs('sampleClass303.ts', `
@@ -81,6 +116,15 @@ suite('Stability_DTS2CPP_CONVERT_OBJECT_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_OBJECT_0005
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_OBJECT_0005
+   * @tc.desc   Stability convert dts2cpp/object: parse-convert-gen pipeline; type Record<string,
+   *            number>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_object_0005', () => {
     try {
       const converted = transParseObj(doParseTs('pipeline303.ts', `
@@ -103,6 +147,15 @@ suite('Stability_DTS2CPP_CONVERT_OBJECT_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_OBJECT_0006
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_OBJECT_0006
+   * @tc.desc   Stability convert dts2cpp/object: baseline type-string convert; type Record<string,
+   *            string>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_object_0006', () => {
     try {
       const result = transCkey2Dtskey('Record<string, string>');
@@ -114,6 +167,15 @@ suite('Stability_DTS2CPP_CONVERT_OBJECT_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_OBJECT_0007
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_OBJECT_0007
+   * @tc.desc   Stability convert dts2cpp/object: function-param convert; type Record<string,
+   *            string>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_object_0007', () => {
     try {
       const converted = transParseObj(doParseTs('sample304.ts', `
@@ -128,6 +190,15 @@ suite('Stability_DTS2CPP_CONVERT_OBJECT_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_OBJECT_0008
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_OBJECT_0008
+   * @tc.desc   Stability convert dts2cpp/object: function-return convert; type Record<string,
+   *            string>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_object_0008', () => {
     try {
       const converted = transParseObj(doParseTs('sampleRet304.ts', `
@@ -147,6 +218,15 @@ suite('Stability_DTS2CPP_CONVERT_OBJECT_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_OBJECT_0009
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_OBJECT_0009
+   * @tc.desc   Stability convert dts2cpp/object: class-field convert; type Record<string, string>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_object_0009', () => {
     try {
       const converted = transParseObj(doParseTs('sampleClass304.ts', `
@@ -160,6 +240,15 @@ suite('Stability_DTS2CPP_CONVERT_OBJECT_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_CONVERT_OBJECT_0010
+   * @tc.number SUB_NAPI_DTS2CPP_CONVERT_OBJECT_0010
+   * @tc.desc   Stability convert dts2cpp/object: parse-convert-gen pipeline; type Record<string,
+   *            string>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_convert_object_0010', () => {
     try {
       const converted = transParseObj(doParseTs('pipeline304.ts', `

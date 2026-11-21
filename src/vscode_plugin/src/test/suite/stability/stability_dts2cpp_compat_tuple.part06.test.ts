@@ -21,1973 +21,1950 @@ import { runCompatSafe } from './stability_helpers';
 
 suite('Stability_DTS2CPP_COMPAT_TUPLE_Part06', function() {
   this.timeout(600000);
-  vscode.window.showInformationMessage('Start Stability_DTS2CPP_COMPAT_TUPLE_Part06.');
+  vscode.window.showInformationMessage('Start Stability_DTS2CPP_COMPAT_TUPLE_Part01.');
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0046_BADTYPE215_NUMBER_BOOLEAN_86C05F
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0046_BADTYPE215_NUMBER_BOOLEAN_86C05F
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); boolean
+   *            keyword misspelled (BadType215__number__boolean__string__number_); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0046_badtype215_number_boolean_86c05f', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const parsed = doParseTs('compat215.ts', `
+          function compat215(a: BadType215__number__boolean__string__number_): void {}`);
+        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
+          "dts2cpp_compat_tuple_0046_badtype215_number_boolean_86c05f parse result must be object");
+        const converted = transParseObj(parsed);
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "dts2cpp_compat_tuple_0046_badtype215_number_boolean_86c05f convert result must be object");
+          assert.ok(converted.funcs && converted.funcs.length >= 1,
+            "dts2cpp_compat_tuple_0046_badtype215_number_boolean_86c05f must parse function");
+          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
+            "dts2cpp_compat_tuple_0046_badtype215_number_boolean_86c05f must parse param");
+          assert.strictEqual(converted.funcs[0].parameters[0].type, "BadType215__number__boolean__string__number_",
+            "dts2cpp_compat_tuple_0046_param");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`dts2cpp_compat_tuple_0046_badtype215_number_boolean_86c05f execution error: ${String(err)}`);
+    }
+  });
 
-  test('dts2cpp_compat_tuple_0001', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0047_ANNY
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0047_ANNY
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); any keyword
+   *            misspelled to anny (anny); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0047_anny', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const parsed = doParseTs('compat215.ts', `function compat215(a: anny): void {}`);
+        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
+          "dts2cpp_compat_tuple_0047_anny parse result must be object");
+        const converted = transParseObj(parsed);
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "dts2cpp_compat_tuple_0047_anny convert result must be object");
+          assert.ok(converted.funcs && converted.funcs.length >= 1,
+            "dts2cpp_compat_tuple_0047_anny must parse function");
+          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
+            "dts2cpp_compat_tuple_0047_anny must parse param");
+          assert.strictEqual(converted.funcs[0].parameters[0].type, "anny",
+            "dts2cpp_compat_tuple_0047_anny param type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`dts2cpp_compat_tuple_0047_anny execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0048_COMPAT215_NUMBER_BOOLEAN_STRING_NUMBER
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0048_COMPAT215_NUMBER_BOOLEAN_STRING_NUMBER
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); malformed
+   *            class field type [number, boolean, string, number]; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0048_compat215_number_boolean_string_number', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const parsed = doParseTs('compat215.ts', `class Compat215 { field: [number, boolean, string, number]; }`);
+        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
+          "dts2cpp_compat_tuple_0048_compat215_number_boolean_string_number parse result must be object");
+        const converted = transParseObj(parsed);
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "dts2cpp_compat_tuple_0048_compat215_number_boolean_string_number convert result must be object");
+          assert.ok(converted.classes && converted.classes.length >= 1,
+            "dts2cpp_compat_tuple_0048_compat215_number_boolean_string_number must parse class");
+          assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+            "dts2cpp_compat_tuple_0048_compat215_number_boolean_string_number must parse class field");
+          assert.strictEqual(converted.classes[0].variableList[0].type, "[number, boolean, string, number]",
+            "dts2cpp_compat_tuple_0048_field convert output");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`dts2cpp_compat_tuple_0048_compat215_number_boolean_string_number execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0049_COMPAT215_X_NUMBER_BOOLEAN_STRING_NUMBER
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0049_COMPAT215_X_NUMBER_BOOLEAN_STRING_NUMBER
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); malformed
+   *            type alias member [number, boolean, string, number]; strictEqual type alias preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0049_compat215_x_number_boolean_string_number', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const parsed = doParseTs('compat215.ts', `type Compat215 = { x: [number, boolean, string, number]; };`);
+        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
+          "dts2cpp_compat_tuple_0049_compat215_x_number_boolean_string_number parse result must be object");
+        const converted = transParseObj(parsed);
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "dts2cpp_compat_tuple_0049_compat215_x_number_boolean_string_number convert result must be object");
+          assert.ok(converted.types && converted.types.length >= 1,
+            "dts2cpp_compat_tuple_0049_compat215_x_number_boolean_string_number must parse type alias");
+          assert.strictEqual(converted.types[0].alias, "{ x: [number, boolean, string, number]; }",
+            "dts2cpp_compat_tuple_0049_alias");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`dts2cpp_compat_tuple_0049_compat215_x_number_boolean_string_number execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0050_NUMBER_BOOLEAN_STRING_NUMBER
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0050_NUMBER_BOOLEAN_STRING_NUMBER
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); trailing
+   *            comma in param list, base type unchanged; strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0050_number_boolean_string_number', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const parsed = doParseTs('compat215.ts', `function compat215(a: [number, boolean, string, number],): void {}`);
+        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
+          "dts2cpp_compat_tuple_0050_number_boolean_string_number parse result must be object");
+        const converted = transParseObj(parsed);
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "dts2cpp_compat_tuple_0050_number_boolean_string_number convert result must be object");
+          assert.ok(converted.funcs && converted.funcs.length >= 1,
+            "dts2cpp_compat_tuple_0050_number_boolean_string_number must parse function");
+          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
+            "dts2cpp_compat_tuple_0050_number_boolean_string_number must parse param");
+          assert.strictEqual(converted.funcs[0].parameters[0].type, "[number, boolean, string, number]",
+            "dts2cpp_compat_tuple_0050_param convert output");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`dts2cpp_compat_tuple_0050_number_boolean_string_number execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0051_NUMBR_V2
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0051_NUMBR_V2
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); malformed
+   *            type Numbr; strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0051_numbr_v2', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const parsed = doParseTs('compat215.ts', `function compat215(a: Numbr): void {}`);
+        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
+          "dts2cpp_compat_tuple_0051_numbr_v2 parse result must be object");
+        const converted = transParseObj(parsed);
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "dts2cpp_compat_tuple_0051_numbr_v2 convert result must be object");
+          assert.ok(converted.funcs && converted.funcs.length >= 1,
+            "dts2cpp_compat_tuple_0051_numbr_v2 must parse function");
+          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
+            "dts2cpp_compat_tuple_0051_numbr_v2 must parse param");
+          assert.strictEqual(converted.funcs[0].parameters[0].type, "Numbr",
+            "dts2cpp_compat_tuple_0051_numbr_v2 param type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`dts2cpp_compat_tuple_0051_numbr_v2 execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0052_NUMBR
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0052_NUMBR
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); number
+   *            keyword misspelled (numbr); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0052_numbr', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const parsed = doParseTs('compat216.ts', `function compat216(a: numbr): void {}`);
+        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
+          "dts2cpp_compat_tuple_0052_numbr parse result must be object");
+        const converted = transParseObj(parsed);
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "dts2cpp_compat_tuple_0052_numbr convert result must be object");
+          assert.ok(converted.funcs && converted.funcs.length >= 1,
+            "dts2cpp_compat_tuple_0052_numbr must parse function");
+          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
+            "dts2cpp_compat_tuple_0052_numbr must parse param");
+          assert.strictEqual(converted.funcs[0].parameters[0].type, "numbr",
+            "dts2cpp_compat_tuple_0052_numbr param type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`dts2cpp_compat_tuple_0052_numbr execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0053_STRNG
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0053_STRNG
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); string
+   *            keyword misspelled (strng); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0053_strng', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const parsed = doParseTs('compat216.ts', `function compat216(a: strng): void {}`);
+        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
+          "dts2cpp_compat_tuple_0053_strng parse result must be object");
+        const converted = transParseObj(parsed);
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "dts2cpp_compat_tuple_0053_strng convert result must be object");
+          assert.ok(converted.funcs && converted.funcs.length >= 1,
+            "dts2cpp_compat_tuple_0053_strng must parse function");
+          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
+            "dts2cpp_compat_tuple_0053_strng must parse param");
+          assert.strictEqual(converted.funcs[0].parameters[0].type, "strng",
+            "dts2cpp_compat_tuple_0053_strng param type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`dts2cpp_compat_tuple_0053_strng execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0054_BOOLEA
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0054_BOOLEA
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); boolean
+   *            keyword misspelled (boolea); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0054_boolea', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const parsed = doParseTs('compat216.ts', `function compat216(a: boolea): void {}`);
+        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
+          "dts2cpp_compat_tuple_0054_boolea parse result must be object");
+        const converted = transParseObj(parsed);
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "dts2cpp_compat_tuple_0054_boolea convert result must be object");
+          assert.ok(converted.funcs && converted.funcs.length >= 1,
+            "dts2cpp_compat_tuple_0054_boolea must parse function");
+          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
+            "dts2cpp_compat_tuple_0054_boolea must parse param");
+          assert.strictEqual(converted.funcs[0].parameters[0].type, "boolea",
+            "dts2cpp_compat_tuple_0054_boolea param type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`dts2cpp_compat_tuple_0054_boolea execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0055_NUMBER_BOOLEAN_STRING_STRING
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0055_NUMBER_BOOLEAN_STRING_STRING
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); malformed
+   *            source function compat216(a: [number, boolean, string, string[): void {}; strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0055_number_boolean_string_string', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const parsed = doParseTs('compat216.ts', `function compat216(a: [number, boolean, string, string[): void {}`);
+        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
+          "dts2cpp_compat_tuple_0055_number_boolean_string_string parse result must be object");
+        const converted = transParseObj(parsed);
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "dts2cpp_compat_tuple_0055_number_boolean_string_string convert result must be object");
+          assert.ok(converted.funcs && converted.funcs.length >= 1,
+            "dts2cpp_compat_tuple_0055_number_boolean_string_string must parse function");
+          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
+            "dts2cpp_compat_tuple_0055_number_boolean_string_string must parse param");
+          assert.strictEqual(converted.funcs[0].parameters[0].type, "[number, boolean, string, string[",
+            "dts2cpp_compat_tuple_0055_param");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`dts2cpp_compat_tuple_0055_number_boolean_string_string execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0056_BADTYPE216_NUMBER_BOOLEAN_44404D
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0056_BADTYPE216_NUMBER_BOOLEAN_44404D
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); boolean
+   *            keyword misspelled (BadType216__number__boolean__string__string_); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0056_badtype216_number_boolean_44404d', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const parsed = doParseTs('compat216.ts', `
+          function compat216(a: BadType216__number__boolean__string__string_): void {}`);
+        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
+          "dts2cpp_compat_tuple_0056_badtype216_number_boolean_44404d parse result must be object");
+        const converted = transParseObj(parsed);
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "dts2cpp_compat_tuple_0056_badtype216_number_boolean_44404d convert result must be object");
+          assert.ok(converted.funcs && converted.funcs.length >= 1,
+            "dts2cpp_compat_tuple_0056_badtype216_number_boolean_44404d must parse function");
+          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
+            "dts2cpp_compat_tuple_0056_badtype216_number_boolean_44404d must parse param");
+          assert.strictEqual(converted.funcs[0].parameters[0].type, "BadType216__number__boolean__string__string_",
+            "dts2cpp_compat_tuple_0056_param");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`dts2cpp_compat_tuple_0056_badtype216_number_boolean_44404d execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0057_ANNY
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0057_ANNY
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); any keyword
+   *            misspelled to anny (anny); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0057_anny', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const parsed = doParseTs('compat216.ts', `function compat216(a: anny): void {}`);
+        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
+          "dts2cpp_compat_tuple_0057_anny parse result must be object");
+        const converted = transParseObj(parsed);
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "dts2cpp_compat_tuple_0057_anny convert result must be object");
+          assert.ok(converted.funcs && converted.funcs.length >= 1,
+            "dts2cpp_compat_tuple_0057_anny must parse function");
+          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
+            "dts2cpp_compat_tuple_0057_anny must parse param");
+          assert.strictEqual(converted.funcs[0].parameters[0].type, "anny",
+            "dts2cpp_compat_tuple_0057_anny param type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`dts2cpp_compat_tuple_0057_anny execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0058_COMPAT216_NUMBER_BOOLEAN_STRING_STRING
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0058_COMPAT216_NUMBER_BOOLEAN_STRING_STRING
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); malformed
+   *            class field type [number, boolean, string, string]; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0058_compat216_number_boolean_string_string', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const parsed = doParseTs('compat216.ts', `class Compat216 { field: [number, boolean, string, string]; }`);
+        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
+          "dts2cpp_compat_tuple_0058_compat216_number_boolean_string_string parse result must be object");
+        const converted = transParseObj(parsed);
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "dts2cpp_compat_tuple_0058_compat216_number_boolean_string_string convert result must be object");
+          assert.ok(converted.classes && converted.classes.length >= 1,
+            "dts2cpp_compat_tuple_0058_compat216_number_boolean_string_string must parse class");
+          assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+            "dts2cpp_compat_tuple_0058_compat216_number_boolean_string_string must parse class field");
+          assert.strictEqual(converted.classes[0].variableList[0].type, "[number, boolean, string, string]",
+            "dts2cpp_compat_tuple_0058_field convert output");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`dts2cpp_compat_tuple_0058_compat216_number_boolean_string_string execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0059_COMPAT216_X_NUMBER_BOOLEAN_STRING_STRING
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0059_COMPAT216_X_NUMBER_BOOLEAN_STRING_STRING
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); malformed
+   *            type alias member [number, boolean, string, string]; strictEqual type alias preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0059_compat216_x_number_boolean_string_string', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const parsed = doParseTs('compat216.ts', `type Compat216 = { x: [number, boolean, string, string]; };`);
+        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
+          "dts2cpp_compat_tuple_0059_compat216_x_number_boolean_string_string parse result must be object");
+        const converted = transParseObj(parsed);
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "dts2cpp_compat_tuple_0059_compat216_x_number_boolean_string_string convert result must be object");
+          assert.ok(converted.types && converted.types.length >= 1,
+            "dts2cpp_compat_tuple_0059_compat216_x_number_boolean_string_string must parse type alias");
+          assert.strictEqual(converted.types[0].alias, "{ x: [number, boolean, string, string]; }",
+            "dts2cpp_compat_tuple_0059_alias");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`dts2cpp_compat_tuple_0059_compat216_x_number_boolean_string_string execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0060_NUMBER_BOOLEAN_STRING_STRING
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0060_NUMBER_BOOLEAN_STRING_STRING
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); trailing
+   *            comma in param list, base type unchanged; strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0060_number_boolean_string_string', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const parsed = doParseTs('compat216.ts', `function compat216(a: [number, boolean, string, string],): void {}`);
+        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
+          "dts2cpp_compat_tuple_0060_number_boolean_string_string parse result must be object");
+        const converted = transParseObj(parsed);
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "dts2cpp_compat_tuple_0060_number_boolean_string_string convert result must be object");
+          assert.ok(converted.funcs && converted.funcs.length >= 1,
+            "dts2cpp_compat_tuple_0060_number_boolean_string_string must parse function");
+          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
+            "dts2cpp_compat_tuple_0060_number_boolean_string_string must parse param");
+          assert.strictEqual(converted.funcs[0].parameters[0].type, "[number, boolean, string, string]",
+            "dts2cpp_compat_tuple_0060_param convert output");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`dts2cpp_compat_tuple_0060_number_boolean_string_string execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0061_NUMBR_V2
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0061_NUMBR_V2
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); malformed
+   *            type Numbr; strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0061_numbr_v2', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const parsed = doParseTs('compat216.ts', `function compat216(a: Numbr): void {}`);
+        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
+          "dts2cpp_compat_tuple_0061_numbr_v2 parse result must be object");
+        const converted = transParseObj(parsed);
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "dts2cpp_compat_tuple_0061_numbr_v2 convert result must be object");
+          assert.ok(converted.funcs && converted.funcs.length >= 1,
+            "dts2cpp_compat_tuple_0061_numbr_v2 must parse function");
+          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
+            "dts2cpp_compat_tuple_0061_numbr_v2 must parse param");
+          assert.strictEqual(converted.funcs[0].parameters[0].type, "Numbr",
+            "dts2cpp_compat_tuple_0061_numbr_v2 param type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`dts2cpp_compat_tuple_0061_numbr_v2 execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0062_NUMBR
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0062_NUMBR
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); number
+   *            keyword misspelled (numbr); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0062_numbr', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const parsed = doParseTs('compat217.ts', `function compat217(a: numbr): void {}`);
+        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
+          "dts2cpp_compat_tuple_0062_numbr parse result must be object");
+        const converted = transParseObj(parsed);
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "dts2cpp_compat_tuple_0062_numbr convert result must be object");
+          assert.ok(converted.funcs && converted.funcs.length >= 1,
+            "dts2cpp_compat_tuple_0062_numbr must parse function");
+          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
+            "dts2cpp_compat_tuple_0062_numbr must parse param");
+          assert.strictEqual(converted.funcs[0].parameters[0].type, "numbr",
+            "dts2cpp_compat_tuple_0062_numbr param type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`dts2cpp_compat_tuple_0062_numbr execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0063_STRNG
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0063_STRNG
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); string
+   *            keyword misspelled (strng); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0063_strng', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const parsed = doParseTs('compat217.ts', `function compat217(a: strng): void {}`);
+        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
+          "dts2cpp_compat_tuple_0063_strng parse result must be object");
+        const converted = transParseObj(parsed);
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "dts2cpp_compat_tuple_0063_strng convert result must be object");
+          assert.ok(converted.funcs && converted.funcs.length >= 1,
+            "dts2cpp_compat_tuple_0063_strng must parse function");
+          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
+            "dts2cpp_compat_tuple_0063_strng must parse param");
+          assert.strictEqual(converted.funcs[0].parameters[0].type, "strng",
+            "dts2cpp_compat_tuple_0063_strng param type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`dts2cpp_compat_tuple_0063_strng execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0064_BOOLEA
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0064_BOOLEA
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); boolean
+   *            keyword misspelled (boolea); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0064_boolea', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const parsed = doParseTs('compat217.ts', `function compat217(a: boolea): void {}`);
+        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
+          "dts2cpp_compat_tuple_0064_boolea parse result must be object");
+        const converted = transParseObj(parsed);
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "dts2cpp_compat_tuple_0064_boolea convert result must be object");
+          assert.ok(converted.funcs && converted.funcs.length >= 1,
+            "dts2cpp_compat_tuple_0064_boolea must parse function");
+          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
+            "dts2cpp_compat_tuple_0064_boolea must parse param");
+          assert.strictEqual(converted.funcs[0].parameters[0].type, "boolea",
+            "dts2cpp_compat_tuple_0064_boolea param type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`dts2cpp_compat_tuple_0064_boolea execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0065_NUMBER_BOOLEAN_STRING_BOOLEAN
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0065_NUMBER_BOOLEAN_STRING_BOOLEAN
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); malformed
+   *            source function compat217(a: [number, boolean, string, boolean[): void {}; strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0065_number_boolean_string_boolean', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const parsed = doParseTs('compat217.ts', `function compat217(a: [number, boolean, string, boolean[): void {}`);
+        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
+          "dts2cpp_compat_tuple_0065_number_boolean_string_boolean parse result must be object");
+        const converted = transParseObj(parsed);
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "dts2cpp_compat_tuple_0065_number_boolean_string_boolean convert result must be object");
+          assert.ok(converted.funcs && converted.funcs.length >= 1,
+            "dts2cpp_compat_tuple_0065_number_boolean_string_boolean must parse function");
+          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
+            "dts2cpp_compat_tuple_0065_number_boolean_string_boolean must parse param");
+          assert.strictEqual(converted.funcs[0].parameters[0].type, "[number, boolean, string, boolean[",
+            "dts2cpp_compat_tuple_0065_param");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`dts2cpp_compat_tuple_0065_number_boolean_string_boolean execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0066_BADTYPE217_NUMBER_BOOLEAN_72D411
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0066_BADTYPE217_NUMBER_BOOLEAN_72D411
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); boolean
+   *            keyword misspelled (BadType217__number__boolean__string__boolean_); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0066_badtype217_number_boolean_72d411', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const parsed = doParseTs('compat217.ts', `
+          function compat217(a: BadType217__number__boolean__string__boolean_): void {}`);
+        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
+          "dts2cpp_compat_tuple_0066_badtype217_number_boolean_72d411 parse result must be object");
+        const converted = transParseObj(parsed);
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "dts2cpp_compat_tuple_0066_badtype217_number_boolean_72d411 convert result must be object");
+          assert.ok(converted.funcs && converted.funcs.length >= 1,
+            "dts2cpp_compat_tuple_0066_badtype217_number_boolean_72d411 must parse function");
+          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
+            "dts2cpp_compat_tuple_0066_badtype217_number_boolean_72d411 must parse param");
+          assert.strictEqual(converted.funcs[0].parameters[0].type, "BadType217__number__boolean__string__boolean_",
+            "dts2cpp_compat_tuple_0066_param");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`dts2cpp_compat_tuple_0066_badtype217_number_boolean_72d411 execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0001_COMPAT219_X_NUMBER_BOOLEAN_BOOLEAN_STRING
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0001_COMPAT219_X_NUMBER_BOOLEAN_BOOLEAN_STRING
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); malformed
+   *            type alias member [number, boolean, boolean, string]; strictEqual type alias preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0001_compat219_x_number_boolean_boolean_string', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat219.ts', `type Compat219 = { x: [number, boolean, boolean, string]; };`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0001 parse result must be object");
+          "dts2cpp_compat_tuple_0001_compat219_x_number_boolean_boolean_string parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0001 convert result must be object");
+          "dts2cpp_compat_tuple_0001_compat219_x_number_boolean_boolean_string convert result must be object");
           assert.ok(converted.types && converted.types.length >= 1,
-            "dts2cpp_compat_tuple_0001 must parse type alias");
+            "dts2cpp_compat_tuple_0001_compat219_x_number_boolean_boolean_string must parse type alias");
           assert.strictEqual(converted.types[0].alias, "{ x: [number, boolean, boolean, string]; }",
             "dts2cpp_compat_tuple_0001_alias");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0001 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_tuple_0001_compat219_x_number_boolean_boolean_string execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_tuple_0002', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0002_NUMBER_BOOLEAN_BOOLEAN_STRING
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0002_NUMBER_BOOLEAN_BOOLEAN_STRING
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); trailing
+   *            comma in param list, base type unchanged; strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0002_number_boolean_boolean_string', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat219.ts', `function compat219(a: [number, boolean, boolean, string],): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0002 parse result must be object");
+          "dts2cpp_compat_tuple_0002_number_boolean_boolean_string parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0002 convert result must be object");
+          "dts2cpp_compat_tuple_0002_number_boolean_boolean_string convert result must be object");
           assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0002 must parse function");
+            "dts2cpp_compat_tuple_0002_number_boolean_boolean_string must parse function");
           assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0002 must parse param");
+            "dts2cpp_compat_tuple_0002_number_boolean_boolean_string must parse param");
           assert.strictEqual(converted.funcs[0].parameters[0].type, "[number, boolean, boolean, string]",
             "dts2cpp_compat_tuple_0002_param convert output");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0002 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_tuple_0002_number_boolean_boolean_string execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_tuple_0003', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0003_NUMBR
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0003_NUMBR
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); malformed
+   *            type Numbr; strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0003_numbr', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat219.ts', `function compat219(a: Numbr): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0003 parse result must be object");
+          "dts2cpp_compat_tuple_0003_numbr parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0003 convert result must be object");
+          "dts2cpp_compat_tuple_0003_numbr convert result must be object");
           assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0003 must parse function");
+            "dts2cpp_compat_tuple_0003_numbr must parse function");
           assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0003 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "Numbr", "dts2cpp_compat_tuple_0003 param type");
+            "dts2cpp_compat_tuple_0003_numbr must parse param");
+          assert.strictEqual(converted.funcs[0].parameters[0].type, "Numbr",
+            "dts2cpp_compat_tuple_0003_numbr param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0003 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_tuple_0003_numbr execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_tuple_0004', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0004_NUMBR
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0004_NUMBR
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); number
+   *            keyword misspelled (numbr); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0004_numbr', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat220.ts', `function compat220(a: numbr): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0004 parse result must be object");
+          "dts2cpp_compat_tuple_0004_numbr parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0004 convert result must be object");
+          "dts2cpp_compat_tuple_0004_numbr convert result must be object");
           assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0004 must parse function");
+            "dts2cpp_compat_tuple_0004_numbr must parse function");
           assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0004 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "numbr", "dts2cpp_compat_tuple_0004 param type");
+            "dts2cpp_compat_tuple_0004_numbr must parse param");
+          assert.strictEqual(converted.funcs[0].parameters[0].type, "numbr",
+            "dts2cpp_compat_tuple_0004_numbr param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0004 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_tuple_0004_numbr execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_tuple_0005', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0005_STRNG
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0005_STRNG
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); string
+   *            keyword misspelled (strng); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0005_strng', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat220.ts', `function compat220(a: strng): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0005 parse result must be object");
+          "dts2cpp_compat_tuple_0005_strng parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0005 convert result must be object");
+          "dts2cpp_compat_tuple_0005_strng convert result must be object");
           assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0005 must parse function");
+            "dts2cpp_compat_tuple_0005_strng must parse function");
           assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0005 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "strng", "dts2cpp_compat_tuple_0005 param type");
+            "dts2cpp_compat_tuple_0005_strng must parse param");
+          assert.strictEqual(converted.funcs[0].parameters[0].type, "strng",
+            "dts2cpp_compat_tuple_0005_strng param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0005 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_tuple_0005_strng execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_tuple_0006', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0006_BOOLEA
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0006_BOOLEA
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); boolean
+   *            keyword misspelled (boolea); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0006_boolea', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat220.ts', `function compat220(a: boolea): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0006 parse result must be object");
+          "dts2cpp_compat_tuple_0006_boolea parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0006 convert result must be object");
+          "dts2cpp_compat_tuple_0006_boolea convert result must be object");
           assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0006 must parse function");
+            "dts2cpp_compat_tuple_0006_boolea must parse function");
           assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0006 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "boolea", "dts2cpp_compat_tuple_0006 param type");
+            "dts2cpp_compat_tuple_0006_boolea must parse param");
+          assert.strictEqual(converted.funcs[0].parameters[0].type, "boolea",
+            "dts2cpp_compat_tuple_0006_boolea param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0006 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_tuple_0006_boolea execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_tuple_0007', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0007_NUMBER_BOOLEAN_BOOLEAN_BOOLEAN
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0007_NUMBER_BOOLEAN_BOOLEAN_BOOLEAN
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); malformed
+   *            source function compat220(a: [number, boolean, boolean, boolean[): void {}; strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0007_number_boolean_boolean_boolean', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat220.ts', `function compat220(a: [number, boolean, boolean, boolean[): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0007 parse result must be object");
+          "dts2cpp_compat_tuple_0007_number_boolean_boolean_boolean parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0007 convert result must be object");
+          "dts2cpp_compat_tuple_0007_number_boolean_boolean_boolean convert result must be object");
           assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0007 must parse function");
+            "dts2cpp_compat_tuple_0007_number_boolean_boolean_boolean must parse function");
           assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0007 must parse param");
+            "dts2cpp_compat_tuple_0007_number_boolean_boolean_boolean must parse param");
           assert.strictEqual(converted.funcs[0].parameters[0].type, "[number, boolean, boolean, boolean[",
             "dts2cpp_compat_tuple_0007_param");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0007 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_tuple_0007_number_boolean_boolean_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_tuple_0008', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0008_BADTYPE220_NUMBER_BOOLEAN_D37424
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0008_BADTYPE220_NUMBER_BOOLEAN_D37424
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); boolean
+   *            keyword misspelled (BadType220__number__boolean__boolean__boolean_); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0008_badtype220_number_boolean_d37424', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat220.ts', `
           function compat220(a: BadType220__number__boolean__boolean__boolean_): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0008 parse result must be object");
+          "dts2cpp_compat_tuple_0008_badtype220_number_boolean_d37424 parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0008 convert result must be object");
+          "dts2cpp_compat_tuple_0008_badtype220_number_boolean_d37424 convert result must be object");
           assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0008 must parse function");
+            "dts2cpp_compat_tuple_0008_badtype220_number_boolean_d37424 must parse function");
           assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0008 must parse param");
+            "dts2cpp_compat_tuple_0008_badtype220_number_boolean_d37424 must parse param");
           assert.strictEqual(converted.funcs[0].parameters[0].type, "BadType220__number__boolean__boolean__boolean_",
             "dts2cpp_compat_tuple_0008_param");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0008 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_tuple_0008_badtype220_number_boolean_d37424 execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_tuple_0009', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0009_ANNY
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0009_ANNY
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); any keyword
+   *            misspelled to anny (anny); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0009_anny', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat220.ts', `function compat220(a: anny): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0009 parse result must be object");
+          "dts2cpp_compat_tuple_0009_anny parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0009 convert result must be object");
+          "dts2cpp_compat_tuple_0009_anny convert result must be object");
           assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0009 must parse function");
+            "dts2cpp_compat_tuple_0009_anny must parse function");
           assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0009 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "anny", "dts2cpp_compat_tuple_0009 param type");
+            "dts2cpp_compat_tuple_0009_anny must parse param");
+          assert.strictEqual(converted.funcs[0].parameters[0].type, "anny",
+            "dts2cpp_compat_tuple_0009_anny param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0009 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_tuple_0009_anny execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_tuple_0010', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0010_COMPAT220_NUMBER_BOOLEAN_BOOLEAN_BOOLEAN
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0010_COMPAT220_NUMBER_BOOLEAN_BOOLEAN_BOOLEAN
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); malformed
+   *            class field type [number, boolean, boolean, boolean]; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0010_compat220_number_boolean_boolean_boolean', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat220.ts', `class Compat220 { field: [number, boolean, boolean, boolean]; }`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0010 parse result must be object");
+          "dts2cpp_compat_tuple_0010_compat220_number_boolean_boolean_boolean parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0010 convert result must be object");
+          "dts2cpp_compat_tuple_0010_compat220_number_boolean_boolean_boolean convert result must be object");
           assert.ok(converted.classes && converted.classes.length >= 1,
-            "dts2cpp_compat_tuple_0010 must parse class");
+            "dts2cpp_compat_tuple_0010_compat220_number_boolean_boolean_boolean must parse class");
           assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-            "dts2cpp_compat_tuple_0010 must parse class field");
+            "dts2cpp_compat_tuple_0010_compat220_number_boolean_boolean_boolean must parse class field");
           assert.strictEqual(converted.classes[0].variableList[0].type, "[number, boolean, boolean, boolean]",
             "dts2cpp_compat_tuple_0010_field convert output");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0010 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_tuple_0010_compat220_number_boolean_boolean_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_tuple_0011', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0011_COMPAT220_X_NUMBER_BOOLEAN_BOOLEAN_BOOLEAN
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0011_COMPAT220_X_NUMBER_BOOLEAN_BOOLEAN_BOOLEAN
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); malformed
+   *            type alias member [number, boolean, boolean, boolean]; strictEqual type alias preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0011_compat220_x_number_boolean_boolean_boolean', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat220.ts', `type Compat220 = { x: [number, boolean, boolean, boolean]; };`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0011 parse result must be object");
+          "dts2cpp_compat_tuple_0011_compat220_x_number_boolean_boolean_boolean parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0011 convert result must be object");
+          "dts2cpp_compat_tuple_0011_compat220_x_number_boolean_boolean_boolean convert result must be object");
           assert.ok(converted.types && converted.types.length >= 1,
-            "dts2cpp_compat_tuple_0011 must parse type alias");
+            "dts2cpp_compat_tuple_0011_compat220_x_number_boolean_boolean_boolean must parse type alias");
           assert.strictEqual(converted.types[0].alias, "{ x: [number, boolean, boolean, boolean]; }",
             "dts2cpp_compat_tuple_0011_alias");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0011 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_tuple_0011_compat220_x_number_boolean_boolean_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_tuple_0012', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0012_NUMBER_BOOLEAN_BOOLEAN_BOOLEAN
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0012_NUMBER_BOOLEAN_BOOLEAN_BOOLEAN
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); trailing
+   *            comma in param list, base type unchanged; strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0012_number_boolean_boolean_boolean', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat220.ts', `function compat220(a: [number, boolean, boolean, boolean],): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0012 parse result must be object");
+          "dts2cpp_compat_tuple_0012_number_boolean_boolean_boolean parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0012 convert result must be object");
+          "dts2cpp_compat_tuple_0012_number_boolean_boolean_boolean convert result must be object");
           assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0012 must parse function");
+            "dts2cpp_compat_tuple_0012_number_boolean_boolean_boolean must parse function");
           assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0012 must parse param");
+            "dts2cpp_compat_tuple_0012_number_boolean_boolean_boolean must parse param");
           assert.strictEqual(converted.funcs[0].parameters[0].type, "[number, boolean, boolean, boolean]",
             "dts2cpp_compat_tuple_0012_param convert output");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0012 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_tuple_0012_number_boolean_boolean_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_tuple_0013', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0013_NUMBR
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0013_NUMBR
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); malformed
+   *            type Numbr; strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0013_numbr', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat220.ts', `function compat220(a: Numbr): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0013 parse result must be object");
+          "dts2cpp_compat_tuple_0013_numbr parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0013 convert result must be object");
+          "dts2cpp_compat_tuple_0013_numbr convert result must be object");
           assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0013 must parse function");
+            "dts2cpp_compat_tuple_0013_numbr must parse function");
           assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0013 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "Numbr", "dts2cpp_compat_tuple_0013 param type");
+            "dts2cpp_compat_tuple_0013_numbr must parse param");
+          assert.strictEqual(converted.funcs[0].parameters[0].type, "Numbr",
+            "dts2cpp_compat_tuple_0013_numbr param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0013 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_tuple_0013_numbr execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_tuple_0014', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0014_NUMBR
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0014_NUMBR
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); number
+   *            keyword misspelled (numbr); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0014_numbr', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat221.ts', `function compat221(a: numbr): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0014 parse result must be object");
+          "dts2cpp_compat_tuple_0014_numbr parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0014 convert result must be object");
+          "dts2cpp_compat_tuple_0014_numbr convert result must be object");
           assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0014 must parse function");
+            "dts2cpp_compat_tuple_0014_numbr must parse function");
           assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0014 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "numbr", "dts2cpp_compat_tuple_0014 param type");
+            "dts2cpp_compat_tuple_0014_numbr must parse param");
+          assert.strictEqual(converted.funcs[0].parameters[0].type, "numbr",
+            "dts2cpp_compat_tuple_0014_numbr param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0014 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_tuple_0014_numbr execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_tuple_0015', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0015_STRNG
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0015_STRNG
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); string
+   *            keyword misspelled (strng); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0015_strng', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat221.ts', `function compat221(a: strng): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0015 parse result must be object");
+          "dts2cpp_compat_tuple_0015_strng parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0015 convert result must be object");
+          "dts2cpp_compat_tuple_0015_strng convert result must be object");
           assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0015 must parse function");
+            "dts2cpp_compat_tuple_0015_strng must parse function");
           assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0015 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "strng", "dts2cpp_compat_tuple_0015 param type");
+            "dts2cpp_compat_tuple_0015_strng must parse param");
+          assert.strictEqual(converted.funcs[0].parameters[0].type, "strng",
+            "dts2cpp_compat_tuple_0015_strng param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0015 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_tuple_0015_strng execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_tuple_0016', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0016_BOOLEA
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0016_BOOLEA
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); boolean
+   *            keyword misspelled (boolea); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0016_boolea', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat221.ts', `function compat221(a: boolea): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0016 parse result must be object");
+          "dts2cpp_compat_tuple_0016_boolea parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0016 convert result must be object");
+          "dts2cpp_compat_tuple_0016_boolea convert result must be object");
           assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0016 must parse function");
+            "dts2cpp_compat_tuple_0016_boolea must parse function");
           assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0016 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "boolea", "dts2cpp_compat_tuple_0016 param type");
+            "dts2cpp_compat_tuple_0016_boolea must parse param");
+          assert.strictEqual(converted.funcs[0].parameters[0].type, "boolea",
+            "dts2cpp_compat_tuple_0016_boolea param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0016 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_tuple_0016_boolea execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_tuple_0017', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0017_STRING_NUMBER_NUMBER_NUMBER
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0017_STRING_NUMBER_NUMBER_NUMBER
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); malformed
+   *            source function compat221(a: [string, number, number, number[): void {}; strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0017_string_number_number_number', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat221.ts', `function compat221(a: [string, number, number, number[): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0017 parse result must be object");
+          "dts2cpp_compat_tuple_0017_string_number_number_number parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0017 convert result must be object");
+          "dts2cpp_compat_tuple_0017_string_number_number_number convert result must be object");
           assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0017 must parse function");
+            "dts2cpp_compat_tuple_0017_string_number_number_number must parse function");
           assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0017 must parse param");
+            "dts2cpp_compat_tuple_0017_string_number_number_number must parse param");
           assert.strictEqual(converted.funcs[0].parameters[0].type, "[string, number, number, number[",
             "dts2cpp_compat_tuple_0017_param");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0017 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_tuple_0017_string_number_number_number execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_tuple_0018', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0018_BADTYPE221_STRING_NUMBER_C50656
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0018_BADTYPE221_STRING_NUMBER_C50656
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); replaced
+   *            with BadType token (BadType221__string__number__number__number_); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0018_badtype221_string_number_c50656', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat221.ts', `function compat221(a: BadType221__string__number__number__number_): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0018 parse result must be object");
+          "dts2cpp_compat_tuple_0018_badtype221_string_number_c50656 parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0018 convert result must be object");
+          "dts2cpp_compat_tuple_0018_badtype221_string_number_c50656 convert result must be object");
           assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0018 must parse function");
+            "dts2cpp_compat_tuple_0018_badtype221_string_number_c50656 must parse function");
           assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0018 must parse param");
+            "dts2cpp_compat_tuple_0018_badtype221_string_number_c50656 must parse param");
           assert.strictEqual(converted.funcs[0].parameters[0].type, "BadType221__string__number__number__number_",
             "dts2cpp_compat_tuple_0018_param");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0018 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_tuple_0018_badtype221_string_number_c50656 execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_tuple_0019', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0019_ANNY
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0019_ANNY
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); any keyword
+   *            misspelled to anny (anny); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0019_anny', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat221.ts', `function compat221(a: anny): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0019 parse result must be object");
+          "dts2cpp_compat_tuple_0019_anny parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0019 convert result must be object");
+          "dts2cpp_compat_tuple_0019_anny convert result must be object");
           assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0019 must parse function");
+            "dts2cpp_compat_tuple_0019_anny must parse function");
           assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0019 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "anny", "dts2cpp_compat_tuple_0019 param type");
+            "dts2cpp_compat_tuple_0019_anny must parse param");
+          assert.strictEqual(converted.funcs[0].parameters[0].type, "anny",
+            "dts2cpp_compat_tuple_0019_anny param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0019 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_tuple_0019_anny execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_tuple_0020', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0020_COMPAT221_STRING_NUMBER_NUMBER_NUMBER
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0020_COMPAT221_STRING_NUMBER_NUMBER_NUMBER
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); malformed
+   *            class field type [string, number, number, number]; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0020_compat221_string_number_number_number', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat221.ts', `class Compat221 { field: [string, number, number, number]; }`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0020 parse result must be object");
+          "dts2cpp_compat_tuple_0020_compat221_string_number_number_number parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0020 convert result must be object");
+          "dts2cpp_compat_tuple_0020_compat221_string_number_number_number convert result must be object");
           assert.ok(converted.classes && converted.classes.length >= 1,
-            "dts2cpp_compat_tuple_0020 must parse class");
+            "dts2cpp_compat_tuple_0020_compat221_string_number_number_number must parse class");
           assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-            "dts2cpp_compat_tuple_0020 must parse class field");
+            "dts2cpp_compat_tuple_0020_compat221_string_number_number_number must parse class field");
           assert.strictEqual(converted.classes[0].variableList[0].type, "[string, number, number, number]",
             "dts2cpp_compat_tuple_0020_field convert output");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0020 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_tuple_0020_compat221_string_number_number_number execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_tuple_0021', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0021_COMPAT221_X_STRING_NUMBER_NUMBER_NUMBER
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0021_COMPAT221_X_STRING_NUMBER_NUMBER_NUMBER
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); malformed
+   *            type alias member [string, number, number, number]; strictEqual type alias preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0021_compat221_x_string_number_number_number', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat221.ts', `type Compat221 = { x: [string, number, number, number]; };`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0021 parse result must be object");
+          "dts2cpp_compat_tuple_0021_compat221_x_string_number_number_number parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0021 convert result must be object");
+          "dts2cpp_compat_tuple_0021_compat221_x_string_number_number_number convert result must be object");
           assert.ok(converted.types && converted.types.length >= 1,
-            "dts2cpp_compat_tuple_0021 must parse type alias");
+            "dts2cpp_compat_tuple_0021_compat221_x_string_number_number_number must parse type alias");
           assert.strictEqual(converted.types[0].alias, "{ x: [string, number, number, number]; }",
             "dts2cpp_compat_tuple_0021_alias");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0021 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_tuple_0021_compat221_x_string_number_number_number execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_tuple_0022', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0022_STRING_NUMBER_NUMBER_NUMBER
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0022_STRING_NUMBER_NUMBER_NUMBER
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); trailing
+   *            comma in param list, base type unchanged; strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0022_string_number_number_number', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat221.ts', `function compat221(a: [string, number, number, number],): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0022 parse result must be object");
+          "dts2cpp_compat_tuple_0022_string_number_number_number parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0022 convert result must be object");
+          "dts2cpp_compat_tuple_0022_string_number_number_number convert result must be object");
           assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0022 must parse function");
+            "dts2cpp_compat_tuple_0022_string_number_number_number must parse function");
           assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0022 must parse param");
+            "dts2cpp_compat_tuple_0022_string_number_number_number must parse param");
           assert.strictEqual(converted.funcs[0].parameters[0].type, "[string, number, number, number]",
             "dts2cpp_compat_tuple_0022_param convert output");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0022 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_tuple_0022_string_number_number_number execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_tuple_0023', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0023_NUMBR
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0023_NUMBR
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); malformed
+   *            type Numbr; strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0023_numbr', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat221.ts', `function compat221(a: Numbr): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0023 parse result must be object");
+          "dts2cpp_compat_tuple_0023_numbr parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0023 convert result must be object");
+          "dts2cpp_compat_tuple_0023_numbr convert result must be object");
           assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0023 must parse function");
+            "dts2cpp_compat_tuple_0023_numbr must parse function");
           assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0023 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "Numbr", "dts2cpp_compat_tuple_0023 param type");
+            "dts2cpp_compat_tuple_0023_numbr must parse param");
+          assert.strictEqual(converted.funcs[0].parameters[0].type, "Numbr",
+            "dts2cpp_compat_tuple_0023_numbr param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0023 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_tuple_0023_numbr execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_tuple_0024', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0024_NUMBR
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0024_NUMBR
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); number
+   *            keyword misspelled (numbr); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0024_numbr', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat222.ts', `function compat222(a: numbr): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0024 parse result must be object");
+          "dts2cpp_compat_tuple_0024_numbr parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0024 convert result must be object");
+          "dts2cpp_compat_tuple_0024_numbr convert result must be object");
           assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0024 must parse function");
+            "dts2cpp_compat_tuple_0024_numbr must parse function");
           assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0024 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "numbr", "dts2cpp_compat_tuple_0024 param type");
+            "dts2cpp_compat_tuple_0024_numbr must parse param");
+          assert.strictEqual(converted.funcs[0].parameters[0].type, "numbr",
+            "dts2cpp_compat_tuple_0024_numbr param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0024 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_tuple_0024_numbr execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_tuple_0025', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0025_STRNG
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0025_STRNG
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); string
+   *            keyword misspelled (strng); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0025_strng', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat222.ts', `function compat222(a: strng): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0025 parse result must be object");
+          "dts2cpp_compat_tuple_0025_strng parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0025 convert result must be object");
+          "dts2cpp_compat_tuple_0025_strng convert result must be object");
           assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0025 must parse function");
+            "dts2cpp_compat_tuple_0025_strng must parse function");
           assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0025 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "strng", "dts2cpp_compat_tuple_0025 param type");
+            "dts2cpp_compat_tuple_0025_strng must parse param");
+          assert.strictEqual(converted.funcs[0].parameters[0].type, "strng",
+            "dts2cpp_compat_tuple_0025_strng param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0025 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_tuple_0025_strng execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_tuple_0026', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0026_BOOLEA
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0026_BOOLEA
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); boolean
+   *            keyword misspelled (boolea); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0026_boolea', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat222.ts', `function compat222(a: boolea): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0026 parse result must be object");
+          "dts2cpp_compat_tuple_0026_boolea parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0026 convert result must be object");
+          "dts2cpp_compat_tuple_0026_boolea convert result must be object");
           assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0026 must parse function");
+            "dts2cpp_compat_tuple_0026_boolea must parse function");
           assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0026 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "boolea", "dts2cpp_compat_tuple_0026 param type");
+            "dts2cpp_compat_tuple_0026_boolea must parse param");
+          assert.strictEqual(converted.funcs[0].parameters[0].type, "boolea",
+            "dts2cpp_compat_tuple_0026_boolea param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0026 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_tuple_0026_boolea execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_tuple_0027', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0027_STRING_NUMBER_NUMBER_STRING
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0027_STRING_NUMBER_NUMBER_STRING
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); malformed
+   *            source function compat222(a: [string, number, number, string[): void {}; strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0027_string_number_number_string', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat222.ts', `function compat222(a: [string, number, number, string[): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0027 parse result must be object");
+          "dts2cpp_compat_tuple_0027_string_number_number_string parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0027 convert result must be object");
+          "dts2cpp_compat_tuple_0027_string_number_number_string convert result must be object");
           assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0027 must parse function");
+            "dts2cpp_compat_tuple_0027_string_number_number_string must parse function");
           assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0027 must parse param");
+            "dts2cpp_compat_tuple_0027_string_number_number_string must parse param");
           assert.strictEqual(converted.funcs[0].parameters[0].type, "[string, number, number, string[",
             "dts2cpp_compat_tuple_0027_param");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0027 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_tuple_0027_string_number_number_string execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_tuple_0028', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0028_BADTYPE222_STRING_NUMBER_5F7E17
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0028_BADTYPE222_STRING_NUMBER_5F7E17
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); replaced
+   *            with BadType token (BadType222__string__number__number__string_); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0028_badtype222_string_number_5f7e17', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat222.ts', `function compat222(a: BadType222__string__number__number__string_): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0028 parse result must be object");
+          "dts2cpp_compat_tuple_0028_badtype222_string_number_5f7e17 parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0028 convert result must be object");
+          "dts2cpp_compat_tuple_0028_badtype222_string_number_5f7e17 convert result must be object");
           assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0028 must parse function");
+            "dts2cpp_compat_tuple_0028_badtype222_string_number_5f7e17 must parse function");
           assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0028 must parse param");
+            "dts2cpp_compat_tuple_0028_badtype222_string_number_5f7e17 must parse param");
           assert.strictEqual(converted.funcs[0].parameters[0].type, "BadType222__string__number__number__string_",
             "dts2cpp_compat_tuple_0028_param");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0028 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_tuple_0028_badtype222_string_number_5f7e17 execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_tuple_0029', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0029_ANNY
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0029_ANNY
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); any keyword
+   *            misspelled to anny (anny); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0029_anny', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat222.ts', `function compat222(a: anny): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0029 parse result must be object");
+          "dts2cpp_compat_tuple_0029_anny parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0029 convert result must be object");
+          "dts2cpp_compat_tuple_0029_anny convert result must be object");
           assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0029 must parse function");
+            "dts2cpp_compat_tuple_0029_anny must parse function");
           assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0029 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "anny", "dts2cpp_compat_tuple_0029 param type");
+            "dts2cpp_compat_tuple_0029_anny must parse param");
+          assert.strictEqual(converted.funcs[0].parameters[0].type, "anny",
+            "dts2cpp_compat_tuple_0029_anny param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0029 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_tuple_0029_anny execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_tuple_0030', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0030_COMPAT222_STRING_NUMBER_NUMBER_STRING
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0030_COMPAT222_STRING_NUMBER_NUMBER_STRING
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); malformed
+   *            class field type [string, number, number, string]; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0030_compat222_string_number_number_string', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat222.ts', `class Compat222 { field: [string, number, number, string]; }`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0030 parse result must be object");
+          "dts2cpp_compat_tuple_0030_compat222_string_number_number_string parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0030 convert result must be object");
+          "dts2cpp_compat_tuple_0030_compat222_string_number_number_string convert result must be object");
           assert.ok(converted.classes && converted.classes.length >= 1,
-            "dts2cpp_compat_tuple_0030 must parse class");
+            "dts2cpp_compat_tuple_0030_compat222_string_number_number_string must parse class");
           assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-            "dts2cpp_compat_tuple_0030 must parse class field");
+            "dts2cpp_compat_tuple_0030_compat222_string_number_number_string must parse class field");
           assert.strictEqual(converted.classes[0].variableList[0].type, "[string, number, number, string]",
             "dts2cpp_compat_tuple_0030_field convert output");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0030 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_tuple_0030_compat222_string_number_number_string execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_tuple_0031', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0031_COMPAT222_X_STRING_NUMBER_NUMBER_STRING
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0031_COMPAT222_X_STRING_NUMBER_NUMBER_STRING
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); malformed
+   *            type alias member [string, number, number, string]; strictEqual type alias preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0031_compat222_x_string_number_number_string', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat222.ts', `type Compat222 = { x: [string, number, number, string]; };`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0031 parse result must be object");
+          "dts2cpp_compat_tuple_0031_compat222_x_string_number_number_string parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0031 convert result must be object");
+          "dts2cpp_compat_tuple_0031_compat222_x_string_number_number_string convert result must be object");
           assert.ok(converted.types && converted.types.length >= 1,
-            "dts2cpp_compat_tuple_0031 must parse type alias");
+            "dts2cpp_compat_tuple_0031_compat222_x_string_number_number_string must parse type alias");
           assert.strictEqual(converted.types[0].alias, "{ x: [string, number, number, string]; }",
             "dts2cpp_compat_tuple_0031_alias");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0031 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_tuple_0031_compat222_x_string_number_number_string execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_tuple_0032', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0032_STRING_NUMBER_NUMBER_STRING
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0032_STRING_NUMBER_NUMBER_STRING
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); trailing
+   *            comma in param list, base type unchanged; strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0032_string_number_number_string', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat222.ts', `function compat222(a: [string, number, number, string],): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0032 parse result must be object");
+          "dts2cpp_compat_tuple_0032_string_number_number_string parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0032 convert result must be object");
+          "dts2cpp_compat_tuple_0032_string_number_number_string convert result must be object");
           assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0032 must parse function");
+            "dts2cpp_compat_tuple_0032_string_number_number_string must parse function");
           assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0032 must parse param");
+            "dts2cpp_compat_tuple_0032_string_number_number_string must parse param");
           assert.strictEqual(converted.funcs[0].parameters[0].type, "[string, number, number, string]",
             "dts2cpp_compat_tuple_0032_param convert output");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0032 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_tuple_0032_string_number_number_string execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_tuple_0033', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0033_NUMBR
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0033_NUMBR
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); malformed
+   *            type Numbr; strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0033_numbr', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat222.ts', `function compat222(a: Numbr): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0033 parse result must be object");
+          "dts2cpp_compat_tuple_0033_numbr parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0033 convert result must be object");
+          "dts2cpp_compat_tuple_0033_numbr convert result must be object");
           assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0033 must parse function");
+            "dts2cpp_compat_tuple_0033_numbr must parse function");
           assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0033 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "Numbr", "dts2cpp_compat_tuple_0033 param type");
+            "dts2cpp_compat_tuple_0033_numbr must parse param");
+          assert.strictEqual(converted.funcs[0].parameters[0].type, "Numbr",
+            "dts2cpp_compat_tuple_0033_numbr param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0033 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_tuple_0033_numbr execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_tuple_0034', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0034_NUMBR
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0034_NUMBR
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); number
+   *            keyword misspelled (numbr); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0034_numbr', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat223.ts', `function compat223(a: numbr): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0034 parse result must be object");
+          "dts2cpp_compat_tuple_0034_numbr parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0034 convert result must be object");
+          "dts2cpp_compat_tuple_0034_numbr convert result must be object");
           assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0034 must parse function");
+            "dts2cpp_compat_tuple_0034_numbr must parse function");
           assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0034 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "numbr", "dts2cpp_compat_tuple_0034 param type");
+            "dts2cpp_compat_tuple_0034_numbr must parse param");
+          assert.strictEqual(converted.funcs[0].parameters[0].type, "numbr",
+            "dts2cpp_compat_tuple_0034_numbr param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0034 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_tuple_0034_numbr execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_tuple_0035', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0035_STRNG
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0035_STRNG
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); string
+   *            keyword misspelled (strng); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0035_strng', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat223.ts', `function compat223(a: strng): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0035 parse result must be object");
+          "dts2cpp_compat_tuple_0035_strng parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0035 convert result must be object");
+          "dts2cpp_compat_tuple_0035_strng convert result must be object");
           assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0035 must parse function");
+            "dts2cpp_compat_tuple_0035_strng must parse function");
           assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0035 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "strng", "dts2cpp_compat_tuple_0035 param type");
+            "dts2cpp_compat_tuple_0035_strng must parse param");
+          assert.strictEqual(converted.funcs[0].parameters[0].type, "strng",
+            "dts2cpp_compat_tuple_0035_strng param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0035 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_tuple_0035_strng execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_tuple_0036', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0036_BOOLEA
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0036_BOOLEA
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); boolean
+   *            keyword misspelled (boolea); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0036_boolea', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat223.ts', `function compat223(a: boolea): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0036 parse result must be object");
+          "dts2cpp_compat_tuple_0036_boolea parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0036 convert result must be object");
+          "dts2cpp_compat_tuple_0036_boolea convert result must be object");
           assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0036 must parse function");
+            "dts2cpp_compat_tuple_0036_boolea must parse function");
           assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0036 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "boolea", "dts2cpp_compat_tuple_0036 param type");
+            "dts2cpp_compat_tuple_0036_boolea must parse param");
+          assert.strictEqual(converted.funcs[0].parameters[0].type, "boolea",
+            "dts2cpp_compat_tuple_0036_boolea param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0036 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_tuple_0036_boolea execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_tuple_0037', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0037_STRING_NUMBER_NUMBER_BOOLEAN
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0037_STRING_NUMBER_NUMBER_BOOLEAN
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); malformed
+   *            source function compat223(a: [string, number, number, boolean[): void {}; strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0037_string_number_number_boolean', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat223.ts', `function compat223(a: [string, number, number, boolean[): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0037 parse result must be object");
+          "dts2cpp_compat_tuple_0037_string_number_number_boolean parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0037 convert result must be object");
+          "dts2cpp_compat_tuple_0037_string_number_number_boolean convert result must be object");
           assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0037 must parse function");
+            "dts2cpp_compat_tuple_0037_string_number_number_boolean must parse function");
           assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0037 must parse param");
+            "dts2cpp_compat_tuple_0037_string_number_number_boolean must parse param");
           assert.strictEqual(converted.funcs[0].parameters[0].type, "[string, number, number, boolean[",
             "dts2cpp_compat_tuple_0037_param");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0037 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_tuple_0037_string_number_number_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_tuple_0038', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0038_BADTYPE223_STRING_NUMBER_495492
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0038_BADTYPE223_STRING_NUMBER_495492
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); boolean
+   *            keyword misspelled (BadType223__string__number__number__boolean_); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0038_badtype223_string_number_495492', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat223.ts', `
           function compat223(a: BadType223__string__number__number__boolean_): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0038 parse result must be object");
+          "dts2cpp_compat_tuple_0038_badtype223_string_number_495492 parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0038 convert result must be object");
+          "dts2cpp_compat_tuple_0038_badtype223_string_number_495492 convert result must be object");
           assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0038 must parse function");
+            "dts2cpp_compat_tuple_0038_badtype223_string_number_495492 must parse function");
           assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0038 must parse param");
+            "dts2cpp_compat_tuple_0038_badtype223_string_number_495492 must parse param");
           assert.strictEqual(converted.funcs[0].parameters[0].type, "BadType223__string__number__number__boolean_",
             "dts2cpp_compat_tuple_0038_param");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0038 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_tuple_0038_badtype223_string_number_495492 execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_tuple_0039', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0039_ANNY
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0039_ANNY
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); any keyword
+   *            misspelled to anny (anny); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0039_anny', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat223.ts', `function compat223(a: anny): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0039 parse result must be object");
+          "dts2cpp_compat_tuple_0039_anny parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0039 convert result must be object");
+          "dts2cpp_compat_tuple_0039_anny convert result must be object");
           assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0039 must parse function");
+            "dts2cpp_compat_tuple_0039_anny must parse function");
           assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0039 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "anny", "dts2cpp_compat_tuple_0039 param type");
+            "dts2cpp_compat_tuple_0039_anny must parse param");
+          assert.strictEqual(converted.funcs[0].parameters[0].type, "anny",
+            "dts2cpp_compat_tuple_0039_anny param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0039 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_tuple_0039_anny execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_tuple_0040', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0040_COMPAT223_STRING_NUMBER_NUMBER_BOOLEAN
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_TUPLE_0040_COMPAT223_STRING_NUMBER_NUMBER_BOOLEAN
+   * @tc.desc   Stability compat dts2cpp/tuple: runCompatSafe(doParseTs+transParseObj); malformed
+   *            class field type [string, number, number, boolean]; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_tuple_0040_compat223_string_number_number_boolean', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat223.ts', `class Compat223 { field: [string, number, number, boolean]; }`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0040 parse result must be object");
+          "dts2cpp_compat_tuple_0040_compat223_string_number_number_boolean parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0040 convert result must be object");
+          "dts2cpp_compat_tuple_0040_compat223_string_number_number_boolean convert result must be object");
           assert.ok(converted.classes && converted.classes.length >= 1,
-            "dts2cpp_compat_tuple_0040 must parse class");
+            "dts2cpp_compat_tuple_0040_compat223_string_number_number_boolean must parse class");
           assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-            "dts2cpp_compat_tuple_0040 must parse class field");
+            "dts2cpp_compat_tuple_0040_compat223_string_number_number_boolean must parse class field");
           assert.strictEqual(converted.classes[0].variableList[0].type, "[string, number, number, boolean]",
             "dts2cpp_compat_tuple_0040_field convert output");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0040 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_tuple_0041', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat223.ts', `type Compat223 = { x: [string, number, number, boolean]; };`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0041 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0041 convert result must be object");
-          assert.ok(converted.types && converted.types.length >= 1,
-            "dts2cpp_compat_tuple_0041 must parse type alias");
-          assert.strictEqual(converted.types[0].alias, "{ x: [string, number, number, boolean]; }",
-            "dts2cpp_compat_tuple_0041_alias");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0041 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_tuple_0042', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat223.ts', `function compat223(a: [string, number, number, boolean],): void {}`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0042 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0042 convert result must be object");
-          assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0042 must parse function");
-          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0042 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "[string, number, number, boolean]",
-            "dts2cpp_compat_tuple_0042_param convert output");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0042 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_tuple_0043', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat223.ts', `function compat223(a: Numbr): void {}`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0043 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0043 convert result must be object");
-          assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0043 must parse function");
-          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0043 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "Numbr", "dts2cpp_compat_tuple_0043 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0043 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_tuple_0044', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat224.ts', `function compat224(a: numbr): void {}`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0044 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0044 convert result must be object");
-          assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0044 must parse function");
-          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0044 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "numbr", "dts2cpp_compat_tuple_0044 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0044 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_tuple_0045', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat224.ts', `function compat224(a: strng): void {}`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0045 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0045 convert result must be object");
-          assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0045 must parse function");
-          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0045 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "strng", "dts2cpp_compat_tuple_0045 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0045 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_tuple_0046', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat224.ts', `function compat224(a: boolea): void {}`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0046 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0046 convert result must be object");
-          assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0046 must parse function");
-          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0046 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "boolea", "dts2cpp_compat_tuple_0046 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0046 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_tuple_0047', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat224.ts', `function compat224(a: [string, number, string, number[): void {}`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0047 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0047 convert result must be object");
-          assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0047 must parse function");
-          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0047 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "[string, number, string, number[",
-            "dts2cpp_compat_tuple_0047_param");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0047 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_tuple_0048', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat224.ts', `function compat224(a: BadType224__string__number__string__number_): void {}`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0048 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0048 convert result must be object");
-          assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0048 must parse function");
-          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0048 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "BadType224__string__number__string__number_",
-            "dts2cpp_compat_tuple_0048_param");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0048 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_tuple_0049', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat224.ts', `function compat224(a: anny): void {}`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0049 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0049 convert result must be object");
-          assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0049 must parse function");
-          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0049 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "anny", "dts2cpp_compat_tuple_0049 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0049 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_tuple_0050', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat224.ts', `class Compat224 { field: [string, number, string, number]; }`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0050 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0050 convert result must be object");
-          assert.ok(converted.classes && converted.classes.length >= 1,
-            "dts2cpp_compat_tuple_0050 must parse class");
-          assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-            "dts2cpp_compat_tuple_0050 must parse class field");
-          assert.strictEqual(converted.classes[0].variableList[0].type, "[string, number, string, number]",
-            "dts2cpp_compat_tuple_0050_field convert output");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0050 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_tuple_0051', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat224.ts', `type Compat224 = { x: [string, number, string, number]; };`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0051 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0051 convert result must be object");
-          assert.ok(converted.types && converted.types.length >= 1,
-            "dts2cpp_compat_tuple_0051 must parse type alias");
-          assert.strictEqual(converted.types[0].alias, "{ x: [string, number, string, number]; }",
-            "dts2cpp_compat_tuple_0051_alias");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0051 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_tuple_0052', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat224.ts', `function compat224(a: [string, number, string, number],): void {}`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0052 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0052 convert result must be object");
-          assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0052 must parse function");
-          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0052 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "[string, number, string, number]",
-            "dts2cpp_compat_tuple_0052_param convert output");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0052 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_tuple_0053', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat224.ts', `function compat224(a: Numbr): void {}`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0053 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0053 convert result must be object");
-          assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0053 must parse function");
-          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0053 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "Numbr", "dts2cpp_compat_tuple_0053 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0053 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_tuple_0054', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat225.ts', `function compat225(a: numbr): void {}`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0054 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0054 convert result must be object");
-          assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0054 must parse function");
-          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0054 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "numbr", "dts2cpp_compat_tuple_0054 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0054 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_tuple_0055', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat225.ts', `function compat225(a: strng): void {}`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0055 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0055 convert result must be object");
-          assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0055 must parse function");
-          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0055 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "strng", "dts2cpp_compat_tuple_0055 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0055 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_tuple_0056', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat225.ts', `function compat225(a: boolea): void {}`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0056 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0056 convert result must be object");
-          assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0056 must parse function");
-          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0056 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "boolea", "dts2cpp_compat_tuple_0056 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0056 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_tuple_0057', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat225.ts', `function compat225(a: [string, number, string, string[): void {}`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0057 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0057 convert result must be object");
-          assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0057 must parse function");
-          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0057 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "[string, number, string, string[",
-            "dts2cpp_compat_tuple_0057_param");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0057 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_tuple_0058', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat225.ts', `function compat225(a: BadType225__string__number__string__string_): void {}`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0058 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0058 convert result must be object");
-          assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0058 must parse function");
-          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0058 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "BadType225__string__number__string__string_",
-            "dts2cpp_compat_tuple_0058_param");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0058 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_tuple_0059', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat225.ts', `function compat225(a: anny): void {}`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0059 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0059 convert result must be object");
-          assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0059 must parse function");
-          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0059 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "anny", "dts2cpp_compat_tuple_0059 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0059 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_tuple_0060', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat225.ts', `class Compat225 { field: [string, number, string, string]; }`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0060 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0060 convert result must be object");
-          assert.ok(converted.classes && converted.classes.length >= 1,
-            "dts2cpp_compat_tuple_0060 must parse class");
-          assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-            "dts2cpp_compat_tuple_0060 must parse class field");
-          assert.strictEqual(converted.classes[0].variableList[0].type, "[string, number, string, string]",
-            "dts2cpp_compat_tuple_0060_field convert output");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0060 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_tuple_0061', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat225.ts', `type Compat225 = { x: [string, number, string, string]; };`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0061 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0061 convert result must be object");
-          assert.ok(converted.types && converted.types.length >= 1,
-            "dts2cpp_compat_tuple_0061 must parse type alias");
-          assert.strictEqual(converted.types[0].alias, "{ x: [string, number, string, string]; }",
-            "dts2cpp_compat_tuple_0061_alias");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0061 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_tuple_0062', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat225.ts', `function compat225(a: [string, number, string, string],): void {}`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0062 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0062 convert result must be object");
-          assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0062 must parse function");
-          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0062 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "[string, number, string, string]",
-            "dts2cpp_compat_tuple_0062_param convert output");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0062 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_tuple_0063', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat225.ts', `function compat225(a: Numbr): void {}`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0063 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0063 convert result must be object");
-          assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0063 must parse function");
-          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0063 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "Numbr", "dts2cpp_compat_tuple_0063 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0063 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_tuple_0064', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat226.ts', `function compat226(a: numbr): void {}`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0064 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0064 convert result must be object");
-          assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0064 must parse function");
-          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0064 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "numbr", "dts2cpp_compat_tuple_0064 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0064 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_tuple_0065', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat226.ts', `function compat226(a: strng): void {}`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0065 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0065 convert result must be object");
-          assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0065 must parse function");
-          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0065 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "strng", "dts2cpp_compat_tuple_0065 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0065 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_tuple_0066', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat226.ts', `function compat226(a: boolea): void {}`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0066 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0066 convert result must be object");
-          assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0066 must parse function");
-          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0066 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "boolea", "dts2cpp_compat_tuple_0066 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0066 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_tuple_0067', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat226.ts', `function compat226(a: [string, number, string, boolean[): void {}`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0067 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0067 convert result must be object");
-          assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0067 must parse function");
-          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0067 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "[string, number, string, boolean[",
-            "dts2cpp_compat_tuple_0067_param");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0067 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_tuple_0068', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat226.ts', `
-          function compat226(a: BadType226__string__number__string__boolean_): void {}`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0068 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0068 convert result must be object");
-          assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0068 must parse function");
-          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0068 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "BadType226__string__number__string__boolean_",
-            "dts2cpp_compat_tuple_0068_param");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0068 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_tuple_0069', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat226.ts', `function compat226(a: anny): void {}`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0069 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0069 convert result must be object");
-          assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0069 must parse function");
-          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0069 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "anny", "dts2cpp_compat_tuple_0069 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0069 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_tuple_0070', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat226.ts', `class Compat226 { field: [string, number, string, boolean]; }`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0070 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0070 convert result must be object");
-          assert.ok(converted.classes && converted.classes.length >= 1,
-            "dts2cpp_compat_tuple_0070 must parse class");
-          assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-            "dts2cpp_compat_tuple_0070 must parse class field");
-          assert.strictEqual(converted.classes[0].variableList[0].type, "[string, number, string, boolean]",
-            "dts2cpp_compat_tuple_0070_field convert output");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0070 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_tuple_0071', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat226.ts', `type Compat226 = { x: [string, number, string, boolean]; };`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0071 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0071 convert result must be object");
-          assert.ok(converted.types && converted.types.length >= 1,
-            "dts2cpp_compat_tuple_0071 must parse type alias");
-          assert.strictEqual(converted.types[0].alias, "{ x: [string, number, string, boolean]; }",
-            "dts2cpp_compat_tuple_0071_alias");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0071 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_tuple_0072', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat226.ts', `function compat226(a: [string, number, string, boolean],): void {}`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0072 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0072 convert result must be object");
-          assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0072 must parse function");
-          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0072 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "[string, number, string, boolean]",
-            "dts2cpp_compat_tuple_0072_param convert output");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0072 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_tuple_0073', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat226.ts', `function compat226(a: Numbr): void {}`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0073 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0073 convert result must be object");
-          assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0073 must parse function");
-          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0073 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "Numbr", "dts2cpp_compat_tuple_0073 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0073 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_tuple_0074', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat227.ts', `function compat227(a: numbr): void {}`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0074 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0074 convert result must be object");
-          assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0074 must parse function");
-          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0074 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "numbr", "dts2cpp_compat_tuple_0074 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0074 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_tuple_0075', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat227.ts', `function compat227(a: strng): void {}`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0075 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0075 convert result must be object");
-          assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0075 must parse function");
-          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0075 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "strng", "dts2cpp_compat_tuple_0075 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0075 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_tuple_0076', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat227.ts', `function compat227(a: boolea): void {}`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0076 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0076 convert result must be object");
-          assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0076 must parse function");
-          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0076 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "boolea", "dts2cpp_compat_tuple_0076 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0076 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_tuple_0077', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat227.ts', `function compat227(a: [string, number, boolean, number[): void {}`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0077 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0077 convert result must be object");
-          assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0077 must parse function");
-          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0077 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "[string, number, boolean, number[",
-            "dts2cpp_compat_tuple_0077_param");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0077 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_tuple_0078', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat227.ts', `
-          function compat227(a: BadType227__string__number__boolean__number_): void {}`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0078 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0078 convert result must be object");
-          assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0078 must parse function");
-          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0078 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "BadType227__string__number__boolean__number_",
-            "dts2cpp_compat_tuple_0078_param");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0078 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_tuple_0079', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat227.ts', `function compat227(a: anny): void {}`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0079 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0079 convert result must be object");
-          assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0079 must parse function");
-          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0079 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "anny", "dts2cpp_compat_tuple_0079 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0079 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_tuple_0080', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat227.ts', `class Compat227 { field: [string, number, boolean, number]; }`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0080 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0080 convert result must be object");
-          assert.ok(converted.classes && converted.classes.length >= 1,
-            "dts2cpp_compat_tuple_0080 must parse class");
-          assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-            "dts2cpp_compat_tuple_0080 must parse class field");
-          assert.strictEqual(converted.classes[0].variableList[0].type, "[string, number, boolean, number]",
-            "dts2cpp_compat_tuple_0080_field convert output");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0080 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_tuple_0081', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat227.ts', `type Compat227 = { x: [string, number, boolean, number]; };`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0081 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0081 convert result must be object");
-          assert.ok(converted.types && converted.types.length >= 1,
-            "dts2cpp_compat_tuple_0081 must parse type alias");
-          assert.strictEqual(converted.types[0].alias, "{ x: [string, number, boolean, number]; }",
-            "dts2cpp_compat_tuple_0081_alias");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0081 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_tuple_0082', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat227.ts', `function compat227(a: [string, number, boolean, number],): void {}`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0082 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0082 convert result must be object");
-          assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0082 must parse function");
-          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0082 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "[string, number, boolean, number]",
-            "dts2cpp_compat_tuple_0082_param convert output");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0082 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_tuple_0083', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat227.ts', `function compat227(a: Numbr): void {}`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0083 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0083 convert result must be object");
-          assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0083 must parse function");
-          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0083 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "Numbr", "dts2cpp_compat_tuple_0083 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0083 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_tuple_0084', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat228.ts', `function compat228(a: numbr): void {}`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0084 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0084 convert result must be object");
-          assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0084 must parse function");
-          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0084 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "numbr", "dts2cpp_compat_tuple_0084 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0084 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_tuple_0085', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat228.ts', `function compat228(a: strng): void {}`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0085 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0085 convert result must be object");
-          assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0085 must parse function");
-          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0085 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "strng", "dts2cpp_compat_tuple_0085 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0085 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_tuple_0086', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat228.ts', `function compat228(a: boolea): void {}`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0086 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0086 convert result must be object");
-          assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0086 must parse function");
-          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0086 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "boolea", "dts2cpp_compat_tuple_0086 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0086 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_tuple_0087', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat228.ts', `function compat228(a: [string, number, boolean, string[): void {}`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0087 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0087 convert result must be object");
-          assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0087 must parse function");
-          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0087 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "[string, number, boolean, string[",
-            "dts2cpp_compat_tuple_0087_param");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0087 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_tuple_0088', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat228.ts', `
-          function compat228(a: BadType228__string__number__boolean__string_): void {}`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_tuple_0088 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_tuple_0088 convert result must be object");
-          assert.ok(converted.funcs && converted.funcs.length >= 1,
-            "dts2cpp_compat_tuple_0088 must parse function");
-          assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-            "dts2cpp_compat_tuple_0088 must parse param");
-          assert.strictEqual(converted.funcs[0].parameters[0].type, "BadType228__string__number__boolean__string_",
-            "dts2cpp_compat_tuple_0088_param");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_tuple_0088 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_tuple_0040_compat223_string_number_number_boolean execution error: ${String(err)}`);
     }
   });
 });

@@ -21,1550 +21,1975 @@ import { runCompatSafe } from './stability_helpers';
 
 suite('Stability_DTS2CPP_COMPAT_MAP_Part02', function() {
   this.timeout(600000);
-  vscode.window.showInformationMessage('Start Stability_DTS2CPP_COMPAT_MAP_Part02.');
+  vscode.window.showInformationMessage('Start Stability_DTS2CPP_COMPAT_MAP_Part01.');
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0065_BADTYPE63_MAP_STRING_ANY
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0065_BADTYPE63_MAP_STRING_ANY
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); replaced with
+   *            BadType token (BadType63_Map_string_any_); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0065_badtype63_map_string_any', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const parsed = doParseTs('compat63.ts', `function compat63(a: BadType63_Map_string_any_): void {}`);
+        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
+          "dts2cpp_compat_map_0065_badtype63_map_string_any parse result must be object");
+        const converted = transParseObj(parsed);
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "dts2cpp_compat_map_0065_badtype63_map_string_any convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1,
+          "dts2cpp_compat_map_0065_badtype63_map_string_any must parse function");
+        assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
+          "dts2cpp_compat_map_0065_badtype63_map_string_any must parse param");
+        assert.strictEqual(converted.funcs[0].parameters[0].type, "BadType63_Map_string_any_",
+          "dts2cpp_compat_map_0065_param");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`dts2cpp_compat_map_0065_badtype63_map_string_any execution error: ${String(err)}`);
+    }
+  });
 
-  test('dts2cpp_compat_map_0001', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0066_ANNY
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0066_ANNY
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); any keyword
+   *            misspelled to anny (anny); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0066_anny', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const parsed = doParseTs('compat63.ts', `function compat63(a: anny): void {}`);
+        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
+          "dts2cpp_compat_map_0066_anny parse result must be object");
+        const converted = transParseObj(parsed);
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "dts2cpp_compat_map_0066_anny convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0066_anny must parse function");
+        assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
+          "dts2cpp_compat_map_0066_anny must parse param");
+        assert.strictEqual(converted.funcs[0].parameters[0].type, "anny", "dts2cpp_compat_map_0066_anny param type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`dts2cpp_compat_map_0066_anny execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0001_COMPAT65_X_MAP_OBJECT_STRING
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0001_COMPAT65_X_MAP_OBJECT_STRING
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); malformed type
+   *            alias member Map<object,string>; strictEqual type alias preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0001_compat65_x_map_object_string', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat65.ts', `type Compat65 = { x: Map<object,string>; };`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0001 parse result must be object");
+          "dts2cpp_compat_map_0001_compat65_x_map_object_string parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0001 convert result must be object");
-        assert.ok(converted.types && converted.types.length >= 1, "dts2cpp_compat_map_0001 must parse type alias");
+          "dts2cpp_compat_map_0001_compat65_x_map_object_string convert result must be object");
+        assert.ok(converted.types && converted.types.length >= 1,
+          "dts2cpp_compat_map_0001_compat65_x_map_object_string must parse type alias");
         assert.strictEqual(converted.types[0].alias, "{ x: Map<object,string>; }", "dts2cpp_compat_map_0001_alias");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0001 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0001_compat65_x_map_object_string execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0002', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0002_MAP_OBJECT_STRING
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0002_MAP_OBJECT_STRING
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); trailing comma
+   *            in param list, base type unchanged; strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0002_map_object_string', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat65.ts', `function compat65(a: Map<object,string>,): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0002 parse result must be object");
+          "dts2cpp_compat_map_0002_map_object_string parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0002 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0002 must parse function");
+          "dts2cpp_compat_map_0002_map_object_string convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1,
+          "dts2cpp_compat_map_0002_map_object_string must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0002 must parse param");
+          "dts2cpp_compat_map_0002_map_object_string must parse param");
         assert.strictEqual(converted.funcs[0].parameters[0].type, "Map<object,string>",
           "dts2cpp_compat_map_0002_param convert output");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0002 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0002_map_object_string execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0003', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0003_NUMBR
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0003_NUMBR
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); malformed type
+   *            Numbr; strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0003_numbr', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat65.ts', `function compat65(a: Numbr): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0003 parse result must be object");
+          "dts2cpp_compat_map_0003_numbr parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0003 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0003 must parse function");
+          "dts2cpp_compat_map_0003_numbr convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0003_numbr must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0003 must parse param");
-        assert.strictEqual(converted.funcs[0].parameters[0].type, "Numbr", "dts2cpp_compat_map_0003 param type");
+          "dts2cpp_compat_map_0003_numbr must parse param");
+        assert.strictEqual(converted.funcs[0].parameters[0].type, "Numbr", "dts2cpp_compat_map_0003_numbr param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0003 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0003_numbr execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0004', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0004_NUMBR
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0004_NUMBR
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); number keyword
+   *            misspelled (numbr); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0004_numbr', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat66.ts', `function compat66(a: numbr): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0004 parse result must be object");
+          "dts2cpp_compat_map_0004_numbr parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0004 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0004 must parse function");
+          "dts2cpp_compat_map_0004_numbr convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0004_numbr must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0004 must parse param");
-        assert.strictEqual(converted.funcs[0].parameters[0].type, "numbr", "dts2cpp_compat_map_0004 param type");
+          "dts2cpp_compat_map_0004_numbr must parse param");
+        assert.strictEqual(converted.funcs[0].parameters[0].type, "numbr", "dts2cpp_compat_map_0004_numbr param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0004 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0004_numbr execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0005', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0005_STRNG
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0005_STRNG
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); string keyword
+   *            misspelled (strng); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0005_strng', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat66.ts', `function compat66(a: strng): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0005 parse result must be object");
+          "dts2cpp_compat_map_0005_strng parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0005 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0005 must parse function");
+          "dts2cpp_compat_map_0005_strng convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0005_strng must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0005 must parse param");
-        assert.strictEqual(converted.funcs[0].parameters[0].type, "strng", "dts2cpp_compat_map_0005 param type");
+          "dts2cpp_compat_map_0005_strng must parse param");
+        assert.strictEqual(converted.funcs[0].parameters[0].type, "strng", "dts2cpp_compat_map_0005_strng param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0005 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0005_strng execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0006', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0006_BOOLEA
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0006_BOOLEA
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); boolean
+   *            keyword misspelled (boolea); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0006_boolea', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat66.ts', `function compat66(a: boolea): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0006 parse result must be object");
+          "dts2cpp_compat_map_0006_boolea parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0006 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0006 must parse function");
+          "dts2cpp_compat_map_0006_boolea convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0006_boolea must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0006 must parse param");
-        assert.strictEqual(converted.funcs[0].parameters[0].type, "boolea", "dts2cpp_compat_map_0006 param type");
+          "dts2cpp_compat_map_0006_boolea must parse param");
+        assert.strictEqual(converted.funcs[0].parameters[0].type, "boolea",
+          "dts2cpp_compat_map_0006_boolea param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0006 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0006_boolea execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0007', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0007_MAP_ANY_NUMBER
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0007_MAP_ANY_NUMBER
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); malformed type
+   *            Map<any,number>; strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0007_map_any_number', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat66.ts', `function compat66(a: Map<any,number>): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0007 parse result must be object");
+          "dts2cpp_compat_map_0007_map_any_number parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0007 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0007 must parse function");
+          "dts2cpp_compat_map_0007_map_any_number convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1,
+          "dts2cpp_compat_map_0007_map_any_number must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0007 must parse param");
+          "dts2cpp_compat_map_0007_map_any_number must parse param");
         assert.strictEqual(converted.funcs[0].parameters[0].type, "Map<any,number>", "dts2cpp_compat_map_0007_param");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0007 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0007_map_any_number execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0008', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0008_BADTYPE66_MAP_ANY_NUMBER
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0008_BADTYPE66_MAP_ANY_NUMBER
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); replaced with
+   *            BadType token (BadType66_Map_any_number_); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0008_badtype66_map_any_number', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat66.ts', `function compat66(a: BadType66_Map_any_number_): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0008 parse result must be object");
+          "dts2cpp_compat_map_0008_badtype66_map_any_number parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0008 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0008 must parse function");
+          "dts2cpp_compat_map_0008_badtype66_map_any_number convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1,
+          "dts2cpp_compat_map_0008_badtype66_map_any_number must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0008 must parse param");
+          "dts2cpp_compat_map_0008_badtype66_map_any_number must parse param");
         assert.strictEqual(converted.funcs[0].parameters[0].type, "BadType66_Map_any_number_",
           "dts2cpp_compat_map_0008_param");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0008 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0008_badtype66_map_any_number execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0009', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0009_ANNY
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0009_ANNY
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); any keyword
+   *            misspelled to anny (anny); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0009_anny', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat66.ts', `function compat66(a: anny): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0009 parse result must be object");
+          "dts2cpp_compat_map_0009_anny parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0009 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0009 must parse function");
+          "dts2cpp_compat_map_0009_anny convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0009_anny must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0009 must parse param");
-        assert.strictEqual(converted.funcs[0].parameters[0].type, "anny", "dts2cpp_compat_map_0009 param type");
+          "dts2cpp_compat_map_0009_anny must parse param");
+        assert.strictEqual(converted.funcs[0].parameters[0].type, "anny", "dts2cpp_compat_map_0009_anny param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0009 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0009_anny execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0010', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0010_COMPAT66_MAP_ANY_NUMBER
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0010_COMPAT66_MAP_ANY_NUMBER
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); malformed
+   *            class field type Map<any,number>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0010_compat66_map_any_number', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat66.ts', `class Compat66 { field: Map<any,number>; }`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0010 parse result must be object");
+          "dts2cpp_compat_map_0010_compat66_map_any_number parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0010 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "dts2cpp_compat_map_0010 must parse class");
+          "dts2cpp_compat_map_0010_compat66_map_any_number convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "dts2cpp_compat_map_0010_compat66_map_any_number must parse class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "dts2cpp_compat_map_0010 must parse class field");
+          "dts2cpp_compat_map_0010_compat66_map_any_number must parse class field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "Map<any,number>",
           "dts2cpp_compat_map_0010_field convert output");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0010 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0010_compat66_map_any_number execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0011', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0011_COMPAT66_X_MAP_ANY_NUMBER
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0011_COMPAT66_X_MAP_ANY_NUMBER
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); malformed type
+   *            alias member Map<any,number>; strictEqual type alias preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0011_compat66_x_map_any_number', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat66.ts', `type Compat66 = { x: Map<any,number>; };`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0011 parse result must be object");
+          "dts2cpp_compat_map_0011_compat66_x_map_any_number parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0011 convert result must be object");
-        assert.ok(converted.types && converted.types.length >= 1, "dts2cpp_compat_map_0011 must parse type alias");
+          "dts2cpp_compat_map_0011_compat66_x_map_any_number convert result must be object");
+        assert.ok(converted.types && converted.types.length >= 1,
+          "dts2cpp_compat_map_0011_compat66_x_map_any_number must parse type alias");
         assert.strictEqual(converted.types[0].alias, "{ x: Map<any,number>; }", "dts2cpp_compat_map_0011_alias");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0011 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0011_compat66_x_map_any_number execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0012', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0012_MAP_ANY_NUMBER
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0012_MAP_ANY_NUMBER
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); trailing comma
+   *            in param list, base type unchanged; strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0012_map_any_number', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat66.ts', `function compat66(a: Map<any,number>,): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0012 parse result must be object");
+          "dts2cpp_compat_map_0012_map_any_number parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0012 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0012 must parse function");
+          "dts2cpp_compat_map_0012_map_any_number convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1,
+          "dts2cpp_compat_map_0012_map_any_number must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0012 must parse param");
+          "dts2cpp_compat_map_0012_map_any_number must parse param");
         assert.strictEqual(converted.funcs[0].parameters[0].type, "Map<any,number>",
           "dts2cpp_compat_map_0012_param convert output");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0012 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0012_map_any_number execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0013', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0013_NUMBR
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0013_NUMBR
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); malformed type
+   *            Numbr; strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0013_numbr', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat66.ts', `function compat66(a: Numbr): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0013 parse result must be object");
+          "dts2cpp_compat_map_0013_numbr parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0013 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0013 must parse function");
+          "dts2cpp_compat_map_0013_numbr convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0013_numbr must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0013 must parse param");
-        assert.strictEqual(converted.funcs[0].parameters[0].type, "Numbr", "dts2cpp_compat_map_0013 param type");
+          "dts2cpp_compat_map_0013_numbr must parse param");
+        assert.strictEqual(converted.funcs[0].parameters[0].type, "Numbr", "dts2cpp_compat_map_0013_numbr param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0013 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0013_numbr execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0014', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0014_NUMBR
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0014_NUMBR
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); number keyword
+   *            misspelled (numbr); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0014_numbr', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat281.ts', `function compat281(a: numbr): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0014 parse result must be object");
+          "dts2cpp_compat_map_0014_numbr parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0014 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0014 must parse function");
+          "dts2cpp_compat_map_0014_numbr convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0014_numbr must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0014 must parse param");
-        assert.strictEqual(converted.funcs[0].parameters[0].type, "numbr", "dts2cpp_compat_map_0014 param type");
+          "dts2cpp_compat_map_0014_numbr must parse param");
+        assert.strictEqual(converted.funcs[0].parameters[0].type, "numbr", "dts2cpp_compat_map_0014_numbr param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0014 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0014_numbr execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0015', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0015_STRNG
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0015_STRNG
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); string keyword
+   *            misspelled (strng); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0015_strng', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat281.ts', `function compat281(a: strng): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0015 parse result must be object");
+          "dts2cpp_compat_map_0015_strng parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0015 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0015 must parse function");
+          "dts2cpp_compat_map_0015_strng convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0015_strng must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0015 must parse param");
-        assert.strictEqual(converted.funcs[0].parameters[0].type, "strng", "dts2cpp_compat_map_0015 param type");
+          "dts2cpp_compat_map_0015_strng must parse param");
+        assert.strictEqual(converted.funcs[0].parameters[0].type, "strng", "dts2cpp_compat_map_0015_strng param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0015 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0015_strng execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0016', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0016_BOOLEA
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0016_BOOLEA
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); boolean
+   *            keyword misspelled (boolea); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0016_boolea', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat281.ts', `function compat281(a: boolea): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0016 parse result must be object");
+          "dts2cpp_compat_map_0016_boolea parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0016 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0016 must parse function");
+          "dts2cpp_compat_map_0016_boolea convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0016_boolea must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0016 must parse param");
-        assert.strictEqual(converted.funcs[0].parameters[0].type, "boolea", "dts2cpp_compat_map_0016 param type");
+          "dts2cpp_compat_map_0016_boolea must parse param");
+        assert.strictEqual(converted.funcs[0].parameters[0].type, "boolea",
+          "dts2cpp_compat_map_0016_boolea param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0016 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0016_boolea execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0017', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0017_MAP_STRING_NUMBER
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0017_MAP_STRING_NUMBER
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); malformed type
+   *            Map<string, number>; strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0017_map_string_number', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat281.ts', `function compat281(a: Map<string, number>): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0017 parse result must be object");
+          "dts2cpp_compat_map_0017_map_string_number parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0017 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0017 must parse function");
+          "dts2cpp_compat_map_0017_map_string_number convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1,
+          "dts2cpp_compat_map_0017_map_string_number must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0017 must parse param");
+          "dts2cpp_compat_map_0017_map_string_number must parse param");
         assert.strictEqual(converted.funcs[0].parameters[0].type, "std::map<std::string, double>",
           "dts2cpp_compat_map_0017_param");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0017 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0017_map_string_number execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0018', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0018_BADTYPE281_MAP_STRING_NUMBER
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0018_BADTYPE281_MAP_STRING_NUMBER
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); replaced with
+   *            BadType token (BadType281_Map_string__number_); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0018_badtype281_map_string_number', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat281.ts', `function compat281(a: BadType281_Map_string__number_): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0018 parse result must be object");
+          "dts2cpp_compat_map_0018_badtype281_map_string_number parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0018 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0018 must parse function");
+          "dts2cpp_compat_map_0018_badtype281_map_string_number convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1,
+          "dts2cpp_compat_map_0018_badtype281_map_string_number must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0018 must parse param");
+          "dts2cpp_compat_map_0018_badtype281_map_string_number must parse param");
         assert.strictEqual(converted.funcs[0].parameters[0].type, "BadType281_Map_string__number_",
           "dts2cpp_compat_map_0018_param");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0018 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0018_badtype281_map_string_number execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0019', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0019_ANNY
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0019_ANNY
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); any keyword
+   *            misspelled to anny (anny); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0019_anny', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat281.ts', `function compat281(a: anny): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0019 parse result must be object");
+          "dts2cpp_compat_map_0019_anny parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0019 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0019 must parse function");
+          "dts2cpp_compat_map_0019_anny convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0019_anny must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0019 must parse param");
-        assert.strictEqual(converted.funcs[0].parameters[0].type, "anny", "dts2cpp_compat_map_0019 param type");
+          "dts2cpp_compat_map_0019_anny must parse param");
+        assert.strictEqual(converted.funcs[0].parameters[0].type, "anny", "dts2cpp_compat_map_0019_anny param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0019 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0019_anny execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0020', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0020_COMPAT281_STD_MAP_STD_STRING_DOUBLE
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0020_COMPAT281_STD_MAP_STD_STRING_DOUBLE
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); malformed
+   *            class field type Map<string, number>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0020_compat281_std_map_std_string_double', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat281.ts', `class Compat281 { field: Map<string, number>; }`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0020 parse result must be object");
+          "dts2cpp_compat_map_0020_compat281_std_map_std_string_double parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0020 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "dts2cpp_compat_map_0020 must parse class");
+          "dts2cpp_compat_map_0020_compat281_std_map_std_string_double convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "dts2cpp_compat_map_0020_compat281_std_map_std_string_double must parse class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "dts2cpp_compat_map_0020 must parse class field");
+          "dts2cpp_compat_map_0020_compat281_std_map_std_string_double must parse class field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "std::map<std::string, double>",
           "dts2cpp_compat_map_0020_field convert output");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0020 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0020_compat281_std_map_std_string_double execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0021', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0021_COMPAT281_X_MAP_STRING_NUMBER
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0021_COMPAT281_X_MAP_STRING_NUMBER
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); malformed type
+   *            alias member Map<string, number>; strictEqual type alias preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0021_compat281_x_map_string_number', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat281.ts', `type Compat281 = { x: Map<string, number>; };`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0021 parse result must be object");
+          "dts2cpp_compat_map_0021_compat281_x_map_string_number parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0021 convert result must be object");
-        assert.ok(converted.types && converted.types.length >= 1, "dts2cpp_compat_map_0021 must parse type alias");
+          "dts2cpp_compat_map_0021_compat281_x_map_string_number convert result must be object");
+        assert.ok(converted.types && converted.types.length >= 1,
+          "dts2cpp_compat_map_0021_compat281_x_map_string_number must parse type alias");
         assert.strictEqual(converted.types[0].alias, "{ x: Map<string, number>; }", "dts2cpp_compat_map_0021_alias");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0021 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0021_compat281_x_map_string_number execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0022', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0022_MAP_STRING_NUMBER
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0022_MAP_STRING_NUMBER
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); trailing comma
+   *            in param list, base type unchanged; strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0022_map_string_number', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat281.ts', `function compat281(a: Map<string, number>,): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0022 parse result must be object");
+          "dts2cpp_compat_map_0022_map_string_number parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0022 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0022 must parse function");
+          "dts2cpp_compat_map_0022_map_string_number convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1,
+          "dts2cpp_compat_map_0022_map_string_number must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0022 must parse param");
+          "dts2cpp_compat_map_0022_map_string_number must parse param");
         assert.strictEqual(converted.funcs[0].parameters[0].type, "std::map<std::string, double>",
           "dts2cpp_compat_map_0022_param convert output");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0022 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0022_map_string_number execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0023', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0023_NUMBR
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0023_NUMBR
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); malformed type
+   *            Numbr; strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0023_numbr', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat281.ts', `function compat281(a: Numbr): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0023 parse result must be object");
+          "dts2cpp_compat_map_0023_numbr parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0023 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0023 must parse function");
+          "dts2cpp_compat_map_0023_numbr convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0023_numbr must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0023 must parse param");
-        assert.strictEqual(converted.funcs[0].parameters[0].type, "Numbr", "dts2cpp_compat_map_0023 param type");
+          "dts2cpp_compat_map_0023_numbr must parse param");
+        assert.strictEqual(converted.funcs[0].parameters[0].type, "Numbr", "dts2cpp_compat_map_0023_numbr param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0023 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0023_numbr execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0024', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0024_NUMBR
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0024_NUMBR
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); number keyword
+   *            misspelled (numbr); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0024_numbr', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat282.ts', `function compat282(a: numbr): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0024 parse result must be object");
+          "dts2cpp_compat_map_0024_numbr parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0024 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0024 must parse function");
+          "dts2cpp_compat_map_0024_numbr convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0024_numbr must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0024 must parse param");
-        assert.strictEqual(converted.funcs[0].parameters[0].type, "numbr", "dts2cpp_compat_map_0024 param type");
+          "dts2cpp_compat_map_0024_numbr must parse param");
+        assert.strictEqual(converted.funcs[0].parameters[0].type, "numbr", "dts2cpp_compat_map_0024_numbr param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0024 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0024_numbr execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0025', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0025_STRNG
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0025_STRNG
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); string keyword
+   *            misspelled (strng); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0025_strng', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat282.ts', `function compat282(a: strng): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0025 parse result must be object");
+          "dts2cpp_compat_map_0025_strng parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0025 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0025 must parse function");
+          "dts2cpp_compat_map_0025_strng convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0025_strng must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0025 must parse param");
-        assert.strictEqual(converted.funcs[0].parameters[0].type, "strng", "dts2cpp_compat_map_0025 param type");
+          "dts2cpp_compat_map_0025_strng must parse param");
+        assert.strictEqual(converted.funcs[0].parameters[0].type, "strng", "dts2cpp_compat_map_0025_strng param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0025 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0025_strng execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0026', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0026_BOOLEA
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0026_BOOLEA
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); boolean
+   *            keyword misspelled (boolea); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0026_boolea', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat282.ts', `function compat282(a: boolea): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0026 parse result must be object");
+          "dts2cpp_compat_map_0026_boolea parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0026 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0026 must parse function");
+          "dts2cpp_compat_map_0026_boolea convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0026_boolea must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0026 must parse param");
-        assert.strictEqual(converted.funcs[0].parameters[0].type, "boolea", "dts2cpp_compat_map_0026 param type");
+          "dts2cpp_compat_map_0026_boolea must parse param");
+        assert.strictEqual(converted.funcs[0].parameters[0].type, "boolea",
+          "dts2cpp_compat_map_0026_boolea param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0026 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0026_boolea execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0027', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0027_MAP_STRING_STRING
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0027_MAP_STRING_STRING
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); malformed type
+   *            Map<string, string>; strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0027_map_string_string', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat282.ts', `function compat282(a: Map<string, string>): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0027 parse result must be object");
+          "dts2cpp_compat_map_0027_map_string_string parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0027 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0027 must parse function");
+          "dts2cpp_compat_map_0027_map_string_string convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1,
+          "dts2cpp_compat_map_0027_map_string_string must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0027 must parse param");
+          "dts2cpp_compat_map_0027_map_string_string must parse param");
         assert.strictEqual(converted.funcs[0].parameters[0].type, "std::map<std::string, std::string>",
           "dts2cpp_compat_map_0027_param");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0027 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0027_map_string_string execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0028', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0028_BADTYPE282_MAP_STRING_STRING
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0028_BADTYPE282_MAP_STRING_STRING
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); replaced with
+   *            BadType token (BadType282_Map_string__string_); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0028_badtype282_map_string_string', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat282.ts', `function compat282(a: BadType282_Map_string__string_): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0028 parse result must be object");
+          "dts2cpp_compat_map_0028_badtype282_map_string_string parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0028 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0028 must parse function");
+          "dts2cpp_compat_map_0028_badtype282_map_string_string convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1,
+          "dts2cpp_compat_map_0028_badtype282_map_string_string must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0028 must parse param");
+          "dts2cpp_compat_map_0028_badtype282_map_string_string must parse param");
         assert.strictEqual(converted.funcs[0].parameters[0].type, "BadType282_Map_string__string_",
           "dts2cpp_compat_map_0028_param");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0028 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0028_badtype282_map_string_string execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0029', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0029_ANNY
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0029_ANNY
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); any keyword
+   *            misspelled to anny (anny); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0029_anny', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat282.ts', `function compat282(a: anny): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0029 parse result must be object");
+          "dts2cpp_compat_map_0029_anny parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0029 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0029 must parse function");
+          "dts2cpp_compat_map_0029_anny convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0029_anny must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0029 must parse param");
-        assert.strictEqual(converted.funcs[0].parameters[0].type, "anny", "dts2cpp_compat_map_0029 param type");
+          "dts2cpp_compat_map_0029_anny must parse param");
+        assert.strictEqual(converted.funcs[0].parameters[0].type, "anny", "dts2cpp_compat_map_0029_anny param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0029 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0029_anny execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0030', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0030_COMPAT282_STD_MAP_STD_STRING_STD_STRING
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0030_COMPAT282_STD_MAP_STD_STRING_STD_STRING
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); malformed
+   *            class field type Map<string, string>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0030_compat282_std_map_std_string_std_string', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat282.ts', `class Compat282 { field: Map<string, string>; }`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0030 parse result must be object");
+          "dts2cpp_compat_map_0030_compat282_std_map_std_string_std_string parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0030 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "dts2cpp_compat_map_0030 must parse class");
+          "dts2cpp_compat_map_0030_compat282_std_map_std_string_std_string convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "dts2cpp_compat_map_0030_compat282_std_map_std_string_std_string must parse class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "dts2cpp_compat_map_0030 must parse class field");
+          "dts2cpp_compat_map_0030_compat282_std_map_std_string_std_string must parse class field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "std::map<std::string, std::string>",
           "dts2cpp_compat_map_0030_field convert output");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0030 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0030_compat282_std_map_std_string_std_string execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0031', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0031_COMPAT282_X_MAP_STRING_STRING
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0031_COMPAT282_X_MAP_STRING_STRING
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); malformed type
+   *            alias member Map<string, string>; strictEqual type alias preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0031_compat282_x_map_string_string', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat282.ts', `type Compat282 = { x: Map<string, string>; };`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0031 parse result must be object");
+          "dts2cpp_compat_map_0031_compat282_x_map_string_string parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0031 convert result must be object");
-        assert.ok(converted.types && converted.types.length >= 1, "dts2cpp_compat_map_0031 must parse type alias");
+          "dts2cpp_compat_map_0031_compat282_x_map_string_string convert result must be object");
+        assert.ok(converted.types && converted.types.length >= 1,
+          "dts2cpp_compat_map_0031_compat282_x_map_string_string must parse type alias");
         assert.strictEqual(converted.types[0].alias, "{ x: Map<string, string>; }", "dts2cpp_compat_map_0031_alias");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0031 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0031_compat282_x_map_string_string execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0032', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0032_MAP_STRING_STRING
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0032_MAP_STRING_STRING
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); trailing comma
+   *            in param list, base type unchanged; strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0032_map_string_string', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat282.ts', `function compat282(a: Map<string, string>,): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0032 parse result must be object");
+          "dts2cpp_compat_map_0032_map_string_string parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0032 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0032 must parse function");
+          "dts2cpp_compat_map_0032_map_string_string convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1,
+          "dts2cpp_compat_map_0032_map_string_string must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0032 must parse param");
+          "dts2cpp_compat_map_0032_map_string_string must parse param");
         assert.strictEqual(converted.funcs[0].parameters[0].type, "std::map<std::string, std::string>",
           "dts2cpp_compat_map_0032_param convert output");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0032 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0032_map_string_string execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0033', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0033_NUMBR
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0033_NUMBR
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); malformed type
+   *            Numbr; strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0033_numbr', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat282.ts', `function compat282(a: Numbr): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0033 parse result must be object");
+          "dts2cpp_compat_map_0033_numbr parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0033 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0033 must parse function");
+          "dts2cpp_compat_map_0033_numbr convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0033_numbr must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0033 must parse param");
-        assert.strictEqual(converted.funcs[0].parameters[0].type, "Numbr", "dts2cpp_compat_map_0033 param type");
+          "dts2cpp_compat_map_0033_numbr must parse param");
+        assert.strictEqual(converted.funcs[0].parameters[0].type, "Numbr", "dts2cpp_compat_map_0033_numbr param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0033 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0033_numbr execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0034', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0034_NUMBR
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0034_NUMBR
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); number keyword
+   *            misspelled (numbr); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0034_numbr', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat283.ts', `function compat283(a: numbr): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0034 parse result must be object");
+          "dts2cpp_compat_map_0034_numbr parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0034 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0034 must parse function");
+          "dts2cpp_compat_map_0034_numbr convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0034_numbr must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0034 must parse param");
-        assert.strictEqual(converted.funcs[0].parameters[0].type, "numbr", "dts2cpp_compat_map_0034 param type");
+          "dts2cpp_compat_map_0034_numbr must parse param");
+        assert.strictEqual(converted.funcs[0].parameters[0].type, "numbr", "dts2cpp_compat_map_0034_numbr param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0034 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0034_numbr execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0035', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0035_STRNG
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0035_STRNG
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); string keyword
+   *            misspelled (strng); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0035_strng', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat283.ts', `function compat283(a: strng): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0035 parse result must be object");
+          "dts2cpp_compat_map_0035_strng parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0035 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0035 must parse function");
+          "dts2cpp_compat_map_0035_strng convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0035_strng must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0035 must parse param");
-        assert.strictEqual(converted.funcs[0].parameters[0].type, "strng", "dts2cpp_compat_map_0035 param type");
+          "dts2cpp_compat_map_0035_strng must parse param");
+        assert.strictEqual(converted.funcs[0].parameters[0].type, "strng", "dts2cpp_compat_map_0035_strng param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0035 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0035_strng execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0036', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0036_BOOLEA
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0036_BOOLEA
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); boolean
+   *            keyword misspelled (boolea); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0036_boolea', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat283.ts', `function compat283(a: boolea): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0036 parse result must be object");
+          "dts2cpp_compat_map_0036_boolea parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0036 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0036 must parse function");
+          "dts2cpp_compat_map_0036_boolea convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0036_boolea must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0036 must parse param");
-        assert.strictEqual(converted.funcs[0].parameters[0].type, "boolea", "dts2cpp_compat_map_0036 param type");
+          "dts2cpp_compat_map_0036_boolea must parse param");
+        assert.strictEqual(converted.funcs[0].parameters[0].type, "boolea",
+          "dts2cpp_compat_map_0036_boolea param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0036 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0036_boolea execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0037', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0037_MAP_STRING_BOOLEAN
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0037_MAP_STRING_BOOLEAN
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); boolean
+   *            keyword misspelled (Map<string, boolean>); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0037_map_string_boolean', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat283.ts', `function compat283(a: Map<string, boolean>): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0037 parse result must be object");
+          "dts2cpp_compat_map_0037_map_string_boolean parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0037 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0037 must parse function");
+          "dts2cpp_compat_map_0037_map_string_boolean convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1,
+          "dts2cpp_compat_map_0037_map_string_boolean must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0037 must parse param");
+          "dts2cpp_compat_map_0037_map_string_boolean must parse param");
         assert.strictEqual(converted.funcs[0].parameters[0].type, "std::map<std::string, bool>",
           "dts2cpp_compat_map_0037_param");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0037 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0037_map_string_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0038', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0038_BADTYPE283_MAP_STRING_BOOLEAN
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0038_BADTYPE283_MAP_STRING_BOOLEAN
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); boolean
+   *            keyword misspelled (BadType283_Map_string__boolean_); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0038_badtype283_map_string_boolean', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat283.ts', `function compat283(a: BadType283_Map_string__boolean_): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0038 parse result must be object");
+          "dts2cpp_compat_map_0038_badtype283_map_string_boolean parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0038 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0038 must parse function");
+          "dts2cpp_compat_map_0038_badtype283_map_string_boolean convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1,
+          "dts2cpp_compat_map_0038_badtype283_map_string_boolean must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0038 must parse param");
+          "dts2cpp_compat_map_0038_badtype283_map_string_boolean must parse param");
         assert.strictEqual(converted.funcs[0].parameters[0].type, "BadType283_Map_string__boolean_",
           "dts2cpp_compat_map_0038_param");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0038 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0038_badtype283_map_string_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0039', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0039_ANNY
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0039_ANNY
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); any keyword
+   *            misspelled to anny (anny); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0039_anny', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat283.ts', `function compat283(a: anny): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0039 parse result must be object");
+          "dts2cpp_compat_map_0039_anny parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0039 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0039 must parse function");
+          "dts2cpp_compat_map_0039_anny convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0039_anny must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0039 must parse param");
-        assert.strictEqual(converted.funcs[0].parameters[0].type, "anny", "dts2cpp_compat_map_0039 param type");
+          "dts2cpp_compat_map_0039_anny must parse param");
+        assert.strictEqual(converted.funcs[0].parameters[0].type, "anny", "dts2cpp_compat_map_0039_anny param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0039 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0039_anny execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0040', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0040_COMPAT283_STD_MAP_STD_STRING_BOOL
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0040_COMPAT283_STD_MAP_STD_STRING_BOOL
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); malformed
+   *            class field type Map<string, boolean>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0040_compat283_std_map_std_string_bool', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat283.ts', `class Compat283 { field: Map<string, boolean>; }`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0040 parse result must be object");
+          "dts2cpp_compat_map_0040_compat283_std_map_std_string_bool parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0040 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "dts2cpp_compat_map_0040 must parse class");
+          "dts2cpp_compat_map_0040_compat283_std_map_std_string_bool convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "dts2cpp_compat_map_0040_compat283_std_map_std_string_bool must parse class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "dts2cpp_compat_map_0040 must parse class field");
+          "dts2cpp_compat_map_0040_compat283_std_map_std_string_bool must parse class field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "std::map<std::string, bool>",
           "dts2cpp_compat_map_0040_field convert output");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0040 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0040_compat283_std_map_std_string_bool execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0041', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0041_COMPAT283_X_MAP_STRING_BOOLEAN
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0041_COMPAT283_X_MAP_STRING_BOOLEAN
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); malformed type
+   *            alias member Map<string, boolean>; strictEqual type alias preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0041_compat283_x_map_string_boolean', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat283.ts', `type Compat283 = { x: Map<string, boolean>; };`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0041 parse result must be object");
+          "dts2cpp_compat_map_0041_compat283_x_map_string_boolean parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0041 convert result must be object");
-        assert.ok(converted.types && converted.types.length >= 1, "dts2cpp_compat_map_0041 must parse type alias");
+          "dts2cpp_compat_map_0041_compat283_x_map_string_boolean convert result must be object");
+        assert.ok(converted.types && converted.types.length >= 1,
+          "dts2cpp_compat_map_0041_compat283_x_map_string_boolean must parse type alias");
         assert.strictEqual(converted.types[0].alias, "{ x: Map<string, boolean>; }", "dts2cpp_compat_map_0041_alias");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0041 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0041_compat283_x_map_string_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0042', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0042_MAP_STRING_BOOLEAN
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0042_MAP_STRING_BOOLEAN
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); trailing comma
+   *            in param list, base type unchanged; strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0042_map_string_boolean', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat283.ts', `function compat283(a: Map<string, boolean>,): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0042 parse result must be object");
+          "dts2cpp_compat_map_0042_map_string_boolean parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0042 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0042 must parse function");
+          "dts2cpp_compat_map_0042_map_string_boolean convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1,
+          "dts2cpp_compat_map_0042_map_string_boolean must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0042 must parse param");
+          "dts2cpp_compat_map_0042_map_string_boolean must parse param");
         assert.strictEqual(converted.funcs[0].parameters[0].type, "std::map<std::string, bool>",
           "dts2cpp_compat_map_0042_param convert output");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0042 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0042_map_string_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0043', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0043_NUMBR
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0043_NUMBR
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); malformed type
+   *            Numbr; strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0043_numbr', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat283.ts', `function compat283(a: Numbr): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0043 parse result must be object");
+          "dts2cpp_compat_map_0043_numbr parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0043 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0043 must parse function");
+          "dts2cpp_compat_map_0043_numbr convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0043_numbr must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0043 must parse param");
-        assert.strictEqual(converted.funcs[0].parameters[0].type, "Numbr", "dts2cpp_compat_map_0043 param type");
+          "dts2cpp_compat_map_0043_numbr must parse param");
+        assert.strictEqual(converted.funcs[0].parameters[0].type, "Numbr", "dts2cpp_compat_map_0043_numbr param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0043 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0043_numbr execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0044', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0044_NUMBR
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0044_NUMBR
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); number keyword
+   *            misspelled (numbr); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0044_numbr', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat284.ts', `function compat284(a: numbr): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0044 parse result must be object");
+          "dts2cpp_compat_map_0044_numbr parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0044 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0044 must parse function");
+          "dts2cpp_compat_map_0044_numbr convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0044_numbr must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0044 must parse param");
-        assert.strictEqual(converted.funcs[0].parameters[0].type, "numbr", "dts2cpp_compat_map_0044 param type");
+          "dts2cpp_compat_map_0044_numbr must parse param");
+        assert.strictEqual(converted.funcs[0].parameters[0].type, "numbr", "dts2cpp_compat_map_0044_numbr param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0044 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0044_numbr execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0045', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0045_STRNG
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0045_STRNG
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); string keyword
+   *            misspelled (strng); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0045_strng', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat284.ts', `function compat284(a: strng): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0045 parse result must be object");
+          "dts2cpp_compat_map_0045_strng parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0045 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0045 must parse function");
+          "dts2cpp_compat_map_0045_strng convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0045_strng must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0045 must parse param");
-        assert.strictEqual(converted.funcs[0].parameters[0].type, "strng", "dts2cpp_compat_map_0045 param type");
+          "dts2cpp_compat_map_0045_strng must parse param");
+        assert.strictEqual(converted.funcs[0].parameters[0].type, "strng", "dts2cpp_compat_map_0045_strng param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0045 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0045_strng execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0046', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0046_BOOLEA
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0046_BOOLEA
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); boolean
+   *            keyword misspelled (boolea); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0046_boolea', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat284.ts', `function compat284(a: boolea): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0046 parse result must be object");
+          "dts2cpp_compat_map_0046_boolea parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0046 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0046 must parse function");
+          "dts2cpp_compat_map_0046_boolea convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0046_boolea must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0046 must parse param");
-        assert.strictEqual(converted.funcs[0].parameters[0].type, "boolea", "dts2cpp_compat_map_0046 param type");
+          "dts2cpp_compat_map_0046_boolea must parse param");
+        assert.strictEqual(converted.funcs[0].parameters[0].type, "boolea",
+          "dts2cpp_compat_map_0046_boolea param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0046 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0046_boolea execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0047', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0047_MAP_NUMBER_NUMBER
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0047_MAP_NUMBER_NUMBER
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); malformed type
+   *            Map<number, number>; strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0047_map_number_number', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat284.ts', `function compat284(a: Map<number, number>): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0047 parse result must be object");
+          "dts2cpp_compat_map_0047_map_number_number parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0047 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0047 must parse function");
+          "dts2cpp_compat_map_0047_map_number_number convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1,
+          "dts2cpp_compat_map_0047_map_number_number must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0047 must parse param");
+          "dts2cpp_compat_map_0047_map_number_number must parse param");
         assert.strictEqual(converted.funcs[0].parameters[0].type, "std::map<double, double>",
           "dts2cpp_compat_map_0047_param");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0047 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0047_map_number_number execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0048', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0048_BADTYPE284_MAP_NUMBER_NUMBER
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0048_BADTYPE284_MAP_NUMBER_NUMBER
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); replaced with
+   *            BadType token (BadType284_Map_number__number_); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0048_badtype284_map_number_number', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat284.ts', `function compat284(a: BadType284_Map_number__number_): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0048 parse result must be object");
+          "dts2cpp_compat_map_0048_badtype284_map_number_number parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0048 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0048 must parse function");
+          "dts2cpp_compat_map_0048_badtype284_map_number_number convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1,
+          "dts2cpp_compat_map_0048_badtype284_map_number_number must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0048 must parse param");
+          "dts2cpp_compat_map_0048_badtype284_map_number_number must parse param");
         assert.strictEqual(converted.funcs[0].parameters[0].type, "BadType284_Map_number__number_",
           "dts2cpp_compat_map_0048_param");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0048 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0048_badtype284_map_number_number execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0049', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0049_ANNY
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0049_ANNY
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); any keyword
+   *            misspelled to anny (anny); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0049_anny', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat284.ts', `function compat284(a: anny): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0049 parse result must be object");
+          "dts2cpp_compat_map_0049_anny parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0049 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0049 must parse function");
+          "dts2cpp_compat_map_0049_anny convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0049_anny must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0049 must parse param");
-        assert.strictEqual(converted.funcs[0].parameters[0].type, "anny", "dts2cpp_compat_map_0049 param type");
+          "dts2cpp_compat_map_0049_anny must parse param");
+        assert.strictEqual(converted.funcs[0].parameters[0].type, "anny", "dts2cpp_compat_map_0049_anny param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0049 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0049_anny execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0050', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0050_COMPAT284_STD_MAP_DOUBLE_DOUBLE
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0050_COMPAT284_STD_MAP_DOUBLE_DOUBLE
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); malformed
+   *            class field type Map<number, number>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0050_compat284_std_map_double_double', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat284.ts', `class Compat284 { field: Map<number, number>; }`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0050 parse result must be object");
+          "dts2cpp_compat_map_0050_compat284_std_map_double_double parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0050 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "dts2cpp_compat_map_0050 must parse class");
+          "dts2cpp_compat_map_0050_compat284_std_map_double_double convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "dts2cpp_compat_map_0050_compat284_std_map_double_double must parse class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "dts2cpp_compat_map_0050 must parse class field");
+          "dts2cpp_compat_map_0050_compat284_std_map_double_double must parse class field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "std::map<double, double>",
           "dts2cpp_compat_map_0050_field convert output");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0050 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0050_compat284_std_map_double_double execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0051', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0051_COMPAT284_X_MAP_NUMBER_NUMBER
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0051_COMPAT284_X_MAP_NUMBER_NUMBER
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); malformed type
+   *            alias member Map<number, number>; strictEqual type alias preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0051_compat284_x_map_number_number', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat284.ts', `type Compat284 = { x: Map<number, number>; };`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0051 parse result must be object");
+          "dts2cpp_compat_map_0051_compat284_x_map_number_number parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0051 convert result must be object");
-        assert.ok(converted.types && converted.types.length >= 1, "dts2cpp_compat_map_0051 must parse type alias");
+          "dts2cpp_compat_map_0051_compat284_x_map_number_number convert result must be object");
+        assert.ok(converted.types && converted.types.length >= 1,
+          "dts2cpp_compat_map_0051_compat284_x_map_number_number must parse type alias");
         assert.strictEqual(converted.types[0].alias, "{ x: Map<number, number>; }", "dts2cpp_compat_map_0051_alias");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0051 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0051_compat284_x_map_number_number execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0052', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0052_MAP_NUMBER_NUMBER
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0052_MAP_NUMBER_NUMBER
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); trailing comma
+   *            in param list, base type unchanged; strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0052_map_number_number', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat284.ts', `function compat284(a: Map<number, number>,): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0052 parse result must be object");
+          "dts2cpp_compat_map_0052_map_number_number parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0052 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0052 must parse function");
+          "dts2cpp_compat_map_0052_map_number_number convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1,
+          "dts2cpp_compat_map_0052_map_number_number must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0052 must parse param");
+          "dts2cpp_compat_map_0052_map_number_number must parse param");
         assert.strictEqual(converted.funcs[0].parameters[0].type, "std::map<double, double>",
           "dts2cpp_compat_map_0052_param convert output");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0052 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0052_map_number_number execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0053', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0053_NUMBR
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0053_NUMBR
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); malformed type
+   *            Numbr; strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0053_numbr', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat284.ts', `function compat284(a: Numbr): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0053 parse result must be object");
+          "dts2cpp_compat_map_0053_numbr parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0053 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0053 must parse function");
+          "dts2cpp_compat_map_0053_numbr convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0053_numbr must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0053 must parse param");
-        assert.strictEqual(converted.funcs[0].parameters[0].type, "Numbr", "dts2cpp_compat_map_0053 param type");
+          "dts2cpp_compat_map_0053_numbr must parse param");
+        assert.strictEqual(converted.funcs[0].parameters[0].type, "Numbr", "dts2cpp_compat_map_0053_numbr param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0053 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0053_numbr execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0054', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0054_NUMBR
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0054_NUMBR
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); number keyword
+   *            misspelled (numbr); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0054_numbr', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat285.ts', `function compat285(a: numbr): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0054 parse result must be object");
+          "dts2cpp_compat_map_0054_numbr parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0054 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0054 must parse function");
+          "dts2cpp_compat_map_0054_numbr convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0054_numbr must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0054 must parse param");
-        assert.strictEqual(converted.funcs[0].parameters[0].type, "numbr", "dts2cpp_compat_map_0054 param type");
+          "dts2cpp_compat_map_0054_numbr must parse param");
+        assert.strictEqual(converted.funcs[0].parameters[0].type, "numbr", "dts2cpp_compat_map_0054_numbr param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0054 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0054_numbr execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0055', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0055_STRNG
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0055_STRNG
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); string keyword
+   *            misspelled (strng); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0055_strng', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat285.ts', `function compat285(a: strng): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0055 parse result must be object");
+          "dts2cpp_compat_map_0055_strng parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0055 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0055 must parse function");
+          "dts2cpp_compat_map_0055_strng convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0055_strng must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0055 must parse param");
-        assert.strictEqual(converted.funcs[0].parameters[0].type, "strng", "dts2cpp_compat_map_0055 param type");
+          "dts2cpp_compat_map_0055_strng must parse param");
+        assert.strictEqual(converted.funcs[0].parameters[0].type, "strng", "dts2cpp_compat_map_0055_strng param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0055 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0055_strng execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0056', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0056_BOOLEA
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0056_BOOLEA
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); boolean
+   *            keyword misspelled (boolea); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0056_boolea', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat285.ts', `function compat285(a: boolea): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0056 parse result must be object");
+          "dts2cpp_compat_map_0056_boolea parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0056 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0056 must parse function");
+          "dts2cpp_compat_map_0056_boolea convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0056_boolea must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0056 must parse param");
-        assert.strictEqual(converted.funcs[0].parameters[0].type, "boolea", "dts2cpp_compat_map_0056 param type");
+          "dts2cpp_compat_map_0056_boolea must parse param");
+        assert.strictEqual(converted.funcs[0].parameters[0].type, "boolea",
+          "dts2cpp_compat_map_0056_boolea param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0056 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0056_boolea execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0057', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0057_MAP_NUMBER_STRING
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0057_MAP_NUMBER_STRING
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); malformed type
+   *            Map<number, string>; strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0057_map_number_string', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat285.ts', `function compat285(a: Map<number, string>): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0057 parse result must be object");
+          "dts2cpp_compat_map_0057_map_number_string parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0057 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0057 must parse function");
+          "dts2cpp_compat_map_0057_map_number_string convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1,
+          "dts2cpp_compat_map_0057_map_number_string must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0057 must parse param");
+          "dts2cpp_compat_map_0057_map_number_string must parse param");
         assert.strictEqual(converted.funcs[0].parameters[0].type, "std::map<double, std::string>",
           "dts2cpp_compat_map_0057_param");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0057 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0057_map_number_string execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0058', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0058_BADTYPE285_MAP_NUMBER_STRING
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0058_BADTYPE285_MAP_NUMBER_STRING
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); replaced with
+   *            BadType token (BadType285_Map_number__string_); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0058_badtype285_map_number_string', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat285.ts', `function compat285(a: BadType285_Map_number__string_): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0058 parse result must be object");
+          "dts2cpp_compat_map_0058_badtype285_map_number_string parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0058 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0058 must parse function");
+          "dts2cpp_compat_map_0058_badtype285_map_number_string convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1,
+          "dts2cpp_compat_map_0058_badtype285_map_number_string must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0058 must parse param");
+          "dts2cpp_compat_map_0058_badtype285_map_number_string must parse param");
         assert.strictEqual(converted.funcs[0].parameters[0].type, "BadType285_Map_number__string_",
           "dts2cpp_compat_map_0058_param");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0058 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0058_badtype285_map_number_string execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0059', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0059_ANNY
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0059_ANNY
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); any keyword
+   *            misspelled to anny (anny); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0059_anny', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat285.ts', `function compat285(a: anny): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0059 parse result must be object");
+          "dts2cpp_compat_map_0059_anny parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0059 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0059 must parse function");
+          "dts2cpp_compat_map_0059_anny convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0059_anny must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0059 must parse param");
-        assert.strictEqual(converted.funcs[0].parameters[0].type, "anny", "dts2cpp_compat_map_0059 param type");
+          "dts2cpp_compat_map_0059_anny must parse param");
+        assert.strictEqual(converted.funcs[0].parameters[0].type, "anny", "dts2cpp_compat_map_0059_anny param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0059 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0059_anny execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0060', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0060_COMPAT285_STD_MAP_DOUBLE_STD_STRING
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0060_COMPAT285_STD_MAP_DOUBLE_STD_STRING
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); malformed
+   *            class field type Map<number, string>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0060_compat285_std_map_double_std_string', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat285.ts', `class Compat285 { field: Map<number, string>; }`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0060 parse result must be object");
+          "dts2cpp_compat_map_0060_compat285_std_map_double_std_string parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0060 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "dts2cpp_compat_map_0060 must parse class");
+          "dts2cpp_compat_map_0060_compat285_std_map_double_std_string convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "dts2cpp_compat_map_0060_compat285_std_map_double_std_string must parse class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "dts2cpp_compat_map_0060 must parse class field");
+          "dts2cpp_compat_map_0060_compat285_std_map_double_std_string must parse class field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "std::map<double, std::string>",
           "dts2cpp_compat_map_0060_field convert output");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0060 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0060_compat285_std_map_double_std_string execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0061', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0061_COMPAT285_X_MAP_NUMBER_STRING
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0061_COMPAT285_X_MAP_NUMBER_STRING
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); malformed type
+   *            alias member Map<number, string>; strictEqual type alias preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0061_compat285_x_map_number_string', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat285.ts', `type Compat285 = { x: Map<number, string>; };`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0061 parse result must be object");
+          "dts2cpp_compat_map_0061_compat285_x_map_number_string parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0061 convert result must be object");
-        assert.ok(converted.types && converted.types.length >= 1, "dts2cpp_compat_map_0061 must parse type alias");
+          "dts2cpp_compat_map_0061_compat285_x_map_number_string convert result must be object");
+        assert.ok(converted.types && converted.types.length >= 1,
+          "dts2cpp_compat_map_0061_compat285_x_map_number_string must parse type alias");
         assert.strictEqual(converted.types[0].alias, "{ x: Map<number, string>; }", "dts2cpp_compat_map_0061_alias");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0061 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0061_compat285_x_map_number_string execution error: ${String(err)}`);
     }
   });
 
-  test('dts2cpp_compat_map_0062', function() {
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_MAP_0062_MAP_NUMBER_STRING
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_MAP_0062_MAP_NUMBER_STRING
+   * @tc.desc   Stability compat dts2cpp/map: runCompatSafe(doParseTs+transParseObj); trailing comma
+   *            in param list, base type unchanged; strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_map_0062_map_number_string', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const parsed = doParseTs('compat285.ts', `function compat285(a: Map<number, string>,): void {}`);
         assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0062 parse result must be object");
+          "dts2cpp_compat_map_0062_map_number_string parse result must be object");
         const converted = transParseObj(parsed);
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0062 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0062 must parse function");
+          "dts2cpp_compat_map_0062_map_number_string convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1,
+          "dts2cpp_compat_map_0062_map_number_string must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0062 must parse param");
+          "dts2cpp_compat_map_0062_map_number_string must parse param");
         assert.strictEqual(converted.funcs[0].parameters[0].type, "std::map<double, std::string>",
           "dts2cpp_compat_map_0062_param convert output");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0062 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_map_0063', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat285.ts', `function compat285(a: Numbr): void {}`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0063 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0063 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0063 must parse function");
-        assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0063 must parse param");
-        assert.strictEqual(converted.funcs[0].parameters[0].type, "Numbr", "dts2cpp_compat_map_0063 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0063 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_map_0064', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat286.ts', `function compat286(a: numbr): void {}`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0064 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0064 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0064 must parse function");
-        assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0064 must parse param");
-        assert.strictEqual(converted.funcs[0].parameters[0].type, "numbr", "dts2cpp_compat_map_0064 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0064 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_map_0065', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat286.ts', `function compat286(a: strng): void {}`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0065 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0065 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0065 must parse function");
-        assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0065 must parse param");
-        assert.strictEqual(converted.funcs[0].parameters[0].type, "strng", "dts2cpp_compat_map_0065 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0065 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_map_0066', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat286.ts', `function compat286(a: boolea): void {}`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0066 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0066 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0066 must parse function");
-        assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0066 must parse param");
-        assert.strictEqual(converted.funcs[0].parameters[0].type, "boolea", "dts2cpp_compat_map_0066 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0066 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_map_0067', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat286.ts', `function compat286(a: Map<number, boolean>): void {}`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0067 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0067 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0067 must parse function");
-        assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0067 must parse param");
-        assert.strictEqual(converted.funcs[0].parameters[0].type, "std::map<double, bool>", "dts2cpp_compat_map_0067_param");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0067 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_map_0068', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat286.ts', `function compat286(a: BadType286_Map_number__boolean_): void {}`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0068 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0068 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0068 must parse function");
-        assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0068 must parse param");
-        assert.strictEqual(converted.funcs[0].parameters[0].type, "BadType286_Map_number__boolean_",
-          "dts2cpp_compat_map_0068_param");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0068 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_map_0069', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat286.ts', `function compat286(a: anny): void {}`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0069 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0069 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0069 must parse function");
-        assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0069 must parse param");
-        assert.strictEqual(converted.funcs[0].parameters[0].type, "anny", "dts2cpp_compat_map_0069 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0069 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_map_0070', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat286.ts', `class Compat286 { field: Map<number, boolean>; }`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0070 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0070 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "dts2cpp_compat_map_0070 must parse class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "dts2cpp_compat_map_0070 must parse class field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "std::map<double, bool>",
-          "dts2cpp_compat_map_0070_field convert output");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0070 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_map_0071', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat286.ts', `type Compat286 = { x: Map<number, boolean>; };`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0071 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0071 convert result must be object");
-        assert.ok(converted.types && converted.types.length >= 1, "dts2cpp_compat_map_0071 must parse type alias");
-        assert.strictEqual(converted.types[0].alias, "{ x: Map<number, boolean>; }", "dts2cpp_compat_map_0071_alias");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0071 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_map_0072', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat286.ts', `function compat286(a: Map<number, boolean>,): void {}`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0072 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0072 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0072 must parse function");
-        assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0072 must parse param");
-        assert.strictEqual(converted.funcs[0].parameters[0].type, "std::map<double, bool>",
-          "dts2cpp_compat_map_0072_param convert output");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0072 execution error: ${String(err)}`);
-    }
-  });
-
-  test('dts2cpp_compat_map_0073', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const parsed = doParseTs('compat286.ts', `function compat286(a: Numbr): void {}`);
-        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
-          "dts2cpp_compat_map_0073 parse result must be object");
-        const converted = transParseObj(parsed);
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "dts2cpp_compat_map_0073 convert result must be object");
-        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_map_0073 must parse function");
-        assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
-          "dts2cpp_compat_map_0073 must parse param");
-        assert.strictEqual(converted.funcs[0].parameters[0].type, "Numbr", "dts2cpp_compat_map_0073 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`dts2cpp_compat_map_0073 execution error: ${String(err)}`);
+      assert.fail(`dts2cpp_compat_map_0062_map_number_string execution error: ${String(err)}`);
     }
   });
 });

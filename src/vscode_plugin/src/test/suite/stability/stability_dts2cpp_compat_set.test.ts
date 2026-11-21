@@ -19,11 +19,19 @@ import { transCkey2Dtskey, transParseObj, generateFunctions } from '../../../gen
 import { doParseTs } from '../../../parse/parsets';
 import { runCompatSafe } from './stability_helpers';
 
-suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
+suite('Stability_DTS2CPP_COMPAT_SET', function() {
   this.timeout(600000);
   vscode.window.showInformationMessage('Start Stability_DTS2CPP_COMPAT_SET_Part01.');
 
-
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0001
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0001
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); number keyword
+   *            misspelled (numbr); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_compat_set_0001', function() {
     this.timeout(15000);
     try {
@@ -45,6 +53,15 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0002
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0002
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); string keyword
+   *            misspelled (strng); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_compat_set_0002', function() {
     this.timeout(15000);
     try {
@@ -66,6 +83,15 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0003
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0003
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); boolean
+   *            keyword misspelled (boolea); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_compat_set_0003', function() {
     this.timeout(15000);
     try {
@@ -87,6 +113,15 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0004
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0004
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); malformed type
+   *            Set<string>; strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_compat_set_0004', function() {
     this.timeout(15000);
     try {
@@ -100,7 +135,8 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
         assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_set_0004 must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
           "dts2cpp_compat_set_0004 must parse param");
-        assert.strictEqual(converted.funcs[0].parameters[0].type, "std::set<std::string>", "dts2cpp_compat_set_0004_param");
+        assert.strictEqual(converted.funcs[0].parameters[0].type, "std::set<std::string>",
+          "dts2cpp_compat_set_0004_param");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
@@ -108,6 +144,15 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0005
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0005
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); replaced with
+   *            BadType token (BadType17_Set_string_); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_compat_set_0005', function() {
     this.timeout(15000);
     try {
@@ -121,7 +166,8 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
         assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_set_0005 must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
           "dts2cpp_compat_set_0005 must parse param");
-        assert.strictEqual(converted.funcs[0].parameters[0].type, "BadType17_Set_string_", "dts2cpp_compat_set_0005_param");
+        assert.strictEqual(converted.funcs[0].parameters[0].type, "BadType17_Set_string_",
+          "dts2cpp_compat_set_0005_param");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
@@ -129,6 +175,15 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0006
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0006
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); any keyword
+   *            misspelled to anny (anny); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_compat_set_0006', function() {
     this.timeout(15000);
     try {
@@ -150,6 +205,15 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0007
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0007
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); malformed
+   *            class field type Set<string>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_compat_set_0007', function() {
     this.timeout(15000);
     try {
@@ -172,6 +236,15 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0008
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0008
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); malformed type
+   *            alias member Set<string>; strictEqual type alias preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_compat_set_0008', function() {
     this.timeout(15000);
     try {
@@ -191,6 +264,15 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0009
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0009
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); trailing comma
+   *            in param list, base type unchanged; strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_compat_set_0009', function() {
     this.timeout(15000);
     try {
@@ -213,6 +295,15 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0010
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0010
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); malformed type
+   *            Numbr; strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_compat_set_0010', function() {
     this.timeout(15000);
     try {
@@ -234,6 +325,15 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0011
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0011
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); number keyword
+   *            misspelled (numbr); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_compat_set_0011', function() {
     this.timeout(15000);
     try {
@@ -255,6 +355,15 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0012
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0012
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); string keyword
+   *            misspelled (strng); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_compat_set_0012', function() {
     this.timeout(15000);
     try {
@@ -276,6 +385,15 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0013
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0013
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); boolean
+   *            keyword misspelled (boolea); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_compat_set_0013', function() {
     this.timeout(15000);
     try {
@@ -297,6 +415,15 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0014
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0014
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); malformed type
+   *            Set<number>; strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_compat_set_0014', function() {
     this.timeout(15000);
     try {
@@ -318,6 +445,15 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0015
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0015
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); replaced with
+   *            BadType token (BadType18_Set_number_); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_compat_set_0015', function() {
     this.timeout(15000);
     try {
@@ -331,7 +467,8 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
         assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_set_0015 must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
           "dts2cpp_compat_set_0015 must parse param");
-        assert.strictEqual(converted.funcs[0].parameters[0].type, "BadType18_Set_number_", "dts2cpp_compat_set_0015_param");
+        assert.strictEqual(converted.funcs[0].parameters[0].type, "BadType18_Set_number_",
+          "dts2cpp_compat_set_0015_param");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
@@ -339,6 +476,15 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0016
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0016
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); any keyword
+   *            misspelled to anny (anny); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_compat_set_0016', function() {
     this.timeout(15000);
     try {
@@ -360,6 +506,15 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0017
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0017
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); malformed
+   *            class field type Set<number>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_compat_set_0017', function() {
     this.timeout(15000);
     try {
@@ -382,6 +537,15 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0018
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0018
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); malformed type
+   *            alias member Set<number>; strictEqual type alias preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_compat_set_0018', function() {
     this.timeout(15000);
     try {
@@ -401,6 +565,15 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0019
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0019
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); trailing comma
+   *            in param list, base type unchanged; strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_compat_set_0019', function() {
     this.timeout(15000);
     try {
@@ -423,6 +596,15 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0020
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0020
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); malformed type
+   *            Numbr; strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_compat_set_0020', function() {
     this.timeout(15000);
     try {
@@ -444,6 +626,15 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0021
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0021
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); number keyword
+   *            misspelled (numbr); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_compat_set_0021', function() {
     this.timeout(15000);
     try {
@@ -465,6 +656,15 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0022
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0022
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); string keyword
+   *            misspelled (strng); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_compat_set_0022', function() {
     this.timeout(15000);
     try {
@@ -486,6 +686,15 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0023
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0023
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); boolean
+   *            keyword misspelled (boolea); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_compat_set_0023', function() {
     this.timeout(15000);
     try {
@@ -507,6 +716,15 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0024
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0024
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); boolean
+   *            keyword misspelled (Set<boolean>); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_compat_set_0024', function() {
     this.timeout(15000);
     try {
@@ -528,6 +746,15 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0025
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0025
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); boolean
+   *            keyword misspelled (BadType19_Set_boolean_); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_compat_set_0025', function() {
     this.timeout(15000);
     try {
@@ -541,7 +768,8 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
         assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_set_0025 must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
           "dts2cpp_compat_set_0025 must parse param");
-        assert.strictEqual(converted.funcs[0].parameters[0].type, "BadType19_Set_boolean_", "dts2cpp_compat_set_0025_param");
+        assert.strictEqual(converted.funcs[0].parameters[0].type, "BadType19_Set_boolean_",
+          "dts2cpp_compat_set_0025_param");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
@@ -549,6 +777,15 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0026
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0026
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); any keyword
+   *            misspelled to anny (anny); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_compat_set_0026', function() {
     this.timeout(15000);
     try {
@@ -570,6 +807,15 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0027
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0027
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); malformed
+   *            class field type Set<boolean>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_compat_set_0027', function() {
     this.timeout(15000);
     try {
@@ -592,6 +838,15 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0028
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0028
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); malformed type
+   *            alias member Set<boolean>; strictEqual type alias preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_compat_set_0028', function() {
     this.timeout(15000);
     try {
@@ -611,6 +866,15 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0029
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0029
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); trailing comma
+   *            in param list, base type unchanged; strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_compat_set_0029', function() {
     this.timeout(15000);
     try {
@@ -633,6 +897,15 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0030
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0030
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); malformed type
+   *            Numbr; strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_compat_set_0030', function() {
     this.timeout(15000);
     try {
@@ -654,6 +927,15 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0031
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0031
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); number keyword
+   *            misspelled (numbr); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_compat_set_0031', function() {
     this.timeout(15000);
     try {
@@ -675,6 +957,15 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0032
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0032
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); string keyword
+   *            misspelled (strng); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_compat_set_0032', function() {
     this.timeout(15000);
     try {
@@ -696,6 +987,15 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0033
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0033
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); boolean
+   *            keyword misspelled (boolea); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_compat_set_0033', function() {
     this.timeout(15000);
     try {
@@ -717,6 +1017,15 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0034
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0034
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); malformed type
+   *            Set<any>; strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_compat_set_0034', function() {
     this.timeout(15000);
     try {
@@ -738,6 +1047,15 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0035
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0035
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); replaced with
+   *            BadType token (BadType67_Set_any_); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_compat_set_0035', function() {
     this.timeout(15000);
     try {
@@ -751,7 +1069,8 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
         assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_set_0035 must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
           "dts2cpp_compat_set_0035 must parse param");
-        assert.strictEqual(converted.funcs[0].parameters[0].type, "BadType67_Set_any_", "dts2cpp_compat_set_0035_param");
+        assert.strictEqual(converted.funcs[0].parameters[0].type, "BadType67_Set_any_",
+          "dts2cpp_compat_set_0035_param");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
@@ -759,6 +1078,15 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0036
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0036
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); any keyword
+   *            misspelled to anny (anny); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_compat_set_0036', function() {
     this.timeout(15000);
     try {
@@ -780,6 +1108,15 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0037
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0037
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); malformed
+   *            class field type Set<any>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_compat_set_0037', function() {
     this.timeout(15000);
     try {
@@ -802,6 +1139,15 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0038
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0038
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); malformed type
+   *            alias member Set<any>; strictEqual type alias preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_compat_set_0038', function() {
     this.timeout(15000);
     try {
@@ -821,6 +1167,15 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0039
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0039
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); trailing comma
+   *            in param list, base type unchanged; strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_compat_set_0039', function() {
     this.timeout(15000);
     try {
@@ -843,6 +1198,15 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0040
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0040
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); malformed type
+   *            Numbr; strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_compat_set_0040', function() {
     this.timeout(15000);
     try {
@@ -864,6 +1228,15 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0041
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0041
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); number keyword
+   *            misspelled (numbr); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_compat_set_0041', function() {
     this.timeout(15000);
     try {
@@ -885,6 +1258,15 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0042
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0042
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); string keyword
+   *            misspelled (strng); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_compat_set_0042', function() {
     this.timeout(15000);
     try {
@@ -906,6 +1288,15 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0043
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0043
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); boolean
+   *            keyword misspelled (boolea); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_compat_set_0043', function() {
     this.timeout(15000);
     try {
@@ -927,6 +1318,15 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0044
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0044
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); malformed type
+   *            Set<object>; strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_compat_set_0044', function() {
     this.timeout(15000);
     try {
@@ -948,6 +1348,15 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0045
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0045
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); replaced with
+   *            BadType token (BadType68_Set_object_); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_compat_set_0045', function() {
     this.timeout(15000);
     try {
@@ -961,7 +1370,8 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
         assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_set_0045 must parse function");
         assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
           "dts2cpp_compat_set_0045 must parse param");
-        assert.strictEqual(converted.funcs[0].parameters[0].type, "BadType68_Set_object_", "dts2cpp_compat_set_0045_param");
+        assert.strictEqual(converted.funcs[0].parameters[0].type, "BadType68_Set_object_",
+          "dts2cpp_compat_set_0045_param");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
@@ -969,6 +1379,15 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0046
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0046
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); any keyword
+   *            misspelled to anny (anny); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_compat_set_0046', function() {
     this.timeout(15000);
     try {
@@ -990,6 +1409,15 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0047
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0047
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); malformed
+   *            class field type Set<object>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_compat_set_0047', function() {
     this.timeout(15000);
     try {
@@ -1012,6 +1440,15 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0048
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0048
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); malformed type
+   *            alias member Set<object>; strictEqual type alias preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_compat_set_0048', function() {
     this.timeout(15000);
     try {
@@ -1031,6 +1468,15 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0049
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0049
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); trailing comma
+   *            in param list, base type unchanged; strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_compat_set_0049', function() {
     this.timeout(15000);
     try {
@@ -1053,6 +1499,15 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0050
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0050
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); malformed type
+   *            Numbr; strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('dts2cpp_compat_set_0050', function() {
     this.timeout(15000);
     try {
@@ -1071,6 +1526,123 @@ suite('Stability_DTS2CPP_COMPAT_SET_Part01', function() {
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
       assert.fail(`dts2cpp_compat_set_0050 execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0051
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0051
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); tag suffix on
+   *            array element (Set<number_any>[]); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_set_0051', function() {
+    this.timeout(15000);
+    try {
+      runCompatSafe(() => {
+        const parsed = doParseTs('compat354.ts', `function compat354(a: Set<number_any>[]): void {}`);
+        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
+          "dts2cpp_compat_set_0051 parse result must be object");
+        const converted = transParseObj(parsed);
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "dts2cpp_compat_set_0051 convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_set_0051 must parse function");
+        assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
+          "dts2cpp_compat_set_0051 must parse param");
+        assert.strictEqual(converted.funcs[0].parameters[0].type, "Set<number_any>[]",
+          "dts2cpp_compat_set_0051 param type");
+      });
+    } catch (err) {
+      assert.fail(`dts2cpp_compat_set_0051 execution error: ${err}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0052
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0052
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); malformed
+   *            class field type Set<number_v>[]; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_set_0052', function() {
+    this.timeout(15000);
+    try {
+      runCompatSafe(() => {
+        const parsed = doParseTs('compat354.ts', `class Compat354 { field: Set<number_v>[]; }`);
+        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
+          "dts2cpp_compat_set_0052 parse result must be object");
+        const converted = transParseObj(parsed);
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "dts2cpp_compat_set_0052 convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1, "dts2cpp_compat_set_0052 must parse class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "dts2cpp_compat_set_0052 must parse class field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<number_v>[]",
+          "dts2cpp_compat_set_0052 field type");
+      });
+    } catch (err) {
+      assert.fail(`dts2cpp_compat_set_0052 execution error: ${err}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0053
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0053
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); malformed type
+   *            alias member Set<number_x>[]; strictEqual type alias preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_set_0053', function() {
+    this.timeout(15000);
+    try {
+      runCompatSafe(() => {
+        const parsed = doParseTs('compat354.ts', `type Compat354 = { x: Set<number_x>[]; };`);
+        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
+          "dts2cpp_compat_set_0053 parse result must be object");
+        const converted = transParseObj(parsed);
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "dts2cpp_compat_set_0053 convert result must be object");
+        assert.ok(converted.types && converted.types.length >= 1, "dts2cpp_compat_set_0053 must parse type alias");
+        assert.strictEqual(converted.types[0].alias, "{ x: Set<number_x>[]; }", "dts2cpp_compat_set_0053_alias");
+      });
+    } catch (err) {
+      assert.fail(`dts2cpp_compat_set_0053 execution error: ${err}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_DTS2CPP_COMPAT_SET_0054
+   * @tc.number SUB_NAPI_DTS2CPP_COMPAT_SET_0054
+   * @tc.desc   Stability compat dts2cpp/set: runCompatSafe(doParseTs+transParseObj); container
+   *            keyword typo (Sett<number>[]); strictEqual function param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('dts2cpp_compat_set_0054', function() {
+    this.timeout(15000);
+    try {
+      runCompatSafe(() => {
+        const parsed = doParseTs('compat354.ts', `function compat354(a: Sett<number>[]): void {}`);
+        assert.ok(parsed !== undefined && parsed !== null && typeof parsed === 'object',
+          "dts2cpp_compat_set_0054 parse result must be object");
+        const converted = transParseObj(parsed);
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "dts2cpp_compat_set_0054 convert result must be object");
+        assert.ok(converted.funcs && converted.funcs.length >= 1, "dts2cpp_compat_set_0054 must parse function");
+        assert.ok(converted.funcs[0].parameters && converted.funcs[0].parameters.length >= 1,
+          "dts2cpp_compat_set_0054 must parse param");
+        assert.strictEqual(converted.funcs[0].parameters[0].type, "Sett<number>[]",
+          "dts2cpp_compat_set_0054 param type");
+      });
+    } catch (err) {
+      assert.fail(`dts2cpp_compat_set_0054 execution error: ${err}`);
     }
   });
 });

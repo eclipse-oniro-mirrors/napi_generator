@@ -19,11 +19,19 @@ import { transParseObj, generateFunctions } from '../../../gen/gendtscpp';
 import { doParseTs } from '../../../parse/parsets';
 import { runCompatSafe } from './stability_helpers';
 
-suite('Stability_H2DTSCPP_CONVERT_OBJECT_Part01', function() {
+suite('Stability_H2DTSCPP_CONVERT_OBJECT', function() {
   this.timeout(600000);
   vscode.window.showInformationMessage('Start Stability_H2DTSCPP_CONVERT_OBJECT_Part01.');
 
-
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_OBJECT_0001
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_OBJECT_0001
+   * @tc.desc   Stability convert h2dtscpp/object: class-field convert; type Record<string, number>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_object_0001', () => {
     try {
       const converted = transParseObj({
@@ -44,6 +52,15 @@ suite('Stability_H2DTSCPP_CONVERT_OBJECT_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_OBJECT_0002
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_OBJECT_0002
+   * @tc.desc   Stability convert h2dtscpp/object: global-function convert; type Record<string,
+   *            number>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_object_0002', () => {
     try {
       const converted = transParseObj({
@@ -73,6 +90,15 @@ suite('Stability_H2DTSCPP_CONVERT_OBJECT_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_OBJECT_0003
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_OBJECT_0003
+   * @tc.desc   Stability convert h2dtscpp/object: class-method convert; type Record<string,
+   *            number>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_object_0003', () => {
     try {
       const converted = transParseObj({
@@ -98,6 +124,15 @@ suite('Stability_H2DTSCPP_CONVERT_OBJECT_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_OBJECT_0004
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_OBJECT_0004
+   * @tc.desc   Stability convert h2dtscpp/object: parse-convert-gen pipeline; type Record<string,
+   *            number>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_object_0004', () => {
     try {
       const parsed = doParseTs('h2cpp303.ts', `
@@ -122,6 +157,15 @@ suite('Stability_H2DTSCPP_CONVERT_OBJECT_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_OBJECT_0005
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_OBJECT_0005
+   * @tc.desc   Stability convert h2dtscpp/object: type-alias and global-function convert; type
+   *            Record<string, number>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_object_0005', () => {
     try {
       const converted = transParseObj({
@@ -156,6 +200,15 @@ suite('Stability_H2DTSCPP_CONVERT_OBJECT_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_OBJECT_0006
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_OBJECT_0006
+   * @tc.desc   Stability convert h2dtscpp/object: class-field convert; type Record<string, string>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_object_0006', () => {
     try {
       const converted = transParseObj({
@@ -176,6 +229,15 @@ suite('Stability_H2DTSCPP_CONVERT_OBJECT_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_OBJECT_0007
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_OBJECT_0007
+   * @tc.desc   Stability convert h2dtscpp/object: global-function convert; type Record<string,
+   *            string>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_object_0007', () => {
     try {
       const converted = transParseObj({
@@ -205,6 +267,15 @@ suite('Stability_H2DTSCPP_CONVERT_OBJECT_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_OBJECT_0008
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_OBJECT_0008
+   * @tc.desc   Stability convert h2dtscpp/object: class-method convert; type Record<string,
+   *            string>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_object_0008', () => {
     try {
       const converted = transParseObj({
@@ -230,6 +301,15 @@ suite('Stability_H2DTSCPP_CONVERT_OBJECT_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_OBJECT_0009
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_OBJECT_0009
+   * @tc.desc   Stability convert h2dtscpp/object: parse-convert-gen pipeline; type Record<string,
+   *            string>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_object_0009', () => {
     try {
       const parsed = doParseTs('h2cpp304.ts', `
@@ -254,6 +334,15 @@ suite('Stability_H2DTSCPP_CONVERT_OBJECT_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_OBJECT_0010
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_OBJECT_0010
+   * @tc.desc   Stability convert h2dtscpp/object: type-alias and global-function convert; type
+   *            Record<string, string>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_object_0010', () => {
     try {
       const converted = transParseObj({

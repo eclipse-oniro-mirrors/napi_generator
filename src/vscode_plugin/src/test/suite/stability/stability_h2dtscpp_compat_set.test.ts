@@ -19,11 +19,19 @@ import { transParseObj, generateFunctions } from '../../../gen/gendtscpp';
 import { doParseTs } from '../../../parse/parsets';
 import { runCompatSafe } from './stability_helpers';
 
-suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
+suite('Stability_H2DTSCPP_COMPAT_SET', function() {
   this.timeout(600000);
   vscode.window.showInformationMessage('Start Stability_H2DTSCPP_COMPAT_SET_Part01.');
 
-
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0001
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0001
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); malformed type
+   *            Set<string>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_set_0001', function() {
     this.timeout(15000);
     try {
@@ -50,6 +58,15 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0002
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0002
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); string keyword
+   *            misspelled (Set<strng>); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_set_0002', function() {
     this.timeout(15000);
     try {
@@ -67,7 +84,8 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
         assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_set_0002 must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
           "h2dtscpp_compat_set_0002 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<strng>", "h2dtscpp_compat_set_0002 field type");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<strng>",
+          "h2dtscpp_compat_set_0002 field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
@@ -75,6 +93,15 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0003
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0003
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); malformed type
+   *            Set<string>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_set_0003', function() {
     this.timeout(15000);
     try {
@@ -101,6 +128,15 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0004
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0004
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); malformed type
+   *            Set<string>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_set_0004', function() {
     this.timeout(15000);
     try {
@@ -127,6 +163,15 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0005
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0005
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); malformed type
+   *            Setstring>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_set_0005', function() {
     this.timeout(15000);
     try {
@@ -144,7 +189,8 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
         assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_set_0005 must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
           "h2dtscpp_compat_set_0005 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "Setstring>", "h2dtscpp_compat_set_0005 field type");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "Setstring>",
+          "h2dtscpp_compat_set_0005 field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
@@ -152,6 +198,15 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0006
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0006
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); malformed type
+   *            Set<string; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_set_0006', function() {
     this.timeout(15000);
     try {
@@ -169,7 +224,8 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
         assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_set_0006 must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
           "h2dtscpp_compat_set_0006 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<string", "h2dtscpp_compat_set_0006 field type");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<string",
+          "h2dtscpp_compat_set_0006 field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
@@ -177,6 +233,15 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0007
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0007
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); malformed type
+   *            Set<string>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_set_0007', function() {
     this.timeout(15000);
     try {
@@ -203,6 +268,15 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0008
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0008
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); trailing comma
+   *            on type (Set<string>,); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_set_0008', function() {
     this.timeout(15000);
     try {
@@ -220,7 +294,8 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
         assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_set_0008 must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
           "h2dtscpp_compat_set_0008 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<string>,", "h2dtscpp_compat_set_0008 field type");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<string>,",
+          "h2dtscpp_compat_set_0008 field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
@@ -228,6 +303,15 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0009
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0009
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); malformed type
+   *            Set<string>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_set_0009', function() {
     this.timeout(15000);
     try {
@@ -254,6 +338,15 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0010
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0010
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); malformed type
+   *            InvalidTypeXYZ; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_set_0010', function() {
     this.timeout(15000);
     try {
@@ -271,7 +364,8 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
         assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_set_0010 must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
           "h2dtscpp_compat_set_0010 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "InvalidTypeXYZ", "h2dtscpp_compat_set_0010 field type");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "InvalidTypeXYZ",
+          "h2dtscpp_compat_set_0010 field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
@@ -279,6 +373,15 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0011
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0011
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); number keyword
+   *            misspelled (Set<numbr>); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_set_0011', function() {
     this.timeout(15000);
     try {
@@ -296,7 +399,8 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
         assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_set_0011 must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
           "h2dtscpp_compat_set_0011 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<numbr>", "h2dtscpp_compat_set_0011 field type");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<numbr>",
+          "h2dtscpp_compat_set_0011 field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
@@ -304,6 +408,15 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0012
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0012
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); malformed type
+   *            Set<number>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_set_0012', function() {
     this.timeout(15000);
     try {
@@ -330,6 +443,15 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0013
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0013
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); malformed type
+   *            Set<number>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_set_0013', function() {
     this.timeout(15000);
     try {
@@ -356,6 +478,15 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0014
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0014
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); malformed type
+   *            Set<number>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_set_0014', function() {
     this.timeout(15000);
     try {
@@ -382,6 +513,15 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0015
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0015
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); malformed type
+   *            Setnumber>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_set_0015', function() {
     this.timeout(15000);
     try {
@@ -399,7 +539,8 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
         assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_set_0015 must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
           "h2dtscpp_compat_set_0015 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "Setnumber>", "h2dtscpp_compat_set_0015 field type");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "Setnumber>",
+          "h2dtscpp_compat_set_0015 field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
@@ -407,6 +548,15 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0016
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0016
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); malformed type
+   *            Set<number; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_set_0016', function() {
     this.timeout(15000);
     try {
@@ -424,7 +574,8 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
         assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_set_0016 must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
           "h2dtscpp_compat_set_0016 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<number", "h2dtscpp_compat_set_0016 field type");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<number",
+          "h2dtscpp_compat_set_0016 field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
@@ -432,6 +583,15 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0017
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0017
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); malformed type
+   *            Set<number>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_set_0017', function() {
     this.timeout(15000);
     try {
@@ -458,6 +618,15 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0018
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0018
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); trailing comma
+   *            on type (Set<number>,); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_set_0018', function() {
     this.timeout(15000);
     try {
@@ -475,7 +644,8 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
         assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_set_0018 must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
           "h2dtscpp_compat_set_0018 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<number>,", "h2dtscpp_compat_set_0018 field type");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<number>,",
+          "h2dtscpp_compat_set_0018 field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
@@ -483,6 +653,15 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0019
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0019
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); malformed type
+   *            Set<number>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_set_0019', function() {
     this.timeout(15000);
     try {
@@ -509,6 +688,15 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0020
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0020
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); malformed type
+   *            InvalidTypeXYZ; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_set_0020', function() {
     this.timeout(15000);
     try {
@@ -526,7 +714,8 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
         assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_set_0020 must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
           "h2dtscpp_compat_set_0020 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "InvalidTypeXYZ", "h2dtscpp_compat_set_0020 field type");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "InvalidTypeXYZ",
+          "h2dtscpp_compat_set_0020 field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
@@ -534,6 +723,15 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0021
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0021
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); boolean keyword
+   *            misspelled (Set<boolean>); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_set_0021', function() {
     this.timeout(15000);
     try {
@@ -551,7 +749,8 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
         assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_set_0021 must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
           "h2dtscpp_compat_set_0021 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "std::set<bool>", "h2dtscpp_compat_set_0021 field type");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "std::set<bool>",
+          "h2dtscpp_compat_set_0021 field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
@@ -559,6 +758,15 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0022
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0022
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); boolean keyword
+   *            misspelled (Set<boolean>); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_set_0022', function() {
     this.timeout(15000);
     try {
@@ -576,7 +784,8 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
         assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_set_0022 must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
           "h2dtscpp_compat_set_0022 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "std::set<bool>", "h2dtscpp_compat_set_0022 field type");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "std::set<bool>",
+          "h2dtscpp_compat_set_0022 field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
@@ -584,6 +793,15 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0023
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0023
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); boolean keyword
+   *            misspelled (Set<boolea>); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_set_0023', function() {
     this.timeout(15000);
     try {
@@ -601,7 +819,8 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
         assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_set_0023 must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
           "h2dtscpp_compat_set_0023 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<boolea>", "h2dtscpp_compat_set_0023 field type");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<boolea>",
+          "h2dtscpp_compat_set_0023 field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
@@ -609,6 +828,15 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0024
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0024
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); boolean keyword
+   *            misspelled (Set<boolean>); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_set_0024', function() {
     this.timeout(15000);
     try {
@@ -626,7 +854,8 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
         assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_set_0024 must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
           "h2dtscpp_compat_set_0024 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "std::set<bool>", "h2dtscpp_compat_set_0024 field type");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "std::set<bool>",
+          "h2dtscpp_compat_set_0024 field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
@@ -634,6 +863,15 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0025
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0025
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); boolean keyword
+   *            misspelled (Setboolean>); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_set_0025', function() {
     this.timeout(15000);
     try {
@@ -651,7 +889,8 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
         assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_set_0025 must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
           "h2dtscpp_compat_set_0025 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "Setboolean>", "h2dtscpp_compat_set_0025 field type");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "Setboolean>",
+          "h2dtscpp_compat_set_0025 field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
@@ -659,6 +898,15 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0026
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0026
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); boolean keyword
+   *            misspelled (Set<boolean); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_set_0026', function() {
     this.timeout(15000);
     try {
@@ -676,7 +924,8 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
         assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_set_0026 must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
           "h2dtscpp_compat_set_0026 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<boolean", "h2dtscpp_compat_set_0026 field type");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<boolean",
+          "h2dtscpp_compat_set_0026 field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
@@ -684,6 +933,15 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0027
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0027
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); boolean keyword
+   *            misspelled (Set<boolean>); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_set_0027', function() {
     this.timeout(15000);
     try {
@@ -701,7 +959,8 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
         assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_set_0027 must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
           "h2dtscpp_compat_set_0027 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "std::set<bool>", "h2dtscpp_compat_set_0027 field type");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "std::set<bool>",
+          "h2dtscpp_compat_set_0027 field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
@@ -709,6 +968,15 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0028
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0028
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); boolean keyword
+   *            misspelled (Set<boolean>,); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_set_0028', function() {
     this.timeout(15000);
     try {
@@ -726,7 +994,8 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
         assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_set_0028 must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
           "h2dtscpp_compat_set_0028 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<boolean>,", "h2dtscpp_compat_set_0028 field type");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<boolean>,",
+          "h2dtscpp_compat_set_0028 field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
@@ -734,6 +1003,15 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0029
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0029
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); boolean keyword
+   *            misspelled (Set<boolean>); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_set_0029', function() {
     this.timeout(15000);
     try {
@@ -751,7 +1029,8 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
         assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_set_0029 must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
           "h2dtscpp_compat_set_0029 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "std::set<bool>", "h2dtscpp_compat_set_0029 field type");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "std::set<bool>",
+          "h2dtscpp_compat_set_0029 field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
@@ -759,6 +1038,15 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0030
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0030
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); malformed type
+   *            InvalidTypeXYZ; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_set_0030', function() {
     this.timeout(15000);
     try {
@@ -776,7 +1064,8 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
         assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_set_0030 must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
           "h2dtscpp_compat_set_0030 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "InvalidTypeXYZ", "h2dtscpp_compat_set_0030 field type");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "InvalidTypeXYZ",
+          "h2dtscpp_compat_set_0030 field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
@@ -784,6 +1073,15 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0031
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0031
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); malformed type
+   *            Set<any>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_set_0031', function() {
     this.timeout(15000);
     try {
@@ -801,7 +1099,8 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
         assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_set_0031 must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
           "h2dtscpp_compat_set_0031 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<any>", "h2dtscpp_compat_set_0031 field type");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<any>",
+          "h2dtscpp_compat_set_0031 field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
@@ -809,6 +1108,15 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0032
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0032
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); malformed type
+   *            Set<any>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_set_0032', function() {
     this.timeout(15000);
     try {
@@ -826,7 +1134,8 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
         assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_set_0032 must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
           "h2dtscpp_compat_set_0032 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<any>", "h2dtscpp_compat_set_0032 field type");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<any>",
+          "h2dtscpp_compat_set_0032 field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
@@ -834,6 +1143,15 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0033
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0033
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); malformed type
+   *            Set<any>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_set_0033', function() {
     this.timeout(15000);
     try {
@@ -851,7 +1169,8 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
         assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_set_0033 must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
           "h2dtscpp_compat_set_0033 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<any>", "h2dtscpp_compat_set_0033 field type");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<any>",
+          "h2dtscpp_compat_set_0033 field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
@@ -859,6 +1178,15 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0034
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0034
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); malformed type
+   *            Set<any>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_set_0034', function() {
     this.timeout(15000);
     try {
@@ -876,7 +1204,8 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
         assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_set_0034 must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
           "h2dtscpp_compat_set_0034 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<any>", "h2dtscpp_compat_set_0034 field type");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<any>",
+          "h2dtscpp_compat_set_0034 field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
@@ -884,6 +1213,15 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0035
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0035
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); malformed type
+   *            Setany>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_set_0035', function() {
     this.timeout(15000);
     try {
@@ -909,6 +1247,15 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0036
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0036
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); malformed type
+   *            Set<any; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_set_0036', function() {
     this.timeout(15000);
     try {
@@ -934,6 +1281,15 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0037
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0037
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); malformed type
+   *            Set<any>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_set_0037', function() {
     this.timeout(15000);
     try {
@@ -951,7 +1307,8 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
         assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_set_0037 must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
           "h2dtscpp_compat_set_0037 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<any>", "h2dtscpp_compat_set_0037 field type");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<any>",
+          "h2dtscpp_compat_set_0037 field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
@@ -959,6 +1316,15 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0038
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0038
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); trailing comma
+   *            on type (Set<any>,); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_set_0038', function() {
     this.timeout(15000);
     try {
@@ -976,7 +1342,8 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
         assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_set_0038 must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
           "h2dtscpp_compat_set_0038 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<any>,", "h2dtscpp_compat_set_0038 field type");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<any>,",
+          "h2dtscpp_compat_set_0038 field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
@@ -984,6 +1351,15 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0039
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0039
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); malformed type
+   *            Set<any>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_set_0039', function() {
     this.timeout(15000);
     try {
@@ -1001,7 +1377,8 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
         assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_set_0039 must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
           "h2dtscpp_compat_set_0039 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<any>", "h2dtscpp_compat_set_0039 field type");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<any>",
+          "h2dtscpp_compat_set_0039 field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
@@ -1009,6 +1386,15 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0040
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0040
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); malformed type
+   *            InvalidTypeXYZ; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_set_0040', function() {
     this.timeout(15000);
     try {
@@ -1026,7 +1412,8 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
         assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_set_0040 must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
           "h2dtscpp_compat_set_0040 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "InvalidTypeXYZ", "h2dtscpp_compat_set_0040 field type");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "InvalidTypeXYZ",
+          "h2dtscpp_compat_set_0040 field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
@@ -1034,6 +1421,15 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0041
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0041
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); malformed type
+   *            Set<object>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_set_0041', function() {
     this.timeout(15000);
     try {
@@ -1051,7 +1447,8 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
         assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_set_0041 must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
           "h2dtscpp_compat_set_0041 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<object>", "h2dtscpp_compat_set_0041 field type");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<object>",
+          "h2dtscpp_compat_set_0041 field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
@@ -1059,6 +1456,15 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0042
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0042
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); malformed type
+   *            Set<object>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_set_0042', function() {
     this.timeout(15000);
     try {
@@ -1076,7 +1482,8 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
         assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_set_0042 must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
           "h2dtscpp_compat_set_0042 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<object>", "h2dtscpp_compat_set_0042 field type");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<object>",
+          "h2dtscpp_compat_set_0042 field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
@@ -1084,6 +1491,15 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0043
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0043
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); malformed type
+   *            Set<object>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_set_0043', function() {
     this.timeout(15000);
     try {
@@ -1101,7 +1517,8 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
         assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_set_0043 must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
           "h2dtscpp_compat_set_0043 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<object>", "h2dtscpp_compat_set_0043 field type");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<object>",
+          "h2dtscpp_compat_set_0043 field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
@@ -1109,6 +1526,15 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0044
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0044
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); malformed type
+   *            Set<object>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_set_0044', function() {
     this.timeout(15000);
     try {
@@ -1126,7 +1552,8 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
         assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_set_0044 must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
           "h2dtscpp_compat_set_0044 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<object>", "h2dtscpp_compat_set_0044 field type");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<object>",
+          "h2dtscpp_compat_set_0044 field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
@@ -1134,6 +1561,15 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0045
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0045
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); malformed type
+   *            Setobject>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_set_0045', function() {
     this.timeout(15000);
     try {
@@ -1151,7 +1587,8 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
         assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_set_0045 must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
           "h2dtscpp_compat_set_0045 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "Setobject>", "h2dtscpp_compat_set_0045 field type");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "Setobject>",
+          "h2dtscpp_compat_set_0045 field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
@@ -1159,6 +1596,15 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0046
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0046
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); malformed type
+   *            Set<object; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_set_0046', function() {
     this.timeout(15000);
     try {
@@ -1176,7 +1622,8 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
         assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_set_0046 must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
           "h2dtscpp_compat_set_0046 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<object", "h2dtscpp_compat_set_0046 field type");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<object",
+          "h2dtscpp_compat_set_0046 field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
@@ -1184,6 +1631,15 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0047
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0047
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); malformed type
+   *            Set<object>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_set_0047', function() {
     this.timeout(15000);
     try {
@@ -1201,7 +1657,8 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
         assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_set_0047 must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
           "h2dtscpp_compat_set_0047 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<object>", "h2dtscpp_compat_set_0047 field type");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<object>",
+          "h2dtscpp_compat_set_0047 field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
@@ -1209,6 +1666,15 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0048
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0048
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); trailing comma
+   *            on type (Set<object>,); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_set_0048', function() {
     this.timeout(15000);
     try {
@@ -1226,7 +1692,8 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
         assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_set_0048 must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
           "h2dtscpp_compat_set_0048 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<object>,", "h2dtscpp_compat_set_0048 field type");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<object>,",
+          "h2dtscpp_compat_set_0048 field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
@@ -1234,6 +1701,15 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0049
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0049
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); malformed type
+   *            Set<object>; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_set_0049', function() {
     this.timeout(15000);
     try {
@@ -1251,7 +1727,8 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
         assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_set_0049 must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
           "h2dtscpp_compat_set_0049 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<object>", "h2dtscpp_compat_set_0049 field type");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<object>",
+          "h2dtscpp_compat_set_0049 field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
@@ -1259,6 +1736,15 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0050
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0050
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); malformed type
+   *            InvalidTypeXYZ; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_compat_set_0050', function() {
     this.timeout(15000);
     try {
@@ -1276,11 +1762,148 @@ suite('Stability_H2DTSCPP_COMPAT_SET_Part01', function() {
         assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_set_0050 must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
           "h2dtscpp_compat_set_0050 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "InvalidTypeXYZ", "h2dtscpp_compat_set_0050 field type");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "InvalidTypeXYZ",
+          "h2dtscpp_compat_set_0050 field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
       assert.fail(`h2dtscpp_compat_set_0050 execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0051
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0051
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); malformed type
+   *            et<number>[]; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_set_0051', function() {
+    this.timeout(15000);
+    try {
+      runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C354', alias: '',
+            variableList: [{ type: 'et<number>[]', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_set_0051 convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_set_0051 must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_set_0051 must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "et<number>[]",
+          "h2dtscpp_compat_set_0051 field type");
+      });
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_set_0051 execution error: ${err}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0052
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0052
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); tag suffix on
+   *            array element (Set<number_std>[]); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_set_0052', function() {
+    this.timeout(15000);
+    try {
+      runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C354', alias: '',
+            variableList: [{ type: 'Set<number_std>[]', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_set_0052 convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_set_0052 must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_set_0052 must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<number_std>[]",
+          "h2dtscpp_compat_set_0052 field type");
+      });
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_set_0052 execution error: ${err}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0053
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0053
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); malformed type
+   *            Set<number_M>[]; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_set_0053', function() {
+    this.timeout(15000);
+    try {
+      runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C354', alias: '',
+            variableList: [{ type: 'Set<number_M>[]', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_set_0053 convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_set_0053 must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_set_0053 must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<number_M>[]",
+          "h2dtscpp_compat_set_0053 field type");
+      });
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_set_0053 execution error: ${err}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_SET_0054
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_SET_0054
+   * @tc.desc   Stability compat h2dtscpp/set: runCompatSafe(transParseObj literal); malformed type
+   *            Set<number_XYZ354>[]; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_set_0054', function() {
+    this.timeout(15000);
+    try {
+      runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C354', alias: '',
+            variableList: [{ type: 'Set<number_XYZ354>[]', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_set_0054 convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_set_0054 must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_set_0054 must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "Set<number_XYZ354>[]",
+          "h2dtscpp_compat_set_0054 field type");
+      });
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_set_0054 execution error: ${err}`);
     }
   });
 });

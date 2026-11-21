@@ -23,8 +23,16 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
   this.timeout(600000);
   vscode.window.showInformationMessage('Start Stability_H2DTSCPP_CONVERT_MAP_Part01.');
 
-
-  test('h2dtscpp_convert_map_0001', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0001_MAP_STRING_NUMBER
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0001_MAP_STRING_NUMBER
+   * @tc.desc   Stability convert h2dtscpp/map: class-field convert; type Map<string,number>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_map_0001_map_string_number', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -38,13 +46,22 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
       assert.ok(converted.classes[0].variableList.length >= 1);
       assert.strictEqual(converted.classes[0].variableList[0].name, 'value');
       assert.strictEqual(converted.classes[0].variableList[0].type, "std::map<std::string, double>",
-        "h2dtscpp_convert_map_0001 class var type convert convert output");
+        "h2dtscpp_convert_map_0001_map_string_number class var type convert convert output");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_map_0001 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_map_0001_map_string_number execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_map_0002', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0002_MAP_STRING_NUMBER
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0002_MAP_STRING_NUMBER
+   * @tc.desc   Stability convert h2dtscpp/map: global-function convert; type Map<string,number>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_map_0002_map_string_number', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -57,10 +74,10 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].name, 'globalRun11');
       assert.strictEqual(converted.funcs[0].returns, "std::map<std::string, double>",
-        "h2dtscpp_convert_map_0002 global return type convert convert output");
+        "h2dtscpp_convert_map_0002_map_string_number global return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "std::map<std::string, double>",
-        "h2dtscpp_convert_map_0002 global param type convert convert output");
+        "h2dtscpp_convert_map_0002_map_string_number global param type convert convert output");
       const generated = generateFunctions(converted, 'sample11_global.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -69,11 +86,20 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
       assert.ok(generated.napiHContent.includes('globalRun11') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_map_0002 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_map_0002_map_string_number execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_map_0003', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0003_MAP_STRING_NUMBER
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0003_MAP_STRING_NUMBER
+   * @tc.desc   Stability convert h2dtscpp/map: class-method convert; type Map<string,number>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_map_0003_map_string_number', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -89,16 +115,25 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
       assert.ok(converted.classes[0].functionList.length >= 1);
       assert.strictEqual(converted.classes[0].functionList[0].name, 'run');
       assert.strictEqual(converted.classes[0].functionList[0].returns, "std::map<std::string, double>",
-        "h2dtscpp_convert_map_0003 class method return type convert convert output");
+        "h2dtscpp_convert_map_0003_map_string_number class method return type convert convert output");
       assert.ok(converted.classes[0].functionList[0].parameters.length >= 1);
       assert.strictEqual(converted.classes[0].functionList[0].parameters[0].type, "std::map<std::string, double>",
-        "h2dtscpp_convert_map_0003 class method param type convert convert output");
+        "h2dtscpp_convert_map_0003_map_string_number class method param type convert convert output");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_map_0003 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_map_0003_map_string_number execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_map_0004', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0004_MAP_STRING_NUMBER
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0004_MAP_STRING_NUMBER
+   * @tc.desc   Stability convert h2dtscpp/map: parse-convert-gen pipeline; type Map<string,number>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_map_0004_map_string_number', () => {
     try {
       const parsed = doParseTs('h2cpp11.ts', `
         function h2cpp11(p: Map<string,number>): Map<string,number> { return p; }`);
@@ -106,10 +141,10 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
       const converted = transParseObj(parsed);
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].returns, "std::map<std::string, double>",
-        "h2dtscpp_convert_map_0004 parse return type convert convert output");
+        "h2dtscpp_convert_map_0004_map_string_number parse return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "std::map<std::string, double>",
-        "h2dtscpp_convert_map_0004 parse param type convert convert output");
+        "h2dtscpp_convert_map_0004_map_string_number parse param type convert convert output");
       const generated = generateFunctions(converted, 'h2cpp11.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -118,11 +153,20 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
       assert.ok(generated.napiHContent.includes('h2cpp11') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_map_0004 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_map_0004_map_string_number execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_map_0005', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0005_MAP_STRING_NUMBER
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0005_MAP_STRING_NUMBER
+   * @tc.desc   Stability convert h2dtscpp/map: type-alias and global-function convert; type
+   *            Map<string,number>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_map_0005_map_string_number', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -140,10 +184,10 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].name, 'typeFn11');
       assert.strictEqual(converted.funcs[0].returns, "std::map<std::string, double>",
-        "h2dtscpp_convert_map_0005 type fn return type convert convert output");
+        "h2dtscpp_convert_map_0005_map_string_number type fn return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "std::map<std::string, double>",
-        "h2dtscpp_convert_map_0005 type fn param type convert convert output");
+        "h2dtscpp_convert_map_0005_map_string_number type fn param type convert convert output");
       const generated = generateFunctions(converted, 'sample11_type.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -152,11 +196,20 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
       assert.ok(generated.napiHContent.includes('typeFn11') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_map_0005 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_map_0005_map_string_number execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_map_0006', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0006_MAP_STRING_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0006_MAP_STRING_STRING
+   * @tc.desc   Stability convert h2dtscpp/map: class-field convert; type Map<string,string>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_map_0006_map_string_string', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -170,12 +223,21 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
       assert.ok(converted.classes[0].variableList.length >= 1);
       assert.strictEqual(converted.classes[0].variableList[0].name, 'value');
       assert.strictEqual(converted.classes[0].variableList[0].type, "std::map<std::string, std::string>",
-        "h2dtscpp_convert_map_0006 class var type convert convert output");
+        "h2dtscpp_convert_map_0006_map_string_string class var type convert convert output");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_map_0006 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_map_0006_map_string_string execution error: ${String(err)}`);
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0007
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0007
+   * @tc.desc   Stability convert h2dtscpp/map: global-function convert; type Map<string,string>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_map_0007', () => {
     try {
       const converted = transParseObj({
@@ -205,6 +267,15 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0008
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0008
+   * @tc.desc   Stability convert h2dtscpp/map: class-method convert; type Map<string,string>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_map_0008', () => {
     try {
       const converted = transParseObj({
@@ -230,6 +301,15 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0009
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0009
+   * @tc.desc   Stability convert h2dtscpp/map: parse-convert-gen pipeline; type Map<string,string>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_map_0009', () => {
     try {
       const parsed = doParseTs('h2cpp12.ts', `
@@ -254,6 +334,15 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0010
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0010
+   * @tc.desc   Stability convert h2dtscpp/map: type-alias and global-function convert; type
+   *            Map<string,string>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_map_0010', () => {
     try {
       const converted = transParseObj({
@@ -288,6 +377,15 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0011
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0011
+   * @tc.desc   Stability convert h2dtscpp/map: class-field convert; type Map<string,boolean>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_map_0011', () => {
     try {
       const converted = transParseObj({
@@ -308,6 +406,15 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0012
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0012
+   * @tc.desc   Stability convert h2dtscpp/map: global-function convert; type Map<string,boolean>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_map_0012', () => {
     try {
       const converted = transParseObj({
@@ -337,6 +444,15 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0013
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0013
+   * @tc.desc   Stability convert h2dtscpp/map: class-method convert; type Map<string,boolean>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_map_0013', () => {
     try {
       const converted = transParseObj({
@@ -362,6 +478,15 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0014
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0014
+   * @tc.desc   Stability convert h2dtscpp/map: parse-convert-gen pipeline; type
+   *            Map<string,boolean>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_map_0014', () => {
     try {
       const parsed = doParseTs('h2cpp13.ts', `
@@ -386,6 +511,15 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0015
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0015
+   * @tc.desc   Stability convert h2dtscpp/map: type-alias and global-function convert; type
+   *            Map<string,boolean>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_map_0015', () => {
     try {
       const converted = transParseObj({
@@ -420,6 +554,15 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0016
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0016
+   * @tc.desc   Stability convert h2dtscpp/map: class-field convert; type Map<number,number>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_map_0016', () => {
     try {
       const converted = transParseObj({
@@ -440,6 +583,15 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0017
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0017
+   * @tc.desc   Stability convert h2dtscpp/map: global-function convert; type Map<number,number>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_map_0017', () => {
     try {
       const converted = transParseObj({
@@ -469,6 +621,15 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0018
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0018
+   * @tc.desc   Stability convert h2dtscpp/map: class-method convert; type Map<number,number>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_map_0018', () => {
     try {
       const converted = transParseObj({
@@ -494,6 +655,15 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0019
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0019
+   * @tc.desc   Stability convert h2dtscpp/map: parse-convert-gen pipeline; type Map<number,number>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_map_0019', () => {
     try {
       const parsed = doParseTs('h2cpp14.ts', `
@@ -518,6 +688,15 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0020
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0020
+   * @tc.desc   Stability convert h2dtscpp/map: type-alias and global-function convert; type
+   *            Map<number,number>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_map_0020', () => {
     try {
       const converted = transParseObj({
@@ -552,6 +731,15 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0021
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0021
+   * @tc.desc   Stability convert h2dtscpp/map: class-field convert; type Map<number,string>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_map_0021', () => {
     try {
       const converted = transParseObj({
@@ -572,6 +760,15 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0022
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0022
+   * @tc.desc   Stability convert h2dtscpp/map: global-function convert; type Map<number,string>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_map_0022', () => {
     try {
       const converted = transParseObj({
@@ -601,6 +798,15 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0023
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0023
+   * @tc.desc   Stability convert h2dtscpp/map: class-method convert; type Map<number,string>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_map_0023', () => {
     try {
       const converted = transParseObj({
@@ -626,6 +832,15 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0024
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0024
+   * @tc.desc   Stability convert h2dtscpp/map: parse-convert-gen pipeline; type Map<number,string>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_map_0024', () => {
     try {
       const parsed = doParseTs('h2cpp15.ts', `
@@ -650,6 +865,15 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0025
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0025
+   * @tc.desc   Stability convert h2dtscpp/map: type-alias and global-function convert; type
+   *            Map<number,string>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_map_0025', () => {
     try {
       const converted = transParseObj({
@@ -684,6 +908,15 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0026
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0026
+   * @tc.desc   Stability convert h2dtscpp/map: class-field convert; type Map<number,boolean>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_map_0026', () => {
     try {
       const converted = transParseObj({
@@ -704,6 +937,15 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0027
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0027
+   * @tc.desc   Stability convert h2dtscpp/map: global-function convert; type Map<number,boolean>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_map_0027', () => {
     try {
       const converted = transParseObj({
@@ -733,6 +975,15 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0028
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0028
+   * @tc.desc   Stability convert h2dtscpp/map: class-method convert; type Map<number,boolean>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_map_0028', () => {
     try {
       const converted = transParseObj({
@@ -758,6 +1009,15 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0029
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0029
+   * @tc.desc   Stability convert h2dtscpp/map: parse-convert-gen pipeline; type
+   *            Map<number,boolean>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_map_0029', () => {
     try {
       const parsed = doParseTs('h2cpp16.ts', `
@@ -782,6 +1042,15 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0030
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0030
+   * @tc.desc   Stability convert h2dtscpp/map: type-alias and global-function convert; type
+   *            Map<number,boolean>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_map_0030', () => {
     try {
       const converted = transParseObj({
@@ -816,6 +1085,15 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0031
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0031
+   * @tc.desc   Stability convert h2dtscpp/map: class-field convert; type Map<string,any>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_map_0031', () => {
     try {
       const converted = transParseObj({
@@ -836,6 +1114,15 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0032
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0032
+   * @tc.desc   Stability convert h2dtscpp/map: global-function convert; type Map<string,any>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_map_0032', () => {
     try {
       const converted = transParseObj({
@@ -865,6 +1152,15 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0033
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0033
+   * @tc.desc   Stability convert h2dtscpp/map: class-method convert; type Map<string,any>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_map_0033', () => {
     try {
       const converted = transParseObj({
@@ -890,6 +1186,15 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0034
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0034
+   * @tc.desc   Stability convert h2dtscpp/map: parse-convert-gen pipeline; type Map<string,any>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_map_0034', () => {
     try {
       const parsed = doParseTs('h2cpp63.ts', `function h2cpp63(p: Map<string,any>): Map<string,any> { return p; }`);
@@ -913,6 +1218,15 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0035
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0035
+   * @tc.desc   Stability convert h2dtscpp/map: type-alias and global-function convert; type
+   *            Map<string,any>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_map_0035', () => {
     try {
       const converted = transParseObj({
@@ -947,6 +1261,15 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0036
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0036
+   * @tc.desc   Stability convert h2dtscpp/map: class-field convert; type Map<string,object>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_map_0036', () => {
     try {
       const converted = transParseObj({
@@ -967,6 +1290,15 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0037
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0037
+   * @tc.desc   Stability convert h2dtscpp/map: global-function convert; type Map<string,object>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_map_0037', () => {
     try {
       const converted = transParseObj({
@@ -996,6 +1328,15 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0038
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0038
+   * @tc.desc   Stability convert h2dtscpp/map: class-method convert; type Map<string,object>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_map_0038', () => {
     try {
       const converted = transParseObj({
@@ -1021,6 +1362,15 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0039
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0039
+   * @tc.desc   Stability convert h2dtscpp/map: parse-convert-gen pipeline; type Map<string,object>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_map_0039', () => {
     try {
       const parsed = doParseTs('h2cpp64.ts', `
@@ -1045,6 +1395,15 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0040
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0040
+   * @tc.desc   Stability convert h2dtscpp/map: type-alias and global-function convert; type
+   *            Map<string,object>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_map_0040', () => {
     try {
       const converted = transParseObj({
@@ -1079,6 +1438,15 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0041
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0041
+   * @tc.desc   Stability convert h2dtscpp/map: class-field convert; type Map<object,string>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_map_0041', () => {
     try {
       const converted = transParseObj({
@@ -1099,6 +1467,15 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0042
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0042
+   * @tc.desc   Stability convert h2dtscpp/map: global-function convert; type Map<object,string>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_map_0042', () => {
     try {
       const converted = transParseObj({
@@ -1128,6 +1505,15 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0043
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0043
+   * @tc.desc   Stability convert h2dtscpp/map: class-method convert; type Map<object,string>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_map_0043', () => {
     try {
       const converted = transParseObj({
@@ -1153,6 +1539,15 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0044
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0044
+   * @tc.desc   Stability convert h2dtscpp/map: parse-convert-gen pipeline; type Map<object,string>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_map_0044', () => {
     try {
       const parsed = doParseTs('h2cpp65.ts', `
@@ -1177,6 +1572,15 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0045
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0045
+   * @tc.desc   Stability convert h2dtscpp/map: type-alias and global-function convert; type
+   *            Map<object,string>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_map_0045', () => {
     try {
       const converted = transParseObj({
@@ -1211,6 +1615,15 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0046
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0046
+   * @tc.desc   Stability convert h2dtscpp/map: class-field convert; type Map<any,number>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_map_0046', () => {
     try {
       const converted = transParseObj({
@@ -1231,6 +1644,15 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0047
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0047
+   * @tc.desc   Stability convert h2dtscpp/map: global-function convert; type Map<any,number>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_map_0047', () => {
     try {
       const converted = transParseObj({
@@ -1260,6 +1682,15 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0048
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0048
+   * @tc.desc   Stability convert h2dtscpp/map: class-method convert; type Map<any,number>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_map_0048', () => {
     try {
       const converted = transParseObj({
@@ -1285,6 +1716,15 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0049
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0049
+   * @tc.desc   Stability convert h2dtscpp/map: parse-convert-gen pipeline; type Map<any,number>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_map_0049', () => {
     try {
       const parsed = doParseTs('h2cpp66.ts', `function h2cpp66(p: Map<any,number>): Map<any,number> { return p; }`);
@@ -1308,6 +1748,15 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0050
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0050
+   * @tc.desc   Stability convert h2dtscpp/map: type-alias and global-function convert; type
+   *            Map<any,number>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_map_0050', () => {
     try {
       const converted = transParseObj({
@@ -1342,6 +1791,15 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0051
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0051
+   * @tc.desc   Stability convert h2dtscpp/map: class-field convert; type Map<string, number>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_map_0051', () => {
     try {
       const converted = transParseObj({
@@ -1362,6 +1820,15 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0052
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0052
+   * @tc.desc   Stability convert h2dtscpp/map: global-function convert; type Map<string, number>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_map_0052', () => {
     try {
       const converted = transParseObj({
@@ -1391,6 +1858,15 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
     }
   });
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0053
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0053
+   * @tc.desc   Stability convert h2dtscpp/map: class-method convert; type Map<string, number>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
   test('h2dtscpp_convert_map_0053', () => {
     try {
       const converted = transParseObj({
@@ -1416,555 +1892,75 @@ suite('Stability_H2DTSCPP_CONVERT_MAP_Part01', function() {
     }
   });
 
-  test('h2dtscpp_convert_map_0054', () => {
-    try {
-      const parsed = doParseTs('h2cpp281.ts', `
-        function h2cpp281(p: Map<string, number>): Map<string, number> { return p; }`);
-      assert.ok(parsed !== undefined && typeof parsed === 'object', "parse result must be object");
-      const converted = transParseObj(parsed);
-      assert.ok(converted.funcs.length >= 1);
-      assert.strictEqual(converted.funcs[0].returns, "std::map<std::string, double>",
-        "h2dtscpp_convert_map_0054 parse return type convert convert output");
-      assert.ok(converted.funcs[0].parameters.length >= 1);
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "std::map<std::string, double>",
-        "h2dtscpp_convert_map_0054 parse param type convert convert output");
-      const generated = generateFunctions(converted, 'h2cpp281.d.ts');
-      assert.ok(generated !== undefined && typeof generated === 'object');
-      assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
-        "napiH must be non-empty");
-      assert.ok(typeof generated.napiCppContent === 'string', "napiCpp must exist");
-      assert.ok(generated.napiHContent.includes('h2cpp281') || generated.napiCppContent.length > 0,
-        "gen must reference function");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_map_0054 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_map_0055', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0001_MAP_NUMBER_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0001_MAP_NUMBER_STRING
+   * @tc.desc   Stability convert h2dtscpp/map: type-alias and global-function convert; type
+   *            Map<number, string>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_map_0001_map_number_string', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
         classes: [],
-        funcs: [{ type: 'function', name: 'typeFn281', returns: 'Map<string, number>',
-          parameters: [{ type: 'Map<string, number>', name: 'p', arraySize: 0, arraySizeList: [] }]
+        funcs: [{ type: 'function', name: 'typeFn285', returns: 'Map<number, string>',
+          parameters: [{ type: 'Map<number, string>', name: 'p', arraySize: 0, arraySizeList: [] }]
         }],
-        types: [{ name: 'Alias281', alias: 'Map<string, number>', members: [], functions: [], types: []
+        types: [{ name: 'Alias285', alias: 'Map<number, string>', members: [], functions: [], types: []
         }]
       });
       assert.ok(Array.isArray(converted.types) && converted.types.length >= 1);
-      assert.strictEqual(converted.types[0].name, 'Alias281');
-      assert.strictEqual(converted.types[0].alias, 'Map<string, number>');
+      assert.strictEqual(converted.types[0].name, 'Alias285');
+      assert.strictEqual(converted.types[0].alias, 'Map<number, string>');
       assert.ok(Array.isArray(converted.types[0].types));
       assert.ok(converted.funcs.length >= 1);
-      assert.strictEqual(converted.funcs[0].name, 'typeFn281');
-      assert.strictEqual(converted.funcs[0].returns, "std::map<std::string, double>",
-        "h2dtscpp_convert_map_0055 type fn return type convert convert output");
-      assert.ok(converted.funcs[0].parameters.length >= 1);
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "std::map<std::string, double>",
-        "h2dtscpp_convert_map_0055 type fn param type convert convert output");
-      const generated = generateFunctions(converted, 'sample281_type.d.ts');
-      assert.ok(generated !== undefined && typeof generated === 'object');
-      assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
-        "napiH must be non-empty");
-      assert.ok(typeof generated.napiCppContent === 'string', "napiCpp must exist");
-      assert.ok(generated.napiHContent.includes('typeFn281') || generated.napiCppContent.length > 0,
-        "gen must reference function");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_map_0055 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_map_0056', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [{ name: 'SampleClass282', alias: '',
-          variableList: [{ type: 'Map<string, string>', name: 'value', arraySize: 0, arraySizeList: [] }],
-          functionList: []
-        }],
-        funcs: [], types: []
-      });
-      assert.ok(converted.classes.length >= 1);
-      assert.ok(converted.classes[0].variableList.length >= 1);
-      assert.strictEqual(converted.classes[0].variableList[0].name, 'value');
-      assert.strictEqual(converted.classes[0].variableList[0].type, "std::map<std::string, std::string>",
-        "h2dtscpp_convert_map_0056 class var type convert convert output");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_map_0056 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_map_0057', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [],
-        funcs: [{ type: 'function', name: 'globalRun282', returns: 'Map<string, string>',
-          parameters: [{ type: 'Map<string, string>', name: 'gparam', arraySize: 0, arraySizeList: [] }]
-        }],
-        types: []
-      });
-      assert.ok(converted.funcs.length >= 1);
-      assert.strictEqual(converted.funcs[0].name, 'globalRun282');
-      assert.strictEqual(converted.funcs[0].returns, "std::map<std::string, std::string>",
-        "h2dtscpp_convert_map_0057 global return type convert convert output");
-      assert.ok(converted.funcs[0].parameters.length >= 1);
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "std::map<std::string, std::string>",
-        "h2dtscpp_convert_map_0057 global param type convert convert output");
-      const generated = generateFunctions(converted, 'sample282_global.d.ts');
-      assert.ok(generated !== undefined && typeof generated === 'object');
-      assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
-        "napiH must be non-empty");
-      assert.ok(typeof generated.napiCppContent === 'string', "napiCpp must exist");
-      assert.ok(generated.napiHContent.includes('globalRun282') || generated.napiCppContent.length > 0,
-        "gen must reference function");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_map_0057 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_map_0058', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [{ name: 'SampleClass282', alias: '',
-          variableList: [],
-          functionList: [{ type: 'function', name: 'run', returns: 'Map<string, string>',
-            parameters: [{ type: 'Map<string, string>', name: 'param', arraySize: 0, arraySizeList: [] }]
-          }]
-        }],
-        funcs: [], types: []
-      });
-      assert.ok(converted.classes.length >= 1);
-      assert.ok(converted.classes[0].functionList.length >= 1);
-      assert.strictEqual(converted.classes[0].functionList[0].name, 'run');
-      assert.strictEqual(converted.classes[0].functionList[0].returns, "std::map<std::string, std::string>",
-        "h2dtscpp_convert_map_0058 class method return type convert convert output");
-      assert.ok(converted.classes[0].functionList[0].parameters.length >= 1);
-      assert.strictEqual(converted.classes[0].functionList[0].parameters[0].type, "std::map<std::string, std::string>",
-        "h2dtscpp_convert_map_0058 class method param type convert convert output");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_map_0058 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_map_0059', () => {
-    try {
-      const parsed = doParseTs('h2cpp282.ts', `
-        function h2cpp282(p: Map<string, string>): Map<string, string> { return p; }`);
-      assert.ok(parsed !== undefined && typeof parsed === 'object', "parse result must be object");
-      const converted = transParseObj(parsed);
-      assert.ok(converted.funcs.length >= 1);
-      assert.strictEqual(converted.funcs[0].returns, "std::map<std::string, std::string>",
-        "h2dtscpp_convert_map_0059 parse return type convert convert output");
-      assert.ok(converted.funcs[0].parameters.length >= 1);
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "std::map<std::string, std::string>",
-        "h2dtscpp_convert_map_0059 parse param type convert convert output");
-      const generated = generateFunctions(converted, 'h2cpp282.d.ts');
-      assert.ok(generated !== undefined && typeof generated === 'object');
-      assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
-        "napiH must be non-empty");
-      assert.ok(typeof generated.napiCppContent === 'string', "napiCpp must exist");
-      assert.ok(generated.napiHContent.includes('h2cpp282') || generated.napiCppContent.length > 0,
-        "gen must reference function");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_map_0059 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_map_0060', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [],
-        funcs: [{ type: 'function', name: 'typeFn282', returns: 'Map<string, string>',
-          parameters: [{ type: 'Map<string, string>', name: 'p', arraySize: 0, arraySizeList: [] }]
-        }],
-        types: [{ name: 'Alias282', alias: 'Map<string, string>', members: [], functions: [], types: []
-        }]
-      });
-      assert.ok(Array.isArray(converted.types) && converted.types.length >= 1);
-      assert.strictEqual(converted.types[0].name, 'Alias282');
-      assert.strictEqual(converted.types[0].alias, 'Map<string, string>');
-      assert.ok(Array.isArray(converted.types[0].types));
-      assert.ok(converted.funcs.length >= 1);
-      assert.strictEqual(converted.funcs[0].name, 'typeFn282');
-      assert.strictEqual(converted.funcs[0].returns, "std::map<std::string, std::string>",
-        "h2dtscpp_convert_map_0060 type fn return type convert convert output");
-      assert.ok(converted.funcs[0].parameters.length >= 1);
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "std::map<std::string, std::string>",
-        "h2dtscpp_convert_map_0060 type fn param type convert convert output");
-      const generated = generateFunctions(converted, 'sample282_type.d.ts');
-      assert.ok(generated !== undefined && typeof generated === 'object');
-      assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
-        "napiH must be non-empty");
-      assert.ok(typeof generated.napiCppContent === 'string', "napiCpp must exist");
-      assert.ok(generated.napiHContent.includes('typeFn282') || generated.napiCppContent.length > 0,
-        "gen must reference function");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_map_0060 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_map_0061', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [{ name: 'SampleClass283', alias: '',
-          variableList: [{ type: 'Map<string, boolean>', name: 'value', arraySize: 0, arraySizeList: [] }],
-          functionList: []
-        }],
-        funcs: [], types: []
-      });
-      assert.ok(converted.classes.length >= 1);
-      assert.ok(converted.classes[0].variableList.length >= 1);
-      assert.strictEqual(converted.classes[0].variableList[0].name, 'value');
-      assert.strictEqual(converted.classes[0].variableList[0].type, "std::map<std::string, bool>",
-        "h2dtscpp_convert_map_0061 class var type convert convert output");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_map_0061 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_map_0062', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [],
-        funcs: [{ type: 'function', name: 'globalRun283', returns: 'Map<string, boolean>',
-          parameters: [{ type: 'Map<string, boolean>', name: 'gparam', arraySize: 0, arraySizeList: [] }]
-        }],
-        types: []
-      });
-      assert.ok(converted.funcs.length >= 1);
-      assert.strictEqual(converted.funcs[0].name, 'globalRun283');
-      assert.strictEqual(converted.funcs[0].returns, "std::map<std::string, bool>",
-        "h2dtscpp_convert_map_0062 global return type convert convert output");
-      assert.ok(converted.funcs[0].parameters.length >= 1);
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "std::map<std::string, bool>",
-        "h2dtscpp_convert_map_0062 global param type convert convert output");
-      const generated = generateFunctions(converted, 'sample283_global.d.ts');
-      assert.ok(generated !== undefined && typeof generated === 'object');
-      assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
-        "napiH must be non-empty");
-      assert.ok(typeof generated.napiCppContent === 'string', "napiCpp must exist");
-      assert.ok(generated.napiHContent.includes('globalRun283') || generated.napiCppContent.length > 0,
-        "gen must reference function");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_map_0062 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_map_0063', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [{ name: 'SampleClass283', alias: '',
-          variableList: [],
-          functionList: [{ type: 'function', name: 'run', returns: 'Map<string, boolean>',
-            parameters: [{ type: 'Map<string, boolean>', name: 'param', arraySize: 0, arraySizeList: [] }]
-          }]
-        }],
-        funcs: [], types: []
-      });
-      assert.ok(converted.classes.length >= 1);
-      assert.ok(converted.classes[0].functionList.length >= 1);
-      assert.strictEqual(converted.classes[0].functionList[0].name, 'run');
-      assert.strictEqual(converted.classes[0].functionList[0].returns, "std::map<std::string, bool>",
-        "h2dtscpp_convert_map_0063 class method return type convert convert output");
-      assert.ok(converted.classes[0].functionList[0].parameters.length >= 1);
-      assert.strictEqual(converted.classes[0].functionList[0].parameters[0].type, "std::map<std::string, bool>",
-        "h2dtscpp_convert_map_0063 class method param type convert convert output");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_map_0063 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_map_0064', () => {
-    try {
-      const parsed = doParseTs('h2cpp283.ts', `
-        function h2cpp283(p: Map<string, boolean>): Map<string, boolean> { return p; }`);
-      assert.ok(parsed !== undefined && typeof parsed === 'object', "parse result must be object");
-      const converted = transParseObj(parsed);
-      assert.ok(converted.funcs.length >= 1);
-      assert.strictEqual(converted.funcs[0].returns, "std::map<std::string, bool>",
-        "h2dtscpp_convert_map_0064 parse return type convert convert output");
-      assert.ok(converted.funcs[0].parameters.length >= 1);
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "std::map<std::string, bool>",
-        "h2dtscpp_convert_map_0064 parse param type convert convert output");
-      const generated = generateFunctions(converted, 'h2cpp283.d.ts');
-      assert.ok(generated !== undefined && typeof generated === 'object');
-      assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
-        "napiH must be non-empty");
-      assert.ok(typeof generated.napiCppContent === 'string', "napiCpp must exist");
-      assert.ok(generated.napiHContent.includes('h2cpp283') || generated.napiCppContent.length > 0,
-        "gen must reference function");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_map_0064 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_map_0065', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [],
-        funcs: [{ type: 'function', name: 'typeFn283', returns: 'Map<string, boolean>',
-          parameters: [{ type: 'Map<string, boolean>', name: 'p', arraySize: 0, arraySizeList: [] }]
-        }],
-        types: [{ name: 'Alias283', alias: 'Map<string, boolean>', members: [], functions: [], types: []
-        }]
-      });
-      assert.ok(Array.isArray(converted.types) && converted.types.length >= 1);
-      assert.strictEqual(converted.types[0].name, 'Alias283');
-      assert.strictEqual(converted.types[0].alias, 'Map<string, boolean>');
-      assert.ok(Array.isArray(converted.types[0].types));
-      assert.ok(converted.funcs.length >= 1);
-      assert.strictEqual(converted.funcs[0].name, 'typeFn283');
-      assert.strictEqual(converted.funcs[0].returns, "std::map<std::string, bool>",
-        "h2dtscpp_convert_map_0065 type fn return type convert convert output");
-      assert.ok(converted.funcs[0].parameters.length >= 1);
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "std::map<std::string, bool>",
-        "h2dtscpp_convert_map_0065 type fn param type convert convert output");
-      const generated = generateFunctions(converted, 'sample283_type.d.ts');
-      assert.ok(generated !== undefined && typeof generated === 'object');
-      assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
-        "napiH must be non-empty");
-      assert.ok(typeof generated.napiCppContent === 'string', "napiCpp must exist");
-      assert.ok(generated.napiHContent.includes('typeFn283') || generated.napiCppContent.length > 0,
-        "gen must reference function");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_map_0065 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_map_0066', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [{ name: 'SampleClass284', alias: '',
-          variableList: [{ type: 'Map<number, number>', name: 'value', arraySize: 0, arraySizeList: [] }],
-          functionList: []
-        }],
-        funcs: [], types: []
-      });
-      assert.ok(converted.classes.length >= 1);
-      assert.ok(converted.classes[0].variableList.length >= 1);
-      assert.strictEqual(converted.classes[0].variableList[0].name, 'value');
-      assert.strictEqual(converted.classes[0].variableList[0].type, "std::map<double, double>",
-        "h2dtscpp_convert_map_0066 class var type convert convert output");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_map_0066 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_map_0067', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [],
-        funcs: [{ type: 'function', name: 'globalRun284', returns: 'Map<number, number>',
-          parameters: [{ type: 'Map<number, number>', name: 'gparam', arraySize: 0, arraySizeList: [] }]
-        }],
-        types: []
-      });
-      assert.ok(converted.funcs.length >= 1);
-      assert.strictEqual(converted.funcs[0].name, 'globalRun284');
-      assert.strictEqual(converted.funcs[0].returns, "std::map<double, double>",
-        "h2dtscpp_convert_map_0067 global return type convert convert output");
-      assert.ok(converted.funcs[0].parameters.length >= 1);
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "std::map<double, double>",
-        "h2dtscpp_convert_map_0067 global param type convert convert output");
-      const generated = generateFunctions(converted, 'sample284_global.d.ts');
-      assert.ok(generated !== undefined && typeof generated === 'object');
-      assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
-        "napiH must be non-empty");
-      assert.ok(typeof generated.napiCppContent === 'string', "napiCpp must exist");
-      assert.ok(generated.napiHContent.includes('globalRun284') || generated.napiCppContent.length > 0,
-        "gen must reference function");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_map_0067 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_map_0068', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [{ name: 'SampleClass284', alias: '',
-          variableList: [],
-          functionList: [{ type: 'function', name: 'run', returns: 'Map<number, number>',
-            parameters: [{ type: 'Map<number, number>', name: 'param', arraySize: 0, arraySizeList: [] }]
-          }]
-        }],
-        funcs: [], types: []
-      });
-      assert.ok(converted.classes.length >= 1);
-      assert.ok(converted.classes[0].functionList.length >= 1);
-      assert.strictEqual(converted.classes[0].functionList[0].name, 'run');
-      assert.strictEqual(converted.classes[0].functionList[0].returns, "std::map<double, double>",
-        "h2dtscpp_convert_map_0068 class method return type convert convert output");
-      assert.ok(converted.classes[0].functionList[0].parameters.length >= 1);
-      assert.strictEqual(converted.classes[0].functionList[0].parameters[0].type, "std::map<double, double>",
-        "h2dtscpp_convert_map_0068 class method param type convert convert output");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_map_0068 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_map_0069', () => {
-    try {
-      const parsed = doParseTs('h2cpp284.ts', `
-        function h2cpp284(p: Map<number, number>): Map<number, number> { return p; }`);
-      assert.ok(parsed !== undefined && typeof parsed === 'object', "parse result must be object");
-      const converted = transParseObj(parsed);
-      assert.ok(converted.funcs.length >= 1);
-      assert.strictEqual(converted.funcs[0].returns, "std::map<double, double>",
-        "h2dtscpp_convert_map_0069 parse return type convert convert output");
-      assert.ok(converted.funcs[0].parameters.length >= 1);
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "std::map<double, double>",
-        "h2dtscpp_convert_map_0069 parse param type convert convert output");
-      const generated = generateFunctions(converted, 'h2cpp284.d.ts');
-      assert.ok(generated !== undefined && typeof generated === 'object');
-      assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
-        "napiH must be non-empty");
-      assert.ok(typeof generated.napiCppContent === 'string', "napiCpp must exist");
-      assert.ok(generated.napiHContent.includes('h2cpp284') || generated.napiCppContent.length > 0,
-        "gen must reference function");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_map_0069 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_map_0070', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [],
-        funcs: [{ type: 'function', name: 'typeFn284', returns: 'Map<number, number>',
-          parameters: [{ type: 'Map<number, number>', name: 'p', arraySize: 0, arraySizeList: [] }]
-        }],
-        types: [{ name: 'Alias284', alias: 'Map<number, number>', members: [], functions: [], types: []
-        }]
-      });
-      assert.ok(Array.isArray(converted.types) && converted.types.length >= 1);
-      assert.strictEqual(converted.types[0].name, 'Alias284');
-      assert.strictEqual(converted.types[0].alias, 'Map<number, number>');
-      assert.ok(Array.isArray(converted.types[0].types));
-      assert.ok(converted.funcs.length >= 1);
-      assert.strictEqual(converted.funcs[0].name, 'typeFn284');
-      assert.strictEqual(converted.funcs[0].returns, "std::map<double, double>",
-        "h2dtscpp_convert_map_0070 type fn return type convert convert output");
-      assert.ok(converted.funcs[0].parameters.length >= 1);
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "std::map<double, double>",
-        "h2dtscpp_convert_map_0070 type fn param type convert convert output");
-      const generated = generateFunctions(converted, 'sample284_type.d.ts');
-      assert.ok(generated !== undefined && typeof generated === 'object');
-      assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
-        "napiH must be non-empty");
-      assert.ok(typeof generated.napiCppContent === 'string', "napiCpp must exist");
-      assert.ok(generated.napiHContent.includes('typeFn284') || generated.napiCppContent.length > 0,
-        "gen must reference function");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_map_0070 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_map_0071', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [{ name: 'SampleClass285', alias: '',
-          variableList: [{ type: 'Map<number, string>', name: 'value', arraySize: 0, arraySizeList: [] }],
-          functionList: []
-        }],
-        funcs: [], types: []
-      });
-      assert.ok(converted.classes.length >= 1);
-      assert.ok(converted.classes[0].variableList.length >= 1);
-      assert.strictEqual(converted.classes[0].variableList[0].name, 'value');
-      assert.strictEqual(converted.classes[0].variableList[0].type, "std::map<double, std::string>",
-        "h2dtscpp_convert_map_0071 class var type convert convert output");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_map_0071 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_map_0072', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [],
-        funcs: [{ type: 'function', name: 'globalRun285', returns: 'Map<number, string>',
-          parameters: [{ type: 'Map<number, string>', name: 'gparam', arraySize: 0, arraySizeList: [] }]
-        }],
-        types: []
-      });
-      assert.ok(converted.funcs.length >= 1);
-      assert.strictEqual(converted.funcs[0].name, 'globalRun285');
+      assert.strictEqual(converted.funcs[0].name, 'typeFn285');
       assert.strictEqual(converted.funcs[0].returns, "std::map<double, std::string>",
-        "h2dtscpp_convert_map_0072 global return type convert convert output");
+        "h2dtscpp_convert_map_0001_map_number_string type fn return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "std::map<double, std::string>",
-        "h2dtscpp_convert_map_0072 global param type convert convert output");
-      const generated = generateFunctions(converted, 'sample285_global.d.ts');
+        "h2dtscpp_convert_map_0001_map_number_string type fn param type convert convert output");
+      const generated = generateFunctions(converted, 'sample285_type.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
         "napiH must be non-empty");
       assert.ok(typeof generated.napiCppContent === 'string', "napiCpp must exist");
-      assert.ok(generated.napiHContent.includes('globalRun285') || generated.napiCppContent.length > 0,
+      assert.ok(generated.napiHContent.includes('typeFn285') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_map_0072 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_map_0001_map_number_string execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_map_0073', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_MAP_0002_MAP_NUMBER_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_MAP_0002_MAP_NUMBER_BOOLEAN
+   * @tc.desc   Stability convert h2dtscpp/map: class-field convert; type Map<number, boolean>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_map_0002_map_number_boolean', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
-        classes: [{ name: 'SampleClass285', alias: '',
-          variableList: [],
-          functionList: [{ type: 'function', name: 'run', returns: 'Map<number, string>',
-            parameters: [{ type: 'Map<number, string>', name: 'param', arraySize: 0, arraySizeList: [] }]
-          }]
+        classes: [{ name: 'SampleClass286', alias: '',
+          variableList: [{ type: 'Map<number, boolean>', name: 'value', arraySize: 0, arraySizeList: [] }],
+          functionList: []
         }],
         funcs: [], types: []
       });
       assert.ok(converted.classes.length >= 1);
-      assert.ok(converted.classes[0].functionList.length >= 1);
-      assert.strictEqual(converted.classes[0].functionList[0].name, 'run');
-      assert.strictEqual(converted.classes[0].functionList[0].returns, "std::map<double, std::string>",
-        "h2dtscpp_convert_map_0073 class method return type convert convert output");
-      assert.ok(converted.classes[0].functionList[0].parameters.length >= 1);
-      assert.strictEqual(converted.classes[0].functionList[0].parameters[0].type, "std::map<double, std::string>",
-        "h2dtscpp_convert_map_0073 class method param type convert convert output");
+      assert.ok(converted.classes[0].variableList.length >= 1);
+      assert.strictEqual(converted.classes[0].variableList[0].name, 'value');
+      assert.strictEqual(converted.classes[0].variableList[0].type, "std::map<double, bool>",
+        "h2dtscpp_convert_map_0002_map_number_boolean class var type convert convert output");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_map_0073 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_map_0074', () => {
-    try {
-      const parsed = doParseTs('h2cpp285.ts', `
-        function h2cpp285(p: Map<number, string>): Map<number, string> { return p; }`);
-      assert.ok(parsed !== undefined && typeof parsed === 'object', "parse result must be object");
-      const converted = transParseObj(parsed);
-      assert.ok(converted.funcs.length >= 1);
-      assert.strictEqual(converted.funcs[0].returns, "std::map<double, std::string>",
-        "h2dtscpp_convert_map_0074 parse return type convert convert output");
-      assert.ok(converted.funcs[0].parameters.length >= 1);
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "std::map<double, std::string>",
-        "h2dtscpp_convert_map_0074 parse param type convert convert output");
-      const generated = generateFunctions(converted, 'h2cpp285.d.ts');
-      assert.ok(generated !== undefined && typeof generated === 'object');
-      assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
-        "napiH must be non-empty");
-      assert.ok(typeof generated.napiCppContent === 'string', "napiCpp must exist");
-      assert.ok(generated.napiHContent.includes('h2cpp285') || generated.napiCppContent.length > 0,
-        "gen must reference function");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_map_0074 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_map_0002_map_number_boolean execution error: ${String(err)}`);
     }
   });
 });

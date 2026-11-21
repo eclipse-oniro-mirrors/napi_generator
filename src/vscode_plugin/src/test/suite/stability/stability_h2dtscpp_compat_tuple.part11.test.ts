@@ -21,10 +21,1458 @@ import { runCompatSafe } from './stability_helpers';
 
 suite('Stability_H2DTSCPP_COMPAT_TUPLE_Part11', function() {
   this.timeout(600000);
-  vscode.window.showInformationMessage('Start Stability_H2DTSCPP_COMPAT_TUPLE_Part11.');
+  vscode.window.showInformationMessage('Start Stability_H2DTSCPP_COMPAT_TUPLE_Part01.');
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0019_STRING_NUMBER_STRING_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0019_STRING_NUMBER_STRING_STRING
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); malformed
+   *            type [string, number, string, string; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0019_string_number_string_string', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C225', alias: '',
+            variableList: [{ type: '[string, number, string, string', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_tuple_0019_string_number_string_string convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0019_string_number_string_string must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_tuple_0019_string_number_string_string must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, number, string, string",
+          "h2dtscpp_compat_tuple_0019_string_number_string_string field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_tuple_0019_string_number_string_string execution error: ${String(err)}`);
+    }
+  });
 
-  test('h2dtscpp_compat_tuple_0001', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0020_STRING_NUMBER_STRING_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0020_STRING_NUMBER_STRING_STRING
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); malformed
+   *            type [string, number, string, string]; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0020_string_number_string_string', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C225', alias: '',
+            variableList: [{ type: '[string, number, string, string]', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_tuple_0020_string_number_string_string convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0020_string_number_string_string must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_tuple_0020_string_number_string_string must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, number, string, string]",
+          "h2dtscpp_compat_tuple_0020_string_number_string_string field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_tuple_0020_string_number_string_string execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0021_STRING_NUMBER_STRING_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0021_STRING_NUMBER_STRING_STRING
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); trailing
+   *            comma on type ([string, number, string, string],); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0021_string_number_string_string', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C225', alias: '',
+            variableList: [{ type: '[string, number, string, string],', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_tuple_0021_string_number_string_string convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0021_string_number_string_string must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_tuple_0021_string_number_string_string must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, number, string, string],",
+          "h2dtscpp_compat_tuple_0021_string_number_string_string field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_tuple_0021_string_number_string_string execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0022_STRING_NUMBER_STRING_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0022_STRING_NUMBER_STRING_STRING
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); malformed
+   *            type [string, number, string, string]; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0022_string_number_string_string', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C225', alias: '',
+            variableList: [{ type: '[string, number, string, string]', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_tuple_0022_string_number_string_string convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0022_string_number_string_string must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_tuple_0022_string_number_string_string must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, number, string, string]",
+          "h2dtscpp_compat_tuple_0022_string_number_string_string field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_tuple_0022_string_number_string_string execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0023_INVALIDTYPEXYZ
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0023_INVALIDTYPEXYZ
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); malformed
+   *            type InvalidTypeXYZ; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0023_invalidtypexyz', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C225', alias: '',
+            variableList: [{ type: 'InvalidTypeXYZ', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_tuple_0023_invalidtypexyz convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0023_invalidtypexyz must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_tuple_0023_invalidtypexyz must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "InvalidTypeXYZ",
+          "h2dtscpp_compat_tuple_0023_invalidtypexyz field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_tuple_0023_invalidtypexyz execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0024_STRING_NUMBR_STRING_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0024_STRING_NUMBR_STRING_BOOLEAN
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); number
+   *            keyword misspelled ([string, numbr, string, boolean]); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0024_string_numbr_string_boolean', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C226', alias: '',
+            variableList: [{ type: '[string, numbr, string, boolean]', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_tuple_0024_string_numbr_string_boolean convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0024_string_numbr_string_boolean must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_tuple_0024_string_numbr_string_boolean must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, numbr, string, boolean]",
+          "h2dtscpp_compat_tuple_0024_string_numbr_string_boolean field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_tuple_0024_string_numbr_string_boolean execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0025_STRNG_NUMBER_STRNG_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0025_STRNG_NUMBER_STRNG_BOOLEAN
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); string
+   *            keyword misspelled ([strng, number, strng, boolean]); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0025_strng_number_strng_boolean', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C226', alias: '',
+            variableList: [{ type: '[strng, number, strng, boolean]', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_tuple_0025_strng_number_strng_boolean convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0025_strng_number_strng_boolean must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_tuple_0025_strng_number_strng_boolean must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "[strng, number, strng, boolean]",
+          "h2dtscpp_compat_tuple_0025_strng_number_strng_boolean field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_tuple_0025_strng_number_strng_boolean execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0026_STRING_NUMBER_STRING_BOOLEA
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0026_STRING_NUMBER_STRING_BOOLEA
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ([string, number, string, boolea]); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0026_string_number_string_boolea', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C226', alias: '',
+            variableList: [{ type: '[string, number, string, boolea]', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_tuple_0026_string_number_string_boolea convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0026_string_number_string_boolea must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_tuple_0026_string_number_string_boolea must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, number, string, boolea]",
+          "h2dtscpp_compat_tuple_0026_string_number_string_boolea field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_tuple_0026_string_number_string_boolea execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0027_STRING_NUMBER_STRING_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0027_STRING_NUMBER_STRING_BOOLEAN
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ([string, number, string, boolean); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0027_string_number_string_boolean', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C226', alias: '',
+            variableList: [{ type: '[string, number, string, boolean', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_tuple_0027_string_number_string_boolean convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0027_string_number_string_boolean must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_tuple_0027_string_number_string_boolean must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, number, string, boolean",
+          "h2dtscpp_compat_tuple_0027_string_number_string_boolean field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_tuple_0027_string_number_string_boolean execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0028_STRING_NUMBER_STRING_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0028_STRING_NUMBER_STRING_BOOLEAN
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ([string, number, string, boolean]); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0028_string_number_string_boolean', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C226', alias: '',
+            variableList: [{ type: '[string, number, string, boolean]', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_tuple_0028_string_number_string_boolean convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0028_string_number_string_boolean must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_tuple_0028_string_number_string_boolean must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, number, string, boolean]",
+          "h2dtscpp_compat_tuple_0028_string_number_string_boolean field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_tuple_0028_string_number_string_boolean execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0029_STRING_NUMBER_STRING_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0029_STRING_NUMBER_STRING_BOOLEAN
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ([string, number, string, boolean); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0029_string_number_string_boolean', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C226', alias: '',
+            variableList: [{ type: '[string, number, string, boolean', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_tuple_0029_string_number_string_boolean convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0029_string_number_string_boolean must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_tuple_0029_string_number_string_boolean must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, number, string, boolean",
+          "h2dtscpp_compat_tuple_0029_string_number_string_boolean field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_tuple_0029_string_number_string_boolean execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0030_STRING_NUMBER_STRING_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0030_STRING_NUMBER_STRING_BOOLEAN
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ([string, number, string, boolean]); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0030_string_number_string_boolean', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C226', alias: '',
+            variableList: [{ type: '[string, number, string, boolean]', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_tuple_0030_string_number_string_boolean convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0030_string_number_string_boolean must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_tuple_0030_string_number_string_boolean must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, number, string, boolean]",
+          "h2dtscpp_compat_tuple_0030_string_number_string_boolean field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_tuple_0030_string_number_string_boolean execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0031_STRING_NUMBER_STRING_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0031_STRING_NUMBER_STRING_BOOLEAN
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ([string, number, string, boolean],); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0031_string_number_string_boolean', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C226', alias: '',
+            variableList: [{ type: '[string, number, string, boolean],', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_tuple_0031_string_number_string_boolean convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0031_string_number_string_boolean must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_tuple_0031_string_number_string_boolean must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, number, string, boolean],",
+          "h2dtscpp_compat_tuple_0031_string_number_string_boolean field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_tuple_0031_string_number_string_boolean execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0032_STRING_NUMBER_STRING_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0032_STRING_NUMBER_STRING_BOOLEAN
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ([string, number, string, boolean]); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0032_string_number_string_boolean', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C226', alias: '',
+            variableList: [{ type: '[string, number, string, boolean]', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_tuple_0032_string_number_string_boolean convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0032_string_number_string_boolean must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_tuple_0032_string_number_string_boolean must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, number, string, boolean]",
+          "h2dtscpp_compat_tuple_0032_string_number_string_boolean field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_tuple_0032_string_number_string_boolean execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0033_INVALIDTYPEXYZ
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0033_INVALIDTYPEXYZ
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); malformed
+   *            type InvalidTypeXYZ; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0033_invalidtypexyz', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C226', alias: '',
+            variableList: [{ type: 'InvalidTypeXYZ', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_tuple_0033_invalidtypexyz convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0033_invalidtypexyz must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_tuple_0033_invalidtypexyz must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "InvalidTypeXYZ",
+          "h2dtscpp_compat_tuple_0033_invalidtypexyz field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_tuple_0033_invalidtypexyz execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0034_STRING_NUMBR_BOOLEAN_NUMBR
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0034_STRING_NUMBR_BOOLEAN_NUMBR
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); number
+   *            keyword misspelled ([string, numbr, boolean, numbr]); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0034_string_numbr_boolean_numbr', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C227', alias: '',
+            variableList: [{ type: '[string, numbr, boolean, numbr]', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_tuple_0034_string_numbr_boolean_numbr convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0034_string_numbr_boolean_numbr must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_tuple_0034_string_numbr_boolean_numbr must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, numbr, boolean, numbr]",
+          "h2dtscpp_compat_tuple_0034_string_numbr_boolean_numbr field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_tuple_0034_string_numbr_boolean_numbr execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0035_STRNG_NUMBER_BOOLEAN_NUMBER
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0035_STRNG_NUMBER_BOOLEAN_NUMBER
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); string
+   *            keyword misspelled ([strng, number, boolean, number]); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0035_strng_number_boolean_number', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C227', alias: '',
+            variableList: [{ type: '[strng, number, boolean, number]', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_tuple_0035_strng_number_boolean_number convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0035_strng_number_boolean_number must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_tuple_0035_strng_number_boolean_number must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "[strng, number, boolean, number]",
+          "h2dtscpp_compat_tuple_0035_strng_number_boolean_number field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_tuple_0035_strng_number_boolean_number execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0036_STRING_NUMBER_BOOLEA_NUMBER
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0036_STRING_NUMBER_BOOLEA_NUMBER
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ([string, number, boolea, number]); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0036_string_number_boolea_number', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C227', alias: '',
+            variableList: [{ type: '[string, number, boolea, number]', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_tuple_0036_string_number_boolea_number convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0036_string_number_boolea_number must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_tuple_0036_string_number_boolea_number must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, number, boolea, number]",
+          "h2dtscpp_compat_tuple_0036_string_number_boolea_number field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_tuple_0036_string_number_boolea_number execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0037_STRING_NUMBER_BOOLEAN_NUMBER
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0037_STRING_NUMBER_BOOLEAN_NUMBER
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ([string, number, boolean, number); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0037_string_number_boolean_number', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C227', alias: '',
+            variableList: [{ type: '[string, number, boolean, number', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_tuple_0037_string_number_boolean_number convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0037_string_number_boolean_number must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_tuple_0037_string_number_boolean_number must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, number, boolean, number",
+          "h2dtscpp_compat_tuple_0037_string_number_boolean_number field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_tuple_0037_string_number_boolean_number execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0038_STRING_NUMBER_BOOLEAN_NUMBER
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0038_STRING_NUMBER_BOOLEAN_NUMBER
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ([string, number, boolean, number]); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0038_string_number_boolean_number', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C227', alias: '',
+            variableList: [{ type: '[string, number, boolean, number]', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_tuple_0038_string_number_boolean_number convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0038_string_number_boolean_number must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_tuple_0038_string_number_boolean_number must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, number, boolean, number]",
+          "h2dtscpp_compat_tuple_0038_string_number_boolean_number field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_tuple_0038_string_number_boolean_number execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0039_STRING_NUMBER_BOOLEAN_NUMBER
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0039_STRING_NUMBER_BOOLEAN_NUMBER
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ([string, number, boolean, number); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0039_string_number_boolean_number', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C227', alias: '',
+            variableList: [{ type: '[string, number, boolean, number', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_tuple_0039_string_number_boolean_number convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0039_string_number_boolean_number must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_tuple_0039_string_number_boolean_number must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, number, boolean, number",
+          "h2dtscpp_compat_tuple_0039_string_number_boolean_number field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_tuple_0039_string_number_boolean_number execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0040_STRING_NUMBER_BOOLEAN_NUMBER
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0040_STRING_NUMBER_BOOLEAN_NUMBER
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ([string, number, boolean, number]); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0040_string_number_boolean_number', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C227', alias: '',
+            variableList: [{ type: '[string, number, boolean, number]', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_tuple_0040_string_number_boolean_number convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0040_string_number_boolean_number must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_tuple_0040_string_number_boolean_number must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, number, boolean, number]",
+          "h2dtscpp_compat_tuple_0040_string_number_boolean_number field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_tuple_0040_string_number_boolean_number execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0041_STRING_NUMBER_BOOLEAN_NUMBER
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0041_STRING_NUMBER_BOOLEAN_NUMBER
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ([string, number, boolean, number],); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0041_string_number_boolean_number', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C227', alias: '',
+            variableList: [{ type: '[string, number, boolean, number],', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_tuple_0041_string_number_boolean_number convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0041_string_number_boolean_number must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_tuple_0041_string_number_boolean_number must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, number, boolean, number],",
+          "h2dtscpp_compat_tuple_0041_string_number_boolean_number field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_tuple_0041_string_number_boolean_number execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0042_STRING_NUMBER_BOOLEAN_NUMBER
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0042_STRING_NUMBER_BOOLEAN_NUMBER
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ([string, number, boolean, number]); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0042_string_number_boolean_number', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C227', alias: '',
+            variableList: [{ type: '[string, number, boolean, number]', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_tuple_0042_string_number_boolean_number convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0042_string_number_boolean_number must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_tuple_0042_string_number_boolean_number must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, number, boolean, number]",
+          "h2dtscpp_compat_tuple_0042_string_number_boolean_number field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_tuple_0042_string_number_boolean_number execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0043_INVALIDTYPEXYZ
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0043_INVALIDTYPEXYZ
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); malformed
+   *            type InvalidTypeXYZ; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0043_invalidtypexyz', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C227', alias: '',
+            variableList: [{ type: 'InvalidTypeXYZ', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_tuple_0043_invalidtypexyz convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0043_invalidtypexyz must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_tuple_0043_invalidtypexyz must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "InvalidTypeXYZ",
+          "h2dtscpp_compat_tuple_0043_invalidtypexyz field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_tuple_0043_invalidtypexyz execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0044_STRING_NUMBR_BOOLEAN_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0044_STRING_NUMBR_BOOLEAN_STRING
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); number
+   *            keyword misspelled ([string, numbr, boolean, string]); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0044_string_numbr_boolean_string', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C228', alias: '',
+            variableList: [{ type: '[string, numbr, boolean, string]', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_tuple_0044_string_numbr_boolean_string convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0044_string_numbr_boolean_string must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_tuple_0044_string_numbr_boolean_string must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, numbr, boolean, string]",
+          "h2dtscpp_compat_tuple_0044_string_numbr_boolean_string field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_tuple_0044_string_numbr_boolean_string execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0045_STRNG_NUMBER_BOOLEAN_STRNG
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0045_STRNG_NUMBER_BOOLEAN_STRNG
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); string
+   *            keyword misspelled ([strng, number, boolean, strng]); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0045_strng_number_boolean_strng', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C228', alias: '',
+            variableList: [{ type: '[strng, number, boolean, strng]', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_tuple_0045_strng_number_boolean_strng convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0045_strng_number_boolean_strng must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_tuple_0045_strng_number_boolean_strng must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "[strng, number, boolean, strng]",
+          "h2dtscpp_compat_tuple_0045_strng_number_boolean_strng field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_tuple_0045_strng_number_boolean_strng execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0046_STRING_NUMBER_BOOLEA_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0046_STRING_NUMBER_BOOLEA_STRING
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ([string, number, boolea, string]); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0046_string_number_boolea_string', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C228', alias: '',
+            variableList: [{ type: '[string, number, boolea, string]', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_tuple_0046_string_number_boolea_string convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0046_string_number_boolea_string must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_tuple_0046_string_number_boolea_string must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, number, boolea, string]",
+          "h2dtscpp_compat_tuple_0046_string_number_boolea_string field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_tuple_0046_string_number_boolea_string execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0047_STRING_NUMBER_BOOLEAN_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0047_STRING_NUMBER_BOOLEAN_STRING
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ([string, number, boolean, string); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0047_string_number_boolean_string', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C228', alias: '',
+            variableList: [{ type: '[string, number, boolean, string', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_tuple_0047_string_number_boolean_string convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0047_string_number_boolean_string must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_tuple_0047_string_number_boolean_string must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, number, boolean, string",
+          "h2dtscpp_compat_tuple_0047_string_number_boolean_string field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_tuple_0047_string_number_boolean_string execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0048_STRING_NUMBER_BOOLEAN_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0048_STRING_NUMBER_BOOLEAN_STRING
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ([string, number, boolean, string]); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0048_string_number_boolean_string', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C228', alias: '',
+            variableList: [{ type: '[string, number, boolean, string]', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_tuple_0048_string_number_boolean_string convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0048_string_number_boolean_string must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_tuple_0048_string_number_boolean_string must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, number, boolean, string]",
+          "h2dtscpp_compat_tuple_0048_string_number_boolean_string field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_tuple_0048_string_number_boolean_string execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0049_STRING_NUMBER_BOOLEAN_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0049_STRING_NUMBER_BOOLEAN_STRING
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ([string, number, boolean, string); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0049_string_number_boolean_string', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C228', alias: '',
+            variableList: [{ type: '[string, number, boolean, string', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_tuple_0049_string_number_boolean_string convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0049_string_number_boolean_string must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_tuple_0049_string_number_boolean_string must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, number, boolean, string",
+          "h2dtscpp_compat_tuple_0049_string_number_boolean_string field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_tuple_0049_string_number_boolean_string execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0050_STRING_NUMBER_BOOLEAN_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0050_STRING_NUMBER_BOOLEAN_STRING
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ([string, number, boolean, string]); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0050_string_number_boolean_string', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C228', alias: '',
+            variableList: [{ type: '[string, number, boolean, string]', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_tuple_0050_string_number_boolean_string convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0050_string_number_boolean_string must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_tuple_0050_string_number_boolean_string must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, number, boolean, string]",
+          "h2dtscpp_compat_tuple_0050_string_number_boolean_string field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_tuple_0050_string_number_boolean_string execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0051_STRING_NUMBER_BOOLEAN_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0051_STRING_NUMBER_BOOLEAN_STRING
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ([string, number, boolean, string],); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0051_string_number_boolean_string', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C228', alias: '',
+            variableList: [{ type: '[string, number, boolean, string],', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_tuple_0051_string_number_boolean_string convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0051_string_number_boolean_string must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_tuple_0051_string_number_boolean_string must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, number, boolean, string],",
+          "h2dtscpp_compat_tuple_0051_string_number_boolean_string field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_tuple_0051_string_number_boolean_string execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0052_STRING_NUMBER_BOOLEAN_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0052_STRING_NUMBER_BOOLEAN_STRING
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ([string, number, boolean, string]); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0052_string_number_boolean_string', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C228', alias: '',
+            variableList: [{ type: '[string, number, boolean, string]', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_tuple_0052_string_number_boolean_string convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0052_string_number_boolean_string must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_tuple_0052_string_number_boolean_string must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, number, boolean, string]",
+          "h2dtscpp_compat_tuple_0052_string_number_boolean_string field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_tuple_0052_string_number_boolean_string execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0053_INVALIDTYPEXYZ
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0053_INVALIDTYPEXYZ
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); malformed
+   *            type InvalidTypeXYZ; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0053_invalidtypexyz', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C228', alias: '',
+            variableList: [{ type: 'InvalidTypeXYZ', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_tuple_0053_invalidtypexyz convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0053_invalidtypexyz must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_tuple_0053_invalidtypexyz must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "InvalidTypeXYZ",
+          "h2dtscpp_compat_tuple_0053_invalidtypexyz field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_tuple_0053_invalidtypexyz execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0054_STRING_NUMBR_BOOLEAN_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0054_STRING_NUMBR_BOOLEAN_BOOLEAN
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); number
+   *            keyword misspelled ([string, numbr, boolean, boolean]); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0054_string_numbr_boolean_boolean', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C229', alias: '',
+            variableList: [{ type: '[string, numbr, boolean, boolean]', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_tuple_0054_string_numbr_boolean_boolean convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0054_string_numbr_boolean_boolean must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_tuple_0054_string_numbr_boolean_boolean must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, numbr, boolean, boolean]",
+          "h2dtscpp_compat_tuple_0054_string_numbr_boolean_boolean field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_tuple_0054_string_numbr_boolean_boolean execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0055_STRNG_NUMBER_BOOLEAN_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0055_STRNG_NUMBER_BOOLEAN_BOOLEAN
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); string
+   *            keyword misspelled ([strng, number, boolean, boolean]); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0055_strng_number_boolean_boolean', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C229', alias: '',
+            variableList: [{ type: '[strng, number, boolean, boolean]', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_tuple_0055_strng_number_boolean_boolean convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0055_strng_number_boolean_boolean must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_tuple_0055_strng_number_boolean_boolean must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "[strng, number, boolean, boolean]",
+          "h2dtscpp_compat_tuple_0055_strng_number_boolean_boolean field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_tuple_0055_strng_number_boolean_boolean execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0056_STRING_NUMBER_BOOLEA_BOOLEA
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0056_STRING_NUMBER_BOOLEA_BOOLEA
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ([string, number, boolea, boolea]); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0056_string_number_boolea_boolea', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C229', alias: '',
+            variableList: [{ type: '[string, number, boolea, boolea]', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_tuple_0056_string_number_boolea_boolea convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0056_string_number_boolea_boolea must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_tuple_0056_string_number_boolea_boolea must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, number, boolea, boolea]",
+          "h2dtscpp_compat_tuple_0056_string_number_boolea_boolea field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_tuple_0056_string_number_boolea_boolea execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0057_STRING_NUMBER_BOOLEAN_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0057_STRING_NUMBER_BOOLEAN_BOOLEAN
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ([string, number, boolean, boolean); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0057_string_number_boolean_boolean', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C229', alias: '',
+            variableList: [{ type: '[string, number, boolean, boolean', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_tuple_0057_string_number_boolean_boolean convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0057_string_number_boolean_boolean must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_tuple_0057_string_number_boolean_boolean must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, number, boolean, boolean",
+          "h2dtscpp_compat_tuple_0057_string_number_boolean_boolean field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_tuple_0057_string_number_boolean_boolean execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0058_STRING_NUMBER_BOOLEAN_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0058_STRING_NUMBER_BOOLEAN_BOOLEAN
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ([string, number, boolean, boolean]); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0058_string_number_boolean_boolean', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const converted = transParseObj({
+          enums: [], unions: [], structs: [],
+          classes: [{ name: 'C229', alias: '',
+            variableList: [{ type: '[string, number, boolean, boolean]', name: 'v', arraySize: 0, arraySizeList: [] }],
+            functionList: []
+          }],
+          funcs: [], types: []
+        });
+        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
+          "h2dtscpp_compat_tuple_0058_string_number_boolean_boolean convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0058_string_number_boolean_boolean must have class");
+        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
+          "h2dtscpp_compat_tuple_0058_string_number_boolean_boolean must have field");
+        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, number, boolean, boolean]",
+          "h2dtscpp_compat_tuple_0058_string_number_boolean_boolean field type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dtscpp_compat_tuple_0058_string_number_boolean_boolean execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0001_STRING_STRING_NUMBR_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0001_STRING_STRING_NUMBR_STRING
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); number
+   *            keyword misspelled ([string, string, numbr, string]); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0001_string_string_numbr_string', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -37,20 +1485,30 @@ suite('Stability_H2DTSCPP_COMPAT_TUPLE_Part11', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0001 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0001 must have class");
+          "h2dtscpp_compat_tuple_0001_string_string_numbr_string convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0001_string_string_numbr_string must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0001 must have field");
+          "h2dtscpp_compat_tuple_0001_string_string_numbr_string must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, numbr, string]",
-          "h2dtscpp_compat_tuple_0001 field type");
+          "h2dtscpp_compat_tuple_0001_string_string_numbr_string field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0001 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_tuple_0001_string_string_numbr_string execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_tuple_0002', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0002_STRNG_STRNG_NUMBER_STRNG
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0002_STRNG_STRNG_NUMBER_STRNG
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); string
+   *            keyword misspelled ([strng, strng, number, strng]); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0002_strng_strng_number_strng', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -63,20 +1521,30 @@ suite('Stability_H2DTSCPP_COMPAT_TUPLE_Part11', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0002 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0002 must have class");
+          "h2dtscpp_compat_tuple_0002_strng_strng_number_strng convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0002_strng_strng_number_strng must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0002 must have field");
+          "h2dtscpp_compat_tuple_0002_strng_strng_number_strng must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "[strng, strng, number, strng]",
-          "h2dtscpp_compat_tuple_0002 field type");
+          "h2dtscpp_compat_tuple_0002_strng_strng_number_strng field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0002 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_tuple_0002_strng_strng_number_strng execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_tuple_0003', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0003_STRING_STRING_NUMBER_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0003_STRING_STRING_NUMBER_STRING
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); malformed
+   *            type [string, string, number, string]; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0003_string_string_number_string', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -89,20 +1557,30 @@ suite('Stability_H2DTSCPP_COMPAT_TUPLE_Part11', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0003 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0003 must have class");
+          "h2dtscpp_compat_tuple_0003_string_string_number_string convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0003_string_string_number_string must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0003 must have field");
+          "h2dtscpp_compat_tuple_0003_string_string_number_string must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, number, string]",
-          "h2dtscpp_compat_tuple_0003 field type");
+          "h2dtscpp_compat_tuple_0003_string_string_number_string field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0003 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_tuple_0003_string_string_number_string execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_tuple_0004', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0004_STRING_STRING_NUMBER_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0004_STRING_STRING_NUMBER_STRING
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); malformed
+   *            type [string, string, number, string; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0004_string_string_number_string', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -115,20 +1593,30 @@ suite('Stability_H2DTSCPP_COMPAT_TUPLE_Part11', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0004 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0004 must have class");
+          "h2dtscpp_compat_tuple_0004_string_string_number_string convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0004_string_string_number_string must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0004 must have field");
+          "h2dtscpp_compat_tuple_0004_string_string_number_string must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, number, string",
-          "h2dtscpp_compat_tuple_0004 field type");
+          "h2dtscpp_compat_tuple_0004_string_string_number_string field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0004 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_tuple_0004_string_string_number_string execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_tuple_0005', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0005_STRING_STRING_NUMBER_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0005_STRING_STRING_NUMBER_STRING
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); malformed
+   *            type [string, string, number, string]; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0005_string_string_number_string', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -141,20 +1629,30 @@ suite('Stability_H2DTSCPP_COMPAT_TUPLE_Part11', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0005 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0005 must have class");
+          "h2dtscpp_compat_tuple_0005_string_string_number_string convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0005_string_string_number_string must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0005 must have field");
+          "h2dtscpp_compat_tuple_0005_string_string_number_string must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, number, string]",
-          "h2dtscpp_compat_tuple_0005 field type");
+          "h2dtscpp_compat_tuple_0005_string_string_number_string field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0005 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_tuple_0005_string_string_number_string execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_tuple_0006', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0006_STRING_STRING_NUMBER_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0006_STRING_STRING_NUMBER_STRING
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); malformed
+   *            type [string, string, number, string; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0006_string_string_number_string', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -167,20 +1665,30 @@ suite('Stability_H2DTSCPP_COMPAT_TUPLE_Part11', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0006 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0006 must have class");
+          "h2dtscpp_compat_tuple_0006_string_string_number_string convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0006_string_string_number_string must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0006 must have field");
+          "h2dtscpp_compat_tuple_0006_string_string_number_string must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, number, string",
-          "h2dtscpp_compat_tuple_0006 field type");
+          "h2dtscpp_compat_tuple_0006_string_string_number_string field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0006 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_tuple_0006_string_string_number_string execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_tuple_0007', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0007_STRING_STRING_NUMBER_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0007_STRING_STRING_NUMBER_STRING
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); malformed
+   *            type [string, string, number, string]; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0007_string_string_number_string', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -193,20 +1701,30 @@ suite('Stability_H2DTSCPP_COMPAT_TUPLE_Part11', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0007 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0007 must have class");
+          "h2dtscpp_compat_tuple_0007_string_string_number_string convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0007_string_string_number_string must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0007 must have field");
+          "h2dtscpp_compat_tuple_0007_string_string_number_string must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, number, string]",
-          "h2dtscpp_compat_tuple_0007 field type");
+          "h2dtscpp_compat_tuple_0007_string_string_number_string field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0007 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_tuple_0007_string_string_number_string execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_tuple_0008', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0008_STRING_STRING_NUMBER_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0008_STRING_STRING_NUMBER_STRING
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); trailing
+   *            comma on type ([string, string, number, string],); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0008_string_string_number_string', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -219,20 +1737,30 @@ suite('Stability_H2DTSCPP_COMPAT_TUPLE_Part11', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0008 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0008 must have class");
+          "h2dtscpp_compat_tuple_0008_string_string_number_string convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0008_string_string_number_string must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0008 must have field");
+          "h2dtscpp_compat_tuple_0008_string_string_number_string must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, number, string],",
-          "h2dtscpp_compat_tuple_0008 field type");
+          "h2dtscpp_compat_tuple_0008_string_string_number_string field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0008 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_tuple_0008_string_string_number_string execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_tuple_0009', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0009_STRING_STRING_NUMBER_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0009_STRING_STRING_NUMBER_STRING
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); malformed
+   *            type [string, string, number, string]; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0009_string_string_number_string', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -245,20 +1773,30 @@ suite('Stability_H2DTSCPP_COMPAT_TUPLE_Part11', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0009 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0009 must have class");
+          "h2dtscpp_compat_tuple_0009_string_string_number_string convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0009_string_string_number_string must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0009 must have field");
+          "h2dtscpp_compat_tuple_0009_string_string_number_string must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, number, string]",
-          "h2dtscpp_compat_tuple_0009 field type");
+          "h2dtscpp_compat_tuple_0009_string_string_number_string field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0009 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_tuple_0009_string_string_number_string execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_tuple_0010', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0010_INVALIDTYPEXYZ_V2
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0010_INVALIDTYPEXYZ_V2
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); malformed
+   *            type InvalidTypeXYZ; strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0010_invalidtypexyz_v2', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -271,20 +1809,30 @@ suite('Stability_H2DTSCPP_COMPAT_TUPLE_Part11', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0010 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0010 must have class");
+          "h2dtscpp_compat_tuple_0010_invalidtypexyz_v2 convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0010_invalidtypexyz_v2 must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0010 must have field");
+          "h2dtscpp_compat_tuple_0010_invalidtypexyz_v2 must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "InvalidTypeXYZ",
-          "h2dtscpp_compat_tuple_0010 field type");
+          "h2dtscpp_compat_tuple_0010_invalidtypexyz_v2 field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0010 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_tuple_0010_invalidtypexyz_v2 execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_tuple_0011', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0011_STRING_STRING_NUMBR_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0011_STRING_STRING_NUMBR_BOOLEAN
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); number
+   *            keyword misspelled ([string, string, numbr, boolean]); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0011_string_string_numbr_boolean', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -297,20 +1845,30 @@ suite('Stability_H2DTSCPP_COMPAT_TUPLE_Part11', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0011 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0011 must have class");
+          "h2dtscpp_compat_tuple_0011_string_string_numbr_boolean convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0011_string_string_numbr_boolean must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0011 must have field");
+          "h2dtscpp_compat_tuple_0011_string_string_numbr_boolean must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, numbr, boolean]",
-          "h2dtscpp_compat_tuple_0011 field type");
+          "h2dtscpp_compat_tuple_0011_string_string_numbr_boolean field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0011 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_tuple_0011_string_string_numbr_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_tuple_0012', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0012_STRNG_STRNG_NUMBER_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0012_STRNG_STRNG_NUMBER_BOOLEAN
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); string
+   *            keyword misspelled ([strng, strng, number, boolean]); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0012_strng_strng_number_boolean', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -323,20 +1881,30 @@ suite('Stability_H2DTSCPP_COMPAT_TUPLE_Part11', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0012 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0012 must have class");
+          "h2dtscpp_compat_tuple_0012_strng_strng_number_boolean convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0012_strng_strng_number_boolean must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0012 must have field");
+          "h2dtscpp_compat_tuple_0012_strng_strng_number_boolean must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "[strng, strng, number, boolean]",
-          "h2dtscpp_compat_tuple_0012 field type");
+          "h2dtscpp_compat_tuple_0012_strng_strng_number_boolean field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0012 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_tuple_0012_strng_strng_number_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_tuple_0013', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0013_STRING_STRING_NUMBER_BOOLEA
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0013_STRING_STRING_NUMBER_BOOLEA
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ([string, string, number, boolea]); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0013_string_string_number_boolea', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -349,20 +1917,30 @@ suite('Stability_H2DTSCPP_COMPAT_TUPLE_Part11', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0013 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0013 must have class");
+          "h2dtscpp_compat_tuple_0013_string_string_number_boolea convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0013_string_string_number_boolea must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0013 must have field");
+          "h2dtscpp_compat_tuple_0013_string_string_number_boolea must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, number, boolea]",
-          "h2dtscpp_compat_tuple_0013 field type");
+          "h2dtscpp_compat_tuple_0013_string_string_number_boolea field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0013 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_tuple_0013_string_string_number_boolea execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_compat_tuple_0014', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0014_STRING_STRING_NUMBER_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_COMPAT_TUPLE_0014_STRING_STRING_NUMBER_BOOLEAN
+   * @tc.desc   Stability compat h2dtscpp/tuple: runCompatSafe(transParseObj literal); boolean
+   *            keyword misspelled ([string, string, number, boolean); strictEqual class field type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_compat_tuple_0014_string_string_number_boolean', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
@@ -375,1550 +1953,17 @@ suite('Stability_H2DTSCPP_COMPAT_TUPLE_Part11', function() {
           funcs: [], types: []
         });
         assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0014 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0014 must have class");
+          "h2dtscpp_compat_tuple_0014_string_string_number_boolean convert result must be object");
+        assert.ok(converted.classes && converted.classes.length >= 1,
+          "h2dtscpp_compat_tuple_0014_string_string_number_boolean must have class");
         assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0014 must have field");
+          "h2dtscpp_compat_tuple_0014_string_string_number_boolean must have field");
         assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, number, boolean",
-          "h2dtscpp_compat_tuple_0014 field type");
+          "h2dtscpp_compat_tuple_0014_string_string_number_boolean field type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0014 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0015', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C232', alias: '',
-            variableList: [{ type: '[string, string, number, boolean]', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0015 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0015 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0015 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, number, boolean]",
-          "h2dtscpp_compat_tuple_0015 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0015 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0016', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C232', alias: '',
-            variableList: [{ type: '[string, string, number, boolean', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0016 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0016 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0016 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, number, boolean",
-          "h2dtscpp_compat_tuple_0016 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0016 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0017', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C232', alias: '',
-            variableList: [{ type: '[string, string, number, boolean]', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0017 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0017 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0017 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, number, boolean]",
-          "h2dtscpp_compat_tuple_0017 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0017 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0018', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C232', alias: '',
-            variableList: [{ type: '[string, string, number, boolean],', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0018 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0018 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0018 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, number, boolean],",
-          "h2dtscpp_compat_tuple_0018 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0018 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0019', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C232', alias: '',
-            variableList: [{ type: '[string, string, number, boolean]', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0019 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0019 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0019 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, number, boolean]",
-          "h2dtscpp_compat_tuple_0019 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0019 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0020', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C232', alias: '',
-            variableList: [{ type: 'InvalidTypeXYZ', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0020 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0020 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0020 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "InvalidTypeXYZ",
-          "h2dtscpp_compat_tuple_0020 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0020 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0021', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C233', alias: '',
-            variableList: [{ type: '[string, string, string, numbr]', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0021 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0021 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0021 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, string, numbr]",
-          "h2dtscpp_compat_tuple_0021 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0021 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0022', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C233', alias: '',
-            variableList: [{ type: '[strng, strng, strng, number]', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0022 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0022 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0022 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[strng, strng, strng, number]",
-          "h2dtscpp_compat_tuple_0022 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0022 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0023', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C233', alias: '',
-            variableList: [{ type: '[string, string, string, number]', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0023 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0023 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0023 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, string, number]",
-          "h2dtscpp_compat_tuple_0023 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0023 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0024', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C233', alias: '',
-            variableList: [{ type: '[string, string, string, number', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0024 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0024 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0024 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, string, number",
-          "h2dtscpp_compat_tuple_0024 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0024 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0025', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C233', alias: '',
-            variableList: [{ type: '[string, string, string, number]', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0025 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0025 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0025 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, string, number]",
-          "h2dtscpp_compat_tuple_0025 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0025 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0026', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C233', alias: '',
-            variableList: [{ type: '[string, string, string, number', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0026 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0026 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0026 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, string, number",
-          "h2dtscpp_compat_tuple_0026 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0026 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0027', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C233', alias: '',
-            variableList: [{ type: '[string, string, string, number]', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0027 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0027 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0027 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, string, number]",
-          "h2dtscpp_compat_tuple_0027 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0027 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0028', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C233', alias: '',
-            variableList: [{ type: '[string, string, string, number],', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0028 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0028 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0028 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, string, number],",
-          "h2dtscpp_compat_tuple_0028 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0028 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0029', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C233', alias: '',
-            variableList: [{ type: '[string, string, string, number]', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0029 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0029 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0029 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, string, number]",
-          "h2dtscpp_compat_tuple_0029 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0029 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0030', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C233', alias: '',
-            variableList: [{ type: 'InvalidTypeXYZ', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0030 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0030 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0030 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "InvalidTypeXYZ",
-          "h2dtscpp_compat_tuple_0030 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0030 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0031', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C234', alias: '',
-            variableList: [{ type: '[string, string, string, string]', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0031 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0031 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0031 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, string, string]",
-          "h2dtscpp_compat_tuple_0031 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0031 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0032', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C234', alias: '',
-            variableList: [{ type: '[strng, strng, strng, strng]', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0032 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0032 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0032 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[strng, strng, strng, strng]",
-          "h2dtscpp_compat_tuple_0032 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0032 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0033', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C234', alias: '',
-            variableList: [{ type: '[string, string, string, string]', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0033 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0033 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0033 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, string, string]",
-          "h2dtscpp_compat_tuple_0033 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0033 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0034', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C234', alias: '',
-            variableList: [{ type: '[string, string, string, string', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0034 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0034 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0034 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, string, string",
-          "h2dtscpp_compat_tuple_0034 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0034 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0035', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C234', alias: '',
-            variableList: [{ type: '[string, string, string, string]', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0035 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0035 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0035 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, string, string]",
-          "h2dtscpp_compat_tuple_0035 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0035 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0036', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C234', alias: '',
-            variableList: [{ type: '[string, string, string, string', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0036 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0036 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0036 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, string, string",
-          "h2dtscpp_compat_tuple_0036 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0036 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0037', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C234', alias: '',
-            variableList: [{ type: '[string, string, string, string]', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0037 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0037 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0037 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, string, string]",
-          "h2dtscpp_compat_tuple_0037 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0037 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0038', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C234', alias: '',
-            variableList: [{ type: '[string, string, string, string],', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0038 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0038 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0038 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, string, string],",
-          "h2dtscpp_compat_tuple_0038 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0038 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0039', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C234', alias: '',
-            variableList: [{ type: '[string, string, string, string]', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0039 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0039 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0039 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, string, string]",
-          "h2dtscpp_compat_tuple_0039 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0039 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0040', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C234', alias: '',
-            variableList: [{ type: 'InvalidTypeXYZ', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0040 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0040 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0040 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "InvalidTypeXYZ",
-          "h2dtscpp_compat_tuple_0040 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0040 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0041', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C235', alias: '',
-            variableList: [{ type: '[string, string, string, boolean]', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0041 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0041 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0041 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, string, boolean]",
-          "h2dtscpp_compat_tuple_0041 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0041 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0042', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C235', alias: '',
-            variableList: [{ type: '[strng, strng, strng, boolean]', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0042 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0042 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0042 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[strng, strng, strng, boolean]",
-          "h2dtscpp_compat_tuple_0042 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0042 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0043', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C235', alias: '',
-            variableList: [{ type: '[string, string, string, boolea]', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0043 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0043 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0043 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, string, boolea]",
-          "h2dtscpp_compat_tuple_0043 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0043 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0044', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C235', alias: '',
-            variableList: [{ type: '[string, string, string, boolean', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0044 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0044 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0044 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, string, boolean",
-          "h2dtscpp_compat_tuple_0044 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0044 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0045', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C235', alias: '',
-            variableList: [{ type: '[string, string, string, boolean]', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0045 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0045 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0045 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, string, boolean]",
-          "h2dtscpp_compat_tuple_0045 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0045 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0046', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C235', alias: '',
-            variableList: [{ type: '[string, string, string, boolean', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0046 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0046 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0046 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, string, boolean",
-          "h2dtscpp_compat_tuple_0046 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0046 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0047', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C235', alias: '',
-            variableList: [{ type: '[string, string, string, boolean]', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0047 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0047 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0047 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, string, boolean]",
-          "h2dtscpp_compat_tuple_0047 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0047 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0048', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C235', alias: '',
-            variableList: [{ type: '[string, string, string, boolean],', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0048 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0048 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0048 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, string, boolean],",
-          "h2dtscpp_compat_tuple_0048 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0048 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0049', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C235', alias: '',
-            variableList: [{ type: '[string, string, string, boolean]', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0049 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0049 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0049 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, string, boolean]",
-          "h2dtscpp_compat_tuple_0049 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0049 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0050', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C235', alias: '',
-            variableList: [{ type: 'InvalidTypeXYZ', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0050 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0050 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0050 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "InvalidTypeXYZ",
-          "h2dtscpp_compat_tuple_0050 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0050 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0051', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C236', alias: '',
-            variableList: [{ type: '[string, string, boolean, numbr]', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0051 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0051 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0051 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, boolean, numbr]",
-          "h2dtscpp_compat_tuple_0051 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0051 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0052', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C236', alias: '',
-            variableList: [{ type: '[strng, strng, boolean, number]', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0052 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0052 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0052 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[strng, strng, boolean, number]",
-          "h2dtscpp_compat_tuple_0052 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0052 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0053', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C236', alias: '',
-            variableList: [{ type: '[string, string, boolea, number]', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0053 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0053 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0053 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, boolea, number]",
-          "h2dtscpp_compat_tuple_0053 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0053 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0054', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C236', alias: '',
-            variableList: [{ type: '[string, string, boolean, number', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0054 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0054 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0054 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, boolean, number",
-          "h2dtscpp_compat_tuple_0054 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0054 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0055', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C236', alias: '',
-            variableList: [{ type: '[string, string, boolean, number]', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0055 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0055 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0055 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, boolean, number]",
-          "h2dtscpp_compat_tuple_0055 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0055 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0056', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C236', alias: '',
-            variableList: [{ type: '[string, string, boolean, number', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0056 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0056 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0056 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, boolean, number",
-          "h2dtscpp_compat_tuple_0056 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0056 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0057', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C236', alias: '',
-            variableList: [{ type: '[string, string, boolean, number]', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0057 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0057 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0057 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, boolean, number]",
-          "h2dtscpp_compat_tuple_0057 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0057 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0058', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C236', alias: '',
-            variableList: [{ type: '[string, string, boolean, number],', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0058 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0058 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0058 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, boolean, number],",
-          "h2dtscpp_compat_tuple_0058 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0058 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0059', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C236', alias: '',
-            variableList: [{ type: '[string, string, boolean, number]', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0059 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0059 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0059 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, boolean, number]",
-          "h2dtscpp_compat_tuple_0059 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0059 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0060', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C236', alias: '',
-            variableList: [{ type: 'InvalidTypeXYZ', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0060 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0060 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0060 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "InvalidTypeXYZ",
-          "h2dtscpp_compat_tuple_0060 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0060 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0061', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C237', alias: '',
-            variableList: [{ type: '[string, string, boolean, string]', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0061 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0061 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0061 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, boolean, string]",
-          "h2dtscpp_compat_tuple_0061 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0061 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0062', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C237', alias: '',
-            variableList: [{ type: '[strng, strng, boolean, strng]', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0062 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0062 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0062 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[strng, strng, boolean, strng]",
-          "h2dtscpp_compat_tuple_0062 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0062 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0063', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C237', alias: '',
-            variableList: [{ type: '[string, string, boolea, string]', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0063 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0063 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0063 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, boolea, string]",
-          "h2dtscpp_compat_tuple_0063 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0063 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0064', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C237', alias: '',
-            variableList: [{ type: '[string, string, boolean, string', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0064 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0064 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0064 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, boolean, string",
-          "h2dtscpp_compat_tuple_0064 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0064 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0065', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C237', alias: '',
-            variableList: [{ type: '[string, string, boolean, string]', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0065 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0065 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0065 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, boolean, string]",
-          "h2dtscpp_compat_tuple_0065 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0065 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0066', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C237', alias: '',
-            variableList: [{ type: '[string, string, boolean, string', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0066 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0066 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0066 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, boolean, string",
-          "h2dtscpp_compat_tuple_0066 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0066 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0067', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C237', alias: '',
-            variableList: [{ type: '[string, string, boolean, string]', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0067 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0067 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0067 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, boolean, string]",
-          "h2dtscpp_compat_tuple_0067 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0067 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0068', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C237', alias: '',
-            variableList: [{ type: '[string, string, boolean, string],', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0068 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0068 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0068 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, boolean, string],",
-          "h2dtscpp_compat_tuple_0068 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0068 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0069', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C237', alias: '',
-            variableList: [{ type: '[string, string, boolean, string]', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0069 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0069 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0069 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, boolean, string]",
-          "h2dtscpp_compat_tuple_0069 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0069 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0070', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C237', alias: '',
-            variableList: [{ type: 'InvalidTypeXYZ', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0070 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0070 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0070 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "InvalidTypeXYZ",
-          "h2dtscpp_compat_tuple_0070 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0070 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0071', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C238', alias: '',
-            variableList: [{ type: '[string, string, boolean, boolean]', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0071 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0071 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0071 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, boolean, boolean]",
-          "h2dtscpp_compat_tuple_0071 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0071 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0072', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C238', alias: '',
-            variableList: [{ type: '[strng, strng, boolean, boolean]', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0072 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0072 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0072 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[strng, strng, boolean, boolean]",
-          "h2dtscpp_compat_tuple_0072 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0072 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_compat_tuple_0073', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const converted = transParseObj({
-          enums: [], unions: [], structs: [],
-          classes: [{ name: 'C238', alias: '',
-            variableList: [{ type: '[string, string, boolea, boolea]', name: 'v', arraySize: 0, arraySizeList: [] }],
-            functionList: []
-          }],
-          funcs: [], types: []
-        });
-        assert.ok(converted !== undefined && converted !== null && typeof converted === 'object',
-          "h2dtscpp_compat_tuple_0073 convert result must be object");
-        assert.ok(converted.classes && converted.classes.length >= 1, "h2dtscpp_compat_tuple_0073 must have class");
-        assert.ok(converted.classes[0].variableList && converted.classes[0].variableList.length >= 1,
-          "h2dtscpp_compat_tuple_0073 must have field");
-        assert.strictEqual(converted.classes[0].variableList[0].type, "[string, string, boolea, boolea]",
-          "h2dtscpp_compat_tuple_0073 field type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dtscpp_compat_tuple_0073 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_compat_tuple_0014_string_string_number_boolean execution error: ${String(err)}`);
     }
   });
 });

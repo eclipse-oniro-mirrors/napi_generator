@@ -21,117 +21,18 @@ import { runCompatSafe } from './stability_helpers';
 
 suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
   this.timeout(600000);
-  vscode.window.showInformationMessage('Start Stability_H2DTSCPP_CONVERT_FUNC_Part03.');
+  vscode.window.showInformationMessage('Start Stability_H2DTSCPP_CONVERT_FUNC_Part01.');
 
-
-  test('h2dtscpp_convert_func_0001', () => {
-    try {
-      const parsed = doParseTs('h2cpp49.ts', `
-        function h2cpp49(p: (p0:number,p1:number)=>boolean): (p0:number,p1:number)=>boolean { return p; }`);
-      assert.ok(parsed !== undefined && typeof parsed === 'object', "parse result must be object");
-      const converted = transParseObj(parsed);
-      assert.ok(converted.funcs.length >= 1);
-      assert.strictEqual(converted.funcs[0].returns, "std::function<bool(double, double)>",
-        "h2dtscpp_convert_func_0001 parse return type convert convert output");
-      assert.ok(converted.funcs[0].parameters.length >= 1);
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<bool(double, double)>",
-        "h2dtscpp_convert_func_0001 parse param type convert convert output");
-      const generated = generateFunctions(converted, 'h2cpp49.d.ts');
-      assert.ok(generated !== undefined && typeof generated === 'object');
-      assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
-        "napiH must be non-empty");
-      assert.ok(typeof generated.napiCppContent === 'string', "napiCpp must exist");
-      assert.ok(generated.napiHContent.includes('h2cpp49') || generated.napiCppContent.length > 0,
-        "gen must reference function");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0001 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_func_0002', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [],
-        funcs: [{ type: 'function', name: 'typeFn49', returns: '(p0:number,p1:number)=>boolean',
-          parameters: [{ type: '(p0:number,p1:number)=>boolean', name: 'p', arraySize: 0, arraySizeList: [] }]
-        }],
-        types: [{ name: 'Alias49', alias: '(p0:number,p1:number)=>boolean', members: [], functions: [], types: []
-        }]
-      });
-      assert.ok(Array.isArray(converted.types) && converted.types.length >= 1);
-      assert.strictEqual(converted.types[0].name, 'Alias49');
-      assert.strictEqual(converted.types[0].alias, '(p0:number,p1:number)=>boolean');
-      assert.ok(Array.isArray(converted.types[0].types));
-      assert.ok(converted.funcs.length >= 1);
-      assert.strictEqual(converted.funcs[0].name, 'typeFn49');
-      assert.strictEqual(converted.funcs[0].returns, "std::function<bool(double, double)>",
-        "h2dtscpp_convert_func_0002 type fn return type convert convert output");
-      assert.ok(converted.funcs[0].parameters.length >= 1);
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<bool(double, double)>",
-        "h2dtscpp_convert_func_0002 type fn param type convert convert output");
-      const generated = generateFunctions(converted, 'sample49_type.d.ts');
-      assert.ok(generated !== undefined && typeof generated === 'object');
-      assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
-        "napiH must be non-empty");
-      assert.ok(typeof generated.napiCppContent === 'string', "napiCpp must exist");
-      assert.ok(generated.napiHContent.includes('typeFn49') || generated.napiCppContent.length > 0,
-        "gen must reference function");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0002 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_func_0003', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [{ name: 'SampleClass50', alias: '',
-          variableList: [{ type: '(p0:number,p1:boolean)=>boolean', name: 'value', arraySize: 0, arraySizeList: [] }],
-          functionList: []
-        }],
-        funcs: [], types: []
-      });
-      assert.ok(converted.classes.length >= 1);
-      assert.ok(converted.classes[0].variableList.length >= 1);
-      assert.strictEqual(converted.classes[0].variableList[0].name, 'value');
-      assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<bool(double, bool)>",
-        "h2dtscpp_convert_func_0003 class var type convert convert output");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0003 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_func_0004', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [],
-        funcs: [{ type: 'function', name: 'globalRun50', returns: '(p0:number,p1:boolean)=>boolean',
-          parameters: [{ type: '(p0:number,p1:boolean)=>boolean', name: 'gparam', arraySize: 0, arraySizeList: [] }]
-        }],
-        types: []
-      });
-      assert.ok(converted.funcs.length >= 1);
-      assert.strictEqual(converted.funcs[0].name, 'globalRun50');
-      assert.strictEqual(converted.funcs[0].returns, "std::function<bool(double, bool)>",
-        "h2dtscpp_convert_func_0004 global return type convert convert output");
-      assert.ok(converted.funcs[0].parameters.length >= 1);
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<bool(double, bool)>",
-        "h2dtscpp_convert_func_0004 global param type convert convert output");
-      const generated = generateFunctions(converted, 'sample50_global.d.ts');
-      assert.ok(generated !== undefined && typeof generated === 'object');
-      assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
-        "napiH must be non-empty");
-      assert.ok(typeof generated.napiCppContent === 'string', "napiCpp must exist");
-      assert.ok(generated.napiHContent.includes('globalRun50') || generated.napiCppContent.length > 0,
-        "gen must reference function");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0004 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_func_0005', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0005_P0_NUMBER_P1_BOOLEAN_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0005_P0_NUMBER_P1_BOOLEAN_BOOLEAN
+   * @tc.desc   Stability convert h2dtscpp/func: class-method convert; type
+   *            (p0:number,p1:boolean)=>boolean; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0005_p0_number_p1_boolean_boolean', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -147,16 +48,25 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(converted.classes[0].functionList.length >= 1);
       assert.strictEqual(converted.classes[0].functionList[0].name, 'run');
       assert.strictEqual(converted.classes[0].functionList[0].returns, "std::function<bool(double, bool)>",
-        "h2dtscpp_convert_func_0005 class method return type convert convert output");
+        "h2dtscpp_convert_func_0005_p0_number_p1_boolean_boolean class method return type convert convert output");
       assert.ok(converted.classes[0].functionList[0].parameters.length >= 1);
       assert.strictEqual(converted.classes[0].functionList[0].parameters[0].type, "std::function<bool(double, bool)>",
-        "h2dtscpp_convert_func_0005 class method param type convert convert output");
+        "h2dtscpp_convert_func_0005_p0_number_p1_boolean_boolean class method param type convert convert output");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0005 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0005_p0_number_p1_boolean_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0006', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0006_NUMBER_P1_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0006_NUMBER_P1_BOOLEAN
+   * @tc.desc   Stability convert h2dtscpp/func: parse-convert-gen pipeline; type
+   *            (p0:number,p1:boolean)=>boolean; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0006_number_p1_boolean', () => {
     try {
       const parsed = doParseTs('h2cpp50.ts', `
         function h2cpp50(p: (p0:number,p1:boolean)=>boolean): (p0:number,p1:boolean)=>boolean { return p; }`);
@@ -164,10 +74,10 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       const converted = transParseObj(parsed);
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].returns, "std::function<bool(double, bool)>",
-        "h2dtscpp_convert_func_0006 parse return type convert convert output");
+        "h2dtscpp_convert_func_0006_number_p1_boolean parse return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<bool(double, bool)>",
-        "h2dtscpp_convert_func_0006 parse param type convert convert output");
+        "h2dtscpp_convert_func_0006_number_p1_boolean parse param type convert convert output");
       const generated = generateFunctions(converted, 'h2cpp50.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -176,11 +86,20 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(generated.napiHContent.includes('h2cpp50') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0006 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0006_number_p1_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0007', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0007_P0_NUMBER_P1_BOOLEAN_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0007_P0_NUMBER_P1_BOOLEAN_BOOLEAN
+   * @tc.desc   Stability convert h2dtscpp/func: type-alias and global-function convert; type
+   *            (p0:number,p1:boolean)=>boolean; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0007_p0_number_p1_boolean_boolean', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -198,10 +117,10 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].name, 'typeFn50');
       assert.strictEqual(converted.funcs[0].returns, "std::function<bool(double, bool)>",
-        "h2dtscpp_convert_func_0007 type fn return type convert convert output");
+        "h2dtscpp_convert_func_0007_p0_number_p1_boolean_boolean type fn return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<bool(double, bool)>",
-        "h2dtscpp_convert_func_0007 type fn param type convert convert output");
+        "h2dtscpp_convert_func_0007_p0_number_p1_boolean_boolean type fn param type convert convert output");
       const generated = generateFunctions(converted, 'sample50_type.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -210,11 +129,20 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(generated.napiHContent.includes('typeFn50') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0007 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0007_p0_number_p1_boolean_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0008', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0008_P0_STRING_P1_STRING_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0008_P0_STRING_P1_STRING_BOOLEAN
+   * @tc.desc   Stability convert h2dtscpp/func: class-field convert; type
+   *            (p0:string,p1:string)=>boolean; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0008_p0_string_p1_string_boolean', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -228,13 +156,22 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(converted.classes[0].variableList.length >= 1);
       assert.strictEqual(converted.classes[0].variableList[0].name, 'value');
       assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<bool(std::string, std::string)>",
-        "h2dtscpp_convert_func_0008 class var type convert convert output");
+        "h2dtscpp_convert_func_0008_p0_string_p1_string_boolean class var type convert convert output");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0008 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0008_p0_string_p1_string_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0009', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0009_P0_STRING_P1_STRING_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0009_P0_STRING_P1_STRING_BOOLEAN
+   * @tc.desc   Stability convert h2dtscpp/func: global-function convert; type
+   *            (p0:string,p1:string)=>boolean; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0009_p0_string_p1_string_boolean', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -247,10 +184,10 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].name, 'globalRun51');
       assert.strictEqual(converted.funcs[0].returns, "std::function<bool(std::string, std::string)>",
-        "h2dtscpp_convert_func_0009 global return type convert convert output");
+        "h2dtscpp_convert_func_0009_p0_string_p1_string_boolean global return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<bool(std::string, std::string)>",
-        "h2dtscpp_convert_func_0009 global param type convert convert output");
+        "h2dtscpp_convert_func_0009_p0_string_p1_string_boolean global param type convert convert output");
       const generated = generateFunctions(converted, 'sample51_global.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -259,11 +196,20 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(generated.napiHContent.includes('globalRun51') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0009 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0009_p0_string_p1_string_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0010', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0010_P0_STRING_P1_STRING_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0010_P0_STRING_P1_STRING_BOOLEAN
+   * @tc.desc   Stability convert h2dtscpp/func: class-method convert; type
+   *            (p0:string,p1:string)=>boolean; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0010_p0_string_p1_string_boolean', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -279,17 +225,26 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(converted.classes[0].functionList.length >= 1);
       assert.strictEqual(converted.classes[0].functionList[0].name, 'run');
       assert.strictEqual(converted.classes[0].functionList[0].returns, "std::function<bool(std::string, std::string)>",
-        "h2dtscpp_convert_func_0010 class method return type convert convert output");
+        "h2dtscpp_convert_func_0010_p0_string_p1_string_boolean class method return type convert convert output");
       assert.ok(converted.classes[0].functionList[0].parameters.length >= 1);
       assert.strictEqual(converted.classes[0].functionList[0].parameters[0].type,
         "std::function<bool(std::string, std::string)>",
-        "h2dtscpp_convert_func_0010 class method param type convert convert output");
+        "h2dtscpp_convert_func_0010_p0_string_p1_string_boolean class method param type convert convert output");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0010 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0010_p0_string_p1_string_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0011', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0011_STRING_P1_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0011_STRING_P1_STRING
+   * @tc.desc   Stability convert h2dtscpp/func: parse-convert-gen pipeline; type
+   *            (p0:string,p1:string)=>boolean; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0011_string_p1_string', () => {
     try {
       const parsed = doParseTs('h2cpp51.ts', `
         function h2cpp51(p: (p0:string,p1:string)=>boolean): (p0:string,p1:string)=>boolean { return p; }`);
@@ -297,10 +252,10 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       const converted = transParseObj(parsed);
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].returns, "std::function<bool(std::string, std::string)>",
-        "h2dtscpp_convert_func_0011 parse return type convert convert output");
+        "h2dtscpp_convert_func_0011_string_p1_string parse return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<bool(std::string, std::string)>",
-        "h2dtscpp_convert_func_0011 parse param type convert convert output");
+        "h2dtscpp_convert_func_0011_string_p1_string parse param type convert convert output");
       const generated = generateFunctions(converted, 'h2cpp51.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -309,11 +264,20 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(generated.napiHContent.includes('h2cpp51') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0011 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0011_string_p1_string execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0012', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0012_P0_STRING_P1_STRING_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0012_P0_STRING_P1_STRING_BOOLEAN
+   * @tc.desc   Stability convert h2dtscpp/func: type-alias and global-function convert; type
+   *            (p0:string,p1:string)=>boolean; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0012_p0_string_p1_string_boolean', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -331,10 +295,10 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].name, 'typeFn51');
       assert.strictEqual(converted.funcs[0].returns, "std::function<bool(std::string, std::string)>",
-        "h2dtscpp_convert_func_0012 type fn return type convert convert output");
+        "h2dtscpp_convert_func_0012_p0_string_p1_string_boolean type fn return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<bool(std::string, std::string)>",
-        "h2dtscpp_convert_func_0012 type fn param type convert convert output");
+        "h2dtscpp_convert_func_0012_p0_string_p1_string_boolean type fn param type convert convert output");
       const generated = generateFunctions(converted, 'sample51_type.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -343,11 +307,20 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(generated.napiHContent.includes('typeFn51') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0012 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0012_p0_string_p1_string_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0013', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0013_P0_BOOLEAN_P1_NUMBER_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0013_P0_BOOLEAN_P1_NUMBER_BOOLEAN
+   * @tc.desc   Stability convert h2dtscpp/func: class-field convert; type
+   *            (p0:boolean,p1:number)=>boolean; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0013_p0_boolean_p1_number_boolean', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -361,13 +334,22 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(converted.classes[0].variableList.length >= 1);
       assert.strictEqual(converted.classes[0].variableList[0].name, 'value');
       assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<bool(bool, double)>",
-        "h2dtscpp_convert_func_0013 class var type convert convert output");
+        "h2dtscpp_convert_func_0013_p0_boolean_p1_number_boolean class var type convert convert output");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0013 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0013_p0_boolean_p1_number_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0014', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0014_P0_BOOLEAN_P1_NUMBER_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0014_P0_BOOLEAN_P1_NUMBER_BOOLEAN
+   * @tc.desc   Stability convert h2dtscpp/func: global-function convert; type
+   *            (p0:boolean,p1:number)=>boolean; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0014_p0_boolean_p1_number_boolean', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -380,10 +362,10 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].name, 'globalRun52');
       assert.strictEqual(converted.funcs[0].returns, "std::function<bool(bool, double)>",
-        "h2dtscpp_convert_func_0014 global return type convert convert output");
+        "h2dtscpp_convert_func_0014_p0_boolean_p1_number_boolean global return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<bool(bool, double)>",
-        "h2dtscpp_convert_func_0014 global param type convert convert output");
+        "h2dtscpp_convert_func_0014_p0_boolean_p1_number_boolean global param type convert convert output");
       const generated = generateFunctions(converted, 'sample52_global.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -392,11 +374,20 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(generated.napiHContent.includes('globalRun52') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0014 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0014_p0_boolean_p1_number_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0015', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0015_P0_BOOLEAN_P1_NUMBER_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0015_P0_BOOLEAN_P1_NUMBER_BOOLEAN
+   * @tc.desc   Stability convert h2dtscpp/func: class-method convert; type
+   *            (p0:boolean,p1:number)=>boolean; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0015_p0_boolean_p1_number_boolean', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -412,16 +403,25 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(converted.classes[0].functionList.length >= 1);
       assert.strictEqual(converted.classes[0].functionList[0].name, 'run');
       assert.strictEqual(converted.classes[0].functionList[0].returns, "std::function<bool(bool, double)>",
-        "h2dtscpp_convert_func_0015 class method return type convert convert output");
+        "h2dtscpp_convert_func_0015_p0_boolean_p1_number_boolean class method return type convert convert output");
       assert.ok(converted.classes[0].functionList[0].parameters.length >= 1);
       assert.strictEqual(converted.classes[0].functionList[0].parameters[0].type, "std::function<bool(bool, double)>",
-        "h2dtscpp_convert_func_0015 class method param type convert convert output");
+        "h2dtscpp_convert_func_0015_p0_boolean_p1_number_boolean class method param type convert convert output");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0015 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0015_p0_boolean_p1_number_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0016', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0016_BOOLEAN_P1_NUMBER
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0016_BOOLEAN_P1_NUMBER
+   * @tc.desc   Stability convert h2dtscpp/func: parse-convert-gen pipeline; type
+   *            (p0:boolean,p1:number)=>boolean; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0016_boolean_p1_number', () => {
     try {
       const parsed = doParseTs('h2cpp52.ts', `
         function h2cpp52(p: (p0:boolean,p1:number)=>boolean): (p0:boolean,p1:number)=>boolean { return p; }`);
@@ -429,10 +429,10 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       const converted = transParseObj(parsed);
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].returns, "std::function<bool(bool, double)>",
-        "h2dtscpp_convert_func_0016 parse return type convert convert output");
+        "h2dtscpp_convert_func_0016_boolean_p1_number parse return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<bool(bool, double)>",
-        "h2dtscpp_convert_func_0016 parse param type convert convert output");
+        "h2dtscpp_convert_func_0016_boolean_p1_number parse param type convert convert output");
       const generated = generateFunctions(converted, 'h2cpp52.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -441,11 +441,20 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(generated.napiHContent.includes('h2cpp52') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0016 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0016_boolean_p1_number execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0017', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0017_P0_BOOLEAN_P1_NUMBER_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0017_P0_BOOLEAN_P1_NUMBER_BOOLEAN
+   * @tc.desc   Stability convert h2dtscpp/func: type-alias and global-function convert; type
+   *            (p0:boolean,p1:number)=>boolean; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0017_p0_boolean_p1_number_boolean', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -463,10 +472,10 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].name, 'typeFn52');
       assert.strictEqual(converted.funcs[0].returns, "std::function<bool(bool, double)>",
-        "h2dtscpp_convert_func_0017 type fn return type convert convert output");
+        "h2dtscpp_convert_func_0017_p0_boolean_p1_number_boolean type fn return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<bool(bool, double)>",
-        "h2dtscpp_convert_func_0017 type fn param type convert convert output");
+        "h2dtscpp_convert_func_0017_p0_boolean_p1_number_boolean type fn param type convert convert output");
       const generated = generateFunctions(converted, 'sample52_type.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -475,11 +484,20 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(generated.napiHContent.includes('typeFn52') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0017 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0017_p0_boolean_p1_number_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0018', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0018_P0_BOOLEAN_P1_BOOLEAN_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0018_P0_BOOLEAN_P1_BOOLEAN_BOOLEAN
+   * @tc.desc   Stability convert h2dtscpp/func: class-field convert; type
+   *            (p0:boolean,p1:boolean)=>boolean; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0018_p0_boolean_p1_boolean_boolean', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -493,13 +511,22 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(converted.classes[0].variableList.length >= 1);
       assert.strictEqual(converted.classes[0].variableList[0].name, 'value');
       assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<bool(bool, bool)>",
-        "h2dtscpp_convert_func_0018 class var type convert convert output");
+        "h2dtscpp_convert_func_0018_p0_boolean_p1_boolean_boolean class var type convert convert output");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0018 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0018_p0_boolean_p1_boolean_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0019', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0019_P0_BOOLEAN_P1_BOOLEAN_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0019_P0_BOOLEAN_P1_BOOLEAN_BOOLEAN
+   * @tc.desc   Stability convert h2dtscpp/func: global-function convert; type
+   *            (p0:boolean,p1:boolean)=>boolean; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0019_p0_boolean_p1_boolean_boolean', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -512,10 +539,10 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].name, 'globalRun53');
       assert.strictEqual(converted.funcs[0].returns, "std::function<bool(bool, bool)>",
-        "h2dtscpp_convert_func_0019 global return type convert convert output");
+        "h2dtscpp_convert_func_0019_p0_boolean_p1_boolean_boolean global return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<bool(bool, bool)>",
-        "h2dtscpp_convert_func_0019 global param type convert convert output");
+        "h2dtscpp_convert_func_0019_p0_boolean_p1_boolean_boolean global param type convert convert output");
       const generated = generateFunctions(converted, 'sample53_global.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -524,11 +551,20 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(generated.napiHContent.includes('globalRun53') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0019 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0019_p0_boolean_p1_boolean_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0020', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0020_P0_BOOLEAN_P1_BOOLEAN_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0020_P0_BOOLEAN_P1_BOOLEAN_BOOLEAN
+   * @tc.desc   Stability convert h2dtscpp/func: class-method convert; type
+   *            (p0:boolean,p1:boolean)=>boolean; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0020_p0_boolean_p1_boolean_boolean', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -544,16 +580,25 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(converted.classes[0].functionList.length >= 1);
       assert.strictEqual(converted.classes[0].functionList[0].name, 'run');
       assert.strictEqual(converted.classes[0].functionList[0].returns, "std::function<bool(bool, bool)>",
-        "h2dtscpp_convert_func_0020 class method return type convert convert output");
+        "h2dtscpp_convert_func_0020_p0_boolean_p1_boolean_boolean class method return type convert convert output");
       assert.ok(converted.classes[0].functionList[0].parameters.length >= 1);
       assert.strictEqual(converted.classes[0].functionList[0].parameters[0].type, "std::function<bool(bool, bool)>",
-        "h2dtscpp_convert_func_0020 class method param type convert convert output");
+        "h2dtscpp_convert_func_0020_p0_boolean_p1_boolean_boolean class method param type convert convert output");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0020 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0020_p0_boolean_p1_boolean_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0021', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0021_BOOLEAN_P1_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0021_BOOLEAN_P1_BOOLEAN
+   * @tc.desc   Stability convert h2dtscpp/func: parse-convert-gen pipeline; type
+   *            (p0:boolean,p1:boolean)=>boolean; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0021_boolean_p1_boolean', () => {
     try {
       const parsed = doParseTs('h2cpp53.ts', `
         function h2cpp53(p: (p0:boolean,p1:boolean)=>boolean): (p0:boolean,p1:boolean)=>boolean { return p; }`);
@@ -561,10 +606,10 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       const converted = transParseObj(parsed);
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].returns, "std::function<bool(bool, bool)>",
-        "h2dtscpp_convert_func_0021 parse return type convert convert output");
+        "h2dtscpp_convert_func_0021_boolean_p1_boolean parse return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<bool(bool, bool)>",
-        "h2dtscpp_convert_func_0021 parse param type convert convert output");
+        "h2dtscpp_convert_func_0021_boolean_p1_boolean parse param type convert convert output");
       const generated = generateFunctions(converted, 'h2cpp53.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -573,11 +618,20 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(generated.napiHContent.includes('h2cpp53') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0021 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0021_boolean_p1_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0022', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0022_P0_BOOLEAN_P1_BOOLEAN_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0022_P0_BOOLEAN_P1_BOOLEAN_BOOLEAN
+   * @tc.desc   Stability convert h2dtscpp/func: type-alias and global-function convert; type
+   *            (p0:boolean,p1:boolean)=>boolean; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0022_p0_boolean_p1_boolean_boolean', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -595,10 +649,10 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].name, 'typeFn53');
       assert.strictEqual(converted.funcs[0].returns, "std::function<bool(bool, bool)>",
-        "h2dtscpp_convert_func_0022 type fn return type convert convert output");
+        "h2dtscpp_convert_func_0022_p0_boolean_p1_boolean_boolean type fn return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<bool(bool, bool)>",
-        "h2dtscpp_convert_func_0022 type fn param type convert convert output");
+        "h2dtscpp_convert_func_0022_p0_boolean_p1_boolean_boolean type fn param type convert convert output");
       const generated = generateFunctions(converted, 'sample53_type.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -607,11 +661,20 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(generated.napiHContent.includes('typeFn53') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0022 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0022_p0_boolean_p1_boolean_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0023', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0023_P0_NUMBER_P1_NUMBER_VOID
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0023_P0_NUMBER_P1_NUMBER_VOID
+   * @tc.desc   Stability convert h2dtscpp/func: class-field convert; type
+   *            (p0:number,p1:number)=>void; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0023_p0_number_p1_number_void', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -625,13 +688,22 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(converted.classes[0].variableList.length >= 1);
       assert.strictEqual(converted.classes[0].variableList[0].name, 'value');
       assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<void(double, double)>",
-        "h2dtscpp_convert_func_0023 class var type convert convert output");
+        "h2dtscpp_convert_func_0023_p0_number_p1_number_void class var type convert convert output");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0023 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0023_p0_number_p1_number_void execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0024', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0024_P0_NUMBER_P1_NUMBER_VOID
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0024_P0_NUMBER_P1_NUMBER_VOID
+   * @tc.desc   Stability convert h2dtscpp/func: global-function convert; type
+   *            (p0:number,p1:number)=>void; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0024_p0_number_p1_number_void', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -644,10 +716,10 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].name, 'globalRun54');
       assert.strictEqual(converted.funcs[0].returns, "std::function<void(double, double)>",
-        "h2dtscpp_convert_func_0024 global return type convert convert output");
+        "h2dtscpp_convert_func_0024_p0_number_p1_number_void global return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<void(double, double)>",
-        "h2dtscpp_convert_func_0024 global param type convert convert output");
+        "h2dtscpp_convert_func_0024_p0_number_p1_number_void global param type convert convert output");
       const generated = generateFunctions(converted, 'sample54_global.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -656,11 +728,20 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(generated.napiHContent.includes('globalRun54') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0024 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0024_p0_number_p1_number_void execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0025', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0025_P0_NUMBER_P1_NUMBER_VOID
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0025_P0_NUMBER_P1_NUMBER_VOID
+   * @tc.desc   Stability convert h2dtscpp/func: class-method convert; type
+   *            (p0:number,p1:number)=>void; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0025_p0_number_p1_number_void', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -676,16 +757,25 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(converted.classes[0].functionList.length >= 1);
       assert.strictEqual(converted.classes[0].functionList[0].name, 'run');
       assert.strictEqual(converted.classes[0].functionList[0].returns, "std::function<void(double, double)>",
-        "h2dtscpp_convert_func_0025 class method return type convert convert output");
+        "h2dtscpp_convert_func_0025_p0_number_p1_number_void class method return type convert convert output");
       assert.ok(converted.classes[0].functionList[0].parameters.length >= 1);
       assert.strictEqual(converted.classes[0].functionList[0].parameters[0].type, "std::function<void(double, double)>",
-        "h2dtscpp_convert_func_0025 class method param type convert convert output");
+        "h2dtscpp_convert_func_0025_p0_number_p1_number_void class method param type convert convert output");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0025 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0025_p0_number_p1_number_void execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0026', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0026_NUMBER_P1_NUMBER
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0026_NUMBER_P1_NUMBER
+   * @tc.desc   Stability convert h2dtscpp/func: parse-convert-gen pipeline; type
+   *            (p0:number,p1:number)=>void; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0026_number_p1_number', () => {
     try {
       const parsed = doParseTs('h2cpp54.ts', `
         function h2cpp54(p: (p0:number,p1:number)=>void): (p0:number,p1:number)=>void { return p; }`);
@@ -693,10 +783,10 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       const converted = transParseObj(parsed);
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].returns, "std::function<void(double, double)>",
-        "h2dtscpp_convert_func_0026 parse return type convert convert output");
+        "h2dtscpp_convert_func_0026_number_p1_number parse return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<void(double, double)>",
-        "h2dtscpp_convert_func_0026 parse param type convert convert output");
+        "h2dtscpp_convert_func_0026_number_p1_number parse param type convert convert output");
       const generated = generateFunctions(converted, 'h2cpp54.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -705,11 +795,20 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(generated.napiHContent.includes('h2cpp54') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0026 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0026_number_p1_number execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0027', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0027_P0_NUMBER_P1_NUMBER_VOID
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0027_P0_NUMBER_P1_NUMBER_VOID
+   * @tc.desc   Stability convert h2dtscpp/func: type-alias and global-function convert; type
+   *            (p0:number,p1:number)=>void; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0027_p0_number_p1_number_void', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -727,10 +826,10 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].name, 'typeFn54');
       assert.strictEqual(converted.funcs[0].returns, "std::function<void(double, double)>",
-        "h2dtscpp_convert_func_0027 type fn return type convert convert output");
+        "h2dtscpp_convert_func_0027_p0_number_p1_number_void type fn return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<void(double, double)>",
-        "h2dtscpp_convert_func_0027 type fn param type convert convert output");
+        "h2dtscpp_convert_func_0027_p0_number_p1_number_void type fn param type convert convert output");
       const generated = generateFunctions(converted, 'sample54_type.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -739,11 +838,20 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(generated.napiHContent.includes('typeFn54') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0027 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0027_p0_number_p1_number_void execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0028', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0028_P0_NUMBER_P1_BOOLEAN_VOID
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0028_P0_NUMBER_P1_BOOLEAN_VOID
+   * @tc.desc   Stability convert h2dtscpp/func: class-field convert; type
+   *            (p0:number,p1:boolean)=>void; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0028_p0_number_p1_boolean_void', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -757,13 +865,22 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(converted.classes[0].variableList.length >= 1);
       assert.strictEqual(converted.classes[0].variableList[0].name, 'value');
       assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<void(double, bool)>",
-        "h2dtscpp_convert_func_0028 class var type convert convert output");
+        "h2dtscpp_convert_func_0028_p0_number_p1_boolean_void class var type convert convert output");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0028 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0028_p0_number_p1_boolean_void execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0029', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0029_P0_NUMBER_P1_BOOLEAN_VOID
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0029_P0_NUMBER_P1_BOOLEAN_VOID
+   * @tc.desc   Stability convert h2dtscpp/func: global-function convert; type
+   *            (p0:number,p1:boolean)=>void; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0029_p0_number_p1_boolean_void', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -776,10 +893,10 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].name, 'globalRun55');
       assert.strictEqual(converted.funcs[0].returns, "std::function<void(double, bool)>",
-        "h2dtscpp_convert_func_0029 global return type convert convert output");
+        "h2dtscpp_convert_func_0029_p0_number_p1_boolean_void global return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<void(double, bool)>",
-        "h2dtscpp_convert_func_0029 global param type convert convert output");
+        "h2dtscpp_convert_func_0029_p0_number_p1_boolean_void global param type convert convert output");
       const generated = generateFunctions(converted, 'sample55_global.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -788,11 +905,20 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(generated.napiHContent.includes('globalRun55') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0029 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0029_p0_number_p1_boolean_void execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0030', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0030_P0_NUMBER_P1_BOOLEAN_VOID
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0030_P0_NUMBER_P1_BOOLEAN_VOID
+   * @tc.desc   Stability convert h2dtscpp/func: class-method convert; type
+   *            (p0:number,p1:boolean)=>void; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0030_p0_number_p1_boolean_void', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -808,16 +934,25 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(converted.classes[0].functionList.length >= 1);
       assert.strictEqual(converted.classes[0].functionList[0].name, 'run');
       assert.strictEqual(converted.classes[0].functionList[0].returns, "std::function<void(double, bool)>",
-        "h2dtscpp_convert_func_0030 class method return type convert convert output");
+        "h2dtscpp_convert_func_0030_p0_number_p1_boolean_void class method return type convert convert output");
       assert.ok(converted.classes[0].functionList[0].parameters.length >= 1);
       assert.strictEqual(converted.classes[0].functionList[0].parameters[0].type, "std::function<void(double, bool)>",
-        "h2dtscpp_convert_func_0030 class method param type convert convert output");
+        "h2dtscpp_convert_func_0030_p0_number_p1_boolean_void class method param type convert convert output");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0030 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0030_p0_number_p1_boolean_void execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0031', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0031_NUMBER_P1_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0031_NUMBER_P1_BOOLEAN
+   * @tc.desc   Stability convert h2dtscpp/func: parse-convert-gen pipeline; type
+   *            (p0:number,p1:boolean)=>void; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0031_number_p1_boolean', () => {
     try {
       const parsed = doParseTs('h2cpp55.ts', `
         function h2cpp55(p: (p0:number,p1:boolean)=>void): (p0:number,p1:boolean)=>void { return p; }`);
@@ -825,10 +960,10 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       const converted = transParseObj(parsed);
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].returns, "std::function<void(double, bool)>",
-        "h2dtscpp_convert_func_0031 parse return type convert convert output");
+        "h2dtscpp_convert_func_0031_number_p1_boolean parse return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<void(double, bool)>",
-        "h2dtscpp_convert_func_0031 parse param type convert convert output");
+        "h2dtscpp_convert_func_0031_number_p1_boolean parse param type convert convert output");
       const generated = generateFunctions(converted, 'h2cpp55.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -837,11 +972,20 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(generated.napiHContent.includes('h2cpp55') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0031 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0031_number_p1_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0032', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0032_P0_NUMBER_P1_BOOLEAN_VOID
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0032_P0_NUMBER_P1_BOOLEAN_VOID
+   * @tc.desc   Stability convert h2dtscpp/func: type-alias and global-function convert; type
+   *            (p0:number,p1:boolean)=>void; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0032_p0_number_p1_boolean_void', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -859,10 +1003,10 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].name, 'typeFn55');
       assert.strictEqual(converted.funcs[0].returns, "std::function<void(double, bool)>",
-        "h2dtscpp_convert_func_0032 type fn return type convert convert output");
+        "h2dtscpp_convert_func_0032_p0_number_p1_boolean_void type fn return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<void(double, bool)>",
-        "h2dtscpp_convert_func_0032 type fn param type convert convert output");
+        "h2dtscpp_convert_func_0032_p0_number_p1_boolean_void type fn param type convert convert output");
       const generated = generateFunctions(converted, 'sample55_type.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -871,11 +1015,20 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(generated.napiHContent.includes('typeFn55') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0032 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0032_p0_number_p1_boolean_void execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0033', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0033_P0_STRING_P1_STRING_VOID
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0033_P0_STRING_P1_STRING_VOID
+   * @tc.desc   Stability convert h2dtscpp/func: class-field convert; type
+   *            (p0:string,p1:string)=>void; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0033_p0_string_p1_string_void', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -889,13 +1042,22 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(converted.classes[0].variableList.length >= 1);
       assert.strictEqual(converted.classes[0].variableList[0].name, 'value');
       assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<void(std::string, std::string)>",
-        "h2dtscpp_convert_func_0033 class var type convert convert output");
+        "h2dtscpp_convert_func_0033_p0_string_p1_string_void class var type convert convert output");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0033 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0033_p0_string_p1_string_void execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0034', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0034_P0_STRING_P1_STRING_VOID
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0034_P0_STRING_P1_STRING_VOID
+   * @tc.desc   Stability convert h2dtscpp/func: global-function convert; type
+   *            (p0:string,p1:string)=>void; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0034_p0_string_p1_string_void', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -908,10 +1070,10 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].name, 'globalRun56');
       assert.strictEqual(converted.funcs[0].returns, "std::function<void(std::string, std::string)>",
-        "h2dtscpp_convert_func_0034 global return type convert convert output");
+        "h2dtscpp_convert_func_0034_p0_string_p1_string_void global return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<void(std::string, std::string)>",
-        "h2dtscpp_convert_func_0034 global param type convert convert output");
+        "h2dtscpp_convert_func_0034_p0_string_p1_string_void global param type convert convert output");
       const generated = generateFunctions(converted, 'sample56_global.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -920,11 +1082,20 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(generated.napiHContent.includes('globalRun56') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0034 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0034_p0_string_p1_string_void execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0035', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0035_P0_STRING_P1_STRING_VOID
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0035_P0_STRING_P1_STRING_VOID
+   * @tc.desc   Stability convert h2dtscpp/func: class-method convert; type
+   *            (p0:string,p1:string)=>void; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0035_p0_string_p1_string_void', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -940,17 +1111,26 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(converted.classes[0].functionList.length >= 1);
       assert.strictEqual(converted.classes[0].functionList[0].name, 'run');
       assert.strictEqual(converted.classes[0].functionList[0].returns, "std::function<void(std::string, std::string)>",
-        "h2dtscpp_convert_func_0035 class method return type convert convert output");
+        "h2dtscpp_convert_func_0035_p0_string_p1_string_void class method return type convert convert output");
       assert.ok(converted.classes[0].functionList[0].parameters.length >= 1);
       assert.strictEqual(converted.classes[0].functionList[0].parameters[0].type,
         "std::function<void(std::string, std::string)>",
-        "h2dtscpp_convert_func_0035 class method param type convert convert output");
+        "h2dtscpp_convert_func_0035_p0_string_p1_string_void class method param type convert convert output");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0035 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0035_p0_string_p1_string_void execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0036', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0036_STRING_P1_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0036_STRING_P1_STRING
+   * @tc.desc   Stability convert h2dtscpp/func: parse-convert-gen pipeline; type
+   *            (p0:string,p1:string)=>void; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0036_string_p1_string', () => {
     try {
       const parsed = doParseTs('h2cpp56.ts', `
         function h2cpp56(p: (p0:string,p1:string)=>void): (p0:string,p1:string)=>void { return p; }`);
@@ -958,10 +1138,10 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       const converted = transParseObj(parsed);
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].returns, "std::function<void(std::string, std::string)>",
-        "h2dtscpp_convert_func_0036 parse return type convert convert output");
+        "h2dtscpp_convert_func_0036_string_p1_string parse return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<void(std::string, std::string)>",
-        "h2dtscpp_convert_func_0036 parse param type convert convert output");
+        "h2dtscpp_convert_func_0036_string_p1_string parse param type convert convert output");
       const generated = generateFunctions(converted, 'h2cpp56.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -970,11 +1150,20 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(generated.napiHContent.includes('h2cpp56') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0036 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0036_string_p1_string execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0037', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0037_P0_STRING_P1_STRING_VOID
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0037_P0_STRING_P1_STRING_VOID
+   * @tc.desc   Stability convert h2dtscpp/func: type-alias and global-function convert; type
+   *            (p0:string,p1:string)=>void; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0037_p0_string_p1_string_void', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -992,10 +1181,10 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].name, 'typeFn56');
       assert.strictEqual(converted.funcs[0].returns, "std::function<void(std::string, std::string)>",
-        "h2dtscpp_convert_func_0037 type fn return type convert convert output");
+        "h2dtscpp_convert_func_0037_p0_string_p1_string_void type fn return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<void(std::string, std::string)>",
-        "h2dtscpp_convert_func_0037 type fn param type convert convert output");
+        "h2dtscpp_convert_func_0037_p0_string_p1_string_void type fn param type convert convert output");
       const generated = generateFunctions(converted, 'sample56_type.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -1004,11 +1193,20 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(generated.napiHContent.includes('typeFn56') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0037 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0037_p0_string_p1_string_void execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0038', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0038_P0_BOOLEAN_P1_NUMBER_VOID
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0038_P0_BOOLEAN_P1_NUMBER_VOID
+   * @tc.desc   Stability convert h2dtscpp/func: class-field convert; type
+   *            (p0:boolean,p1:number)=>void; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0038_p0_boolean_p1_number_void', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -1022,13 +1220,22 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(converted.classes[0].variableList.length >= 1);
       assert.strictEqual(converted.classes[0].variableList[0].name, 'value');
       assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<void(bool, double)>",
-        "h2dtscpp_convert_func_0038 class var type convert convert output");
+        "h2dtscpp_convert_func_0038_p0_boolean_p1_number_void class var type convert convert output");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0038 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0038_p0_boolean_p1_number_void execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0039', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0039_P0_BOOLEAN_P1_NUMBER_VOID
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0039_P0_BOOLEAN_P1_NUMBER_VOID
+   * @tc.desc   Stability convert h2dtscpp/func: global-function convert; type
+   *            (p0:boolean,p1:number)=>void; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0039_p0_boolean_p1_number_void', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -1041,10 +1248,10 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].name, 'globalRun57');
       assert.strictEqual(converted.funcs[0].returns, "std::function<void(bool, double)>",
-        "h2dtscpp_convert_func_0039 global return type convert convert output");
+        "h2dtscpp_convert_func_0039_p0_boolean_p1_number_void global return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<void(bool, double)>",
-        "h2dtscpp_convert_func_0039 global param type convert convert output");
+        "h2dtscpp_convert_func_0039_p0_boolean_p1_number_void global param type convert convert output");
       const generated = generateFunctions(converted, 'sample57_global.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -1053,11 +1260,20 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(generated.napiHContent.includes('globalRun57') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0039 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0039_p0_boolean_p1_number_void execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0040', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0040_P0_BOOLEAN_P1_NUMBER_VOID
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0040_P0_BOOLEAN_P1_NUMBER_VOID
+   * @tc.desc   Stability convert h2dtscpp/func: class-method convert; type
+   *            (p0:boolean,p1:number)=>void; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0040_p0_boolean_p1_number_void', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -1073,16 +1289,25 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(converted.classes[0].functionList.length >= 1);
       assert.strictEqual(converted.classes[0].functionList[0].name, 'run');
       assert.strictEqual(converted.classes[0].functionList[0].returns, "std::function<void(bool, double)>",
-        "h2dtscpp_convert_func_0040 class method return type convert convert output");
+        "h2dtscpp_convert_func_0040_p0_boolean_p1_number_void class method return type convert convert output");
       assert.ok(converted.classes[0].functionList[0].parameters.length >= 1);
       assert.strictEqual(converted.classes[0].functionList[0].parameters[0].type, "std::function<void(bool, double)>",
-        "h2dtscpp_convert_func_0040 class method param type convert convert output");
+        "h2dtscpp_convert_func_0040_p0_boolean_p1_number_void class method param type convert convert output");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0040 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0040_p0_boolean_p1_number_void execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0041', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0041_BOOLEAN_P1_NUMBER
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0041_BOOLEAN_P1_NUMBER
+   * @tc.desc   Stability convert h2dtscpp/func: parse-convert-gen pipeline; type
+   *            (p0:boolean,p1:number)=>void; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0041_boolean_p1_number', () => {
     try {
       const parsed = doParseTs('h2cpp57.ts', `
         function h2cpp57(p: (p0:boolean,p1:number)=>void): (p0:boolean,p1:number)=>void { return p; }`);
@@ -1090,10 +1315,10 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       const converted = transParseObj(parsed);
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].returns, "std::function<void(bool, double)>",
-        "h2dtscpp_convert_func_0041 parse return type convert convert output");
+        "h2dtscpp_convert_func_0041_boolean_p1_number parse return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<void(bool, double)>",
-        "h2dtscpp_convert_func_0041 parse param type convert convert output");
+        "h2dtscpp_convert_func_0041_boolean_p1_number parse param type convert convert output");
       const generated = generateFunctions(converted, 'h2cpp57.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -1102,11 +1327,20 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(generated.napiHContent.includes('h2cpp57') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0041 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0041_boolean_p1_number execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0042', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0042_P0_BOOLEAN_P1_NUMBER_VOID
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0042_P0_BOOLEAN_P1_NUMBER_VOID
+   * @tc.desc   Stability convert h2dtscpp/func: type-alias and global-function convert; type
+   *            (p0:boolean,p1:number)=>void; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0042_p0_boolean_p1_number_void', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -1124,10 +1358,10 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].name, 'typeFn57');
       assert.strictEqual(converted.funcs[0].returns, "std::function<void(bool, double)>",
-        "h2dtscpp_convert_func_0042 type fn return type convert convert output");
+        "h2dtscpp_convert_func_0042_p0_boolean_p1_number_void type fn return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<void(bool, double)>",
-        "h2dtscpp_convert_func_0042 type fn param type convert convert output");
+        "h2dtscpp_convert_func_0042_p0_boolean_p1_number_void type fn param type convert convert output");
       const generated = generateFunctions(converted, 'sample57_type.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -1136,11 +1370,20 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(generated.napiHContent.includes('typeFn57') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0042 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0042_p0_boolean_p1_number_void execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0043', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0043_P0_BOOLEAN_P1_BOOLEAN_VOID
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0043_P0_BOOLEAN_P1_BOOLEAN_VOID
+   * @tc.desc   Stability convert h2dtscpp/func: class-field convert; type
+   *            (p0:boolean,p1:boolean)=>void; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0043_p0_boolean_p1_boolean_void', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -1154,13 +1397,22 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(converted.classes[0].variableList.length >= 1);
       assert.strictEqual(converted.classes[0].variableList[0].name, 'value');
       assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<void(bool, bool)>",
-        "h2dtscpp_convert_func_0043 class var type convert convert output");
+        "h2dtscpp_convert_func_0043_p0_boolean_p1_boolean_void class var type convert convert output");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0043 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0043_p0_boolean_p1_boolean_void execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0044', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0044_P0_BOOLEAN_P1_BOOLEAN_VOID
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0044_P0_BOOLEAN_P1_BOOLEAN_VOID
+   * @tc.desc   Stability convert h2dtscpp/func: global-function convert; type
+   *            (p0:boolean,p1:boolean)=>void; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0044_p0_boolean_p1_boolean_void', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -1173,10 +1425,10 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].name, 'globalRun58');
       assert.strictEqual(converted.funcs[0].returns, "std::function<void(bool, bool)>",
-        "h2dtscpp_convert_func_0044 global return type convert convert output");
+        "h2dtscpp_convert_func_0044_p0_boolean_p1_boolean_void global return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<void(bool, bool)>",
-        "h2dtscpp_convert_func_0044 global param type convert convert output");
+        "h2dtscpp_convert_func_0044_p0_boolean_p1_boolean_void global param type convert convert output");
       const generated = generateFunctions(converted, 'sample58_global.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -1185,11 +1437,20 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(generated.napiHContent.includes('globalRun58') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0044 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0044_p0_boolean_p1_boolean_void execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0045', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0045_P0_BOOLEAN_P1_BOOLEAN_VOID
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0045_P0_BOOLEAN_P1_BOOLEAN_VOID
+   * @tc.desc   Stability convert h2dtscpp/func: class-method convert; type
+   *            (p0:boolean,p1:boolean)=>void; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0045_p0_boolean_p1_boolean_void', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -1205,16 +1466,25 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(converted.classes[0].functionList.length >= 1);
       assert.strictEqual(converted.classes[0].functionList[0].name, 'run');
       assert.strictEqual(converted.classes[0].functionList[0].returns, "std::function<void(bool, bool)>",
-        "h2dtscpp_convert_func_0045 class method return type convert convert output");
+        "h2dtscpp_convert_func_0045_p0_boolean_p1_boolean_void class method return type convert convert output");
       assert.ok(converted.classes[0].functionList[0].parameters.length >= 1);
       assert.strictEqual(converted.classes[0].functionList[0].parameters[0].type, "std::function<void(bool, bool)>",
-        "h2dtscpp_convert_func_0045 class method param type convert convert output");
+        "h2dtscpp_convert_func_0045_p0_boolean_p1_boolean_void class method param type convert convert output");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0045 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0045_p0_boolean_p1_boolean_void execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0046', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0046_BOOLEAN_P1_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0046_BOOLEAN_P1_BOOLEAN
+   * @tc.desc   Stability convert h2dtscpp/func: parse-convert-gen pipeline; type
+   *            (p0:boolean,p1:boolean)=>void; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0046_boolean_p1_boolean', () => {
     try {
       const parsed = doParseTs('h2cpp58.ts', `
         function h2cpp58(p: (p0:boolean,p1:boolean)=>void): (p0:boolean,p1:boolean)=>void { return p; }`);
@@ -1222,10 +1492,10 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       const converted = transParseObj(parsed);
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].returns, "std::function<void(bool, bool)>",
-        "h2dtscpp_convert_func_0046 parse return type convert convert output");
+        "h2dtscpp_convert_func_0046_boolean_p1_boolean parse return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<void(bool, bool)>",
-        "h2dtscpp_convert_func_0046 parse param type convert convert output");
+        "h2dtscpp_convert_func_0046_boolean_p1_boolean parse param type convert convert output");
       const generated = generateFunctions(converted, 'h2cpp58.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -1234,11 +1504,20 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(generated.napiHContent.includes('h2cpp58') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0046 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0046_boolean_p1_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0047', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0047_P0_BOOLEAN_P1_BOOLEAN_VOID
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0047_P0_BOOLEAN_P1_BOOLEAN_VOID
+   * @tc.desc   Stability convert h2dtscpp/func: type-alias and global-function convert; type
+   *            (p0:boolean,p1:boolean)=>void; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0047_p0_boolean_p1_boolean_void', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -1256,10 +1535,10 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].name, 'typeFn58');
       assert.strictEqual(converted.funcs[0].returns, "std::function<void(bool, bool)>",
-        "h2dtscpp_convert_func_0047 type fn return type convert convert output");
+        "h2dtscpp_convert_func_0047_p0_boolean_p1_boolean_void type fn return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<void(bool, bool)>",
-        "h2dtscpp_convert_func_0047 type fn param type convert convert output");
+        "h2dtscpp_convert_func_0047_p0_boolean_p1_boolean_void type fn param type convert convert output");
       const generated = generateFunctions(converted, 'sample58_type.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -1268,11 +1547,20 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(generated.napiHContent.includes('typeFn58') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0047 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0047_p0_boolean_p1_boolean_void execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0048', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0048_CALLBACK_ANY
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0048_CALLBACK_ANY
+   * @tc.desc   Stability convert h2dtscpp/func: class-field convert; type Callback<any>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0048_callback_any', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -1286,13 +1574,22 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(converted.classes[0].variableList.length >= 1);
       assert.strictEqual(converted.classes[0].variableList[0].name, 'value');
       assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<void(std::any)>",
-        "h2dtscpp_convert_func_0048 class var type convert convert output");
+        "h2dtscpp_convert_func_0048_callback_any class var type convert convert output");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0048 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0048_callback_any execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0049', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0049_CALLBACK_ANY
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0049_CALLBACK_ANY
+   * @tc.desc   Stability convert h2dtscpp/func: global-function convert; type Callback<any>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0049_callback_any', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -1305,10 +1602,10 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].name, 'globalRun69');
       assert.strictEqual(converted.funcs[0].returns, "std::function<void(std::any)>",
-        "h2dtscpp_convert_func_0049 global return type convert convert output");
+        "h2dtscpp_convert_func_0049_callback_any global return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<void(std::any)>",
-        "h2dtscpp_convert_func_0049 global param type convert convert output");
+        "h2dtscpp_convert_func_0049_callback_any global param type convert convert output");
       const generated = generateFunctions(converted, 'sample69_global.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -1317,11 +1614,20 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(generated.napiHContent.includes('globalRun69') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0049 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0049_callback_any execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0050', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0050_CALLBACK_ANY
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0050_CALLBACK_ANY
+   * @tc.desc   Stability convert h2dtscpp/func: class-method convert; type Callback<any>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0050_callback_any', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -1337,26 +1643,35 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(converted.classes[0].functionList.length >= 1);
       assert.strictEqual(converted.classes[0].functionList[0].name, 'run');
       assert.strictEqual(converted.classes[0].functionList[0].returns, "std::function<void(std::any)>",
-        "h2dtscpp_convert_func_0050 class method return type convert convert output");
+        "h2dtscpp_convert_func_0050_callback_any class method return type convert convert output");
       assert.ok(converted.classes[0].functionList[0].parameters.length >= 1);
       assert.strictEqual(converted.classes[0].functionList[0].parameters[0].type, "std::function<void(std::any)>",
-        "h2dtscpp_convert_func_0050 class method param type convert convert output");
+        "h2dtscpp_convert_func_0050_callback_any class method param type convert convert output");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0050 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0050_callback_any execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0051', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0051_CALLBACK_ANY
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0051_CALLBACK_ANY
+   * @tc.desc   Stability convert h2dtscpp/func: parse-convert-gen pipeline; type Callback<any>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0051_callback_any', () => {
     try {
       const parsed = doParseTs('h2cpp69.ts', `function h2cpp69(p: Callback<any>): Callback<any> { return p; }`);
       assert.ok(parsed !== undefined && typeof parsed === 'object', "parse result must be object");
       const converted = transParseObj(parsed);
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].returns, "std::function<void(std::any)>",
-        "h2dtscpp_convert_func_0051 parse return type convert convert output");
+        "h2dtscpp_convert_func_0051_callback_any parse return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<void(std::any)>",
-        "h2dtscpp_convert_func_0051 parse param type convert convert output");
+        "h2dtscpp_convert_func_0051_callback_any parse param type convert convert output");
       const generated = generateFunctions(converted, 'h2cpp69.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -1365,11 +1680,20 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(generated.napiHContent.includes('h2cpp69') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0051 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0051_callback_any execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0052', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0052_CALLBACK_ANY
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0052_CALLBACK_ANY
+   * @tc.desc   Stability convert h2dtscpp/func: type-alias and global-function convert; type
+   *            Callback<any>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0052_callback_any', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -1387,10 +1711,10 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].name, 'typeFn69');
       assert.strictEqual(converted.funcs[0].returns, "std::function<void(std::any)>",
-        "h2dtscpp_convert_func_0052 type fn return type convert convert output");
+        "h2dtscpp_convert_func_0052_callback_any type fn return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<void(std::any)>",
-        "h2dtscpp_convert_func_0052 type fn param type convert convert output");
+        "h2dtscpp_convert_func_0052_callback_any type fn param type convert convert output");
       const generated = generateFunctions(converted, 'sample69_type.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -1399,11 +1723,20 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(generated.napiHContent.includes('typeFn69') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0052 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0052_callback_any execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0053', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0053_CALLBACK_OBJECT
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0053_CALLBACK_OBJECT
+   * @tc.desc   Stability convert h2dtscpp/func: class-field convert; type Callback<object>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0053_callback_object', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -1417,443 +1750,29 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(converted.classes[0].variableList.length >= 1);
       assert.strictEqual(converted.classes[0].variableList[0].name, 'value');
       assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<void(std::any)>",
-        "h2dtscpp_convert_func_0053 class var type convert convert output");
+        "h2dtscpp_convert_func_0053_callback_object class var type convert convert output");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0053 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0053_callback_object execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0054', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0001_P0_OBJECT_OBJECT
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0001_P0_OBJECT_OBJECT
+   * @tc.desc   Stability convert h2dtscpp/func: class-method convert; type (p0:object)=>object;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0001_p0_object_object', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
-        classes: [],
-        funcs: [{ type: 'function', name: 'globalRun70', returns: 'Callback<object>',
-          parameters: [{ type: 'Callback<object>', name: 'gparam', arraySize: 0, arraySizeList: [] }]
-        }],
-        types: []
-      });
-      assert.ok(converted.funcs.length >= 1);
-      assert.strictEqual(converted.funcs[0].name, 'globalRun70');
-      assert.strictEqual(converted.funcs[0].returns, "std::function<void(std::any)>",
-        "h2dtscpp_convert_func_0054 global return type convert convert output");
-      assert.ok(converted.funcs[0].parameters.length >= 1);
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<void(std::any)>",
-        "h2dtscpp_convert_func_0054 global param type convert convert output");
-      const generated = generateFunctions(converted, 'sample70_global.d.ts');
-      assert.ok(generated !== undefined && typeof generated === 'object');
-      assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
-        "napiH must be non-empty");
-      assert.ok(typeof generated.napiCppContent === 'string', "napiCpp must exist");
-      assert.ok(generated.napiHContent.includes('globalRun70') || generated.napiCppContent.length > 0,
-        "gen must reference function");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0054 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_func_0055', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [{ name: 'SampleClass70', alias: '',
+        classes: [{ name: 'SampleClass74', alias: '',
           variableList: [],
-          functionList: [{ type: 'function', name: 'run', returns: 'Callback<object>',
-            parameters: [{ type: 'Callback<object>', name: 'param', arraySize: 0, arraySizeList: [] }]
-          }]
-        }],
-        funcs: [], types: []
-      });
-      assert.ok(converted.classes.length >= 1);
-      assert.ok(converted.classes[0].functionList.length >= 1);
-      assert.strictEqual(converted.classes[0].functionList[0].name, 'run');
-      assert.strictEqual(converted.classes[0].functionList[0].returns, "std::function<void(std::any)>",
-        "h2dtscpp_convert_func_0055 class method return type convert convert output");
-      assert.ok(converted.classes[0].functionList[0].parameters.length >= 1);
-      assert.strictEqual(converted.classes[0].functionList[0].parameters[0].type, "std::function<void(std::any)>",
-        "h2dtscpp_convert_func_0055 class method param type convert convert output");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0055 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_func_0056', () => {
-    try {
-      const parsed = doParseTs('h2cpp70.ts', `function h2cpp70(p: Callback<object>): Callback<object> { return p; }`);
-      assert.ok(parsed !== undefined && typeof parsed === 'object', "parse result must be object");
-      const converted = transParseObj(parsed);
-      assert.ok(converted.funcs.length >= 1);
-      assert.strictEqual(converted.funcs[0].returns, "std::function<void(std::any)>",
-        "h2dtscpp_convert_func_0056 parse return type convert convert output");
-      assert.ok(converted.funcs[0].parameters.length >= 1);
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<void(std::any)>",
-        "h2dtscpp_convert_func_0056 parse param type convert convert output");
-      const generated = generateFunctions(converted, 'h2cpp70.d.ts');
-      assert.ok(generated !== undefined && typeof generated === 'object');
-      assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
-        "napiH must be non-empty");
-      assert.ok(typeof generated.napiCppContent === 'string', "napiCpp must exist");
-      assert.ok(generated.napiHContent.includes('h2cpp70') || generated.napiCppContent.length > 0,
-        "gen must reference function");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0056 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_func_0057', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [],
-        funcs: [{ type: 'function', name: 'typeFn70', returns: 'Callback<object>',
-          parameters: [{ type: 'Callback<object>', name: 'p', arraySize: 0, arraySizeList: [] }]
-        }],
-        types: [{ name: 'Alias70', alias: 'Callback<object>', members: [], functions: [], types: []
-        }]
-      });
-      assert.ok(Array.isArray(converted.types) && converted.types.length >= 1);
-      assert.strictEqual(converted.types[0].name, 'Alias70');
-      assert.strictEqual(converted.types[0].alias, 'Callback<object>');
-      assert.ok(Array.isArray(converted.types[0].types));
-      assert.ok(converted.funcs.length >= 1);
-      assert.strictEqual(converted.funcs[0].name, 'typeFn70');
-      assert.strictEqual(converted.funcs[0].returns, "std::function<void(std::any)>",
-        "h2dtscpp_convert_func_0057 type fn return type convert convert output");
-      assert.ok(converted.funcs[0].parameters.length >= 1);
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<void(std::any)>",
-        "h2dtscpp_convert_func_0057 type fn param type convert convert output");
-      const generated = generateFunctions(converted, 'sample70_type.d.ts');
-      assert.ok(generated !== undefined && typeof generated === 'object');
-      assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
-        "napiH must be non-empty");
-      assert.ok(typeof generated.napiCppContent === 'string', "napiCpp must exist");
-      assert.ok(generated.napiHContent.includes('typeFn70') || generated.napiCppContent.length > 0,
-        "gen must reference function");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0057 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_func_0058', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [{ name: 'SampleClass71', alias: '',
-          variableList: [{ type: 'Callback<any[]>', name: 'value', arraySize: 0, arraySizeList: [] }],
-          functionList: []
-        }],
-        funcs: [], types: []
-      });
-      assert.ok(converted.classes.length >= 1);
-      assert.ok(converted.classes[0].variableList.length >= 1);
-      assert.strictEqual(converted.classes[0].variableList[0].name, 'value');
-      assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<void(any[])>",
-        "h2dtscpp_convert_func_0058 class var type convert convert output");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0058 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_func_0059', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [],
-        funcs: [{ type: 'function', name: 'globalRun71', returns: 'Callback<any[]>',
-          parameters: [{ type: 'Callback<any[]>', name: 'gparam', arraySize: 0, arraySizeList: [] }]
-        }],
-        types: []
-      });
-      assert.ok(converted.funcs.length >= 1);
-      assert.strictEqual(converted.funcs[0].name, 'globalRun71');
-      assert.strictEqual(converted.funcs[0].returns, "std::function<void(any[])>",
-        "h2dtscpp_convert_func_0059 global return type convert convert output");
-      assert.ok(converted.funcs[0].parameters.length >= 1);
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<void(any[])>",
-        "h2dtscpp_convert_func_0059 global param type convert convert output");
-      const generated = generateFunctions(converted, 'sample71_global.d.ts');
-      assert.ok(generated !== undefined && typeof generated === 'object');
-      assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
-        "napiH must be non-empty");
-      assert.ok(typeof generated.napiCppContent === 'string', "napiCpp must exist");
-      assert.ok(generated.napiHContent.includes('globalRun71') || generated.napiCppContent.length > 0,
-        "gen must reference function");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0059 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_func_0060', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [{ name: 'SampleClass71', alias: '',
-          variableList: [],
-          functionList: [{ type: 'function', name: 'run', returns: 'Callback<any[]>',
-            parameters: [{ type: 'Callback<any[]>', name: 'param', arraySize: 0, arraySizeList: [] }]
-          }]
-        }],
-        funcs: [], types: []
-      });
-      assert.ok(converted.classes.length >= 1);
-      assert.ok(converted.classes[0].functionList.length >= 1);
-      assert.strictEqual(converted.classes[0].functionList[0].name, 'run');
-      assert.strictEqual(converted.classes[0].functionList[0].returns, "std::function<void(any[])>",
-        "h2dtscpp_convert_func_0060 class method return type convert convert output");
-      assert.ok(converted.classes[0].functionList[0].parameters.length >= 1);
-      assert.strictEqual(converted.classes[0].functionList[0].parameters[0].type, "std::function<void(any[])>",
-        "h2dtscpp_convert_func_0060 class method param type convert convert output");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0060 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_func_0061', () => {
-    try {
-      const parsed = doParseTs('h2cpp71.ts', `function h2cpp71(p: Callback<any[]>): Callback<any[]> { return p; }`);
-      assert.ok(parsed !== undefined && typeof parsed === 'object', "parse result must be object");
-      const converted = transParseObj(parsed);
-      assert.ok(converted.funcs.length >= 1);
-      assert.strictEqual(converted.funcs[0].returns, "std::function<void(any[])>",
-        "h2dtscpp_convert_func_0061 parse return type convert convert output");
-      assert.ok(converted.funcs[0].parameters.length >= 1);
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<void(any[])>",
-        "h2dtscpp_convert_func_0061 parse param type convert convert output");
-      const generated = generateFunctions(converted, 'h2cpp71.d.ts');
-      assert.ok(generated !== undefined && typeof generated === 'object');
-      assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
-        "napiH must be non-empty");
-      assert.ok(typeof generated.napiCppContent === 'string', "napiCpp must exist");
-      assert.ok(generated.napiHContent.includes('h2cpp71') || generated.napiCppContent.length > 0,
-        "gen must reference function");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0061 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_func_0062', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [],
-        funcs: [{ type: 'function', name: 'typeFn71', returns: 'Callback<any[]>',
-          parameters: [{ type: 'Callback<any[]>', name: 'p', arraySize: 0, arraySizeList: [] }]
-        }],
-        types: [{ name: 'Alias71', alias: 'Callback<any[]>', members: [], functions: [], types: []
-        }]
-      });
-      assert.ok(Array.isArray(converted.types) && converted.types.length >= 1);
-      assert.strictEqual(converted.types[0].name, 'Alias71');
-      assert.strictEqual(converted.types[0].alias, 'Callback<any[]>');
-      assert.ok(Array.isArray(converted.types[0].types));
-      assert.ok(converted.funcs.length >= 1);
-      assert.strictEqual(converted.funcs[0].name, 'typeFn71');
-      assert.strictEqual(converted.funcs[0].returns, "std::function<void(any[])>",
-        "h2dtscpp_convert_func_0062 type fn return type convert convert output");
-      assert.ok(converted.funcs[0].parameters.length >= 1);
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<void(any[])>",
-        "h2dtscpp_convert_func_0062 type fn param type convert convert output");
-      const generated = generateFunctions(converted, 'sample71_type.d.ts');
-      assert.ok(generated !== undefined && typeof generated === 'object');
-      assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
-        "napiH must be non-empty");
-      assert.ok(typeof generated.napiCppContent === 'string', "napiCpp must exist");
-      assert.ok(generated.napiHContent.includes('typeFn71') || generated.napiCppContent.length > 0,
-        "gen must reference function");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0062 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_func_0063', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [{ name: 'SampleClass72', alias: '',
-          variableList: [{ type: 'Callback<object[]>', name: 'value', arraySize: 0, arraySizeList: [] }],
-          functionList: []
-        }],
-        funcs: [], types: []
-      });
-      assert.ok(converted.classes.length >= 1);
-      assert.ok(converted.classes[0].variableList.length >= 1);
-      assert.strictEqual(converted.classes[0].variableList[0].name, 'value');
-      assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<void(object[])>",
-        "h2dtscpp_convert_func_0063 class var type convert convert output");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0063 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_func_0064', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [],
-        funcs: [{ type: 'function', name: 'globalRun72', returns: 'Callback<object[]>',
-          parameters: [{ type: 'Callback<object[]>', name: 'gparam', arraySize: 0, arraySizeList: [] }]
-        }],
-        types: []
-      });
-      assert.ok(converted.funcs.length >= 1);
-      assert.strictEqual(converted.funcs[0].name, 'globalRun72');
-      assert.strictEqual(converted.funcs[0].returns, "std::function<void(object[])>",
-        "h2dtscpp_convert_func_0064 global return type convert convert output");
-      assert.ok(converted.funcs[0].parameters.length >= 1);
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<void(object[])>",
-        "h2dtscpp_convert_func_0064 global param type convert convert output");
-      const generated = generateFunctions(converted, 'sample72_global.d.ts');
-      assert.ok(generated !== undefined && typeof generated === 'object');
-      assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
-        "napiH must be non-empty");
-      assert.ok(typeof generated.napiCppContent === 'string', "napiCpp must exist");
-      assert.ok(generated.napiHContent.includes('globalRun72') || generated.napiCppContent.length > 0,
-        "gen must reference function");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0064 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_func_0065', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [{ name: 'SampleClass72', alias: '',
-          variableList: [],
-          functionList: [{ type: 'function', name: 'run', returns: 'Callback<object[]>',
-            parameters: [{ type: 'Callback<object[]>', name: 'param', arraySize: 0, arraySizeList: [] }]
-          }]
-        }],
-        funcs: [], types: []
-      });
-      assert.ok(converted.classes.length >= 1);
-      assert.ok(converted.classes[0].functionList.length >= 1);
-      assert.strictEqual(converted.classes[0].functionList[0].name, 'run');
-      assert.strictEqual(converted.classes[0].functionList[0].returns, "std::function<void(object[])>",
-        "h2dtscpp_convert_func_0065 class method return type convert convert output");
-      assert.ok(converted.classes[0].functionList[0].parameters.length >= 1);
-      assert.strictEqual(converted.classes[0].functionList[0].parameters[0].type, "std::function<void(object[])>",
-        "h2dtscpp_convert_func_0065 class method param type convert convert output");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0065 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_func_0066', () => {
-    try {
-      const parsed = doParseTs('h2cpp72.ts', `
-        function h2cpp72(p: Callback<object[]>): Callback<object[]> { return p; }`);
-      assert.ok(parsed !== undefined && typeof parsed === 'object', "parse result must be object");
-      const converted = transParseObj(parsed);
-      assert.ok(converted.funcs.length >= 1);
-      assert.strictEqual(converted.funcs[0].returns, "std::function<void(object[])>",
-        "h2dtscpp_convert_func_0066 parse return type convert convert output");
-      assert.ok(converted.funcs[0].parameters.length >= 1);
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<void(object[])>",
-        "h2dtscpp_convert_func_0066 parse param type convert convert output");
-      const generated = generateFunctions(converted, 'h2cpp72.d.ts');
-      assert.ok(generated !== undefined && typeof generated === 'object');
-      assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
-        "napiH must be non-empty");
-      assert.ok(typeof generated.napiCppContent === 'string', "napiCpp must exist");
-      assert.ok(generated.napiHContent.includes('h2cpp72') || generated.napiCppContent.length > 0,
-        "gen must reference function");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0066 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_func_0067', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [],
-        funcs: [{ type: 'function', name: 'typeFn72', returns: 'Callback<object[]>',
-          parameters: [{ type: 'Callback<object[]>', name: 'p', arraySize: 0, arraySizeList: [] }]
-        }],
-        types: [{ name: 'Alias72', alias: 'Callback<object[]>', members: [], functions: [], types: []
-        }]
-      });
-      assert.ok(Array.isArray(converted.types) && converted.types.length >= 1);
-      assert.strictEqual(converted.types[0].name, 'Alias72');
-      assert.strictEqual(converted.types[0].alias, 'Callback<object[]>');
-      assert.ok(Array.isArray(converted.types[0].types));
-      assert.ok(converted.funcs.length >= 1);
-      assert.strictEqual(converted.funcs[0].name, 'typeFn72');
-      assert.strictEqual(converted.funcs[0].returns, "std::function<void(object[])>",
-        "h2dtscpp_convert_func_0067 type fn return type convert convert output");
-      assert.ok(converted.funcs[0].parameters.length >= 1);
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<void(object[])>",
-        "h2dtscpp_convert_func_0067 type fn param type convert convert output");
-      const generated = generateFunctions(converted, 'sample72_type.d.ts');
-      assert.ok(generated !== undefined && typeof generated === 'object');
-      assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
-        "napiH must be non-empty");
-      assert.ok(typeof generated.napiCppContent === 'string', "napiCpp must exist");
-      assert.ok(generated.napiHContent.includes('typeFn72') || generated.napiCppContent.length > 0,
-        "gen must reference function");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0067 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_func_0068', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [{ name: 'SampleClass73', alias: '',
-          variableList: [{ type: '(p0:any)=>any', name: 'value', arraySize: 0, arraySizeList: [] }],
-          functionList: []
-        }],
-        funcs: [], types: []
-      });
-      assert.ok(converted.classes.length >= 1);
-      assert.ok(converted.classes[0].variableList.length >= 1);
-      assert.strictEqual(converted.classes[0].variableList[0].name, 'value');
-      assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<std::any(std::any)>",
-        "h2dtscpp_convert_func_0068 class var type convert convert output");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0068 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_func_0069', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [],
-        funcs: [{ type: 'function', name: 'globalRun73', returns: '(p0:any)=>any',
-          parameters: [{ type: '(p0:any)=>any', name: 'gparam', arraySize: 0, arraySizeList: [] }]
-        }],
-        types: []
-      });
-      assert.ok(converted.funcs.length >= 1);
-      assert.strictEqual(converted.funcs[0].name, 'globalRun73');
-      assert.strictEqual(converted.funcs[0].returns, "std::function<std::any(std::any)>",
-        "h2dtscpp_convert_func_0069 global return type convert convert output");
-      assert.ok(converted.funcs[0].parameters.length >= 1);
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<std::any(std::any)>",
-        "h2dtscpp_convert_func_0069 global param type convert convert output");
-      const generated = generateFunctions(converted, 'sample73_global.d.ts');
-      assert.ok(generated !== undefined && typeof generated === 'object');
-      assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
-        "napiH must be non-empty");
-      assert.ok(typeof generated.napiCppContent === 'string', "napiCpp must exist");
-      assert.ok(generated.napiHContent.includes('globalRun73') || generated.napiCppContent.length > 0,
-        "gen must reference function");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0069 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_func_0070', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [{ name: 'SampleClass73', alias: '',
-          variableList: [],
-          functionList: [{ type: 'function', name: 'run', returns: '(p0:any)=>any',
-            parameters: [{ type: '(p0:any)=>any', name: 'param', arraySize: 0, arraySizeList: [] }]
+          functionList: [{ type: 'function', name: 'run', returns: '(p0:object)=>object',
+            parameters: [{ type: '(p0:object)=>object', name: 'param', arraySize: 0, arraySizeList: [] }]
           }]
         }],
         funcs: [], types: []
@@ -1862,78 +1781,106 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(converted.classes[0].functionList.length >= 1);
       assert.strictEqual(converted.classes[0].functionList[0].name, 'run');
       assert.strictEqual(converted.classes[0].functionList[0].returns, "std::function<std::any(std::any)>",
-        "h2dtscpp_convert_func_0070 class method return type convert convert output");
+        "h2dtscpp_convert_func_0001_p0_object_object class method return type convert convert output");
       assert.ok(converted.classes[0].functionList[0].parameters.length >= 1);
       assert.strictEqual(converted.classes[0].functionList[0].parameters[0].type, "std::function<std::any(std::any)>",
-        "h2dtscpp_convert_func_0070 class method param type convert convert output");
+        "h2dtscpp_convert_func_0001_p0_object_object class method param type convert convert output");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0070 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0001_p0_object_object execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0071', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0002_OBJECT
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0002_OBJECT
+   * @tc.desc   Stability convert h2dtscpp/func: parse-convert-gen pipeline; type
+   *            (p0:object)=>object; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0002_object', () => {
     try {
-      const parsed = doParseTs('h2cpp73.ts', `function h2cpp73(p: (p0:any)=>any): (p0:any)=>any { return p; }`);
+      const parsed = doParseTs('h2cpp74.ts', `
+        function h2cpp74(p: (p0:object)=>object): (p0:object)=>object { return p; }`);
       assert.ok(parsed !== undefined && typeof parsed === 'object', "parse result must be object");
       const converted = transParseObj(parsed);
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].returns, "std::function<std::any(std::any)>",
-        "h2dtscpp_convert_func_0071 parse return type convert convert output");
+        "h2dtscpp_convert_func_0002_object parse return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<std::any(std::any)>",
-        "h2dtscpp_convert_func_0071 parse param type convert convert output");
-      const generated = generateFunctions(converted, 'h2cpp73.d.ts');
+        "h2dtscpp_convert_func_0002_object parse param type convert convert output");
+      const generated = generateFunctions(converted, 'h2cpp74.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
         "napiH must be non-empty");
       assert.ok(typeof generated.napiCppContent === 'string', "napiCpp must exist");
-      assert.ok(generated.napiHContent.includes('h2cpp73') || generated.napiCppContent.length > 0,
+      assert.ok(generated.napiHContent.includes('h2cpp74') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0071 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0002_object execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0072', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0003_P0_OBJECT_OBJECT
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0003_P0_OBJECT_OBJECT
+   * @tc.desc   Stability convert h2dtscpp/func: type-alias and global-function convert; type
+   *            (p0:object)=>object; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0003_p0_object_object', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
         classes: [],
-        funcs: [{ type: 'function', name: 'typeFn73', returns: '(p0:any)=>any',
-          parameters: [{ type: '(p0:any)=>any', name: 'p', arraySize: 0, arraySizeList: [] }]
+        funcs: [{ type: 'function', name: 'typeFn74', returns: '(p0:object)=>object',
+          parameters: [{ type: '(p0:object)=>object', name: 'p', arraySize: 0, arraySizeList: [] }]
         }],
-        types: [{ name: 'Alias73', alias: '(p0:any)=>any', members: [], functions: [], types: []
+        types: [{ name: 'Alias74', alias: '(p0:object)=>object', members: [], functions: [], types: []
         }]
       });
       assert.ok(Array.isArray(converted.types) && converted.types.length >= 1);
-      assert.strictEqual(converted.types[0].name, 'Alias73');
-      assert.strictEqual(converted.types[0].alias, '(p0:any)=>any');
+      assert.strictEqual(converted.types[0].name, 'Alias74');
+      assert.strictEqual(converted.types[0].alias, '(p0:object)=>object');
       assert.ok(Array.isArray(converted.types[0].types));
       assert.ok(converted.funcs.length >= 1);
-      assert.strictEqual(converted.funcs[0].name, 'typeFn73');
+      assert.strictEqual(converted.funcs[0].name, 'typeFn74');
       assert.strictEqual(converted.funcs[0].returns, "std::function<std::any(std::any)>",
-        "h2dtscpp_convert_func_0072 type fn return type convert convert output");
+        "h2dtscpp_convert_func_0003_p0_object_object type fn return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<std::any(std::any)>",
-        "h2dtscpp_convert_func_0072 type fn param type convert convert output");
-      const generated = generateFunctions(converted, 'sample73_type.d.ts');
+        "h2dtscpp_convert_func_0003_p0_object_object type fn param type convert convert output");
+      const generated = generateFunctions(converted, 'sample74_type.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
         "napiH must be non-empty");
       assert.ok(typeof generated.napiCppContent === 'string', "napiCpp must exist");
-      assert.ok(generated.napiHContent.includes('typeFn73') || generated.napiCppContent.length > 0,
+      assert.ok(generated.napiHContent.includes('typeFn74') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0072 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0003_p0_object_object execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0073', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0004_P0_ANY_P1_OBJECT_VOID
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0004_P0_ANY_P1_OBJECT_VOID
+   * @tc.desc   Stability convert h2dtscpp/func: class-field convert; type (p0:any,p1:object)=>void;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0004_p0_any_p1_object_void', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
-        classes: [{ name: 'SampleClass74', alias: '',
-          variableList: [{ type: '(p0:object)=>object', name: 'value', arraySize: 0, arraySizeList: [] }],
+        classes: [{ name: 'SampleClass75', alias: '',
+          variableList: [{ type: '(p0:any,p1:object)=>void', name: 'value', arraySize: 0, arraySizeList: [] }],
           functionList: []
         }],
         funcs: [], types: []
@@ -1941,39 +1888,83 @@ suite('Stability_H2DTSCPP_CONVERT_FUNC_Part03', function() {
       assert.ok(converted.classes.length >= 1);
       assert.ok(converted.classes[0].variableList.length >= 1);
       assert.strictEqual(converted.classes[0].variableList[0].name, 'value');
-      assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<std::any(std::any)>",
-        "h2dtscpp_convert_func_0073 class var type convert convert output");
+      assert.strictEqual(converted.classes[0].variableList[0].type, "std::function<void(std::any, std::any)>",
+        "h2dtscpp_convert_func_0004_p0_any_p1_object_void class var type convert convert output");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0073 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0004_p0_any_p1_object_void execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_func_0074', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0005_P0_ANY_P1_OBJECT_VOID
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0005_P0_ANY_P1_OBJECT_VOID
+   * @tc.desc   Stability convert h2dtscpp/func: global-function convert; type
+   *            (p0:any,p1:object)=>void; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0005_p0_any_p1_object_void', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
         classes: [],
-        funcs: [{ type: 'function', name: 'globalRun74', returns: '(p0:object)=>object',
-          parameters: [{ type: '(p0:object)=>object', name: 'gparam', arraySize: 0, arraySizeList: [] }]
+        funcs: [{ type: 'function', name: 'globalRun75', returns: '(p0:any,p1:object)=>void',
+          parameters: [{ type: '(p0:any,p1:object)=>void', name: 'gparam', arraySize: 0, arraySizeList: [] }]
         }],
         types: []
       });
       assert.ok(converted.funcs.length >= 1);
-      assert.strictEqual(converted.funcs[0].name, 'globalRun74');
-      assert.strictEqual(converted.funcs[0].returns, "std::function<std::any(std::any)>",
-        "h2dtscpp_convert_func_0074 global return type convert convert output");
+      assert.strictEqual(converted.funcs[0].name, 'globalRun75');
+      assert.strictEqual(converted.funcs[0].returns, "std::function<void(std::any, std::any)>",
+        "h2dtscpp_convert_func_0005_p0_any_p1_object_void global return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<std::any(std::any)>",
-        "h2dtscpp_convert_func_0074 global param type convert convert output");
-      const generated = generateFunctions(converted, 'sample74_global.d.ts');
+      assert.strictEqual(converted.funcs[0].parameters[0].type, "std::function<void(std::any, std::any)>",
+        "h2dtscpp_convert_func_0005_p0_any_p1_object_void global param type convert convert output");
+      const generated = generateFunctions(converted, 'sample75_global.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
         "napiH must be non-empty");
       assert.ok(typeof generated.napiCppContent === 'string', "napiCpp must exist");
-      assert.ok(generated.napiHContent.includes('globalRun74') || generated.napiCppContent.length > 0,
+      assert.ok(generated.napiHContent.includes('globalRun75') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_func_0074 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_func_0005_p0_any_p1_object_void execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0006_P0_ANY_P1_OBJECT_VOID
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_FUNC_0006_P0_ANY_P1_OBJECT_VOID
+   * @tc.desc   Stability convert h2dtscpp/func: class-method convert; type
+   *            (p0:any,p1:object)=>void; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_func_0006_p0_any_p1_object_void', () => {
+    try {
+      const converted = transParseObj({
+        enums: [], unions: [], structs: [],
+        classes: [{ name: 'SampleClass75', alias: '',
+          variableList: [],
+          functionList: [{ type: 'function', name: 'run', returns: '(p0:any,p1:object)=>void',
+            parameters: [{ type: '(p0:any,p1:object)=>void', name: 'param', arraySize: 0, arraySizeList: [] }]
+          }]
+        }],
+        funcs: [], types: []
+      });
+      assert.ok(converted.classes.length >= 1);
+      assert.ok(converted.classes[0].functionList.length >= 1);
+      assert.strictEqual(converted.classes[0].functionList[0].name, 'run');
+      assert.strictEqual(converted.classes[0].functionList[0].returns, "std::function<void(std::any, std::any)>",
+        "h2dtscpp_convert_func_0006_p0_any_p1_object_void class method return type convert convert output");
+      assert.ok(converted.classes[0].functionList[0].parameters.length >= 1);
+      assert.strictEqual(converted.classes[0].functionList[0].parameters[0].type,
+        "std::function<void(std::any, std::any)>",
+        "h2dtscpp_convert_func_0006_p0_any_p1_object_void class method param type convert convert output");
+    } catch (err) {
+      assert.fail(`h2dtscpp_convert_func_0006_p0_any_p1_object_void execution error: ${String(err)}`);
     }
   });
 });

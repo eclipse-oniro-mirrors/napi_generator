@@ -15,1977 +15,1964 @@
 
 import * as assert from 'assert';
 import * as vscode from 'vscode';
-import { transTskey2Ckey } from '../../../../gen/gendts';
-import * as parsec from '../../../../parse/parsec';
+import { transTskey2Ckey } from '../../../gen/gendts';
+import * as parsec from '../../../parse/parsec';
 import { runCompatSafe } from './stability_helpers';
 
 suite('Stability_H2DTS_CONVERT_ARRAY_Part04', function() {
   this.timeout(600000);
-  vscode.window.showInformationMessage('Start Stability_H2DTS_CONVERT_ARRAY_Part04.');
+  vscode.window.showInformationMessage('Start Stability_H2DTS_CONVERT_ARRAY_Part01.');
 
-
-  test('h2dts_convert_array_0001', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0038_STD_VECTOR_STD_STRING
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0038_STD_VECTOR_STD_STRING
+   * @tc.desc   Stability convert h2dts/array: class-field convert; type std::vector<std::string>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0038_std_vector_std_string', () => {
     try {
-      const r = parsec.parseFunction(`std::forward_list<short> sampleRet110();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0001 return convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0001 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0001 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0002', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass110 { public: std::forward_list<short> field; };`);
+      const r = parsec.parseClass(`class SampleClass219 { public: std::vector<std::string> field; };`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].variableList && r[0].variableList.length >= 1);
       const converted = transTskey2Ckey(r[0].variableList[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0002 class field convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0002 class field convert output");
+        "h2dts_convert_array_0038_std_vector_std_string class field convert output non-empty");
+      assert.strictEqual(converted, "Array<string>",
+        "h2dts_convert_array_0038_std_vector_std_string class field convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0002 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0038_std_vector_std_string execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0003', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0039_STD_VECTOR_STD_STRING
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0039_STD_VECTOR_STD_STRING
+   * @tc.desc   Stability convert h2dts/array: parse-convert-gen pipeline; type
+   *            std::vector<std::string>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0039_std_vector_std_string', () => {
     try {
-      const r = parsec.parseFunction(`void pipeline110(std::forward_list<short> p);`);
+      const r = parsec.parseFunction(`void pipeline219(std::vector<std::string> p);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0003 pipeline convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0003 pipeline convert output");
+        "h2dts_convert_array_0039_std_vector_std_string pipeline convert output non-empty");
+      assert.strictEqual(converted, "Array<string>",
+        "h2dts_convert_array_0039_std_vector_std_string pipeline convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0003 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0039_std_vector_std_string execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0004', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0040_STD_VECTOR_LONG_LONG
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0040_STD_VECTOR_LONG_LONG
+   * @tc.desc   Stability convert h2dts/array: baseline type-string convert; type std::vector<long
+   *            long>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0040_std_vector_long_long', () => {
     try {
-      const result = transTskey2Ckey('std::forward_list<uint8_t>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_array_0004 convert output non-empty");
-      assert.strictEqual(result, "Array<number>", "h2dts_convert_array_0004 convert output");
+      const result = transTskey2Ckey('std::vector<long long>');
+      assert.ok(typeof result === 'string' && result.length > 0,
+        "h2dts_convert_array_0040_std_vector_long_long convert output non-empty");
+      assert.strictEqual(result, "Array<number>", "h2dts_convert_array_0040_std_vector_long_long convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0004 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0040_std_vector_long_long execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0005', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0041_STD_VECTOR_LONG_LONG
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0041_STD_VECTOR_LONG_LONG
+   * @tc.desc   Stability convert h2dts/array: function-param convert; type std::vector<long long>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0041_std_vector_long_long', () => {
     try {
-      const r = parsec.parseFunction(`void sample111(std::forward_list<uint8_t> p0);`);
+      const r = parsec.parseFunction(`void sample225(std::vector<long long> p0);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(typeof r[0] === 'object');
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0005 param convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0005 param convert output");
+        "h2dts_convert_array_0041_std_vector_long_long param convert output non-empty");
+      assert.strictEqual(converted, "Array<number>",
+        "h2dts_convert_array_0041_std_vector_long_long param convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0005 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0041_std_vector_long_long execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0006', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0042_ARRAY_NUMBER
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0042_ARRAY_NUMBER
+   * @tc.desc   Stability convert h2dts/array: function-return convert; type std::vector<long long>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0042_array_number', () => {
     try {
-      const r = parsec.parseFunction(`std::forward_list<uint8_t> sampleRet111();`);
+      const r = parsec.parseFunction(`std::vector<long long> sampleRet225();`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       const converted = transTskey2Ckey(r[0].returns);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0006 return convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0006 return convert output");
+        "h2dts_convert_array_0042_array_number return convert output non-empty");
+      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0042_array_number return convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0006 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0042_array_number execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0007', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0043_STD_VECTOR_LONG_LONG
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0043_STD_VECTOR_LONG_LONG
+   * @tc.desc   Stability convert h2dts/array: class-field convert; type std::vector<long long>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0043_std_vector_long_long', () => {
     try {
-      const r = parsec.parseClass(`class SampleClass111 { public: std::forward_list<uint8_t> field; };`);
+      const r = parsec.parseClass(`class SampleClass225 { public: std::vector<long long> field; };`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].variableList && r[0].variableList.length >= 1);
       const converted = transTskey2Ckey(r[0].variableList[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0007 class field convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0007 class field convert output");
+        "h2dts_convert_array_0043_std_vector_long_long class field convert output non-empty");
+      assert.strictEqual(converted, "number",
+        "h2dts_convert_array_0043_std_vector_long_long class field convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0007 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0043_std_vector_long_long execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0008', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0044_STD_VECTOR_LONG_LONG
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0044_STD_VECTOR_LONG_LONG
+   * @tc.desc   Stability convert h2dts/array: parse-convert-gen pipeline; type std::vector<long
+   *            long>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0044_std_vector_long_long', () => {
     try {
-      const r = parsec.parseFunction(`void pipeline111(std::forward_list<uint8_t> p);`);
+      const r = parsec.parseFunction(`void pipeline225(std::vector<long long> p);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0008 pipeline convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0008 pipeline convert output");
+        "h2dts_convert_array_0044_std_vector_long_long pipeline convert output non-empty");
+      assert.strictEqual(converted, "Array<number>",
+        "h2dts_convert_array_0044_std_vector_long_long pipeline convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0008 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0044_std_vector_long_long execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0009', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0045_STD_VECTOR_UNSIGNED_SHORT
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0045_STD_VECTOR_UNSIGNED_SHORT
+   * @tc.desc   Stability convert h2dts/array: baseline type-string convert; type
+   *            std::vector<unsigned short>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0045_std_vector_unsigned_short', () => {
     try {
-      const result = transTskey2Ckey('std::forward_list<uint16_t>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_array_0009 convert output non-empty");
-      assert.strictEqual(result, "Array<number>", "h2dts_convert_array_0009 convert output");
+      const result = transTskey2Ckey('std::vector<unsigned short>');
+      assert.ok(typeof result === 'string' && result.length > 0,
+        "h2dts_convert_array_0045_std_vector_unsigned_short convert output non-empty");
+      assert.strictEqual(result, "Array<number>", "h2dts_convert_array_0045_std_vector_unsigned_short convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0009 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0045_std_vector_unsigned_short execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0010', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0046_STD_VECTOR_UNSIGNED_SHORT
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0046_STD_VECTOR_UNSIGNED_SHORT
+   * @tc.desc   Stability convert h2dts/array: function-param convert; type std::vector<unsigned
+   *            short>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0046_std_vector_unsigned_short', () => {
     try {
-      const r = parsec.parseFunction(`void sample112(std::forward_list<uint16_t> p0);`);
+      const r = parsec.parseFunction(`void sample226(std::vector<unsigned short> p0);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(typeof r[0] === 'object');
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0010 param convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0010 param convert output");
+        "h2dts_convert_array_0046_std_vector_unsigned_short param convert output non-empty");
+      assert.strictEqual(converted, "Array<number>",
+        "h2dts_convert_array_0046_std_vector_unsigned_short param convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0010 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0046_std_vector_unsigned_short execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0011', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0047_ARRAY_NUMBER
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0047_ARRAY_NUMBER
+   * @tc.desc   Stability convert h2dts/array: function-return convert; type std::vector<unsigned
+   *            short>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0047_array_number', () => {
     try {
-      const r = parsec.parseFunction(`std::forward_list<uint16_t> sampleRet112();`);
+      const r = parsec.parseFunction(`std::vector<unsigned short> sampleRet226();`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       const converted = transTskey2Ckey(r[0].returns);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0011 return convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0011 return convert output");
+        "h2dts_convert_array_0047_array_number return convert output non-empty");
+      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0047_array_number return convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0011 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0047_array_number execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0012', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0048_STD_VECTOR_UNSIGNED_SHORT
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0048_STD_VECTOR_UNSIGNED_SHORT
+   * @tc.desc   Stability convert h2dts/array: class-field convert; type std::vector<unsigned
+   *            short>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0048_std_vector_unsigned_short', () => {
     try {
-      const r = parsec.parseClass(`class SampleClass112 { public: std::forward_list<uint16_t> field; };`);
+      const r = parsec.parseClass(`class SampleClass226 { public: std::vector<unsigned short> field; };`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].variableList && r[0].variableList.length >= 1);
       const converted = transTskey2Ckey(r[0].variableList[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0012 class field convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0012 class field convert output");
+        "h2dts_convert_array_0048_std_vector_unsigned_short class field convert output non-empty");
+      assert.strictEqual(converted, "number",
+        "h2dts_convert_array_0048_std_vector_unsigned_short class field convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0012 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0048_std_vector_unsigned_short execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0013', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0049_STD_VECTOR_UNSIGNED_SHORT
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0049_STD_VECTOR_UNSIGNED_SHORT
+   * @tc.desc   Stability convert h2dts/array: parse-convert-gen pipeline; type std::vector<unsigned
+   *            short>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0049_std_vector_unsigned_short', () => {
     try {
-      const r = parsec.parseFunction(`void pipeline112(std::forward_list<uint16_t> p);`);
+      const r = parsec.parseFunction(`void pipeline226(std::vector<unsigned short> p);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0013 pipeline convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0013 pipeline convert output");
+        "h2dts_convert_array_0049_std_vector_unsigned_short pipeline convert output non-empty");
+      assert.strictEqual(converted, "Array<number>",
+        "h2dts_convert_array_0049_std_vector_unsigned_short pipeline convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0013 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0049_std_vector_unsigned_short execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0014', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0050_STD_VECTOR_UNSIGNED_LONG
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0050_STD_VECTOR_UNSIGNED_LONG
+   * @tc.desc   Stability convert h2dts/array: baseline type-string convert; type
+   *            std::vector<unsigned long>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0050_std_vector_unsigned_long', () => {
     try {
-      const result = transTskey2Ckey('std::forward_list<uint32_t>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_array_0014 convert output non-empty");
-      assert.strictEqual(result, "Array<number>", "h2dts_convert_array_0014 convert output");
+      const result = transTskey2Ckey('std::vector<unsigned long>');
+      assert.ok(typeof result === 'string' && result.length > 0,
+        "h2dts_convert_array_0050_std_vector_unsigned_long convert output non-empty");
+      assert.strictEqual(result, "Array<number>", "h2dts_convert_array_0050_std_vector_unsigned_long convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0014 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0050_std_vector_unsigned_long execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0015', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0051_STD_VECTOR_UNSIGNED_LONG
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0051_STD_VECTOR_UNSIGNED_LONG
+   * @tc.desc   Stability convert h2dts/array: function-param convert; type std::vector<unsigned
+   *            long>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0051_std_vector_unsigned_long', () => {
     try {
-      const r = parsec.parseFunction(`void sample113(std::forward_list<uint32_t> p0);`);
+      const r = parsec.parseFunction(`void sample227(std::vector<unsigned long> p0);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(typeof r[0] === 'object');
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0015 param convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0015 param convert output");
+        "h2dts_convert_array_0051_std_vector_unsigned_long param convert output non-empty");
+      assert.strictEqual(converted, "Array<number>",
+        "h2dts_convert_array_0051_std_vector_unsigned_long param convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0015 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0051_std_vector_unsigned_long execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0016', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0052_ARRAY_NUMBER
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0052_ARRAY_NUMBER
+   * @tc.desc   Stability convert h2dts/array: function-return convert; type std::vector<unsigned
+   *            long>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0052_array_number', () => {
     try {
-      const r = parsec.parseFunction(`std::forward_list<uint32_t> sampleRet113();`);
+      const r = parsec.parseFunction(`std::vector<unsigned long> sampleRet227();`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       const converted = transTskey2Ckey(r[0].returns);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0016 return convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0016 return convert output");
+        "h2dts_convert_array_0052_array_number return convert output non-empty");
+      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0052_array_number return convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0016 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0052_array_number execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0017', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0053_STD_VECTOR_UNSIGNED_LONG
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0053_STD_VECTOR_UNSIGNED_LONG
+   * @tc.desc   Stability convert h2dts/array: class-field convert; type std::vector<unsigned long>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0053_std_vector_unsigned_long', () => {
     try {
-      const r = parsec.parseClass(`class SampleClass113 { public: std::forward_list<uint32_t> field; };`);
+      const r = parsec.parseClass(`class SampleClass227 { public: std::vector<unsigned long> field; };`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].variableList && r[0].variableList.length >= 1);
       const converted = transTskey2Ckey(r[0].variableList[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0017 class field convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0017 class field convert output");
+        "h2dts_convert_array_0053_std_vector_unsigned_long class field convert output non-empty");
+      assert.strictEqual(converted, "number",
+        "h2dts_convert_array_0053_std_vector_unsigned_long class field convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0017 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0053_std_vector_unsigned_long execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0018', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0054_STD_VECTOR_UNSIGNED_LONG
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0054_STD_VECTOR_UNSIGNED_LONG
+   * @tc.desc   Stability convert h2dts/array: parse-convert-gen pipeline; type std::vector<unsigned
+   *            long>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0054_std_vector_unsigned_long', () => {
     try {
-      const r = parsec.parseFunction(`void pipeline113(std::forward_list<uint32_t> p);`);
+      const r = parsec.parseFunction(`void pipeline227(std::vector<unsigned long> p);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0018 pipeline convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0018 pipeline convert output");
+        "h2dts_convert_array_0054_std_vector_unsigned_long pipeline convert output non-empty");
+      assert.strictEqual(converted, "Array<number>",
+        "h2dts_convert_array_0054_std_vector_unsigned_long pipeline convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0018 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0054_std_vector_unsigned_long execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0019', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0055_STD_VECTOR_UNSIGNED_LONG_LONG
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0055_STD_VECTOR_UNSIGNED_LONG_LONG
+   * @tc.desc   Stability convert h2dts/array: baseline type-string convert; type
+   *            std::vector<unsigned long long>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0055_std_vector_unsigned_long_long', () => {
     try {
-      const result = transTskey2Ckey('std::forward_list<uint64_t>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_array_0019 convert output non-empty");
-      assert.strictEqual(result, "Array<number>", "h2dts_convert_array_0019 convert output");
+      const result = transTskey2Ckey('std::vector<unsigned long long>');
+      assert.ok(typeof result === 'string' && result.length > 0,
+        "h2dts_convert_array_0055_std_vector_unsigned_long_long convert output non-empty");
+      assert.strictEqual(result, "Array<number>",
+        "h2dts_convert_array_0055_std_vector_unsigned_long_long convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0019 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0055_std_vector_unsigned_long_long execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0020', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0001_STD_LIST_UNSIGNED_SHORT
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0001_STD_LIST_UNSIGNED_SHORT
+   * @tc.desc   Stability convert h2dts/array: baseline type-string convert; type std::list<unsigned
+   *            short>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0001_std_list_unsigned_short', () => {
     try {
-      const r = parsec.parseFunction(`void sample114(std::forward_list<uint64_t> p0);`);
+      const result = transTskey2Ckey('std::list<unsigned short>');
+      assert.ok(typeof result === 'string' && result.length > 0,
+        "h2dts_convert_array_0001_std_list_unsigned_short convert output non-empty");
+      assert.strictEqual(result, "Array<number>", "h2dts_convert_array_0001_std_list_unsigned_short convert output");
+    } catch (err) {
+      assert.fail(`h2dts_convert_array_0001_std_list_unsigned_short execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0002_STD_LIST_UNSIGNED_SHORT
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0002_STD_LIST_UNSIGNED_SHORT
+   * @tc.desc   Stability convert h2dts/array: function-param convert; type std::list<unsigned
+   *            short>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0002_std_list_unsigned_short', () => {
+    try {
+      const r = parsec.parseFunction(`void sample248(std::list<unsigned short> p0);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(typeof r[0] === 'object');
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0020 param convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0020 param convert output");
+        "h2dts_convert_array_0002_std_list_unsigned_short param convert output non-empty");
+      assert.strictEqual(converted, "Array<number>",
+        "h2dts_convert_array_0002_std_list_unsigned_short param convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0020 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0002_std_list_unsigned_short execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0021', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0003_ARRAY_NUMBER_V2
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0003_ARRAY_NUMBER_V2
+   * @tc.desc   Stability convert h2dts/array: function-return convert; type std::list<unsigned
+   *            short>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0003_array_number_v2', () => {
     try {
-      const r = parsec.parseFunction(`std::forward_list<uint64_t> sampleRet114();`);
+      const r = parsec.parseFunction(`std::list<unsigned short> sampleRet248();`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       const converted = transTskey2Ckey(r[0].returns);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0021 return convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0021 return convert output");
+        "h2dts_convert_array_0003_array_number_v2 return convert output non-empty");
+      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0003_array_number_v2 return convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0021 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0003_array_number_v2 execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0022', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0004_STD_LIST_UNSIGNED_SHORT
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0004_STD_LIST_UNSIGNED_SHORT
+   * @tc.desc   Stability convert h2dts/array: class-field convert; type std::list<unsigned short>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0004_std_list_unsigned_short', () => {
     try {
-      const r = parsec.parseClass(`class SampleClass114 { public: std::forward_list<uint64_t> field; };`);
+      const r = parsec.parseClass(`class SampleClass248 { public: std::list<unsigned short> field; };`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].variableList && r[0].variableList.length >= 1);
       const converted = transTskey2Ckey(r[0].variableList[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0022 class field convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0022 class field convert output");
+        "h2dts_convert_array_0004_std_list_unsigned_short class field convert output non-empty");
+      assert.strictEqual(converted, "number",
+        "h2dts_convert_array_0004_std_list_unsigned_short class field convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0022 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0004_std_list_unsigned_short execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0023', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0005_STD_LIST_UNSIGNED_SHORT
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0005_STD_LIST_UNSIGNED_SHORT
+   * @tc.desc   Stability convert h2dts/array: parse-convert-gen pipeline; type std::list<unsigned
+   *            short>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0005_std_list_unsigned_short', () => {
     try {
-      const r = parsec.parseFunction(`void pipeline114(std::forward_list<uint64_t> p);`);
+      const r = parsec.parseFunction(`void pipeline248(std::list<unsigned short> p);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0023 pipeline convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0023 pipeline convert output");
+        "h2dts_convert_array_0005_std_list_unsigned_short pipeline convert output non-empty");
+      assert.strictEqual(converted, "Array<number>",
+        "h2dts_convert_array_0005_std_list_unsigned_short pipeline convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0023 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0005_std_list_unsigned_short execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0024', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0006_STD_LIST_UNSIGNED_LONG
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0006_STD_LIST_UNSIGNED_LONG
+   * @tc.desc   Stability convert h2dts/array: baseline type-string convert; type std::list<unsigned
+   *            long>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0006_std_list_unsigned_long', () => {
     try {
-      const result = transTskey2Ckey('std::forward_list<int8_t>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_array_0024 convert output non-empty");
-      assert.strictEqual(result, "Array<number>", "h2dts_convert_array_0024 convert output");
+      const result = transTskey2Ckey('std::list<unsigned long>');
+      assert.ok(typeof result === 'string' && result.length > 0,
+        "h2dts_convert_array_0006_std_list_unsigned_long convert output non-empty");
+      assert.strictEqual(result, "Array<number>", "h2dts_convert_array_0006_std_list_unsigned_long convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0024 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0006_std_list_unsigned_long execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0025', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0007_STD_LIST_UNSIGNED_LONG
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0007_STD_LIST_UNSIGNED_LONG
+   * @tc.desc   Stability convert h2dts/array: function-param convert; type std::list<unsigned
+   *            long>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0007_std_list_unsigned_long', () => {
     try {
-      const r = parsec.parseFunction(`void sample115(std::forward_list<int8_t> p0);`);
+      const r = parsec.parseFunction(`void sample249(std::list<unsigned long> p0);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(typeof r[0] === 'object');
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0025 param convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0025 param convert output");
+        "h2dts_convert_array_0007_std_list_unsigned_long param convert output non-empty");
+      assert.strictEqual(converted, "Array<number>",
+        "h2dts_convert_array_0007_std_list_unsigned_long param convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0025 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0007_std_list_unsigned_long execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0026', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0008_ARRAY_NUMBER_V2
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0008_ARRAY_NUMBER_V2
+   * @tc.desc   Stability convert h2dts/array: function-return convert; type std::list<unsigned
+   *            long>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0008_array_number_v2', () => {
     try {
-      const r = parsec.parseFunction(`std::forward_list<int8_t> sampleRet115();`);
+      const r = parsec.parseFunction(`std::list<unsigned long> sampleRet249();`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       const converted = transTskey2Ckey(r[0].returns);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0026 return convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0026 return convert output");
+        "h2dts_convert_array_0008_array_number_v2 return convert output non-empty");
+      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0008_array_number_v2 return convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0026 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0008_array_number_v2 execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0027', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0009_STD_LIST_UNSIGNED_LONG
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0009_STD_LIST_UNSIGNED_LONG
+   * @tc.desc   Stability convert h2dts/array: class-field convert; type std::list<unsigned long>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0009_std_list_unsigned_long', () => {
     try {
-      const r = parsec.parseClass(`class SampleClass115 { public: std::forward_list<int8_t> field; };`);
+      const r = parsec.parseClass(`class SampleClass249 { public: std::list<unsigned long> field; };`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].variableList && r[0].variableList.length >= 1);
       const converted = transTskey2Ckey(r[0].variableList[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0027 class field convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0027 class field convert output");
+        "h2dts_convert_array_0009_std_list_unsigned_long class field convert output non-empty");
+      assert.strictEqual(converted, "number",
+        "h2dts_convert_array_0009_std_list_unsigned_long class field convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0027 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0009_std_list_unsigned_long execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0028', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0010_STD_LIST_UNSIGNED_LONG
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0010_STD_LIST_UNSIGNED_LONG
+   * @tc.desc   Stability convert h2dts/array: parse-convert-gen pipeline; type std::list<unsigned
+   *            long>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0010_std_list_unsigned_long', () => {
     try {
-      const r = parsec.parseFunction(`void pipeline115(std::forward_list<int8_t> p);`);
+      const r = parsec.parseFunction(`void pipeline249(std::list<unsigned long> p);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0028 pipeline convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0028 pipeline convert output");
+        "h2dts_convert_array_0010_std_list_unsigned_long pipeline convert output non-empty");
+      assert.strictEqual(converted, "Array<number>",
+        "h2dts_convert_array_0010_std_list_unsigned_long pipeline convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0028 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0010_std_list_unsigned_long execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0029', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0011_STD_LIST_UNSIGNED_LONG_LONG
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0011_STD_LIST_UNSIGNED_LONG_LONG
+   * @tc.desc   Stability convert h2dts/array: baseline type-string convert; type std::list<unsigned
+   *            long long>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0011_std_list_unsigned_long_long', () => {
     try {
-      const result = transTskey2Ckey('std::forward_list<int16_t>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_array_0029 convert output non-empty");
-      assert.strictEqual(result, "Array<number>", "h2dts_convert_array_0029 convert output");
+      const result = transTskey2Ckey('std::list<unsigned long long>');
+      assert.ok(typeof result === 'string' && result.length > 0,
+        "h2dts_convert_array_0011_std_list_unsigned_long_long convert output non-empty");
+      assert.strictEqual(result, "Array<number>",
+        "h2dts_convert_array_0011_std_list_unsigned_long_long convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0029 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0011_std_list_unsigned_long_long execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0030', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0012_STD_LIST_UNSIGNED_LONG_LONG
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0012_STD_LIST_UNSIGNED_LONG_LONG
+   * @tc.desc   Stability convert h2dts/array: function-param convert; type std::list<unsigned long
+   *            long>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0012_std_list_unsigned_long_long', () => {
     try {
-      const r = parsec.parseFunction(`void sample116(std::forward_list<int16_t> p0);`);
+      const r = parsec.parseFunction(`void sample250(std::list<unsigned long long> p0);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(typeof r[0] === 'object');
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0030 param convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0030 param convert output");
+        "h2dts_convert_array_0012_std_list_unsigned_long_long param convert output non-empty");
+      assert.strictEqual(converted, "Array<number>",
+        "h2dts_convert_array_0012_std_list_unsigned_long_long param convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0030 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0012_std_list_unsigned_long_long execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0031', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0013_ARRAY_NUMBER_V2
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0013_ARRAY_NUMBER_V2
+   * @tc.desc   Stability convert h2dts/array: function-return convert; type std::list<unsigned long
+   *            long>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0013_array_number_v2', () => {
     try {
-      const r = parsec.parseFunction(`std::forward_list<int16_t> sampleRet116();`);
+      const r = parsec.parseFunction(`std::list<unsigned long long> sampleRet250();`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       const converted = transTskey2Ckey(r[0].returns);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0031 return convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0031 return convert output");
+        "h2dts_convert_array_0013_array_number_v2 return convert output non-empty");
+      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0013_array_number_v2 return convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0031 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0013_array_number_v2 execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0032', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0014_STD_LIST_UNSIGNED_LONG_LONG
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0014_STD_LIST_UNSIGNED_LONG_LONG
+   * @tc.desc   Stability convert h2dts/array: class-field convert; type std::list<unsigned long
+   *            long>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0014_std_list_unsigned_long_long', () => {
     try {
-      const r = parsec.parseClass(`class SampleClass116 { public: std::forward_list<int16_t> field; };`);
+      const r = parsec.parseClass(`class SampleClass250 { public: std::list<unsigned long long> field; };`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].variableList && r[0].variableList.length >= 1);
       const converted = transTskey2Ckey(r[0].variableList[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0032 class field convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0032 class field convert output");
+        "h2dts_convert_array_0014_std_list_unsigned_long_long class field convert output non-empty");
+      assert.strictEqual(converted, "number",
+        "h2dts_convert_array_0014_std_list_unsigned_long_long class field convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0032 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0014_std_list_unsigned_long_long execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0033', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0015_STD_LIST_UNSIGNED_LONG_LONG
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0015_STD_LIST_UNSIGNED_LONG_LONG
+   * @tc.desc   Stability convert h2dts/array: parse-convert-gen pipeline; type std::list<unsigned
+   *            long long>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0015_std_list_unsigned_long_long', () => {
     try {
-      const r = parsec.parseFunction(`void pipeline116(std::forward_list<int16_t> p);`);
+      const r = parsec.parseFunction(`void pipeline250(std::list<unsigned long long> p);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0033 pipeline convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0033 pipeline convert output");
+        "h2dts_convert_array_0015_std_list_unsigned_long_long pipeline convert output non-empty");
+      assert.strictEqual(converted, "Array<number>",
+        "h2dts_convert_array_0015_std_list_unsigned_long_long pipeline convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0033 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0015_std_list_unsigned_long_long execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0034', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0016_STD_LIST_INT
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0016_STD_LIST_INT
+   * @tc.desc   Stability convert h2dts/array: baseline type-string convert; type std::list<int *>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0016_std_list_int', () => {
     try {
-      const result = transTskey2Ckey('std::forward_list<int32_t>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_array_0034 convert output non-empty");
-      assert.strictEqual(result, "Array<number>", "h2dts_convert_array_0034 convert output");
+      const result = transTskey2Ckey('std::list<int *>');
+      assert.ok(typeof result === 'string' && result.length > 0,
+        "h2dts_convert_array_0016_std_list_int convert output non-empty");
+      assert.strictEqual(result, "Array<number>", "h2dts_convert_array_0016_std_list_int convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0034 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0016_std_list_int execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0035', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0017_STD_LIST_INT
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0017_STD_LIST_INT
+   * @tc.desc   Stability convert h2dts/array: function-param convert; type std::list<int *>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0017_std_list_int', () => {
     try {
-      const r = parsec.parseFunction(`void sample117(std::forward_list<int32_t> p0);`);
+      const r = parsec.parseFunction(`void sample251(std::list<int *> p0);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(typeof r[0] === 'object');
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0035 param convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0035 param convert output");
+        "h2dts_convert_array_0017_std_list_int param convert output non-empty");
+      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0017_std_list_int param convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0035 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0017_std_list_int execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0036', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0018_ARRAY_NUMBER_V2
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0018_ARRAY_NUMBER_V2
+   * @tc.desc   Stability convert h2dts/array: function-return convert; type std::list<int *>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0018_array_number_v2', () => {
     try {
-      const r = parsec.parseFunction(`std::forward_list<int32_t> sampleRet117();`);
+      const r = parsec.parseFunction(`std::list<int *> sampleRet251();`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       const converted = transTskey2Ckey(r[0].returns);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0036 return convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0036 return convert output");
+        "h2dts_convert_array_0018_array_number_v2 return convert output non-empty");
+      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0018_array_number_v2 return convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0036 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0018_array_number_v2 execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0037', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0019_STD_LIST_INT_V2
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0019_STD_LIST_INT_V2
+   * @tc.desc   Stability convert h2dts/array: class-field convert; type std::list<int *>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0019_std_list_int_v2', () => {
     try {
-      const r = parsec.parseClass(`class SampleClass117 { public: std::forward_list<int32_t> field; };`);
+      const r = parsec.parseClass(`class SampleClass251 { public: std::list<int *> field; };`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].variableList && r[0].variableList.length >= 1);
       const converted = transTskey2Ckey(r[0].variableList[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0037 class field convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0037 class field convert output");
+        "h2dts_convert_array_0019_std_list_int_v2 class field convert output non-empty");
+      assert.strictEqual(converted, "Array<number>",
+        "h2dts_convert_array_0019_std_list_int_v2 class field convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0037 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0019_std_list_int_v2 execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0038', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0020_STD_LIST_INT
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0020_STD_LIST_INT
+   * @tc.desc   Stability convert h2dts/array: parse-convert-gen pipeline; type std::list<int *>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0020_std_list_int', () => {
     try {
-      const r = parsec.parseFunction(`void pipeline117(std::forward_list<int32_t> p);`);
+      const r = parsec.parseFunction(`void pipeline251(std::list<int *> p);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0038 pipeline convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0038 pipeline convert output");
+        "h2dts_convert_array_0020_std_list_int pipeline convert output non-empty");
+      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0020_std_list_int pipeline convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0038 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0020_std_list_int execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0039', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0021_STD_FORWARD_LIST_STD_STRING
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0021_STD_FORWARD_LIST_STD_STRING
+   * @tc.desc   Stability convert h2dts/array: baseline type-string convert; type
+   *            std::forward_list<std::string>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0021_std_forward_list_std_string', () => {
     try {
-      const result = transTskey2Ckey('std::forward_list<int64_t>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_array_0039 convert output non-empty");
-      assert.strictEqual(result, "Array<number>", "h2dts_convert_array_0039 convert output");
+      const result = transTskey2Ckey('std::forward_list<std::string>');
+      assert.ok(typeof result === 'string' && result.length > 0,
+        "h2dts_convert_array_0021_std_forward_list_std_string convert output non-empty");
+      assert.strictEqual(result, "Array<string>",
+        "h2dts_convert_array_0021_std_forward_list_std_string convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0039 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0021_std_forward_list_std_string execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0040', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0022_STD_FORWARD_LIST_STD_STRING
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0022_STD_FORWARD_LIST_STD_STRING
+   * @tc.desc   Stability convert h2dts/array: function-param convert; type
+   *            std::forward_list<std::string>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0022_std_forward_list_std_string', () => {
     try {
-      const r = parsec.parseFunction(`void sample118(std::forward_list<int64_t> p0);`);
+      const r = parsec.parseFunction(`void sample252(std::forward_list<std::string> p0);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(typeof r[0] === 'object');
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0040 param convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0040 param convert output");
+        "h2dts_convert_array_0022_std_forward_list_std_string param convert output non-empty");
+      assert.strictEqual(converted, "Array<string>",
+        "h2dts_convert_array_0022_std_forward_list_std_string param convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0040 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0022_std_forward_list_std_string execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0041', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0023_ARRAY_STRING
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0023_ARRAY_STRING
+   * @tc.desc   Stability convert h2dts/array: function-return convert; type
+   *            std::forward_list<std::string>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0023_array_string', () => {
     try {
-      const r = parsec.parseFunction(`std::forward_list<int64_t> sampleRet118();`);
+      const r = parsec.parseFunction(`std::forward_list<std::string> sampleRet252();`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       const converted = transTskey2Ckey(r[0].returns);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0041 return convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0041 return convert output");
+        "h2dts_convert_array_0023_array_string return convert output non-empty");
+      assert.strictEqual(converted, "Array<string>", "h2dts_convert_array_0023_array_string return convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0041 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0023_array_string execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0042', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0024_STD_FORWARD_LIST_STD_STRING
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0024_STD_FORWARD_LIST_STD_STRING
+   * @tc.desc   Stability convert h2dts/array: class-field convert; type
+   *            std::forward_list<std::string>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0024_std_forward_list_std_string', () => {
     try {
-      const r = parsec.parseClass(`class SampleClass118 { public: std::forward_list<int64_t> field; };`);
+      const r = parsec.parseClass(`class SampleClass252 { public: std::forward_list<std::string> field; };`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].variableList && r[0].variableList.length >= 1);
       const converted = transTskey2Ckey(r[0].variableList[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0042 class field convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0042 class field convert output");
+        "h2dts_convert_array_0024_std_forward_list_std_string class field convert output non-empty");
+      assert.strictEqual(converted, "Array<string>",
+        "h2dts_convert_array_0024_std_forward_list_std_string class field convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0042 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0024_std_forward_list_std_string execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0043', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0025_STD_FORWARD_LIST_STD_STRING
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0025_STD_FORWARD_LIST_STD_STRING
+   * @tc.desc   Stability convert h2dts/array: parse-convert-gen pipeline; type
+   *            std::forward_list<std::string>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0025_std_forward_list_std_string', () => {
     try {
-      const r = parsec.parseFunction(`void pipeline118(std::forward_list<int64_t> p);`);
+      const r = parsec.parseFunction(`void pipeline252(std::forward_list<std::string> p);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0043 pipeline convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0043 pipeline convert output");
+        "h2dts_convert_array_0025_std_forward_list_std_string pipeline convert output non-empty");
+      assert.strictEqual(converted, "Array<string>",
+        "h2dts_convert_array_0025_std_forward_list_std_string pipeline convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0043 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0025_std_forward_list_std_string execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0044', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0026_STD_FORWARD_LIST_CHAR
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0026_STD_FORWARD_LIST_CHAR
+   * @tc.desc   Stability convert h2dts/array: baseline type-string convert; type
+   *            std::forward_list<char *>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0026_std_forward_list_char', () => {
     try {
-      const result = transTskey2Ckey('std::forward_list<unsigned>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_array_0044 convert output non-empty");
-      assert.strictEqual(result, "Array<number>", "h2dts_convert_array_0044 convert output");
+      const result = transTskey2Ckey('std::forward_list<char *>');
+      assert.ok(typeof result === 'string' && result.length > 0,
+        "h2dts_convert_array_0026_std_forward_list_char convert output non-empty");
+      assert.strictEqual(result, "Array<string>", "h2dts_convert_array_0026_std_forward_list_char convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0044 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0026_std_forward_list_char execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0045', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0027_STD_FORWARD_LIST_CHAR
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0027_STD_FORWARD_LIST_CHAR
+   * @tc.desc   Stability convert h2dts/array: function-param convert; type std::forward_list<char
+   *            *>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0027_std_forward_list_char', () => {
     try {
-      const r = parsec.parseFunction(`void sample119(std::forward_list<unsigned> p0);`);
+      const r = parsec.parseFunction(`void sample253(std::forward_list<char *> p0);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(typeof r[0] === 'object');
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0045 param convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0045 param convert output");
+        "h2dts_convert_array_0027_std_forward_list_char param convert output non-empty");
+      assert.strictEqual(converted, "Array<string>",
+        "h2dts_convert_array_0027_std_forward_list_char param convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0045 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0027_std_forward_list_char execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0046', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0028_ARRAY_STRING
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0028_ARRAY_STRING
+   * @tc.desc   Stability convert h2dts/array: function-return convert; type std::forward_list<char
+   *            *>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0028_array_string', () => {
     try {
-      const r = parsec.parseFunction(`std::forward_list<unsigned> sampleRet119();`);
+      const r = parsec.parseFunction(`std::forward_list<char *> sampleRet253();`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       const converted = transTskey2Ckey(r[0].returns);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0046 return convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0046 return convert output");
+        "h2dts_convert_array_0028_array_string return convert output non-empty");
+      assert.strictEqual(converted, "Array<string>", "h2dts_convert_array_0028_array_string return convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0046 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0028_array_string execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0047', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0029_STD_FORWARD_LIST_CHAR
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0029_STD_FORWARD_LIST_CHAR
+   * @tc.desc   Stability convert h2dts/array: class-field convert; type std::forward_list<char *>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0029_std_forward_list_char', () => {
     try {
-      const r = parsec.parseClass(`class SampleClass119 { public: std::forward_list<unsigned> field; };`);
+      const r = parsec.parseClass(`class SampleClass253 { public: std::forward_list<char *> field; };`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].variableList && r[0].variableList.length >= 1);
       const converted = transTskey2Ckey(r[0].variableList[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0047 class field convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0047 class field convert output");
+        "h2dts_convert_array_0029_std_forward_list_char class field convert output non-empty");
+      assert.strictEqual(converted, "Array<string>",
+        "h2dts_convert_array_0029_std_forward_list_char class field convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0047 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0029_std_forward_list_char execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0048', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0030_STD_FORWARD_LIST_CHAR
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0030_STD_FORWARD_LIST_CHAR
+   * @tc.desc   Stability convert h2dts/array: parse-convert-gen pipeline; type
+   *            std::forward_list<char *>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0030_std_forward_list_char', () => {
     try {
-      const r = parsec.parseFunction(`void pipeline119(std::forward_list<unsigned> p);`);
+      const r = parsec.parseFunction(`void pipeline253(std::forward_list<char *> p);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0048 pipeline convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0048 pipeline convert output");
+        "h2dts_convert_array_0030_std_forward_list_char pipeline convert output non-empty");
+      assert.strictEqual(converted, "Array<string>",
+        "h2dts_convert_array_0030_std_forward_list_char pipeline convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0048 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0030_std_forward_list_char execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0049', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0031_STD_FORWARD_LIST_LONG_LONG
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0031_STD_FORWARD_LIST_LONG_LONG
+   * @tc.desc   Stability convert h2dts/array: baseline type-string convert; type
+   *            std::forward_list<long long>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0031_std_forward_list_long_long', () => {
     try {
-      const result = transTskey2Ckey('std::forward_list<bool>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_array_0049 convert output non-empty");
-      assert.strictEqual(result, "Array<boolean>", "h2dts_convert_array_0049 convert output");
+      const result = transTskey2Ckey('std::forward_list<long long>');
+      assert.ok(typeof result === 'string' && result.length > 0,
+        "h2dts_convert_array_0031_std_forward_list_long_long convert output non-empty");
+      assert.strictEqual(result, "Array<number>", "h2dts_convert_array_0031_std_forward_list_long_long convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0049 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0031_std_forward_list_long_long execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0050', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0032_STD_FORWARD_LIST_LONG_LONG
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0032_STD_FORWARD_LIST_LONG_LONG
+   * @tc.desc   Stability convert h2dts/array: function-param convert; type std::forward_list<long
+   *            long>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0032_std_forward_list_long_long', () => {
     try {
-      const r = parsec.parseFunction(`void sample120(std::forward_list<bool> p0);`);
+      const r = parsec.parseFunction(`void sample254(std::forward_list<long long> p0);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(typeof r[0] === 'object');
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0050 param convert output non-empty");
-      assert.strictEqual(converted, "Array<boolean>", "h2dts_convert_array_0050 param convert output");
+        "h2dts_convert_array_0032_std_forward_list_long_long param convert output non-empty");
+      assert.strictEqual(converted, "Array<number>",
+        "h2dts_convert_array_0032_std_forward_list_long_long param convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0050 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0032_std_forward_list_long_long execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0051', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0033_ARRAY_NUMBER_V2
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0033_ARRAY_NUMBER_V2
+   * @tc.desc   Stability convert h2dts/array: function-return convert; type std::forward_list<long
+   *            long>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0033_array_number_v2', () => {
     try {
-      const r = parsec.parseFunction(`std::forward_list<bool> sampleRet120();`);
+      const r = parsec.parseFunction(`std::forward_list<long long> sampleRet254();`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       const converted = transTskey2Ckey(r[0].returns);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0051 return convert output non-empty");
-      assert.strictEqual(converted, "Array<boolean>", "h2dts_convert_array_0051 return convert output");
+        "h2dts_convert_array_0033_array_number_v2 return convert output non-empty");
+      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0033_array_number_v2 return convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0051 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0033_array_number_v2 execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0052', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0034_STD_FORWARD_LIST_LONG_LONG
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0034_STD_FORWARD_LIST_LONG_LONG
+   * @tc.desc   Stability convert h2dts/array: class-field convert; type std::forward_list<long
+   *            long>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0034_std_forward_list_long_long', () => {
     try {
-      const r = parsec.parseClass(`class SampleClass120 { public: std::forward_list<bool> field; };`);
+      const r = parsec.parseClass(`class SampleClass254 { public: std::forward_list<long long> field; };`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].variableList && r[0].variableList.length >= 1);
       const converted = transTskey2Ckey(r[0].variableList[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0052 class field convert output non-empty");
-      assert.strictEqual(converted, "Array<boolean>", "h2dts_convert_array_0052 class field convert output");
+        "h2dts_convert_array_0034_std_forward_list_long_long class field convert output non-empty");
+      assert.strictEqual(converted, "number",
+        "h2dts_convert_array_0034_std_forward_list_long_long class field convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0052 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0034_std_forward_list_long_long execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0053', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0035_STD_FORWARD_LIST_LONG_LONG
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0035_STD_FORWARD_LIST_LONG_LONG
+   * @tc.desc   Stability convert h2dts/array: parse-convert-gen pipeline; type
+   *            std::forward_list<long long>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0035_std_forward_list_long_long', () => {
     try {
-      const r = parsec.parseFunction(`void pipeline120(std::forward_list<bool> p);`);
+      const r = parsec.parseFunction(`void pipeline254(std::forward_list<long long> p);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0053 pipeline convert output non-empty");
-      assert.strictEqual(converted, "Array<boolean>", "h2dts_convert_array_0053 pipeline convert output");
+        "h2dts_convert_array_0035_std_forward_list_long_long pipeline convert output non-empty");
+      assert.strictEqual(converted, "Array<number>",
+        "h2dts_convert_array_0035_std_forward_list_long_long pipeline convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0053 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0035_std_forward_list_long_long execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0054', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0036_STD_FORWARD_LIST_UNSIGNED_SHORT
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0036_STD_FORWARD_LIST_UNSIGNED_SHORT
+   * @tc.desc   Stability convert h2dts/array: baseline type-string convert; type
+   *            std::forward_list<unsigned short>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0036_std_forward_list_unsigned_short', () => {
     try {
-      const result = transTskey2Ckey('std::forward_list<char>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_array_0054 convert output non-empty");
-      assert.strictEqual(result, "Array<string>", "h2dts_convert_array_0054 convert output");
+      const result = transTskey2Ckey('std::forward_list<unsigned short>');
+      assert.ok(typeof result === 'string' && result.length > 0,
+        "h2dts_convert_array_0036_std_forward_list_unsigned_short convert output non-empty");
+      assert.strictEqual(result, "Array<number>",
+        "h2dts_convert_array_0036_std_forward_list_unsigned_short convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0054 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0036_std_forward_list_unsigned_short execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0055', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0037_STD_FORWARD_LIST_UNSIGNED_SHORT
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0037_STD_FORWARD_LIST_UNSIGNED_SHORT
+   * @tc.desc   Stability convert h2dts/array: function-param convert; type
+   *            std::forward_list<unsigned short>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0037_std_forward_list_unsigned_short', () => {
     try {
-      const r = parsec.parseFunction(`void sample121(std::forward_list<char> p0);`);
+      const r = parsec.parseFunction(`void sample255(std::forward_list<unsigned short> p0);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(typeof r[0] === 'object');
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0055 param convert output non-empty");
-      assert.strictEqual(converted, "Array<string>", "h2dts_convert_array_0055 param convert output");
+        "h2dts_convert_array_0037_std_forward_list_unsigned_short param convert output non-empty");
+      assert.strictEqual(converted, "Array<number>",
+        "h2dts_convert_array_0037_std_forward_list_unsigned_short param convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0055 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0037_std_forward_list_unsigned_short execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0056', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0038_ARRAY_NUMBER_V2
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0038_ARRAY_NUMBER_V2
+   * @tc.desc   Stability convert h2dts/array: function-return convert; type
+   *            std::forward_list<unsigned short>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0038_array_number_v2', () => {
     try {
-      const r = parsec.parseFunction(`std::forward_list<char> sampleRet121();`);
+      const r = parsec.parseFunction(`std::forward_list<unsigned short> sampleRet255();`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       const converted = transTskey2Ckey(r[0].returns);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0056 return convert output non-empty");
-      assert.strictEqual(converted, "Array<string>", "h2dts_convert_array_0056 return convert output");
+        "h2dts_convert_array_0038_array_number_v2 return convert output non-empty");
+      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0038_array_number_v2 return convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0056 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0038_array_number_v2 execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0057', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0039_STD_FORWARD_LIST_UNSIGNED_SHORT
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0039_STD_FORWARD_LIST_UNSIGNED_SHORT
+   * @tc.desc   Stability convert h2dts/array: class-field convert; type std::forward_list<unsigned
+   *            short>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0039_std_forward_list_unsigned_short', () => {
     try {
-      const r = parsec.parseClass(`class SampleClass121 { public: std::forward_list<char> field; };`);
+      const r = parsec.parseClass(`class SampleClass255 { public: std::forward_list<unsigned short> field; };`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].variableList && r[0].variableList.length >= 1);
       const converted = transTskey2Ckey(r[0].variableList[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0057 class field convert output non-empty");
-      assert.strictEqual(converted, "Array<string>", "h2dts_convert_array_0057 class field convert output");
+        "h2dts_convert_array_0039_std_forward_list_unsigned_short class field convert output non-empty");
+      assert.strictEqual(converted, "number",
+        "h2dts_convert_array_0039_std_forward_list_unsigned_short class field convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0057 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0039_std_forward_list_unsigned_short execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0058', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0040_STD_FORWARD_LIST_UNSIGNED_SHORT
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0040_STD_FORWARD_LIST_UNSIGNED_SHORT
+   * @tc.desc   Stability convert h2dts/array: parse-convert-gen pipeline; type
+   *            std::forward_list<unsigned short>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0040_std_forward_list_unsigned_short', () => {
     try {
-      const r = parsec.parseFunction(`void pipeline121(std::forward_list<char> p);`);
+      const r = parsec.parseFunction(`void pipeline255(std::forward_list<unsigned short> p);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0058 pipeline convert output non-empty");
-      assert.strictEqual(converted, "Array<string>", "h2dts_convert_array_0058 pipeline convert output");
+        "h2dts_convert_array_0040_std_forward_list_unsigned_short pipeline convert output non-empty");
+      assert.strictEqual(converted, "Array<number>",
+        "h2dts_convert_array_0040_std_forward_list_unsigned_short pipeline convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0058 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0040_std_forward_list_unsigned_short execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0059', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0041_STD_FORWARD_LIST_UNSIGNED_LONG
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0041_STD_FORWARD_LIST_UNSIGNED_LONG
+   * @tc.desc   Stability convert h2dts/array: baseline type-string convert; type
+   *            std::forward_list<unsigned long>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0041_std_forward_list_unsigned_long', () => {
     try {
-      const result = transTskey2Ckey('std::forward_list<wchar_t>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_array_0059 convert output non-empty");
-      assert.strictEqual(result, "Array<string>", "h2dts_convert_array_0059 convert output");
+      const result = transTskey2Ckey('std::forward_list<unsigned long>');
+      assert.ok(typeof result === 'string' && result.length > 0,
+        "h2dts_convert_array_0041_std_forward_list_unsigned_long convert output non-empty");
+      assert.strictEqual(result, "Array<number>",
+        "h2dts_convert_array_0041_std_forward_list_unsigned_long convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0059 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0041_std_forward_list_unsigned_long execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0060', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0042_STD_FORWARD_LIST_UNSIGNED_LONG
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0042_STD_FORWARD_LIST_UNSIGNED_LONG
+   * @tc.desc   Stability convert h2dts/array: function-param convert; type
+   *            std::forward_list<unsigned long>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0042_std_forward_list_unsigned_long', () => {
     try {
-      const r = parsec.parseFunction(`void sample122(std::forward_list<wchar_t> p0);`);
+      const r = parsec.parseFunction(`void sample256(std::forward_list<unsigned long> p0);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(typeof r[0] === 'object');
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0060 param convert output non-empty");
-      assert.strictEqual(converted, "Array<string>", "h2dts_convert_array_0060 param convert output");
+        "h2dts_convert_array_0042_std_forward_list_unsigned_long param convert output non-empty");
+      assert.strictEqual(converted, "Array<number>",
+        "h2dts_convert_array_0042_std_forward_list_unsigned_long param convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0060 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0042_std_forward_list_unsigned_long execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0061', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0043_ARRAY_NUMBER_V2
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0043_ARRAY_NUMBER_V2
+   * @tc.desc   Stability convert h2dts/array: function-return convert; type
+   *            std::forward_list<unsigned long>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0043_array_number_v2', () => {
     try {
-      const r = parsec.parseFunction(`std::forward_list<wchar_t> sampleRet122();`);
+      const r = parsec.parseFunction(`std::forward_list<unsigned long> sampleRet256();`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       const converted = transTskey2Ckey(r[0].returns);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0061 return convert output non-empty");
-      assert.strictEqual(converted, "Array<string>", "h2dts_convert_array_0061 return convert output");
+        "h2dts_convert_array_0043_array_number_v2 return convert output non-empty");
+      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0043_array_number_v2 return convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0061 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0043_array_number_v2 execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0062', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0044_STD_FORWARD_LIST_UNSIGNED_LONG
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0044_STD_FORWARD_LIST_UNSIGNED_LONG
+   * @tc.desc   Stability convert h2dts/array: class-field convert; type std::forward_list<unsigned
+   *            long>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0044_std_forward_list_unsigned_long', () => {
     try {
-      const r = parsec.parseClass(`class SampleClass122 { public: std::forward_list<wchar_t> field; };`);
+      const r = parsec.parseClass(`class SampleClass256 { public: std::forward_list<unsigned long> field; };`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].variableList && r[0].variableList.length >= 1);
       const converted = transTskey2Ckey(r[0].variableList[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0062 class field convert output non-empty");
-      assert.strictEqual(converted, "Array<string>", "h2dts_convert_array_0062 class field convert output");
+        "h2dts_convert_array_0044_std_forward_list_unsigned_long class field convert output non-empty");
+      assert.strictEqual(converted, "number",
+        "h2dts_convert_array_0044_std_forward_list_unsigned_long class field convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0062 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0044_std_forward_list_unsigned_long execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0063', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0045_STD_FORWARD_LIST_UNSIGNED_LONG
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0045_STD_FORWARD_LIST_UNSIGNED_LONG
+   * @tc.desc   Stability convert h2dts/array: parse-convert-gen pipeline; type
+   *            std::forward_list<unsigned long>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0045_std_forward_list_unsigned_long', () => {
     try {
-      const r = parsec.parseFunction(`void pipeline122(std::forward_list<wchar_t> p);`);
+      const r = parsec.parseFunction(`void pipeline256(std::forward_list<unsigned long> p);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0063 pipeline convert output non-empty");
-      assert.strictEqual(converted, "Array<string>", "h2dts_convert_array_0063 pipeline convert output");
+        "h2dts_convert_array_0045_std_forward_list_unsigned_long pipeline convert output non-empty");
+      assert.strictEqual(converted, "Array<number>",
+        "h2dts_convert_array_0045_std_forward_list_unsigned_long pipeline convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0063 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0045_std_forward_list_unsigned_long execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0064', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0046_STD_FORWARD_LIST_UNSIGNED_7B5888
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0046_STD_FORWARD_LIST_UNSIGNED_7B5888
+   * @tc.desc   Stability convert h2dts/array: baseline type-string convert; type
+   *            std::forward_list<unsigned long long>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0046_std_forward_list_unsigned_7b5888', () => {
     try {
-      const result = transTskey2Ckey('std::forward_list<char8_t>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_array_0064 convert output non-empty");
-      assert.strictEqual(result, "Array<string>", "h2dts_convert_array_0064 convert output");
+      const result = transTskey2Ckey('std::forward_list<unsigned long long>');
+      assert.ok(typeof result === 'string' && result.length > 0,
+        "h2dts_convert_array_0046_std_forward_list_unsigned_7b5888 convert output non-empty");
+      assert.strictEqual(result, "Array<number>",
+        "h2dts_convert_array_0046_std_forward_list_unsigned_7b5888 convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0064 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0046_std_forward_list_unsigned_7b5888 execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0065', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0047_STD_FORWARD_LIST_UNSIGNED_7B5888
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0047_STD_FORWARD_LIST_UNSIGNED_7B5888
+   * @tc.desc   Stability convert h2dts/array: function-param convert; type
+   *            std::forward_list<unsigned long long>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0047_std_forward_list_unsigned_7b5888', () => {
     try {
-      const r = parsec.parseFunction(`void sample123(std::forward_list<char8_t> p0);`);
+      const r = parsec.parseFunction(`void sample257(std::forward_list<unsigned long long> p0);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(typeof r[0] === 'object');
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0065 param convert output non-empty");
-      assert.strictEqual(converted, "Array<string>", "h2dts_convert_array_0065 param convert output");
+        "h2dts_convert_array_0047_std_forward_list_unsigned_7b5888 param convert output non-empty");
+      assert.strictEqual(converted, "Array<number>",
+        "h2dts_convert_array_0047_std_forward_list_unsigned_7b5888 param convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0065 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0047_std_forward_list_unsigned_7b5888 execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0066', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0048_ARRAY_NUMBER_V2
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0048_ARRAY_NUMBER_V2
+   * @tc.desc   Stability convert h2dts/array: function-return convert; type
+   *            std::forward_list<unsigned long long>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0048_array_number_v2', () => {
     try {
-      const r = parsec.parseFunction(`std::forward_list<char8_t> sampleRet123();`);
+      const r = parsec.parseFunction(`std::forward_list<unsigned long long> sampleRet257();`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       const converted = transTskey2Ckey(r[0].returns);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0066 return convert output non-empty");
-      assert.strictEqual(converted, "Array<string>", "h2dts_convert_array_0066 return convert output");
+        "h2dts_convert_array_0048_array_number_v2 return convert output non-empty");
+      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0048_array_number_v2 return convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0066 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0048_array_number_v2 execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0067', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0049_STD_FORWARD_LIST_UNSIGNED_7B5888
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0049_STD_FORWARD_LIST_UNSIGNED_7B5888
+   * @tc.desc   Stability convert h2dts/array: class-field convert; type std::forward_list<unsigned
+   *            long long>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0049_std_forward_list_unsigned_7b5888', () => {
     try {
-      const r = parsec.parseClass(`class SampleClass123 { public: std::forward_list<char8_t> field; };`);
+      const r = parsec.parseClass(`class SampleClass257 { public: std::forward_list<unsigned long long> field; };`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].variableList && r[0].variableList.length >= 1);
       const converted = transTskey2Ckey(r[0].variableList[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0067 class field convert output non-empty");
-      assert.strictEqual(converted, "Array<string>", "h2dts_convert_array_0067 class field convert output");
+        "h2dts_convert_array_0049_std_forward_list_unsigned_7b5888 class field convert output non-empty");
+      assert.strictEqual(converted, "number",
+        "h2dts_convert_array_0049_std_forward_list_unsigned_7b5888 class field convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0067 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0049_std_forward_list_unsigned_7b5888 execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0068', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0050_STD_FORWARD_LIST_UNSIGNED_7B5888
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0050_STD_FORWARD_LIST_UNSIGNED_7B5888
+   * @tc.desc   Stability convert h2dts/array: parse-convert-gen pipeline; type
+   *            std::forward_list<unsigned long long>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0050_std_forward_list_unsigned_7b5888', () => {
     try {
-      const r = parsec.parseFunction(`void pipeline123(std::forward_list<char8_t> p);`);
+      const r = parsec.parseFunction(`void pipeline257(std::forward_list<unsigned long long> p);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0068 pipeline convert output non-empty");
-      assert.strictEqual(converted, "Array<string>", "h2dts_convert_array_0068 pipeline convert output");
+        "h2dts_convert_array_0050_std_forward_list_unsigned_7b5888 pipeline convert output non-empty");
+      assert.strictEqual(converted, "Array<number>",
+        "h2dts_convert_array_0050_std_forward_list_unsigned_7b5888 pipeline convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0068 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0050_std_forward_list_unsigned_7b5888 execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0069', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0051_STD_FORWARD_LIST_INT
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0051_STD_FORWARD_LIST_INT
+   * @tc.desc   Stability convert h2dts/array: baseline type-string convert; type
+   *            std::forward_list<int *>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0051_std_forward_list_int', () => {
     try {
-      const result = transTskey2Ckey('std::forward_list<char16_t>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_array_0069 convert output non-empty");
-      assert.strictEqual(result, "Array<string>", "h2dts_convert_array_0069 convert output");
+      const result = transTskey2Ckey('std::forward_list<int *>');
+      assert.ok(typeof result === 'string' && result.length > 0,
+        "h2dts_convert_array_0051_std_forward_list_int convert output non-empty");
+      assert.strictEqual(result, "Array<number>", "h2dts_convert_array_0051_std_forward_list_int convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0069 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0051_std_forward_list_int execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0070', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0052_STD_FORWARD_LIST_INT
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0052_STD_FORWARD_LIST_INT
+   * @tc.desc   Stability convert h2dts/array: function-param convert; type std::forward_list<int
+   *            *>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0052_std_forward_list_int', () => {
     try {
-      const r = parsec.parseFunction(`void sample124(std::forward_list<char16_t> p0);`);
+      const r = parsec.parseFunction(`void sample258(std::forward_list<int *> p0);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(typeof r[0] === 'object');
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0070 param convert output non-empty");
-      assert.strictEqual(converted, "Array<string>", "h2dts_convert_array_0070 param convert output");
+        "h2dts_convert_array_0052_std_forward_list_int param convert output non-empty");
+      assert.strictEqual(converted, "Array<number>",
+        "h2dts_convert_array_0052_std_forward_list_int param convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0070 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0052_std_forward_list_int execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0071', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0053_ARRAY_NUMBER_V2
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0053_ARRAY_NUMBER_V2
+   * @tc.desc   Stability convert h2dts/array: function-return convert; type std::forward_list<int
+   *            *>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0053_array_number_v2', () => {
     try {
-      const r = parsec.parseFunction(`std::forward_list<char16_t> sampleRet124();`);
+      const r = parsec.parseFunction(`std::forward_list<int *> sampleRet258();`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       const converted = transTskey2Ckey(r[0].returns);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0071 return convert output non-empty");
-      assert.strictEqual(converted, "Array<string>", "h2dts_convert_array_0071 return convert output");
+        "h2dts_convert_array_0053_array_number_v2 return convert output non-empty");
+      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0053_array_number_v2 return convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0071 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0053_array_number_v2 execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0072', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0054_STD_FORWARD_LIST_INT
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0054_STD_FORWARD_LIST_INT
+   * @tc.desc   Stability convert h2dts/array: class-field convert; type std::forward_list<int *>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0054_std_forward_list_int', () => {
     try {
-      const r = parsec.parseClass(`class SampleClass124 { public: std::forward_list<char16_t> field; };`);
+      const r = parsec.parseClass(`class SampleClass258 { public: std::forward_list<int *> field; };`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].variableList && r[0].variableList.length >= 1);
       const converted = transTskey2Ckey(r[0].variableList[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0072 class field convert output non-empty");
-      assert.strictEqual(converted, "Array<string>", "h2dts_convert_array_0072 class field convert output");
+        "h2dts_convert_array_0054_std_forward_list_int class field convert output non-empty");
+      assert.strictEqual(converted, "Array<number>",
+        "h2dts_convert_array_0054_std_forward_list_int class field convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0072 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0054_std_forward_list_int execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0073', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0055_STD_FORWARD_LIST_INT
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0055_STD_FORWARD_LIST_INT
+   * @tc.desc   Stability convert h2dts/array: parse-convert-gen pipeline; type
+   *            std::forward_list<int *>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0055_std_forward_list_int', () => {
     try {
-      const r = parsec.parseFunction(`void pipeline124(std::forward_list<char16_t> p);`);
+      const r = parsec.parseFunction(`void pipeline258(std::forward_list<int *> p);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0073 pipeline convert output non-empty");
-      assert.strictEqual(converted, "Array<string>", "h2dts_convert_array_0073 pipeline convert output");
+        "h2dts_convert_array_0055_std_forward_list_int pipeline convert output non-empty");
+      assert.strictEqual(converted, "Array<number>",
+        "h2dts_convert_array_0055_std_forward_list_int pipeline convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0073 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0055_std_forward_list_int execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0074', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0001_STD_STACK_FLOAT
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0001_STD_STACK_FLOAT
+   * @tc.desc   Stability convert h2dts/array: parse-convert-gen pipeline; type std::stack<float>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0001_std_stack_float', () => {
     try {
-      const result = transTskey2Ckey('std::forward_list<char32_t>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_array_0074 convert output non-empty");
-      assert.strictEqual(result, "Array<string>", "h2dts_convert_array_0074 convert output");
+      const r = parsec.parseFunction(`void pipeline416(std::stack<float> p);`);
+      assert.ok(Array.isArray(r) && r.length >= 1);
+      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
+      const converted = transTskey2Ckey(r[0].parameters[0].type);
+      assert.ok(typeof converted === 'string' && converted.length > 0,
+        "h2dts_convert_array_0001_std_stack_float pipeline convert output non-empty");
+      assert.strictEqual(converted, "Array<number>",
+        "h2dts_convert_array_0001_std_stack_float pipeline convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0074 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0001_std_stack_float execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0075', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0002_STD_STACK_LONG
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0002_STD_STACK_LONG
+   * @tc.desc   Stability convert h2dts/array: baseline type-string convert; type std::stack<long>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0002_std_stack_long', () => {
     try {
-      const r = parsec.parseFunction(`void sample125(std::forward_list<char32_t> p0);`);
+      const result = transTskey2Ckey('std::stack<long>');
+      assert.ok(typeof result === 'string' && result.length > 0,
+        "h2dts_convert_array_0002_std_stack_long convert output non-empty");
+      assert.strictEqual(result, "Array<number>", "h2dts_convert_array_0002_std_stack_long convert output");
+    } catch (err) {
+      assert.fail(`h2dts_convert_array_0002_std_stack_long execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0003_STD_STACK_LONG
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0003_STD_STACK_LONG
+   * @tc.desc   Stability convert h2dts/array: function-param convert; type std::stack<long>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0003_std_stack_long', () => {
+    try {
+      const r = parsec.parseFunction(`void sample417(std::stack<long> p0);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(typeof r[0] === 'object');
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0075 param convert output non-empty");
-      assert.strictEqual(converted, "Array<string>", "h2dts_convert_array_0075 param convert output");
+        "h2dts_convert_array_0003_std_stack_long param convert output non-empty");
+      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0003_std_stack_long param convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0075 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0003_std_stack_long execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0076', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0004_ARRAY_NUMBER_V2
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0004_ARRAY_NUMBER_V2
+   * @tc.desc   Stability convert h2dts/array: function-return convert; type std::stack<long>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0004_array_number_v2', () => {
     try {
-      const r = parsec.parseFunction(`std::forward_list<char32_t> sampleRet125();`);
+      const r = parsec.parseFunction(`std::stack<long> sampleRet417();`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       const converted = transTskey2Ckey(r[0].returns);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0076 return convert output non-empty");
-      assert.strictEqual(converted, "Array<string>", "h2dts_convert_array_0076 return convert output");
+        "h2dts_convert_array_0004_array_number_v2 return convert output non-empty");
+      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0004_array_number_v2 return convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0076 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0004_array_number_v2 execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0077', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0005_STD_STACK_LONG
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0005_STD_STACK_LONG
+   * @tc.desc   Stability convert h2dts/array: class-field convert; type std::stack<long>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0005_std_stack_long', () => {
     try {
-      const r = parsec.parseClass(`class SampleClass125 { public: std::forward_list<char32_t> field; };`);
+      const r = parsec.parseClass(`class SampleClass417 { public: std::stack<long> field; };`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].variableList && r[0].variableList.length >= 1);
       const converted = transTskey2Ckey(r[0].variableList[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0077 class field convert output non-empty");
-      assert.strictEqual(converted, "Array<string>", "h2dts_convert_array_0077 class field convert output");
+        "h2dts_convert_array_0005_std_stack_long class field convert output non-empty");
+      assert.strictEqual(converted, "Array<number>",
+        "h2dts_convert_array_0005_std_stack_long class field convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0077 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0005_std_stack_long execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0078', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0006_STD_STACK_LONG
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0006_STD_STACK_LONG
+   * @tc.desc   Stability convert h2dts/array: parse-convert-gen pipeline; type std::stack<long>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0006_std_stack_long', () => {
     try {
-      const r = parsec.parseFunction(`void pipeline125(std::forward_list<char32_t> p);`);
+      const r = parsec.parseFunction(`void pipeline417(std::stack<long> p);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0078 pipeline convert output non-empty");
-      assert.strictEqual(converted, "Array<string>", "h2dts_convert_array_0078 pipeline convert output");
+        "h2dts_convert_array_0006_std_stack_long pipeline convert output non-empty");
+      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0006_std_stack_long pipeline convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0078 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0006_std_stack_long execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0079', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0007_STD_STACK_SHORT
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0007_STD_STACK_SHORT
+   * @tc.desc   Stability convert h2dts/array: baseline type-string convert; type std::stack<short>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0007_std_stack_short', () => {
     try {
-      const result = transTskey2Ckey('std::valarray<int>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_array_0079 convert output non-empty");
-      assert.strictEqual(result, "Array<number>", "h2dts_convert_array_0079 convert output");
+      const result = transTskey2Ckey('std::stack<short>');
+      assert.ok(typeof result === 'string' && result.length > 0,
+        "h2dts_convert_array_0007_std_stack_short convert output non-empty");
+      assert.strictEqual(result, "Array<number>", "h2dts_convert_array_0007_std_stack_short convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0079 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0007_std_stack_short execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0080', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0008_STD_STACK_SHORT
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0008_STD_STACK_SHORT
+   * @tc.desc   Stability convert h2dts/array: function-param convert; type std::stack<short>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0008_std_stack_short', () => {
     try {
-      const r = parsec.parseFunction(`void sample126(std::valarray<int> p0);`);
+      const r = parsec.parseFunction(`void sample418(std::stack<short> p0);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(typeof r[0] === 'object');
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0080 param convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0080 param convert output");
+        "h2dts_convert_array_0008_std_stack_short param convert output non-empty");
+      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0008_std_stack_short param convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0080 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0008_std_stack_short execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0081', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0009_ARRAY_NUMBER_V2
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0009_ARRAY_NUMBER_V2
+   * @tc.desc   Stability convert h2dts/array: function-return convert; type std::stack<short>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0009_array_number_v2', () => {
     try {
-      const r = parsec.parseFunction(`std::valarray<int> sampleRet126();`);
+      const r = parsec.parseFunction(`std::stack<short> sampleRet418();`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       const converted = transTskey2Ckey(r[0].returns);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0081 return convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0081 return convert output");
+        "h2dts_convert_array_0009_array_number_v2 return convert output non-empty");
+      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0009_array_number_v2 return convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0081 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0009_array_number_v2 execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0082', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0010_STD_STACK_SHORT
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0010_STD_STACK_SHORT
+   * @tc.desc   Stability convert h2dts/array: class-field convert; type std::stack<short>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0010_std_stack_short', () => {
     try {
-      const r = parsec.parseClass(`class SampleClass126 { public: std::valarray<int> field; };`);
+      const r = parsec.parseClass(`class SampleClass418 { public: std::stack<short> field; };`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].variableList && r[0].variableList.length >= 1);
       const converted = transTskey2Ckey(r[0].variableList[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0082 class field convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0082 class field convert output");
+        "h2dts_convert_array_0010_std_stack_short class field convert output non-empty");
+      assert.strictEqual(converted, "Array<number>",
+        "h2dts_convert_array_0010_std_stack_short class field convert output");
     } catch (err) {
-      assert.fail(`h2dts_convert_array_0082 execution error: ${String(err)}`);
+      assert.fail(`h2dts_convert_array_0010_std_stack_short execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_convert_array_0083', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0011_STD_STACK_SHORT
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0011_STD_STACK_SHORT
+   * @tc.desc   Stability convert h2dts/array: parse-convert-gen pipeline; type std::stack<short>;
+   *            strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0011_std_stack_short', () => {
     try {
-      const r = parsec.parseFunction(`void pipeline126(std::valarray<int> p);`);
+      const r = parsec.parseFunction(`void pipeline418(std::stack<short> p);`);
       assert.ok(Array.isArray(r) && r.length >= 1);
       assert.ok(r[0].parameters && r[0].parameters.length >= 1);
       const converted = transTskey2Ckey(r[0].parameters[0].type);
       assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0083 pipeline convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0083 pipeline convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0083 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0084', () => {
-    try {
-      const result = transTskey2Ckey('std::valarray<size_t>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_array_0084 convert output non-empty");
-      assert.strictEqual(result, "Array<number>", "h2dts_convert_array_0084 convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0084 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0085', () => {
-    try {
-      const r = parsec.parseFunction(`void sample127(std::valarray<size_t> p0);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(typeof r[0] === 'object');
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0085 param convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0085 param convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0085 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0086', () => {
-    try {
-      const r = parsec.parseFunction(`std::valarray<size_t> sampleRet127();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0086 return convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0086 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0086 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0087', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass127 { public: std::valarray<size_t> field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0087 class field convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0087 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0087 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0088', () => {
-    try {
-      const r = parsec.parseFunction(`void pipeline127(std::valarray<size_t> p);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0088 pipeline convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0088 pipeline convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0088 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0089', () => {
-    try {
-      const result = transTskey2Ckey('std::valarray<double>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_array_0089 convert output non-empty");
-      assert.strictEqual(result, "Array<number>", "h2dts_convert_array_0089 convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0089 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0090', () => {
-    try {
-      const r = parsec.parseFunction(`void sample128(std::valarray<double> p0);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(typeof r[0] === 'object');
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0090 param convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0090 param convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0090 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0091', () => {
-    try {
-      const r = parsec.parseFunction(`std::valarray<double> sampleRet128();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0091 return convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0091 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0091 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0092', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass128 { public: std::valarray<double> field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0092 class field convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0092 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0092 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0093', () => {
-    try {
-      const r = parsec.parseFunction(`void pipeline128(std::valarray<double> p);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0093 pipeline convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0093 pipeline convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0093 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0094', () => {
-    try {
-      const result = transTskey2Ckey('std::valarray<float>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_array_0094 convert output non-empty");
-      assert.strictEqual(result, "Array<number>", "h2dts_convert_array_0094 convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0094 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0095', () => {
-    try {
-      const r = parsec.parseFunction(`void sample129(std::valarray<float> p0);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(typeof r[0] === 'object');
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0095 param convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0095 param convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0095 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0096', () => {
-    try {
-      const r = parsec.parseFunction(`std::valarray<float> sampleRet129();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0096 return convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0096 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0096 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0097', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass129 { public: std::valarray<float> field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0097 class field convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0097 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0097 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0098', () => {
-    try {
-      const r = parsec.parseFunction(`void pipeline129(std::valarray<float> p);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0098 pipeline convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0098 pipeline convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0098 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0099', () => {
-    try {
-      const result = transTskey2Ckey('std::valarray<long>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_array_0099 convert output non-empty");
-      assert.strictEqual(result, "Array<number>", "h2dts_convert_array_0099 convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0099 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0100', () => {
-    try {
-      const r = parsec.parseFunction(`void sample130(std::valarray<long> p0);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(typeof r[0] === 'object');
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0100 param convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0100 param convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0100 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0101', () => {
-    try {
-      const r = parsec.parseFunction(`std::valarray<long> sampleRet130();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0101 return convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0101 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0101 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0102', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass130 { public: std::valarray<long> field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0102 class field convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0102 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0102 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0103', () => {
-    try {
-      const r = parsec.parseFunction(`void pipeline130(std::valarray<long> p);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0103 pipeline convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0103 pipeline convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0103 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0104', () => {
-    try {
-      const result = transTskey2Ckey('std::valarray<short>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_array_0104 convert output non-empty");
-      assert.strictEqual(result, "Array<number>", "h2dts_convert_array_0104 convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0104 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0105', () => {
-    try {
-      const r = parsec.parseFunction(`void sample131(std::valarray<short> p0);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(typeof r[0] === 'object');
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0105 param convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0105 param convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0105 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0106', () => {
-    try {
-      const r = parsec.parseFunction(`std::valarray<short> sampleRet131();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0106 return convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0106 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0106 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0107', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass131 { public: std::valarray<short> field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0107 class field convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0107 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0107 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0108', () => {
-    try {
-      const r = parsec.parseFunction(`void pipeline131(std::valarray<short> p);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0108 pipeline convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0108 pipeline convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0108 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0109', () => {
-    try {
-      const result = transTskey2Ckey('std::valarray<uint8_t>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_array_0109 convert output non-empty");
-      assert.strictEqual(result, "Array<number>", "h2dts_convert_array_0109 convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0109 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0110', () => {
-    try {
-      const r = parsec.parseFunction(`void sample132(std::valarray<uint8_t> p0);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(typeof r[0] === 'object');
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0110 param convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0110 param convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0110 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0111', () => {
-    try {
-      const r = parsec.parseFunction(`std::valarray<uint8_t> sampleRet132();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0111 return convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0111 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0111 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0112', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass132 { public: std::valarray<uint8_t> field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0112 class field convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0112 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0112 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0113', () => {
-    try {
-      const r = parsec.parseFunction(`void pipeline132(std::valarray<uint8_t> p);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0113 pipeline convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0113 pipeline convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0113 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0114', () => {
-    try {
-      const result = transTskey2Ckey('std::valarray<uint16_t>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_array_0114 convert output non-empty");
-      assert.strictEqual(result, "Array<number>", "h2dts_convert_array_0114 convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0114 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0115', () => {
-    try {
-      const r = parsec.parseFunction(`void sample133(std::valarray<uint16_t> p0);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(typeof r[0] === 'object');
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0115 param convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0115 param convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0115 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0116', () => {
-    try {
-      const r = parsec.parseFunction(`std::valarray<uint16_t> sampleRet133();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0116 return convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0116 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0116 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0117', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass133 { public: std::valarray<uint16_t> field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0117 class field convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0117 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0117 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0118', () => {
-    try {
-      const r = parsec.parseFunction(`void pipeline133(std::valarray<uint16_t> p);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0118 pipeline convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0118 pipeline convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0118 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0119', () => {
-    try {
-      const result = transTskey2Ckey('std::valarray<uint32_t>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_array_0119 convert output non-empty");
-      assert.strictEqual(result, "Array<number>", "h2dts_convert_array_0119 convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0119 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0120', () => {
-    try {
-      const r = parsec.parseFunction(`void sample134(std::valarray<uint32_t> p0);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(typeof r[0] === 'object');
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0120 param convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0120 param convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0120 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0121', () => {
-    try {
-      const r = parsec.parseFunction(`std::valarray<uint32_t> sampleRet134();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0121 return convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0121 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0121 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0122', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass134 { public: std::valarray<uint32_t> field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0122 class field convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0122 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0122 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0123', () => {
-    try {
-      const r = parsec.parseFunction(`void pipeline134(std::valarray<uint32_t> p);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0123 pipeline convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0123 pipeline convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0123 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0124', () => {
-    try {
-      const result = transTskey2Ckey('std::valarray<uint64_t>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_array_0124 convert output non-empty");
-      assert.strictEqual(result, "Array<number>", "h2dts_convert_array_0124 convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0124 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0125', () => {
-    try {
-      const r = parsec.parseFunction(`void sample135(std::valarray<uint64_t> p0);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(typeof r[0] === 'object');
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0125 param convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0125 param convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0125 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0126', () => {
-    try {
-      const r = parsec.parseFunction(`std::valarray<uint64_t> sampleRet135();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0126 return convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0126 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0126 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0127', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass135 { public: std::valarray<uint64_t> field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0127 class field convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0127 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0127 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0128', () => {
-    try {
-      const r = parsec.parseFunction(`void pipeline135(std::valarray<uint64_t> p);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0128 pipeline convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0128 pipeline convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0128 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0129', () => {
-    try {
-      const result = transTskey2Ckey('std::valarray<int8_t>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_array_0129 convert output non-empty");
-      assert.strictEqual(result, "Array<number>", "h2dts_convert_array_0129 convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0129 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0130', () => {
-    try {
-      const r = parsec.parseFunction(`void sample136(std::valarray<int8_t> p0);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(typeof r[0] === 'object');
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0130 param convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0130 param convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0130 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0131', () => {
-    try {
-      const r = parsec.parseFunction(`std::valarray<int8_t> sampleRet136();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0131 return convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0131 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0131 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0132', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass136 { public: std::valarray<int8_t> field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0132 class field convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0132 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0132 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0133', () => {
-    try {
-      const r = parsec.parseFunction(`void pipeline136(std::valarray<int8_t> p);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0133 pipeline convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0133 pipeline convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0133 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0134', () => {
-    try {
-      const result = transTskey2Ckey('std::valarray<int16_t>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_array_0134 convert output non-empty");
-      assert.strictEqual(result, "Array<number>", "h2dts_convert_array_0134 convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0134 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0135', () => {
-    try {
-      const r = parsec.parseFunction(`void sample137(std::valarray<int16_t> p0);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(typeof r[0] === 'object');
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0135 param convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0135 param convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0135 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0136', () => {
-    try {
-      const r = parsec.parseFunction(`std::valarray<int16_t> sampleRet137();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0136 return convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0136 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0136 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0137', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass137 { public: std::valarray<int16_t> field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0137 class field convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0137 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0137 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0138', () => {
-    try {
-      const r = parsec.parseFunction(`void pipeline137(std::valarray<int16_t> p);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0138 pipeline convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0138 pipeline convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0138 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0139', () => {
-    try {
-      const result = transTskey2Ckey('std::valarray<int32_t>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_array_0139 convert output non-empty");
-      assert.strictEqual(result, "Array<number>", "h2dts_convert_array_0139 convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0139 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0140', () => {
-    try {
-      const r = parsec.parseFunction(`void sample138(std::valarray<int32_t> p0);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(typeof r[0] === 'object');
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0140 param convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0140 param convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0140 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0141', () => {
-    try {
-      const r = parsec.parseFunction(`std::valarray<int32_t> sampleRet138();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0141 return convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0141 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0141 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0142', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass138 { public: std::valarray<int32_t> field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0142 class field convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0142 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0142 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0143', () => {
-    try {
-      const r = parsec.parseFunction(`void pipeline138(std::valarray<int32_t> p);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0143 pipeline convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0143 pipeline convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0143 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0144', () => {
-    try {
-      const result = transTskey2Ckey('std::valarray<int64_t>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_array_0144 convert output non-empty");
-      assert.strictEqual(result, "Array<number>", "h2dts_convert_array_0144 convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0144 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0145', () => {
-    try {
-      const r = parsec.parseFunction(`void sample139(std::valarray<int64_t> p0);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(typeof r[0] === 'object');
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0145 param convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0145 param convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0145 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0146', () => {
-    try {
-      const r = parsec.parseFunction(`std::valarray<int64_t> sampleRet139();`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      const converted = transTskey2Ckey(r[0].returns);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0146 return convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0146 return convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0146 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0147', () => {
-    try {
-      const r = parsec.parseClass(`class SampleClass139 { public: std::valarray<int64_t> field; };`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
-      const converted = transTskey2Ckey(r[0].variableList[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0147 class field convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0147 class field convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0147 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0148', () => {
-    try {
-      const r = parsec.parseFunction(`void pipeline139(std::valarray<int64_t> p);`);
-      assert.ok(Array.isArray(r) && r.length >= 1);
-      assert.ok(r[0].parameters && r[0].parameters.length >= 1);
-      const converted = transTskey2Ckey(r[0].parameters[0].type);
-      assert.ok(typeof converted === 'string' && converted.length > 0,
-        "h2dts_convert_array_0148 pipeline convert output non-empty");
-      assert.strictEqual(converted, "Array<number>", "h2dts_convert_array_0148 pipeline convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0148 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_convert_array_0149', () => {
-    try {
-      const result = transTskey2Ckey('std::valarray<unsigned>');
-      assert.ok(typeof result === 'string' && result.length > 0, "h2dts_convert_array_0149 convert output non-empty");
-      assert.strictEqual(result, "Array<number>", "h2dts_convert_array_0149 convert output");
-    } catch (err) {
-      assert.fail(`h2dts_convert_array_0149 execution error: ${String(err)}`);
+        "h2dts_convert_array_0011_std_stack_short pipeline convert output non-empty");
+      assert.strictEqual(converted, "Array<number>",
+        "h2dts_convert_array_0011_std_stack_short pipeline convert output");
+    } catch (err) {
+      assert.fail(`h2dts_convert_array_0011_std_stack_short execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_CONVERT_ARRAY_0012_STD_STACK_UINT8_T
+   * @tc.number SUB_NAPI_H2DTS_CONVERT_ARRAY_0012_STD_STACK_UINT8_T
+   * @tc.desc   Stability convert h2dts/array: baseline type-string convert; type
+   *            std::stack<uint8_t>; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_array_0012_std_stack_uint8_t', () => {
+    try {
+      const result = transTskey2Ckey('std::stack<uint8_t>');
+      assert.ok(typeof result === 'string' && result.length > 0,
+        "h2dts_convert_array_0012_std_stack_uint8_t convert output non-empty");
+      assert.strictEqual(result, "Array<number>", "h2dts_convert_array_0012_std_stack_uint8_t convert output");
+    } catch (err) {
+      assert.fail(`h2dts_convert_array_0012_std_stack_uint8_t execution error: ${String(err)}`);
     }
   });
 });

@@ -15,45 +15,847 @@
 
 import * as assert from 'assert';
 import * as vscode from 'vscode';
-import { transTskey2Ckey } from '../../../../gen/gendts';
-import * as parsec from '../../../../parse/parsec';
+import { transTskey2Ckey } from '../../../gen/gendts';
+import * as parsec from '../../../parse/parsec';
 import { runCompatSafe } from './stability_helpers';
 
 suite('Stability_H2DTS_COMPAT_ARRAY_Part05', function() {
   this.timeout(600000);
-  vscode.window.showInformationMessage('Start Stability_H2DTS_COMPAT_ARRAY_Part05.');
+  vscode.window.showInformationMessage('Start Stability_H2DTS_COMPAT_ARRAY_Part01.');
 
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0050_COMPAT56_BOOOL
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0050_COMPAT56_BOOOL
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type boool; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0050_compat56_boool', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const r = parsec.parseFunction(`void compat56(boool p);`);
+        assert.ok(Array.isArray(r) && r.length >= 1,
+          "h2dts_compat_array_0050_compat56_boool parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1, "h2dts_compat_array_0050_compat56_boool must parse function");
+        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
+          "h2dts_compat_array_0050_compat56_boool must parse param");
+        assert.strictEqual(r[0].parameters[0].type, "boool", "h2dts_compat_array_0050_compat56_boool param type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dts_compat_array_0050_compat56_boool execution error: ${String(err)}`);
+    }
+  });
 
-  test('h2dts_compat_array_0001', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0051_COMPAT56_INTT
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0051_COMPAT56_INTT
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type intt; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0051_compat56_intt', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const r = parsec.parseFunction(`void compat56(intt p);`);
+        assert.ok(Array.isArray(r) && r.length >= 1,
+          "h2dts_compat_array_0051_compat56_intt parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1, "h2dts_compat_array_0051_compat56_intt must parse function");
+        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
+          "h2dts_compat_array_0051_compat56_intt must parse param");
+        assert.strictEqual(r[0].parameters[0].type, "intt", "h2dts_compat_array_0051_compat56_intt param type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dts_compat_array_0051_compat56_intt execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0052_COMPAT56_FLOT
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0052_COMPAT56_FLOT
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type flot; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0052_compat56_flot', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const r = parsec.parseFunction(`void compat56(flot p);`);
+        assert.ok(Array.isArray(r) && r.length >= 1,
+          "h2dts_compat_array_0052_compat56_flot parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1, "h2dts_compat_array_0052_compat56_flot must parse function");
+        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
+          "h2dts_compat_array_0052_compat56_flot must parse param");
+        assert.strictEqual(r[0].parameters[0].type, "flot", "h2dts_compat_array_0052_compat56_flot param type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dts_compat_array_0052_compat56_flot execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0053_NS_COMPAT56_STD_ARRAY_UNSIGNED_10
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0053_NS_COMPAT56_STD_ARRAY_UNSIGNED_10
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            namespaced C++ decl param std::array<unsigned, 10>; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0053_ns_compat56_std_array_unsigned_10', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const r = parsec.parseFunction(`namespace ns { void compat56(std::array<unsigned, 10> p); }`);
+        assert.ok(Array.isArray(r) && r.length >= 1,
+          "h2dts_compat_array_0053_ns_compat56_std_array_unsigned_10 parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1,
+          "h2dts_compat_array_0053_ns_compat56_std_array_unsigned_10 must parse function");
+        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
+          "h2dts_compat_array_0053_ns_compat56_std_array_unsigned_10 must parse param");
+        const converted = transTskey2Ckey(r[0].parameters[0].type);
+        assert.ok(typeof converted === 'string' && converted.length > 0,
+          "h2dts_compat_array_0053_param convert output non-empty");
+        assert.strictEqual(converted, "Array<number>", "h2dts_compat_array_0053_param convert output");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dts_compat_array_0053_ns_compat56_std_array_unsigned_10 execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0054_COMPAT56_BAD_TYPE_56
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0054_COMPAT56_BAD_TYPE_56
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type bad_type_56; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0054_compat56_bad_type_56', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const r = parsec.parseFunction(`void compat56(bad_type_56 p);`);
+        assert.ok(Array.isArray(r) && r.length >= 1,
+          "h2dts_compat_array_0054_compat56_bad_type_56 parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1,
+          "h2dts_compat_array_0054_compat56_bad_type_56 must parse function");
+        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
+          "h2dts_compat_array_0054_compat56_bad_type_56 must parse param");
+        assert.strictEqual(r[0].parameters[0].type, "bad_type_56",
+          "h2dts_compat_array_0054_compat56_bad_type_56 param type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dts_compat_array_0054_compat56_bad_type_56 execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0055_COMPAT56_STD_ARRAY_UNSIGNED_10
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0055_COMPAT56_STD_ARRAY_UNSIGNED_10
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type std::array<unsigned, 10>; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0055_compat56_std_array_unsigned_10', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const r = parsec.parseFunction(`void compat56(std::array<unsigned, 10> p);`);
+        assert.ok(Array.isArray(r) && r.length >= 1,
+          "h2dts_compat_array_0055_compat56_std_array_unsigned_10 parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1,
+          "h2dts_compat_array_0055_compat56_std_array_unsigned_10 must parse function");
+        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
+          "h2dts_compat_array_0055_compat56_std_array_unsigned_10 must parse param");
+        const converted = transTskey2Ckey(r[0].parameters[0].type);
+        assert.ok(typeof converted === 'string' && converted.length > 0,
+          "h2dts_compat_array_0055_param convert output non-empty");
+        assert.strictEqual(converted, "Array<number>", "h2dts_compat_array_0055_param convert output");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dts_compat_array_0055_compat56_std_array_unsigned_10 execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0056_E56
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0056_E56
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type E56; strictEqual malformed field preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0056_e56', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const r = parsec.parseFunction(`enum E56 { A, B }; void f(E56 e);`);
+        assert.ok(Array.isArray(r) && r.length >= 1,
+          "h2dts_compat_array_0056_e56 parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1, "h2dts_compat_array_0056_e56 must parse function");
+        assert.strictEqual(r[0].name, "f", "h2dts_compat_array_0056_e56 func name");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dts_compat_array_0056_e56 execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0057_COMPAT56_STD_ARRAY_UNSIGNED_10
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0057_COMPAT56_STD_ARRAY_UNSIGNED_10
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type std:array<unsigned, 10>; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0057_compat56_std_array_unsigned_10', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const r = parsec.parseFunction(`void compat56(std:array<unsigned, 10> p);`);
+        assert.ok(Array.isArray(r) && r.length >= 1,
+          "h2dts_compat_array_0057_compat56_std_array_unsigned_10 parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1,
+          "h2dts_compat_array_0057_compat56_std_array_unsigned_10 must parse function");
+        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
+          "h2dts_compat_array_0057_compat56_std_array_unsigned_10 must parse param");
+        assert.strictEqual(r[0].parameters[0].type, "std:array<unsigned, 10>",
+          "h2dts_compat_array_0057_compat56_std_array_unsigned_10 param type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dts_compat_array_0057_compat56_std_array_unsigned_10 execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0058_COMPAT57_ITN
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0058_COMPAT57_ITN
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type itn; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0058_compat57_itn', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const r = parsec.parseFunction(`void compat57(itn p);`);
+        assert.ok(Array.isArray(r) && r.length >= 1,
+          "h2dts_compat_array_0058_compat57_itn parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1, "h2dts_compat_array_0058_compat57_itn must parse function");
+        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
+          "h2dts_compat_array_0058_compat57_itn must parse param");
+        assert.strictEqual(r[0].parameters[0].type, "itn", "h2dts_compat_array_0058_compat57_itn param type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dts_compat_array_0058_compat57_itn execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0059_COMPAT57_DOUBL
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0059_COMPAT57_DOUBL
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type doubl; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0059_compat57_doubl', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const r = parsec.parseFunction(`void compat57(doubl p);`);
+        assert.ok(Array.isArray(r) && r.length >= 1,
+          "h2dts_compat_array_0059_compat57_doubl parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1, "h2dts_compat_array_0059_compat57_doubl must parse function");
+        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
+          "h2dts_compat_array_0059_compat57_doubl must parse param");
+        assert.strictEqual(r[0].parameters[0].type, "doubl", "h2dts_compat_array_0059_compat57_doubl param type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dts_compat_array_0059_compat57_doubl execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0060_COMPAT57_BOOOL
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0060_COMPAT57_BOOOL
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type boool; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0060_compat57_boool', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const r = parsec.parseFunction(`void compat57(boool p);`);
+        assert.ok(Array.isArray(r) && r.length >= 1,
+          "h2dts_compat_array_0060_compat57_boool parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1, "h2dts_compat_array_0060_compat57_boool must parse function");
+        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
+          "h2dts_compat_array_0060_compat57_boool must parse param");
+        assert.strictEqual(r[0].parameters[0].type, "boool", "h2dts_compat_array_0060_compat57_boool param type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dts_compat_array_0060_compat57_boool execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0061_COMPAT57_INTT
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0061_COMPAT57_INTT
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type intt; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0061_compat57_intt', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const r = parsec.parseFunction(`void compat57(intt p);`);
+        assert.ok(Array.isArray(r) && r.length >= 1,
+          "h2dts_compat_array_0061_compat57_intt parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1, "h2dts_compat_array_0061_compat57_intt must parse function");
+        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
+          "h2dts_compat_array_0061_compat57_intt must parse param");
+        assert.strictEqual(r[0].parameters[0].type, "intt", "h2dts_compat_array_0061_compat57_intt param type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dts_compat_array_0061_compat57_intt execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0062_COMPAT57_FLOT
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0062_COMPAT57_FLOT
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type flot; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0062_compat57_flot', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const r = parsec.parseFunction(`void compat57(flot p);`);
+        assert.ok(Array.isArray(r) && r.length >= 1,
+          "h2dts_compat_array_0062_compat57_flot parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1, "h2dts_compat_array_0062_compat57_flot must parse function");
+        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
+          "h2dts_compat_array_0062_compat57_flot must parse param");
+        assert.strictEqual(r[0].parameters[0].type, "flot", "h2dts_compat_array_0062_compat57_flot param type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dts_compat_array_0062_compat57_flot execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0063_NS_COMPAT57_STD_ARRAY_BOOL_10
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0063_NS_COMPAT57_STD_ARRAY_BOOL_10
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            namespaced C++ decl param std::array<bool, 10>; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0063_ns_compat57_std_array_bool_10', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const r = parsec.parseFunction(`namespace ns { void compat57(std::array<bool, 10> p); }`);
+        assert.ok(Array.isArray(r) && r.length >= 1,
+          "h2dts_compat_array_0063_ns_compat57_std_array_bool_10 parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1,
+          "h2dts_compat_array_0063_ns_compat57_std_array_bool_10 must parse function");
+        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
+          "h2dts_compat_array_0063_ns_compat57_std_array_bool_10 must parse param");
+        const converted = transTskey2Ckey(r[0].parameters[0].type);
+        assert.ok(typeof converted === 'string' && converted.length > 0,
+          "h2dts_compat_array_0063_param convert output non-empty");
+        assert.strictEqual(converted, "Array<boolean>", "h2dts_compat_array_0063_param convert output");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dts_compat_array_0063_ns_compat57_std_array_bool_10 execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0064_COMPAT57_BAD_TYPE_57
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0064_COMPAT57_BAD_TYPE_57
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type bad_type_57; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0064_compat57_bad_type_57', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const r = parsec.parseFunction(`void compat57(bad_type_57 p);`);
+        assert.ok(Array.isArray(r) && r.length >= 1,
+          "h2dts_compat_array_0064_compat57_bad_type_57 parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1,
+          "h2dts_compat_array_0064_compat57_bad_type_57 must parse function");
+        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
+          "h2dts_compat_array_0064_compat57_bad_type_57 must parse param");
+        assert.strictEqual(r[0].parameters[0].type, "bad_type_57",
+          "h2dts_compat_array_0064_compat57_bad_type_57 param type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dts_compat_array_0064_compat57_bad_type_57 execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0065_COMPAT57_STD_ARRAY_BOOL_10
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0065_COMPAT57_STD_ARRAY_BOOL_10
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type std::array<bool, 10>; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0065_compat57_std_array_bool_10', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const r = parsec.parseFunction(`void compat57(std::array<bool, 10> p);`);
+        assert.ok(Array.isArray(r) && r.length >= 1,
+          "h2dts_compat_array_0065_compat57_std_array_bool_10 parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1,
+          "h2dts_compat_array_0065_compat57_std_array_bool_10 must parse function");
+        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
+          "h2dts_compat_array_0065_compat57_std_array_bool_10 must parse param");
+        const converted = transTskey2Ckey(r[0].parameters[0].type);
+        assert.ok(typeof converted === 'string' && converted.length > 0,
+          "h2dts_compat_array_0065_param convert output non-empty");
+        assert.strictEqual(converted, "Array<boolean>", "h2dts_compat_array_0065_param convert output");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dts_compat_array_0065_compat57_std_array_bool_10 execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0066_E57
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0066_E57
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type E57; strictEqual malformed field preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0066_e57', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const r = parsec.parseFunction(`enum E57 { A, B }; void f(E57 e);`);
+        assert.ok(Array.isArray(r) && r.length >= 1,
+          "h2dts_compat_array_0066_e57 parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1, "h2dts_compat_array_0066_e57 must parse function");
+        assert.strictEqual(r[0].name, "f", "h2dts_compat_array_0066_e57 func name");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dts_compat_array_0066_e57 execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0067_COMPAT57_STD_ARRAY_BOOL_10
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0067_COMPAT57_STD_ARRAY_BOOL_10
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type std:array<bool, 10>; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0067_compat57_std_array_bool_10', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const r = parsec.parseFunction(`void compat57(std:array<bool, 10> p);`);
+        assert.ok(Array.isArray(r) && r.length >= 1,
+          "h2dts_compat_array_0067_compat57_std_array_bool_10 parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1,
+          "h2dts_compat_array_0067_compat57_std_array_bool_10 must parse function");
+        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
+          "h2dts_compat_array_0067_compat57_std_array_bool_10 must parse param");
+        assert.strictEqual(r[0].parameters[0].type, "std:array<bool, 10>",
+          "h2dts_compat_array_0067_compat57_std_array_bool_10 param type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dts_compat_array_0067_compat57_std_array_bool_10 execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0068_COMPAT58_ITN
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0068_COMPAT58_ITN
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type itn; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0068_compat58_itn', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const r = parsec.parseFunction(`void compat58(itn p);`);
+        assert.ok(Array.isArray(r) && r.length >= 1,
+          "h2dts_compat_array_0068_compat58_itn parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1, "h2dts_compat_array_0068_compat58_itn must parse function");
+        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
+          "h2dts_compat_array_0068_compat58_itn must parse param");
+        assert.strictEqual(r[0].parameters[0].type, "itn", "h2dts_compat_array_0068_compat58_itn param type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dts_compat_array_0068_compat58_itn execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0069_COMPAT58_DOUBL
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0069_COMPAT58_DOUBL
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type doubl; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0069_compat58_doubl', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const r = parsec.parseFunction(`void compat58(doubl p);`);
+        assert.ok(Array.isArray(r) && r.length >= 1,
+          "h2dts_compat_array_0069_compat58_doubl parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1, "h2dts_compat_array_0069_compat58_doubl must parse function");
+        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
+          "h2dts_compat_array_0069_compat58_doubl must parse param");
+        assert.strictEqual(r[0].parameters[0].type, "doubl", "h2dts_compat_array_0069_compat58_doubl param type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dts_compat_array_0069_compat58_doubl execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0070_COMPAT58_BOOOL
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0070_COMPAT58_BOOOL
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type boool; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0070_compat58_boool', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const r = parsec.parseFunction(`void compat58(boool p);`);
+        assert.ok(Array.isArray(r) && r.length >= 1,
+          "h2dts_compat_array_0070_compat58_boool parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1, "h2dts_compat_array_0070_compat58_boool must parse function");
+        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
+          "h2dts_compat_array_0070_compat58_boool must parse param");
+        assert.strictEqual(r[0].parameters[0].type, "boool", "h2dts_compat_array_0070_compat58_boool param type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dts_compat_array_0070_compat58_boool execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0071_COMPAT58_INTT
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0071_COMPAT58_INTT
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type intt; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0071_compat58_intt', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const r = parsec.parseFunction(`void compat58(intt p);`);
+        assert.ok(Array.isArray(r) && r.length >= 1,
+          "h2dts_compat_array_0071_compat58_intt parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1, "h2dts_compat_array_0071_compat58_intt must parse function");
+        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
+          "h2dts_compat_array_0071_compat58_intt must parse param");
+        assert.strictEqual(r[0].parameters[0].type, "intt", "h2dts_compat_array_0071_compat58_intt param type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dts_compat_array_0071_compat58_intt execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0072_COMPAT58_FLOT
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0072_COMPAT58_FLOT
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type flot; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0072_compat58_flot', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const r = parsec.parseFunction(`void compat58(flot p);`);
+        assert.ok(Array.isArray(r) && r.length >= 1,
+          "h2dts_compat_array_0072_compat58_flot parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1, "h2dts_compat_array_0072_compat58_flot must parse function");
+        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
+          "h2dts_compat_array_0072_compat58_flot must parse param");
+        assert.strictEqual(r[0].parameters[0].type, "flot", "h2dts_compat_array_0072_compat58_flot param type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dts_compat_array_0072_compat58_flot execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0073_NS_COMPAT58_STD_ARRAY_CHAR_10
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0073_NS_COMPAT58_STD_ARRAY_CHAR_10
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            namespaced C++ decl param std::array<char, 10>; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0073_ns_compat58_std_array_char_10', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const r = parsec.parseFunction(`namespace ns { void compat58(std::array<char, 10> p); }`);
+        assert.ok(Array.isArray(r) && r.length >= 1,
+          "h2dts_compat_array_0073_ns_compat58_std_array_char_10 parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1,
+          "h2dts_compat_array_0073_ns_compat58_std_array_char_10 must parse function");
+        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
+          "h2dts_compat_array_0073_ns_compat58_std_array_char_10 must parse param");
+        const converted = transTskey2Ckey(r[0].parameters[0].type);
+        assert.ok(typeof converted === 'string' && converted.length > 0,
+          "h2dts_compat_array_0073_param convert output non-empty");
+        assert.strictEqual(converted, "Array<string>", "h2dts_compat_array_0073_param convert output");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dts_compat_array_0073_ns_compat58_std_array_char_10 execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0074_COMPAT58_BAD_TYPE_58
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0074_COMPAT58_BAD_TYPE_58
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type bad_type_58; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0074_compat58_bad_type_58', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const r = parsec.parseFunction(`void compat58(bad_type_58 p);`);
+        assert.ok(Array.isArray(r) && r.length >= 1,
+          "h2dts_compat_array_0074_compat58_bad_type_58 parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1,
+          "h2dts_compat_array_0074_compat58_bad_type_58 must parse function");
+        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
+          "h2dts_compat_array_0074_compat58_bad_type_58 must parse param");
+        assert.strictEqual(r[0].parameters[0].type, "bad_type_58",
+          "h2dts_compat_array_0074_compat58_bad_type_58 param type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dts_compat_array_0074_compat58_bad_type_58 execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0075_COMPAT58_STD_ARRAY_CHAR_10
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0075_COMPAT58_STD_ARRAY_CHAR_10
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type std::array<char, 10>; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0075_compat58_std_array_char_10', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const r = parsec.parseFunction(`void compat58(std::array<char, 10> p);`);
+        assert.ok(Array.isArray(r) && r.length >= 1,
+          "h2dts_compat_array_0075_compat58_std_array_char_10 parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1,
+          "h2dts_compat_array_0075_compat58_std_array_char_10 must parse function");
+        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
+          "h2dts_compat_array_0075_compat58_std_array_char_10 must parse param");
+        const converted = transTskey2Ckey(r[0].parameters[0].type);
+        assert.ok(typeof converted === 'string' && converted.length > 0,
+          "h2dts_compat_array_0075_param convert output non-empty");
+        assert.strictEqual(converted, "Array<string>", "h2dts_compat_array_0075_param convert output");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dts_compat_array_0075_compat58_std_array_char_10 execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0076_E58
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0076_E58
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type E58; strictEqual malformed field preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0076_e58', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const r = parsec.parseFunction(`enum E58 { A, B }; void f(E58 e);`);
+        assert.ok(Array.isArray(r) && r.length >= 1,
+          "h2dts_compat_array_0076_e58 parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1, "h2dts_compat_array_0076_e58 must parse function");
+        assert.strictEqual(r[0].name, "f", "h2dts_compat_array_0076_e58 func name");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dts_compat_array_0076_e58 execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0077_COMPAT58_STD_ARRAY_CHAR_10
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0077_COMPAT58_STD_ARRAY_CHAR_10
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type std:array<char, 10>; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0077_compat58_std_array_char_10', function() {
+    this.timeout(15000);
+    try {
+      const finished = runCompatSafe(() => {
+        const r = parsec.parseFunction(`void compat58(std:array<char, 10> p);`);
+        assert.ok(Array.isArray(r) && r.length >= 1,
+          "h2dts_compat_array_0077_compat58_std_array_char_10 parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1,
+          "h2dts_compat_array_0077_compat58_std_array_char_10 must parse function");
+        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
+          "h2dts_compat_array_0077_compat58_std_array_char_10 must parse param");
+        assert.strictEqual(r[0].parameters[0].type, "std:array<char, 10>",
+          "h2dts_compat_array_0077_compat58_std_array_char_10 param type");
+      });
+      assert.ok(finished, 'compat task must finish without process crash');
+    } catch (err) {
+      assert.fail(`h2dts_compat_array_0077_compat58_std_array_char_10 execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0001_COMPAT61_FLOT
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0001_COMPAT61_FLOT
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type flot; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0001_compat61_flot', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const r = parsec.parseFunction(`void compat61(flot p);`);
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0001 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0001 must parse function");
+          "h2dts_compat_array_0001_compat61_flot parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1, "h2dts_compat_array_0001_compat61_flot must parse function");
         assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0001 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "flot", "h2dts_compat_array_0001 param type");
+          "h2dts_compat_array_0001_compat61_flot must parse param");
+        assert.strictEqual(r[0].parameters[0].type, "flot", "h2dts_compat_array_0001_compat61_flot param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dts_compat_array_0001 execution error: ${String(err)}`);
+      assert.fail(`h2dts_compat_array_0001_compat61_flot execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_compat_array_0002', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0002_NS_COMPAT61_STD_ARRAY_CHAR16_T_10
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0002_NS_COMPAT61_STD_ARRAY_CHAR16_T_10
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            namespaced C++ decl param std::array<char16_t, 10>; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0002_ns_compat61_std_array_char16_t_10', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const r = parsec.parseFunction(`namespace ns { void compat61(std::array<char16_t, 10> p); }`);
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0002 parseFunction must return non-empty array");
+          "h2dts_compat_array_0002_ns_compat61_std_array_char16_t_10 parseFunction must return non-empty array");
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0002 must parse function");
+          "h2dts_compat_array_0002_ns_compat61_std_array_char16_t_10 must parse function");
         assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0002 must parse param");
+          "h2dts_compat_array_0002_ns_compat61_std_array_char16_t_10 must parse param");
         const converted = transTskey2Ckey(r[0].parameters[0].type);
         assert.ok(typeof converted === 'string' && converted.length > 0,
           "h2dts_compat_array_0002_param convert output non-empty");
@@ -61,40 +863,59 @@ suite('Stability_H2DTS_COMPAT_ARRAY_Part05', function() {
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dts_compat_array_0002 execution error: ${String(err)}`);
+      assert.fail(`h2dts_compat_array_0002_ns_compat61_std_array_char16_t_10 execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_compat_array_0003', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0003_COMPAT61_BAD_TYPE_61
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0003_COMPAT61_BAD_TYPE_61
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type bad_type_61; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0003_compat61_bad_type_61', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const r = parsec.parseFunction(`void compat61(bad_type_61 p);`);
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0003 parseFunction must return non-empty array");
+          "h2dts_compat_array_0003_compat61_bad_type_61 parseFunction must return non-empty array");
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0003 must parse function");
+          "h2dts_compat_array_0003_compat61_bad_type_61 must parse function");
         assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0003 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "bad_type_61", "h2dts_compat_array_0003 param type");
+          "h2dts_compat_array_0003_compat61_bad_type_61 must parse param");
+        assert.strictEqual(r[0].parameters[0].type, "bad_type_61",
+          "h2dts_compat_array_0003_compat61_bad_type_61 param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dts_compat_array_0003 execution error: ${String(err)}`);
+      assert.fail(`h2dts_compat_array_0003_compat61_bad_type_61 execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_compat_array_0004', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0004_COMPAT61_STD_ARRAY_CHAR16_T_10
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0004_COMPAT61_STD_ARRAY_CHAR16_T_10
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type std::array<char16_t, 10>; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0004_compat61_std_array_char16_t_10', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const r = parsec.parseFunction(`void compat61(std::array<char16_t, 10> p);`);
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0004 parseFunction must return non-empty array");
+          "h2dts_compat_array_0004_compat61_std_array_char16_t_10 parseFunction must return non-empty array");
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0004 must parse function");
+          "h2dts_compat_array_0004_compat61_std_array_char16_t_10 must parse function");
         assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0004 must parse param");
+          "h2dts_compat_array_0004_compat61_std_array_char16_t_10 must parse param");
         const converted = transTskey2Ckey(r[0].parameters[0].type);
         assert.ok(typeof converted === 'string' && converted.length > 0,
           "h2dts_compat_array_0004_param convert output non-empty");
@@ -102,152 +923,219 @@ suite('Stability_H2DTS_COMPAT_ARRAY_Part05', function() {
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dts_compat_array_0004 execution error: ${String(err)}`);
+      assert.fail(`h2dts_compat_array_0004_compat61_std_array_char16_t_10 execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_compat_array_0005', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0005_E61
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0005_E61
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type E61; strictEqual malformed field preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0005_e61', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const r = parsec.parseFunction(`enum E61 { A, B }; void f(E61 e);`);
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0005 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0005 must parse function");
-        assert.strictEqual(r[0].name, "f", "h2dts_compat_array_0005 func name");
+          "h2dts_compat_array_0005_e61 parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1, "h2dts_compat_array_0005_e61 must parse function");
+        assert.strictEqual(r[0].name, "f", "h2dts_compat_array_0005_e61 func name");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dts_compat_array_0005 execution error: ${String(err)}`);
+      assert.fail(`h2dts_compat_array_0005_e61 execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_compat_array_0006', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0006_COMPAT61_STD_ARRAY_CHAR16_T_10
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0006_COMPAT61_STD_ARRAY_CHAR16_T_10
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type std:array<char16_t, 10>; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0006_compat61_std_array_char16_t_10', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const r = parsec.parseFunction(`void compat61(std:array<char16_t, 10> p);`);
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0006 parseFunction must return non-empty array");
+          "h2dts_compat_array_0006_compat61_std_array_char16_t_10 parseFunction must return non-empty array");
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0006 must parse function");
+          "h2dts_compat_array_0006_compat61_std_array_char16_t_10 must parse function");
         assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0006 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "std:array<char16_t, 10>", "h2dts_compat_array_0006 param type");
+          "h2dts_compat_array_0006_compat61_std_array_char16_t_10 must parse param");
+        assert.strictEqual(r[0].parameters[0].type, "std:array<char16_t, 10>",
+          "h2dts_compat_array_0006_compat61_std_array_char16_t_10 param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dts_compat_array_0006 execution error: ${String(err)}`);
+      assert.fail(`h2dts_compat_array_0006_compat61_std_array_char16_t_10 execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_compat_array_0007', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0007_COMPAT62_ITN
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0007_COMPAT62_ITN
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type itn; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0007_compat62_itn', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const r = parsec.parseFunction(`void compat62(itn p);`);
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0007 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0007 must parse function");
+          "h2dts_compat_array_0007_compat62_itn parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1, "h2dts_compat_array_0007_compat62_itn must parse function");
         assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0007 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "itn", "h2dts_compat_array_0007 param type");
+          "h2dts_compat_array_0007_compat62_itn must parse param");
+        assert.strictEqual(r[0].parameters[0].type, "itn", "h2dts_compat_array_0007_compat62_itn param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dts_compat_array_0007 execution error: ${String(err)}`);
+      assert.fail(`h2dts_compat_array_0007_compat62_itn execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_compat_array_0008', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0008_COMPAT62_DOUBL
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0008_COMPAT62_DOUBL
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type doubl; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0008_compat62_doubl', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const r = parsec.parseFunction(`void compat62(doubl p);`);
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0008 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0008 must parse function");
+          "h2dts_compat_array_0008_compat62_doubl parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1, "h2dts_compat_array_0008_compat62_doubl must parse function");
         assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0008 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "doubl", "h2dts_compat_array_0008 param type");
+          "h2dts_compat_array_0008_compat62_doubl must parse param");
+        assert.strictEqual(r[0].parameters[0].type, "doubl", "h2dts_compat_array_0008_compat62_doubl param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dts_compat_array_0008 execution error: ${String(err)}`);
+      assert.fail(`h2dts_compat_array_0008_compat62_doubl execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_compat_array_0009', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0009_COMPAT62_BOOOL
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0009_COMPAT62_BOOOL
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type boool; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0009_compat62_boool', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const r = parsec.parseFunction(`void compat62(boool p);`);
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0009 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0009 must parse function");
+          "h2dts_compat_array_0009_compat62_boool parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1, "h2dts_compat_array_0009_compat62_boool must parse function");
         assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0009 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "boool", "h2dts_compat_array_0009 param type");
+          "h2dts_compat_array_0009_compat62_boool must parse param");
+        assert.strictEqual(r[0].parameters[0].type, "boool", "h2dts_compat_array_0009_compat62_boool param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dts_compat_array_0009 execution error: ${String(err)}`);
+      assert.fail(`h2dts_compat_array_0009_compat62_boool execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_compat_array_0010', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0010_COMPAT62_INTT
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0010_COMPAT62_INTT
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type intt; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0010_compat62_intt', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const r = parsec.parseFunction(`void compat62(intt p);`);
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0010 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0010 must parse function");
+          "h2dts_compat_array_0010_compat62_intt parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1, "h2dts_compat_array_0010_compat62_intt must parse function");
         assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0010 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "intt", "h2dts_compat_array_0010 param type");
+          "h2dts_compat_array_0010_compat62_intt must parse param");
+        assert.strictEqual(r[0].parameters[0].type, "intt", "h2dts_compat_array_0010_compat62_intt param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dts_compat_array_0010 execution error: ${String(err)}`);
+      assert.fail(`h2dts_compat_array_0010_compat62_intt execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_compat_array_0011', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0011_COMPAT62_FLOT
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0011_COMPAT62_FLOT
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type flot; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0011_compat62_flot', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const r = parsec.parseFunction(`void compat62(flot p);`);
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0011 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0011 must parse function");
+          "h2dts_compat_array_0011_compat62_flot parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1, "h2dts_compat_array_0011_compat62_flot must parse function");
         assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0011 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "flot", "h2dts_compat_array_0011 param type");
+          "h2dts_compat_array_0011_compat62_flot must parse param");
+        assert.strictEqual(r[0].parameters[0].type, "flot", "h2dts_compat_array_0011_compat62_flot param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dts_compat_array_0011 execution error: ${String(err)}`);
+      assert.fail(`h2dts_compat_array_0011_compat62_flot execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_compat_array_0012', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0012_NS_COMPAT62_STD_ARRAY_CHAR32_T_10
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0012_NS_COMPAT62_STD_ARRAY_CHAR32_T_10
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            namespaced C++ decl param std::array<char32_t, 10>; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0012_ns_compat62_std_array_char32_t_10', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const r = parsec.parseFunction(`namespace ns { void compat62(std::array<char32_t, 10> p); }`);
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0012 parseFunction must return non-empty array");
+          "h2dts_compat_array_0012_ns_compat62_std_array_char32_t_10 parseFunction must return non-empty array");
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0012 must parse function");
+          "h2dts_compat_array_0012_ns_compat62_std_array_char32_t_10 must parse function");
         assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0012 must parse param");
+          "h2dts_compat_array_0012_ns_compat62_std_array_char32_t_10 must parse param");
         const converted = transTskey2Ckey(r[0].parameters[0].type);
         assert.ok(typeof converted === 'string' && converted.length > 0,
           "h2dts_compat_array_0012_param convert output non-empty");
@@ -255,40 +1143,59 @@ suite('Stability_H2DTS_COMPAT_ARRAY_Part05', function() {
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dts_compat_array_0012 execution error: ${String(err)}`);
+      assert.fail(`h2dts_compat_array_0012_ns_compat62_std_array_char32_t_10 execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_compat_array_0013', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0013_COMPAT62_BAD_TYPE_62
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0013_COMPAT62_BAD_TYPE_62
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type bad_type_62; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0013_compat62_bad_type_62', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const r = parsec.parseFunction(`void compat62(bad_type_62 p);`);
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0013 parseFunction must return non-empty array");
+          "h2dts_compat_array_0013_compat62_bad_type_62 parseFunction must return non-empty array");
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0013 must parse function");
+          "h2dts_compat_array_0013_compat62_bad_type_62 must parse function");
         assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0013 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "bad_type_62", "h2dts_compat_array_0013 param type");
+          "h2dts_compat_array_0013_compat62_bad_type_62 must parse param");
+        assert.strictEqual(r[0].parameters[0].type, "bad_type_62",
+          "h2dts_compat_array_0013_compat62_bad_type_62 param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dts_compat_array_0013 execution error: ${String(err)}`);
+      assert.fail(`h2dts_compat_array_0013_compat62_bad_type_62 execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_compat_array_0014', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0014_COMPAT62_STD_ARRAY_CHAR32_T_10
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0014_COMPAT62_STD_ARRAY_CHAR32_T_10
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type std::array<char32_t, 10>; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0014_compat62_std_array_char32_t_10', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const r = parsec.parseFunction(`void compat62(std::array<char32_t, 10> p);`);
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0014 parseFunction must return non-empty array");
+          "h2dts_compat_array_0014_compat62_std_array_char32_t_10 parseFunction must return non-empty array");
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0014 must parse function");
+          "h2dts_compat_array_0014_compat62_std_array_char32_t_10 must parse function");
         assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0014 must parse param");
+          "h2dts_compat_array_0014_compat62_std_array_char32_t_10 must parse param");
         const converted = transTskey2Ckey(r[0].parameters[0].type);
         assert.ok(typeof converted === 'string' && converted.length > 0,
           "h2dts_compat_array_0014_param convert output non-empty");
@@ -296,152 +1203,219 @@ suite('Stability_H2DTS_COMPAT_ARRAY_Part05', function() {
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dts_compat_array_0014 execution error: ${String(err)}`);
+      assert.fail(`h2dts_compat_array_0014_compat62_std_array_char32_t_10 execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_compat_array_0015', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0015_E62
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0015_E62
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type E62; strictEqual malformed field preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0015_e62', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const r = parsec.parseFunction(`enum E62 { A, B }; void f(E62 e);`);
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0015 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0015 must parse function");
-        assert.strictEqual(r[0].name, "f", "h2dts_compat_array_0015 func name");
+          "h2dts_compat_array_0015_e62 parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1, "h2dts_compat_array_0015_e62 must parse function");
+        assert.strictEqual(r[0].name, "f", "h2dts_compat_array_0015_e62 func name");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dts_compat_array_0015 execution error: ${String(err)}`);
+      assert.fail(`h2dts_compat_array_0015_e62 execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_compat_array_0016', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0016_COMPAT62_STD_ARRAY_CHAR32_T_10
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0016_COMPAT62_STD_ARRAY_CHAR32_T_10
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type std:array<char32_t, 10>; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0016_compat62_std_array_char32_t_10', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const r = parsec.parseFunction(`void compat62(std:array<char32_t, 10> p);`);
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0016 parseFunction must return non-empty array");
+          "h2dts_compat_array_0016_compat62_std_array_char32_t_10 parseFunction must return non-empty array");
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0016 must parse function");
+          "h2dts_compat_array_0016_compat62_std_array_char32_t_10 must parse function");
         assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0016 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "std:array<char32_t, 10>", "h2dts_compat_array_0016 param type");
+          "h2dts_compat_array_0016_compat62_std_array_char32_t_10 must parse param");
+        assert.strictEqual(r[0].parameters[0].type, "std:array<char32_t, 10>",
+          "h2dts_compat_array_0016_compat62_std_array_char32_t_10 param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dts_compat_array_0016 execution error: ${String(err)}`);
+      assert.fail(`h2dts_compat_array_0016_compat62_std_array_char32_t_10 execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_compat_array_0017', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0017_COMPAT63_ITN
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0017_COMPAT63_ITN
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type itn; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0017_compat63_itn', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const r = parsec.parseFunction(`void compat63(itn p);`);
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0017 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0017 must parse function");
+          "h2dts_compat_array_0017_compat63_itn parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1, "h2dts_compat_array_0017_compat63_itn must parse function");
         assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0017 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "itn", "h2dts_compat_array_0017 param type");
+          "h2dts_compat_array_0017_compat63_itn must parse param");
+        assert.strictEqual(r[0].parameters[0].type, "itn", "h2dts_compat_array_0017_compat63_itn param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dts_compat_array_0017 execution error: ${String(err)}`);
+      assert.fail(`h2dts_compat_array_0017_compat63_itn execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_compat_array_0018', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0018_COMPAT63_DOUBL
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0018_COMPAT63_DOUBL
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type doubl; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0018_compat63_doubl', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const r = parsec.parseFunction(`void compat63(doubl p);`);
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0018 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0018 must parse function");
+          "h2dts_compat_array_0018_compat63_doubl parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1, "h2dts_compat_array_0018_compat63_doubl must parse function");
         assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0018 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "doubl", "h2dts_compat_array_0018 param type");
+          "h2dts_compat_array_0018_compat63_doubl must parse param");
+        assert.strictEqual(r[0].parameters[0].type, "doubl", "h2dts_compat_array_0018_compat63_doubl param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dts_compat_array_0018 execution error: ${String(err)}`);
+      assert.fail(`h2dts_compat_array_0018_compat63_doubl execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_compat_array_0019', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0019_COMPAT63_BOOOL
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0019_COMPAT63_BOOOL
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type boool; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0019_compat63_boool', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const r = parsec.parseFunction(`void compat63(boool p);`);
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0019 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0019 must parse function");
+          "h2dts_compat_array_0019_compat63_boool parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1, "h2dts_compat_array_0019_compat63_boool must parse function");
         assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0019 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "boool", "h2dts_compat_array_0019 param type");
+          "h2dts_compat_array_0019_compat63_boool must parse param");
+        assert.strictEqual(r[0].parameters[0].type, "boool", "h2dts_compat_array_0019_compat63_boool param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dts_compat_array_0019 execution error: ${String(err)}`);
+      assert.fail(`h2dts_compat_array_0019_compat63_boool execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_compat_array_0020', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0020_COMPAT63_INTT
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0020_COMPAT63_INTT
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type intt; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0020_compat63_intt', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const r = parsec.parseFunction(`void compat63(intt p);`);
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0020 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0020 must parse function");
+          "h2dts_compat_array_0020_compat63_intt parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1, "h2dts_compat_array_0020_compat63_intt must parse function");
         assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0020 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "intt", "h2dts_compat_array_0020 param type");
+          "h2dts_compat_array_0020_compat63_intt must parse param");
+        assert.strictEqual(r[0].parameters[0].type, "intt", "h2dts_compat_array_0020_compat63_intt param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dts_compat_array_0020 execution error: ${String(err)}`);
+      assert.fail(`h2dts_compat_array_0020_compat63_intt execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_compat_array_0021', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0021_COMPAT63_FLOT
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0021_COMPAT63_FLOT
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type flot; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0021_compat63_flot', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const r = parsec.parseFunction(`void compat63(flot p);`);
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0021 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0021 must parse function");
+          "h2dts_compat_array_0021_compat63_flot parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1, "h2dts_compat_array_0021_compat63_flot must parse function");
         assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0021 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "flot", "h2dts_compat_array_0021 param type");
+          "h2dts_compat_array_0021_compat63_flot must parse param");
+        assert.strictEqual(r[0].parameters[0].type, "flot", "h2dts_compat_array_0021_compat63_flot param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dts_compat_array_0021 execution error: ${String(err)}`);
+      assert.fail(`h2dts_compat_array_0021_compat63_flot execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_compat_array_0022', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0022_NS_COMPAT63_STD_DEQUE_INT
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0022_NS_COMPAT63_STD_DEQUE_INT
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            namespaced C++ decl param std::deque<int>; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0022_ns_compat63_std_deque_int', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const r = parsec.parseFunction(`namespace ns { void compat63(std::deque<int> p); }`);
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0022 parseFunction must return non-empty array");
+          "h2dts_compat_array_0022_ns_compat63_std_deque_int parseFunction must return non-empty array");
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0022 must parse function");
+          "h2dts_compat_array_0022_ns_compat63_std_deque_int must parse function");
         assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0022 must parse param");
+          "h2dts_compat_array_0022_ns_compat63_std_deque_int must parse param");
         const converted = transTskey2Ckey(r[0].parameters[0].type);
         assert.ok(typeof converted === 'string' && converted.length > 0,
           "h2dts_compat_array_0022_param convert output non-empty");
@@ -449,40 +1423,59 @@ suite('Stability_H2DTS_COMPAT_ARRAY_Part05', function() {
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dts_compat_array_0022 execution error: ${String(err)}`);
+      assert.fail(`h2dts_compat_array_0022_ns_compat63_std_deque_int execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_compat_array_0023', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0023_COMPAT63_BAD_TYPE_63
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0023_COMPAT63_BAD_TYPE_63
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type bad_type_63; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0023_compat63_bad_type_63', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const r = parsec.parseFunction(`void compat63(bad_type_63 p);`);
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0023 parseFunction must return non-empty array");
+          "h2dts_compat_array_0023_compat63_bad_type_63 parseFunction must return non-empty array");
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0023 must parse function");
+          "h2dts_compat_array_0023_compat63_bad_type_63 must parse function");
         assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0023 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "bad_type_63", "h2dts_compat_array_0023 param type");
+          "h2dts_compat_array_0023_compat63_bad_type_63 must parse param");
+        assert.strictEqual(r[0].parameters[0].type, "bad_type_63",
+          "h2dts_compat_array_0023_compat63_bad_type_63 param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dts_compat_array_0023 execution error: ${String(err)}`);
+      assert.fail(`h2dts_compat_array_0023_compat63_bad_type_63 execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_compat_array_0024', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0024_COMPAT63_STD_DEQUE_INT
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0024_COMPAT63_STD_DEQUE_INT
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type std::deque<int>; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0024_compat63_std_deque_int', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const r = parsec.parseFunction(`void compat63(std::deque<int> p);`);
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0024 parseFunction must return non-empty array");
+          "h2dts_compat_array_0024_compat63_std_deque_int parseFunction must return non-empty array");
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0024 must parse function");
+          "h2dts_compat_array_0024_compat63_std_deque_int must parse function");
         assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0024 must parse param");
+          "h2dts_compat_array_0024_compat63_std_deque_int must parse param");
         const converted = transTskey2Ckey(r[0].parameters[0].type);
         assert.ok(typeof converted === 'string' && converted.length > 0,
           "h2dts_compat_array_0024_param convert output non-empty");
@@ -490,152 +1483,219 @@ suite('Stability_H2DTS_COMPAT_ARRAY_Part05', function() {
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dts_compat_array_0024 execution error: ${String(err)}`);
+      assert.fail(`h2dts_compat_array_0024_compat63_std_deque_int execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_compat_array_0025', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0025_E63
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0025_E63
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type E63; strictEqual malformed field preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0025_e63', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const r = parsec.parseFunction(`enum E63 { A, B }; void f(E63 e);`);
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0025 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0025 must parse function");
-        assert.strictEqual(r[0].name, "f", "h2dts_compat_array_0025 func name");
+          "h2dts_compat_array_0025_e63 parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1, "h2dts_compat_array_0025_e63 must parse function");
+        assert.strictEqual(r[0].name, "f", "h2dts_compat_array_0025_e63 func name");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dts_compat_array_0025 execution error: ${String(err)}`);
+      assert.fail(`h2dts_compat_array_0025_e63 execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_compat_array_0026', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0026_COMPAT63_STD_DEQUE_INT
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0026_COMPAT63_STD_DEQUE_INT
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type std:deque<int>; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0026_compat63_std_deque_int', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const r = parsec.parseFunction(`void compat63(std:deque<int> p);`);
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0026 parseFunction must return non-empty array");
+          "h2dts_compat_array_0026_compat63_std_deque_int parseFunction must return non-empty array");
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0026 must parse function");
+          "h2dts_compat_array_0026_compat63_std_deque_int must parse function");
         assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0026 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "std:deque<int>", "h2dts_compat_array_0026 param type");
+          "h2dts_compat_array_0026_compat63_std_deque_int must parse param");
+        assert.strictEqual(r[0].parameters[0].type, "std:deque<int>",
+          "h2dts_compat_array_0026_compat63_std_deque_int param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dts_compat_array_0026 execution error: ${String(err)}`);
+      assert.fail(`h2dts_compat_array_0026_compat63_std_deque_int execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_compat_array_0027', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0027_COMPAT64_ITN
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0027_COMPAT64_ITN
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type itn; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0027_compat64_itn', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const r = parsec.parseFunction(`void compat64(itn p);`);
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0027 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0027 must parse function");
+          "h2dts_compat_array_0027_compat64_itn parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1, "h2dts_compat_array_0027_compat64_itn must parse function");
         assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0027 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "itn", "h2dts_compat_array_0027 param type");
+          "h2dts_compat_array_0027_compat64_itn must parse param");
+        assert.strictEqual(r[0].parameters[0].type, "itn", "h2dts_compat_array_0027_compat64_itn param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dts_compat_array_0027 execution error: ${String(err)}`);
+      assert.fail(`h2dts_compat_array_0027_compat64_itn execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_compat_array_0028', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0028_COMPAT64_DOUBL
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0028_COMPAT64_DOUBL
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type doubl; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0028_compat64_doubl', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const r = parsec.parseFunction(`void compat64(doubl p);`);
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0028 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0028 must parse function");
+          "h2dts_compat_array_0028_compat64_doubl parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1, "h2dts_compat_array_0028_compat64_doubl must parse function");
         assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0028 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "doubl", "h2dts_compat_array_0028 param type");
+          "h2dts_compat_array_0028_compat64_doubl must parse param");
+        assert.strictEqual(r[0].parameters[0].type, "doubl", "h2dts_compat_array_0028_compat64_doubl param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dts_compat_array_0028 execution error: ${String(err)}`);
+      assert.fail(`h2dts_compat_array_0028_compat64_doubl execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_compat_array_0029', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0029_COMPAT64_BOOOL
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0029_COMPAT64_BOOOL
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type boool; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0029_compat64_boool', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const r = parsec.parseFunction(`void compat64(boool p);`);
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0029 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0029 must parse function");
+          "h2dts_compat_array_0029_compat64_boool parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1, "h2dts_compat_array_0029_compat64_boool must parse function");
         assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0029 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "boool", "h2dts_compat_array_0029 param type");
+          "h2dts_compat_array_0029_compat64_boool must parse param");
+        assert.strictEqual(r[0].parameters[0].type, "boool", "h2dts_compat_array_0029_compat64_boool param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dts_compat_array_0029 execution error: ${String(err)}`);
+      assert.fail(`h2dts_compat_array_0029_compat64_boool execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_compat_array_0030', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0030_COMPAT64_INTT
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0030_COMPAT64_INTT
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type intt; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0030_compat64_intt', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const r = parsec.parseFunction(`void compat64(intt p);`);
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0030 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0030 must parse function");
+          "h2dts_compat_array_0030_compat64_intt parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1, "h2dts_compat_array_0030_compat64_intt must parse function");
         assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0030 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "intt", "h2dts_compat_array_0030 param type");
+          "h2dts_compat_array_0030_compat64_intt must parse param");
+        assert.strictEqual(r[0].parameters[0].type, "intt", "h2dts_compat_array_0030_compat64_intt param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dts_compat_array_0030 execution error: ${String(err)}`);
+      assert.fail(`h2dts_compat_array_0030_compat64_intt execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_compat_array_0031', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0031_COMPAT64_FLOT
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0031_COMPAT64_FLOT
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type flot; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0031_compat64_flot', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const r = parsec.parseFunction(`void compat64(flot p);`);
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0031 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0031 must parse function");
+          "h2dts_compat_array_0031_compat64_flot parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1, "h2dts_compat_array_0031_compat64_flot must parse function");
         assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0031 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "flot", "h2dts_compat_array_0031 param type");
+          "h2dts_compat_array_0031_compat64_flot must parse param");
+        assert.strictEqual(r[0].parameters[0].type, "flot", "h2dts_compat_array_0031_compat64_flot param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dts_compat_array_0031 execution error: ${String(err)}`);
+      assert.fail(`h2dts_compat_array_0031_compat64_flot execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_compat_array_0032', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0032_NS_COMPAT64_STD_DEQUE_SIZE_T
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0032_NS_COMPAT64_STD_DEQUE_SIZE_T
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            namespaced C++ decl param std::deque<size_t>; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0032_ns_compat64_std_deque_size_t', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const r = parsec.parseFunction(`namespace ns { void compat64(std::deque<size_t> p); }`);
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0032 parseFunction must return non-empty array");
+          "h2dts_compat_array_0032_ns_compat64_std_deque_size_t parseFunction must return non-empty array");
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0032 must parse function");
+          "h2dts_compat_array_0032_ns_compat64_std_deque_size_t must parse function");
         assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0032 must parse param");
+          "h2dts_compat_array_0032_ns_compat64_std_deque_size_t must parse param");
         const converted = transTskey2Ckey(r[0].parameters[0].type);
         assert.ok(typeof converted === 'string' && converted.length > 0,
           "h2dts_compat_array_0032_param convert output non-empty");
@@ -643,40 +1703,59 @@ suite('Stability_H2DTS_COMPAT_ARRAY_Part05', function() {
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dts_compat_array_0032 execution error: ${String(err)}`);
+      assert.fail(`h2dts_compat_array_0032_ns_compat64_std_deque_size_t execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_compat_array_0033', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0033_COMPAT64_BAD_TYPE_64
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0033_COMPAT64_BAD_TYPE_64
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type bad_type_64; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0033_compat64_bad_type_64', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const r = parsec.parseFunction(`void compat64(bad_type_64 p);`);
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0033 parseFunction must return non-empty array");
+          "h2dts_compat_array_0033_compat64_bad_type_64 parseFunction must return non-empty array");
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0033 must parse function");
+          "h2dts_compat_array_0033_compat64_bad_type_64 must parse function");
         assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0033 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "bad_type_64", "h2dts_compat_array_0033 param type");
+          "h2dts_compat_array_0033_compat64_bad_type_64 must parse param");
+        assert.strictEqual(r[0].parameters[0].type, "bad_type_64",
+          "h2dts_compat_array_0033_compat64_bad_type_64 param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dts_compat_array_0033 execution error: ${String(err)}`);
+      assert.fail(`h2dts_compat_array_0033_compat64_bad_type_64 execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_compat_array_0034', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0034_COMPAT64_STD_DEQUE_SIZE_T
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0034_COMPAT64_STD_DEQUE_SIZE_T
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type std::deque<size_t>; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0034_compat64_std_deque_size_t', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const r = parsec.parseFunction(`void compat64(std::deque<size_t> p);`);
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0034 parseFunction must return non-empty array");
+          "h2dts_compat_array_0034_compat64_std_deque_size_t parseFunction must return non-empty array");
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0034 must parse function");
+          "h2dts_compat_array_0034_compat64_std_deque_size_t must parse function");
         assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0034 must parse param");
+          "h2dts_compat_array_0034_compat64_std_deque_size_t must parse param");
         const converted = transTskey2Ckey(r[0].parameters[0].type);
         assert.ok(typeof converted === 'string' && converted.length > 0,
           "h2dts_compat_array_0034_param convert output non-empty");
@@ -684,152 +1763,219 @@ suite('Stability_H2DTS_COMPAT_ARRAY_Part05', function() {
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dts_compat_array_0034 execution error: ${String(err)}`);
+      assert.fail(`h2dts_compat_array_0034_compat64_std_deque_size_t execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_compat_array_0035', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0035_E64
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0035_E64
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type E64; strictEqual malformed field preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0035_e64', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const r = parsec.parseFunction(`enum E64 { A, B }; void f(E64 e);`);
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0035 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0035 must parse function");
-        assert.strictEqual(r[0].name, "f", "h2dts_compat_array_0035 func name");
+          "h2dts_compat_array_0035_e64 parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1, "h2dts_compat_array_0035_e64 must parse function");
+        assert.strictEqual(r[0].name, "f", "h2dts_compat_array_0035_e64 func name");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dts_compat_array_0035 execution error: ${String(err)}`);
+      assert.fail(`h2dts_compat_array_0035_e64 execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_compat_array_0036', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0036_COMPAT64_STD_DEQUE_SIZE_T
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0036_COMPAT64_STD_DEQUE_SIZE_T
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type std:deque<size_t>; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0036_compat64_std_deque_size_t', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const r = parsec.parseFunction(`void compat64(std:deque<size_t> p);`);
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0036 parseFunction must return non-empty array");
+          "h2dts_compat_array_0036_compat64_std_deque_size_t parseFunction must return non-empty array");
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0036 must parse function");
+          "h2dts_compat_array_0036_compat64_std_deque_size_t must parse function");
         assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0036 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "std:deque<size_t>", "h2dts_compat_array_0036 param type");
+          "h2dts_compat_array_0036_compat64_std_deque_size_t must parse param");
+        assert.strictEqual(r[0].parameters[0].type, "std:deque<size_t>",
+          "h2dts_compat_array_0036_compat64_std_deque_size_t param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dts_compat_array_0036 execution error: ${String(err)}`);
+      assert.fail(`h2dts_compat_array_0036_compat64_std_deque_size_t execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_compat_array_0037', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0037_COMPAT65_ITN
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0037_COMPAT65_ITN
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type itn; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0037_compat65_itn', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const r = parsec.parseFunction(`void compat65(itn p);`);
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0037 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0037 must parse function");
+          "h2dts_compat_array_0037_compat65_itn parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1, "h2dts_compat_array_0037_compat65_itn must parse function");
         assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0037 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "itn", "h2dts_compat_array_0037 param type");
+          "h2dts_compat_array_0037_compat65_itn must parse param");
+        assert.strictEqual(r[0].parameters[0].type, "itn", "h2dts_compat_array_0037_compat65_itn param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dts_compat_array_0037 execution error: ${String(err)}`);
+      assert.fail(`h2dts_compat_array_0037_compat65_itn execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_compat_array_0038', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0038_COMPAT65_DOUBL
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0038_COMPAT65_DOUBL
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type doubl; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0038_compat65_doubl', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const r = parsec.parseFunction(`void compat65(doubl p);`);
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0038 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0038 must parse function");
+          "h2dts_compat_array_0038_compat65_doubl parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1, "h2dts_compat_array_0038_compat65_doubl must parse function");
         assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0038 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "doubl", "h2dts_compat_array_0038 param type");
+          "h2dts_compat_array_0038_compat65_doubl must parse param");
+        assert.strictEqual(r[0].parameters[0].type, "doubl", "h2dts_compat_array_0038_compat65_doubl param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dts_compat_array_0038 execution error: ${String(err)}`);
+      assert.fail(`h2dts_compat_array_0038_compat65_doubl execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_compat_array_0039', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0039_COMPAT65_BOOOL
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0039_COMPAT65_BOOOL
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type boool; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0039_compat65_boool', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const r = parsec.parseFunction(`void compat65(boool p);`);
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0039 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0039 must parse function");
+          "h2dts_compat_array_0039_compat65_boool parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1, "h2dts_compat_array_0039_compat65_boool must parse function");
         assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0039 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "boool", "h2dts_compat_array_0039 param type");
+          "h2dts_compat_array_0039_compat65_boool must parse param");
+        assert.strictEqual(r[0].parameters[0].type, "boool", "h2dts_compat_array_0039_compat65_boool param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dts_compat_array_0039 execution error: ${String(err)}`);
+      assert.fail(`h2dts_compat_array_0039_compat65_boool execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_compat_array_0040', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0040_COMPAT65_INTT
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0040_COMPAT65_INTT
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type intt; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0040_compat65_intt', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const r = parsec.parseFunction(`void compat65(intt p);`);
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0040 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0040 must parse function");
+          "h2dts_compat_array_0040_compat65_intt parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1, "h2dts_compat_array_0040_compat65_intt must parse function");
         assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0040 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "intt", "h2dts_compat_array_0040 param type");
+          "h2dts_compat_array_0040_compat65_intt must parse param");
+        assert.strictEqual(r[0].parameters[0].type, "intt", "h2dts_compat_array_0040_compat65_intt param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dts_compat_array_0040 execution error: ${String(err)}`);
+      assert.fail(`h2dts_compat_array_0040_compat65_intt execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_compat_array_0041', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0041_COMPAT65_FLOT
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0041_COMPAT65_FLOT
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            malformed type flot; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0041_compat65_flot', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const r = parsec.parseFunction(`void compat65(flot p);`);
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0041 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0041 must parse function");
+          "h2dts_compat_array_0041_compat65_flot parseFunction must return non-empty array");
+        assert.ok(Array.isArray(r) && r.length >= 1, "h2dts_compat_array_0041_compat65_flot must parse function");
         assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0041 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "flot", "h2dts_compat_array_0041 param type");
+          "h2dts_compat_array_0041_compat65_flot must parse param");
+        assert.strictEqual(r[0].parameters[0].type, "flot", "h2dts_compat_array_0041_compat65_flot param type");
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dts_compat_array_0041 execution error: ${String(err)}`);
+      assert.fail(`h2dts_compat_array_0041_compat65_flot execution error: ${String(err)}`);
     }
   });
 
-  test('h2dts_compat_array_0042', function() {
+  /**
+   * @tc.name   SUB_NAPI_H2DTS_COMPAT_ARRAY_0042_NS_COMPAT65_STD_DEQUE_DOUBLE
+   * @tc.number SUB_NAPI_H2DTS_COMPAT_ARRAY_0042_NS_COMPAT65_STD_DEQUE_DOUBLE
+   * @tc.desc   Stability compat h2dts/array: runCompatSafe(parseFunction+transTskey2Ckey);
+   *            namespaced C++ decl param std::deque<double>; strictEqual parsed param type preserved.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_compat_array_0042_ns_compat65_std_deque_double', function() {
     this.timeout(15000);
     try {
       const finished = runCompatSafe(() => {
         const r = parsec.parseFunction(`namespace ns { void compat65(std::deque<double> p); }`);
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0042 parseFunction must return non-empty array");
+          "h2dts_compat_array_0042_ns_compat65_std_deque_double parseFunction must return non-empty array");
         assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0042 must parse function");
+          "h2dts_compat_array_0042_ns_compat65_std_deque_double must parse function");
         assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0042 must parse param");
+          "h2dts_compat_array_0042_ns_compat65_std_deque_double must parse param");
         const converted = transTskey2Ckey(r[0].parameters[0].type);
         assert.ok(typeof converted === 'string' && converted.length > 0,
           "h2dts_compat_array_0042_param convert output non-empty");
@@ -837,1149 +1983,7 @@ suite('Stability_H2DTS_COMPAT_ARRAY_Part05', function() {
       });
       assert.ok(finished, 'compat task must finish without process crash');
     } catch (err) {
-      assert.fail(`h2dts_compat_array_0042 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0043', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`void compat65(bad_type_65 p);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0043 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0043 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0043 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "bad_type_65", "h2dts_compat_array_0043 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0043 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0044', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`void compat65(std::deque<double> p);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0044 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0044 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0044 must parse param");
-        const converted = transTskey2Ckey(r[0].parameters[0].type);
-        assert.ok(typeof converted === 'string' && converted.length > 0,
-          "h2dts_compat_array_0044_param convert output non-empty");
-        assert.strictEqual(converted, "Array<number>", "h2dts_compat_array_0044_param convert output");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0044 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0045', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`enum E65 { A, B }; void f(E65 e);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0045 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0045 must parse function");
-        assert.strictEqual(r[0].name, "f", "h2dts_compat_array_0045 func name");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0045 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0046', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`void compat65(std:deque<double> p);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0046 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0046 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0046 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "std:deque<double>", "h2dts_compat_array_0046 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0046 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0047', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`void compat66(itn p);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0047 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0047 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0047 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "itn", "h2dts_compat_array_0047 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0047 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0048', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`void compat66(doubl p);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0048 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0048 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0048 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "doubl", "h2dts_compat_array_0048 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0048 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0049', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`void compat66(boool p);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0049 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0049 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0049 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "boool", "h2dts_compat_array_0049 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0049 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0050', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`void compat66(intt p);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0050 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0050 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0050 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "intt", "h2dts_compat_array_0050 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0050 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0051', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`void compat66(flot p);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0051 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0051 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0051 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "flot", "h2dts_compat_array_0051 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0051 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0052', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`namespace ns { void compat66(std::deque<float> p); }`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0052 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0052 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0052 must parse param");
-        const converted = transTskey2Ckey(r[0].parameters[0].type);
-        assert.ok(typeof converted === 'string' && converted.length > 0,
-          "h2dts_compat_array_0052_param convert output non-empty");
-        assert.strictEqual(converted, "Array<number>", "h2dts_compat_array_0052_param convert output");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0052 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0053', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`void compat66(bad_type_66 p);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0053 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0053 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0053 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "bad_type_66", "h2dts_compat_array_0053 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0053 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0054', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`void compat66(std::deque<float> p);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0054 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0054 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0054 must parse param");
-        const converted = transTskey2Ckey(r[0].parameters[0].type);
-        assert.ok(typeof converted === 'string' && converted.length > 0,
-          "h2dts_compat_array_0054_param convert output non-empty");
-        assert.strictEqual(converted, "Array<number>", "h2dts_compat_array_0054_param convert output");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0054 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0055', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`enum E66 { A, B }; void f(E66 e);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0055 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0055 must parse function");
-        assert.strictEqual(r[0].name, "f", "h2dts_compat_array_0055 func name");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0055 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0056', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`void compat66(std:deque<float> p);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0056 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0056 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0056 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "std:deque<float>", "h2dts_compat_array_0056 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0056 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0057', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`void compat67(itn p);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0057 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0057 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0057 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "itn", "h2dts_compat_array_0057 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0057 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0058', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`void compat67(doubl p);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0058 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0058 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0058 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "doubl", "h2dts_compat_array_0058 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0058 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0059', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`void compat67(boool p);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0059 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0059 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0059 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "boool", "h2dts_compat_array_0059 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0059 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0060', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`void compat67(intt p);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0060 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0060 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0060 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "intt", "h2dts_compat_array_0060 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0060 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0061', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`void compat67(flot p);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0061 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0061 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0061 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "flot", "h2dts_compat_array_0061 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0061 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0062', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`namespace ns { void compat67(std::deque<long> p); }`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0062 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0062 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0062 must parse param");
-        const converted = transTskey2Ckey(r[0].parameters[0].type);
-        assert.ok(typeof converted === 'string' && converted.length > 0,
-          "h2dts_compat_array_0062_param convert output non-empty");
-        assert.strictEqual(converted, "Array<number>", "h2dts_compat_array_0062_param convert output");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0062 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0063', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`void compat67(bad_type_67 p);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0063 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0063 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0063 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "bad_type_67", "h2dts_compat_array_0063 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0063 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0064', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`void compat67(std::deque<long> p);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0064 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0064 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0064 must parse param");
-        const converted = transTskey2Ckey(r[0].parameters[0].type);
-        assert.ok(typeof converted === 'string' && converted.length > 0,
-          "h2dts_compat_array_0064_param convert output non-empty");
-        assert.strictEqual(converted, "Array<number>", "h2dts_compat_array_0064_param convert output");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0064 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0065', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`enum E67 { A, B }; void f(E67 e);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0065 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0065 must parse function");
-        assert.strictEqual(r[0].name, "f", "h2dts_compat_array_0065 func name");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0065 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0066', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`void compat67(std:deque<long> p);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0066 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0066 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0066 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "std:deque<long>", "h2dts_compat_array_0066 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0066 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0067', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`void compat68(itn p);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0067 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0067 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0067 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "itn", "h2dts_compat_array_0067 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0067 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0068', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`void compat68(doubl p);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0068 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0068 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0068 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "doubl", "h2dts_compat_array_0068 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0068 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0069', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`void compat68(boool p);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0069 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0069 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0069 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "boool", "h2dts_compat_array_0069 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0069 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0070', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`void compat68(intt p);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0070 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0070 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0070 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "intt", "h2dts_compat_array_0070 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0070 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0071', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`void compat68(flot p);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0071 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0071 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0071 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "flot", "h2dts_compat_array_0071 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0071 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0072', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`namespace ns { void compat68(std::deque<short> p); }`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0072 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0072 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0072 must parse param");
-        const converted = transTskey2Ckey(r[0].parameters[0].type);
-        assert.ok(typeof converted === 'string' && converted.length > 0,
-          "h2dts_compat_array_0072_param convert output non-empty");
-        assert.strictEqual(converted, "Array<number>", "h2dts_compat_array_0072_param convert output");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0072 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0073', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`void compat68(bad_type_68 p);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0073 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0073 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0073 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "bad_type_68", "h2dts_compat_array_0073 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0073 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0074', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`void compat68(std::deque<short> p);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0074 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0074 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0074 must parse param");
-        const converted = transTskey2Ckey(r[0].parameters[0].type);
-        assert.ok(typeof converted === 'string' && converted.length > 0,
-          "h2dts_compat_array_0074_param convert output non-empty");
-        assert.strictEqual(converted, "Array<number>", "h2dts_compat_array_0074_param convert output");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0074 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0075', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`enum E68 { A, B }; void f(E68 e);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0075 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0075 must parse function");
-        assert.strictEqual(r[0].name, "f", "h2dts_compat_array_0075 func name");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0075 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0076', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`void compat68(std:deque<short> p);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0076 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0076 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0076 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "std:deque<short>", "h2dts_compat_array_0076 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0076 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0077', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`void compat69(itn p);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0077 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0077 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0077 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "itn", "h2dts_compat_array_0077 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0077 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0078', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`void compat69(doubl p);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0078 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0078 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0078 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "doubl", "h2dts_compat_array_0078 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0078 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0079', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`void compat69(boool p);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0079 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0079 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0079 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "boool", "h2dts_compat_array_0079 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0079 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0080', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`void compat69(intt p);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0080 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0080 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0080 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "intt", "h2dts_compat_array_0080 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0080 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0081', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`void compat69(flot p);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0081 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0081 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0081 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "flot", "h2dts_compat_array_0081 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0081 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0082', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`namespace ns { void compat69(std::deque<uint8_t> p); }`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0082 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0082 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0082 must parse param");
-        const converted = transTskey2Ckey(r[0].parameters[0].type);
-        assert.ok(typeof converted === 'string' && converted.length > 0,
-          "h2dts_compat_array_0082_param convert output non-empty");
-        assert.strictEqual(converted, "Array<number>", "h2dts_compat_array_0082_param convert output");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0082 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0083', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`void compat69(bad_type_69 p);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0083 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0083 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0083 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "bad_type_69", "h2dts_compat_array_0083 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0083 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0084', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`void compat69(std::deque<uint8_t> p);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0084 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0084 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0084 must parse param");
-        const converted = transTskey2Ckey(r[0].parameters[0].type);
-        assert.ok(typeof converted === 'string' && converted.length > 0,
-          "h2dts_compat_array_0084_param convert output non-empty");
-        assert.strictEqual(converted, "Array<number>", "h2dts_compat_array_0084_param convert output");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0084 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0085', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`enum E69 { A, B }; void f(E69 e);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0085 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0085 must parse function");
-        assert.strictEqual(r[0].name, "f", "h2dts_compat_array_0085 func name");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0085 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0086', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`void compat69(std:deque<uint8_t> p);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0086 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0086 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0086 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "std:deque<uint8_t>", "h2dts_compat_array_0086 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0086 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0087', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`void compat70(itn p);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0087 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0087 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0087 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "itn", "h2dts_compat_array_0087 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0087 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0088', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`void compat70(doubl p);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0088 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0088 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0088 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "doubl", "h2dts_compat_array_0088 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0088 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0089', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`void compat70(boool p);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0089 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0089 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0089 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "boool", "h2dts_compat_array_0089 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0089 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0090', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`void compat70(intt p);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0090 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0090 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0090 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "intt", "h2dts_compat_array_0090 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0090 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0091', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`void compat70(flot p);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0091 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0091 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0091 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "flot", "h2dts_compat_array_0091 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0091 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0092', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`namespace ns { void compat70(std::deque<uint16_t> p); }`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0092 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0092 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0092 must parse param");
-        const converted = transTskey2Ckey(r[0].parameters[0].type);
-        assert.ok(typeof converted === 'string' && converted.length > 0,
-          "h2dts_compat_array_0092_param convert output non-empty");
-        assert.strictEqual(converted, "Array<number>", "h2dts_compat_array_0092_param convert output");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0092 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0093', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`void compat70(bad_type_70 p);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0093 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0093 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0093 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "bad_type_70", "h2dts_compat_array_0093 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0093 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0094', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`void compat70(std::deque<uint16_t> p);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0094 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0094 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0094 must parse param");
-        const converted = transTskey2Ckey(r[0].parameters[0].type);
-        assert.ok(typeof converted === 'string' && converted.length > 0,
-          "h2dts_compat_array_0094_param convert output non-empty");
-        assert.strictEqual(converted, "Array<number>", "h2dts_compat_array_0094_param convert output");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0094 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0095', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`enum E70 { A, B }; void f(E70 e);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0095 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0095 must parse function");
-        assert.strictEqual(r[0].name, "f", "h2dts_compat_array_0095 func name");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0095 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0096', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`void compat70(std:deque<uint16_t> p);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0096 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0096 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0096 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "std:deque<uint16_t>", "h2dts_compat_array_0096 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0096 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0097', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`void compat71(itn p);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0097 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0097 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0097 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "itn", "h2dts_compat_array_0097 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0097 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0098', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`void compat71(doubl p);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0098 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0098 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0098 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "doubl", "h2dts_compat_array_0098 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0098 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0099', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`void compat71(boool p);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0099 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0099 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0099 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "boool", "h2dts_compat_array_0099 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0099 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0100', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`void compat71(intt p);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0100 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0100 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0100 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "intt", "h2dts_compat_array_0100 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0100 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dts_compat_array_0101', function() {
-    this.timeout(15000);
-    try {
-      const finished = runCompatSafe(() => {
-        const r = parsec.parseFunction(`void compat71(flot p);`);
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0101 parseFunction must return non-empty array");
-        assert.ok(Array.isArray(r) && r.length >= 1,
-          "h2dts_compat_array_0101 must parse function");
-        assert.ok(r[0].parameters && r[0].parameters.length >= 1,
-          "h2dts_compat_array_0101 must parse param");
-        assert.strictEqual(r[0].parameters[0].type, "flot", "h2dts_compat_array_0101 param type");
-      });
-      assert.ok(finished, 'compat task must finish without process crash');
-    } catch (err) {
-      assert.fail(`h2dts_compat_array_0101 execution error: ${String(err)}`);
+      assert.fail(`h2dts_compat_array_0042_ns_compat65_std_deque_double execution error: ${String(err)}`);
     }
   });
 });

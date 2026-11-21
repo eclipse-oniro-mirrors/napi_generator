@@ -21,117 +21,18 @@ import { runCompatSafe } from './stability_helpers';
 
 suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
   this.timeout(600000);
-  vscode.window.showInformationMessage('Start Stability_H2DTSCPP_CONVERT_TUPLE_Part03.');
+  vscode.window.showInformationMessage('Start Stability_H2DTSCPP_CONVERT_TUPLE_Part01.');
 
-
-  test('h2dtscpp_convert_tuple_0001', () => {
-    try {
-      const parsed = doParseTs('h2cpp187.ts', `
-        function h2cpp187(p: [boolean, number, boolean]): [boolean, number, boolean] { return p; }`);
-      assert.ok(parsed !== undefined && typeof parsed === 'object', "parse result must be object");
-      const converted = transParseObj(parsed);
-      assert.ok(converted.funcs.length >= 1);
-      assert.strictEqual(converted.funcs[0].returns, "[boolean, number, boolean]",
-        "h2dtscpp_convert_tuple_0001 parse return type convert convert output");
-      assert.ok(converted.funcs[0].parameters.length >= 1);
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "[boolean, number, boolean]",
-        "h2dtscpp_convert_tuple_0001 parse param type convert convert output");
-      const generated = generateFunctions(converted, 'h2cpp187.d.ts');
-      assert.ok(generated !== undefined && typeof generated === 'object');
-      assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
-        "napiH must be non-empty");
-      assert.ok(typeof generated.napiCppContent === 'string', "napiCpp must exist");
-      assert.ok(generated.napiHContent.includes('h2cpp187') || generated.napiCppContent.length > 0,
-        "gen must reference function");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0001 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_tuple_0002', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [],
-        funcs: [{ type: 'function', name: 'typeFn187', returns: '[boolean, number, boolean]',
-          parameters: [{ type: '[boolean, number, boolean]', name: 'p', arraySize: 0, arraySizeList: [] }]
-        }],
-        types: [{ name: 'Alias187', alias: '[boolean, number, boolean]', members: [], functions: [], types: []
-        }]
-      });
-      assert.ok(Array.isArray(converted.types) && converted.types.length >= 1);
-      assert.strictEqual(converted.types[0].name, 'Alias187');
-      assert.strictEqual(converted.types[0].alias, '[boolean, number, boolean]');
-      assert.ok(Array.isArray(converted.types[0].types));
-      assert.ok(converted.funcs.length >= 1);
-      assert.strictEqual(converted.funcs[0].name, 'typeFn187');
-      assert.strictEqual(converted.funcs[0].returns, "[boolean, number, boolean]",
-        "h2dtscpp_convert_tuple_0002 type fn return type convert convert output");
-      assert.ok(converted.funcs[0].parameters.length >= 1);
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "[boolean, number, boolean]",
-        "h2dtscpp_convert_tuple_0002 type fn param type convert convert output");
-      const generated = generateFunctions(converted, 'sample187_type.d.ts');
-      assert.ok(generated !== undefined && typeof generated === 'object');
-      assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
-        "napiH must be non-empty");
-      assert.ok(typeof generated.napiCppContent === 'string', "napiCpp must exist");
-      assert.ok(generated.napiHContent.includes('typeFn187') || generated.napiCppContent.length > 0,
-        "gen must reference function");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0002 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_tuple_0003', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [{ name: 'SampleClass188', alias: '',
-          variableList: [{ type: '[boolean, string, number]', name: 'value', arraySize: 0, arraySizeList: [] }],
-          functionList: []
-        }],
-        funcs: [], types: []
-      });
-      assert.ok(converted.classes.length >= 1);
-      assert.ok(converted.classes[0].variableList.length >= 1);
-      assert.strictEqual(converted.classes[0].variableList[0].name, 'value');
-      assert.strictEqual(converted.classes[0].variableList[0].type, "[boolean, string, number]",
-        "h2dtscpp_convert_tuple_0003 class var type convert convert output");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0003 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_tuple_0004', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [],
-        funcs: [{ type: 'function', name: 'globalRun188', returns: '[boolean, string, number]',
-          parameters: [{ type: '[boolean, string, number]', name: 'gparam', arraySize: 0, arraySizeList: [] }]
-        }],
-        types: []
-      });
-      assert.ok(converted.funcs.length >= 1);
-      assert.strictEqual(converted.funcs[0].name, 'globalRun188');
-      assert.strictEqual(converted.funcs[0].returns, "[boolean, string, number]",
-        "h2dtscpp_convert_tuple_0004 global return type convert convert output");
-      assert.ok(converted.funcs[0].parameters.length >= 1);
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "[boolean, string, number]",
-        "h2dtscpp_convert_tuple_0004 global param type convert convert output");
-      const generated = generateFunctions(converted, 'sample188_global.d.ts');
-      assert.ok(generated !== undefined && typeof generated === 'object');
-      assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
-        "napiH must be non-empty");
-      assert.ok(typeof generated.napiCppContent === 'string', "napiCpp must exist");
-      assert.ok(generated.napiHContent.includes('globalRun188') || generated.napiCppContent.length > 0,
-        "gen must reference function");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0004 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_tuple_0005', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0005_BOOLEAN_STRING_NUMBER
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0005_BOOLEAN_STRING_NUMBER
+   * @tc.desc   Stability convert h2dtscpp/tuple: class-method convert; type [boolean, string,
+   *            number]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0005_boolean_string_number', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -147,16 +48,25 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(converted.classes[0].functionList.length >= 1);
       assert.strictEqual(converted.classes[0].functionList[0].name, 'run');
       assert.strictEqual(converted.classes[0].functionList[0].returns, "[boolean, string, number]",
-        "h2dtscpp_convert_tuple_0005 class method return type convert convert output");
+        "h2dtscpp_convert_tuple_0005_boolean_string_number class method return type convert convert output");
       assert.ok(converted.classes[0].functionList[0].parameters.length >= 1);
       assert.strictEqual(converted.classes[0].functionList[0].parameters[0].type, "[boolean, string, number]",
-        "h2dtscpp_convert_tuple_0005 class method param type convert convert output");
+        "h2dtscpp_convert_tuple_0005_boolean_string_number class method param type convert convert output");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0005 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0005_boolean_string_number execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_tuple_0006', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0006_BOOLEAN_STRING_NUMBER
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0006_BOOLEAN_STRING_NUMBER
+   * @tc.desc   Stability convert h2dtscpp/tuple: parse-convert-gen pipeline; type [boolean, string,
+   *            number]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0006_boolean_string_number', () => {
     try {
       const parsed = doParseTs('h2cpp188.ts', `
         function h2cpp188(p: [boolean, string, number]): [boolean, string, number] { return p; }`);
@@ -164,10 +74,10 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       const converted = transParseObj(parsed);
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].returns, "[boolean, string, number]",
-        "h2dtscpp_convert_tuple_0006 parse return type convert convert output");
+        "h2dtscpp_convert_tuple_0006_boolean_string_number parse return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "[boolean, string, number]",
-        "h2dtscpp_convert_tuple_0006 parse param type convert convert output");
+        "h2dtscpp_convert_tuple_0006_boolean_string_number parse param type convert convert output");
       const generated = generateFunctions(converted, 'h2cpp188.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -176,11 +86,20 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(generated.napiHContent.includes('h2cpp188') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0006 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0006_boolean_string_number execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_tuple_0007', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0007_BOOLEAN_STRING_NUMBER
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0007_BOOLEAN_STRING_NUMBER
+   * @tc.desc   Stability convert h2dtscpp/tuple: type-alias and global-function convert; type
+   *            [boolean, string, number]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0007_boolean_string_number', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -198,10 +117,10 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].name, 'typeFn188');
       assert.strictEqual(converted.funcs[0].returns, "[boolean, string, number]",
-        "h2dtscpp_convert_tuple_0007 type fn return type convert convert output");
+        "h2dtscpp_convert_tuple_0007_boolean_string_number type fn return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "[boolean, string, number]",
-        "h2dtscpp_convert_tuple_0007 type fn param type convert convert output");
+        "h2dtscpp_convert_tuple_0007_boolean_string_number type fn param type convert convert output");
       const generated = generateFunctions(converted, 'sample188_type.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -210,11 +129,20 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(generated.napiHContent.includes('typeFn188') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0007 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0007_boolean_string_number execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_tuple_0008', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0008_BOOLEAN_STRING_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0008_BOOLEAN_STRING_STRING
+   * @tc.desc   Stability convert h2dtscpp/tuple: class-field convert; type [boolean, string,
+   *            string]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0008_boolean_string_string', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -228,13 +156,22 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(converted.classes[0].variableList.length >= 1);
       assert.strictEqual(converted.classes[0].variableList[0].name, 'value');
       assert.strictEqual(converted.classes[0].variableList[0].type, "[boolean, string, string]",
-        "h2dtscpp_convert_tuple_0008 class var type convert convert output");
+        "h2dtscpp_convert_tuple_0008_boolean_string_string class var type convert convert output");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0008 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0008_boolean_string_string execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_tuple_0009', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0009_BOOLEAN_STRING_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0009_BOOLEAN_STRING_STRING
+   * @tc.desc   Stability convert h2dtscpp/tuple: global-function convert; type [boolean, string,
+   *            string]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0009_boolean_string_string', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -247,10 +184,10 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].name, 'globalRun189');
       assert.strictEqual(converted.funcs[0].returns, "[boolean, string, string]",
-        "h2dtscpp_convert_tuple_0009 global return type convert convert output");
+        "h2dtscpp_convert_tuple_0009_boolean_string_string global return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "[boolean, string, string]",
-        "h2dtscpp_convert_tuple_0009 global param type convert convert output");
+        "h2dtscpp_convert_tuple_0009_boolean_string_string global param type convert convert output");
       const generated = generateFunctions(converted, 'sample189_global.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -259,11 +196,20 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(generated.napiHContent.includes('globalRun189') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0009 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0009_boolean_string_string execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_tuple_0010', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0010_BOOLEAN_STRING_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0010_BOOLEAN_STRING_STRING
+   * @tc.desc   Stability convert h2dtscpp/tuple: class-method convert; type [boolean, string,
+   *            string]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0010_boolean_string_string', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -279,16 +225,25 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(converted.classes[0].functionList.length >= 1);
       assert.strictEqual(converted.classes[0].functionList[0].name, 'run');
       assert.strictEqual(converted.classes[0].functionList[0].returns, "[boolean, string, string]",
-        "h2dtscpp_convert_tuple_0010 class method return type convert convert output");
+        "h2dtscpp_convert_tuple_0010_boolean_string_string class method return type convert convert output");
       assert.ok(converted.classes[0].functionList[0].parameters.length >= 1);
       assert.strictEqual(converted.classes[0].functionList[0].parameters[0].type, "[boolean, string, string]",
-        "h2dtscpp_convert_tuple_0010 class method param type convert convert output");
+        "h2dtscpp_convert_tuple_0010_boolean_string_string class method param type convert convert output");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0010 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0010_boolean_string_string execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_tuple_0011', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0011_BOOLEAN_STRING_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0011_BOOLEAN_STRING_STRING
+   * @tc.desc   Stability convert h2dtscpp/tuple: parse-convert-gen pipeline; type [boolean, string,
+   *            string]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0011_boolean_string_string', () => {
     try {
       const parsed = doParseTs('h2cpp189.ts', `
         function h2cpp189(p: [boolean, string, string]): [boolean, string, string] { return p; }`);
@@ -296,10 +251,10 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       const converted = transParseObj(parsed);
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].returns, "[boolean, string, string]",
-        "h2dtscpp_convert_tuple_0011 parse return type convert convert output");
+        "h2dtscpp_convert_tuple_0011_boolean_string_string parse return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "[boolean, string, string]",
-        "h2dtscpp_convert_tuple_0011 parse param type convert convert output");
+        "h2dtscpp_convert_tuple_0011_boolean_string_string parse param type convert convert output");
       const generated = generateFunctions(converted, 'h2cpp189.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -308,11 +263,20 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(generated.napiHContent.includes('h2cpp189') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0011 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0011_boolean_string_string execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_tuple_0012', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0012_BOOLEAN_STRING_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0012_BOOLEAN_STRING_STRING
+   * @tc.desc   Stability convert h2dtscpp/tuple: type-alias and global-function convert; type
+   *            [boolean, string, string]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0012_boolean_string_string', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -330,10 +294,10 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].name, 'typeFn189');
       assert.strictEqual(converted.funcs[0].returns, "[boolean, string, string]",
-        "h2dtscpp_convert_tuple_0012 type fn return type convert convert output");
+        "h2dtscpp_convert_tuple_0012_boolean_string_string type fn return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "[boolean, string, string]",
-        "h2dtscpp_convert_tuple_0012 type fn param type convert convert output");
+        "h2dtscpp_convert_tuple_0012_boolean_string_string type fn param type convert convert output");
       const generated = generateFunctions(converted, 'sample189_type.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -342,11 +306,20 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(generated.napiHContent.includes('typeFn189') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0012 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0012_boolean_string_string execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_tuple_0013', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0013_BOOLEAN_STRING_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0013_BOOLEAN_STRING_BOOLEAN
+   * @tc.desc   Stability convert h2dtscpp/tuple: class-field convert; type [boolean, string,
+   *            boolean]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0013_boolean_string_boolean', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -360,13 +333,22 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(converted.classes[0].variableList.length >= 1);
       assert.strictEqual(converted.classes[0].variableList[0].name, 'value');
       assert.strictEqual(converted.classes[0].variableList[0].type, "[boolean, string, boolean]",
-        "h2dtscpp_convert_tuple_0013 class var type convert convert output");
+        "h2dtscpp_convert_tuple_0013_boolean_string_boolean class var type convert convert output");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0013 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0013_boolean_string_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_tuple_0014', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0014_BOOLEAN_STRING_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0014_BOOLEAN_STRING_BOOLEAN
+   * @tc.desc   Stability convert h2dtscpp/tuple: global-function convert; type [boolean, string,
+   *            boolean]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0014_boolean_string_boolean', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -379,10 +361,10 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].name, 'globalRun190');
       assert.strictEqual(converted.funcs[0].returns, "[boolean, string, boolean]",
-        "h2dtscpp_convert_tuple_0014 global return type convert convert output");
+        "h2dtscpp_convert_tuple_0014_boolean_string_boolean global return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "[boolean, string, boolean]",
-        "h2dtscpp_convert_tuple_0014 global param type convert convert output");
+        "h2dtscpp_convert_tuple_0014_boolean_string_boolean global param type convert convert output");
       const generated = generateFunctions(converted, 'sample190_global.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -391,11 +373,20 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(generated.napiHContent.includes('globalRun190') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0014 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0014_boolean_string_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_tuple_0015', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0015_BOOLEAN_STRING_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0015_BOOLEAN_STRING_BOOLEAN
+   * @tc.desc   Stability convert h2dtscpp/tuple: class-method convert; type [boolean, string,
+   *            boolean]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0015_boolean_string_boolean', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -411,16 +402,25 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(converted.classes[0].functionList.length >= 1);
       assert.strictEqual(converted.classes[0].functionList[0].name, 'run');
       assert.strictEqual(converted.classes[0].functionList[0].returns, "[boolean, string, boolean]",
-        "h2dtscpp_convert_tuple_0015 class method return type convert convert output");
+        "h2dtscpp_convert_tuple_0015_boolean_string_boolean class method return type convert convert output");
       assert.ok(converted.classes[0].functionList[0].parameters.length >= 1);
       assert.strictEqual(converted.classes[0].functionList[0].parameters[0].type, "[boolean, string, boolean]",
-        "h2dtscpp_convert_tuple_0015 class method param type convert convert output");
+        "h2dtscpp_convert_tuple_0015_boolean_string_boolean class method param type convert convert output");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0015 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0015_boolean_string_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_tuple_0016', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0016_BOOLEAN_STRING_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0016_BOOLEAN_STRING_BOOLEAN
+   * @tc.desc   Stability convert h2dtscpp/tuple: parse-convert-gen pipeline; type [boolean, string,
+   *            boolean]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0016_boolean_string_boolean', () => {
     try {
       const parsed = doParseTs('h2cpp190.ts', `
         function h2cpp190(p: [boolean, string, boolean]): [boolean, string, boolean] { return p; }`);
@@ -428,10 +428,10 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       const converted = transParseObj(parsed);
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].returns, "[boolean, string, boolean]",
-        "h2dtscpp_convert_tuple_0016 parse return type convert convert output");
+        "h2dtscpp_convert_tuple_0016_boolean_string_boolean parse return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "[boolean, string, boolean]",
-        "h2dtscpp_convert_tuple_0016 parse param type convert convert output");
+        "h2dtscpp_convert_tuple_0016_boolean_string_boolean parse param type convert convert output");
       const generated = generateFunctions(converted, 'h2cpp190.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -440,11 +440,20 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(generated.napiHContent.includes('h2cpp190') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0016 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0016_boolean_string_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_tuple_0017', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0017_BOOLEAN_STRING_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0017_BOOLEAN_STRING_BOOLEAN
+   * @tc.desc   Stability convert h2dtscpp/tuple: type-alias and global-function convert; type
+   *            [boolean, string, boolean]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0017_boolean_string_boolean', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -462,10 +471,10 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].name, 'typeFn190');
       assert.strictEqual(converted.funcs[0].returns, "[boolean, string, boolean]",
-        "h2dtscpp_convert_tuple_0017 type fn return type convert convert output");
+        "h2dtscpp_convert_tuple_0017_boolean_string_boolean type fn return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "[boolean, string, boolean]",
-        "h2dtscpp_convert_tuple_0017 type fn param type convert convert output");
+        "h2dtscpp_convert_tuple_0017_boolean_string_boolean type fn param type convert convert output");
       const generated = generateFunctions(converted, 'sample190_type.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -474,11 +483,20 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(generated.napiHContent.includes('typeFn190') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0017 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0017_boolean_string_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_tuple_0018', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0018_BOOLEAN_BOOLEAN_NUMBER
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0018_BOOLEAN_BOOLEAN_NUMBER
+   * @tc.desc   Stability convert h2dtscpp/tuple: class-field convert; type [boolean, boolean,
+   *            number]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0018_boolean_boolean_number', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -492,13 +510,22 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(converted.classes[0].variableList.length >= 1);
       assert.strictEqual(converted.classes[0].variableList[0].name, 'value');
       assert.strictEqual(converted.classes[0].variableList[0].type, "[boolean, boolean, number]",
-        "h2dtscpp_convert_tuple_0018 class var type convert convert output");
+        "h2dtscpp_convert_tuple_0018_boolean_boolean_number class var type convert convert output");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0018 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0018_boolean_boolean_number execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_tuple_0019', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0019_BOOLEAN_BOOLEAN_NUMBER
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0019_BOOLEAN_BOOLEAN_NUMBER
+   * @tc.desc   Stability convert h2dtscpp/tuple: global-function convert; type [boolean, boolean,
+   *            number]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0019_boolean_boolean_number', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -511,10 +538,10 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].name, 'globalRun191');
       assert.strictEqual(converted.funcs[0].returns, "[boolean, boolean, number]",
-        "h2dtscpp_convert_tuple_0019 global return type convert convert output");
+        "h2dtscpp_convert_tuple_0019_boolean_boolean_number global return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "[boolean, boolean, number]",
-        "h2dtscpp_convert_tuple_0019 global param type convert convert output");
+        "h2dtscpp_convert_tuple_0019_boolean_boolean_number global param type convert convert output");
       const generated = generateFunctions(converted, 'sample191_global.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -523,11 +550,20 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(generated.napiHContent.includes('globalRun191') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0019 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0019_boolean_boolean_number execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_tuple_0020', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0020_BOOLEAN_BOOLEAN_NUMBER
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0020_BOOLEAN_BOOLEAN_NUMBER
+   * @tc.desc   Stability convert h2dtscpp/tuple: class-method convert; type [boolean, boolean,
+   *            number]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0020_boolean_boolean_number', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -543,16 +579,25 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(converted.classes[0].functionList.length >= 1);
       assert.strictEqual(converted.classes[0].functionList[0].name, 'run');
       assert.strictEqual(converted.classes[0].functionList[0].returns, "[boolean, boolean, number]",
-        "h2dtscpp_convert_tuple_0020 class method return type convert convert output");
+        "h2dtscpp_convert_tuple_0020_boolean_boolean_number class method return type convert convert output");
       assert.ok(converted.classes[0].functionList[0].parameters.length >= 1);
       assert.strictEqual(converted.classes[0].functionList[0].parameters[0].type, "[boolean, boolean, number]",
-        "h2dtscpp_convert_tuple_0020 class method param type convert convert output");
+        "h2dtscpp_convert_tuple_0020_boolean_boolean_number class method param type convert convert output");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0020 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0020_boolean_boolean_number execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_tuple_0021', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0021_BOOLEAN_BOOLEAN_NUMBER
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0021_BOOLEAN_BOOLEAN_NUMBER
+   * @tc.desc   Stability convert h2dtscpp/tuple: parse-convert-gen pipeline; type [boolean,
+   *            boolean, number]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0021_boolean_boolean_number', () => {
     try {
       const parsed = doParseTs('h2cpp191.ts', `
         function h2cpp191(p: [boolean, boolean, number]): [boolean, boolean, number] { return p; }`);
@@ -560,10 +605,10 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       const converted = transParseObj(parsed);
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].returns, "[boolean, boolean, number]",
-        "h2dtscpp_convert_tuple_0021 parse return type convert convert output");
+        "h2dtscpp_convert_tuple_0021_boolean_boolean_number parse return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "[boolean, boolean, number]",
-        "h2dtscpp_convert_tuple_0021 parse param type convert convert output");
+        "h2dtscpp_convert_tuple_0021_boolean_boolean_number parse param type convert convert output");
       const generated = generateFunctions(converted, 'h2cpp191.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -572,11 +617,20 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(generated.napiHContent.includes('h2cpp191') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0021 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0021_boolean_boolean_number execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_tuple_0022', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0022_BOOLEAN_BOOLEAN_NUMBER
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0022_BOOLEAN_BOOLEAN_NUMBER
+   * @tc.desc   Stability convert h2dtscpp/tuple: type-alias and global-function convert; type
+   *            [boolean, boolean, number]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0022_boolean_boolean_number', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -594,10 +648,10 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].name, 'typeFn191');
       assert.strictEqual(converted.funcs[0].returns, "[boolean, boolean, number]",
-        "h2dtscpp_convert_tuple_0022 type fn return type convert convert output");
+        "h2dtscpp_convert_tuple_0022_boolean_boolean_number type fn return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "[boolean, boolean, number]",
-        "h2dtscpp_convert_tuple_0022 type fn param type convert convert output");
+        "h2dtscpp_convert_tuple_0022_boolean_boolean_number type fn param type convert convert output");
       const generated = generateFunctions(converted, 'sample191_type.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -606,11 +660,20 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(generated.napiHContent.includes('typeFn191') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0022 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0022_boolean_boolean_number execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_tuple_0023', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0023_BOOLEAN_BOOLEAN_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0023_BOOLEAN_BOOLEAN_STRING
+   * @tc.desc   Stability convert h2dtscpp/tuple: class-field convert; type [boolean, boolean,
+   *            string]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0023_boolean_boolean_string', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -624,13 +687,22 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(converted.classes[0].variableList.length >= 1);
       assert.strictEqual(converted.classes[0].variableList[0].name, 'value');
       assert.strictEqual(converted.classes[0].variableList[0].type, "[boolean, boolean, string]",
-        "h2dtscpp_convert_tuple_0023 class var type convert convert output");
+        "h2dtscpp_convert_tuple_0023_boolean_boolean_string class var type convert convert output");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0023 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0023_boolean_boolean_string execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_tuple_0024', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0024_BOOLEAN_BOOLEAN_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0024_BOOLEAN_BOOLEAN_STRING
+   * @tc.desc   Stability convert h2dtscpp/tuple: global-function convert; type [boolean, boolean,
+   *            string]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0024_boolean_boolean_string', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -643,10 +715,10 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].name, 'globalRun192');
       assert.strictEqual(converted.funcs[0].returns, "[boolean, boolean, string]",
-        "h2dtscpp_convert_tuple_0024 global return type convert convert output");
+        "h2dtscpp_convert_tuple_0024_boolean_boolean_string global return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "[boolean, boolean, string]",
-        "h2dtscpp_convert_tuple_0024 global param type convert convert output");
+        "h2dtscpp_convert_tuple_0024_boolean_boolean_string global param type convert convert output");
       const generated = generateFunctions(converted, 'sample192_global.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -655,11 +727,20 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(generated.napiHContent.includes('globalRun192') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0024 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0024_boolean_boolean_string execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_tuple_0025', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0025_BOOLEAN_BOOLEAN_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0025_BOOLEAN_BOOLEAN_STRING
+   * @tc.desc   Stability convert h2dtscpp/tuple: class-method convert; type [boolean, boolean,
+   *            string]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0025_boolean_boolean_string', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -675,16 +756,25 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(converted.classes[0].functionList.length >= 1);
       assert.strictEqual(converted.classes[0].functionList[0].name, 'run');
       assert.strictEqual(converted.classes[0].functionList[0].returns, "[boolean, boolean, string]",
-        "h2dtscpp_convert_tuple_0025 class method return type convert convert output");
+        "h2dtscpp_convert_tuple_0025_boolean_boolean_string class method return type convert convert output");
       assert.ok(converted.classes[0].functionList[0].parameters.length >= 1);
       assert.strictEqual(converted.classes[0].functionList[0].parameters[0].type, "[boolean, boolean, string]",
-        "h2dtscpp_convert_tuple_0025 class method param type convert convert output");
+        "h2dtscpp_convert_tuple_0025_boolean_boolean_string class method param type convert convert output");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0025 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0025_boolean_boolean_string execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_tuple_0026', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0026_BOOLEAN_BOOLEAN_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0026_BOOLEAN_BOOLEAN_STRING
+   * @tc.desc   Stability convert h2dtscpp/tuple: parse-convert-gen pipeline; type [boolean,
+   *            boolean, string]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0026_boolean_boolean_string', () => {
     try {
       const parsed = doParseTs('h2cpp192.ts', `
         function h2cpp192(p: [boolean, boolean, string]): [boolean, boolean, string] { return p; }`);
@@ -692,10 +782,10 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       const converted = transParseObj(parsed);
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].returns, "[boolean, boolean, string]",
-        "h2dtscpp_convert_tuple_0026 parse return type convert convert output");
+        "h2dtscpp_convert_tuple_0026_boolean_boolean_string parse return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "[boolean, boolean, string]",
-        "h2dtscpp_convert_tuple_0026 parse param type convert convert output");
+        "h2dtscpp_convert_tuple_0026_boolean_boolean_string parse param type convert convert output");
       const generated = generateFunctions(converted, 'h2cpp192.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -704,11 +794,20 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(generated.napiHContent.includes('h2cpp192') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0026 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0026_boolean_boolean_string execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_tuple_0027', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0027_BOOLEAN_BOOLEAN_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0027_BOOLEAN_BOOLEAN_STRING
+   * @tc.desc   Stability convert h2dtscpp/tuple: type-alias and global-function convert; type
+   *            [boolean, boolean, string]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0027_boolean_boolean_string', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -726,10 +825,10 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].name, 'typeFn192');
       assert.strictEqual(converted.funcs[0].returns, "[boolean, boolean, string]",
-        "h2dtscpp_convert_tuple_0027 type fn return type convert convert output");
+        "h2dtscpp_convert_tuple_0027_boolean_boolean_string type fn return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "[boolean, boolean, string]",
-        "h2dtscpp_convert_tuple_0027 type fn param type convert convert output");
+        "h2dtscpp_convert_tuple_0027_boolean_boolean_string type fn param type convert convert output");
       const generated = generateFunctions(converted, 'sample192_type.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -738,11 +837,20 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(generated.napiHContent.includes('typeFn192') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0027 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0027_boolean_boolean_string execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_tuple_0028', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0028_BOOLEAN_BOOLEAN_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0028_BOOLEAN_BOOLEAN_BOOLEAN
+   * @tc.desc   Stability convert h2dtscpp/tuple: class-field convert; type [boolean, boolean,
+   *            boolean]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0028_boolean_boolean_boolean', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -756,13 +864,22 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(converted.classes[0].variableList.length >= 1);
       assert.strictEqual(converted.classes[0].variableList[0].name, 'value');
       assert.strictEqual(converted.classes[0].variableList[0].type, "[boolean, boolean, boolean]",
-        "h2dtscpp_convert_tuple_0028 class var type convert convert output");
+        "h2dtscpp_convert_tuple_0028_boolean_boolean_boolean class var type convert convert output");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0028 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0028_boolean_boolean_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_tuple_0029', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0029_BOOLEAN_BOOLEAN_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0029_BOOLEAN_BOOLEAN_BOOLEAN
+   * @tc.desc   Stability convert h2dtscpp/tuple: global-function convert; type [boolean, boolean,
+   *            boolean]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0029_boolean_boolean_boolean', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -775,10 +892,10 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].name, 'globalRun193');
       assert.strictEqual(converted.funcs[0].returns, "[boolean, boolean, boolean]",
-        "h2dtscpp_convert_tuple_0029 global return type convert convert output");
+        "h2dtscpp_convert_tuple_0029_boolean_boolean_boolean global return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "[boolean, boolean, boolean]",
-        "h2dtscpp_convert_tuple_0029 global param type convert convert output");
+        "h2dtscpp_convert_tuple_0029_boolean_boolean_boolean global param type convert convert output");
       const generated = generateFunctions(converted, 'sample193_global.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -787,11 +904,20 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(generated.napiHContent.includes('globalRun193') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0029 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0029_boolean_boolean_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_tuple_0030', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0030_BOOLEAN_BOOLEAN_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0030_BOOLEAN_BOOLEAN_BOOLEAN
+   * @tc.desc   Stability convert h2dtscpp/tuple: class-method convert; type [boolean, boolean,
+   *            boolean]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0030_boolean_boolean_boolean', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -807,16 +933,25 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(converted.classes[0].functionList.length >= 1);
       assert.strictEqual(converted.classes[0].functionList[0].name, 'run');
       assert.strictEqual(converted.classes[0].functionList[0].returns, "[boolean, boolean, boolean]",
-        "h2dtscpp_convert_tuple_0030 class method return type convert convert output");
+        "h2dtscpp_convert_tuple_0030_boolean_boolean_boolean class method return type convert convert output");
       assert.ok(converted.classes[0].functionList[0].parameters.length >= 1);
       assert.strictEqual(converted.classes[0].functionList[0].parameters[0].type, "[boolean, boolean, boolean]",
-        "h2dtscpp_convert_tuple_0030 class method param type convert convert output");
+        "h2dtscpp_convert_tuple_0030_boolean_boolean_boolean class method param type convert convert output");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0030 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0030_boolean_boolean_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_tuple_0031', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0031_BOOLEAN_BOOLEAN_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0031_BOOLEAN_BOOLEAN_BOOLEAN
+   * @tc.desc   Stability convert h2dtscpp/tuple: parse-convert-gen pipeline; type [boolean,
+   *            boolean, boolean]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0031_boolean_boolean_boolean', () => {
     try {
       const parsed = doParseTs('h2cpp193.ts', `
         function h2cpp193(p: [boolean, boolean, boolean]): [boolean, boolean, boolean] { return p; }`);
@@ -824,10 +959,10 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       const converted = transParseObj(parsed);
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].returns, "[boolean, boolean, boolean]",
-        "h2dtscpp_convert_tuple_0031 parse return type convert convert output");
+        "h2dtscpp_convert_tuple_0031_boolean_boolean_boolean parse return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "[boolean, boolean, boolean]",
-        "h2dtscpp_convert_tuple_0031 parse param type convert convert output");
+        "h2dtscpp_convert_tuple_0031_boolean_boolean_boolean parse param type convert convert output");
       const generated = generateFunctions(converted, 'h2cpp193.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -836,11 +971,20 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(generated.napiHContent.includes('h2cpp193') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0031 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0031_boolean_boolean_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_tuple_0032', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0032_BOOLEAN_BOOLEAN_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0032_BOOLEAN_BOOLEAN_BOOLEAN
+   * @tc.desc   Stability convert h2dtscpp/tuple: type-alias and global-function convert; type
+   *            [boolean, boolean, boolean]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0032_boolean_boolean_boolean', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -858,10 +1002,10 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].name, 'typeFn193');
       assert.strictEqual(converted.funcs[0].returns, "[boolean, boolean, boolean]",
-        "h2dtscpp_convert_tuple_0032 type fn return type convert convert output");
+        "h2dtscpp_convert_tuple_0032_boolean_boolean_boolean type fn return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "[boolean, boolean, boolean]",
-        "h2dtscpp_convert_tuple_0032 type fn param type convert convert output");
+        "h2dtscpp_convert_tuple_0032_boolean_boolean_boolean type fn param type convert convert output");
       const generated = generateFunctions(converted, 'sample193_type.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -870,11 +1014,20 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(generated.napiHContent.includes('typeFn193') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0032 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0032_boolean_boolean_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_tuple_0033', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0033_NUMBER_NUMBER_NUMBER_NUMBER
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0033_NUMBER_NUMBER_NUMBER_NUMBER
+   * @tc.desc   Stability convert h2dtscpp/tuple: class-field convert; type [number, number, number,
+   *            number]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0033_number_number_number_number', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -888,13 +1041,22 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(converted.classes[0].variableList.length >= 1);
       assert.strictEqual(converted.classes[0].variableList[0].name, 'value');
       assert.strictEqual(converted.classes[0].variableList[0].type, "[number, number, number, number]",
-        "h2dtscpp_convert_tuple_0033 class var type convert convert output");
+        "h2dtscpp_convert_tuple_0033_number_number_number_number class var type convert convert output");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0033 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0033_number_number_number_number execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_tuple_0034', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0034_NUMBER_NUMBER_NUMBER_NUMBER
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0034_NUMBER_NUMBER_NUMBER_NUMBER
+   * @tc.desc   Stability convert h2dtscpp/tuple: global-function convert; type [number, number,
+   *            number, number]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0034_number_number_number_number', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -907,10 +1069,10 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].name, 'globalRun194');
       assert.strictEqual(converted.funcs[0].returns, "[number, number, number, number]",
-        "h2dtscpp_convert_tuple_0034 global return type convert convert output");
+        "h2dtscpp_convert_tuple_0034_number_number_number_number global return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "[number, number, number, number]",
-        "h2dtscpp_convert_tuple_0034 global param type convert convert output");
+        "h2dtscpp_convert_tuple_0034_number_number_number_number global param type convert convert output");
       const generated = generateFunctions(converted, 'sample194_global.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -919,11 +1081,20 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(generated.napiHContent.includes('globalRun194') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0034 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0034_number_number_number_number execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_tuple_0035', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0035_NUMBER_NUMBER_NUMBER_NUMBER
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0035_NUMBER_NUMBER_NUMBER_NUMBER
+   * @tc.desc   Stability convert h2dtscpp/tuple: class-method convert; type [number, number,
+   *            number, number]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0035_number_number_number_number', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -939,16 +1110,25 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(converted.classes[0].functionList.length >= 1);
       assert.strictEqual(converted.classes[0].functionList[0].name, 'run');
       assert.strictEqual(converted.classes[0].functionList[0].returns, "[number, number, number, number]",
-        "h2dtscpp_convert_tuple_0035 class method return type convert convert output");
+        "h2dtscpp_convert_tuple_0035_number_number_number_number class method return type convert convert output");
       assert.ok(converted.classes[0].functionList[0].parameters.length >= 1);
       assert.strictEqual(converted.classes[0].functionList[0].parameters[0].type, "[number, number, number, number]",
-        "h2dtscpp_convert_tuple_0035 class method param type convert convert output");
+        "h2dtscpp_convert_tuple_0035_number_number_number_number class method param type convert convert output");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0035 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0035_number_number_number_number execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_tuple_0036', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0036_NUMBER_NUMBER_NUMBER_NUMBER
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0036_NUMBER_NUMBER_NUMBER_NUMBER
+   * @tc.desc   Stability convert h2dtscpp/tuple: parse-convert-gen pipeline; type [number, number,
+   *            number, number]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0036_number_number_number_number', () => {
     try {
       const parsed = doParseTs('h2cpp194.ts', `
         function h2cpp194(p: [number, number, number, number]): [number, number, number, number] { return p; }`);
@@ -956,10 +1136,10 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       const converted = transParseObj(parsed);
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].returns, "[number, number, number, number]",
-        "h2dtscpp_convert_tuple_0036 parse return type convert convert output");
+        "h2dtscpp_convert_tuple_0036_number_number_number_number parse return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "[number, number, number, number]",
-        "h2dtscpp_convert_tuple_0036 parse param type convert convert output");
+        "h2dtscpp_convert_tuple_0036_number_number_number_number parse param type convert convert output");
       const generated = generateFunctions(converted, 'h2cpp194.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -968,11 +1148,20 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(generated.napiHContent.includes('h2cpp194') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0036 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0036_number_number_number_number execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_tuple_0037', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0037_NUMBER_NUMBER_NUMBER_NUMBER
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0037_NUMBER_NUMBER_NUMBER_NUMBER
+   * @tc.desc   Stability convert h2dtscpp/tuple: type-alias and global-function convert; type
+   *            [number, number, number, number]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0037_number_number_number_number', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -990,10 +1179,10 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].name, 'typeFn194');
       assert.strictEqual(converted.funcs[0].returns, "[number, number, number, number]",
-        "h2dtscpp_convert_tuple_0037 type fn return type convert convert output");
+        "h2dtscpp_convert_tuple_0037_number_number_number_number type fn return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "[number, number, number, number]",
-        "h2dtscpp_convert_tuple_0037 type fn param type convert convert output");
+        "h2dtscpp_convert_tuple_0037_number_number_number_number type fn param type convert convert output");
       const generated = generateFunctions(converted, 'sample194_type.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -1002,11 +1191,20 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(generated.napiHContent.includes('typeFn194') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0037 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0037_number_number_number_number execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_tuple_0038', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0038_NUMBER_NUMBER_NUMBER_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0038_NUMBER_NUMBER_NUMBER_STRING
+   * @tc.desc   Stability convert h2dtscpp/tuple: class-field convert; type [number, number, number,
+   *            string]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0038_number_number_number_string', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -1020,13 +1218,22 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(converted.classes[0].variableList.length >= 1);
       assert.strictEqual(converted.classes[0].variableList[0].name, 'value');
       assert.strictEqual(converted.classes[0].variableList[0].type, "[number, number, number, string]",
-        "h2dtscpp_convert_tuple_0038 class var type convert convert output");
+        "h2dtscpp_convert_tuple_0038_number_number_number_string class var type convert convert output");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0038 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0038_number_number_number_string execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_tuple_0039', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0039_NUMBER_NUMBER_NUMBER_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0039_NUMBER_NUMBER_NUMBER_STRING
+   * @tc.desc   Stability convert h2dtscpp/tuple: global-function convert; type [number, number,
+   *            number, string]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0039_number_number_number_string', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -1039,10 +1246,10 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].name, 'globalRun195');
       assert.strictEqual(converted.funcs[0].returns, "[number, number, number, string]",
-        "h2dtscpp_convert_tuple_0039 global return type convert convert output");
+        "h2dtscpp_convert_tuple_0039_number_number_number_string global return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "[number, number, number, string]",
-        "h2dtscpp_convert_tuple_0039 global param type convert convert output");
+        "h2dtscpp_convert_tuple_0039_number_number_number_string global param type convert convert output");
       const generated = generateFunctions(converted, 'sample195_global.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -1051,11 +1258,20 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(generated.napiHContent.includes('globalRun195') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0039 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0039_number_number_number_string execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_tuple_0040', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0040_NUMBER_NUMBER_NUMBER_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0040_NUMBER_NUMBER_NUMBER_STRING
+   * @tc.desc   Stability convert h2dtscpp/tuple: class-method convert; type [number, number,
+   *            number, string]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0040_number_number_number_string', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -1071,16 +1287,25 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(converted.classes[0].functionList.length >= 1);
       assert.strictEqual(converted.classes[0].functionList[0].name, 'run');
       assert.strictEqual(converted.classes[0].functionList[0].returns, "[number, number, number, string]",
-        "h2dtscpp_convert_tuple_0040 class method return type convert convert output");
+        "h2dtscpp_convert_tuple_0040_number_number_number_string class method return type convert convert output");
       assert.ok(converted.classes[0].functionList[0].parameters.length >= 1);
       assert.strictEqual(converted.classes[0].functionList[0].parameters[0].type, "[number, number, number, string]",
-        "h2dtscpp_convert_tuple_0040 class method param type convert convert output");
+        "h2dtscpp_convert_tuple_0040_number_number_number_string class method param type convert convert output");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0040 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0040_number_number_number_string execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_tuple_0041', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0041_NUMBER_NUMBER_NUMBER_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0041_NUMBER_NUMBER_NUMBER_STRING
+   * @tc.desc   Stability convert h2dtscpp/tuple: parse-convert-gen pipeline; type [number, number,
+   *            number, string]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0041_number_number_number_string', () => {
     try {
       const parsed = doParseTs('h2cpp195.ts', `
         function h2cpp195(p: [number, number, number, string]): [number, number, number, string] { return p; }`);
@@ -1088,10 +1313,10 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       const converted = transParseObj(parsed);
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].returns, "[number, number, number, string]",
-        "h2dtscpp_convert_tuple_0041 parse return type convert convert output");
+        "h2dtscpp_convert_tuple_0041_number_number_number_string parse return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "[number, number, number, string]",
-        "h2dtscpp_convert_tuple_0041 parse param type convert convert output");
+        "h2dtscpp_convert_tuple_0041_number_number_number_string parse param type convert convert output");
       const generated = generateFunctions(converted, 'h2cpp195.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -1100,11 +1325,20 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(generated.napiHContent.includes('h2cpp195') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0041 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0041_number_number_number_string execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_tuple_0042', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0042_NUMBER_NUMBER_NUMBER_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0042_NUMBER_NUMBER_NUMBER_STRING
+   * @tc.desc   Stability convert h2dtscpp/tuple: type-alias and global-function convert; type
+   *            [number, number, number, string]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0042_number_number_number_string', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -1122,10 +1356,10 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].name, 'typeFn195');
       assert.strictEqual(converted.funcs[0].returns, "[number, number, number, string]",
-        "h2dtscpp_convert_tuple_0042 type fn return type convert convert output");
+        "h2dtscpp_convert_tuple_0042_number_number_number_string type fn return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "[number, number, number, string]",
-        "h2dtscpp_convert_tuple_0042 type fn param type convert convert output");
+        "h2dtscpp_convert_tuple_0042_number_number_number_string type fn param type convert convert output");
       const generated = generateFunctions(converted, 'sample195_type.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -1134,11 +1368,20 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(generated.napiHContent.includes('typeFn195') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0042 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0042_number_number_number_string execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_tuple_0043', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0043_NUMBER_NUMBER_NUMBER_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0043_NUMBER_NUMBER_NUMBER_BOOLEAN
+   * @tc.desc   Stability convert h2dtscpp/tuple: class-field convert; type [number, number, number,
+   *            boolean]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0043_number_number_number_boolean', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -1152,13 +1395,22 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(converted.classes[0].variableList.length >= 1);
       assert.strictEqual(converted.classes[0].variableList[0].name, 'value');
       assert.strictEqual(converted.classes[0].variableList[0].type, "[number, number, number, boolean]",
-        "h2dtscpp_convert_tuple_0043 class var type convert convert output");
+        "h2dtscpp_convert_tuple_0043_number_number_number_boolean class var type convert convert output");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0043 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0043_number_number_number_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_tuple_0044', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0044_NUMBER_NUMBER_NUMBER_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0044_NUMBER_NUMBER_NUMBER_BOOLEAN
+   * @tc.desc   Stability convert h2dtscpp/tuple: global-function convert; type [number, number,
+   *            number, boolean]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0044_number_number_number_boolean', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -1171,10 +1423,10 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].name, 'globalRun196');
       assert.strictEqual(converted.funcs[0].returns, "[number, number, number, boolean]",
-        "h2dtscpp_convert_tuple_0044 global return type convert convert output");
+        "h2dtscpp_convert_tuple_0044_number_number_number_boolean global return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "[number, number, number, boolean]",
-        "h2dtscpp_convert_tuple_0044 global param type convert convert output");
+        "h2dtscpp_convert_tuple_0044_number_number_number_boolean global param type convert convert output");
       const generated = generateFunctions(converted, 'sample196_global.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -1183,11 +1435,20 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(generated.napiHContent.includes('globalRun196') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0044 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0044_number_number_number_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_tuple_0045', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0045_NUMBER_NUMBER_NUMBER_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0045_NUMBER_NUMBER_NUMBER_BOOLEAN
+   * @tc.desc   Stability convert h2dtscpp/tuple: class-method convert; type [number, number,
+   *            number, boolean]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0045_number_number_number_boolean', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -1203,16 +1464,25 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(converted.classes[0].functionList.length >= 1);
       assert.strictEqual(converted.classes[0].functionList[0].name, 'run');
       assert.strictEqual(converted.classes[0].functionList[0].returns, "[number, number, number, boolean]",
-        "h2dtscpp_convert_tuple_0045 class method return type convert convert output");
+        "h2dtscpp_convert_tuple_0045_number_number_number_boolean class method return type convert convert output");
       assert.ok(converted.classes[0].functionList[0].parameters.length >= 1);
       assert.strictEqual(converted.classes[0].functionList[0].parameters[0].type, "[number, number, number, boolean]",
-        "h2dtscpp_convert_tuple_0045 class method param type convert convert output");
+        "h2dtscpp_convert_tuple_0045_number_number_number_boolean class method param type convert convert output");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0045 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0045_number_number_number_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_tuple_0046', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0046_NUMBER_NUMBER_NUMBER_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0046_NUMBER_NUMBER_NUMBER_BOOLEAN
+   * @tc.desc   Stability convert h2dtscpp/tuple: parse-convert-gen pipeline; type [number, number,
+   *            number, boolean]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0046_number_number_number_boolean', () => {
     try {
       const parsed = doParseTs('h2cpp196.ts', `
         function h2cpp196(p: [number, number, number, boolean]): [number, number, number, boolean] { return p; }`);
@@ -1220,10 +1490,10 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       const converted = transParseObj(parsed);
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].returns, "[number, number, number, boolean]",
-        "h2dtscpp_convert_tuple_0046 parse return type convert convert output");
+        "h2dtscpp_convert_tuple_0046_number_number_number_boolean parse return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "[number, number, number, boolean]",
-        "h2dtscpp_convert_tuple_0046 parse param type convert convert output");
+        "h2dtscpp_convert_tuple_0046_number_number_number_boolean parse param type convert convert output");
       const generated = generateFunctions(converted, 'h2cpp196.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -1232,11 +1502,20 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(generated.napiHContent.includes('h2cpp196') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0046 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0046_number_number_number_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_tuple_0047', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0047_NUMBER_NUMBER_NUMBER_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0047_NUMBER_NUMBER_NUMBER_BOOLEAN
+   * @tc.desc   Stability convert h2dtscpp/tuple: type-alias and global-function convert; type
+   *            [number, number, number, boolean]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0047_number_number_number_boolean', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -1254,10 +1533,10 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].name, 'typeFn196');
       assert.strictEqual(converted.funcs[0].returns, "[number, number, number, boolean]",
-        "h2dtscpp_convert_tuple_0047 type fn return type convert convert output");
+        "h2dtscpp_convert_tuple_0047_number_number_number_boolean type fn return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "[number, number, number, boolean]",
-        "h2dtscpp_convert_tuple_0047 type fn param type convert convert output");
+        "h2dtscpp_convert_tuple_0047_number_number_number_boolean type fn param type convert convert output");
       const generated = generateFunctions(converted, 'sample196_type.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -1266,11 +1545,20 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(generated.napiHContent.includes('typeFn196') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0047 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0047_number_number_number_boolean execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_tuple_0048', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0048_NUMBER_NUMBER_STRING_NUMBER
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0048_NUMBER_NUMBER_STRING_NUMBER
+   * @tc.desc   Stability convert h2dtscpp/tuple: class-field convert; type [number, number, string,
+   *            number]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0048_number_number_string_number', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -1284,13 +1572,22 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(converted.classes[0].variableList.length >= 1);
       assert.strictEqual(converted.classes[0].variableList[0].name, 'value');
       assert.strictEqual(converted.classes[0].variableList[0].type, "[number, number, string, number]",
-        "h2dtscpp_convert_tuple_0048 class var type convert convert output");
+        "h2dtscpp_convert_tuple_0048_number_number_string_number class var type convert convert output");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0048 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0048_number_number_string_number execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_tuple_0049', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0049_NUMBER_NUMBER_STRING_NUMBER
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0049_NUMBER_NUMBER_STRING_NUMBER
+   * @tc.desc   Stability convert h2dtscpp/tuple: global-function convert; type [number, number,
+   *            string, number]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0049_number_number_string_number', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -1303,10 +1600,10 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].name, 'globalRun197');
       assert.strictEqual(converted.funcs[0].returns, "[number, number, string, number]",
-        "h2dtscpp_convert_tuple_0049 global return type convert convert output");
+        "h2dtscpp_convert_tuple_0049_number_number_string_number global return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "[number, number, string, number]",
-        "h2dtscpp_convert_tuple_0049 global param type convert convert output");
+        "h2dtscpp_convert_tuple_0049_number_number_string_number global param type convert convert output");
       const generated = generateFunctions(converted, 'sample197_global.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -1315,11 +1612,20 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(generated.napiHContent.includes('globalRun197') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0049 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0049_number_number_string_number execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_tuple_0050', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0050_NUMBER_NUMBER_STRING_NUMBER
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0050_NUMBER_NUMBER_STRING_NUMBER
+   * @tc.desc   Stability convert h2dtscpp/tuple: class-method convert; type [number, number,
+   *            string, number]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0050_number_number_string_number', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -1335,16 +1641,25 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(converted.classes[0].functionList.length >= 1);
       assert.strictEqual(converted.classes[0].functionList[0].name, 'run');
       assert.strictEqual(converted.classes[0].functionList[0].returns, "[number, number, string, number]",
-        "h2dtscpp_convert_tuple_0050 class method return type convert convert output");
+        "h2dtscpp_convert_tuple_0050_number_number_string_number class method return type convert convert output");
       assert.ok(converted.classes[0].functionList[0].parameters.length >= 1);
       assert.strictEqual(converted.classes[0].functionList[0].parameters[0].type, "[number, number, string, number]",
-        "h2dtscpp_convert_tuple_0050 class method param type convert convert output");
+        "h2dtscpp_convert_tuple_0050_number_number_string_number class method param type convert convert output");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0050 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0050_number_number_string_number execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_tuple_0051', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0051_NUMBER_NUMBER_STRING_NUMBER
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0051_NUMBER_NUMBER_STRING_NUMBER
+   * @tc.desc   Stability convert h2dtscpp/tuple: parse-convert-gen pipeline; type [number, number,
+   *            string, number]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0051_number_number_string_number', () => {
     try {
       const parsed = doParseTs('h2cpp197.ts', `
         function h2cpp197(p: [number, number, string, number]): [number, number, string, number] { return p; }`);
@@ -1352,10 +1667,10 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       const converted = transParseObj(parsed);
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].returns, "[number, number, string, number]",
-        "h2dtscpp_convert_tuple_0051 parse return type convert convert output");
+        "h2dtscpp_convert_tuple_0051_number_number_string_number parse return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "[number, number, string, number]",
-        "h2dtscpp_convert_tuple_0051 parse param type convert convert output");
+        "h2dtscpp_convert_tuple_0051_number_number_string_number parse param type convert convert output");
       const generated = generateFunctions(converted, 'h2cpp197.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -1364,11 +1679,20 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(generated.napiHContent.includes('h2cpp197') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0051 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0051_number_number_string_number execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_tuple_0052', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0052_NUMBER_NUMBER_STRING_NUMBER
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0052_NUMBER_NUMBER_STRING_NUMBER
+   * @tc.desc   Stability convert h2dtscpp/tuple: type-alias and global-function convert; type
+   *            [number, number, string, number]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0052_number_number_string_number', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -1386,10 +1710,10 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(converted.funcs.length >= 1);
       assert.strictEqual(converted.funcs[0].name, 'typeFn197');
       assert.strictEqual(converted.funcs[0].returns, "[number, number, string, number]",
-        "h2dtscpp_convert_tuple_0052 type fn return type convert convert output");
+        "h2dtscpp_convert_tuple_0052_number_number_string_number type fn return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
       assert.strictEqual(converted.funcs[0].parameters[0].type, "[number, number, string, number]",
-        "h2dtscpp_convert_tuple_0052 type fn param type convert convert output");
+        "h2dtscpp_convert_tuple_0052_number_number_string_number type fn param type convert convert output");
       const generated = generateFunctions(converted, 'sample197_type.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
@@ -1398,11 +1722,20 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(generated.napiHContent.includes('typeFn197') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0052 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0052_number_number_string_number execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_tuple_0053', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0053_NUMBER_NUMBER_STRING_STRING
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0053_NUMBER_NUMBER_STRING_STRING
+   * @tc.desc   Stability convert h2dtscpp/tuple: class-field convert; type [number, number, string,
+   *            string]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0053_number_number_string_string', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
@@ -1416,526 +1749,137 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(converted.classes[0].variableList.length >= 1);
       assert.strictEqual(converted.classes[0].variableList[0].name, 'value');
       assert.strictEqual(converted.classes[0].variableList[0].type, "[number, number, string, string]",
-        "h2dtscpp_convert_tuple_0053 class var type convert convert output");
+        "h2dtscpp_convert_tuple_0053_number_number_string_string class var type convert convert output");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0053 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0053_number_number_string_string execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_tuple_0054', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [],
-        funcs: [{ type: 'function', name: 'globalRun198', returns: '[number, number, string, string]',
-          parameters: [{ type: '[number, number, string, string]', name: 'gparam', arraySize: 0, arraySizeList: [] }]
-        }],
-        types: []
-      });
-      assert.ok(converted.funcs.length >= 1);
-      assert.strictEqual(converted.funcs[0].name, 'globalRun198');
-      assert.strictEqual(converted.funcs[0].returns, "[number, number, string, string]",
-        "h2dtscpp_convert_tuple_0054 global return type convert convert output");
-      assert.ok(converted.funcs[0].parameters.length >= 1);
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "[number, number, string, string]",
-        "h2dtscpp_convert_tuple_0054 global param type convert convert output");
-      const generated = generateFunctions(converted, 'sample198_global.d.ts');
-      assert.ok(generated !== undefined && typeof generated === 'object');
-      assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
-        "napiH must be non-empty");
-      assert.ok(typeof generated.napiCppContent === 'string', "napiCpp must exist");
-      assert.ok(generated.napiHContent.includes('globalRun198') || generated.napiCppContent.length > 0,
-        "gen must reference function");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0054 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_tuple_0055', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [{ name: 'SampleClass198', alias: '',
-          variableList: [],
-          functionList: [{ type: 'function', name: 'run', returns: '[number, number, string, string]',
-            parameters: [{ type: '[number, number, string, string]', name: 'param', arraySize: 0, arraySizeList: [] }]
-          }]
-        }],
-        funcs: [], types: []
-      });
-      assert.ok(converted.classes.length >= 1);
-      assert.ok(converted.classes[0].functionList.length >= 1);
-      assert.strictEqual(converted.classes[0].functionList[0].name, 'run');
-      assert.strictEqual(converted.classes[0].functionList[0].returns, "[number, number, string, string]",
-        "h2dtscpp_convert_tuple_0055 class method return type convert convert output");
-      assert.ok(converted.classes[0].functionList[0].parameters.length >= 1);
-      assert.strictEqual(converted.classes[0].functionList[0].parameters[0].type, "[number, number, string, string]",
-        "h2dtscpp_convert_tuple_0055 class method param type convert convert output");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0055 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_tuple_0056', () => {
-    try {
-      const parsed = doParseTs('h2cpp198.ts', `
-        function h2cpp198(p: [number, number, string, string]): [number, number, string, string] { return p; }`);
-      assert.ok(parsed !== undefined && typeof parsed === 'object', "parse result must be object");
-      const converted = transParseObj(parsed);
-      assert.ok(converted.funcs.length >= 1);
-      assert.strictEqual(converted.funcs[0].returns, "[number, number, string, string]",
-        "h2dtscpp_convert_tuple_0056 parse return type convert convert output");
-      assert.ok(converted.funcs[0].parameters.length >= 1);
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "[number, number, string, string]",
-        "h2dtscpp_convert_tuple_0056 parse param type convert convert output");
-      const generated = generateFunctions(converted, 'h2cpp198.d.ts');
-      assert.ok(generated !== undefined && typeof generated === 'object');
-      assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
-        "napiH must be non-empty");
-      assert.ok(typeof generated.napiCppContent === 'string', "napiCpp must exist");
-      assert.ok(generated.napiHContent.includes('h2cpp198') || generated.napiCppContent.length > 0,
-        "gen must reference function");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0056 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_tuple_0057', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [],
-        funcs: [{ type: 'function', name: 'typeFn198', returns: '[number, number, string, string]',
-          parameters: [{ type: '[number, number, string, string]', name: 'p', arraySize: 0, arraySizeList: [] }]
-        }],
-        types: [{ name: 'Alias198', alias: '[number, number, string, string]', members: [], functions: [], types: []
-        }]
-      });
-      assert.ok(Array.isArray(converted.types) && converted.types.length >= 1);
-      assert.strictEqual(converted.types[0].name, 'Alias198');
-      assert.strictEqual(converted.types[0].alias, '[number, number, string, string]');
-      assert.ok(Array.isArray(converted.types[0].types));
-      assert.ok(converted.funcs.length >= 1);
-      assert.strictEqual(converted.funcs[0].name, 'typeFn198');
-      assert.strictEqual(converted.funcs[0].returns, "[number, number, string, string]",
-        "h2dtscpp_convert_tuple_0057 type fn return type convert convert output");
-      assert.ok(converted.funcs[0].parameters.length >= 1);
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "[number, number, string, string]",
-        "h2dtscpp_convert_tuple_0057 type fn param type convert convert output");
-      const generated = generateFunctions(converted, 'sample198_type.d.ts');
-      assert.ok(generated !== undefined && typeof generated === 'object');
-      assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
-        "napiH must be non-empty");
-      assert.ok(typeof generated.napiCppContent === 'string', "napiCpp must exist");
-      assert.ok(generated.napiHContent.includes('typeFn198') || generated.napiCppContent.length > 0,
-        "gen must reference function");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0057 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_tuple_0058', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [{ name: 'SampleClass199', alias: '',
-          variableList: [{ type: '[number, number, string, boolean]', name: 'value', arraySize: 0, arraySizeList: [] }],
-          functionList: []
-        }],
-        funcs: [], types: []
-      });
-      assert.ok(converted.classes.length >= 1);
-      assert.ok(converted.classes[0].variableList.length >= 1);
-      assert.strictEqual(converted.classes[0].variableList[0].name, 'value');
-      assert.strictEqual(converted.classes[0].variableList[0].type, "[number, number, string, boolean]",
-        "h2dtscpp_convert_tuple_0058 class var type convert convert output");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0058 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_tuple_0059', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [],
-        funcs: [{ type: 'function', name: 'globalRun199', returns: '[number, number, string, boolean]',
-          parameters: [{ type: '[number, number, string, boolean]', name: 'gparam', arraySize: 0, arraySizeList: [] }]
-        }],
-        types: []
-      });
-      assert.ok(converted.funcs.length >= 1);
-      assert.strictEqual(converted.funcs[0].name, 'globalRun199');
-      assert.strictEqual(converted.funcs[0].returns, "[number, number, string, boolean]",
-        "h2dtscpp_convert_tuple_0059 global return type convert convert output");
-      assert.ok(converted.funcs[0].parameters.length >= 1);
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "[number, number, string, boolean]",
-        "h2dtscpp_convert_tuple_0059 global param type convert convert output");
-      const generated = generateFunctions(converted, 'sample199_global.d.ts');
-      assert.ok(generated !== undefined && typeof generated === 'object');
-      assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
-        "napiH must be non-empty");
-      assert.ok(typeof generated.napiCppContent === 'string', "napiCpp must exist");
-      assert.ok(generated.napiHContent.includes('globalRun199') || generated.napiCppContent.length > 0,
-        "gen must reference function");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0059 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_tuple_0060', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [{ name: 'SampleClass199', alias: '',
-          variableList: [],
-          functionList: [{ type: 'function', name: 'run', returns: '[number, number, string, boolean]',
-            parameters: [{ type: '[number, number, string, boolean]', name: 'param', arraySize: 0, arraySizeList: [] }]
-          }]
-        }],
-        funcs: [], types: []
-      });
-      assert.ok(converted.classes.length >= 1);
-      assert.ok(converted.classes[0].functionList.length >= 1);
-      assert.strictEqual(converted.classes[0].functionList[0].name, 'run');
-      assert.strictEqual(converted.classes[0].functionList[0].returns, "[number, number, string, boolean]",
-        "h2dtscpp_convert_tuple_0060 class method return type convert convert output");
-      assert.ok(converted.classes[0].functionList[0].parameters.length >= 1);
-      assert.strictEqual(converted.classes[0].functionList[0].parameters[0].type, "[number, number, string, boolean]",
-        "h2dtscpp_convert_tuple_0060 class method param type convert convert output");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0060 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_tuple_0061', () => {
-    try {
-      const parsed = doParseTs('h2cpp199.ts', `
-        function h2cpp199(p: [number, number, string, boolean]): [number, number, string, boolean] { return p; }`);
-      assert.ok(parsed !== undefined && typeof parsed === 'object', "parse result must be object");
-      const converted = transParseObj(parsed);
-      assert.ok(converted.funcs.length >= 1);
-      assert.strictEqual(converted.funcs[0].returns, "[number, number, string, boolean]",
-        "h2dtscpp_convert_tuple_0061 parse return type convert convert output");
-      assert.ok(converted.funcs[0].parameters.length >= 1);
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "[number, number, string, boolean]",
-        "h2dtscpp_convert_tuple_0061 parse param type convert convert output");
-      const generated = generateFunctions(converted, 'h2cpp199.d.ts');
-      assert.ok(generated !== undefined && typeof generated === 'object');
-      assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
-        "napiH must be non-empty");
-      assert.ok(typeof generated.napiCppContent === 'string', "napiCpp must exist");
-      assert.ok(generated.napiHContent.includes('h2cpp199') || generated.napiCppContent.length > 0,
-        "gen must reference function");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0061 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_tuple_0062', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [],
-        funcs: [{ type: 'function', name: 'typeFn199', returns: '[number, number, string, boolean]',
-          parameters: [{ type: '[number, number, string, boolean]', name: 'p', arraySize: 0, arraySizeList: [] }]
-        }],
-        types: [{ name: 'Alias199', alias: '[number, number, string, boolean]', members: [], functions: [], types: []
-        }]
-      });
-      assert.ok(Array.isArray(converted.types) && converted.types.length >= 1);
-      assert.strictEqual(converted.types[0].name, 'Alias199');
-      assert.strictEqual(converted.types[0].alias, '[number, number, string, boolean]');
-      assert.ok(Array.isArray(converted.types[0].types));
-      assert.ok(converted.funcs.length >= 1);
-      assert.strictEqual(converted.funcs[0].name, 'typeFn199');
-      assert.strictEqual(converted.funcs[0].returns, "[number, number, string, boolean]",
-        "h2dtscpp_convert_tuple_0062 type fn return type convert convert output");
-      assert.ok(converted.funcs[0].parameters.length >= 1);
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "[number, number, string, boolean]",
-        "h2dtscpp_convert_tuple_0062 type fn param type convert convert output");
-      const generated = generateFunctions(converted, 'sample199_type.d.ts');
-      assert.ok(generated !== undefined && typeof generated === 'object');
-      assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
-        "napiH must be non-empty");
-      assert.ok(typeof generated.napiCppContent === 'string', "napiCpp must exist");
-      assert.ok(generated.napiHContent.includes('typeFn199') || generated.napiCppContent.length > 0,
-        "gen must reference function");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0062 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_tuple_0063', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [{ name: 'SampleClass200', alias: '',
-          variableList: [{ type: '[number, number, boolean, number]', name: 'value', arraySize: 0, arraySizeList: [] }],
-          functionList: []
-        }],
-        funcs: [], types: []
-      });
-      assert.ok(converted.classes.length >= 1);
-      assert.ok(converted.classes[0].variableList.length >= 1);
-      assert.strictEqual(converted.classes[0].variableList[0].name, 'value');
-      assert.strictEqual(converted.classes[0].variableList[0].type, "[number, number, boolean, number]",
-        "h2dtscpp_convert_tuple_0063 class var type convert convert output");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0063 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_tuple_0064', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [],
-        funcs: [{ type: 'function', name: 'globalRun200', returns: '[number, number, boolean, number]',
-          parameters: [{ type: '[number, number, boolean, number]', name: 'gparam', arraySize: 0, arraySizeList: [] }]
-        }],
-        types: []
-      });
-      assert.ok(converted.funcs.length >= 1);
-      assert.strictEqual(converted.funcs[0].name, 'globalRun200');
-      assert.strictEqual(converted.funcs[0].returns, "[number, number, boolean, number]",
-        "h2dtscpp_convert_tuple_0064 global return type convert convert output");
-      assert.ok(converted.funcs[0].parameters.length >= 1);
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "[number, number, boolean, number]",
-        "h2dtscpp_convert_tuple_0064 global param type convert convert output");
-      const generated = generateFunctions(converted, 'sample200_global.d.ts');
-      assert.ok(generated !== undefined && typeof generated === 'object');
-      assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
-        "napiH must be non-empty");
-      assert.ok(typeof generated.napiCppContent === 'string', "napiCpp must exist");
-      assert.ok(generated.napiHContent.includes('globalRun200') || generated.napiCppContent.length > 0,
-        "gen must reference function");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0064 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_tuple_0065', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [{ name: 'SampleClass200', alias: '',
-          variableList: [],
-          functionList: [{ type: 'function', name: 'run', returns: '[number, number, boolean, number]',
-            parameters: [{ type: '[number, number, boolean, number]', name: 'param', arraySize: 0, arraySizeList: [] }]
-          }]
-        }],
-        funcs: [], types: []
-      });
-      assert.ok(converted.classes.length >= 1);
-      assert.ok(converted.classes[0].functionList.length >= 1);
-      assert.strictEqual(converted.classes[0].functionList[0].name, 'run');
-      assert.strictEqual(converted.classes[0].functionList[0].returns, "[number, number, boolean, number]",
-        "h2dtscpp_convert_tuple_0065 class method return type convert convert output");
-      assert.ok(converted.classes[0].functionList[0].parameters.length >= 1);
-      assert.strictEqual(converted.classes[0].functionList[0].parameters[0].type, "[number, number, boolean, number]",
-        "h2dtscpp_convert_tuple_0065 class method param type convert convert output");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0065 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_tuple_0066', () => {
-    try {
-      const parsed = doParseTs('h2cpp200.ts', `
-        function h2cpp200(p: [number, number, boolean, number]): [number, number, boolean, number] { return p; }`);
-      assert.ok(parsed !== undefined && typeof parsed === 'object', "parse result must be object");
-      const converted = transParseObj(parsed);
-      assert.ok(converted.funcs.length >= 1);
-      assert.strictEqual(converted.funcs[0].returns, "[number, number, boolean, number]",
-        "h2dtscpp_convert_tuple_0066 parse return type convert convert output");
-      assert.ok(converted.funcs[0].parameters.length >= 1);
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "[number, number, boolean, number]",
-        "h2dtscpp_convert_tuple_0066 parse param type convert convert output");
-      const generated = generateFunctions(converted, 'h2cpp200.d.ts');
-      assert.ok(generated !== undefined && typeof generated === 'object');
-      assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
-        "napiH must be non-empty");
-      assert.ok(typeof generated.napiCppContent === 'string', "napiCpp must exist");
-      assert.ok(generated.napiHContent.includes('h2cpp200') || generated.napiCppContent.length > 0,
-        "gen must reference function");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0066 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_tuple_0067', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [],
-        funcs: [{ type: 'function', name: 'typeFn200', returns: '[number, number, boolean, number]',
-          parameters: [{ type: '[number, number, boolean, number]', name: 'p', arraySize: 0, arraySizeList: [] }]
-        }],
-        types: [{ name: 'Alias200', alias: '[number, number, boolean, number]', members: [], functions: [], types: []
-        }]
-      });
-      assert.ok(Array.isArray(converted.types) && converted.types.length >= 1);
-      assert.strictEqual(converted.types[0].name, 'Alias200');
-      assert.strictEqual(converted.types[0].alias, '[number, number, boolean, number]');
-      assert.ok(Array.isArray(converted.types[0].types));
-      assert.ok(converted.funcs.length >= 1);
-      assert.strictEqual(converted.funcs[0].name, 'typeFn200');
-      assert.strictEqual(converted.funcs[0].returns, "[number, number, boolean, number]",
-        "h2dtscpp_convert_tuple_0067 type fn return type convert convert output");
-      assert.ok(converted.funcs[0].parameters.length >= 1);
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "[number, number, boolean, number]",
-        "h2dtscpp_convert_tuple_0067 type fn param type convert convert output");
-      const generated = generateFunctions(converted, 'sample200_type.d.ts');
-      assert.ok(generated !== undefined && typeof generated === 'object');
-      assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
-        "napiH must be non-empty");
-      assert.ok(typeof generated.napiCppContent === 'string', "napiCpp must exist");
-      assert.ok(generated.napiHContent.includes('typeFn200') || generated.napiCppContent.length > 0,
-        "gen must reference function");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0067 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_tuple_0068', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [{ name: 'SampleClass201', alias: '',
-          variableList: [{ type: '[number, number, boolean, string]', name: 'value', arraySize: 0, arraySizeList: [] }],
-          functionList: []
-        }],
-        funcs: [], types: []
-      });
-      assert.ok(converted.classes.length >= 1);
-      assert.ok(converted.classes[0].variableList.length >= 1);
-      assert.strictEqual(converted.classes[0].variableList[0].name, 'value');
-      assert.strictEqual(converted.classes[0].variableList[0].type, "[number, number, boolean, string]",
-        "h2dtscpp_convert_tuple_0068 class var type convert convert output");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0068 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_tuple_0069', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [],
-        funcs: [{ type: 'function', name: 'globalRun201', returns: '[number, number, boolean, string]',
-          parameters: [{ type: '[number, number, boolean, string]', name: 'gparam', arraySize: 0, arraySizeList: [] }]
-        }],
-        types: []
-      });
-      assert.ok(converted.funcs.length >= 1);
-      assert.strictEqual(converted.funcs[0].name, 'globalRun201');
-      assert.strictEqual(converted.funcs[0].returns, "[number, number, boolean, string]",
-        "h2dtscpp_convert_tuple_0069 global return type convert convert output");
-      assert.ok(converted.funcs[0].parameters.length >= 1);
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "[number, number, boolean, string]",
-        "h2dtscpp_convert_tuple_0069 global param type convert convert output");
-      const generated = generateFunctions(converted, 'sample201_global.d.ts');
-      assert.ok(generated !== undefined && typeof generated === 'object');
-      assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
-        "napiH must be non-empty");
-      assert.ok(typeof generated.napiCppContent === 'string', "napiCpp must exist");
-      assert.ok(generated.napiHContent.includes('globalRun201') || generated.napiCppContent.length > 0,
-        "gen must reference function");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0069 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_tuple_0070', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [{ name: 'SampleClass201', alias: '',
-          variableList: [],
-          functionList: [{ type: 'function', name: 'run', returns: '[number, number, boolean, string]',
-            parameters: [{ type: '[number, number, boolean, string]', name: 'param', arraySize: 0, arraySizeList: [] }]
-          }]
-        }],
-        funcs: [], types: []
-      });
-      assert.ok(converted.classes.length >= 1);
-      assert.ok(converted.classes[0].functionList.length >= 1);
-      assert.strictEqual(converted.classes[0].functionList[0].name, 'run');
-      assert.strictEqual(converted.classes[0].functionList[0].returns, "[number, number, boolean, string]",
-        "h2dtscpp_convert_tuple_0070 class method return type convert convert output");
-      assert.ok(converted.classes[0].functionList[0].parameters.length >= 1);
-      assert.strictEqual(converted.classes[0].functionList[0].parameters[0].type, "[number, number, boolean, string]",
-        "h2dtscpp_convert_tuple_0070 class method param type convert convert output");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0070 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_tuple_0071', () => {
-    try {
-      const parsed = doParseTs('h2cpp201.ts', `
-        function h2cpp201(p: [number, number, boolean, string]): [number, number, boolean, string] { return p; }`);
-      assert.ok(parsed !== undefined && typeof parsed === 'object', "parse result must be object");
-      const converted = transParseObj(parsed);
-      assert.ok(converted.funcs.length >= 1);
-      assert.strictEqual(converted.funcs[0].returns, "[number, number, boolean, string]",
-        "h2dtscpp_convert_tuple_0071 parse return type convert convert output");
-      assert.ok(converted.funcs[0].parameters.length >= 1);
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "[number, number, boolean, string]",
-        "h2dtscpp_convert_tuple_0071 parse param type convert convert output");
-      const generated = generateFunctions(converted, 'h2cpp201.d.ts');
-      assert.ok(generated !== undefined && typeof generated === 'object');
-      assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
-        "napiH must be non-empty");
-      assert.ok(typeof generated.napiCppContent === 'string', "napiCpp must exist");
-      assert.ok(generated.napiHContent.includes('h2cpp201') || generated.napiCppContent.length > 0,
-        "gen must reference function");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0071 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_tuple_0072', () => {
-    try {
-      const converted = transParseObj({
-        enums: [], unions: [], structs: [],
-        classes: [],
-        funcs: [{ type: 'function', name: 'typeFn201', returns: '[number, number, boolean, string]',
-          parameters: [{ type: '[number, number, boolean, string]', name: 'p', arraySize: 0, arraySizeList: [] }]
-        }],
-        types: [{ name: 'Alias201', alias: '[number, number, boolean, string]', members: [], functions: [], types: []
-        }]
-      });
-      assert.ok(Array.isArray(converted.types) && converted.types.length >= 1);
-      assert.strictEqual(converted.types[0].name, 'Alias201');
-      assert.strictEqual(converted.types[0].alias, '[number, number, boolean, string]');
-      assert.ok(Array.isArray(converted.types[0].types));
-      assert.ok(converted.funcs.length >= 1);
-      assert.strictEqual(converted.funcs[0].name, 'typeFn201');
-      assert.strictEqual(converted.funcs[0].returns, "[number, number, boolean, string]",
-        "h2dtscpp_convert_tuple_0072 type fn return type convert convert output");
-      assert.ok(converted.funcs[0].parameters.length >= 1);
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "[number, number, boolean, string]",
-        "h2dtscpp_convert_tuple_0072 type fn param type convert convert output");
-      const generated = generateFunctions(converted, 'sample201_type.d.ts');
-      assert.ok(generated !== undefined && typeof generated === 'object');
-      assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
-        "napiH must be non-empty");
-      assert.ok(typeof generated.napiCppContent === 'string', "napiCpp must exist");
-      assert.ok(generated.napiHContent.includes('typeFn201') || generated.napiCppContent.length > 0,
-        "gen must reference function");
-    } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0072 execution error: ${String(err)}`);
-    }
-  });
-
-  test('h2dtscpp_convert_tuple_0073', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0001_NUMBER_NUMBER_BOOLEAN_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0001_NUMBER_NUMBER_BOOLEAN_BOOLEAN
+   * @tc.desc   Stability convert h2dtscpp/tuple: class-method convert; type [number, number,
+   *            boolean, boolean]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0001_number_number_boolean_boolean', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
         classes: [{ name: 'SampleClass202', alias: '',
-          variableList: [{ type: '[number, number, boolean, boolean]', name: 'value', arraySize: 0, arraySizeList: [] }],
+          variableList: [],
+          functionList: [{ type: 'function', name: 'run', returns: '[number, number, boolean, boolean]',
+            parameters: [{ type: '[number, number, boolean, boolean]', name: 'param', arraySize: 0, arraySizeList: [] }]
+          }]
+        }],
+        funcs: [], types: []
+      });
+      assert.ok(converted.classes.length >= 1);
+      assert.ok(converted.classes[0].functionList.length >= 1);
+      assert.strictEqual(converted.classes[0].functionList[0].name, 'run');
+      assert.strictEqual(converted.classes[0].functionList[0].returns, "[number, number, boolean, boolean]",
+        "h2dtscpp_convert_tuple_0001_number_number_boolean_boolean class method return type convert convert output");
+      assert.ok(converted.classes[0].functionList[0].parameters.length >= 1);
+      assert.strictEqual(converted.classes[0].functionList[0].parameters[0].type, "[number, number, boolean, boolean]",
+        "h2dtscpp_convert_tuple_0001_number_number_boolean_boolean class method param type convert convert output");
+    } catch (err) {
+      assert.fail(`h2dtscpp_convert_tuple_0001_number_number_boolean_boolean execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0002_NUMBER_NUMBER_BOOLEAN_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0002_NUMBER_NUMBER_BOOLEAN_BOOLEAN
+   * @tc.desc   Stability convert h2dtscpp/tuple: parse-convert-gen pipeline; type [number, number,
+   *            boolean, boolean]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0002_number_number_boolean_boolean', () => {
+    try {
+      const parsed = doParseTs('h2cpp202.ts', `
+        function h2cpp202(p: [number, number, boolean, boolean]): [number, number, boolean, boolean] { return p; }`);
+      assert.ok(parsed !== undefined && typeof parsed === 'object', "parse result must be object");
+      const converted = transParseObj(parsed);
+      assert.ok(converted.funcs.length >= 1);
+      assert.strictEqual(converted.funcs[0].returns, "[number, number, boolean, boolean]",
+        "h2dtscpp_convert_tuple_0002_number_number_boolean_boolean parse return type convert convert output");
+      assert.ok(converted.funcs[0].parameters.length >= 1);
+      assert.strictEqual(converted.funcs[0].parameters[0].type, "[number, number, boolean, boolean]",
+        "h2dtscpp_convert_tuple_0002_number_number_boolean_boolean parse param type convert convert output");
+      const generated = generateFunctions(converted, 'h2cpp202.d.ts');
+      assert.ok(generated !== undefined && typeof generated === 'object');
+      assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
+        "napiH must be non-empty");
+      assert.ok(typeof generated.napiCppContent === 'string', "napiCpp must exist");
+      assert.ok(generated.napiHContent.includes('h2cpp202') || generated.napiCppContent.length > 0,
+        "gen must reference function");
+    } catch (err) {
+      assert.fail(`h2dtscpp_convert_tuple_0002_number_number_boolean_boolean execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0003_NUMBER_NUMBER_BOOLEAN_BOOLEAN
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0003_NUMBER_NUMBER_BOOLEAN_BOOLEAN
+   * @tc.desc   Stability convert h2dtscpp/tuple: type-alias and global-function convert; type
+   *            [number, number, boolean, boolean]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0003_number_number_boolean_boolean', () => {
+    try {
+      const converted = transParseObj({
+        enums: [], unions: [], structs: [],
+        classes: [],
+        funcs: [{ type: 'function', name: 'typeFn202', returns: '[number, number, boolean, boolean]',
+          parameters: [{ type: '[number, number, boolean, boolean]', name: 'p', arraySize: 0, arraySizeList: [] }]
+        }],
+        types: [{ name: 'Alias202', alias: '[number, number, boolean, boolean]', members: [], functions: [], types: []
+        }]
+      });
+      assert.ok(Array.isArray(converted.types) && converted.types.length >= 1);
+      assert.strictEqual(converted.types[0].name, 'Alias202');
+      assert.strictEqual(converted.types[0].alias, '[number, number, boolean, boolean]');
+      assert.ok(Array.isArray(converted.types[0].types));
+      assert.ok(converted.funcs.length >= 1);
+      assert.strictEqual(converted.funcs[0].name, 'typeFn202');
+      assert.strictEqual(converted.funcs[0].returns, "[number, number, boolean, boolean]",
+        "h2dtscpp_convert_tuple_0003_number_number_boolean_boolean type fn return type convert convert output");
+      assert.ok(converted.funcs[0].parameters.length >= 1);
+      assert.strictEqual(converted.funcs[0].parameters[0].type, "[number, number, boolean, boolean]",
+        "h2dtscpp_convert_tuple_0003_number_number_boolean_boolean type fn param type convert convert output");
+      const generated = generateFunctions(converted, 'sample202_type.d.ts');
+      assert.ok(generated !== undefined && typeof generated === 'object');
+      assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
+        "napiH must be non-empty");
+      assert.ok(typeof generated.napiCppContent === 'string', "napiCpp must exist");
+      assert.ok(generated.napiHContent.includes('typeFn202') || generated.napiCppContent.length > 0,
+        "gen must reference function");
+    } catch (err) {
+      assert.fail(`h2dtscpp_convert_tuple_0003_number_number_boolean_boolean execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0004_NUMBER_STRING_NUMBER_NUMBER
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0004_NUMBER_STRING_NUMBER_NUMBER
+   * @tc.desc   Stability convert h2dtscpp/tuple: class-field convert; type [number, string, number,
+   *            number]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0004_number_string_number_number', () => {
+    try {
+      const converted = transParseObj({
+        enums: [], unions: [], structs: [],
+        classes: [{ name: 'SampleClass203', alias: '',
+          variableList: [{ type: '[number, string, number, number]', name: 'value', arraySize: 0, arraySizeList: [] }],
           functionList: []
         }],
         funcs: [], types: []
@@ -1943,39 +1887,82 @@ suite('Stability_H2DTSCPP_CONVERT_TUPLE_Part03', function() {
       assert.ok(converted.classes.length >= 1);
       assert.ok(converted.classes[0].variableList.length >= 1);
       assert.strictEqual(converted.classes[0].variableList[0].name, 'value');
-      assert.strictEqual(converted.classes[0].variableList[0].type, "[number, number, boolean, boolean]",
-        "h2dtscpp_convert_tuple_0073 class var type convert convert output");
+      assert.strictEqual(converted.classes[0].variableList[0].type, "[number, string, number, number]",
+        "h2dtscpp_convert_tuple_0004_number_string_number_number class var type convert convert output");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0073 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0004_number_string_number_number execution error: ${String(err)}`);
     }
   });
 
-  test('h2dtscpp_convert_tuple_0074', () => {
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0005_NUMBER_STRING_NUMBER_NUMBER
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0005_NUMBER_STRING_NUMBER_NUMBER
+   * @tc.desc   Stability convert h2dtscpp/tuple: global-function convert; type [number, string,
+   *            number, number]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0005_number_string_number_number', () => {
     try {
       const converted = transParseObj({
         enums: [], unions: [], structs: [],
         classes: [],
-        funcs: [{ type: 'function', name: 'globalRun202', returns: '[number, number, boolean, boolean]',
-          parameters: [{ type: '[number, number, boolean, boolean]', name: 'gparam', arraySize: 0, arraySizeList: [] }]
+        funcs: [{ type: 'function', name: 'globalRun203', returns: '[number, string, number, number]',
+          parameters: [{ type: '[number, string, number, number]', name: 'gparam', arraySize: 0, arraySizeList: [] }]
         }],
         types: []
       });
       assert.ok(converted.funcs.length >= 1);
-      assert.strictEqual(converted.funcs[0].name, 'globalRun202');
-      assert.strictEqual(converted.funcs[0].returns, "[number, number, boolean, boolean]",
-        "h2dtscpp_convert_tuple_0074 global return type convert convert output");
+      assert.strictEqual(converted.funcs[0].name, 'globalRun203');
+      assert.strictEqual(converted.funcs[0].returns, "[number, string, number, number]",
+        "h2dtscpp_convert_tuple_0005_number_string_number_number global return type convert convert output");
       assert.ok(converted.funcs[0].parameters.length >= 1);
-      assert.strictEqual(converted.funcs[0].parameters[0].type, "[number, number, boolean, boolean]",
-        "h2dtscpp_convert_tuple_0074 global param type convert convert output");
-      const generated = generateFunctions(converted, 'sample202_global.d.ts');
+      assert.strictEqual(converted.funcs[0].parameters[0].type, "[number, string, number, number]",
+        "h2dtscpp_convert_tuple_0005_number_string_number_number global param type convert convert output");
+      const generated = generateFunctions(converted, 'sample203_global.d.ts');
       assert.ok(generated !== undefined && typeof generated === 'object');
       assert.ok(typeof generated.napiHContent === 'string' && generated.napiHContent.length > 0,
         "napiH must be non-empty");
       assert.ok(typeof generated.napiCppContent === 'string', "napiCpp must exist");
-      assert.ok(generated.napiHContent.includes('globalRun202') || generated.napiCppContent.length > 0,
+      assert.ok(generated.napiHContent.includes('globalRun203') || generated.napiCppContent.length > 0,
         "gen must reference function");
     } catch (err) {
-      assert.fail(`h2dtscpp_convert_tuple_0074 execution error: ${String(err)}`);
+      assert.fail(`h2dtscpp_convert_tuple_0005_number_string_number_number execution error: ${String(err)}`);
+    }
+  });
+
+  /**
+   * @tc.name   SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0006_NUMBER_STRING_NUMBER_NUMBER
+   * @tc.number SUB_NAPI_H2DTSCPP_CONVERT_TUPLE_0006_NUMBER_STRING_NUMBER_NUMBER
+   * @tc.desc   Stability convert h2dtscpp/tuple: class-method convert; type [number, string,
+   *            number, number]; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dtscpp_convert_tuple_0006_number_string_number_number', () => {
+    try {
+      const converted = transParseObj({
+        enums: [], unions: [], structs: [],
+        classes: [{ name: 'SampleClass203', alias: '',
+          variableList: [],
+          functionList: [{ type: 'function', name: 'run', returns: '[number, string, number, number]',
+            parameters: [{ type: '[number, string, number, number]', name: 'param', arraySize: 0, arraySizeList: [] }]
+          }]
+        }],
+        funcs: [], types: []
+      });
+      assert.ok(converted.classes.length >= 1);
+      assert.ok(converted.classes[0].functionList.length >= 1);
+      assert.strictEqual(converted.classes[0].functionList[0].name, 'run');
+      assert.strictEqual(converted.classes[0].functionList[0].returns, "[number, string, number, number]",
+        "h2dtscpp_convert_tuple_0006_number_string_number_number class method return type convert convert output");
+      assert.ok(converted.classes[0].functionList[0].parameters.length >= 1);
+      assert.strictEqual(converted.classes[0].functionList[0].parameters[0].type, "[number, string, number, number]",
+        "h2dtscpp_convert_tuple_0006_number_string_number_number class method param type convert convert output");
+    } catch (err) {
+      assert.fail(`h2dtscpp_convert_tuple_0006_number_string_number_number execution error: ${String(err)}`);
     }
   });
 });
