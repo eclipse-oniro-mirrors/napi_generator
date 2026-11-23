@@ -1978,3 +1978,35 @@ suite('Parse_Struct_TS_Suite', () => {
             console.log("ping!");
           }
         }
+
+        interface Ball implements Pingable {
+          pong() {
+            console.log("pong!");
+          }
+        }
+    };`
+    let structObjList = parsets.doParseTs("test.ts", teststruct);
+    assert.strictEqual(structObjList.structs.length, 3);
+    let structItem = structObjList.structs[0];
+    assert.strictEqual(structItem.name, 'Pingable');
+    assert.strictEqual(structItem.functions.length, 1);
+    assert.strictEqual(structItem.functions[0].name, 'ping');
+    assert.strictEqual(structItem.functions[0].returns, 'void');
+    assert.strictEqual(structItem.functions[0].parameters.length, 0);
+
+    structItem = structObjList.structs[1];
+    assert.strictEqual(structItem.name, 'Sonar');
+    assert.strictEqual(structItem.functions.length, 1);
+    assert.strictEqual(structItem.functions[0].name, 'ping');
+    assert.strictEqual(structItem.functions[0].returns, 'void');
+    assert.strictEqual(structItem.functions[0].parameters.length, 0);
+
+    structItem = structObjList.structs[2];
+    assert.strictEqual(structItem.name, 'Ball');
+    assert.strictEqual(structItem.functions.length, 1);
+    assert.strictEqual(structItem.functions[0].name, 'pong');
+    assert.strictEqual(structItem.functions[0].returns, 'void');
+    assert.strictEqual(structItem.functions[0].parameters.length, 0);
+
+  });
+})
