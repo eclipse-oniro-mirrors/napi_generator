@@ -1978,3 +1978,24 @@ suite('Stability_H2DTS_CONVERT_CONTAINER_Part03', function() {
    * @tc.name   SUB_NAPI_H2DTS_CONVERT_CONTAINER_0077_STD_VALARRAY_DOUBLE_M1
    * @tc.number SUB_NAPI_H2DTS_CONVERT_CONTAINER_0077_STD_VALARRAY_DOUBLE_M1
    * @tc.desc   Stability convert h2dts/container: class-field convert; type std::valarray<double>
+   *            m1; strictEqual convert output.
+   * @tc.type   FUNCTION
+   * @tc.size   MEDIUMTEST
+   * @tc.level  LEVEL0
+   */
+  test('h2dts_convert_container_0077_std_valarray_double_m1', () => {
+    try {
+      const r = parsec.parseClass(`class SampleClass247 { public: std::valarray<double> m1 field; };`);
+      assert.ok(Array.isArray(r) && r.length >= 1);
+      assert.strictEqual(r[0].name, 'SampleClass247');
+      assert.ok(r[0].variableList && r[0].variableList.length >= 1);
+      const converted = transTskey2Ckey(r[0].variableList[0].type);
+      assert.ok(typeof converted === 'string' && converted.length > 0,
+        "h2dts_convert_container_0077_std_valarray_double_m1 class field convert output non-empty");
+      assert.strictEqual(converted, "any",
+        "h2dts_convert_container_0077_std_valarray_double_m1 class field convert output");
+    } catch (err) {
+      assert.fail(`h2dts_convert_container_0077_std_valarray_double_m1 execution error: ${err}`);
+    }
+  });
+});
