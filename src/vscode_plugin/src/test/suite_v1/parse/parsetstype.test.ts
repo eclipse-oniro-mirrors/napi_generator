@@ -1978,3 +1978,44 @@ suite('Parse_Type_TS_Suite', () => {
           ping: () => void;
         }
 
+        type Sonar = Pingable & {
+          ping: () => void;
+        }
+
+        type Ball = Pingable & {
+          pong: () => void;
+        }
+    };`
+    let typeObjList = parsets.doParseTs("test.ts", testtype);
+    assert.strictEqual(typeObjList.types?.length, 4);
+    let typeItem = typeObjList.types[0];
+    assert.strictEqual(typeItem.name, 'voidFunc');
+    assert.strictEqual(typeItem.functions.length, 0);
+    assert.strictEqual(typeItem.members.length, 0);
+
+    typeItem = typeObjList.types[1];
+    assert.strictEqual(typeItem.name, 'Pingable');
+    assert.strictEqual(typeItem.functions.length, 0);
+    assert.strictEqual(typeItem.members.length, 1);
+    assert.strictEqual(typeItem.members[0].name, 'ping');
+    assert.strictEqual(typeItem.members[0].type, '() => void');
+    assert.strictEqual(typeItem.members[0].arraySize, 0);
+
+    typeItem = typeObjList.types[2];
+    assert.strictEqual(typeItem.name, 'Sonar');
+    assert.strictEqual(typeItem.functions.length, 0);
+    assert.strictEqual(typeItem.members.length, 0);
+    // assert.strictEqual(typeItem.members[0].name, 'ping');
+    // assert.strictEqual(typeItem.members[0].type, '() => void');
+    // assert.strictEqual(typeItem.members[0].arraySize, 0);
+
+    typeItem = typeObjList.types[3];
+    assert.strictEqual(typeItem.name, 'Ball');
+    assert.strictEqual(typeItem.functions.length, 0);
+    assert.strictEqual(typeItem.members.length, 0);
+    // assert.strictEqual(typeItem.members[0].name, 'pong');
+    // assert.strictEqual(typeItem.members[0].type, '() => void');
+    // assert.strictEqual(typeItem.members[0].arraySize, 0);
+
+  });
+})
