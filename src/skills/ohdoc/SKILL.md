@@ -48,13 +48,13 @@ pip install -r src/skills/ohdoc/requirements.txt
 pip install -r src/skills/ohdoc/requirements.txt
 
 # 单个测试文件 → 一篇 docx
-python src/skills/ohdoc/ohdoc.py napi-test-doc --test-file src/vscode_plugin/src/test/suite/parse/parsec.test.ts
+python src/skills/ohdoc/ohdoc.py napi-test-doc --test-file src/vscode_plugin/src/test/suite_v1/parse/parsec.test.ts
 
 # parse 目录下全部 *.test.ts 合并为一篇（推荐）
-python src/skills/ohdoc/ohdoc.py napi-test-doc --test-dir src/vscode_plugin/src/test/suite/parse
+python src/skills/ohdoc/ohdoc.py napi-test-doc --test-dir src/vscode_plugin/src/test/suite_v1/parse
 
 # 指定输出路径
-python src/skills/ohdoc/ohdoc.py napi-test-doc --test-dir src/vscode_plugin/src/test/suite/parse --out build/napitest_all.docx
+python src/skills/ohdoc/ohdoc.py napi-test-doc --test-dir src/vscode_plugin/src/test/suite_v1/parse --out build/napitest_all.docx
 
 # 从测试用例列表 CSV 生成（与 TS 共用模板）
 python src/skills/ohdoc/ohdoc.py csv-test-doc --csv src/skills/ohdoc/template/11314873测试用例列表_20260409_193930.csv --out build/csv_cases.docx

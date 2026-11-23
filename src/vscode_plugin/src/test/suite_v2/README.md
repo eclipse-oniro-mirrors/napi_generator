@@ -1,6 +1,6 @@
 # suite_v2（B0 / B1）
 
-独立于原 `src/test/suite` 的新测试树。原 suite **不修改用例**；`suite/index` 仅加载 `suite/**`。
+独立于 `suite_v1` 的新测试树。`suite_v1` **不修改用例**；`suite_v1/index` 仅加载 `suite_v1/**`。
 
 ## B0（已落地）
 
