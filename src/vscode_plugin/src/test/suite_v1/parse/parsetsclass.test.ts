@@ -1978,3 +1978,32 @@ suite('Parse_Class_TS_Suite', () => {
         }
 
         class Sonar implements Pingable {
+          ping() {
+            console.log("ping!");
+          }
+        }
+
+        class Ball implements Pingable {
+          pong() {
+            console.log("pong!");
+          }
+        }
+    };`
+    let classObjList = parsets.doParseTs("test.ts", testclass);
+    assert.strictEqual(classObjList.classes.length, 2);
+    let classItem = classObjList.classes[0];
+    assert.strictEqual(classItem.name, 'Sonar');
+    assert.strictEqual(classItem.functionList.length, 1);
+    assert.strictEqual(classItem.functionList[0].name, 'ping');
+    assert.strictEqual(classItem.functionList[0].returns, 'void');
+    assert.strictEqual(classItem.functionList[0].parameters.length, 0);
+
+    classItem = classObjList.classes[1];
+    assert.strictEqual(classItem.name, 'Ball');
+    assert.strictEqual(classItem.functionList.length, 1);
+    assert.strictEqual(classItem.functionList[0].name, 'pong');
+    assert.strictEqual(classItem.functionList[0].returns, 'void');
+    assert.strictEqual(classItem.functionList[0].parameters.length, 0);
+
+  });
+})
