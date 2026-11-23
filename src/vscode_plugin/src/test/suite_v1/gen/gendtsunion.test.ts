@@ -1978,3 +1978,426 @@ suite('Gendts_unions_Suite', () => {
     resStr = genDts.getDtsUnions(rootInfo);
     assert.strictEqual(resStr, 'export type  = Array<number> ;\n\n');
     //3.unions.members为空
+    unions = [
+        {
+          name: 'UnionObj',
+          alias: '',
+          members: []
+        }
+    ]
+    rootInfo = {
+        parseObj: {
+          enums: [],
+          unions: unions,
+          structs: [],
+          classes: [],
+          funcs: []
+        },
+        rawFilePath: 'e:\\test.h',
+        fileName: 'test',
+    };
+    resStr = genDts.getDtsUnions(rootInfo);
+    assert.strictEqual(resStr, 'export type UnionObj = ;\n\n');
+    //4.没有unions.name属性
+    unions = [
+        {
+          alias: '',
+          members: [
+            {
+              type: 'char32_t',
+              name: 'ch32',
+              arraySize: -1,
+              arraySizeList: []
+            }
+          ]
+        }
+    ]
+    rootInfo = {
+        parseObj: {
+          enums: [],
+          unions: unions,
+          structs: [],
+          classes: [],
+          funcs: []
+        },
+        rawFilePath: 'e:\\test.h',
+        fileName: 'test',
+    };
+    resStr = genDts.getDtsUnions(rootInfo);
+    assert.strictEqual(resStr, 'export type undefined = string ;\n\n');
+    //5.没有unions.alias属性
+    unions = [
+        {
+          name: 'UnionObj',
+          alias: '',
+          members: [
+            {
+              type: 'int',
+              name: 'len',
+              arraySize: -1,
+              arraySizeList: []
+            }
+          ]
+        }
+    ]
+    rootInfo = {
+        parseObj: {
+          enums: [],
+          unions: unions,
+          structs: [],
+          classes: [],
+          funcs: []
+        },
+        rawFilePath: 'e:\\test.h',
+        fileName: 'test',
+    };
+    resStr = genDts.getDtsUnions(rootInfo);
+    assert.strictEqual(resStr, 'export type UnionObj = number ;\n\n');
+    //6.unions.name为空，unions.alias不为空
+    unions = [
+        {
+          name: '',
+          alias: 'UnionObj',
+          members: [
+            {
+              type: 'int',
+              name: 'len',
+              arraySize: -1,
+              arraySizeList: []
+            }
+          ]
+        }
+    ]
+    rootInfo = {
+        parseObj: {
+          enums: [],
+          unions: unions,
+          structs: [],
+          classes: [],
+          funcs: []
+        },
+        rawFilePath: 'e:\\test.h',
+        fileName: 'test',
+    };
+    resStr = genDts.getDtsUnions(rootInfo);
+    assert.strictEqual(resStr, 'export type  = number ;\n\n');
+    //7.type为中文
+    unions = [
+        {
+          name: '',
+          alias: 'UnionObj',
+          members: [
+            {
+              type: '绿色',
+              name: '汉字',
+              arraySize: -1,
+              arraySizeList: []
+            }
+          ]
+        }
+    ]
+    rootInfo = {
+        parseObj: {
+          enums: [],
+          unions: unions,
+          structs: [],
+          classes: [],
+          funcs: []
+        },
+        rawFilePath: 'e:\\test.h',
+        fileName: 'test',
+    };
+    resStr = genDts.getDtsUnions(rootInfo);
+    assert.strictEqual(resStr, 'export type  = any ;\n\n');
+    //8.type为乱码
+    unions = [
+        {
+          name: '',
+          alias: 'UnionObj',
+          members: [
+            {
+              type: 'uiob@#^6cja',
+              name: 'len',
+              arraySize: -1,
+              arraySizeList: []
+            }
+          ]
+        }
+    ]
+    rootInfo = {
+      parseObj: {
+        enums: [],
+        unions: unions,
+        structs: [],
+        classes: [],
+        funcs: []
+      },
+      rawFilePath: 'e:\\test.h',
+      fileName: 'test',
+    };
+    resStr = genDts.getDtsUnions(rootInfo);
+    assert.strictEqual(resStr, 'export type  = any ;\n\n');
+    //8.type为日文
+    unions = [
+      {
+        name: '',
+        alias: 'UnionObj',
+        members: [
+          {
+            type: 'あさ',
+            name: 'len',
+            arraySize: -1,
+            arraySizeList: []
+          }
+        ]
+      }
+    ]
+    rootInfo = {
+      parseObj: {
+        enums: [],
+        unions: unions,
+        structs: [],
+        classes: [],
+        funcs: []
+      },
+      rawFilePath: 'e:\\test.h',
+      fileName: 'test',
+    };
+    resStr = genDts.getDtsUnions(rootInfo);
+    assert.strictEqual(resStr, 'export type  = any ;\n\n');
+    //9.没有ParamObj.name属性
+    unions = [
+      {
+        name: 'UnionObj',
+        alias: '',
+        members: [
+          {
+            type: 'int',
+            arraySize: -1,
+            arraySizeList: []
+          }
+        ],
+      },
+    ];
+    rootInfo = {
+      parseObj: {
+        enums: [],
+        unions: unions,
+        structs: [],
+        classes: [],
+        funcs: []
+      },
+      rawFilePath: 'e:\\test.h',
+      fileName: 'test',
+    };
+    resStr = genDts.getDtsUnions(rootInfo);
+    assert.strictEqual(resStr, 'export type UnionObj = number ;\n\n');
+    //10.没有ParamObj.arraaySize属性
+    unions = [
+      {
+        name: 'UnionObj',
+        alias: '',
+        members: [
+          {
+            type: 'int',
+            name: 'UnionObj',
+            arraySizeList: []
+          }
+        ],
+      },
+    ];
+    rootInfo = {
+      parseObj: {
+        enums: [],
+        unions: unions,
+        structs: [],
+        classes: [],
+        funcs: []
+      },
+      rawFilePath: 'e:\\test.h',
+      fileName: 'test',
+    };
+    resStr = genDts.getDtsUnions(rootInfo);
+    assert.strictEqual(resStr, 'export type UnionObj = number ;\n\n');
+    //12.没有ParamObj.arraySizeList属性
+    unions = [
+      {
+        name: 'UnionObj',
+        alias: '',
+        members: [
+          {
+            type: 'int',
+            name: 'v1',
+            arraySize: -1
+          }
+        ],
+      },
+    ];
+    rootInfo = {
+      parseObj: {
+        enums: [],
+        unions: unions,
+        structs: [],
+        classes: [],
+        funcs: []
+      },
+      rawFilePath: 'e:\\test.h',
+      fileName: 'test',
+    };
+    resStr = genDts.getDtsUnions(rootInfo);
+    assert.strictEqual(resStr, 'export type UnionObj = number ;\n\n');
+    //10.type字符为特殊字符
+    unions = [
+      {
+        name: 'UnionObj',
+        alias: '',
+        members: [
+          {
+            type: '1',
+            name: 'v1',
+            arraySize: -1,
+            arraySizeList: []
+          }
+        ]
+      }
+    ]
+    rootInfo = {
+        parseObj: {
+          enums: [],
+          unions: unions,
+          structs: [],
+          classes: [],
+          funcs: []
+        },
+        rawFilePath: 'e:\\test.h',
+        fileName: 'test',
+    };
+    resStr = genDts.getDtsUnions(rootInfo);
+    assert.strictEqual(resStr, 'export type UnionObj = any ;\n\n');
+  });
+
+  //4, 测试错误情况
+  test('getDtsUnions_test_4', () => {
+    //1.传入参数null
+    let res = true;
+    try {
+      genDts.getDtsUnions(null);
+    } catch (error) {
+      res = false;
+    }
+    assert.strictEqual(res, false);
+    //2.传入参数undefined
+    let res2 = true;
+    try {
+      genDts.getDtsUnions(undefined);
+    } catch (error) {
+      res2 = false;
+    }
+    assert.strictEqual(res2, false);
+    // 3.没有parseObj.unions属性
+    let rootInfo: GenInfo = {
+    parseObj: {
+      enums: [],
+      structs: [],
+      classes: [],
+      funcs: [],
+    },
+    rawFilePath: 'e:\\test.h',
+    fileName: 'test',
+    }
+    let res3 = true;
+    try {
+      genDts.getDtsUnions(rootInfo);
+    } catch (error) {
+      res3 = false;
+    }
+    assert.strictEqual(res3, false);
+    // 4. 没有unions.members属性
+    rootInfo = {
+      parseObj: {
+      enums: [],
+      structs: [],
+      unions: [{
+        name: 'UnionObj',
+        alias: '',
+      }],
+      classes: [],
+      funcs: []
+      },
+      rawFilePath: 'e:\\test.h',
+      fileName: 'test',
+    }
+    let res4 = true;
+    try {
+    genDts.getDtsUnions(rootInfo);
+    } catch (error) {
+      res4 = false;
+    }
+    assert.strictEqual(res4, true);
+    //5. type不符合要求
+    let unions: UnionObj[] = [
+      {
+        name: '',
+        alias: 'UnionObj',
+        members: [
+          {
+            type: 1,
+            name: 'len',
+            arraySize: -1,
+            arraySizeList: []
+          }
+        ]
+      }
+    ]
+    rootInfo = {
+      parseObj: {
+        enums: [],
+        unions: unions,
+        structs: [],
+        classes: [],
+        funcs: []
+      },
+      rawFilePath: 'e:\\test.h',
+      fileName: 'test',
+    };
+    let res5 = true;
+    try {
+      genDts.getDtsUnions(rootInfo);
+    } catch (e) {
+      res5 = false;
+    }
+    assert.strictEqual(res5, true);
+    //6.没有ParamObj.type属性
+    unions = [
+      {
+        name: 'UnionObj',
+        alias: '',
+        members: [
+          {
+            name: 'v1',
+            arraySize: -1,
+            arraySizeList: []
+          }
+        ],
+      },
+    ];
+    rootInfo = {
+      parseObj: {
+        enums: [],
+        unions: unions,
+        structs: [],
+        classes: [],
+        funcs: []
+      },
+      rawFilePath: 'e:\\test.h',
+      fileName: 'test',
+    };
+    let res6 = true;
+    try {
+      genDts.getDtsUnions(rootInfo);
+    } catch (e) {
+      res6 = false;
+    }
+    assert.strictEqual(res6, true);
+  });
+})
