@@ -34,7 +34,8 @@ export function run(): Promise<void> {
 		mocha.reporter('xunit', { output: outpath });
 	}
 
-	const testsRoot = path.resolve(__dirname, '..');
+	// 仅加载 suite_v1 自身用例，避免把 suite_v2 / suite_v3 一并扫入
+	const testsRoot = path.resolve(__dirname);
 
 	return new Promise((c, e) => {
 		glob('**/**.test.js', { cwd: testsRoot }, (err, files) => {
