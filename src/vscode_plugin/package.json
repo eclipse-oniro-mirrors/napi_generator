@@ -231,8 +231,8 @@
         "suite_v3:count": "npm run compile && node ./out/test/suite_v3/tools/count_gate.js",
         "test:v3": "npm run compile && node ./out/test/runTest_v3.js",
         "test:stability": "npm run compile && node ./out/test/runStabilityTest.js",
-        "test:stability:batch": "node ./src/test/suite_v1/stability/runStabilityBatch.js",
-        "test:stability:all": "node ./src/test/suite_v1/stability/runAllStabilityBatches.js"
+        "test:stability:batch": "node ./src/test/suite/stability/runStabilityBatch.js",
+        "test:stability:all": "node ./src/test/suite/stability/runAllStabilityBatches.js"
     },
     "devDependencies": {
         "@types/glob": "^7.1.1",
