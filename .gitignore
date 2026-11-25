@@ -53,4 +53,8 @@ build
 # suite_v3 bulk
 /src/vscode_plugin/src/test/suite_v3/bulk/
 /src/vscode_plugin/out/test/suite_v3/bulk/
+# 本地技能生成物与 VS Code 插件打包产物
+*.vsix
+/src/skills/gitcode-mr/reports/
+/src/skills/ohexcel/output/
 
