@@ -232,6 +232,51 @@ def mr_url(project: str, iid: int) -> str:
     return f"https://gitcode.com/{project}/merge_requests/{iid}"
 
 
+def _commit_emails(commits: list[dict]) -> set[str]:
+    emails: set[str] = set()
+    for commit in commits:
+        for key in ("author_email", "committer_email"):
+            value = commit.get(key)
+            if value:
+                emails.add(value.lower())
+    return emails
+
+
+def _enrich_row(
+    client: Client,
+    mr: dict,
+    domains: tuple[str, ...],
+    project: str,
+    date_key: str,
+) -> dict | None:
+    iid = mr.get("iid")
+    if not iid:
+        return None
+    commits = client.mr_commits(int(iid))
+    emails = _commit_emails(commits)
+    if not any(email_matches(email, domains) for email in emails):
+        return None
+    agent_matched = sum(1 for c in commits if commit_has_agent_coauthor(c))
+    commit_total = len(commits)
+    _, nf, nc = client.count_tests(int(iid))
+    add = int(mr.get("added_lines") or 0)
+    rem = int(mr.get("removed_lines") or 0)
+    return {
+        "iid": int(iid),
+        "title": (mr.get("title") or "").replace("|", "\\|"),
+        "url": mr.get("web_url") or mr_url(project, int(iid)),
+        "state": (mr.get("state") or "").lower(),
+        "date": (mr.get(date_key) or mr.get("created_at") or "")[:10],
+        "added_lines": add,
+        "removed_lines": rem,
+        "change_lines": add + rem,
+        "new_cases": nc,
+        "new_test_files": nf,
+        "agent_matched": agent_matched,
+        "commit_total": commit_total,
+    }
+
+
 def enrich_rows(
     client: Client,
     mrs: list[dict],
@@ -242,42 +287,15 @@ def enrich_rows(
 ) -> list[dict]:
     rows: list[dict] = []
     for mr in mrs:
-        iid = mr.get("iid")
-        if not iid:
+        row = _enrich_row(client, mr, domains, project, date_key)
+        if row is None:
             continue
-        commits = client.mr_commits(int(iid))
-        emails = set()
-        for c in commits:
-            for k in ("author_email", "committer_email"):
-                v = c.get(k)
-                if v:
-                    emails.add(v.lower())
-        if not any(email_matches(e, domains) for e in emails):
-            continue
-        agent_matched = sum(1 for c in commits if commit_has_agent_coauthor(c))
-        commit_total = len(commits)
-        _, nf, nc = client.count_tests(int(iid))
-        add = int(mr.get("added_lines") or 0)
-        rem = int(mr.get("removed_lines") or 0)
-        rows.append(
-            {
-                "iid": int(iid),
-                "title": (mr.get("title") or "").replace("|", "\\|"),
-                "url": mr.get("web_url") or mr_url(project, int(iid)),
-                "state": (mr.get("state") or "").lower(),
-                "date": (mr.get(date_key) or mr.get("created_at") or "")[:10],
-                "added_lines": add,
-                "removed_lines": rem,
-                "change_lines": add + rem,
-                "new_cases": nc,
-                "new_test_files": nf,
-                "agent_matched": agent_matched,
-                "commit_total": commit_total,
-            }
-        )
+        rows.append(row)
         if progress:
             print(
-                f"  !{iid} +{add} -{rem} cases={nc} agent={agent_matched}/{commit_total}",
+                f"  !{row.get('iid')} +{row.get('added_lines')} -{row.get('removed_lines')} "
+                f"cases={row.get('new_cases')} "
+                f"agent={row.get('agent_matched')}/{row.get('commit_total')}",
                 flush=True,
             )
     return rows
@@ -327,6 +345,108 @@ def section_md(title: str, rows: list[dict], date_label: str) -> tuple[str, dict
     return "\n".join(lines), tot
 
 
+def _raw_mrs(
+    client: Client, start: datetime, end: datetime, include_open: bool
+) -> tuple[list[dict], list[dict], list[dict]]:
+    merged_raw = [
+        m for m in client.list_mrs("merged", "merged_at", start)
+        if in_range(m, "merged_at", start, end)
+    ]
+    created_raw = [
+        m for m in client.list_mrs("all", "created_at", start)
+        if in_range(m, "created_at", start, end)
+    ]
+    open_raw = client.list_mrs("opened", "created_at", None) if include_open else []
+    return merged_raw, created_raw, open_raw
+
+
+def _enrich_all(
+    client: Client,
+    project: str,
+    domains: tuple[str, ...],
+    merged_raw: list[dict],
+    created_raw: list[dict],
+    open_raw: list[dict],
+    include_open: bool,
+    progress: bool,
+) -> tuple[list[dict], list[dict], list[dict]]:
+    if progress:
+        print(f"统计 merged（{len(merged_raw)}）…", flush=True)
+    merged = enrich_rows(client, merged_raw, domains, project, "merged_at", progress)
+    if progress:
+        print(f"统计 created（{len(created_raw)}）…", flush=True)
+    created = enrich_rows(client, created_raw, domains, project, "created_at", progress)
+    open_rows: list[dict] = []
+    if include_open:
+        if progress:
+            print(f"统计 open（{len(open_raw)}）…", flush=True)
+        open_rows = enrich_rows(client, open_raw, domains, project, "created_at", progress)
+    return merged, created, open_rows
+
+
+def _report_header(
+    project: str,
+    employer: str,
+    domains: tuple[str, ...],
+    start: datetime,
+    end: datetime,
+) -> list[str]:
+    now = datetime.now(timezone(timedelta(hours=8))).strftime("%Y-%m-%d %H:%M:%S")
+    return [
+        f"# {employer} × {project} PR 统计报告",
+        "",
+        f"- **生成时间**：{now} (UTC+8)",
+        f"- **统计区间**：{start.date()} ~ {end.date()}",
+        f"- **雇主**：{employer}（邮箱域：{', '.join(domains)}）",
+        f"- **仓库**：[{project}](https://gitcode.com/{project}/pulls)",
+        "",
+        "> 用例数：MR diff 中新增的 `it(` / `test(` / `@tc` 等；测试文件匹配 `*.test.ets` 等路径。",
+        "",
+    ]
+
+
+def _empty_totals() -> dict:
+    return {
+        "add": 0,
+        "rem": 0,
+        "chg": 0,
+        "cases": 0,
+        "files": 0,
+        "count": 0,
+        "agent_any": 0,
+        "agent_all": 0,
+    }
+
+
+def _summary_lines(tm: dict, tc: dict, to_: dict, include_open: bool) -> list[str]:
+    lines = [
+        "---",
+        "## 汇总",
+        "",
+        "| 类别 | PR 数 | +行 | -行 | 变更行 | Agent任一 | Agent全部 | 新增用例 | 新测试文件 |",
+        "|------|------:|----:|----:|------:|------:|------:|--------:|----------:|",
+        f"| 合入（区间内） | {tm.get('count')} | {tm.get('add'):,} | {tm.get('rem'):,} | "
+        f"{tm.get('chg'):,} | {tm.get('agent_any')} | {tm.get('agent_all')} | "
+        f"{tm.get('cases')} | {tm.get('files')} |",
+        f"| 提交（区间内） | {tc.get('count')} | {tc.get('add'):,} | {tc.get('rem'):,} | "
+        f"{tc.get('chg'):,} | {tc.get('agent_any')} | {tc.get('agent_all')} | "
+        f"{tc.get('cases')} | {tc.get('files')} |",
+    ]
+    if include_open:
+        lines.append(
+            f"| 当前 open | {to_.get('count')} | {to_.get('add'):,} | {to_.get('rem'):,} | "
+            f"{to_.get('chg'):,} | {to_.get('agent_any')} | {to_.get('agent_all')} | "
+            f"{to_.get('cases')} | {to_.get('files')} |"
+        )
+    lines.append("")
+    lines.append(
+        "> `Agent任一` = 该 PR 中至少 1 个 commit 带 `Co-Authored-By: Agent`；"
+        "`Agent全部` = 该 PR 的**所有** commit 都带。"
+    )
+    lines.append("")
+    return lines
+
+
 def build_report(
     project: str,
     employer: str,
@@ -339,77 +459,21 @@ def build_report(
     client = Client(project)
     if progress:
         print("拉取 MR …", flush=True)
-
-    merged_raw = [m for m in client.list_mrs("merged", "merged_at", start) if in_range(m, "merged_at", start, end)]
-    created_raw = [m for m in client.list_mrs("all", "created_at", start) if in_range(m, "created_at", start, end)]
-    open_raw = client.list_mrs("opened", "created_at", None) if include_open else []
-
-    if progress:
-        print(f"统计 merged（{len(merged_raw)}）…", flush=True)
-    merged = enrich_rows(client, merged_raw, domains, project, "merged_at", progress)
-    if progress:
-        print(f"统计 created（{len(created_raw)}）…", flush=True)
-    created = enrich_rows(client, created_raw, domains, project, "created_at", progress)
-    open_rows: list[dict] = []
-    if include_open:
-        if progress:
-            print(f"统计 open（{len(open_raw)}）…", flush=True)
-        open_rows = enrich_rows(client, open_raw, domains, project, "created_at", progress)
-
-    parts = [
-        f"# {employer} × {project} PR 统计报告",
-        "",
-        f"- **生成时间**：{datetime.now(timezone(timedelta(hours=8))).strftime('%Y-%m-%d %H:%M:%S')} (UTC+8)",
-        f"- **统计区间**：{start.date()} ~ {end.date()}",
-        f"- **雇主**：{employer}（邮箱域：{', '.join(domains)}）",
-        f"- **仓库**：[{project}](https://gitcode.com/{project}/pulls)",
-        "",
-        "> 用例数：MR diff 中新增的 `it(` / `test(` / `@tc` 等；测试文件匹配 `*.test.ets` 等路径。",
-        "",
-    ]
-
+    merged_raw, created_raw, open_raw = _raw_mrs(client, start, end, include_open)
+    merged, created, open_rows = _enrich_all(
+        client, project, domains, merged_raw, created_raw, open_raw, include_open, progress
+    )
+    parts = _report_header(project, employer, domains, start, end)
     sm, tm = section_md("上周合入 PR", merged, "合入日")
     sc, tc = section_md("上周提交 PR", created, "创建日")
     parts.append(sm)
     parts.append(sc)
-
     if include_open:
         so, to_ = section_md("当前待合入 open PR（快照）", open_rows, "创建日")
         parts.append(so)
     else:
-        to_ = {
-            "add": 0,
-            "rem": 0,
-            "chg": 0,
-            "cases": 0,
-            "files": 0,
-            "count": 0,
-            "agent_any": 0,
-            "agent_all": 0,
-        }
-
-    parts.extend(
-        [
-            "---",
-            "## 汇总",
-            "",
-            "| 类别 | PR 数 | +行 | -行 | 变更行 | Agent任一 | Agent全部 | 新增用例 | 新测试文件 |",
-            "|------|------:|----:|----:|------:|------:|------:|--------:|----------:|",
-            f"| 合入（区间内） | {tm['count']} | {tm['add']:,} | {tm['rem']:,} | {tm['chg']:,} | {tm['agent_any']} | {tm['agent_all']} | {tm['cases']} | {tm['files']} |",
-            f"| 提交（区间内） | {tc['count']} | {tc['add']:,} | {tc['rem']:,} | {tc['chg']:,} | {tc['agent_any']} | {tc['agent_all']} | {tc['cases']} | {tc['files']} |",
-        ]
-    )
-    if include_open:
-        parts.append(
-            f"| 当前 open | {to_['count']} | {to_['add']:,} | {to_['rem']:,} | {to_['chg']:,} "
-            f"| {to_['agent_any']} | {to_['agent_all']} | {to_['cases']} | {to_['files']} |"
-        )
-    parts.append("")
-    parts.append(
-        "> `Agent任一` = 该 PR 中至少 1 个 commit 带 `Co-Authored-By: Agent`；"
-        "`Agent全部` = 该 PR 的**所有** commit 都带。"
-    )
-    parts.append("")
+        to_ = _empty_totals()
+    parts.extend(_summary_lines(tm, tc, to_, include_open))
     return "\n".join(parts)
 
 

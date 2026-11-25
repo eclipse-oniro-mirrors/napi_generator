@@ -402,15 +402,10 @@ def md_table(headers: list[str], rows: list[list], right_cols: set[int] | None =
     return "\n".join(lines)
 
 
-def print_report(products: list[dict], records: list[dict], meta: dict,
-                 stats: dict, args: argparse.Namespace) -> None:
-    total = len(records)
-    matched_products = {rec["product_id"]: rec["cert_type"] for rec in records}
+def _print_report_header(products: list[dict], meta: dict,
+                         stats: dict, args: argparse.Namespace, total: int,
+                         matched_products: dict) -> None:
     by_version = stats["by_version"]
-    versions = sorted(by_version, key=version_sort_key)
-    if args.sort == "count":
-        versions.sort(key=lambda v: by_version[v]["total"], reverse=True)
-
     print("=" * 72)
     print("OpenHarmony 测评结果统计")
     print(f"数据源  : {SOURCE_URL}")
@@ -418,19 +413,23 @@ def print_report(products: list[dict], records: list[dict], meta: dict,
     print(f"产品数  : {len(matched_products):,} 命中 / {len(products):,} 全量    "
           f"测评记录: {total:,}    厂商数: {int(meta.get('companyCount') or 0):,}    "
           f"版本数({args.group}): {len(by_version)}")
-    if (args.version or args.os_type or args.cert_type or args.category
-            or args.keyword or args.since or args.until):
+    has_filter = any((args.version, args.os_type, args.cert_type, args.category,
+                      args.keyword, args.since, args.until))
+    if has_filter:
         print(f"过滤条件: version={args.version or '-'} os_type={args.os_type or '-'} "
               f"cert_type={args.cert_type or '-'} category={args.category or '-'} "
               f"keyword={args.keyword or '-'} "
               f"since={args.since or '-'} until={args.until or '-'}")
     print("=" * 72)
 
-    # 1. 版本 × OS 类型
+
+def _print_version_os_table(versions: list[str], stats: dict, total: int,
+                            args: argparse.Namespace) -> None:
     print(f"\n【1】OS 版本（{'大版本' if args.group == 'major' else '原始版本'}） × OS 类型")
+    by_version = stats["by_version"]
     rows = []
     for version in versions:
-        slot = by_version[version]
+        slot = by_version.get(version) or {}
         count = slot["total"]
         rows.append([
             version,
@@ -451,11 +450,14 @@ def print_report(products: list[dict], records: list[dict], meta: dict,
     print(md_table(["版本", "轻量系统", "小型系统", "标准系统", "合计", "占比"],
                    rows, right_cols={1, 2, 3, 4, 5}))
 
-    # 2. 版本 × 评测类型
+
+def _print_version_cert_table(versions: list[str], stats: dict, total: int,
+                              args: argparse.Namespace) -> None:
     print(f"\n【2】OS 版本（{'大版本' if args.group == 'major' else '原始版本'}） × 评测类型")
+    by_version = stats["by_version"]
     rows = []
     for version in versions:
-        slot = by_version[version]
+        slot = by_version.get(version) or {}
         rows.append([
             version,
             slot["cert_type"].get("模组/开发板", 0),
@@ -473,7 +475,8 @@ def print_report(products: list[dict], records: list[dict], meta: dict,
     print(md_table(["版本", "模组/开发板", "商用设备", "发行版", "合计"],
                    rows, right_cols={1, 2, 3, 4}))
 
-    # 3. OS 类型 × 评测类型
+
+def _print_os_cert_table(stats: dict, total: int) -> None:
     print("\n【3】OS 类型 × 评测类型")
     rows = []
     for os_type in OS_TYPES:
@@ -489,7 +492,8 @@ def print_report(products: list[dict], records: list[dict], meta: dict,
     print(md_table(["OS 类型"] + CERT_TYPES + ["合计"], rows,
                    right_cols={1, 2, 3, 4}))
 
-    # 4. 评测类型汇总（产品维度，仅统计命中的产品）
+
+def _print_cert_summary(stats: dict, matched_products: dict, total: int) -> None:
     print("\n【4】评测类型汇总（产品维度）")
     product_by_cert = Counter(matched_products.values())
     product_total = len(matched_products)
@@ -509,48 +513,64 @@ def print_report(products: list[dict], records: list[dict], meta: dict,
     print(md_table(["评测类型", "产品数", "产品占比", "测评记录", "记录占比"],
                    rows, right_cols={1, 2, 3, 4}))
 
-    # 5. 商用设备大类（接口无官方品类字段，按名称 + 描述推断）
+
+def _print_category_table(stats: dict, commercial_total: int) -> None:
+    print("\n【5】商用设备大类（关键词推断，非官方字段）")
+    rows = []
+    for category, count in stats["by_category"].most_common():
+        product_count = len(stats["category_products"].get(category, ()))
+        rows.append([
+            category,
+            product_count,
+            count,
+            f"{count / commercial_total * 100:.1f}%",
+        ])
+    rows.append(["合计", stats["commercial_products"], commercial_total, "100.0%"])
+    print(md_table(["大类", "产品数", "测评记录", "占比"], rows,
+                   right_cols={1, 2, 3}))
+
+
+def _print_keyword_table(records: list[dict], keyword: str) -> None:
+    matched = group_products(records)
+    expanded = _expand_keywords(keyword)
+    print(f"\n【6】关键词匹配产品（{keyword}）")
+    if keyword.strip().startswith("@"):
+        print(f"预设展开: {', '.join(expanded)}")
+    rows = []
+    for item in matched:
+        rows.append([
+            item["name"],
+            item["company"],
+            item["category"],
+            item["device_model"] or "-",
+            "、".join(item["os_versions"]) or "-",
+            "、".join(item["approval_dates"]) or "-",
+        ])
+    print(md_table(["产品", "厂商", "大类", "型号", "OS版本", "通过日期"], rows))
+    print(f"\n匹配产品 {len(matched)} 个 / 测评记录 {len(records)} 条"
+          "（关键词按产品名+描述子串匹配，OR 关系）")
+
+
+def print_report(products: list[dict], records: list[dict], meta: dict,
+                 stats: dict, args: argparse.Namespace) -> None:
+    total = len(records)
+    matched_products = {rec["product_id"]: rec["cert_type"] for rec in records}
+    by_version = stats["by_version"]
+    versions = sorted(by_version, key=version_sort_key)
+    if args.sort == "count":
+        versions.sort(key=lambda v: by_version[v]["total"], reverse=True)
+
+    _print_report_header(products, meta, stats, args, total, matched_products)
+    _print_version_os_table(versions, stats, total, args)
+    _print_version_cert_table(versions, stats, total, args)
+    _print_os_cert_table(stats, total)
+    _print_cert_summary(stats, matched_products, total)
+
     commercial_total = sum(stats["by_category"].values())
     if commercial_total:
-        print("\n【5】商用设备大类（关键词推断，非官方字段）")
-        rows = []
-        for category, count in stats["by_category"].most_common():
-            product_count = len(stats["category_products"].get(category, ()))
-            rows.append([
-                category,
-                product_count,
-                count,
-                f"{count / commercial_total * 100:.1f}%",
-            ])
-        rows.append([
-            "合计",
-            stats["commercial_products"],
-            commercial_total,
-            "100.0%",
-        ])
-        print(md_table(["大类", "产品数", "测评记录", "占比"], rows,
-                       right_cols={1, 2, 3}))
-
-    # 6. 关键词匹配产品清单（仅 --keyword 时输出）
+        _print_category_table(stats, commercial_total)
     if args.keyword:
-        matched = group_products(records)
-        expanded = _expand_keywords(args.keyword)
-        print(f"\n【6】关键词匹配产品（{args.keyword}）")
-        if args.keyword.strip().startswith("@"):
-            print(f"预设展开: {', '.join(expanded)}")
-        rows = []
-        for item in matched:
-            rows.append([
-                item["name"],
-                item["company"],
-                item["category"],
-                item["device_model"] or "-",
-                "、".join(item["os_versions"]) or "-",
-                "、".join(item["approval_dates"]) or "-",
-            ])
-        print(md_table(["产品", "厂商", "大类", "型号", "OS版本", "通过日期"], rows))
-        print(f"\n匹配产品 {len(matched)} 个 / 测评记录 {len(records)} 条"
-              "（关键词按产品名+描述子串匹配，OR 关系）")
+        _print_keyword_table(records, args.keyword)
 
     print("\n说明：占比以测评记录数为分母；一个产品可对应多条测评记录"
           "（不同系统版本/类型），故测评记录数 ≥ 产品数。")

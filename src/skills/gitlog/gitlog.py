@@ -194,33 +194,9 @@ def cmd_dir_csv(target_dir, remote_name="origin", out_csv=None):
     return 0
 
 
-def show_help():
-    """Show help message"""
-    help_text = f"""Git Log Skill v{VERSION}
-Author: {AUTHOR}
-
-Usage: {sys.argv[0]} <command> [arguments]
-
-Commands:
-  status                    Show git status
-  log [n]                   Show last n commits (default: 10) in one-line format
-  log-oneline [n]           Show last n commits in one-line format
-  log-stat [n]              Show last n commits with file statistics
-  log-patch [n]             Show last n commits with full patch/diff
-  log-file <file>           Show git log for specific file
-  log-range <from>..<to>    Show commits between two references
-  log-first-parent <range>  Show commits with --first-parent (e.g., tag^..HEAD)
-  report [tag]              Generate git-status.txt and git-log.txt files
-  branches [--all|--local|--remote]  List and count branches with categorized statistics
-  commit [message] [--no-sign]  Auto commit and push changes with Signed-off-by (max 2000 lines per commit)
-  push [remote] [branch]    Push commits to remote repository
-  check-copyright [--fix] [--dry-run]  Check and fix copyright headers in source files (.ets, .h, .cpp, .c, .d.ts)
-  dir-csv <目录> [--remote origin] [--out 文件.csv]  导出该目录（相对仓库）下所有相关提交到 CSV；默认写入技能目录 .claude/skills/gitlog/
-  fix-signoff --email <addr> [--grep PATTERN] [--name NAME] [--range base..HEAD] [--dry-run]
-                        Batch rewrite Signed-off-by for matching commits (rewrites history)
-  help                      Show this help message
-
-Examples:
+def _help_examples() -> str:
+    """Return usage examples for the help message."""
+    return f"""Examples:
   {sys.argv[0]} status
   {sys.argv[0]} log 5
   {sys.argv[0]} log-oneline 20
@@ -252,7 +228,36 @@ Examples:
   {sys.argv[0]} dir-csv ./src --remote origin
   {sys.argv[0]} dir-csv ./mydir --out /tmp/commits.csv
 """
-    print(help_text)
+
+
+def show_help():
+    """Show help message"""
+    help_text = f"""Git Log Skill v{VERSION}
+Author: {AUTHOR}
+
+Usage: {sys.argv[0]} <command> [arguments]
+
+Commands:
+  status                    Show git status
+  log [n]                   Show last n commits (default: 10) in one-line format
+  log-oneline [n]           Show last n commits in one-line format
+  log-stat [n]              Show last n commits with file statistics
+  log-patch [n]             Show last n commits with full patch/diff
+  log-file <file>           Show git log for specific file
+  log-range <from>..<to>    Show commits between two references
+  log-first-parent <range>  Show commits with --first-parent (e.g., tag^..HEAD)
+  report [tag]              Generate git-status.txt and git-log.txt files
+  branches [--all|--local|--remote]  List and count branches with categorized statistics
+  commit [message] [--no-sign]  Auto commit and push changes with Signed-off-by (max 2000 lines per commit)
+  push [remote] [branch]    Push commits to remote repository
+  check-copyright [--fix] [--dry-run]  Check and fix copyright headers in source files (.ets, .h, .cpp, .c, .d.ts)
+  dir-csv <目录> [--remote origin] [--out 文件.csv]  导出该目录（相对仓库）下所有相关提交到 CSV；默认写入技能目录 .claude/skills/gitlog/
+  fix-signoff --email <addr> [--grep PATTERN] [--name NAME] [--range base..HEAD] [--dry-run]
+                        Batch rewrite Signed-off-by for matching commits (rewrites history)
+  help                      Show this help message
+
+"""
+    print(help_text + _help_examples())
 
 
 def cmd_status():
@@ -1842,99 +1847,93 @@ def _resolve_fix_signoff_range(grep: str | None) -> tuple[str | None, int]:
     return f"{base.strip()}..HEAD", len(shas)
 
 
-def cmd_fix_signoff(
-    email: str,
-    grep: str | None = None,
-    name: str | None = None,
-    range_str: str | None = None,
-    dry_run: bool = False,
-) -> int:
-    """Batch rewrite Signed-off-by via git filter-branch --msg-filter."""
+def _load_fix_signoff_rewriter():
+    """Load rewrite_signoff_message without relying on an assert."""
     import importlib.util
 
-    spec = importlib.util.spec_from_file_location(
-        "fix_signoff_msg", str(SCRIPT_DIR / "fix_signoff_msg.py")
-    )
+    script = SCRIPT_DIR / "fix_signoff_msg.py"
+    spec = importlib.util.spec_from_file_location("fix_signoff_msg", str(script))
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"无法加载 {script}")
     mod = importlib.util.module_from_spec(spec)
-    assert spec.loader is not None
     spec.loader.exec_module(mod)
-    rewrite_signoff_message = mod.rewrite_signoff_message
+    return mod.rewrite_signoff_message
 
-    if not email or "@" not in email:
-        print("❌ 请用 --email 指定有效邮箱")
-        return 1
-    signer_name = name or _email_local_part(email)
 
-    print("=== 批量更新 Signed-off-by ===")
-    print(f"目标: Signed-off-by: {signer_name} <{email}>")
-    if grep:
-        print(f"匹配: commit message 含「{grep}」")
-    print()
-
+def _prepare_signoff_range(
+    range_str: str | None, grep: str | None
+) -> tuple[str | None, int]:
     if not range_str:
         if not grep:
             print("❌ 未指定 --range 时需同时指定 --grep 以自动推断范围")
-            return 1
-        range_str, grep_count = _resolve_fix_signoff_range(grep)
-        if not range_str:
-            print(f"❌ 未找到匹配 --grep 的 commit")
-            return 1
-        print(f"自动范围: {range_str}（匹配 {grep_count} 条 commit）")
-    else:
-        rc, out, err = run_git_command(
-            ["rev-list", "--count", range_str],
-            capture_output=True,
-        )
-        if rc != 0:
-            print(f"❌ 无效范围 {range_str}: {err}")
-            return 1
-        grep_count = int(out.strip())
-        if grep:
-            rc2, matched, _ = run_git_command(
-                ["rev-list", range_str, f"--grep={grep}"],
-                capture_output=True,
-            )
-            match_n = len(matched.strip().splitlines()) if rc2 == 0 and matched.strip() else 0
-            print(f"范围 {range_str}: {grep_count} 条 commit，其中 {match_n} 条匹配 --grep")
-        else:
-            print(f"范围 {range_str}: {grep_count} 条 commit（全部重写 Signed-off-by）")
-
+            return None, 0
+        resolved, grep_count = _resolve_fix_signoff_range(grep)
+        if not resolved:
+            print("❌ 未找到匹配 --grep 的 commit")
+            return None, 0
+        print(f"自动范围: {resolved}（匹配 {grep_count} 条 commit）")
+        return resolved, grep_count
+    rc, out, err = run_git_command(
+        ["rev-list", "--count", range_str],
+        capture_output=True,
+    )
+    if rc != 0:
+        print(f"❌ 无效范围 {range_str}: {err}")
+        return None, 0
+    grep_count = int(out.strip())
     if grep:
-        rc, sample, _ = run_git_command(
-            ["log", "-1", f"--grep={grep}", "--format=%B"],
+        rc2, matched, _ = run_git_command(
+            ["rev-list", range_str, f"--grep={grep}"],
             capture_output=True,
         )
-        if rc == 0 and sample.strip():
-            new_msg = rewrite_signoff_message(sample, grep, signer_name, email)
-            print()
-            print("示例（最新一条匹配 commit）:")
-            print("--- before ---")
-            print(sample.rstrip())
-            print("--- after ----")
-            print(new_msg.rstrip())
+        match_n = len(matched.strip().splitlines()) if rc2 == 0 and matched.strip() else 0
+        print(f"范围 {range_str}: {grep_count} 条 commit，其中 {match_n} 条匹配 --grep")
+    else:
+        print(f"范围 {range_str}: {grep_count} 条 commit（全部重写 Signed-off-by）")
+    return range_str, grep_count
 
+
+def _print_signoff_sample(
+    rewrite_signoff_message,
+    grep: str,
+    signer_name: str,
+    email: str,
+) -> None:
+    rc, sample, _ = run_git_command(
+        ["log", "-1", f"--grep={grep}", "--format=%B"],
+        capture_output=True,
+    )
+    if rc != 0 or not sample.strip():
+        return
+    new_msg = rewrite_signoff_message(sample, grep, signer_name, email)
     print()
-    print("⚠ 将重写 git 历史；若已 push，需 force push 同步远端")
-    if dry_run:
-        print("✓ --dry-run：未执行 filter-branch")
-        return 0
+    print("示例（最新一条匹配 commit）:")
+    print("--- before ---")
+    print(sample.rstrip())
+    print("--- after ----")
+    print(new_msg.rstrip())
 
+
+def _run_signoff_filter(
+    range_str: str,
+    grep: str | None,
+    signer_name: str,
+    email: str,
+    grep_count: int,
+) -> int:
     filter_script = SCRIPT_DIR / "fix_signoff_msg.py"
     if not filter_script.is_file():
         print(f"❌ 缺少 {filter_script}")
         return 1
-
     env = os.environ.copy()
     env["FILTER_BRANCH_SQUELCH_WARNING"] = "1"
     if grep:
         env["GITLOG_FIX_SIGNOFF_GREP"] = grep
     env["GITLOG_FIX_SIGNOFF_NAME"] = signer_name
     env["GITLOG_FIX_SIGNOFF_EMAIL"] = email
-
     py = sys.executable.replace("\\", "/")
     script = str(filter_script).replace("\\", "/")
     msg_filter = f'"{py}" "{script}"'
-
     print()
     print(f"执行 filter-branch（约 {grep_count} 条 commit，请稍候）…")
     rc = subprocess.run(
@@ -1944,30 +1943,66 @@ def cmd_fix_signoff(
     ).returncode
     if rc != 0:
         print(f"❌ filter-branch 失败 (exit {rc})")
-        return rc
+    return rc
 
+
+def _verify_signoff(grep: str, signer_name: str, email: str) -> None:
+    rc2, left, _ = run_git_command(
+        ["log", "--format=%B", f"--grep={grep}", "HEAD"],
+        capture_output=True,
+    )
+    if rc2 != 0:
+        return
+    bad = [
+        block
+        for block in left.split("\n\n")
+        if block.strip()
+        and f"Signed-off-by: {signer_name} <{email}>" not in block
+    ]
+    if bad:
+        print(f"⚠ 仍有 {len(bad)} 条匹配 commit 的 Signed-off-by 未更新，请检查")
+        return
+    rc3, cnt, _ = run_git_command(
+        ["rev-list", "--count", "HEAD", f"--grep={grep}"],
+        capture_output=True,
+    )
+    n = cnt.strip() if rc3 == 0 else "?"
+    print(f"✓ 完成：{n} 条匹配 commit 的 Signed-off-by 已统一为 {email}")
+
+
+def cmd_fix_signoff(
+    email: str,
+    grep: str | None = None,
+    name: str | None = None,
+    range_str: str | None = None,
+    dry_run: bool = False,
+) -> int:
+    """Batch rewrite Signed-off-by via git filter-branch --msg-filter."""
+    rewrite_signoff_message = _load_fix_signoff_rewriter()
+    if not email or "@" not in email:
+        print("❌ 请用 --email 指定有效邮箱")
+        return 1
+    signer_name = name or _email_local_part(email)
+    print("=== 批量更新 Signed-off-by ===")
+    print(f"目标: Signed-off-by: {signer_name} <{email}>")
     if grep:
-        rc2, left, _ = run_git_command(
-            ["log", "--format=%B", f"--grep={grep}", "HEAD"],
-            capture_output=True,
-        )
-        if rc2 == 0:
-            bad = [
-                block
-                for block in left.split("\n\n")
-                if block.strip()
-                and f"Signed-off-by: {signer_name} <{email}>" not in block
-            ]
-            if bad:
-                print(f"⚠ 仍有 {len(bad)} 条匹配 commit 的 Signed-off-by 未更新，请检查")
-            else:
-                rc3, cnt, _ = run_git_command(
-                    ["rev-list", "--count", "HEAD", f"--grep={grep}"],
-                    capture_output=True,
-                )
-                n = cnt.strip() if rc3 == 0 else "?"
-                print(f"✓ 完成：{n} 条匹配 commit 的 Signed-off-by 已统一为 {email}")
-
+        print(f"匹配: commit message 含「{grep}」")
+    print()
+    range_str, grep_count = _prepare_signoff_range(range_str, grep)
+    if not range_str:
+        return 1
+    if grep:
+        _print_signoff_sample(rewrite_signoff_message, grep, signer_name, email)
+    print()
+    print("⚠ 将重写 git 历史；若已 push，需 force push 同步远端")
+    if dry_run:
+        print("✓ --dry-run：未执行 filter-branch")
+        return 0
+    rc = _run_signoff_filter(range_str, grep, signer_name, email, grep_count)
+    if rc != 0:
+        return rc
+    if grep:
+        _verify_signoff(grep, signer_name, email)
     run_git_command(["status", "-sb"], capture_output=False)
     return 0
 

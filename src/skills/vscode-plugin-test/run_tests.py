@@ -96,7 +96,7 @@ def print_tail(path: Path, lines: int = 40) -> None:
         print(line)
 
 
-def main() -> int:
+def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--suite",
@@ -110,22 +110,21 @@ def main() -> int:
     parser.add_argument("--install", action="store_true", help="node_modules 不存在时执行 npm install")
     parser.add_argument("--keep-profile", action="store_true", help="保留本次 VS Code profile 便于排查")
     parser.add_argument("--dry-run", action="store_true", help="只打印将执行的命令")
-    args = parser.parse_args()
+    return parser.parse_args()
 
-    plugin_dir = PLUGIN_DIR
+
+def resolve_suite_dirs(args: argparse.Namespace) -> str:
     suite_arg = args.suite.strip()
     if suite_arg.lower() == "all":
-        suite_dirs = ""
-    else:
-        suites = [item.strip() for item in suite_arg.split(",") if item.strip()]
-        invalid = [item for item in suites if item not in VALID_SUITES]
-        if invalid:
-            fail(f"未知 suite: {', '.join(invalid)}；可选值: {', '.join(VALID_SUITES)}")
-        suite_dirs = ",".join(suites)
+        return ""
+    suites = [item.strip() for item in suite_arg.split(",") if item.strip()]
+    invalid = [item for item in suites if item not in VALID_SUITES]
+    if invalid:
+        fail(f"未知 suite: {', '.join(invalid)}；可选值: {', '.join(VALID_SUITES)}")
+    return ",".join(suites)
 
-    check_environment(plugin_dir)
-    node, node_dir = prepare_node()
 
+def build_env(node_dir: str, suite_dirs: str, grep: str) -> dict[str, str]:
     env = {key: value for key, value in os.environ.items() if key != "ELECTRON_RUN_AS_NODE"}
     env["PATH"] = f"{node_dir}:{env.get('PATH', '')}"
     env["LANG"] = env.get("LANG", "C.UTF-8")
@@ -134,78 +133,71 @@ def main() -> int:
     env["SUITE_DIRS"] = suite_dirs
     env["SUITE_SHARDS"] = "1"
     env["SUITE_SHARD"] = "0"
-    if args.grep:
-        env["SUITE_GREP"] = args.grep
+    if grep:
+        env["SUITE_GREP"] = grep
+    return env
 
-    if not (plugin_dir / "node_modules" / ".bin" / "tsc").exists():
-        if not args.install:
-            fail(
-                "node_modules 不存在。请先执行：\n"
-                "  cd src/vscode_plugin && npm install --ignore-scripts --no-audit --no-fund\n"
-                "或给本脚本加 --install。"
-            )
-        if args.dry_run:
-            print("DRY-RUN: npm install --ignore-scripts --no-audit --no-fund")
-        else:
-            install_log = Path("/tmp/vscode-plugin-test-install.log")
-            rc = run_command(
-                ["npm", "install", "--ignore-scripts", "--no-audit", "--no-fund"],
-                plugin_dir,
-                env,
-                install_log,
-                args.timeout,
-            )
-            if rc != 0:
-                print_tail(install_log)
-                fail("npm install 失败")
 
-    if not args.no_compile:
-        compile_log = Path("/tmp/vscode-plugin-test-tsc.log")
-        compile_cmd = [str(plugin_dir / "node_modules" / ".bin" / "tsc"), "-p", "./"]
-        if args.dry_run:
-            print("DRY-RUN:", " ".join(compile_cmd))
-        else:
-            rc = run_command(compile_cmd, plugin_dir, env, compile_log, args.timeout)
-            if rc != 0:
-                print("WARNING: tsc 返回非 0（当前仓库存在历史类型错误）；检查是否仍生成 out/")
-                print_tail(compile_log, 10)
-                if not (plugin_dir / "out" / "test" / "runTest.js").exists():
-                    fail("tsc 失败且没有生成 out/test/runTest.js")
-                print("继续使用已生成的 out/ 运行测试。")
+def ensure_dependencies(plugin_dir: Path, args: argparse.Namespace, env: dict[str, str]) -> None:
+    if (plugin_dir / "node_modules" / ".bin" / "tsc").exists():
+        return
+    if not args.install:
+        fail(
+            "node_modules 不存在。请先执行：\n"
+            "  cd src/vscode_plugin && npm install --ignore-scripts --no-audit --no-fund\n"
+            "或给本脚本加 --install。"
+        )
+    if args.dry_run:
+        print("DRY-RUN: npm install --ignore-scripts --no-audit --no-fund")
+        return
+    install_log = Path("/tmp/vscode-plugin-test-install.log")
+    rc = run_command(
+        ["npm", "install", "--ignore-scripts", "--no-audit", "--no-fund"],
+        plugin_dir,
+        env,
+        install_log,
+        args.timeout,
+    )
+    if rc != 0:
+        print_tail(install_log)
+        fail("npm install 失败")
 
+
+def compile_if_needed(plugin_dir: Path, args: argparse.Namespace, env: dict[str, str]) -> None:
+    if args.no_compile:
+        return
+    compile_log = Path("/tmp/vscode-plugin-test-tsc.log")
+    compile_cmd = [str(plugin_dir / "node_modules" / ".bin" / "tsc"), "-p", "./"]
+    if args.dry_run:
+        print("DRY-RUN:", " ".join(compile_cmd))
+        return
+    rc = run_command(compile_cmd, plugin_dir, env, compile_log, args.timeout)
+    if rc == 0:
+        return
+    print("WARNING: tsc 返回非 0（当前仓库存在历史类型错误）；检查是否仍生成 out/")
+    print_tail(compile_log, 10)
+    if not (plugin_dir / "out" / "test" / "runTest.js").exists():
+        fail("tsc 失败且没有生成 out/test/runTest.js")
+    print("继续使用已生成的 out/ 运行测试。")
+
+
+def ensure_test_entrypoints(plugin_dir: Path) -> None:
     if not (plugin_dir / "out" / "test" / "runTest.js").exists():
         fail("缺少 out/test/runTest.js；请先编译")
     if not (plugin_dir / "out" / "test" / "suite" / "reporter.js").exists():
         fail("缺少 out/test/suite/reporter.js；请先编译")
 
-    stamp = time.strftime("%Y%m%d-%H%M%S")
-    result_dir = Path(args.result_dir) if args.result_dir else RESULT_ROOT / stamp
-    result_dir.mkdir(parents=True, exist_ok=True)
-    profile_dir = Path(tempfile.mkdtemp(prefix="vscode-plugin-test-profile-"))
-    env["SUITE_RESULT_DIR"] = str(result_dir)
-    env["VSCODE_TEST_USER_DATA"] = str(profile_dir / "user-data")
-    env["VSCODE_TEST_EXTENSIONS_DIR"] = str(profile_dir / "extensions")
 
-    def finish(code: int) -> int:
-        if not args.keep_profile:
-            shutil.rmtree(profile_dir, ignore_errors=True)
-        return code
+def cleanup_profile(profile_dir: Path, keep: bool) -> int:
+    if not keep:
+        shutil.rmtree(profile_dir, ignore_errors=True)
+    return 0
 
-    run_log = result_dir / "run.log"
-    cmd = [node, str(plugin_dir / "out" / "test" / "runTest.js")]
-    if shutil.which("xvfb-run"):
-        cmd = ["xvfb-run", "-a"] + cmd
 
-    if args.dry_run:
-        print("DRY-RUN:", " ".join(cmd))
-        print(f"DRY-RUN: SUITE_DIRS={suite_dirs or '<all>'} SUITE_GREP={args.grep}")
-        print(f"DRY-RUN: RESULT_DIR={result_dir}")
-        return finish(0)
-
-    rc = run_command(cmd, plugin_dir, env, run_log, args.timeout)
+def report_results(result_dir: Path, rc: int, run_log: Path, profile_dir: Path,
+                   keep_profile: bool) -> int:
     summary_path = result_dir / "summary.json"
     failures_path = result_dir / "failures.log"
-
     print(f"\nRESULT_DIR={result_dir}")
     if summary_path.exists():
         summary = json.loads(summary_path.read_text(encoding="utf-8"))
@@ -213,16 +205,50 @@ def main() -> int:
         if failures_path.exists() and failures_path.read_text(encoding="utf-8").strip():
             print(f"\n--- failures ({failures_path}) ---")
             print(failures_path.read_text(encoding="utf-8").strip())
-        if summary.get("failures", 0) > 0:
-            return finish(1)
-        if rc != 0:
+        code = 1 if summary.get("failures", 0) > 0 else 0
+        if code == 0 and rc != 0:
             print(f"WARNING: test process rc={rc}，但 summary 无失败用例", file=sys.stderr)
-        return finish(0)
-
+        cleanup_profile(profile_dir, keep_profile)
+        return code
     print_tail(run_log, 80)
-    finish(2)
+    cleanup_profile(profile_dir, keep_profile)
     fail(f"测试进程结束但未生成 {summary_path}（rc={rc}）", 2)
     return 2
+
+
+def run_suite(plugin_dir: Path, args: argparse.Namespace, env: dict[str, str],
+              suite_dirs: str, node: str) -> int:
+    stamp = time.strftime("%Y%m%d-%H%M%S")
+    result_dir = Path(args.result_dir) if args.result_dir else RESULT_ROOT / stamp
+    result_dir.mkdir(parents=True, exist_ok=True)
+    profile_dir = Path(tempfile.mkdtemp(prefix="vscode-plugin-test-profile-"))
+    env["SUITE_RESULT_DIR"] = str(result_dir)
+    env["VSCODE_TEST_USER_DATA"] = str(profile_dir / "user-data")
+    env["VSCODE_TEST_EXTENSIONS_DIR"] = str(profile_dir / "extensions")
+    run_log = result_dir / "run.log"
+    cmd = [node, str(plugin_dir / "out" / "test" / "runTest.js")]
+    if shutil.which("xvfb-run"):
+        cmd = ["xvfb-run", "-a"] + cmd
+    if args.dry_run:
+        print("DRY-RUN:", " ".join(cmd))
+        print(f"DRY-RUN: SUITE_DIRS={suite_dirs or '<all>'} SUITE_GREP={args.grep}")
+        print(f"DRY-RUN: RESULT_DIR={result_dir}")
+        return cleanup_profile(profile_dir, args.keep_profile)
+    rc = run_command(cmd, plugin_dir, env, run_log, args.timeout)
+    return report_results(result_dir, rc, run_log, profile_dir, args.keep_profile)
+
+
+def main() -> int:
+    args = parse_args()
+    plugin_dir = PLUGIN_DIR
+    suite_dirs = resolve_suite_dirs(args)
+    check_environment(plugin_dir)
+    node, node_dir = prepare_node()
+    env = build_env(node_dir, suite_dirs, args.grep)
+    ensure_dependencies(plugin_dir, args, env)
+    compile_if_needed(plugin_dir, args, env)
+    ensure_test_entrypoints(plugin_dir)
+    return run_suite(plugin_dir, args, env, suite_dirs, node)
 
 
 if __name__ == "__main__":
