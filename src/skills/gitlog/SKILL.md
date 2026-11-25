@@ -3,7 +3,7 @@ name: gitlog
 description: "Git log skill for analyzing commit history, generating git status reports, and working with git repositories. Use this when users need to view commit history, check repository status, analyze changes, or generate git-related reports."
 author: "Created by user"
 created: "2026-01-20"
-version: "1.2.0"
+version: "1.1.1"
 ---
 
 # Git Log Skill
@@ -95,6 +95,8 @@ You can use the skill with specific commands and operations:
 - `report [tag]` - Generate git-status.txt and git-log.txt files
 - `branches [--all|--local|--remote]` - List and count branches with categorized statistics
 - `dir-csv <dir> [--remote origin] [--out file.csv]` - Export commit history for that path to CSV (default under `.claude/skills/gitlog/`)
+- `commit [message] [--no-sign]` - Auto commit (and push) changed files; **default adds `-s` / Signed-off-by** (see section below)
+- `fix-signoff --email <addr> [--grep PATTERN] [--name NAME] [--range base..HEAD] [--dry-run]` - Batch rewrite **Signed-off-by** for matching commits (`git filter-branch`)
 - `help` - Show help message
 
 **Examples for range queries:**
@@ -119,6 +121,39 @@ python3 .claude/skills/gitlog/gitlog.py branches --local
 # List remote branches only (with category breakdown)
 python3 .claude/skills/gitlog/gitlog.py branches --remote
 ```
+
+## 在本仓库代用户提交（Agent / Cursor 必读）
+
+本技能 **`commit`** 子命令在代码中**默认等价于 `git commit -s`**（自动追加 **Signed-off-by**，与 `user.name` / `user.email` 一致）。**代用户执行提交时必须先读本节**，勿裸用不带签名的 `git commit`。
+
+| 场景 | 做法 |
+|------|------|
+| **自动处理工作区全部改动并提交（含行数拆分逻辑），随后可能 push** | 在仓库根：`python src/skills/gitlog/gitlog.py commit "提交说明"`。不需要签名时用：`… commit --no-sign "说明"`。 |
+| **只提交已 `git add` 的部分文件** | 先 `git add <路径…>`，再：**`git commit -s -m "说明"`**（**禁止省略 `-s`**）。与 `--signoff` 等价。 |
+
+路径以 **`napi_generator` 仓库根**为准：`src/skills/gitlog/gitlog.py`。
+
+### 批量更新历史 commit 的 Signed-off-by
+
+大批量提交（如 suite_v3 bulk）若需统一 Signed-off-by，用 **`fix-signoff`**（内部 `git filter-branch`，**会重写历史**）：
+
+```bash
+# 按 commit message 匹配，自动推断范围（最旧匹配 commit 的 parent .. HEAD）
+python src/skills/gitlog/gitlog.py fix-signoff \
+  --grep "feat(test): add suite_v3 bulk ctr_set/uset" \
+  --email bayanxing@kaihong.com
+
+# 预览，不执行
+python src/skills/gitlog/gitlog.py fix-signoff \
+  --grep "feat(test): add suite_v3 bulk ctr_set/uset" \
+  --email bayanxing@kaihong.com --dry-run
+
+# 手动指定范围
+python src/skills/gitlog/gitlog.py fix-signoff \
+  --email user@example.com --range abc123..HEAD
+```
+
+已 push 的 commit 重写后需 **force push**；Author/Committer 不变，仅改 message 中的 Signed-off-by。
 
 ## Common Git Commands
 

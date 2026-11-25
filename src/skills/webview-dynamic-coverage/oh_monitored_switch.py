@@ -147,11 +147,10 @@ _EXACT_HANDLERS: dict[str, Handler] = {
             "true",
         ),
         "WebAttribute.onMonitoredBlankScreen#M": lambda a, e, _c, _d: _emit_only(a, e, "true"),
-    }
+}
 
 
 def switch_case_for_task(t: dict, eid: int, cp_action) -> str:
-    _register_handlers()
     cp = t.get("coverage_point_id", "")
     dim = t.get("dimension", "")
     action = cp_action(cp)

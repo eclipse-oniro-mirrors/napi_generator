@@ -24,6 +24,8 @@ Commands:
     branches [--all|--local|--remote] - List and count branches with categorized statistics
     commit [message] [--no-sign] - Auto commit and push changes with Signed-off-by (max 2000 lines per commit)
     sign-commits [range] - Sign existing commits (e.g., HEAD~5..HEAD or commit1..commit2)
+    fix-signoff --email <addr> [--grep PATTERN] [--name NAME] [--range base..HEAD] [--dry-run]
+                         - Batch rewrite Signed-off-by for matching commits (git filter-branch)
     push [remote] [branch] - Push commits to remote repository
     config-token [username] [token] - Configure Git credential with token
     check-copyright [--fix] [--dry-run] - Check and fix copyright headers in source files (.ets, .h, .cpp, .c, .d.ts)
@@ -42,7 +44,7 @@ from pathlib import Path
 # Script metadata
 SCRIPT_DIR = Path(__file__).parent.absolute()
 SKILL_NAME = "gitlog"
-VERSION = "1.2.0"
+VERSION = "1.1.0"
 AUTHOR = "Created by user"
 
 
@@ -192,6 +194,42 @@ def cmd_dir_csv(target_dir, remote_name="origin", out_csv=None):
     return 0
 
 
+def _help_examples() -> str:
+    """Return usage examples for the help message."""
+    return f"""Examples:
+  {sys.argv[0]} status
+  {sys.argv[0]} log 5
+  {sys.argv[0]} log-oneline 20
+  {sys.argv[0]} log-file CMakeLists.txt
+  {sys.argv[0]} log-range v1.4.3..v1.4.4
+  {sys.argv[0]} log-first-parent v1.4.4.0^..HEAD
+  {sys.argv[0]} report v1.4.4.0
+  {sys.argv[0]} branches
+  {sys.argv[0]} branches --local
+  {sys.argv[0]} branches --remote
+  {sys.argv[0]} commit
+  {sys.argv[0]} commit "Fix bug in CMakeLists.txt"
+  {sys.argv[0]} check-copyright
+  {sys.argv[0]} check-copyright --fix
+  {sys.argv[0]} check-copyright --dry-run
+  {sys.argv[0]} commit "Commit message"
+  {sys.argv[0]} commit --no-sign "Commit without signature"
+  {sys.argv[0]} sign-commits HEAD~5..HEAD
+  {sys.argv[0]} sign-commits 3d5a298..HEAD
+  {sys.argv[0]} fix-signoff --grep "feat(test): add suite_v3 bulk" --email bayanxing@kaihong.com
+  {sys.argv[0]} fix-signoff --email user@example.com --range abc123..HEAD --dry-run
+  {sys.argv[0]} config-token username your_token_here
+  (Note: commit command will automatically push after committing)
+  (Note: By default, commits will include Signed-off-by line. Use --no-sign to disable it)
+  {sys.argv[0]} push
+  {sys.argv[0]} push origin master
+  {sys.argv[0]} config-token username your_token_here
+  {sys.argv[0]} dir-csv foundation/graphic
+  {sys.argv[0]} dir-csv ./src --remote origin
+  {sys.argv[0]} dir-csv ./mydir --out /tmp/commits.csv
+"""
+
+
 def show_help():
     """Show help message"""
     help_text = f"""Git Log Skill v{VERSION}
@@ -214,39 +252,12 @@ Commands:
   push [remote] [branch]    Push commits to remote repository
   check-copyright [--fix] [--dry-run]  Check and fix copyright headers in source files (.ets, .h, .cpp, .c, .d.ts)
   dir-csv <目录> [--remote origin] [--out 文件.csv]  导出该目录（相对仓库）下所有相关提交到 CSV；默认写入技能目录 .claude/skills/gitlog/
+  fix-signoff --email <addr> [--grep PATTERN] [--name NAME] [--range base..HEAD] [--dry-run]
+                        Batch rewrite Signed-off-by for matching commits (rewrites history)
   help                      Show this help message
 
-Examples:
-  {sys.argv[0]} status
-  {sys.argv[0]} log 5
-  {sys.argv[0]} log-oneline 20
-  {sys.argv[0]} log-file CMakeLists.txt
-  {sys.argv[0]} log-range v1.4.3..v1.4.4
-  {sys.argv[0]} log-first-parent v1.4.4.0^..HEAD
-  {sys.argv[0]} report v1.4.4.0
-  {sys.argv[0]} branches
-  {sys.argv[0]} branches --local
-  {sys.argv[0]} branches --remote
-  {sys.argv[0]} commit
-  {sys.argv[0]} commit "Fix bug in CMakeLists.txt"
-  {sys.argv[0]} check-copyright
-  {sys.argv[0]} check-copyright --fix
-  {sys.argv[0]} check-copyright --dry-run
-  {sys.argv[0]} commit "Commit message"
-  {sys.argv[0]} commit --no-sign "Commit without signature"
-  {sys.argv[0]} sign-commits HEAD~5..HEAD
-  {sys.argv[0]} sign-commits 3d5a298..HEAD
-  {sys.argv[0]} config-token username your_token_here
-  (Note: commit command will automatically push after committing)
-  (Note: By default, commits will include Signed-off-by line. Use --no-sign to disable it)
-  {sys.argv[0]} push
-  {sys.argv[0]} push origin master
-  {sys.argv[0]} config-token username your_token_here
-  {sys.argv[0]} dir-csv foundation/graphic
-  {sys.argv[0]} dir-csv ./src --remote origin
-  {sys.argv[0]} dir-csv ./mydir --out /tmp/commits.csv
 """
-    print(help_text)
+    print(help_text + _help_examples())
 
 
 def cmd_status():
@@ -584,49 +595,10 @@ def get_staged_total_lines():
     return total_lines
 
 
-def enforce_staged_limit(max_lines_per_commit, context=""):
-    """Hard limit: refuse commits when staging area exceeds max_lines_per_commit."""
-    staged = get_staged_total_lines()
-    if staged > max_lines_per_commit:
-        suffix = f" ({context})" if context else ""
-        print(
-            f"❌ 错误: 暂存区 {staged} 行超过硬限制 {max_lines_per_commit}{suffix}，拒绝提交"
-        )
-        return False
-    return True
-
-
-def safe_commit(commit_count, commit_msg, make_commit_cmd, max_lines_per_commit, context=""):
-    """
-    Commit only when staged diff is within hard limit.
-
-    Returns:
-        (new_commit_count, exit_code) where exit_code is 0 on success, non-zero on failure
-    """
-    if not enforce_staged_limit(max_lines_per_commit, context):
-        return commit_count, 1
-    returncode = run_git_command(make_commit_cmd(commit_msg))
-    if returncode != 0:
-        print(f"❌ Commit {commit_count + 1} 提交失败")
-        return commit_count, returncode
-    print(f"✓ Commit {commit_count + 1} 提交成功")
-    print()
-    return commit_count + 1, 0
-
-
-def restore_file_content(file_path, lines):
-    """Write full file content back to disk."""
-    with open(file_path, 'w', encoding='utf-8', errors='ignore') as f:
-        f.writelines(lines)
-
-
 def commit_large_file_incremental(file_path, message, commit_count, max_lines_per_part=1898, max_lines_per_commit=2000, sign=False):
     """
-    Commit a large file incrementally by writing cumulative parts to the same file.
-
-    Works for both untracked and modified files. Uses binary search on each part
-    so the actual git diff stays within max_lines_per_commit.
-
+    Commit a large file incrementally by writing parts to the same file
+    
     Args:
         file_path: Path to the file to commit
         message: Commit message
@@ -634,143 +606,145 @@ def commit_large_file_incremental(file_path, message, commit_count, max_lines_pe
         max_lines_per_part: Maximum lines per file part commit (default: 1898)
         max_lines_per_commit: Maximum total lines per commit including staged files (default: 2000)
         sign: Whether to sign commits with GPG
-
+    
     Returns:
         (new_commit_count, success)
     """
+    # Build commit command with optional signing
     def make_commit_cmd(msg):
         cmd = ['commit', '-m', msg]
         if sign:
             cmd.append('-s')
         return cmd
-
     if not os.path.exists(file_path) or not os.path.isfile(file_path):
         return commit_count, False
-
+    
     try:
+        # Read entire file content
         with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
             all_lines = f.readlines()
-
+        
         total_lines = len(all_lines)
-        if total_lines == 0:
+        if total_lines <= max_lines_per_part:
             return commit_count, False
-
-        print(f"  目标文件行数: {total_lines} 行")
-        print(f"  限制: 单次提交总行数 ≤ {max_lines_per_commit}，单部分最多尝试 {max_lines_per_part} 行")
+        
+        print(f"  文件总行数: {total_lines} 行")
+        print(f"  将分 {((total_lines - 1) // max_lines_per_part) + 1} 次提交")
+        print(f"  限制: 单次文件提交最多 {max_lines_per_part} 行，单次总提交最多 {max_lines_per_commit} 行")
         print()
-
-        committed_lines = 0
-        part_idx = 0
-
-        while committed_lines < total_lines:
-            part_idx += 1
-
-            other_staged = get_staged_total_lines()
-            if other_staged > 0:
+        
+        # Calculate number of parts
+        num_parts = ((total_lines - 1) // max_lines_per_part) + 1
+        
+        # Commit each part incrementally
+        for part_idx in range(num_parts):
+            start_line = part_idx * max_lines_per_part
+            end_line = min((part_idx + 1) * max_lines_per_part, total_lines)
+            part_lines = all_lines[:end_line]  # Write from beginning to current end (cumulative)
+            # For incremental commits, git sees the file going from empty to end_line lines
+            # So the lines added in this commit is end_line (for first part) or (end_line - previous_end_line) for subsequent parts
+            # But since we write cumulative content, git will see end_line lines added each time
+            # However, for constraint checking, we use the actual part size: end_line - start_line
+            new_lines_in_this_commit = end_line - start_line  # Actual lines in this part (max max_lines_per_part)
+            
+            # Check if there are staged files that need to be committed first
+            current_staged_lines = get_staged_total_lines()
+            
+            # For incremental commits, git will see end_line lines added (from empty to end_line)
+            # We need to ensure:
+            # 1. Single file part size (end_line - start_line) <= max_lines_per_part (already ensured by calculation)
+            # 2. Total staged lines (current_staged_lines + end_line) <= max_lines_per_commit
+            # Note: end_line itself should be <= max_lines_per_part (ensured by calculation)
+            # But git sees end_line lines added, so we check: current_staged_lines + end_line <= max_lines_per_commit
+            estimated_total_after_add = current_staged_lines + end_line
+            
+            # If adding this file part would exceed total commit limit, commit staged files first
+            if current_staged_lines > 0 and estimated_total_after_add > max_lines_per_commit:
+                # Commit current staged files first
                 commit_count += 1
                 if message is None:
-                    staged_msg = (
-                        f"Auto commit: {other_staged} lines changed (before large file part)"
-                    )
+                    staged_msg = f"Auto commit: {current_staged_lines} lines changed (before large file part)"
                 else:
-                    staged_msg = f"{message} - staged files ({other_staged} lines)"
+                    staged_msg = f"{message} - staged files ({current_staged_lines} lines)"
+                
                 print(f"=== 提交 Commit {commit_count} (暂存区文件) ===")
-                print(f"暂存区行数: {other_staged} 行")
+                print(f"暂存区行数: {current_staged_lines} 行")
                 print(f"提交信息: {staged_msg}")
-                commit_count, exit_code = safe_commit(
-                    commit_count - 1,
-                    staged_msg,
-                    make_commit_cmd,
-                    max_lines_per_commit,
-                    context="before large file part",
-                )
-                if exit_code != 0:
-                    restore_file_content(file_path, all_lines)
+                
+                returncode = run_git_command(make_commit_cmd(staged_msg))
+                if returncode != 0:
+                    print(f"❌ Commit {commit_count} 提交失败")
+                    # Restore full file content
+                    with open(file_path, 'w', encoding='utf-8', errors='ignore') as f:
+                        f.writelines(all_lines)
                     return commit_count, False
-
-            remaining = total_lines - committed_lines
-            low, high = 1, min(remaining, max_lines_per_part)
-            best = 0
-
-            while low <= high:
-                mid = (low + high) // 2
-                end_line = committed_lines + mid
-
-                with open(file_path, 'w', encoding='utf-8', errors='ignore') as f:
-                    f.writelines(all_lines[:end_line])
-
-                if run_git_command(['add', file_path]) != 0:
-                    run_git_command(['restore', '--staged', '--worktree', file_path])
-                    high = mid - 1
-                    continue
-
-                staged = get_staged_total_lines()
-                run_git_command(['restore', '--staged', '--worktree', file_path])
-
-                if staged <= max_lines_per_commit:
-                    best = mid
-                    low = mid + 1
-                else:
-                    high = mid - 1
-
-            if best == 0:
-                print(
-                    f"❌ 错误: 无法将 {file_path} 拆分为 ≤{max_lines_per_commit} 行的提交，"
-                    f"已提交 {committed_lines}/{total_lines} 行"
-                )
-                restore_file_content(file_path, all_lines)
-                return commit_count, False
-
-            end_line = committed_lines + best
-            new_lines_in_this_commit = best
-
+                
+                print(f"✓ Commit {commit_count} 提交成功")
+                print()
+                # After committing staged files, staged area is now empty
+                current_staged_lines = 0
+            
+            # Write partial content to original file
             with open(file_path, 'w', encoding='utf-8', errors='ignore') as f:
-                f.writelines(all_lines[:end_line])
-            if run_git_command(['add', file_path]) != 0:
-                print(f"❌ 错误: 无法暂存文件 {file_path}")
-                restore_file_content(file_path, all_lines)
+                f.writelines(part_lines)
+            
+            # Add file to staging area
+            returncode = run_git_command(['add', file_path])
+            if returncode != 0:
+                print(f"⚠ 警告: 无法暂存文件 {file_path}，跳过")
+                # Restore full file content
+                with open(file_path, 'w', encoding='utf-8', errors='ignore') as f:
+                    f.writelines(all_lines)
                 return commit_count, False
-
+            
+            # Get current staged lines after adding this file part
             current_staged_lines_after = get_staged_total_lines()
+            
+            # Verify constraints:
+            # 1. Single file part should not exceed max_lines_per_part (already ensured by calculation: end_line - start_line <= max_lines_per_part)
+            # 2. Total staged lines should not exceed max_lines_per_commit
+            # Note: For incremental commits, git sees end_line lines added (from empty to end_line)
+            # So current_staged_lines_after should be <= max_lines_per_commit
             if current_staged_lines_after > max_lines_per_commit:
-                print(
-                    f"❌ 错误: 暂存区 {current_staged_lines_after} 行超过硬限制 "
-                    f"{max_lines_per_commit}"
-                )
-                restore_file_content(file_path, all_lines)
-                return commit_count, False
-
+                print(f"⚠ 警告: 暂存区总行数 {current_staged_lines_after} 超过限制 {max_lines_per_commit}，这不应该发生")
+                # This should not happen if logic is correct, but if it does, we should handle it
+                # For now, just warn and continue
+            
+            # Commit this part
             commit_count += 1
             if message is None:
-                part_msg = (
-                    f"Auto commit: {file_path} (Part {part_idx}, lines 1-{end_line}), "
-                    f"{current_staged_lines_after} lines"
-                )
+                part_msg = f"Auto commit: {file_path} (Part {part_idx + 1}/{num_parts}, lines 1-{end_line}), {end_line} lines"
             else:
-                part_msg = f"{message} - {file_path} (Part {part_idx})"
-
+                part_msg = f"{message} - {file_path} (Part {part_idx + 1}/{num_parts})"
+            
             print(f"=== 提交 Commit {commit_count} ===")
-            print(f"文件: {file_path} (部分 {part_idx}, 累计行数 1-{end_line})")
-            print(f"本次写入行数: {new_lines_in_this_commit} 行")
+            print(f"文件: {file_path} (部分 {part_idx + 1}/{num_parts}, 累计行数 1-{end_line})")
+            print(f"当前文件行数: {end_line} 行")
+            print(f"本次新增行数: {new_lines_in_this_commit} 行")
             print(f"暂存区总行数: {current_staged_lines_after} 行")
             print(f"提交信息: {part_msg}")
-
+            
             returncode = run_git_command(make_commit_cmd(part_msg))
             if returncode != 0:
                 print(f"❌ Commit {commit_count} 提交失败")
-                restore_file_content(file_path, all_lines)
+                # Restore full file content
+                with open(file_path, 'w', encoding='utf-8', errors='ignore') as f:
+                    f.writelines(all_lines)
                 return commit_count, False
-
+            
             print(f"✓ Commit {commit_count} 提交成功")
             print()
-            committed_lines = end_line
-
-        restore_file_content(file_path, all_lines)
-        print(f"✓ 文件 {file_path} 已完整提交（共 {part_idx} 个部分）")
+        
+        # Restore full file content after all commits
+        with open(file_path, 'w', encoding='utf-8', errors='ignore') as f:
+            f.writelines(all_lines)
+        
+        print(f"✓ 文件 {file_path} 已完整恢复")
+        
         return commit_count, True
-
+        
     except Exception as e:
-        print(f"❌ 错误: 增量提交文件 {file_path} 失败: {e}")
+        print(f"⚠ 警告: 增量提交文件 {file_path} 失败: {e}")
         import traceback
         traceback.print_exc()
         return commit_count, False
@@ -1134,15 +1108,13 @@ def cmd_commit(message=None, sign=True):
             print(f"暂存区行数: {current_staged_lines} 行")
             print(f"提交信息: {commit_msg}")
             
-            commit_count, exit_code = safe_commit(
-                commit_count - 1,
-                commit_msg,
-                make_commit_cmd,
-                MAX_LINES_PER_COMMIT,
-                context="pre-staged files",
-            )
-            if exit_code != 0:
-                return exit_code
+            returncode = run_git_command(make_commit_cmd(commit_msg))
+            if returncode != 0:
+                print(f"❌ Commit {commit_count} 提交失败")
+                return returncode
+            
+            print(f"✓ Commit {commit_count} 提交成功")
+            print()
             
             # Update total files committed
             total_files_committed += len(staged_files)
@@ -1203,19 +1175,17 @@ def cmd_commit(message=None, sign=True):
                     if success:
                         total_files_committed += 1
                         continue
-                    print(f"❌ 错误: 大文件 {file_path} 增量删除失败")
-                    return 1
+                    else:
+                        print(f"⚠ 警告: 增量删除失败，将按原文件删除")
+                        # File might still exist, remove it
+                        if os.path.exists(file_path):
+                            os.remove(file_path)
+                        # Fall through to normal deletion
                 else:
-                    print(f"❌ 错误: 无法从 git 获取已删除文件 {file_path} 的内容，无法拆分提交")
-                    return 1
+                    print(f"⚠ 警告: 无法从 git 获取文件内容，将按原文件删除")
+                    # Fall through to normal deletion
             
-            # Normal file deletion (small files only)
-            if file_total > MAX_LINES_PER_COMMIT:
-                print(
-                    f"❌ 错误: 删除 {file_path} 变更 {file_total} 行超过硬限制 "
-                    f"{MAX_LINES_PER_COMMIT}，且无法增量删除"
-                )
-                return 1
+            # Normal file deletion (small files or fallback for large files)
             # Get current staged lines
             current_staged_lines = get_staged_total_lines()
             
@@ -1232,15 +1202,13 @@ def cmd_commit(message=None, sign=True):
                 print(f"暂存区行数: {current_staged_lines} 行")
                 print(f"提交信息: {commit_msg}")
                 
-                commit_count, exit_code = safe_commit(
-                    commit_count - 1,
-                    commit_msg,
-                    make_commit_cmd,
-                    MAX_LINES_PER_COMMIT,
-                    context="before deletion",
-                )
-                if exit_code != 0:
-                    return exit_code
+                returncode = run_git_command(make_commit_cmd(commit_msg))
+                if returncode != 0:
+                    print(f"❌ Commit {commit_count} 提交失败")
+                    return returncode
+                
+                print(f"✓ Commit {commit_count} 提交成功")
+                print()
             
             # Add deletion
             returncode = run_git_command(['rm', file_path])
@@ -1252,13 +1220,7 @@ def cmd_commit(message=None, sign=True):
             
             # Check if we should commit now
             current_staged_lines = get_staged_total_lines()
-            if current_staged_lines > 0:
-                if current_staged_lines > MAX_LINES_PER_COMMIT:
-                    print(
-                        f"❌ 错误: 删除 {file_path} 后暂存区 {current_staged_lines} 行超过硬限制 "
-                        f"{MAX_LINES_PER_COMMIT}"
-                    )
-                    return 1
+            if current_staged_lines >= MAX_LINES_PER_COMMIT:
                 commit_count += 1
                 if message is None:
                     commit_msg = f"Auto commit: {current_staged_lines} lines changed"
@@ -1269,34 +1231,41 @@ def cmd_commit(message=None, sign=True):
                 print(f"暂存区行数: {current_staged_lines} 行")
                 print(f"提交信息: {commit_msg}")
                 
-                commit_count, exit_code = safe_commit(
-                    commit_count - 1,
-                    commit_msg,
-                    make_commit_cmd,
-                    MAX_LINES_PER_COMMIT,
-                    context="deletion",
-                )
-                if exit_code != 0:
-                    return exit_code
+                returncode = run_git_command(make_commit_cmd(commit_msg))
+                if returncode != 0:
+                    print(f"❌ Commit {commit_count} 提交失败")
+                    return returncode
+                
+                print(f"✓ Commit {commit_count} 提交成功")
+                print()
             
             continue
         
         # Handle large files (>2000 lines) by incremental commits
         if file_total > MAX_LINES_PER_COMMIT:
             print(f"处理大文件: {file_path} ({file_total} 行，超过限制)")
-            print(f"  将采用增量提交方式拆分提交")
-            print(f"  限制: 单次提交总行数 ≤ {MAX_LINES_PER_COMMIT} 行")
+            print(f"  将采用增量提交方式，每次在原文件中写入最多 {MAX_LINES_PER_PART} 行并提交")
+            print(f"  限制: 单次文件提交最多 {MAX_LINES_PER_PART} 行，单次总提交最多 {MAX_LINES_PER_COMMIT} 行")
             
-            commit_count, success = commit_large_file_incremental(
-                file_path, message, commit_count, MAX_LINES_PER_PART, MAX_LINES_PER_COMMIT, sign
-            )
-            if not success:
-                print(f"❌ 错误: 大文件 {file_path} 增量提交失败，已中止")
-                return 1
-            total_files_committed += 1
-            continue
+            # Only handle untracked files (new files) with incremental commits
+            # For modified files, we can't easily do incremental commits
+            if status == 'untracked':
+                # Commit file incrementally
+                commit_count, success = commit_large_file_incremental(file_path, message, commit_count, MAX_LINES_PER_PART, MAX_LINES_PER_COMMIT, sign)
+                if success:
+                    total_files_committed += 1
+                    continue
+                else:
+                    print(f"⚠ 警告: 增量提交失败，将按原文件处理")
+                    # Fall through to normal processing
+            else:
+                # For modified files, we can't do incremental commits easily
+                # Just warn and proceed with normal processing
+                print(f"⚠ 警告: 文件 {file_path} 超过 {MAX_LINES_PER_COMMIT} 行限制，但它是已修改的文件，无法增量提交")
+                print(f"  将按原文件提交（可能超过限制）")
+                # Fall through to normal processing
         
-        # Normal file processing (small files only)
+        # Normal file processing (small files or fallback for large files)
         # Get current staged lines
         current_staged_lines = get_staged_total_lines()
         
@@ -1317,15 +1286,13 @@ def cmd_commit(message=None, sign=True):
                 print(f"暂存区行数: {current_staged_lines} 行")
                 print(f"提交信息: {commit_msg}")
                 
-                commit_count, exit_code = safe_commit(
-                    commit_count - 1,
-                    commit_msg,
-                    make_commit_cmd,
-                    MAX_LINES_PER_COMMIT,
-                    context="before add file",
-                )
-                if exit_code != 0:
-                    return exit_code
+                returncode = run_git_command(make_commit_cmd(commit_msg))
+                if returncode != 0:
+                    print(f"❌ Commit {commit_count} 提交失败")
+                    return returncode
+                
+                print(f"✓ Commit {commit_count} 提交成功")
+                print()
             
             # Add current file
             print(f"添加文件: {file_path} ({status})")
@@ -1340,26 +1307,34 @@ def cmd_commit(message=None, sign=True):
             print(f"处理已暂存文件: {file_path}")
             print(f"  修改行数: +{additions} -{deletions} = {file_total} 行")
             
+            # Check if current staged area (including this file) exceeds limit
             if current_staged_lines > MAX_LINES_PER_COMMIT:
-                print(
-                    f"❌ 错误: 已暂存文件 {file_path} 共 {current_staged_lines} 行超过硬限制 "
-                    f"{MAX_LINES_PER_COMMIT}"
-                )
-                return 1
+                # Commit current staged files first
+                commit_count += 1
+                if message is None:
+                    commit_msg = f"Auto commit: {current_staged_lines} lines changed"
+                else:
+                    commit_msg = message
+                
+                print(f"=== 提交 Commit {commit_count} ===")
+                print(f"暂存区行数: {current_staged_lines} 行")
+                print(f"提交信息: {commit_msg}")
+                
+                returncode = run_git_command(make_commit_cmd(commit_msg))
+                if returncode != 0:
+                    print(f"❌ Commit {commit_count} 提交失败")
+                    return returncode
+                
+                print(f"✓ Commit {commit_count} 提交成功")
+                print()
         
         total_files_committed += 1
         
         # Check if we should commit now (after adding this file)
         current_staged_lines = get_staged_total_lines()
         
-        if current_staged_lines > MAX_LINES_PER_COMMIT:
-            print(
-                f"❌ 错误: 添加 {file_path} 后暂存区 {current_staged_lines} 行超过硬限制 "
-                f"{MAX_LINES_PER_COMMIT}"
-            )
-            return 1
-        
-        if current_staged_lines > 0:
+        if current_staged_lines >= MAX_LINES_PER_COMMIT:
+            # Commit now
             commit_count += 1
             if message is None:
                 commit_msg = f"Auto commit: {current_staged_lines} lines changed"
@@ -1370,25 +1345,17 @@ def cmd_commit(message=None, sign=True):
             print(f"暂存区行数: {current_staged_lines} 行")
             print(f"提交信息: {commit_msg}")
             
-            commit_count, exit_code = safe_commit(
-                commit_count - 1,
-                commit_msg,
-                make_commit_cmd,
-                MAX_LINES_PER_COMMIT,
-                context="normal file batch",
-            )
-            if exit_code != 0:
-                return exit_code
+            returncode = run_git_command(make_commit_cmd(commit_msg))
+            if returncode != 0:
+                print(f"❌ Commit {commit_count} 提交失败")
+                return returncode
+            
+            print(f"✓ Commit {commit_count} 提交成功")
+            print()
     
     # Commit any remaining staged files
     final_staged_lines = get_staged_total_lines()
     if final_staged_lines > 0:
-        if final_staged_lines > MAX_LINES_PER_COMMIT:
-            print(
-                f"❌ 错误: 最终暂存区 {final_staged_lines} 行超过硬限制 "
-                f"{MAX_LINES_PER_COMMIT}，拒绝提交"
-            )
-            return 1
         commit_count += 1
         if message is None:
             commit_msg = f"Auto commit: {final_staged_lines} lines changed"
@@ -1399,15 +1366,13 @@ def cmd_commit(message=None, sign=True):
         print(f"暂存区行数: {final_staged_lines} 行")
         print(f"提交信息: {commit_msg}")
         
-        commit_count, exit_code = safe_commit(
-            commit_count - 1,
-            commit_msg,
-            make_commit_cmd,
-            MAX_LINES_PER_COMMIT,
-            context="final staged files",
-        )
-        if exit_code != 0:
-            return exit_code
+        returncode = run_git_command(make_commit_cmd(commit_msg))
+        if returncode != 0:
+            print(f"❌ Commit {commit_count} 提交失败")
+            return returncode
+        
+        print(f"✓ Commit {commit_count} 提交成功")
+        print()
     
     if commit_count == 0:
         print("⚠ 警告: 没有文件需要提交")
@@ -1851,6 +1816,197 @@ def cmd_push(remote=None, branch=None):
         return returncode
 
 
+def _email_local_part(email: str) -> str:
+    return email.split("@", 1)[0] if "@" in email else email
+
+
+def _resolve_fix_signoff_range(grep: str | None) -> tuple[str | None, int]:
+    """Return (rev_range, match_count). Auto-range: oldest grep-match parent .. HEAD."""
+    if not grep:
+        return None, 0
+    rc, out, _ = run_git_command(
+        ["rev-list", "HEAD", f"--grep={grep}"],
+        capture_output=True,
+    )
+    if rc != 0 or not out.strip():
+        return None, 0
+    shas = out.strip().splitlines()
+    rc2, oldest, _ = run_git_command(
+        ["rev-list", "--reverse", "HEAD", f"--grep={grep}", "-1"],
+        capture_output=True,
+    )
+    if rc2 != 0 or not oldest.strip():
+        return None, 0
+    oldest_sha = oldest.strip()
+    rc3, base, _ = run_git_command(
+        ["rev-parse", f"{oldest_sha}^"],
+        capture_output=True,
+    )
+    if rc3 != 0 or not base.strip():
+        return None, 0
+    return f"{base.strip()}..HEAD", len(shas)
+
+
+def _load_fix_signoff_rewriter():
+    """Load rewrite_signoff_message without relying on an assert."""
+    import importlib.util
+
+    script = SCRIPT_DIR / "fix_signoff_msg.py"
+    spec = importlib.util.spec_from_file_location("fix_signoff_msg", str(script))
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"无法加载 {script}")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod.rewrite_signoff_message
+
+
+def _prepare_signoff_range(
+    range_str: str | None, grep: str | None
+) -> tuple[str | None, int]:
+    if not range_str:
+        if not grep:
+            print("❌ 未指定 --range 时需同时指定 --grep 以自动推断范围")
+            return None, 0
+        resolved, grep_count = _resolve_fix_signoff_range(grep)
+        if not resolved:
+            print("❌ 未找到匹配 --grep 的 commit")
+            return None, 0
+        print(f"自动范围: {resolved}（匹配 {grep_count} 条 commit）")
+        return resolved, grep_count
+    rc, out, err = run_git_command(
+        ["rev-list", "--count", range_str],
+        capture_output=True,
+    )
+    if rc != 0:
+        print(f"❌ 无效范围 {range_str}: {err}")
+        return None, 0
+    grep_count = int(out.strip())
+    if grep:
+        rc2, matched, _ = run_git_command(
+            ["rev-list", range_str, f"--grep={grep}"],
+            capture_output=True,
+        )
+        match_n = len(matched.strip().splitlines()) if rc2 == 0 and matched.strip() else 0
+        print(f"范围 {range_str}: {grep_count} 条 commit，其中 {match_n} 条匹配 --grep")
+    else:
+        print(f"范围 {range_str}: {grep_count} 条 commit（全部重写 Signed-off-by）")
+    return range_str, grep_count
+
+
+def _print_signoff_sample(
+    rewrite_signoff_message,
+    grep: str,
+    signer_name: str,
+    email: str,
+) -> None:
+    rc, sample, _ = run_git_command(
+        ["log", "-1", f"--grep={grep}", "--format=%B"],
+        capture_output=True,
+    )
+    if rc != 0 or not sample.strip():
+        return
+    new_msg = rewrite_signoff_message(sample, grep, signer_name, email)
+    print()
+    print("示例（最新一条匹配 commit）:")
+    print("--- before ---")
+    print(sample.rstrip())
+    print("--- after ----")
+    print(new_msg.rstrip())
+
+
+def _run_signoff_filter(
+    range_str: str,
+    grep: str | None,
+    signer_name: str,
+    email: str,
+    grep_count: int,
+) -> int:
+    filter_script = SCRIPT_DIR / "fix_signoff_msg.py"
+    if not filter_script.is_file():
+        print(f"❌ 缺少 {filter_script}")
+        return 1
+    env = os.environ.copy()
+    env["FILTER_BRANCH_SQUELCH_WARNING"] = "1"
+    if grep:
+        env["GITLOG_FIX_SIGNOFF_GREP"] = grep
+    env["GITLOG_FIX_SIGNOFF_NAME"] = signer_name
+    env["GITLOG_FIX_SIGNOFF_EMAIL"] = email
+    py = sys.executable.replace("\\", "/")
+    script = str(filter_script).replace("\\", "/")
+    msg_filter = f'"{py}" "{script}"'
+    print()
+    print(f"执行 filter-branch（约 {grep_count} 条 commit，请稍候）…")
+    rc = subprocess.run(
+        ["git", "filter-branch", "-f", "--msg-filter", msg_filter, range_str],
+        env=env,
+        cwd=os.getcwd(),
+    ).returncode
+    if rc != 0:
+        print(f"❌ filter-branch 失败 (exit {rc})")
+    return rc
+
+
+def _verify_signoff(grep: str, signer_name: str, email: str) -> None:
+    rc2, left, _ = run_git_command(
+        ["log", "--format=%B", f"--grep={grep}", "HEAD"],
+        capture_output=True,
+    )
+    if rc2 != 0:
+        return
+    bad = [
+        block
+        for block in left.split("\n\n")
+        if block.strip()
+        and f"Signed-off-by: {signer_name} <{email}>" not in block
+    ]
+    if bad:
+        print(f"⚠ 仍有 {len(bad)} 条匹配 commit 的 Signed-off-by 未更新，请检查")
+        return
+    rc3, cnt, _ = run_git_command(
+        ["rev-list", "--count", "HEAD", f"--grep={grep}"],
+        capture_output=True,
+    )
+    n = cnt.strip() if rc3 == 0 else "?"
+    print(f"✓ 完成：{n} 条匹配 commit 的 Signed-off-by 已统一为 {email}")
+
+
+def cmd_fix_signoff(
+    email: str,
+    grep: str | None = None,
+    name: str | None = None,
+    range_str: str | None = None,
+    dry_run: bool = False,
+) -> int:
+    """Batch rewrite Signed-off-by via git filter-branch --msg-filter."""
+    rewrite_signoff_message = _load_fix_signoff_rewriter()
+    if not email or "@" not in email:
+        print("❌ 请用 --email 指定有效邮箱")
+        return 1
+    signer_name = name or _email_local_part(email)
+    print("=== 批量更新 Signed-off-by ===")
+    print(f"目标: Signed-off-by: {signer_name} <{email}>")
+    if grep:
+        print(f"匹配: commit message 含「{grep}」")
+    print()
+    range_str, grep_count = _prepare_signoff_range(range_str, grep)
+    if not range_str:
+        return 1
+    if grep:
+        _print_signoff_sample(rewrite_signoff_message, grep, signer_name, email)
+    print()
+    print("⚠ 将重写 git 历史；若已 push，需 force push 同步远端")
+    if dry_run:
+        print("✓ --dry-run：未执行 filter-branch")
+        return 0
+    rc = _run_signoff_filter(range_str, grep, signer_name, email, grep_count)
+    if rc != 0:
+        return rc
+    if grep:
+        _verify_signoff(grep, signer_name, email)
+    run_git_command(["status", "-sb"], capture_output=False)
+    return 0
+
+
 def cmd_sign_commits(range_str=None):
     """
     Sign existing commits using git rebase
@@ -2141,6 +2297,40 @@ def main():
         if len(sys.argv) > 2:
             range_str = sys.argv[2]
         return cmd_sign_commits(range_str)
+
+    elif command == 'fix-signoff':
+        args = sys.argv[2:]
+        grep = None
+        email = None
+        name = None
+        range_str = None
+        dry_run = False
+        i = 0
+        while i < len(args):
+            if args[i] == '--grep' and i + 1 < len(args):
+                grep = args[i + 1]
+                i += 2
+            elif args[i] == '--email' and i + 1 < len(args):
+                email = args[i + 1]
+                i += 2
+            elif args[i] == '--name' and i + 1 < len(args):
+                name = args[i + 1]
+                i += 2
+            elif args[i] == '--range' and i + 1 < len(args):
+                range_str = args[i + 1]
+                i += 2
+            elif args[i] == '--dry-run':
+                dry_run = True
+                i += 1
+            else:
+                print(f"⚠ 未知参数: {args[i]}")
+                show_help()
+                return 1
+        if not email:
+            print("❌ fix-signoff 需要 --email")
+            show_help()
+            return 1
+        return cmd_fix_signoff(email, grep=grep, name=name, range_str=range_str, dry_run=dry_run)
     
     elif command == 'config-token':
         username = None

@@ -102,6 +102,7 @@ Sync to AGENTS.md: npx openskills sync
 | **ohos-gate-compliance** | **PR 门禁统一入口**：`scripts/gate_review.py`（pipeline 自动）、`arkts_patterns.py`、`scan_gate_patterns.py`；按 ets/capi 选规则 | `ohos-gate-compliance/SKILL.md` |
 | **webview-dynamic-coverage** | 按 **`webview-dynamic.xlsx`** 端到端：**解析 → 编写/生成 → build-acts → sync HAP → actstest 多轮 → 报告**；user37 云服务+OH；一覆盖点一条 `it()` | **`run_webview_dynamic_pipeline.py`**、`analyze_webview_dynamic.py`、**SKILL.md** v2.0 |
 | **c-cdk-coverage**（**xts-coverage-check**） | **web 模块**：`*arkwebxts` 多批待补对比、**黄底 vs 旧批**；Excel↔ACTS（C CDK / web 六维度）；**lookup** 建议 **`--subdir web`** | **`xts_coverage_check.py`**（**excel** / **lookup** / **web-batches** / **web-yellow**）、**compare_arkweb_batches.py**、**compare_yellow_vs_batch.py** |
+| **vscode-plugin-test** | **VS Code 插件编译、打包与集成测试**：`tsc` 生成 `out/`、vsce 打包并校验 VSIX，Node/xvfb/Extension Host 测试，清理 `ELECTRON_RUN_AS_NODE`，按 suite/grep 执行，性能用例串行、结果汇总 | **`vscode-plugin-test/build_vsix.py`**、**`vscode-plugin-test/run_tests.py`**、`vscode-plugin-test/SKILL.md` |
 
 **常见限制（摘要）**
 
@@ -170,6 +171,7 @@ Agent 多由自然语言触发；下表为**用户可说的提示句**与**典�
 | **ohxtsstatic** | 「一体化 static + Hypium」「§〇 路由+检查点」「SDK+明细+docs」「build-all/deploy-test」 | `python3 src/skills/ohxtsstatic/ohxtsflow.py` 同上；**SKILL.md** + **compile_error_hints** + **arkui-static-xts-generator/**（外置下载） |
 | **ohxtsdynamic** | 「动态 ChipV2/CounterV2 XTS」「异常参数 compile_probe」「deploy-test / run-dynamic-pipeline」 | `python3 src/skills/ohxtsdynamic/ohxtsflow.py build-all` / `deploy-test` / `run-dynamic-pipeline`；**normal SDK**；**arkui-dynamic-xts-generator/**（外置下载） |
 | **c-cdk-coverage** | 「web 模块有没有 XTS」「对比 1028/1015 arkwebxts 黄底」「三批待补交集」 | `… lookup <符号> --subdir web`；`… web-batches --oh-root <OH根> [--batch LABEL:DIR …]`；`… web-yellow --new-dir 20261028arkwebxts --old-dir 20261015arkwebxts`（**c-cdk-coverage/SKILL.md**） |
+| **vscode-plugin-test** | 「编译/打包 vscode_plugin 成 vsix」「生成 napi-gen 插件包」「跑 vscode_plugin 测试」「跑某个 suite/用例」 | `python3 src/skills/vscode-plugin-test/build_vsix.py [--no-compile] [--install]`；测试用 `python3 src/skills/vscode-plugin-test/run_tests.py --suite common,gen,parse`，单用例加 `--grep '<正则>'`（**vscode-plugin-test/SKILL.md**） |
 
 ### 4.4 ohhap：构建与签名（Windows / Linux 对照）
 
