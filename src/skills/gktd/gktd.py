@@ -579,6 +579,7 @@ def _codes_continue(g: dict | None, mcode: str, max_gap: int = 5) -> bool:
 
 
 class _ColumnParser:
+
     def __init__(self, blocks: list[dict], side: str, carry: dict | None):
         self.spec = COL_SPECS[side]
         col = [b for b in blocks if self.spec["x0"] <= b["x"] < self.spec["x1"]]
@@ -587,6 +588,76 @@ class _ColumnParser:
         self.cur = carry
         self.orphans: list[dict] = []
         self.seen_group = False
+
+    @staticmethod
+    def _attach_nums(m: dict, plan: str, year: str, fee: str, mcode: str = "") -> None:
+        if mcode and not m.get("mcode"):
+            m["mcode"] = mcode
+        if plan and not m.get("plan"):
+            m["plan"] = plan
+        if year and not m.get("year"):
+            m["year"] = year
+        if fee and not m.get("fee"):
+            m["fee"] = fee
+
+    @staticmethod
+    def _major_item(mcode: str, name: str, plan: str, year: str, fee: str) -> dict:
+        return {"mcode": mcode, "name": name, "plan": plan, "year": year, "fee": fee}
+
+    @staticmethod
+    def _name_text(zones: dict[str, list[dict]]) -> str:
+        text = "".join(b["text"] for b in zones.get("name", []) + zones.get("other", [])).strip()
+        return text.replace("|", "").replace("｜", "")
+
+    @staticmethod
+    def _initial_mcode(zones: dict[str, list[dict]], name_text: str) -> tuple[str, str, str]:
+        raws = [b["text"] for b in zones.get("mcode", [])]
+        joined = "".join(raws).replace(" ", "")
+        # 代号区六位/四位与校名分行：138134 + 扬州大学34专业组
+        if "专业组" in name_text and re.fullmatch(r"\d{6}", joined):
+            return "", "", joined + name_text
+        if "专业组" in name_text and re.fullmatch(r"\d{4}", joined):
+            return "", "", joined + name_text
+        mcode = ""
+        for text in raws:
+            code = _norm_mcode(text)
+            if code:
+                mcode = code
+        return mcode, joined, name_text
+
+    @staticmethod
+    def _numeric_fields(zones: dict[str, list[dict]]) -> tuple[str, str, str]:
+        plan = year = fee = ""
+        for b in zones.get("plan", []):
+            value = _norm_plan(b["text"])
+            if value:
+                plan = value
+        for b in zones.get("year", []):
+            value = _norm_year(b["text"])
+            if value:
+                year = value
+        for b in zones.get("fee", []):
+            value = _norm_fee(b["text"])
+            if value:
+                fee = value
+        return plan, year, fee
+
+    @staticmethod
+    def _strip_leading_code(name_text: str, mcode: str) -> tuple[str, str]:
+        match = re.match(r"^[（(]?(\d{1,2})[）)]?(?=[\u4e00-\u9fffA-Za-z（(★])", name_text)
+        if not match:
+            return name_text, mcode
+        return name_text[match.end():].strip(), match.group(1).zfill(2)
+
+    @staticmethod
+    def _looks_like_major(major_name: str) -> bool:
+        return bool(
+            major_name
+            and len(major_name) >= 2
+            and re.search(r"[\u4e00-\u9fff]", major_name)
+            and "专业组" not in major_name
+            and not NOTE_LINE.search(major_name)
+        )
 
     def _finalize(self, group: dict) -> dict:
         cleaned = []
@@ -617,21 +688,6 @@ class _ColumnParser:
             "majors": [],
             "notes": [],
         }
-
-    @staticmethod
-    def _attach_nums(m: dict, plan: str, year: str, fee: str, mcode: str = "") -> None:
-        if mcode and not m.get("mcode"):
-            m["mcode"] = mcode
-        if plan and not m.get("plan"):
-            m["plan"] = plan
-        if year and not m.get("year"):
-            m["year"] = year
-        if fee and not m.get("fee"):
-            m["fee"] = fee
-
-    @staticmethod
-    def _major_item(mcode: str, name: str, plan: str, year: str, fee: str) -> dict:
-        return {"mcode": mcode, "name": name, "plan": plan, "year": year, "fee": fee}
 
     def _add_orphan(self, item: dict) -> None:
         if not self.seen_group:
@@ -704,27 +760,6 @@ class _ColumnParser:
             zones.setdefault(_zone(b, self.spec), []).append(b)
         return zones
 
-    @staticmethod
-    def _name_text(zones: dict[str, list[dict]]) -> str:
-        text = "".join(b["text"] for b in zones.get("name", []) + zones.get("other", [])).strip()
-        return text.replace("|", "").replace("｜", "")
-
-    @staticmethod
-    def _initial_mcode(zones: dict[str, list[dict]], name_text: str) -> tuple[str, str, str]:
-        raws = [b["text"] for b in zones.get("mcode", [])]
-        joined = "".join(raws).replace(" ", "")
-        # 代号区六位/四位与校名分行：138134 + 扬州大学34专业组
-        if "专业组" in name_text and re.fullmatch(r"\d{6}", joined):
-            return "", "", joined + name_text
-        if "专业组" in name_text and re.fullmatch(r"\d{4}", joined):
-            return "", "", joined + name_text
-        mcode = ""
-        for text in raws:
-            code = _norm_mcode(text)
-            if code:
-                mcode = code
-        return mcode, joined, name_text
-
     def _prepend_group_code(self, name_text: str, mcode: str, joined: str) -> tuple[str, str]:
         if "专业组" not in name_text or GROUP_RE.search(name_text):
             return name_text, mcode
@@ -741,30 +776,6 @@ class _ColumnParser:
         if self.cur is not None:
             return self.cur["code"] + match.group("grp") + match.group("title"), ""
         return name_text, mcode
-
-    @staticmethod
-    def _numeric_fields(zones: dict[str, list[dict]]) -> tuple[str, str, str]:
-        plan = year = fee = ""
-        for b in zones.get("plan", []):
-            value = _norm_plan(b["text"])
-            if value:
-                plan = value
-        for b in zones.get("year", []):
-            value = _norm_year(b["text"])
-            if value:
-                year = value
-        for b in zones.get("fee", []):
-            value = _norm_fee(b["text"])
-            if value:
-                fee = value
-        return plan, year, fee
-
-    @staticmethod
-    def _strip_leading_code(name_text: str, mcode: str) -> tuple[str, str]:
-        match = re.match(r"^[（(]?(\d{1,2})[）)]?(?=[\u4e00-\u9fffA-Za-z（(★])", name_text)
-        if not match:
-            return name_text, mcode
-        return name_text[match.end():].strip(), match.group(1).zfill(2)
 
     def _strip_name_mcode(self, name_text: str, mcode: str) -> tuple[str, str]:
         if mcode:
@@ -824,16 +835,6 @@ class _ColumnParser:
         self.cur["notes"].append(major_name)
         return True
 
-    @staticmethod
-    def _looks_like_major(major_name: str) -> bool:
-        return bool(
-            major_name
-            and len(major_name) >= 2
-            and re.search(r"[\u4e00-\u9fff]", major_name)
-            and "专业组" not in major_name
-            and not NOTE_LINE.search(major_name)
-        )
-
     def _append_to_current(self, item: dict) -> bool:
         if self.cur is None:
             return False
@@ -879,20 +880,41 @@ class _ColumnParser:
             if notes is not None:
                 notes.append(name_text)
 
-    def _process_line(self, line: list[dict]) -> None:
+    def _parse_line_fields(
+        self, line: list[dict]
+    ) -> tuple[str, str, str, str, str]:
         zones = self._zones(line)
         name_text = self._name_text(zones)
         mcode, joined, name_text = self._initial_mcode(zones, name_text)
         name_text, mcode = self._prepend_group_code(name_text, mcode, joined)
         plan, year, fee = self._numeric_fields(zones)
         name_text, mcode = self._strip_name_mcode(name_text, mcode)
+        return name_text, mcode, plan, year, fee
+
+    def _skip_line(self, name_text: str, mcode: str, plan: str, year: str, fee: str) -> bool:
         if SKIP_LINE.search(name_text) and "以下" not in name_text and "报考" not in name_text:
-            return
-        if not name_text and not mcode and not (plan or year or fee):
-            return
+            return True
+        return not name_text and not mcode and not (plan or year or fee)
+
+    def _handle_heading(self, name_text: str, plan: str) -> bool:
         if self._handle_group_header(name_text, plan):
+            return True
+        return bool(SCHOOL_RE.match(name_text) and "专业组" not in name_text)
+
+    def _append_major_parts(
+        self, major_name: str, mcode: str, plan: str, year: str, fee: str
+    ) -> None:
+        for pi, part in enumerate(_split_glued_major_name(major_name)):
+            part_mcode = part_plan = part_year = part_fee = ""
+            if pi == 0:
+                part_mcode, part_plan, part_year, part_fee = mcode, plan, year, fee
+            self._append_major(part_mcode, part, part_plan, part_year, part_fee)
+
+    def _process_line(self, line: list[dict]) -> None:
+        name_text, mcode, plan, year, fee = self._parse_line_fields(line)
+        if self._skip_line(name_text, mcode, plan, year, fee):
             return
-        if SCHOOL_RE.match(name_text) and "专业组" not in name_text:
+        if self._handle_heading(name_text, plan):
             return
         if self._handle_notes(name_text, mcode, plan, fee):
             return
@@ -905,12 +927,7 @@ class _ColumnParser:
         if not looks_like_major:
             self._attach_numeric_tail(name_text, mcode, plan, year, fee)
             return
-        for pi, part in enumerate(_split_glued_major_name(major_name)):
-            part_mcode = mcode if pi == 0 else ""
-            part_plan = plan if pi == 0 else ""
-            part_year = year if pi == 0 else ""
-            part_fee = fee if pi == 0 else ""
-            self._append_major(part_mcode, part, part_plan, part_year, part_fee)
+        self._append_major_parts(major_name, mcode, plan, year, fee)
 
     def _run(self) -> tuple[list[dict], dict | None, list[dict]]:
         for line in self.lines:
