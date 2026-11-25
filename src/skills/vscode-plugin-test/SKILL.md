@@ -21,7 +21,7 @@ python3 src/skills/vscode-plugin-test/build_vsix.py
 # 已有 out/ 时只打包，不重新编译
 python3 src/skills/vscode-plugin-test/build_vsix.py --no-compile
 
-# 首次运行自动安装依赖（node_modules 不存在时）
+# 初次运行自动安装依赖（node_modules 不存在时）
 python3 src/skills/vscode-plugin-test/build_vsix.py --install
 
 # 指定输出路径
@@ -42,7 +42,7 @@ python3 src/skills/vscode-plugin-test/build_vsix.py --out /tmp/napi-gen.vsix
 在 **napi_generator 仓库根** 执行：
 
 ```bash
-# 只跑 common，并按用例名过滤（最快，适合回归单个问题）
+# 只跑 common，并按用例名过滤（快速，适合回归单个问题）
 python3 src/skills/vscode-plugin-test/run_tests.py \
   --suite common \
   --grep 'getFileInPath|getPathInPath' \
@@ -75,8 +75,8 @@ python3 src/skills/vscode-plugin-test/run_tests.py --suite all --timeout 7200
 
 - Node.js 18+，本仓库验证版本 **v20.20.0**。
 - Linux 无图形会话时需要 `xvfb-run`（Ubuntu：`apt install xvfb`）。
-- 首次运行需要网络下载 VS Code 1.73.1；之后使用 `src/vscode_plugin/.vscode-test` 缓存。
-- 首次安装依赖：
+- 初次运行需要网络下载 VS Code 1.73.1；之后使用 `src/vscode_plugin/.vscode-test` 缓存。
+- 初次安装依赖：
 
 ```bash
 cd src/vscode_plugin

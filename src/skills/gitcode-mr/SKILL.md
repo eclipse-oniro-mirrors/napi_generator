@@ -87,7 +87,7 @@ python src/skills/gitcode-mr/gitcode_mr.py scan --json
 # 深开鸿（kaihong.com）
 python src/skills/gitcode-mr/gitcode_mr.py scan --employer 深开鸿
 
-# 其他仓库
+# 其它仓库
 python src/skills/gitcode-mr/gitcode_mr.py scan --project openharmony/xts_acts
 
 # 自定义邮箱域

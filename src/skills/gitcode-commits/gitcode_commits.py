@@ -137,27 +137,6 @@ class GitCodeCommitsClient:
         self.session.headers.update(BROWSER_HEADERS)
         self._mr_cache: dict[int, list[dict]] = {}
 
-    def _pause(self) -> None:
-        if self.delay_sec:
-            time.sleep(self.delay_sec)
-
-    def _get(self, url: str, params: dict, timeout: int = 60) -> dict:
-        last_err: Exception | None = None
-        for attempt in range(5):
-            try:
-                r = self.session.get(url, params=params, timeout=timeout)
-                if r.status_code == 429:
-                    wait = 2 ** attempt
-                    time.sleep(wait)
-                    continue
-                r.raise_for_status()
-                self._pause()
-                return r.json()
-            except requests.RequestException as exc:
-                last_err = exc
-                time.sleep(2 ** attempt)
-        raise RuntimeError(f"请求失败: {url}") from last_err
-
     def list_commits(
         self,
         ref_name: str,
@@ -229,6 +208,37 @@ class GitCodeCommitsClient:
         self._mr_cache[iid] = commits
         return commits
 
+    def _pause(self) -> None:
+        if self.delay_sec:
+            time.sleep(self.delay_sec)
+
+    def _get(self, url: str, params: dict, timeout: int = 60) -> dict:
+        last_err: Exception | None = None
+        for attempt in range(5):
+            try:
+                r = self.session.get(url, params=params, timeout=timeout)
+                if r.status_code == 429:
+                    wait = 2 ** attempt
+                    time.sleep(wait)
+                    continue
+                r.raise_for_status()
+                self._pause()
+                return r.json()
+            except requests.RequestException as exc:
+                last_err = exc
+                time.sleep(2 ** attempt)
+        raise RuntimeError(f"请求失败: {url}") from last_err
+
+
+def _commit_emails(commits: list[dict]) -> list[str]:
+    emails: list[str] = []
+    for commit in commits:
+        for key in ("author_email", "committer_email"):
+            value = commit.get(key)
+            if value:
+                emails.append(value)
+    return emails
+
 
 def resolve_commit_employers(commit: dict, client: GitCodeCommitsClient) -> tuple[set[str], int | None]:
     author_email = (commit.get("author_email") or "").lower()
@@ -237,22 +247,15 @@ def resolve_commit_employers(commit: dict, client: GitCodeCommitsClient) -> tupl
     title = commit.get("title") or ""
 
     direct = employers_from_emails([author_email, committer_email])
-    if direct and CI_EMAIL_MARKER not in author_email:
-        return direct, parse_mr_iid(message, title)
-
     mr_iid = parse_mr_iid(message, title)
+    if direct and CI_EMAIL_MARKER not in author_email:
+        return direct, mr_iid
     if mr_iid is not None:
-        mr_commits = client.fetch_mr_commits(mr_iid)
-        emails: list[str] = []
-        for mc in mr_commits:
-            for key in ("author_email", "committer_email"):
-                val = mc.get(key)
-                if val:
-                    emails.append(val)
-        mr_employers = employers_from_emails(emails)
+        mr_employers = employers_from_emails(
+            _commit_emails(client.fetch_mr_commits(mr_iid))
+        )
         if mr_employers:
             return mr_employers, mr_iid
-
     return direct, mr_iid
 
 
@@ -316,6 +319,76 @@ def aggregate_by_employer(stats: list[CommitStat]) -> dict[str, dict]:
     return agg
 
 
+def _branch_result(
+    project: str,
+    ref_name: str,
+    since_iso: str,
+    until_iso: str | None,
+    employer_name: str,
+    domains: tuple[str, ...],
+    commits: list[dict],
+    stats: list[CommitStat],
+) -> dict:
+    total_add = sum(s.added_lines for s in stats)
+    total_del = sum(s.removed_lines for s in stats)
+    return {
+        "project": project,
+        "ref_name": ref_name,
+        "since": since_iso,
+        "until": until_iso,
+        "employer": employer_name,
+        "email_domains": list(domains),
+        "commit_total_on_branch": len(commits),
+        "employer_commit_count": len(stats),
+        "added_lines": total_add,
+        "removed_lines": total_del,
+        "change_lines": total_add + total_del,
+        "commits": [
+            {
+                "short_id": s.short_id,
+                "date": s.committed_date,
+                "mr_iid": s.mr_iid,
+                "added_lines": s.added_lines,
+                "removed_lines": s.removed_lines,
+                "title": s.title,
+            }
+            for s in stats
+        ],
+    }
+
+
+def _print_branch_report(result: dict, stats: list[CommitStat], count_lines: bool) -> None:
+    project = result.get("project", "")
+    ref_name = result.get("ref_name", "")
+    since_iso = result.get("since", "")
+    until_iso = result.get("until")
+    employer_name = result.get("employer", "")
+    domains = result.get("email_domains") or []
+    total_add = result.get("added_lines", 0)
+    total_del = result.get("removed_lines", 0)
+    print()
+    print(f"仓库: {project}")
+    print(f"分支: {ref_name}")
+    print(f"起始: {since_iso}" + (f"  截止: {until_iso}" if until_iso else ""))
+    print(f"分支 commit 数（API 过滤后）: {result.get('commit_total_on_branch', 0)}")
+    print(f"雇主: {employer_name}（邮箱域: {', '.join(domains)}）")
+    print(f"{employer_name} 命中 commit 数: {len(stats)}")
+    if count_lines:
+        print(f"已合入代码量: +{total_add:,} / -{total_del:,}（变更 {total_add + total_del:,} 行）")
+    else:
+        print("（未拉取 stats，仅统计 commit 数；去掉 --commits-only 可统计行数）")
+    print()
+    print(f"{'日期':<12} {'+行':<10} {'-行':<10} {'MR':<8} 标题")
+    print("-" * 90)
+    for s in sorted(stats, key=lambda x: x.committed_date, reverse=True)[:30]:
+        mr = str(s.mr_iid) if s.mr_iid else "-"
+        print(
+            f"{s.committed_date:<12} {s.added_lines:<10,} {s.removed_lines:<10,} {mr:<8} {s.title[:45]}"
+        )
+    if len(stats) > 30:
+        print(f"... 另有 {len(stats) - 30} 条 commit，完整列表请 --json")
+
+
 def scan_branch(
     project: str,
     ref_name: str,
@@ -341,60 +414,83 @@ def scan_branch(
     stats = build_commit_stats(
         client, commits, employer_name, count_lines=count_lines, json_out=json_out
     )
-    total_add = sum(s.added_lines for s in stats)
-    total_del = sum(s.removed_lines for s in stats)
+    result = _branch_result(
+        project, ref_name, since_iso, until_iso, employer_name, domains, commits, stats
+    )
+    if json_out:
+        print(json.dumps(result, ensure_ascii=False, indent=2))
+    else:
+        _print_branch_report(result, stats, count_lines)
+    return 0
 
-    result = {
+
+def _employer_blocks(stats: list[CommitStat]) -> list[dict]:
+    agg = aggregate_by_employer(stats)
+    blocks = []
+    for name in DEFAULT_DOMAINS:
+        block = dict(agg.get(name) or {
+            "commit_count": 0, "added_lines": 0, "removed_lines": 0, "change_lines": 0
+        })
+        block["employer"] = name
+        block["email_domains"] = list(DEFAULT_DOMAINS.get(name, ()))
+        blocks.append(block)
+    return blocks
+
+
+def _scan_all_result(
+    project: str,
+    ref_name: str,
+    since_iso: str,
+    until_iso: str | None,
+    commits: list[dict],
+    stats: list[CommitStat],
+    blocks: list[dict],
+) -> dict:
+    return {
         "project": project,
         "ref_name": ref_name,
         "since": since_iso,
         "until": until_iso,
-        "employer": employer_name,
-        "email_domains": list(domains),
         "commit_total_on_branch": len(commits),
-        "employer_commit_count": len(stats),
-        "added_lines": total_add,
-        "removed_lines": total_del,
-        "change_lines": total_add + total_del,
-        "commits": [
-            {
-                "short_id": s.short_id,
-                "date": s.committed_date,
-                "mr_iid": s.mr_iid,
-                "added_lines": s.added_lines,
-                "removed_lines": s.removed_lines,
-                "title": s.title,
-            }
-            for s in stats
-        ],
+        "employer_attributed_commits": sum(1 for s in stats if s.employers),
+        "employers": blocks,
+        "totals": {
+            "added_lines": sum(b.get("added_lines", 0) for b in blocks),
+            "removed_lines": sum(b.get("removed_lines", 0) for b in blocks),
+            "change_lines": sum(b.get("change_lines", 0) for b in blocks),
+        },
     }
 
-    if json_out:
-        print(json.dumps(result, ensure_ascii=False, indent=2))
-    else:
-        print()
-        print(f"仓库: {project}")
-        print(f"分支: {ref_name}")
-        print(f"起始: {since_iso}" + (f"  截止: {until_iso}" if until_iso else ""))
-        print(f"分支 commit 数（API 过滤后）: {len(commits)}")
-        print(f"雇主: {employer_name}（邮箱域: {', '.join(domains)}）")
-        print(f"{employer_name} 命中 commit 数: {len(stats)}")
-        if count_lines:
-            print(f"已合入代码量: +{total_add:,} / -{total_del:,}（变更 {total_add + total_del:,} 行）")
-        else:
-            print("（未拉取 stats，仅统计 commit 数；去掉 --commits-only 可统计行数）")
-        print()
-        print(f"{'日期':<12} {'+行':<10} {'-行':<10} {'MR':<8} 标题")
-        print("-" * 90)
-        for s in sorted(stats, key=lambda x: x.committed_date, reverse=True)[:30]:
-            mr = str(s.mr_iid) if s.mr_iid else "-"
-            print(
-                f"{s.committed_date:<12} {s.added_lines:<10,} {s.removed_lines:<10,} {mr:<8} {s.title[:45]}"
-            )
-        if len(stats) > 30:
-            print(f"... 另有 {len(stats) - 30} 条 commit，完整列表请 --json")
 
-    return 0
+def _print_scan_all_report(
+    result: dict, blocks: list[dict], commits: list[dict], count_lines: bool
+) -> None:
+    print()
+    print(
+        f"仓库: {result.get('project')}  分支: {result.get('ref_name')}  "
+        f"起始: {result.get('since')}"
+    )
+    print(
+        f"分支 commit 数: {len(commits)}  "
+        f"四家雇主命中 commit: {result.get('employer_attributed_commits', 0)}"
+    )
+    print()
+    print(f"{'雇主':<10} {'commit':<8} {'+行':<12} {'-行':<12} {'变更行':<12}")
+    print("-" * 58)
+    for block in blocks:
+        print(
+            f"{block.get('employer', ''):<10} {block.get('commit_count', 0):<8} "
+            f"{block.get('added_lines', 0):<12,} {block.get('removed_lines', 0):<12,} "
+            f"{block.get('change_lines', 0):<12,}"
+        )
+    totals = result.get("totals") or {}
+    print("-" * 58)
+    print(
+        f"{'合计':<10} {'':8} {totals.get('added_lines', 0):<12,} "
+        f"{totals.get('removed_lines', 0):<12,} {totals.get('change_lines', 0):<12,}"
+    )
+    if not count_lines:
+        print("\n（--commits-only：未统计行数）")
 
 
 def scan_all_employers(
@@ -415,61 +511,19 @@ def scan_all_employers(
     commits = client.list_commits(ref_name, since=since_iso, until=until_iso, limit=limit)
     if not json_out:
         print(f"共 {len(commits)} 条 commit，开始归因…", flush=True)
-
     stats = build_commit_stats(
         client, commits, employer_filter=None, count_lines=count_lines, json_out=json_out
     )
-    agg = aggregate_by_employer(stats)
-    employer_order = list(DEFAULT_DOMAINS.keys())
-
-    blocks = []
-    for name in employer_order:
-        block = agg.get(name, {"commit_count": 0, "added_lines": 0, "removed_lines": 0, "change_lines": 0})
-        block = dict(block)
-        block["employer"] = name
-        block["email_domains"] = list(DEFAULT_DOMAINS[name])
-        blocks.append(block)
-
-    matched_commits = sum(1 for s in stats if s.employers)
-    result = {
-        "project": project,
-        "ref_name": ref_name,
-        "since": since_iso,
-        "until": until_iso,
-        "commit_total_on_branch": len(commits),
-        "employer_attributed_commits": matched_commits,
-        "employers": blocks,
-        "totals": {
-            "added_lines": sum(b["added_lines"] for b in blocks),
-            "removed_lines": sum(b["removed_lines"] for b in blocks),
-            "change_lines": sum(b["change_lines"] for b in blocks),
-        },
-    }
-
+    blocks = _employer_blocks(stats)
+    result = _scan_all_result(project, ref_name, since_iso, until_iso, commits, stats, blocks)
     if json_out:
         print(json.dumps(result, ensure_ascii=False, indent=2))
     else:
-        print()
-        print(f"仓库: {project}  分支: {ref_name}  起始: {since_iso}")
-        print(f"分支 commit 数: {len(commits)}  四家雇主命中 commit: {matched_commits}")
-        print()
-        print(f"{'雇主':<10} {'commit':<8} {'+行':<12} {'-行':<12} {'变更行':<12}")
-        print("-" * 58)
-        for b in blocks:
-            print(
-                f"{b['employer']:<10} {b['commit_count']:<8} "
-                f"{b['added_lines']:<12,} {b['removed_lines']:<12,} {b['change_lines']:<12,}"
-            )
-        t = result["totals"]
-        print("-" * 58)
-        print(f"{'合计':<10} {'':8} {t['added_lines']:<12,} {t['removed_lines']:<12,} {t['change_lines']:<12,}")
-        if not count_lines:
-            print("\n（--commits-only：未统计行数）")
-
+        _print_scan_all_report(result, blocks, commits, count_lines)
     return 0
 
 
-def main(argv: list[str] | None = None) -> int:
+def _build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description="GitCode 分支 commit 统计：按邮箱域识别雇主，汇总已合入代码行数"
     )
@@ -497,12 +551,13 @@ def main(argv: list[str] | None = None) -> int:
         help="仅统计 commit 数，不拉 commit stats（更快）",
     )
     parser.add_argument("--json", action="store_true")
-    args = parser.parse_args(argv)
+    return parser
 
+
+def _dispatch(args: argparse.Namespace, parser: argparse.ArgumentParser) -> int:
     if args.command == "help":
         parser.print_help()
         return 0
-
     count_lines = not args.commits_only
     if args.command == "scan-all":
         return scan_all_employers(
@@ -525,6 +580,11 @@ def main(argv: list[str] | None = None) -> int:
         count_lines=count_lines,
         json_out=args.json,
     )
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = _build_parser()
+    return _dispatch(parser.parse_args(argv), parser)
 
 
 if __name__ == "__main__":

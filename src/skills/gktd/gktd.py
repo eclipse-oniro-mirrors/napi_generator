@@ -259,38 +259,19 @@ def _is_name_incomplete(prev: str) -> bool:
     )
 
 
+_FRAGMENT_PREFIXES = (
+    "与", "和", "、", "，", "的", "等", "；", "）", ")", "作办学",
+    "联合培养", "子与", "学与", "上学位", "型人才", "培养项目",
+    "意愿的", "按中", "赴", "院学习", "生，", "英语基础",
+    "双学士", "复合型",
+)
+
+
 def _is_fragment_name(name: str) -> bool:
     if not name or len(name) < 2:
         return True
     # 明确续行前缀（即使后面像专业名也不拆成新行）
-    if name.startswith(
-        (
-            "与",
-            "和",
-            "、",
-            "，",
-            "的",
-            "等",
-            "；",
-            "）",
-            ")",
-            "作办学",
-            "联合培养",
-            "子与",
-            "学与",
-            "上学位",
-            "型人才",
-            "培养项目",
-            "意愿的",
-            "按中",
-            "赴",
-            "院学习",
-            "生，",
-            "英语基础",
-            "双学士",
-            "复合型",
-        )
-    ):
+    if name.startswith(_FRAGMENT_PREFIXES):
         return True
     # 行中折断：生物→物信息学、系统→统科学与工程、建造→造、…
     if re.match(r"^物(?!理|流|业)", name):
@@ -432,6 +413,27 @@ def _split_glued_major_name(name: str) -> list[str]:
     return [name]
 
 
+def _set_mcode(majors: list[dict], codes: list[int | None], index: int, code: int) -> None:
+    majors[index]["mcode"] = str(code).zfill(2)
+    codes[index] = code
+
+
+def _is_outlier_code(current: int | None, expected: int) -> bool:
+    if current is None:
+        return True
+    return abs(current - expected) >= 5 or current < 10
+
+
+def _infer_mcode(prev: int | None, nxt: int | None, index: int) -> int | None:
+    if prev is not None and nxt is not None and nxt - prev == 2:
+        return prev + 1
+    if prev is not None and nxt is None:
+        return prev + 1
+    if prev is None and index == 0 and nxt is not None and nxt >= 2:
+        return nxt - 1
+    return None
+
+
 def _fill_missing_mcodes(majors: list[dict]) -> list[dict]:
     """按相邻专业代码补漏/纠错（OCR 丢码或误识时）。"""
     codes: list[int | None] = []
@@ -446,32 +448,21 @@ def _fill_missing_mcodes(majors: list[dict]) -> list[dict]:
             continue
         if nxt == prev + 2:
             expected = prev + 1
-            if cur != expected and (cur is None or abs(cur - expected) >= 5 or cur < 10):
-                majors[i]["mcode"] = str(expected).zfill(2)
-                codes[i] = expected
+            if cur != expected and _is_outlier_code(cur, expected):
+                _set_mcode(majors, codes, i, expected)
 
     for i, c in enumerate(codes):
         if c is not None:
             continue
         prev = next((codes[j] for j in range(i - 1, -1, -1) if codes[j] is not None), None)
         nxt = next((codes[j] for j in range(i + 1, len(codes)) if codes[j] is not None), None)
-        if prev is not None and nxt is not None and nxt - prev == 2:
-            majors[i]["mcode"] = str(prev + 1).zfill(2)
-            codes[i] = prev + 1
-        elif prev is not None and nxt is None:
-            majors[i]["mcode"] = str(prev + 1).zfill(2)
-            codes[i] = prev + 1
-        elif prev is None and nxt is not None and i == 0 and nxt >= 2:
-            majors[i]["mcode"] = str(nxt - 1).zfill(2)
-            codes[i] = nxt - 1
+        inferred = _infer_mcode(prev, nxt, i)
+        if inferred is not None:
+            _set_mcode(majors, codes, i, inferred)
     return majors
 
 
-def normalize_majors(majors: list[dict]) -> list[dict]:
-    """合并被拆断的专业名，并补常见学制。"""
-    if not majors:
-        return majors
-    # 先拆开粘连名
+def _expand_glued_majors(majors: list[dict]) -> list[dict]:
     expanded: list[dict] = []
     for m in majors:
         name = (m.get("name") or "").strip()
@@ -489,76 +480,83 @@ def normalize_majors(majors: list[dict]) -> list[dict]:
                 nm["year"] = ""
                 nm["fee"] = ""
             expanded.append(nm)
-    majors = expanded
+    return expanded
 
-    out: list[dict] = []
+
+def _attach_missing_fields(target: dict, source: dict) -> None:
+    for key in ("mcode", "plan", "year", "fee"):
+        if source.get(key) and not target.get(key):
+            target[key] = source[key]
+
+
+def _should_merge_current(out: list[dict], m: dict, name: str) -> bool:
+    if not out:
+        return False
+    prev = out[-1].get("name") or ""
+    prev_code = out[-1].get("mcode") or ""
+    cur_code = m.get("mcode") or ""
+    if _looks_like_note_fragment(name) and not (
+        cur_code and prev_code and cur_code != prev_code and _is_major_start_name(name)
+    ):
+        return True
+    return _should_merge_major(prev, prev_code, name, cur_code)
+
+
+def _merge_major_into_last(out: list[dict], m: dict, name: str) -> None:
+    last = out[-1]
+    last["name"] = (last.get("name") or "") + name
+    # 续行/备注残片上的错码不覆盖；仅当上一行无码且本行不像备注时才取码
+    if (
+        m.get("mcode")
+        and not last.get("mcode")
+        and not _looks_like_note_fragment(name)
+        and not _is_fragment_name(name)
+    ):
+        last["mcode"] = m["mcode"]
+    for key in ("plan", "year", "fee"):
+        if m.get(key) and not last.get(key):
+            last[key] = m[key]
+
+
+def _fill_major_years(majors: list[dict]) -> None:
     for m in majors:
-        name = (m.get("name") or "").strip()
-        if not name:
-            if out:
-                attach = out[-1]
-                if m.get("mcode") and not attach.get("mcode"):
-                    attach["mcode"] = m["mcode"]
-                if m.get("plan") and not attach.get("plan"):
-                    attach["plan"] = m["plan"]
-                if m.get("year") and not attach.get("year"):
-                    attach["year"] = m["year"]
-                if m.get("fee") and not attach.get("fee"):
-                    attach["fee"] = m["fee"]
-            continue
-
-        merge = False
-        if out:
-            prev = out[-1].get("name") or ""
-            prev_code = out[-1].get("mcode") or ""
-            cur_code = m.get("mcode") or ""
-            if _looks_like_note_fragment(name) and not (
-                cur_code and prev_code and cur_code != prev_code and _is_major_start_name(name)
-            ):
-                merge = True
-            else:
-                merge = _should_merge_major(prev, prev_code, name, cur_code)
-
-        if merge and out:
-            last = out[-1]
-            last["name"] = (last.get("name") or "") + name
-            # 续行/备注残片上的错码不覆盖；仅当上一行无码且本行不像备注时才取码
-            if (
-                m.get("mcode")
-                and not last.get("mcode")
-                and not _looks_like_note_fragment(name)
-                and not _is_fragment_name(name)
-            ):
-                last["mcode"] = m["mcode"]
-            if m.get("plan") and not last.get("plan"):
-                last["plan"] = m["plan"]
-            if m.get("year") and not last.get("year"):
-                last["year"] = m["year"]
-            if m.get("fee") and not last.get("fee"):
-                last["fee"] = m["fee"]
-        else:
-            out.append(
-                {
-                    "mcode": m.get("mcode") or "",
-                    "name": name,
-                    "plan": m.get("plan") or "",
-                    "year": m.get("year") or "",
-                    "fee": m.get("fee") or "",
-                }
-            )
-
-    out = _fill_missing_mcodes(out)
-    for m in out:
         if m.get("fee") in ("()", "（）"):
             m["fee"] = "0"
         if not m.get("year") and (m.get("fee") or m.get("plan")):
-            nm = m.get("name") or ""
-            if any(k in nm for k in ("医学", "临床", "口腔", "麻醉", "影像")):
-                m["year"] = "8" if ("八年" in nm or "八年制" in nm) else "5"
-            elif "建筑学" in nm:
+            name = m.get("name") or ""
+            if any(k in name for k in ("医学", "临床", "口腔", "麻醉", "影像")):
+                m["year"] = "8" if ("八年" in name or "八年制" in name) else "5"
+            elif "建筑学" in name:
                 m["year"] = "5"
             else:
                 m["year"] = "4"
+
+
+def normalize_majors(majors: list[dict]) -> list[dict]:
+    """合并被拆断的专业名，并补常见学制。"""
+    if not majors:
+        return majors
+    out: list[dict] = []
+    for m in _expand_glued_majors(majors):
+        name = (m.get("name") or "").strip()
+        if not name:
+            if out:
+                _attach_missing_fields(out[-1], m)
+            continue
+        if out and _should_merge_current(out, m, name):
+            _merge_major_into_last(out, m, name)
+            continue
+        out.append(
+            {
+                "mcode": m.get("mcode") or "",
+                "name": name,
+                "plan": m.get("plan") or "",
+                "year": m.get("year") or "",
+                "fee": m.get("fee") or "",
+            }
+        )
+    out = _fill_missing_mcodes(out)
+    _fill_major_years(out)
     return out
 
 
@@ -580,23 +578,19 @@ def _codes_continue(g: dict | None, mcode: str, max_gap: int = 5) -> bool:
     return last < c <= last + max_gap
 
 
-def parse_column(
-    blocks: list[dict], side: str, carry: dict | None = None
-) -> tuple[list[dict], dict | None, list[dict]]:
-    """Parse one half-page column.
-    返回 (已结束组, 未结束组, 组标题出现前的孤儿专业)。
-    """
-    spec = COL_SPECS[side]
-    col = [b for b in blocks if spec["x0"] <= b["x"] < spec["x1"]]
-    lines = cluster_lines(col)
-    records: list[dict] = []
-    cur = carry
-    orphans: list[dict] = []
-    seen_group = False
+class _ColumnParser:
+    def __init__(self, blocks: list[dict], side: str, carry: dict | None):
+        self.spec = COL_SPECS[side]
+        col = [b for b in blocks if self.spec["x0"] <= b["x"] < self.spec["x1"]]
+        self.lines = cluster_lines(col)
+        self.records: list[dict] = []
+        self.cur = carry
+        self.orphans: list[dict] = []
+        self.seen_group = False
 
-    def finalize(g: dict) -> dict:
+    def _finalize(self, group: dict) -> dict:
         cleaned = []
-        for m in g["majors"]:
+        for m in group.get("majors") or []:
             name = (m.get("name") or "").strip()
             if not name or "专业组" in name:
                 if m.get("mcode") or m.get("plan") or m.get("year") or m.get("fee"):
@@ -605,20 +599,18 @@ def parse_column(
             if len(name) < 2:
                 continue
             cleaned.append(m)
-        g["majors"] = normalize_majors(cleaned)
-        return g
+        group["majors"] = normalize_majors(cleaned)
+        return group
 
-    def flush():
-        nonlocal cur
-        if cur and cur.get("group"):
-            records.append(finalize(cur))
-        cur = None
+    def _flush(self) -> None:
+        if self.cur and self.cur.get("group"):
+            self.records.append(self._finalize(self.cur))
+        self.cur = None
 
-    def new_group(code: str, grp: str, title: str):
-        nonlocal cur, seen_group
-        flush()
-        seen_group = True
-        cur = {
+    def _new_group(self, code: str, grp: str, title: str) -> None:
+        self._flush()
+        self.seen_group = True
+        self.cur = {
             "code": code.zfill(4),
             "group": grp,
             "group_title": title.strip(),
@@ -626,7 +618,8 @@ def parse_column(
             "notes": [],
         }
 
-    def attach_nums(m: dict, plan: str, year: str, fee: str, mcode: str = ""):
+    @staticmethod
+    def _attach_nums(m: dict, plan: str, year: str, fee: str, mcode: str = "") -> None:
         if mcode and not m.get("mcode"):
             m["mcode"] = mcode
         if plan and not m.get("plan"):
@@ -636,191 +629,204 @@ def parse_column(
         if fee and not m.get("fee"):
             m["fee"] = fee
 
-    def append_major(mcode: str, name: str, plan: str, year: str, fee: str):
-        nonlocal cur
-        item = {
-            "mcode": mcode,
-            "name": name,
-            "plan": plan,
-            "year": year,
-            "fee": fee,
+    @staticmethod
+    def _major_item(mcode: str, name: str, plan: str, year: str, fee: str) -> dict:
+        return {"mcode": mcode, "name": name, "plan": plan, "year": year, "fee": fee}
+
+    def _add_orphan(self, item: dict) -> None:
+        if not self.seen_group:
+            self.orphans.append(item)
+
+    def _check_mcode_order(self, mcode: str) -> tuple[bool, str]:
+        if not (mcode and str(mcode).isdigit()):
+            return False, mcode
+        last = _last_mcode_num(self.cur)
+        if last is None:
+            return False, mcode
+        c = int(mcode)
+        weird_small = c < 10 and last >= 10
+        backward = (not weird_small) and c + 5 < last and c >= 10
+        forward = c > last + 15
+        if backward or forward:
+            return True, mcode
+        if weird_small and c != last:
+            # 丢弃残码，留给 _fill_missing_mcodes 补
+            return False, ""
+        return False, mcode
+
+    def _merge_last_major(self, mcode: str, name: str, plan: str, year: str, fee: str) -> bool:
+        majors = self.cur.get("majors") if self.cur is not None else None
+        if not majors:
+            return False
+        last = majors[-1]
+        prev = last.get("name") or ""
+        last_code = last.get("mcode") or ""
+        is_cont = _looks_like_note_fragment(name) or _should_merge_major(
+            prev, last_code, name, mcode
+        )
+        if not is_cont:
+            return False
+        last["name"] = (last.get("name") or "") + name
+        # 碎片/备注行上的错码不覆盖上一专业代码
+        use_code = (
+            ""
+            if (last_code and (_is_fragment_name(name) or _looks_like_note_fragment(name)))
+            else mcode
+        )
+        self._attach_nums(last, plan, year, fee, use_code)
+        return True
+
+    def _append_major(self, mcode: str, name: str, plan: str, year: str, fee: str) -> None:
+        item = self._major_item(mcode, name, plan, year, fee)
+        if self.cur is None:
+            self._add_orphan(item)
+            return
+        break_group, mcode = self._check_mcode_order(mcode)
+        item["mcode"] = mcode
+        if break_group:
+            self._flush()
+            self._add_orphan(item)
+            return
+        if self.cur is None:
+            self._add_orphan(item)
+            return
+        if self._merge_last_major(mcode, name, plan, year, fee):
+            return
+        majors = self.cur.get("majors")
+        if majors is not None:
+            majors.append(item)
+
+    def _zones(self, line: list[dict]) -> dict[str, list[dict]]:
+        zones: dict[str, list[dict]] = {
+            "name": [], "plan": [], "year": [], "fee": [], "mcode": [], "other": []
         }
-        if cur is None:
-            if not seen_group:
-                orphans.append(item)
-            return
-        # 代号严重不连续才断组；单位数残码（9←46）不断组
-        if mcode and str(mcode).isdigit() and _last_mcode_num(cur) is not None:
-            last = _last_mcode_num(cur)
-            c = int(mcode)
-            weird_small = c < 10 and last >= 10
-            backward = (not weird_small) and c + 5 < last and c >= 10
-            forward = c > last + 15
-            if backward or forward:
-                flush()
-                if not seen_group:
-                    orphans.append(item)
-                return
-            if weird_small and c != last:
-                # 丢弃残码，留给 _fill_missing_mcodes 补
-                item["mcode"] = ""
-                mcode = ""
-        if cur is None:
-            if not seen_group:
-                orphans.append(item)
-            return
-        if cur["majors"]:
-            last = cur["majors"][-1]
-            prev = last.get("name") or ""
-            last_code = last.get("mcode") or ""
-            is_cont = _looks_like_note_fragment(name) or _should_merge_major(
-                prev, last_code, name, mcode
-            )
-            if is_cont:
-                last["name"] = (last.get("name") or "") + name
-                # 碎片/备注行上的错码不覆盖上一专业代码
-                use_code = (
-                    ""
-                    if (
-                        last_code
-                        and (
-                            _is_fragment_name(name)
-                            or _looks_like_note_fragment(name)
-                        )
-                    )
-                    else mcode
-                )
-                attach_nums(last, plan, year, fee, use_code)
-                return
-        cur["majors"].append(item)
+        for b in line:
+            zones.setdefault(_zone(b, self.spec), []).append(b)
+        return zones
 
-    for ln in lines:
-        by_zone = {"name": [], "plan": [], "year": [], "fee": [], "mcode": [], "other": []}
-        for b in ln:
-            by_zone[_zone(b, spec)].append(b)
+    @staticmethod
+    def _name_text(zones: dict[str, list[dict]]) -> str:
+        text = "".join(b["text"] for b in zones.get("name", []) + zones.get("other", [])).strip()
+        return text.replace("|", "").replace("｜", "")
 
-        name_text = "".join(b["text"] for b in by_zone["name"] + by_zone["other"]).strip()
-        name_text = name_text.replace("|", "").replace("｜", "")
-
-        mcode_raws = [b["text"] for b in by_zone["mcode"]]
-        mcode_joined = "".join(mcode_raws).replace(" ", "")
-        mcode = ""
-
+    @staticmethod
+    def _initial_mcode(zones: dict[str, list[dict]], name_text: str) -> tuple[str, str, str]:
+        raws = [b["text"] for b in zones.get("mcode", [])]
+        joined = "".join(raws).replace(" ", "")
         # 代号区六位/四位与校名分行：138134 + 扬州大学34专业组
-        if re.fullmatch(r"\d{6}", mcode_joined) and "专业组" in name_text:
-            name_text = mcode_joined + name_text
-            mcode_joined = ""
-        elif re.fullmatch(r"\d{4}", mcode_joined) and "专业组" in name_text:
-            name_text = mcode_joined + name_text
-            mcode_joined = ""
-        else:
-            for t in mcode_raws:
-                c = _norm_mcode(t)
-                if c:
-                    mcode = c
+        if "专业组" in name_text and re.fullmatch(r"\d{6}", joined):
+            return "", "", joined + name_text
+        if "专业组" in name_text and re.fullmatch(r"\d{4}", joined):
+            return "", "", joined + name_text
+        mcode = ""
+        for text in raws:
+            code = _norm_mcode(text)
+            if code:
+                mcode = code
+        return mcode, joined, name_text
 
-        # 名称无院校代号前缀时拼接
-        if "专业组" in name_text and not GROUP_RE.search(name_text):
-            gm2 = re.search(
-                r"(?P<title>[\u4e00-\u9fffA-Za-z0-9（）()·\-]{2,50}?(?P<grp>\d{2})专业组\s*[（(][^）)]+[）)])",
-                name_text,
-            )
-            if gm2:
-                if re.fullmatch(r"\d{6}", mcode_joined):
-                    name_text = mcode_joined + gm2.group("title")
-                    mcode = ""
-                elif re.fullmatch(r"\d{4}", mcode_joined):
-                    name_text = mcode_joined + gm2.group("grp") + gm2.group("title")
-                    mcode = ""
-                elif cur is not None:
-                    name_text = cur["code"] + gm2.group("grp") + gm2.group("title")
-                    mcode = ""
+    def _prepend_group_code(self, name_text: str, mcode: str, joined: str) -> tuple[str, str]:
+        if "专业组" not in name_text or GROUP_RE.search(name_text):
+            return name_text, mcode
+        match = re.search(
+            r"(?P<title>[\u4e00-\u9fffA-Za-z0-9（）()·\-]{2,50}?(?P<grp>\d{2})专业组\s*[（(][^）)]+[）)])",
+            name_text,
+        )
+        if not match:
+            return name_text, mcode
+        if re.fullmatch(r"\d{6}", joined):
+            return joined + match.group("title"), ""
+        if re.fullmatch(r"\d{4}", joined):
+            return joined + match.group("grp") + match.group("title"), ""
+        if self.cur is not None:
+            return self.cur["code"] + match.group("grp") + match.group("title"), ""
+        return name_text, mcode
 
+    @staticmethod
+    def _numeric_fields(zones: dict[str, list[dict]]) -> tuple[str, str, str]:
         plan = year = fee = ""
-        for b in by_zone["plan"]:
-            p = _norm_plan(b["text"])
-            if p:
-                plan = p
-        for b in by_zone["year"]:
-            y = _norm_year(b["text"])
-            if y:
-                year = y
-        for b in by_zone["fee"]:
-            f = _norm_fee(b["text"])
-            if f:
-                fee = f
+        for b in zones.get("plan", []):
+            value = _norm_plan(b["text"])
+            if value:
+                plan = value
+        for b in zones.get("year", []):
+            value = _norm_year(b["text"])
+            if value:
+                year = value
+        for b in zones.get("fee", []):
+            value = _norm_fee(b["text"])
+            if value:
+                fee = value
+        return plan, year, fee
 
-        # 名称里前缀专业代码（排除已是院校+专业组六位开头的组标题行）
-        if not mcode and "专业组" not in name_text:
-            m = re.match(r"^[（(]?(\d{1,2})[）)]?(?=[\u4e00-\u9fffA-Za-z（(★])", name_text)
-            if m:
-                mcode = m.group(1).zfill(2)
-                name_text = name_text[m.end():].strip()
-        elif not mcode and re.match(r"^\d{6}", name_text) and "专业组" in name_text:
+    @staticmethod
+    def _strip_leading_code(name_text: str, mcode: str) -> tuple[str, str]:
+        match = re.match(r"^[（(]?(\d{1,2})[）)]?(?=[\u4e00-\u9fffA-Za-z（(★])", name_text)
+        if not match:
+            return name_text, mcode
+        return name_text[match.end():].strip(), match.group(1).zfill(2)
+
+    def _strip_name_mcode(self, name_text: str, mcode: str) -> tuple[str, str]:
+        if mcode:
+            return name_text, mcode
+        if "专业组" not in name_text:
+            return self._strip_leading_code(name_text, mcode)
+        if re.match(r"^\d{6}", name_text):
             # 已是 138134扬州大学34专业组…，不要剥前缀
-            pass
-        elif not mcode and not re.match(r"^\d{4}", name_text):
-            m = re.match(r"^[（(]?(\d{1,2})[）)]?(?=[\u4e00-\u9fffA-Za-z（(★])", name_text)
-            if m:
-                mcode = m.group(1).zfill(2)
-                name_text = name_text[m.end():].strip()
+            return name_text, mcode
+        if re.match(r"^\d{4}", name_text):
+            return name_text, mcode
+        return self._strip_leading_code(name_text, mcode)
 
-        if SKIP_LINE.search(name_text) and "以下" not in name_text and "报考" not in name_text:
-            continue
-        if not name_text and not mcode and not (plan or year or fee):
-            continue
+    def _handle_group_header(self, name_text: str, plan: str) -> bool:
+        match = GROUP_RE.search(name_text)
+        if not match:
+            return False
+        full = name_text[match.start():]
+        full = re.sub(r"^\d{4,6}\s*", "", full)
+        self._new_group(match.group("code"), match.group("grp"), full or match.group("title"))
+        if plan and self.cur is not None:
+            self.cur["group_plan"] = plan
+        return True
 
-        gm = GROUP_RE.search(name_text)
-        if gm:
-            full = name_text[gm.start():]
-            full = re.sub(r"^\d{4,6}\s*", "", full)
-            new_group(gm.group("code"), gm.group("grp"), full or gm.group("title"))
-            if plan:
-                cur["group_plan"] = plan
-            continue
+    def _is_note_continuation(self, name_text: str, mcode: str, plan: str, fee: str) -> bool:
+        if not name_text or self.cur is None or not self.cur.get("notes"):
+            return False
+        if mcode or plan or fee or _is_major_start_name(name_text):
+            return False
+        if _CAMPUS_NOTE.search(name_text) or NOTE_LINE.search(name_text):
+            return True
+        return bool(
+            FRAG_START.search(name_text)
+            and not re.search(r"(?:学|工程|技术|类|班|园林)[）)]?$", name_text)
+        )
 
-        sm = SCHOOL_RE.match(name_text)
-        if sm and "专业组" not in name_text:
-            continue
-
+    def _handle_notes(self, name_text: str, mcode: str, plan: str, fee: str) -> bool:
         if name_text and NOTE_LINE.search(name_text):
-            if cur is not None:
-                cur["notes"].append(name_text)
-            continue
-        # 备注续行：仅校区说明/明确备注碎片，勿吞「景园林」等专业续行
-        if (
-            name_text
-            and cur is not None
-            and cur.get("notes")
-            and not mcode
-            and not plan
-            and not fee
-            and not _is_major_start_name(name_text)
-            and (
-                _CAMPUS_NOTE.search(name_text)
-                or NOTE_LINE.search(name_text)
-                or (
-                    FRAG_START.search(name_text)
-                    and not re.search(r"(?:学|工程|技术|类|班|园林)[）)]?$", name_text)
-                )
-            )
-        ):
-            cur["notes"].append(name_text)
-            continue
+            if self.cur is not None:
+                self.cur["notes"].append(name_text)
+            return True
+        if not self._is_note_continuation(name_text, mcode, plan, fee):
+            return False
+        if self.cur is not None:
+            self.cur["notes"].append(name_text)
+        return True
 
-        major_name = name_text.strip()
-        # 校区说明误入专业列
-        if (
-            major_name
-            and cur is not None
-            and _CAMPUS_NOTE.search(major_name)
+    def _handle_campus_note(self, major_name: str) -> bool:
+        if not major_name or self.cur is None:
+            return False
+        if not (
+            _CAMPUS_NOTE.search(major_name)
             and not _is_major_start_name(major_name)
             and "学制" not in major_name
         ):
-            cur["notes"].append(major_name)
-            continue
+            return False
+        self.cur["notes"].append(major_name)
+        return True
 
-        looks_like_major = bool(
+    @staticmethod
+    def _looks_like_major(major_name: str) -> bool:
+        return bool(
             major_name
             and len(major_name) >= 2
             and re.search(r"[\u4e00-\u9fff]", major_name)
@@ -828,95 +834,148 @@ def parse_column(
             and not NOTE_LINE.search(major_name)
         )
 
-        # 仅专业代码（±数字列）：补上一专业
-        if mcode and not looks_like_major:
-            target = None
-            if cur is not None and cur["majors"]:
-                target = cur["majors"][-1]
-            elif orphans:
-                target = orphans[-1]
-            if target is not None:
-                if not target.get("mcode") or target.get("mcode") == mcode:
-                    attach_nums(target, plan, year, fee, mcode)
-                elif cur is not None:
-                    cur["majors"].append(
-                        {"mcode": mcode, "name": "", "plan": plan, "year": year, "fee": fee}
-                    )
-                elif not seen_group:
-                    orphans.append(
-                        {"mcode": mcode, "name": "", "plan": plan, "year": year, "fee": fee}
-                    )
-            elif cur is not None:
-                cur["majors"].append(
-                    {"mcode": mcode, "name": "", "plan": plan, "year": year, "fee": fee}
-                )
-            elif not seen_group:
-                orphans.append(
-                    {"mcode": mcode, "name": "", "plan": plan, "year": year, "fee": fee}
-                )
-            continue
+    def _append_to_current(self, item: dict) -> bool:
+        if self.cur is None:
+            return False
+        majors = self.cur.get("majors")
+        if majors is None:
+            return False
+        majors.append(item)
+        return True
 
-        if looks_like_major:
-            name_parts = _split_glued_major_name(major_name)
-            for pi, part in enumerate(name_parts):
-                part_mcode = mcode if pi == 0 else ""
-                part_plan = plan if pi == 0 else ""
-                part_year = year if pi == 0 else ""
-                part_fee = fee if pi == 0 else ""
-                append_major(part_mcode, part, part_plan, part_year, part_fee)
-        elif plan or year or fee or mcode:
-            if cur is not None and cur["majors"]:
-                attach_nums(cur["majors"][-1], plan, year, fee, mcode)
-            elif orphans:
-                attach_nums(orphans[-1], plan, year, fee, mcode)
-            elif cur is not None and name_text:
-                cur["notes"].append(name_text)
+    def _handle_mcode_only(
+        self, mcode: str, plan: str, year: str, fee: str, looks_like_major: bool
+    ) -> bool:
+        if not mcode or looks_like_major:
+            return False
+        target = None
+        if self.cur is not None and self.cur.get("majors"):
+            target = self.cur["majors"][-1]
+        elif self.orphans:
+            target = self.orphans[-1]
+        item = self._major_item(mcode, "", plan, year, fee)
+        if target is None:
+            if not self._append_to_current(item) and not self.seen_group:
+                self.orphans.append(item)
+            return True
+        if not target.get("mcode") or target.get("mcode") == mcode:
+            self._attach_nums(target, plan, year, fee, mcode)
+        elif not self._append_to_current(item) and not self.seen_group:
+            self.orphans.append(item)
+        return True
 
-    # 跨页：不 flush 当前组，交给下一页 continue
-    return records, cur, orphans
+    def _attach_numeric_tail(
+        self, name_text: str, mcode: str, plan: str, year: str, fee: str
+    ) -> None:
+        if not (plan or year or fee or mcode):
+            return
+        majors = self.cur.get("majors") if self.cur is not None else None
+        if majors:
+            self._attach_nums(majors[-1], plan, year, fee, mcode)
+        elif self.orphans:
+            self._attach_nums(self.orphans[-1], plan, year, fee, mcode)
+        elif self.cur is not None and name_text:
+            notes = self.cur.get("notes")
+            if notes is not None:
+                notes.append(name_text)
+
+    def _process_line(self, line: list[dict]) -> None:
+        zones = self._zones(line)
+        name_text = self._name_text(zones)
+        mcode, joined, name_text = self._initial_mcode(zones, name_text)
+        name_text, mcode = self._prepend_group_code(name_text, mcode, joined)
+        plan, year, fee = self._numeric_fields(zones)
+        name_text, mcode = self._strip_name_mcode(name_text, mcode)
+        if SKIP_LINE.search(name_text) and "以下" not in name_text and "报考" not in name_text:
+            return
+        if not name_text and not mcode and not (plan or year or fee):
+            return
+        if self._handle_group_header(name_text, plan):
+            return
+        if SCHOOL_RE.match(name_text) and "专业组" not in name_text:
+            return
+        if self._handle_notes(name_text, mcode, plan, fee):
+            return
+        major_name = name_text.strip()
+        if self._handle_campus_note(major_name):
+            return
+        looks_like_major = self._looks_like_major(major_name)
+        if self._handle_mcode_only(mcode, plan, year, fee, looks_like_major):
+            return
+        if not looks_like_major:
+            self._attach_numeric_tail(name_text, mcode, plan, year, fee)
+            return
+        for pi, part in enumerate(_split_glued_major_name(major_name)):
+            part_mcode = mcode if pi == 0 else ""
+            part_plan = plan if pi == 0 else ""
+            part_year = year if pi == 0 else ""
+            part_fee = fee if pi == 0 else ""
+            self._append_major(part_mcode, part, part_plan, part_year, part_fee)
+
+    def _run(self) -> tuple[list[dict], dict | None, list[dict]]:
+        for line in self.lines:
+            self._process_line(line)
+        # 跨页：不 flush 当前组，交给下一页 continue
+        return self.records, self.cur, self.orphans
 
 
-def merge_records(recs: list[dict]) -> dict:
-    out: dict = {}
-    for r in recs:
-        keys = [
-            (r["code"].zfill(4), r["group"]),
-            (r["code"].lstrip("0") or "0", r["group"]),
-        ]
-        primary = keys[0]
-        if primary not in out:
-            base = {
-                "code": r["code"].zfill(4),
-                "group": r["group"],
-                "group_title": r.get("group_title", ""),
-                "majors": list(r.get("majors", [])),
-                "notes": list(r.get("notes", [])),
-                "group_plan": r.get("group_plan", ""),
-            }
-            for k in keys:
-                out[k] = base
-        else:
-            existing = {
-                (m.get("mcode"), m.get("name"), m.get("plan")) for m in out[primary]["majors"]
-            }
-            for m in r.get("majors", []):
-                key = (m.get("mcode"), m.get("name"), m.get("plan"))
-                if key not in existing:
-                    out[primary]["majors"].append(m)
-                    existing.add(key)
-            for n in r.get("notes", []):
-                if n not in out[primary]["notes"]:
-                    out[primary]["notes"].append(n)
-            if not out[primary]["group_title"] and r.get("group_title"):
-                out[primary]["group_title"] = r["group_title"]
-    # 跨页合并后再做一次碎片归一
+def parse_column(
+    blocks: list[dict], side: str, carry: dict | None = None
+) -> tuple[list[dict], dict | None, list[dict]]:
+    """Parse one half-page column.
+    返回 (已结束组, 未结束组, 组标题出现前的孤儿专业)。
+    """
+    return _ColumnParser(blocks, side, carry)._run()
+
+
+def _merge_group_record(out: dict, r: dict) -> None:
+    keys = [
+        (r["code"].zfill(4), r["group"]),
+        (r["code"].lstrip("0") or "0", r["group"]),
+    ]
+    primary = keys[0]
+    group = out.get(primary)
+    if group is None:
+        base = {
+            "code": r["code"].zfill(4),
+            "group": r["group"],
+            "group_title": r.get("group_title", ""),
+            "majors": list(r.get("majors", [])),
+            "notes": list(r.get("notes", [])),
+            "group_plan": r.get("group_plan", ""),
+        }
+        for k in keys:
+            out[k] = base
+        return
+    existing = {(m.get("mcode"), m.get("name"), m.get("plan")) for m in group["majors"]}
+    for m in r.get("majors", []):
+        key = (m.get("mcode"), m.get("name"), m.get("plan"))
+        if key not in existing:
+            group["majors"].append(m)
+            existing.add(key)
+    for note in r.get("notes", []):
+        if note not in group["notes"]:
+            group["notes"].append(note)
+    if not group["group_title"] and r.get("group_title"):
+        group["group_title"] = r["group_title"]
+
+
+def _normalize_merged_groups(out: dict) -> None:
     seen = set()
-    for k, v in out.items():
+    for v in out.values():
         vid = id(v)
         if vid in seen:
             continue
         seen.add(vid)
         v["majors"] = normalize_majors(v.get("majors") or [])
+
+
+def merge_records(recs: list[dict]) -> dict:
+    out: dict = {}
+    for r in recs:
+        _merge_group_record(out, r)
+    # 跨页合并后再做一次碎片归一
+    _normalize_merged_groups(out)
     return out
 
 
@@ -963,13 +1022,7 @@ def unique_plan_groups(plan_map: dict) -> list[dict]:
     return out
 
 
-def export_plan_excel(plan_map: dict, path: Path | None = None) -> Path:
-    """导出招生计划扁平表：每专业代码一行。"""
-    assert WORK_DIR is not None
-    out = path or (WORK_DIR / "26招生计划_物理本科.xlsx")
-    wb = Workbook()
-    ws = wb.active
-    ws.title = "物理本科招生计划"
+def _write_plan_header(ws) -> None:
     headers = [
         "代号",
         "院校、专业组（再选科目要求）",
@@ -987,35 +1040,33 @@ def export_plan_excel(plan_map: dict, path: Path | None = None) -> Path:
         cell.fill = header_fill
         cell.font = header_font
         cell.alignment = Alignment(horizontal="center", wrap_text=True)
-
     ws.cell(1, 1).value  # keep
-    row = 2
-    for rec in unique_plan_groups(plan_map):
-        title = rec.get("group_title") or f"{rec['code']}{rec['group']}专业组"
-        note = "；".join(rec.get("notes") or [])
-        majors = [m for m in (rec.get("majors") or []) if m.get("name") or m.get("mcode")]
-        if not majors:
-            ws.cell(row, 1, rec["code"])
-            ws.cell(row, 2, title)
+
+
+def _write_plan_group_rows(ws, row: int, rec: dict) -> int:
+    title = rec.get("group_title") or f"{rec['code']}{rec['group']}专业组"
+    note = "；".join(rec.get("notes") or [])
+    majors = [m for m in (rec.get("majors") or []) if m.get("name") or m.get("mcode")]
+    if not majors:
+        ws.cell(row, 1, rec["code"])
+        ws.cell(row, 2, title)
+        ws.cell(row, 8, note)
+        return row + 1
+    for i, m in enumerate(majors):
+        ws.cell(row, 1, rec["code"])
+        ws.cell(row, 2, title)
+        ws.cell(row, 3, m.get("mcode") or "")
+        ws.cell(row, 4, m.get("name") or "")
+        ws.cell(row, 5, m.get("plan") or "")
+        ws.cell(row, 6, m.get("year") or "")
+        ws.cell(row, 7, m.get("fee") or "")
+        if i == 0 and note:
             ws.cell(row, 8, note)
-            row += 1
-            continue
-        for i, m in enumerate(majors):
-            ws.cell(row, 1, rec["code"])
-            ws.cell(row, 2, title)
-            ws.cell(row, 3, m.get("mcode") or "")
-            ws.cell(row, 4, m.get("name") or "")
-            ws.cell(row, 5, m.get("plan") or "")
-            ws.cell(row, 6, m.get("year") or "")
-            ws.cell(row, 7, m.get("fee") or "")
-            if i == 0 and note:
-                ws.cell(row, 8, note)
-            row += 1
+        row += 1
+    return row
 
-    widths = [8, 42, 10, 48, 10, 8, 12, 36]
-    for i, w in enumerate(widths, 1):
-        ws.column_dimensions[get_column_letter(i)].width = w
 
+def _save_plan_workbook(wb, out: Path, rows: int) -> Path:
     try:
         wb.save(out)
     except PermissionError:
@@ -1023,8 +1074,26 @@ def export_plan_excel(plan_map: dict, path: Path | None = None) -> Path:
         wb.save(alt)
         print(f"计划表被占用，已另存为 {alt}")
         return alt
-    print(f"plan excel saved {out} rows={row - 2}")
+    print(f"plan excel saved {out} rows={rows}")
     return out
+
+
+def export_plan_excel(plan_map: dict, path: Path | None = None) -> Path:
+    """导出招生计划扁平表：每专业代码一行。"""
+    if WORK_DIR is None:
+        raise RuntimeError("WORK_DIR 未初始化")
+    out = path or (WORK_DIR / "26招生计划_物理本科.xlsx")
+    wb = Workbook()
+    ws = wb.active
+    ws.title = "物理本科招生计划"
+    _write_plan_header(ws)
+    row = 2
+    for rec in unique_plan_groups(plan_map):
+        row = _write_plan_group_rows(ws, row, rec)
+    widths = [8, 42, 10, 48, 10, 8, 12, 36]
+    for i, w in enumerate(widths, 1):
+        ws.column_dimensions[get_column_letter(i)].width = w
+    return _save_plan_workbook(wb, out, row - 2)
 
 
 def extract_group_from_toudang(name: str) -> str | None:
@@ -1165,32 +1234,24 @@ def configure(
     DPI = dpi
 
 
-def build_excel(plan_map: dict):
-    """Expand each 投档线 row into one Excel row per 专业代码."""
-    assert XLSX_IN and XLSX_OUT
-    wb_in = load_workbook(XLSX_IN)
-    ws_in = wb_in.active
-
-    wb = Workbook()
-    ws = wb.active
-    ws.title = "专业和投档线"
-
-    extra = ["专业组名称", "专业代码", "专业名称及备注", "计划数", "学制", "学费"]
-    max_col = ws_in.max_column
-
+def _copy_toudang_header(ws_in, ws, max_col: int) -> None:
     for r in range(1, 6):
         for c in range(1, max_col + 1):
             cell = ws_in.cell(r, c)
             nc = ws.cell(r, c, cell.value)
-            if cell.has_style:
-                try:
-                    nc.font = cell.font.copy()
-                    nc.alignment = cell.alignment.copy()
-                    nc.fill = cell.fill.copy()
-                    nc.border = cell.border.copy()
-                except Exception:
-                    pass
+            if not cell.has_style:
+                continue
+            try:
+                nc.font = cell.font.copy()
+                nc.alignment = cell.alignment.copy()
+                nc.fill = cell.fill.copy()
+                nc.border = cell.border.copy()
+            except Exception:
+                pass
 
+
+def _write_extra_headers(ws, max_col: int) -> None:
+    extra = ["专业组名称", "专业代码", "专业名称及备注", "计划数", "学制", "学费"]
     header_fill = PatternFill("solid", fgColor="4472C4")
     header_font = Font(bold=True, color="FFFFFF")
     for i, h in enumerate(extra):
@@ -1198,66 +1259,95 @@ def build_excel(plan_map: dict):
         cell.fill = header_fill
         cell.font = header_font
         cell.alignment = Alignment(horizontal="center", wrap_text=True)
-
     ws.cell(1, max_col + 1, "（扩表：按专业代码分行）")
+
+
+def _write_major_block(ws, out_row: int, base_vals: list, max_col: int, major_rows: list) -> int:
+    for title, mcode, maj, plan, year, fee in major_rows:
+        for c, v in enumerate(base_vals, 1):
+            ws.cell(out_row, c, v)
+        ws.cell(out_row, max_col + 1, title)
+        ws.cell(out_row, max_col + 2, mcode)
+        ws.cell(out_row, max_col + 3, maj)
+        ws.cell(out_row, max_col + 4, plan)
+        ws.cell(out_row, max_col + 5, year)
+        ws.cell(out_row, max_col + 6, fee)
+        out_row += 1
+    return out_row
+
+
+def _row_state(code, name) -> tuple[bool, object | None]:
+    """Return (skip, footer_note) for one 投档线 row."""
+    if code is None and name and "注：" in str(name):
+        return True, name
+    if code is None and not name:
+        return True, None
+    if code is not None and isinstance(code, str) and "注" in code:
+        return True, code
+    return False, None
+
+
+def _find_trailing_footer(ws_in):
+    note = ws_in.cell(ws_in.max_row, 1).value
+    if note and "注" in str(note):
+        return note
+    return None
+
+
+def _save_toudang_workbook(wb, out: Path) -> None:
+    try:
+        wb.save(out)
+        print(f"saved {out}")
+    except PermissionError:
+        alt = out.with_name(out.stem + "_按专业代码" + out.suffix)
+        wb.save(alt)
+        print(f"原文件被占用，已另存为 {alt}")
+
+
+def build_excel(plan_map: dict):
+    """Expand each 投档线 row into one Excel row per 专业代码."""
+    if XLSX_IN is None or XLSX_OUT is None:
+        raise RuntimeError("XLSX_IN/XLSX_OUT 未初始化")
+    wb_in = load_workbook(XLSX_IN)
+    ws_in = wb_in.active
+    wb = Workbook()
+    ws = wb.active
+    ws.title = "专业和投档线"
+    max_col = ws_in.max_column
+    _copy_toudang_header(ws_in, ws, max_col)
+    _write_extra_headers(ws, max_col)
 
     matched_groups = unmatched_groups = 0
     out_row = 6
     footer_note = None
-
     for r in range(6, ws_in.max_row + 1):
         code = ws_in.cell(r, 1).value
         name = ws_in.cell(r, 2).value
-        if code is None and name and "注：" in str(name):
-            footer_note = name
-            break
-        if code is None and not name:
+        skip, note = _row_state(code, name)
+        if skip:
+            if note is not None:
+                footer_note = note
+                break
             continue
-        if code is not None and isinstance(code, str) and "注" in code:
-            footer_note = code
-            break
-
         base_vals = [ws_in.cell(r, c).value for c in range(1, max_col + 1)]
         grp = extract_group_from_toudang(name)
         rec = lookup(plan_map, code, grp) if grp else None
-
         if rec:
             major_rows = iter_major_rows(rec)
             matched_groups += 1
         else:
             major_rows = [("", "", "", "", "", "")]
             unmatched_groups += 1
-
-        for title, mcode, maj, plan, year, fee in major_rows:
-            for c, v in enumerate(base_vals, 1):
-                ws.cell(out_row, c, v)
-            ws.cell(out_row, max_col + 1, title)
-            ws.cell(out_row, max_col + 2, mcode)
-            ws.cell(out_row, max_col + 3, maj)
-            ws.cell(out_row, max_col + 4, plan)
-            ws.cell(out_row, max_col + 5, year)
-            ws.cell(out_row, max_col + 6, fee)
-            out_row += 1
+        out_row = _write_major_block(ws, out_row, base_vals, max_col, major_rows)
 
     if footer_note is None:
-        note = ws_in.cell(ws_in.max_row, 1).value
-        if note and "注" in str(note):
-            footer_note = note
+        footer_note = _find_trailing_footer(ws_in)
     if footer_note:
         ws.cell(out_row, 1, footer_note)
-
     widths = [8, 42, 10, 10, 10, 10, 10, 10, 8, 32, 10, 48, 10, 8, 12]
     for i, w in enumerate(widths, 1):
         ws.column_dimensions[get_column_letter(i)].width = w
-
-    try:
-        wb.save(XLSX_OUT)
-        print(f"saved {XLSX_OUT}")
-    except PermissionError:
-        alt = XLSX_OUT.with_name(XLSX_OUT.stem + "_按专业代码" + XLSX_OUT.suffix)
-        wb.save(alt)
-        print(f"原文件被占用，已另存为 {alt}")
-
+    _save_toudang_workbook(wb, XLSX_OUT)
     print(
         f"matched_groups={matched_groups} unmatched_groups={unmatched_groups} data_rows={out_row - 6}"
     )
@@ -1265,7 +1355,8 @@ def build_excel(plan_map: dict):
 
 
 def reparse_from_cache() -> dict | None:
-    assert CACHE and PLAN_JSON
+    if CACHE is None or PLAN_JSON is None:
+        raise RuntimeError("CACHE/PLAN_JSON 未初始化")
     if not CACHE.exists():
         return None
     cache = json.loads(CACHE.read_text(encoding="utf-8"))
@@ -1301,7 +1392,8 @@ def cmd_merge(args: argparse.Namespace) -> None:
         page_end=args.page_end,
         dpi=args.dpi,
     )
-    assert PDF and XLSX_IN and XLSX_OUT
+    if PDF is None or XLSX_IN is None or XLSX_OUT is None:
+        raise RuntimeError("PDF/XLSX_IN/XLSX_OUT 未初始化")
     print("PDF:", PDF)
     print("XLSX:", XLSX_IN)
     print("OUT:", XLSX_OUT)
